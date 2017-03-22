@@ -1,0 +1,21 @@
+buildscript {
+	repositories {
+		jcenter()
+	}
+
+	dependencies {
+		classpath 'com.android.tools.build:gradle:2.3.0'
+	}
+}
+
+allprojects {
+	repositories {
+		jcenter()
+	}
+}
+
+task clean(type: Delete) {
+	delete rootProject.buildDir
+	delete rootProject.project('library').buildDir
+	delete rootProject.project('library tests').buildDir
+}
