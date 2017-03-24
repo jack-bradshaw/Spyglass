@@ -10,4 +10,6 @@ public @interface BindColor {
 	boolean ignoreIfAttributeMissing() default false;
 
 	int defaultValue() default 0;
+
+	int defaultResourceId() default 0;
 }
