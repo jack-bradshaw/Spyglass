@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface BindEnum {
+public @interface HandlesEnum {
 	int annotationId();
 
 	Class<? extends Enum> enumClass();
