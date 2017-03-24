@@ -10,4 +10,6 @@ public @interface BindBoolean {
 	boolean ignoreIfAttributeMissing() default false;
 
 	boolean defaultValue() default false;
+
+	int defaultResourceId() default 0;
 }
