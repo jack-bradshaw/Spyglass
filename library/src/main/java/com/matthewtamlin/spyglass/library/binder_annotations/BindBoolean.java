@@ -12,5 +12,5 @@ public @interface BindBoolean {
 
 	int defaultResourceId() default 0;
 
-	boolean defaultValue() default true;
+	boolean defaultValue() default false;
 }
