@@ -4,10 +4,12 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface BindColor {
+public @interface BindEnum {
 	int annotationId();
+
+	Class<? extends Enum> enumClass();
 
 	boolean ignoreIfAttributeMissing() default false;
 
-	int defaultValue() default 0;
+	int defaultOrdinal() default 0;
 }

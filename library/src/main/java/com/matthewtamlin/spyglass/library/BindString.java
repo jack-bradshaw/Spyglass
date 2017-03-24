@@ -4,10 +4,10 @@ import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface BindColor {
+public @interface BindString {
 	int annotationId();
 
 	boolean ignoreIfAttributeMissing() default false;
 
-	int defaultValue() default 0;
+	String defaultValue() default "";
 }

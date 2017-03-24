@@ -1,14 +1,17 @@
 package com.matthewtamlin.spyglass.library;
 
-import static com.matthewtamlin.spyglass.library.DimensionUnit.PT;
-import static com.matthewtamlin.spyglass.library.IgnoreMode.NEVER_IGNORE;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Target;
 
+import static com.matthewtamlin.spyglass.library.DimensionUnit.PT;
+
+@Target({ElementType.METHOD, ElementType.FIELD})
 public @interface BindDimension {
 	int annotationId();
 
 	DimensionUnit dimensionUnit() default PT;
 
-	IgnoreMode ignoreMode() default NEVER_IGNORE;
+	boolean ignoreIfAttributeMissing() default false;
 
 	int defaultValue() default 0;
 }
