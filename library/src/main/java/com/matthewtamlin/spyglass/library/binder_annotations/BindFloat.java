@@ -6,6 +6,4 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface BindFloat {
 	int annotationId();
-
-	boolean ignoreIfAttributeMissing() default false;
 }
