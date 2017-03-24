@@ -9,6 +9,6 @@ public @interface BindColor {
 	int annotationId();
 
 	boolean ignoreIfAttributeMissing() default false;
-	
+
 	int defaultValue() default 0;
 }
