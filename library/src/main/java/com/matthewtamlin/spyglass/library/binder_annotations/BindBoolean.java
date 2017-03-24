@@ -7,6 +7,4 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface BindBoolean {
 	int annotationId();
-
-	boolean ignoreIfAttributeMissing() default true;
 }
