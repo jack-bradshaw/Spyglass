@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library;
+package com.matthewtamlin.spyglass.library.core;
 
 /**
  * Supplies something.
