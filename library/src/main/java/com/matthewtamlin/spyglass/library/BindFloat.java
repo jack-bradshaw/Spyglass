@@ -10,4 +10,6 @@ public @interface BindFloat {
 	boolean ignoreIfAttributeMissing() default false;
 
 	float defaultValue() default 0f;
+
+	int defaultResourceId() default 0;
 }
