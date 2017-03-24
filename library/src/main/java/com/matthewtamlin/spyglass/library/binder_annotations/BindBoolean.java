@@ -8,7 +8,7 @@ import java.lang.annotation.Target;
 public @interface BindBoolean {
 	int annotationId();
 
-	boolean defaultValue() default false;
+	boolean defaultValue();
 
 	boolean ignoreIfAttributeMissing() default false;
 
