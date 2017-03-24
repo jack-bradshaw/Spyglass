@@ -10,6 +10,4 @@ public @interface BindEnum {
 	Class<? extends Enum> enumClass();
 
 	boolean ignoreIfAttributeMissing() default false;
-
-	int defaultOrdinal() default 0;
 }
