@@ -1,5 +1,5 @@
 package com.matthewtamlin.spyglass.library.default_annotations;
 
-public @interface DefaultToResource {
+public @interface DefaultToIntegerResource {
 	int value();
 }

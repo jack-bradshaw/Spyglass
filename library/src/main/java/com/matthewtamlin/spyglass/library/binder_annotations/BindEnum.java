@@ -8,6 +8,4 @@ public @interface BindEnum {
 	int annotationId();
 
 	Class<? extends Enum> enumClass();
-
-	boolean ignoreIfAttributeMissing() default false;
 }
