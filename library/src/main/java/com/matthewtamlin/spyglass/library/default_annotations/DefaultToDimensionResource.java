@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface DefaultToDimensionResource {
-	int value();
+	int resId();
 
 	DimensionUnit unit();
 }
