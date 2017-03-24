@@ -7,7 +7,7 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface BindFraction {
+public @interface HandlesFraction {
 	int annotationId();
 
 	int baseMultiplier() default 1;
