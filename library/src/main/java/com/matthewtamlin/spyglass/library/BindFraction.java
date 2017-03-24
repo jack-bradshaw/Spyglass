@@ -14,4 +14,6 @@ public @interface BindFraction {
 	int parentMultiplier() default 1;
 
 	float defaultValue() default 0f;
+
+	int defaultResourceId() default 0;
 }
