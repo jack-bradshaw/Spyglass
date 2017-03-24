@@ -12,6 +12,4 @@ public @interface BindDimension {
 	int annotationId();
 
 	DimensionUnit dimensionUnit() default PT;
-
-	boolean ignoreIfAttributeMissing() default false;
 }
