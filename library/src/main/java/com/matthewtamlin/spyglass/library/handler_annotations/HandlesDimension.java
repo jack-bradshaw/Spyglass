@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.binder_annotations;
+package com.matthewtamlin.spyglass.library.handler_annotations;
 
 import com.matthewtamlin.spyglass.library.core.DimensionUnit;
 

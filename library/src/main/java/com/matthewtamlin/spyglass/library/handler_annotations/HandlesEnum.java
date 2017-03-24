@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.binder_annotations;
+package com.matthewtamlin.spyglass.library.handler_annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
