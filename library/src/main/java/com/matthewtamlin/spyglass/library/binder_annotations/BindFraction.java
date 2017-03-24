@@ -1,15 +1,19 @@
-package com.matthewtamlin.spyglass.library;
+package com.matthewtamlin.spyglass.library.binder_annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Target;
 
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface BindBoolean {
+public @interface BindFraction {
 	int annotationId();
 
 	boolean ignoreIfAttributeMissing() default false;
 
-	boolean defaultValue() default false;
+	int baseMultiplier() default 1;
+
+	int parentMultiplier() default 1;
+
+	float defaultValue() default 0f;
 
 	int defaultResourceId() default 0;
 }
