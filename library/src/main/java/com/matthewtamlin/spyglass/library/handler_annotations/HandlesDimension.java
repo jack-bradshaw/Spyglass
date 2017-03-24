@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.binder_annotations;
+package com.matthewtamlin.spyglass.library.handler_annotations;
 
 import com.matthewtamlin.spyglass.library.core.DimensionUnit;
 
@@ -11,7 +11,7 @@ import static com.matthewtamlin.spyglass.library.core.DimensionUnit.PT;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface BindDimension {
+public @interface HandlesDimension {
 	int annotationId();
 
 	DimensionUnit dimensionUnit() default PT;
