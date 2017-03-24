@@ -9,8 +9,4 @@ public @interface BindBoolean {
 	int annotationId();
 
 	boolean ignoreIfAttributeMissing() default true;
-
-	int defaultResourceId() default 0;
-
-	boolean defaultValue() default false;
 }
