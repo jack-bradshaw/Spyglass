@@ -8,9 +8,9 @@ import java.lang.annotation.Target;
 public @interface BindBoolean {
 	int annotationId();
 
-	boolean defaultValue();
-
 	boolean ignoreIfAttributeMissing() default true;
+
+	boolean defaultValue();
 
 	int defaultResourceId() default 0;
 }
