@@ -6,6 +6,4 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface BindString {
 	int annotationId();
-
-	boolean ignoreIfAttributeMissing() default false;
 }
