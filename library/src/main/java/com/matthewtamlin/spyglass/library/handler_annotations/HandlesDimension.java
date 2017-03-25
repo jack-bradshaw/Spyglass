@@ -9,6 +9,7 @@ import java.lang.annotation.Target;
 
 import static com.matthewtamlin.spyglass.library.core.DimensionUnit.PT;
 
+@Handles
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface HandlesDimension {
