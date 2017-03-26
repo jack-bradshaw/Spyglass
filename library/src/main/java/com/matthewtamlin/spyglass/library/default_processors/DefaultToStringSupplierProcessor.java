@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.default_providers;
+package com.matthewtamlin.spyglass.library.default_processors;
 
 import android.content.Context;
 
