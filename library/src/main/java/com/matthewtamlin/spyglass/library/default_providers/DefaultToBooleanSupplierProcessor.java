@@ -8,6 +8,7 @@ import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.insta
 
 public class DefaultToBooleanSupplierProcessor
 		implements DefaultProcessor<Boolean, DefaultToBooleanSupplier> {
+
 	@Override
 	public Boolean process(final DefaultToBooleanSupplier annotation, final Context context) {
 		return instantiateSupplier(annotation.value()).get();
