@@ -7,11 +7,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Handles
+@Handles(HandlesFraction.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface HandlesFraction {
-	int annotationId();
+	int attributeId();
 
 	int baseMultiplier() default 1;
 
