@@ -7,10 +7,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Handler(HandlesString.class)
+@Handler(StringHandler.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface HandlesString {
+public @interface StringHandler {
 	int attributeId();
 
 	boolean mandatory() default false;
