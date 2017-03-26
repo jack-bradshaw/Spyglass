@@ -5,10 +5,10 @@ import android.content.Context;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimensionResource;
 
 public class DefaultToDimensionResourceProcessor
-		implements DefaultProcessor<Integer, DefaultToDimensionResource> {
+		implements DefaultProcessor<Float, DefaultToDimensionResource> {
 
 	@Override
-	public Integer process(final DefaultToDimensionResource annotation, final Context context) {
-		return (int) context.getResources().getDimension(annotation.value());
+	public Float process(final DefaultToDimensionResource annotation, final Context context) {
+		return context.getResources().getDimension(annotation.value());
 	}
 }
