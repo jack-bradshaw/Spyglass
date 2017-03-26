@@ -7,45 +7,45 @@ import com.matthewtamlin.android_utilities.library.helpers.DimensionHelper;
 public enum DimensionUnit {
 	PX {
 		@Override
-		public int convertToPx(final Context context, final int value) {
+		public float convertToPx(final Context context, final float value) {
 			return value;
 		}
 	},
 
 	DP {
 		@Override
-		public int convertToPx(final Context context, final int value) {
+		public float convertToPx(final Context context, final float value) {
 			return DimensionHelper.dpToPx(context, value);
 		}
 	},
 
-	PT{
+	PT {
 		@Override
-		public int convertToPx(final Context context, final int value) {
-			return (int) DimensionHelper.ptToPx(context, value);
+		public float convertToPx(final Context context, final float value) {
+			return DimensionHelper.ptToPx(context, value);
 		}
 	},
 
-	IN{
+	IN {
 		@Override
-		public int convertToPx(final Context context, final int value) {
-			return (int) DimensionHelper.inToPx(context, value);
+		public float convertToPx(final Context context, final float value) {
+			return DimensionHelper.inToPx(context, value);
 		}
 	},
 
-	SP{
+	SP {
 		@Override
-		public int convertToPx(final Context context, final int value) {
-			return (int) DimensionHelper.spToPx(context, value);
+		public float convertToPx(final Context context, final float value) {
+			return DimensionHelper.spToPx(context, value);
 		}
 	},
 
-	MM{
+	MM {
 		@Override
-		public int convertToPx(final Context context, final int value) {
-			return (int) DimensionHelper.mmToPx(context, value);
+		public float convertToPx(final Context context, final float value) {
+			return DimensionHelper.mmToPx(context, value);
 		}
 	};
 
-	public abstract int convertToPx(final Context context, final int value);
+	public abstract float convertToPx(final Context context, final float value);
 }
