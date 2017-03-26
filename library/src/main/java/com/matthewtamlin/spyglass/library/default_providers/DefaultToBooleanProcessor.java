@@ -7,7 +7,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 public class DefaultToBooleanProcessor
 		implements DefaultProcessor<Boolean, DefaultToBoolean> {
 	@Override
-	public Boolean get(final Context context, final DefaultToBoolean annotation) {
+	public Boolean process(final DefaultToBoolean annotation, final Context context) {
 		return annotation.value();
 	}
 }
