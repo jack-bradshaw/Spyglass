@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface DefaultToDimensionSupplier {
-	Class<? extends Supplier<Integer>> valueSupplier();
+	Class<? extends Supplier<Float>> valueSupplier();
 
 	Class<? extends Supplier<DimensionUnit>> unitSupplier();
 }
