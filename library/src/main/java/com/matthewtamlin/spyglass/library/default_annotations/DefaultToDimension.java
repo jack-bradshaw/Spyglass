@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface DefaultToDimension {
-	int value();
+	float value();
 
 	DimensionUnit unit();
 }
