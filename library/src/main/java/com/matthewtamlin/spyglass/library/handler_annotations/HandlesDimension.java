@@ -16,7 +16,7 @@ import static com.matthewtamlin.spyglass.library.core.DimensionUnit.PT;
 public @interface HandlesDimension {
 	int attributeId();
 
-	DimensionUnit dimensionUnit() default PT;
+	DimensionUnit dimensionUnit() default PT; //TODO change to PX or get rid of default entirely
 
 	boolean mandatory() default false;
 }
