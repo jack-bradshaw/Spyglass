@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface DefaultToColorSupplier {
-	Class<? extends Supplier<Boolean>> value();
+	Class<? extends Supplier<Integer>> value();
 }
