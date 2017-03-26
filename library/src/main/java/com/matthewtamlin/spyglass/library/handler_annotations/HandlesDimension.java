@@ -17,4 +17,6 @@ public @interface HandlesDimension {
 	int attributeId();
 
 	DimensionUnit dimensionUnit() default PT;
+
+	boolean mandatory() default false;
 }

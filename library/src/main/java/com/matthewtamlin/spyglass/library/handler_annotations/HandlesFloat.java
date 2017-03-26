@@ -12,4 +12,6 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface HandlesFloat {
 	int attributeId();
+
+	boolean mandatory() default false;
 }

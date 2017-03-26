@@ -14,4 +14,6 @@ public @interface HandlesEnum {
 	int attributeId();
 
 	Class<? extends Enum> enumClass();
+
+	boolean mandatory() default false;
 }
