@@ -2,7 +2,6 @@ package com.matthewtamlin.spyglass.library.meta_annotations;
 
 import com.matthewtamlin.spyglass.library.default_processors.DefaultProcessor;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
