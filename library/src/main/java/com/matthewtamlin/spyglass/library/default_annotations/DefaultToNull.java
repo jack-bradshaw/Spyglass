@@ -11,5 +11,4 @@ import java.lang.annotation.Target;
 @Default(processorClass = DefaultToNullProcessor.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface DefaultToNull {
-}
+public @interface DefaultToNull {}
