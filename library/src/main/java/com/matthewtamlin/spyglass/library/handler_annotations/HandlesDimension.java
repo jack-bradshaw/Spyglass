@@ -14,7 +14,7 @@ import static com.matthewtamlin.spyglass.library.core.DimensionUnit.PT;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface HandlesDimension {
-	int annotationId();
+	int attributeId();
 
 	DimensionUnit dimensionUnit() default PT;
 }
