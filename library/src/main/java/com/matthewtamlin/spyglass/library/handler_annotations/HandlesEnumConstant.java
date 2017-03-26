@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface HandlesEnumConstant {
-	int annotationId();
+	int attributeId();
 
 	Class<? extends Enum> enumClass();
 
