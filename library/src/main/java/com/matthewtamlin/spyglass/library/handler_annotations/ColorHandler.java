@@ -7,10 +7,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Handler(HandlesColor.class)
+@Handler(ColorHandler.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface HandlesColor {
+public @interface ColorHandler {
 	int attributeId();
 
 	boolean mandatory() default false;
