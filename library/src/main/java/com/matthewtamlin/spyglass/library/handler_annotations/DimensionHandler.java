@@ -7,10 +7,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Handler(HandlesDimension.class)
+@Handler(DimensionHandler.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface HandlesDimension {
+public @interface DimensionHandler {
 	int attributeId();
 
 	boolean mandatory() default false;
