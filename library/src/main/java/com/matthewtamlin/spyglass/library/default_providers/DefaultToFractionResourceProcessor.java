@@ -6,6 +6,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFractionR
 
 public class DefaultToFractionResourceProcessor
 		implements DefaultProcessor<Float, DefaultToFractionResource> {
+
 	@Override
 	public Float process(final DefaultToFractionResource annotation, final Context context) {
 		return context.getResources().getFraction(
