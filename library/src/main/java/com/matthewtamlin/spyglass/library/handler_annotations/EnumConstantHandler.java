@@ -7,10 +7,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Handler(HandlesEnumConstant.class)
+@Handler(EnumConstantHandler.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface HandlesEnumConstant {
+public @interface EnumConstantHandler {
 	int attributeId();
 
 	Class<? extends Enum> enumClass();
