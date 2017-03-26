@@ -8,9 +8,9 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Default(annotationClass = DefaultToFloatSupplier.class)
+@Default(annotationClass = DefaultToColorSupplier.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface DefaultToFloatSupplier {
-	Class<? extends Supplier<Float>> value();
+public @interface DefaultToColorSupplier {
+	Class<? extends Supplier<Boolean>> value();
 }
