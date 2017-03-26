@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface DefaultToFractionResource {
-	float resId();
+	int resId();
 
 	int baseMultiplier() default 1;
 
