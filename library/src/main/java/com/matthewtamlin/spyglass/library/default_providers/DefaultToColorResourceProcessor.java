@@ -7,6 +7,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorReso
 
 public class DefaultToColorResourceProcessor
 		implements DefaultProcessor<Integer, DefaultToColorResource> {
+
 	@Override
 	public Integer process(final DefaultToColorResource annotation, final Context context) {
 		return ContextCompat.getColor(context, annotation.value());
