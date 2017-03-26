@@ -7,11 +7,11 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Handles
+@Handles(HandlesEnum.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface HandlesEnum {
-	int annotationId();
+	int attributeId();
 
 	Class<? extends Enum> enumClass();
 }
