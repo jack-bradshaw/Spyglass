@@ -1,16 +1,16 @@
 package com.matthewtamlin.spyglass.library.handler_annotations;
 
-import com.matthewtamlin.spyglass.library.meta_annotations.Handles;
+import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Handles(HandlesFraction.class)
+@Handler(FractionHandler.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface HandlesFraction {
+public @interface FractionHandler {
 	int attributeId();
 
 	int baseMultiplier() default 1;
