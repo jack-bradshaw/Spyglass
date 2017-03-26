@@ -8,10 +8,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Handler(HandlesBoolean.class)
+@Handler(BooleanHandler.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface HandlesBoolean {
+public @interface BooleanHandler {
 	int attributeId();
 
 	boolean mandatory() default false;
