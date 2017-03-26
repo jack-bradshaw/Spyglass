@@ -8,6 +8,7 @@ import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.insta
 
 public class DefaultToFractionSupplierProcessor
 		implements DefaultProcessor<Float, DefaultToFractionSupplier> {
+
 	@Override
 	public Float process(final DefaultToFractionSupplier annotation, final Context context) {
 		return instantiateSupplier(annotation.value()).get();
