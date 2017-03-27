@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.handler_annotations.ColorHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class ColorAttributeProcessor implements HandlerAdapter<Integer, ColorHandler> {
+public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(final TypedArray attrs,
 			final ColorHandler annotation) {
