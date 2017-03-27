@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringSup
 
 import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.instantiateSupplier;
 
-public class DefaultToStringSupplierProcessor
+public class DefaultToStringSupplierAdapter
 		implements DefaultAdapter<String, DefaultToStringSupplier> {
 
 	@Override
