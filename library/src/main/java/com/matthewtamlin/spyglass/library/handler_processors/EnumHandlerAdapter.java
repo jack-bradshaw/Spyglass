@@ -7,8 +7,8 @@ import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandle
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class EnumAttributeProcessor
-		implements AttributeProcessor<Enum, EnumConstantHandler> {
+public class EnumHandlerAdapter
+		implements HandlerAdapter<Enum, EnumConstantHandler> {
 
 	@Override
 	public boolean attributeValueIsAvailable(
