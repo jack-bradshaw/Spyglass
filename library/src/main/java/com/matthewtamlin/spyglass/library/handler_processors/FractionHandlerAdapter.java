@@ -7,7 +7,7 @@ import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
-public class FractionAttributeProcessor implements HandlerAdapter<Float, FractionHandler> {
+public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
