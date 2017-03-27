@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringResource;
 
-public class DefaultToStringResourceProcesor
+public class DefaultToStringResourceAdapter
 		implements DefaultAdapter<String, DefaultToStringResource> {
 
 	@Override
