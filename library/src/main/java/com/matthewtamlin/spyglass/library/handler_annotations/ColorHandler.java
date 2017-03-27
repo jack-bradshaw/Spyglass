@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library.handler_annotations;
 
-import com.matthewtamlin.spyglass.library.handler_processors.ColorHandlerAdapter;
+import com.matthewtamlin.spyglass.library.handler_adapters.ColorHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 
 import java.lang.annotation.ElementType;
