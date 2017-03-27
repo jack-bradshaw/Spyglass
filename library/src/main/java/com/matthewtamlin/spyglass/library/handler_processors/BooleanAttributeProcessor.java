@@ -36,6 +36,8 @@ public class BooleanAttributeProcessor implements AttributeProcessor<Boolean, Bo
 
 	@Override
 	public boolean attributeIsMandatory(final BooleanHandler annotation) {
+		checkNotNull(annotation, "Argument 'annotation' cannot be null.");
+
 		return annotation.mandatory();
 	}
 }
