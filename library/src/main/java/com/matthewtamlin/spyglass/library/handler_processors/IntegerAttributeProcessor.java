@@ -10,7 +10,12 @@ public class IntegerAttributeProcessor implements AttributeProcessor<Integer, In
 			final TypedArray attrs,
 			final IntegerHandler annotation) {
 
-		return attrs.hasValue(annotation.attributeId());
+		// Try with different defaults and compare the results to determine if the value is present
+		final int reading1 = attrs.getInt(annotation.attributeId(), 0);
+		final int reading2 = attrs.getInt(annotation.attributeId(), 1);
+		final boolean defaultConsistentlyReturned = (reading1 == 0) && (reading2 == 1);
+
+		return !defaultConsistentlyReturned;
 	}
 
 	@Override
