@@ -14,8 +14,8 @@ public class DimensionAttributeProcessor implements AttributeProcessor<Float, Di
 			final TypedArray attrs,
 			final DimensionHandler annotation) {
 
-		checkNotNull(attrs, "Argument 'attrs' cannot be null.");
-		checkNotNull(annotation, "Argument 'annotation' cannot be null.");
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		// Choose two very different numbers
 		final float reading1 = attrs.getDimension(annotation.attributeId(), NEGATIVE_INFINITY);
@@ -29,8 +29,8 @@ public class DimensionAttributeProcessor implements AttributeProcessor<Float, Di
 
 	@Override
 	public Float getAttributeValue(final TypedArray attrs, final DimensionHandler annotation) {
-		checkNotNull(attrs, "Argument 'attrs' cannot be null.");
-		checkNotNull(annotation, "Argument 'annotation' cannot be null.");
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		if (attributeValueIsAvailable(attrs, annotation)) {
 			return attrs.getDimension(annotation.attributeId(), 0f);
