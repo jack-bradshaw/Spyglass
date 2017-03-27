@@ -8,7 +8,7 @@ public class DefaultToStringResourceAdapter
 		implements DefaultAdapter<String, DefaultToStringResource> {
 
 	@Override
-	public String process(final DefaultToStringResource annotation, final Context context) {
+	public String getDefault(final DefaultToStringResource annotation, final Context context) {
 		return context.getResources().getString(annotation.value());
 	}
 }

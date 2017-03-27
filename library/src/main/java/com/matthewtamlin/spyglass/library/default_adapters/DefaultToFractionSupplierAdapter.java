@@ -10,7 +10,7 @@ public class DefaultToFractionSupplierAdapter
 		implements DefaultAdapter<Float, DefaultToFractionSupplier> {
 
 	@Override
-	public Float process(final DefaultToFractionSupplier annotation, final Context context) {
+	public Float getDefault(final DefaultToFractionSupplier annotation, final Context context) {
 		return instantiateSupplier(annotation.value()).get();
 	}
 }

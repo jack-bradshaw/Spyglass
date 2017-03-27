@@ -10,7 +10,7 @@ public class DefaultToBooleanSupplierAdapter
 		implements DefaultAdapter<Boolean, DefaultToBooleanSupplier> {
 
 	@Override
-	public Boolean process(final DefaultToBooleanSupplier annotation, final Context context) {
+	public Boolean getDefault(final DefaultToBooleanSupplier annotation, final Context context) {
 		return instantiateSupplier(annotation.value()).get();
 	}
 }

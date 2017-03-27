@@ -10,7 +10,7 @@ public class DefaultToStringSupplierAdapter
 		implements DefaultAdapter<String, DefaultToStringSupplier> {
 
 	@Override
-	public String process(final DefaultToStringSupplier annotation, final Context context) {
+	public String getDefault(final DefaultToStringSupplier annotation, final Context context) {
 		return instantiateSupplier(annotation.value()).get();
 	}
 }
