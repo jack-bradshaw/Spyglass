@@ -5,7 +5,7 @@ import android.support.v4.content.ContextCompat;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorResource;
 
-public class DefaultToColorResourceProcessor
+public class DefaultToColorResourceAdapter
 		implements DefaultAdapter<Integer, DefaultToColorResource> {
 
 	@Override
