@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.default_annotations;
 
 import com.matthewtamlin.spyglass.library.core.Supplier;
-import com.matthewtamlin.spyglass.library.default_processors.DefaultToFractionSupplierAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToFractionSupplierAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 
 import java.lang.annotation.ElementType;

@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library.default_annotations;
 
-import com.matthewtamlin.spyglass.library.default_processors.DefaultToIntegerAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToIntegerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 
 import java.lang.annotation.ElementType;
