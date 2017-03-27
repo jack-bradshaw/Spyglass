@@ -21,9 +21,9 @@ public class EnumAttributeProcessor
 		// Try with different defaults and compare the results to determine if the value is present
 		final int reading1 = attrs.getInt(annotation.attributeId(), 0);
 		final int reading2 = attrs.getInt(annotation.attributeId(), 1);
-		final boolean sameValueReturnedConsistently = (reading1 != reading2);
+		final boolean defaultConsistentlyReturned = (reading1 != reading2);
 
-		return !sameValueReturnedConsistently;
+		return !defaultConsistentlyReturned;
 	}
 
 	@Override
