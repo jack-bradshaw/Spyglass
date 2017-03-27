@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library.default_annotations;
 
-import com.matthewtamlin.spyglass.library.default_processors.DefaultToNullAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToNullAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 
 import java.lang.annotation.ElementType;

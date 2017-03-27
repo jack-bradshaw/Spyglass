@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library.handler_annotations;
 
-import com.matthewtamlin.spyglass.library.handler_processors.FractionHandlerAdapter;
+import com.matthewtamlin.spyglass.library.handler_adapters.FractionHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 
 import java.lang.annotation.ElementType;
