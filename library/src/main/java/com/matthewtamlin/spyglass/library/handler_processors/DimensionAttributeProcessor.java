@@ -20,7 +20,6 @@ public class DimensionAttributeProcessor implements AttributeProcessor<Float, Di
 		// Try with different defaults and compare the results to determine if the value is present
 		final float reading1 = attrs.getDimension(annotation.attributeId(), NEGATIVE_INFINITY);
 		final float reading2 = attrs.getDimension(annotation.attributeId(), POSITIVE_INFINITY);
-
 		final boolean defaultConsistentlyReturned =
 				(reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
 
