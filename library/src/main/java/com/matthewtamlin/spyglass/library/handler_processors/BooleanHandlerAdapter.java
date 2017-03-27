@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class BooleanAttributeProcessor implements HandlerAdapter<Boolean, BooleanHandler> {
+public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
