@@ -4,13 +4,22 @@ import android.content.res.TypedArray;
 
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 
+import static java.lang.Float.NEGATIVE_INFINITY;
+import static java.lang.Float.POSITIVE_INFINITY;
+
 public class FractionAttributeProcessor implements AttributeProcessor<Float, FractionHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
 			final FractionHandler annotation) {
 
-		return attrs.hasValue(annotation.attributeId());
+		// Try with different defaults and compare the results to determine if the value is present
+		final float reading1 = attrs.getFraction(annotation.attributeId(), 1, 1, NEGATIVE_INFINITY);
+		final float reading2 = attrs.getFraction(annotation.attributeId(), 1, 1, POSITIVE_INFINITY);
+		final boolean defaultConsistentlyReturned =
+				(reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+
+		return !defaultConsistentlyReturned;
 	}
 
 	@Override
