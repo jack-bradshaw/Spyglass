@@ -41,6 +41,8 @@ public class DimensionAttributeProcessor implements AttributeProcessor<Float, Di
 
 	@Override
 	public boolean attributeIsMandatory(final DimensionHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		return annotation.mandatory();
 	}
 }
