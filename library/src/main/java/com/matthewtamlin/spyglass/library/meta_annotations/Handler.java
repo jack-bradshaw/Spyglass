@@ -10,5 +10,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
 public @interface Handler {
-	Class<? extends HandlerAdapter> processorClass();
+	Class<? extends HandlerAdapter> adapterClass();
 }
