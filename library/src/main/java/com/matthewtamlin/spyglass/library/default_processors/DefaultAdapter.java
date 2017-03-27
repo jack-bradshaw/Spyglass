@@ -4,6 +4,6 @@ import android.content.Context;
 
 import java.lang.annotation.Annotation;
 
-public interface DefaultProcessor<T, A extends Annotation> {
+public interface DefaultAdapter<T, A extends Annotation> {
 	public T process(A annotation, Context context);
 }

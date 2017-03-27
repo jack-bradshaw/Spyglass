@@ -4,8 +4,8 @@ import android.content.Context;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
 
-public class DefaultToBooleanResourceProcessor
-		implements DefaultProcessor<Boolean, DefaultToBooleanResource> {
+public class DefaultToBooleanResourceAdapter
+		implements DefaultAdapter<Boolean, DefaultToBooleanResource> {
 
 	@Override
 	public Boolean process(final DefaultToBooleanResource annotation, final Context context) {

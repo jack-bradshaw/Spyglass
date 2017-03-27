@@ -6,8 +6,8 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanSu
 
 import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.instantiateSupplier;
 
-public class DefaultToBooleanSupplierProcessor
-		implements DefaultProcessor<Boolean, DefaultToBooleanSupplier> {
+public class DefaultToBooleanSupplierAdapter
+		implements DefaultAdapter<Boolean, DefaultToBooleanSupplier> {
 
 	@Override
 	public Boolean process(final DefaultToBooleanSupplier annotation, final Context context) {
