@@ -5,7 +5,7 @@ import android.content.Context;
 import com.matthewtamlin.spyglass.library.core.MalformedEnumException;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
 
-public class DefaultToEnumConstantProcessor
+public class DefaultToEnumConstantAdapter
 		implements DefaultAdapter<Enum<?>, DefaultToEnumConstant> {
 
 	@Override
