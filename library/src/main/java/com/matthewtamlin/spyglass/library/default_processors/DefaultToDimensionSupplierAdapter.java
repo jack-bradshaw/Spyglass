@@ -7,7 +7,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension
 
 import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.instantiateSupplier;
 
-public class DefaultToDimensionSupplierProcessor
+public class DefaultToDimensionSupplierAdapter
 		implements DefaultAdapter<Float, DefaultToDimensionSupplier> {
 
 	@Override
