@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFractionS
 
 import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.instantiateSupplier;
 
-public class DefaultToFractionSupplierProcessor
+public class DefaultToFractionSupplierAdapter
 		implements DefaultAdapter<Float, DefaultToFractionSupplier> {
 
 	@Override
