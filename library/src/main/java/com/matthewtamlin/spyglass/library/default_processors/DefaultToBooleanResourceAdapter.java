@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
 
-public class DefaultToBooleanResourceProcessor
+public class DefaultToBooleanResourceAdapter
 		implements DefaultAdapter<Boolean, DefaultToBooleanResource> {
 
 	@Override
