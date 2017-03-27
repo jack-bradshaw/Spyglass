@@ -8,7 +8,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
-public class DimensionAttributeProcessor implements AttributeProcessor<Float, DimensionHandler> {
+public class DimensionHandlerAdapter implements HandlerAdapter<Float, DimensionHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
