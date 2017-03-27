@@ -8,7 +8,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Default(processorClass = DefaultToBooleanProcessor.class)
+@Default(adapterClass = DefaultToBooleanProcessor.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface DefaultToBoolean {

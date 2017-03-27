@@ -9,7 +9,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Default(processorClass = DefaultToStringSupplierProcessor.class)
+@Default(adapterClass = DefaultToStringSupplierProcessor.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface DefaultToStringSupplier {
