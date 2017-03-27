@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToIntegerSu
 
 import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.instantiateSupplier;
 
-public class DefaultToIntegerSupplierProcessor
+public class DefaultToIntegerSupplierAdapter
 		implements DefaultAdapter<Integer, DefaultToIntegerSupplier> {
 
 	@Override
