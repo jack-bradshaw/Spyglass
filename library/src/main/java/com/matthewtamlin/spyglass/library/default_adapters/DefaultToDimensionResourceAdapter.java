@@ -8,7 +8,7 @@ public class DefaultToDimensionResourceAdapter
 		implements DefaultAdapter<Float, DefaultToDimensionResource> {
 
 	@Override
-	public Float process(final DefaultToDimensionResource annotation, final Context context) {
+	public Float getDefault(final DefaultToDimensionResource annotation, final Context context) {
 		return context.getResources().getDimension(annotation.value());
 	}
 }

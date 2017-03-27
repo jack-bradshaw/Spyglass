@@ -8,7 +8,7 @@ public class DefaultToIntegerAdapter
 		implements DefaultAdapter<Integer, DefaultToInteger> {
 
 	@Override
-	public Integer process(final DefaultToInteger annotation, final Context context) {
+	public Integer getDefault(final DefaultToInteger annotation, final Context context) {
 		return annotation.value();
 	}
 }

@@ -15,5 +15,5 @@ import java.lang.annotation.Annotation;
  * 		the type of the annotation
  */
 public interface DefaultAdapter<T, A extends Annotation> {
-	public T process(A annotation, Context context);
+	public T getDefault(A annotation, Context context);
 }

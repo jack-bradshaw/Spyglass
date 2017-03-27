@@ -8,7 +8,7 @@ public class DefaultToFractionResourceAdapter
 		implements DefaultAdapter<Float, DefaultToFractionResource> {
 
 	@Override
-	public Float process(final DefaultToFractionResource annotation, final Context context) {
+	public Float getDefault(final DefaultToFractionResource annotation, final Context context) {
 		return context.getResources().getFraction(
 				annotation.resId(),
 				annotation.baseMultiplier(),
