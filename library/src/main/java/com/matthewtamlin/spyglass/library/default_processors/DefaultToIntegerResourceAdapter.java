@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToIntegerResource;
 
-public class DefaultToIntegerResourceProcessor
+public class DefaultToIntegerResourceAdapter
 		implements DefaultAdapter<Integer, DefaultToIntegerResource> {
 
 	@Override
