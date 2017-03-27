@@ -17,7 +17,6 @@ public class DimensionAttributeProcessor implements AttributeProcessor<Float, Di
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		// Choose two very different numbers
 		final float reading1 = attrs.getDimension(annotation.attributeId(), NEGATIVE_INFINITY);
 		final float reading2 = attrs.getDimension(annotation.attributeId(), POSITIVE_INFINITY);
 
