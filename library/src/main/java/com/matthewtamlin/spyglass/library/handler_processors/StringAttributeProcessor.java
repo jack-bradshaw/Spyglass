@@ -4,7 +4,7 @@ import android.content.res.TypedArray;
 
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 
-public class StringAttributeProcessor implements AttributeProcessor<String, StringHandler> {
+public class StringAttributeProcessor implements HandlerAdapter<String, StringHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
