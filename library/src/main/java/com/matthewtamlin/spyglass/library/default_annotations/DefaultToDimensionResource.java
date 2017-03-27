@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library.default_annotations;
 
-import com.matthewtamlin.spyglass.library.default_processors.DefaultToDimensionResourceAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionResourceAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 
 import java.lang.annotation.ElementType;

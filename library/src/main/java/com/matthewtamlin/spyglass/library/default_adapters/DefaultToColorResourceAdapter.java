@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.default_processors;
+package com.matthewtamlin.spyglass.library.default_adapters;
 
 import android.content.Context;
 import android.support.v4.content.ContextCompat;

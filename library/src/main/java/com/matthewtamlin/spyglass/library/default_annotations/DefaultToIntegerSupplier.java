@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.default_annotations;
 
 import com.matthewtamlin.spyglass.library.core.Supplier;
-import com.matthewtamlin.spyglass.library.default_processors.DefaultToIntegerSupplierAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToIntegerSupplierAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 
 import java.lang.annotation.ElementType;
