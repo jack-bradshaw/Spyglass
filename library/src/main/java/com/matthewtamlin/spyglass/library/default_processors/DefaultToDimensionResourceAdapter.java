@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimensionResource;
 
-public class DefaultToDimensionResourceProcessor
+public class DefaultToDimensionResourceAdapter
 		implements DefaultAdapter<Float, DefaultToDimensionResource> {
 
 	@Override
