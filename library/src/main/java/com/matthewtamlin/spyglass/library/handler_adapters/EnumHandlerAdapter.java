@@ -1,45 +1,46 @@
-package com.matthewtamlin.spyglass.library.handler_processors;
+package com.matthewtamlin.spyglass.library.handler_adapters;
 
 import android.content.res.TypedArray;
 
-import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.library.core.EnumUtil;
+import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static java.lang.Float.NEGATIVE_INFINITY;
-import static java.lang.Float.POSITIVE_INFINITY;
 
-public class DimensionHandlerAdapter implements HandlerAdapter<Float, DimensionHandler> {
+public class EnumHandlerAdapter
+		implements HandlerAdapter<Enum, EnumConstantHandler> {
+
 	@Override
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
-			final DimensionHandler annotation) {
+			final EnumConstantHandler annotation) {
 
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		// Try with different defaults and compare the results to determine if the value is present
-		final float reading1 = attrs.getDimension(annotation.attributeId(), NEGATIVE_INFINITY);
-		final float reading2 = attrs.getDimension(annotation.attributeId(), POSITIVE_INFINITY);
-		final boolean defaultConsistentlyReturned =
-				(reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+		final int reading1 = attrs.getInt(annotation.attributeId(), 0);
+		final int reading2 = attrs.getInt(annotation.attributeId(), 1);
+		final boolean defaultConsistentlyReturned = (reading1 == 0) && (reading2 == 1);
 
 		return !defaultConsistentlyReturned;
 	}
 
 	@Override
-	public Float getAttributeValue(final TypedArray attrs, final DimensionHandler annotation) {
+	public Enum getAttributeValue(final TypedArray attrs, final EnumConstantHandler annotation) {
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		if (attributeValueIsAvailable(attrs, annotation)) {
-			return attrs.getDimension(annotation.attributeId(), 0f);
+			final int ordinal = attrs.getInt(annotation.attributeId(), 0);
+			return EnumUtil.getEnumConstant(annotation.enumClass(), ordinal);
 		} else {
 			throw new RuntimeException("No attribute found for ID " + annotation.attributeId());
 		}
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final DimensionHandler annotation) {
+	public boolean attributeIsMandatory(final EnumConstantHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

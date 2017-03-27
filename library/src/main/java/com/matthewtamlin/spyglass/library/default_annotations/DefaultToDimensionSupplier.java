@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.library.default_annotations;
 
 import com.matthewtamlin.spyglass.library.core.DimensionUnit;
 import com.matthewtamlin.spyglass.library.core.Supplier;
-import com.matthewtamlin.spyglass.library.default_processors.DefaultToDimensionSupplierAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionSupplierAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 
 import java.lang.annotation.ElementType;
