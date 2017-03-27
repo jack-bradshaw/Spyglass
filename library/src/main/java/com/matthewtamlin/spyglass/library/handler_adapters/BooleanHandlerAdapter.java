@@ -12,8 +12,8 @@ public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHan
 			final TypedArray attrs,
 			final BooleanHandler annotation) {
 
-		checkNotNull(attrs, "Argument 'attrs' cannot be null.");
-		checkNotNull(annotation, "Argument 'annotation' cannot be null.");
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		// Try with different defaults and compare the results to determine if the value is present
 		final boolean reading1 = attrs.getBoolean(annotation.attributeId(), false);
@@ -25,8 +25,8 @@ public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHan
 
 	@Override
 	public Boolean getAttributeValue(final TypedArray attrs, final BooleanHandler annotation) {
-		checkNotNull(attrs, "Argument 'attrs' cannot be null.");
-		checkNotNull(annotation, "Argument 'annotation' cannot be null.");
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		if (attributeValueIsAvailable(attrs, annotation)) {
 			return attrs.getBoolean(annotation.attributeId(), false);
@@ -37,7 +37,7 @@ public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHan
 
 	@Override
 	public boolean attributeIsMandatory(final BooleanHandler annotation) {
-		checkNotNull(annotation, "Argument 'annotation' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();
 	}
