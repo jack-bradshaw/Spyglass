@@ -8,7 +8,7 @@ public class DefaultToIntegerResourceAdapter
 		implements DefaultAdapter<Integer, DefaultToIntegerResource> {
 
 	@Override
-	public Integer process(final DefaultToIntegerResource annotation, final Context context) {
+	public Integer getDefault(final DefaultToIntegerResource annotation, final Context context) {
 		return context.getResources().getInteger(annotation.value());
 	}
 }

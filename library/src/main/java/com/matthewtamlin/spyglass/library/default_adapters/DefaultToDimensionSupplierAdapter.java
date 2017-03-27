@@ -11,7 +11,7 @@ public class DefaultToDimensionSupplierAdapter
 		implements DefaultAdapter<Float, DefaultToDimensionSupplier> {
 
 	@Override
-	public Float process(final DefaultToDimensionSupplier annotation, final Context context) {
+	public Float getDefault(final DefaultToDimensionSupplier annotation, final Context context) {
 		final float rawValue = instantiateSupplier(annotation.valueSupplier()).get();
 		final DimensionUnit unit = instantiateSupplier(annotation.unitSupplier()).get();
 

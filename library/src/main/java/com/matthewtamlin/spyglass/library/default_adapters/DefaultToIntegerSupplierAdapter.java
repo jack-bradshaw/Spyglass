@@ -10,7 +10,7 @@ public class DefaultToIntegerSupplierAdapter
 		implements DefaultAdapter<Integer, DefaultToIntegerSupplier> {
 
 	@Override
-	public Integer process(final DefaultToIntegerSupplier annotation, final Context context) {
+	public Integer getDefault(final DefaultToIntegerSupplier annotation, final Context context) {
 		return instantiateSupplier(annotation.value()).get();
 	}
 }

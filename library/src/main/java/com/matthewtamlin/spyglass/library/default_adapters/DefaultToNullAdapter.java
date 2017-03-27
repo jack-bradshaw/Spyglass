@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
 
 public class DefaultToNullAdapter implements DefaultAdapter<Object, DefaultToNull> {
 	@Override
-	public Object process(final DefaultToNull annotation, final Context context) {
+	public Object getDefault(final DefaultToNull annotation, final Context context) {
 		return null;
 	}
 }

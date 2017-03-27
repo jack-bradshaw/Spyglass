@@ -10,7 +10,7 @@ public class DefaultToColorSupplierAdapter
 		implements DefaultAdapter<Integer, DefaultToColorSupplier> {
 
 	@Override
-	public Integer process(final DefaultToColorSupplier annotation, final Context context) {
+	public Integer getDefault(final DefaultToColorSupplier annotation, final Context context) {
 		return instantiateSupplier(annotation.value()).get();
 	}
 }
