@@ -9,7 +9,7 @@ public class DefaultToColorResourceAdapter
 		implements DefaultAdapter<Integer, DefaultToColorResource> {
 
 	@Override
-	public Integer process(final DefaultToColorResource annotation, final Context context) {
+	public Integer getDefault(final DefaultToColorResource annotation, final Context context) {
 		return ContextCompat.getColor(context, annotation.value());
 	}
 }

@@ -8,7 +8,7 @@ public class DefaultToBooleanResourceAdapter
 		implements DefaultAdapter<Boolean, DefaultToBooleanResource> {
 
 	@Override
-	public Boolean process(final DefaultToBooleanResource annotation, final Context context) {
+	public Boolean getDefault(final DefaultToBooleanResource annotation, final Context context) {
 		return context.getResources().getBoolean(annotation.value());
 	}
 }

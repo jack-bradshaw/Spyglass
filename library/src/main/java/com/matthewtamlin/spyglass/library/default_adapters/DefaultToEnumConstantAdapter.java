@@ -9,7 +9,7 @@ public class DefaultToEnumConstantAdapter
 		implements DefaultAdapter<Enum<?>, DefaultToEnumConstant> {
 
 	@Override
-	public Enum<?> process(final DefaultToEnumConstant annotation, final Context context) {
+	public Enum<?> getDefault(final DefaultToEnumConstant annotation, final Context context) {
 		final int ordinal = annotation.ordinal();
 		final Enum[] constants = annotation.enumClass().getEnumConstants();
 
