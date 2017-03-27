@@ -7,7 +7,7 @@ import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandle
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class EnumAttributeProcessor
+public class EnumHandlerAdapter
 		implements HandlerAdapter<Enum, EnumConstantHandler> {
 
 	@Override
