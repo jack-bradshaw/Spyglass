@@ -6,8 +6,8 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorSupp
 
 import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.instantiateSupplier;
 
-public class DefaultToColorSupplierProcessor
-		implements DefaultProcessor<Integer, DefaultToColorSupplier> {
+public class DefaultToColorSupplierAdapter
+		implements DefaultAdapter<Integer, DefaultToColorSupplier> {
 
 	@Override
 	public Integer process(final DefaultToColorSupplier annotation, final Context context) {
