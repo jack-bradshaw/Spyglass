@@ -3,7 +3,6 @@ package com.matthewtamlin.spyglass.library.default_adapters;
 import android.content.Context;
 
 import com.matthewtamlin.spyglass.library.core.EnumUtil;
-import com.matthewtamlin.spyglass.library.core.MalformedEnumException;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
 
 public class DefaultToEnumConstantAdapter
