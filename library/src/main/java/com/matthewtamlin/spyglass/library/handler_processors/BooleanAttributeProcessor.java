@@ -15,6 +15,7 @@ public class BooleanAttributeProcessor implements AttributeProcessor<Boolean, Bo
 		checkNotNull(attrs, "Argument 'attrs' cannot be null.");
 		checkNotNull(annotation, "Argument 'annotation' cannot be null.");
 
+		// Try with different defaults and compare the results to determine if the value is present
 		final boolean reading1 = attrs.getBoolean(annotation.attributeId(), false);
 		final boolean reading2 = attrs.getBoolean(annotation.attributeId(), true);
 		final boolean defaultConsistentlyReturned = (reading1 != reading2);
