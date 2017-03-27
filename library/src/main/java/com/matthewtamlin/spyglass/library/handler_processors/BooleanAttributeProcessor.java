@@ -18,7 +18,7 @@ public class BooleanAttributeProcessor implements AttributeProcessor<Boolean, Bo
 		// Try with different defaults and compare the results to determine if the value is present
 		final boolean reading1 = attrs.getBoolean(annotation.attributeId(), false);
 		final boolean reading2 = attrs.getBoolean(annotation.attributeId(), true);
-		final boolean defaultConsistentlyReturned = (reading1 != reading2);
+		final boolean defaultConsistentlyReturned = (reading1 == false) && (reading2 == true);
 
 		return !defaultConsistentlyReturned;
 	}
