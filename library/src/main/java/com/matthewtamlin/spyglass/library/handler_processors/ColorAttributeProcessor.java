@@ -13,6 +13,7 @@ public class ColorAttributeProcessor implements AttributeProcessor<Integer, Colo
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
+		// Try with different defaults and compare the results to determine if the value is present
 		final int reading1 = attrs.getColor(annotation.attributeId(), 0);
 		final int reading2 = attrs.getColor(annotation.attributeId(), 1);
 		final boolean defaultConsistentlyReturned = (reading1 != reading2);
