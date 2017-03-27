@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 
-public class DefaultToStringProcessor implements DefaultProcessor<String, DefaultToString> {
+public class DefaultToStringProcessor implements DefaultAdapter<String, DefaultToString> {
 	@Override
 	public String process(final DefaultToString annotation, final Context context) {
 		return annotation.value();

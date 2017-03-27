@@ -5,7 +5,7 @@ import android.content.Context;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFractionResource;
 
 public class DefaultToFractionResourceProcessor
-		implements DefaultProcessor<Float, DefaultToFractionResource> {
+		implements DefaultAdapter<Float, DefaultToFractionResource> {
 
 	@Override
 	public Float process(final DefaultToFractionResource annotation, final Context context) {
