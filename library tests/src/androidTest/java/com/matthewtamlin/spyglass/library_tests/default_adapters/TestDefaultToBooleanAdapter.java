@@ -18,22 +18,28 @@ public class TestDefaultToBooleanAdapter extends TestDefaultAdapter<
 		DefaultToBoolean,
 		DefaultToBooleanAdapter> {
 
+	private Context context;
+
 	private Boolean expectedDefaultValue;
 
 	private DefaultToBoolean annotation;
 
 	private DefaultToBooleanAdapter adapter;
 
-	private Context context;
-
 	@Before
 	public void setup() {
-		expectedDefaultValue = Boolean.TRUE;
-		annotation = mock(DefaultToBoolean.class);
-		adapter = new DefaultToBooleanAdapter();
 		context = mock(Context.class);
+		expectedDefaultValue = Boolean.TRUE;
 
+		annotation = mock(DefaultToBoolean.class);
 		when(annotation.value()).thenReturn(expectedDefaultValue);
+
+		adapter = new DefaultToBooleanAdapter();
+	}
+
+	@Override
+	public Context getContext() {
+		return context;
 	}
 
 	@Override
@@ -49,10 +55,5 @@ public class TestDefaultToBooleanAdapter extends TestDefaultAdapter<
 	@Override
 	public DefaultToBooleanAdapter getAdapter() {
 		return adapter;
-	}
-
-	@Override
-	public Context getContext() {
-		return context;
 	}
 }
