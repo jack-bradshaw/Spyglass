@@ -34,7 +34,6 @@ public class TestDefaultToBooleanAdapter extends TestDefaultAdapter<
 
 		annotation = mock(DefaultToBoolean.class);
 		when(annotation.value()).thenReturn(expectedDefaultValue);
-
 	}
 
 	@Override
