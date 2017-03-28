@@ -28,9 +28,9 @@ public class TestDefaultToBooleanResourceAdapter extends TestDefaultAdapter<
 
 	private Boolean expectedDefaultValue;
 
-	private DefaultToBooleanResource annotation;
-
 	private DefaultToBooleanResourceAdapter adapter;
+
+	private DefaultToBooleanResource annotation;
 
 	@Before
 	public void setup() {
@@ -54,12 +54,12 @@ public class TestDefaultToBooleanResourceAdapter extends TestDefaultAdapter<
 	}
 
 	@Override
-	public DefaultToBooleanResource getAnnotation() {
-		return annotation;
+	public DefaultToBooleanResourceAdapter getAdapter() {
+		return adapter;
 	}
 
 	@Override
-	public DefaultToBooleanResourceAdapter getAdapter() {
-		return adapter;
+	public DefaultToBooleanResource getAnnotation() {
+		return annotation;
 	}
 }
