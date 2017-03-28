@@ -20,9 +20,9 @@ public abstract class TestDefaultAdapter<
 
 	public abstract D getExpectedDefaultValue();
 
-	public abstract A getAnnotation();
-
 	public abstract P getAdapter();
+
+	public abstract A getAnnotation();
 
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
