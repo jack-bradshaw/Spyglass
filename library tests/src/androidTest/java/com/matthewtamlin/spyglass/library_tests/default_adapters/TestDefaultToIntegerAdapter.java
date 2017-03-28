@@ -34,7 +34,6 @@ public class TestDefaultToIntegerAdapter extends TestDefaultAdapter<
 
 		annotation = mock(DefaultToInteger.class);
 		when(annotation.value()).thenReturn(expectedDefaultValue);
-
 	}
 
 	@Override
