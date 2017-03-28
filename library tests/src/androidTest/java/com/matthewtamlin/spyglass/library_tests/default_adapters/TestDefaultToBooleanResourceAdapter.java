@@ -2,16 +2,19 @@ package com.matthewtamlin.spyglass.library_tests.default_adapters;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToBooleanResourceAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
+import com.matthewtamlin.spyglass.library_tests.R;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
 import java.util.Random;
 
+import static com.matthewtamlin.spyglass.library_tests.R.bool.test_bool;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -31,17 +34,12 @@ public class TestDefaultToBooleanResourceAdapter extends TestDefaultAdapter<
 
 	@Before
 	public void setup() {
-		expectedDefaultValue = Boolean.TRUE;
 		annotation = mock(DefaultToBooleanResource.class);
 		adapter = new DefaultToBooleanResourceAdapter();
-		context = mock(Context.class);
+		context = InstrumentationRegistry.getTargetContext();
+		expectedDefaultValue =context.getResources().getBoolean(test_bool);
 
-		final int resId = new Random().nextInt(Integer.MAX_VALUE);
-		final Resources mockResources = mock(Resources.class);
-
-		when(context.getResources()).thenReturn(mockResources);
-		when(mockResources.getBoolean(resId)).thenReturn(expectedDefaultValue);
-		when(annotation.value()).thenReturn(resId);
+		when(annotation.value()).thenReturn(test_bool);
 	}
 
 	@Override
