@@ -31,11 +31,11 @@ public class TestDefaultToColorAdapter extends TestDefaultAdapter<
 
 	@Before
 	public void setup() {
-		expectedDefaultValue = Color.RED;
-		annotation = mock(DefaultToColor.class);
-		adapter = new DefaultToColorAdapter();
 		context = mock(Context.class);
+		expectedDefaultValue = Color.RED;
+		adapter = new DefaultToColorAdapter();
 
+		annotation = mock(DefaultToColor.class);
 		when(annotation.value()).thenReturn(expectedDefaultValue);
 	}
 
