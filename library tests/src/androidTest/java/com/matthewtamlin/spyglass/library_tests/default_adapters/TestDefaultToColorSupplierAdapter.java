@@ -19,9 +19,9 @@ public class TestDefaultToColorSupplierAdapter extends TestDefaultAdapter<
 		DefaultToColorSupplier,
 		DefaultToColorSupplierAdapter> {
 
-	private Context context;
-
 	private static Integer expectedDefaultValue;
+
+	private Context context;
 
 	private DefaultToColorSupplierAdapter adapter;
 
