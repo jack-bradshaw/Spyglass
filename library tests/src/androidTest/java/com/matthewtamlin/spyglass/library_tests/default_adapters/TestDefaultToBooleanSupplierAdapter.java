@@ -17,9 +17,9 @@ public class TestDefaultToBooleanSupplierAdapter extends TestDefaultAdapter<
 		DefaultToBooleanSupplier,
 		DefaultToBooleanSupplierAdapter> {
 
-	private Context context;
-
 	private static Boolean expectedDefaultValue;
+
+	private Context context;
 
 	private DefaultToBooleanSupplier annotation;
 
