@@ -10,6 +10,7 @@ public class DefaultToBooleanAdapter implements DefaultAdapter<Boolean, DefaultT
 	@Override
 	public Boolean getDefault(final DefaultToBoolean annotation, final Context context) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+		checkNotNull(context, "Argument \'context\' cannot be null.");
 
 		return annotation.value();
 	}
