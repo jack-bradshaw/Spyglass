@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.parameter_annotations;
+package com.matthewtamlin.spyglass.library.use_annotations;
 
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 
