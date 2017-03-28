@@ -4,16 +4,17 @@ import android.content.res.TypedArray;
 
 import com.matthewtamlin.spyglass.library.core.EnumUtil;
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.EnumHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class EnumHandlerAdapter
-		implements HandlerAdapter<Enum, EnumConstantHandler> {
+		implements HandlerAdapter<Enum, EnumHandler> {
 
 	@Override
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
-			final EnumConstantHandler annotation) {
+			final EnumHandler annotation) {
 
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
@@ -27,7 +28,7 @@ public class EnumHandlerAdapter
 	}
 
 	@Override
-	public Enum getAttributeValue(final TypedArray attrs, final EnumConstantHandler annotation) {
+	public Enum getAttributeValue(final TypedArray attrs, final EnumHandler annotation) {
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
@@ -40,7 +41,7 @@ public class EnumHandlerAdapter
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final EnumConstantHandler annotation) {
+	public boolean attributeIsMandatory(final EnumHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();
