@@ -21,13 +21,13 @@ public class TestDefaultToColorAdapter extends TestDefaultAdapter<
 		DefaultToColor,
 		DefaultToColorAdapter> {
 
-	private Integer expectedDefaultValue;
+	private Context context;
 
-	private DefaultToColor annotation;
+	private Integer expectedDefaultValue;
 
 	private DefaultToColorAdapter adapter;
 
-	private Context context;
+	private DefaultToColor annotation;
 
 	@Before
 	public void setup() {
