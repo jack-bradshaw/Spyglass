@@ -6,8 +6,8 @@ import com.matthewtamlin.spyglass.library.core.Supplier;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToBooleanSupplierAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanSupplier;
 
+import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
@@ -25,18 +25,19 @@ public class TestDefaultToBooleanSupplierAdapter extends TestDefaultAdapter<
 
 	private Context context;
 
-	@BeforeClass
-	public static void setupClass() {
-		expectedDefaultValue = Boolean.TRUE;
-	}
-
 	@Before
 	public void setup() throws IllegalAccessException, InstantiationException {
+		expectedDefaultValue = Boolean.TRUE;
 		annotation = mock(DefaultToBooleanSupplier.class);
 		adapter = new DefaultToBooleanSupplierAdapter();
 		context = mock(Context.class);
 
 		doReturn(BooleanSupplier.class).when(annotation).value();
+	}
+
+	@After
+	public void tearDown() {
+		expectedDefaultValue = null;
 	}
 
 	@Override
