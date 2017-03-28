@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.library_tests.default_adapters;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.core.Supplier;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToColorSupplierAdapter;
@@ -10,10 +11,12 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorSupp
 import org.junit.After;
 import org.junit.Before;
 import org.junit.BeforeClass;
+import org.junit.runner.RunWith;
 
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
+@RunWith(AndroidJUnit4.class)
 public class TestDefaultToColorSupplierAdapter extends TestDefaultAdapter<
 		Integer,
 		DefaultToColorSupplier,
