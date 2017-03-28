@@ -26,13 +26,13 @@ public class TestDefaultToColorResourceAdapter extends TestDefaultAdapter<
 		DefaultToColorResource,
 		DefaultToColorResourceAdapter> {
 
-	private Integer expectedDefaultValue;
+	private Context context;
 
-	private DefaultToColorResource annotation;
+	private Integer expectedDefaultValue;
 
 	private DefaultToColorResourceAdapter adapter;
 
-	private Context context;
+	private DefaultToColorResource annotation;
 
 	@Before
 	public void setup() {
