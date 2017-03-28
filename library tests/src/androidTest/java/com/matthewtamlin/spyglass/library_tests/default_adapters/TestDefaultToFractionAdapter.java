@@ -34,7 +34,6 @@ public class TestDefaultToFractionAdapter extends TestDefaultAdapter<
 
 		annotation = mock(DefaultToFraction.class);
 		when(annotation.value()).thenReturn(expectedDefaultValue);
-
 	}
 
 	@Override
