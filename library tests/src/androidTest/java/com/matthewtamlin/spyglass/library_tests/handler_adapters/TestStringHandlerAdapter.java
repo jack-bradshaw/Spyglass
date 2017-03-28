@@ -2,8 +2,8 @@ package com.matthewtamlin.spyglass.library_tests.handler_adapters;
 
 import android.content.res.TypedArray;
 
-import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.handler_adapters.StringHandlerAdapter;
+import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 
 import org.junit.Before;
 import org.mockito.invocation.InvocationOnMock;
@@ -11,61 +11,53 @@ import org.mockito.stubbing.Answer;
 
 import java.util.Random;
 
-import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
-public class TestBooleanHandlerAdapter extends TestHandlerAdapter<Boolean, BooleanHandler,
-		BooleanHandlerAdapter> {
-	private Boolean expectedValue;
+public class TestStringHandlerAdapter extends TestHandlerAdapter<String, StringHandler,
+		StringHandlerAdapter> {
+	private String expectedValue;
 
 	private TypedArray containingAttribute;
 
 	private TypedArray missingAttribute;
 
-	private BooleanHandler withMandatoryFlag;
+	private StringHandler withMandatoryFlag;
 
-	private BooleanHandler missingMandatoryFlag;
+	private StringHandler missingMandatoryFlag;
 
-	private BooleanHandlerAdapter adapter;
+	private StringHandlerAdapter adapter;
 
 	@Before
 	public void setup() {
 		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
 
-		expectedValue = Boolean.TRUE;
+		expectedValue = "Some String";
 
 		containingAttribute = mock(TypedArray.class);
 		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getBoolean(eq(attributeId), anyBoolean()))
-				.thenReturn(expectedValue);
+		when(containingAttribute.getString(eq(attributeId))).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
 		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getBoolean(eq(attributeId), anyBoolean()))
-				.thenAnswer(new Answer<Object>() {
-					@Override
-					public Object answer(final InvocationOnMock invocation) throws Throwable {
-						// Always return the second argument since is't the default
-						return invocation.getArgumentAt(1, Boolean.class);
-					}
-				});
+		when(missingAttribute.getString(eq(attributeId))).thenReturn(null);
 
-		withMandatoryFlag = mock(BooleanHandler.class);
+		withMandatoryFlag = mock(StringHandler.class);
 		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
-		missingMandatoryFlag = mock(BooleanHandler.class);
+		missingMandatoryFlag = mock(StringHandler.class);
 		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
-		adapter = new BooleanHandlerAdapter();
+		adapter = new StringHandlerAdapter();
 	}
 
 	@Override
-	public Boolean getExpectedValue() {
+	public String getExpectedValue() {
 		return expectedValue;
 	}
 
@@ -80,17 +72,17 @@ public class TestBooleanHandlerAdapter extends TestHandlerAdapter<Boolean, Boole
 	}
 
 	@Override
-	public BooleanHandler getAnnotationWithMandatoryFlag() {
+	public StringHandler getAnnotationWithMandatoryFlag() {
 		return withMandatoryFlag;
 	}
 
 	@Override
-	public BooleanHandler getAnnotationMissingMandatoryFlag() {
+	public StringHandler getAnnotationMissingMandatoryFlag() {
 		return missingMandatoryFlag;
 	}
 
 	@Override
-	public BooleanHandlerAdapter getAdapter() {
+	public StringHandlerAdapter getAdapter() {
 		return adapter;
 	}
 }

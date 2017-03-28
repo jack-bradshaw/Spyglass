@@ -3,7 +3,9 @@ package com.matthewtamlin.spyglass.library_tests.handler_adapters;
 import android.content.res.TypedArray;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
+import com.matthewtamlin.spyglass.library.handler_adapters.DimensionHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
 
 import org.junit.Before;
 import org.mockito.invocation.InvocationOnMock;
@@ -12,60 +14,62 @@ import org.mockito.stubbing.Answer;
 import java.util.Random;
 
 import static org.mockito.Matchers.anyBoolean;
+import static org.mockito.Matchers.anyFloat;
+import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
-public class TestBooleanHandlerAdapter extends TestHandlerAdapter<Boolean, BooleanHandler,
-		BooleanHandlerAdapter> {
-	private Boolean expectedValue;
+public class TestDimensionHandlerAdapter extends TestHandlerAdapter<Float, DimensionHandler,
+		DimensionHandlerAdapter> {
+	private Float expectedValue;
 
 	private TypedArray containingAttribute;
 
 	private TypedArray missingAttribute;
 
-	private BooleanHandler withMandatoryFlag;
+	private DimensionHandler withMandatoryFlag;
 
-	private BooleanHandler missingMandatoryFlag;
+	private DimensionHandler missingMandatoryFlag;
 
-	private BooleanHandlerAdapter adapter;
+	private DimensionHandlerAdapter adapter;
 
 	@Before
 	public void setup() {
 		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
 
-		expectedValue = Boolean.TRUE;
+		expectedValue = Float.NEGATIVE_INFINITY;
 
 		containingAttribute = mock(TypedArray.class);
 		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getBoolean(eq(attributeId), anyBoolean()))
+		when(containingAttribute.getDimension(eq(attributeId), anyFloat()))
 				.thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
 		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getBoolean(eq(attributeId), anyBoolean()))
+		when(missingAttribute.getDimension(eq(attributeId), anyFloat()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
 						// Always return the second argument since is't the default
-						return invocation.getArgumentAt(1, Boolean.class);
+						return invocation.getArgumentAt(1, Float.class);
 					}
 				});
 
-		withMandatoryFlag = mock(BooleanHandler.class);
+		withMandatoryFlag = mock(DimensionHandler.class);
 		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
-		missingMandatoryFlag = mock(BooleanHandler.class);
+		missingMandatoryFlag = mock(DimensionHandler.class);
 		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
-		adapter = new BooleanHandlerAdapter();
+		adapter = new DimensionHandlerAdapter();
 	}
 
 	@Override
-	public Boolean getExpectedValue() {
+	public Float getExpectedValue() {
 		return expectedValue;
 	}
 
@@ -80,17 +84,17 @@ public class TestBooleanHandlerAdapter extends TestHandlerAdapter<Boolean, Boole
 	}
 
 	@Override
-	public BooleanHandler getAnnotationWithMandatoryFlag() {
+	public DimensionHandler getAnnotationWithMandatoryFlag() {
 		return withMandatoryFlag;
 	}
 
 	@Override
-	public BooleanHandler getAnnotationMissingMandatoryFlag() {
+	public DimensionHandler getAnnotationMissingMandatoryFlag() {
 		return missingMandatoryFlag;
 	}
 
 	@Override
-	public BooleanHandlerAdapter getAdapter() {
+	public DimensionHandlerAdapter getAdapter() {
 		return adapter;
 	}
 }
