@@ -29,11 +29,11 @@ public class TestDefaultToColorSupplierAdapter extends TestDefaultAdapter<
 
 	@Before
 	public void setup() throws IllegalAccessException, InstantiationException {
-		expectedDefaultValue = Color.RED;
-		annotation = mock(DefaultToColorSupplier.class);
-		adapter = new DefaultToColorSupplierAdapter();
 		context = mock(Context.class);
+		expectedDefaultValue = Color.RED;
+		adapter = new DefaultToColorSupplierAdapter();
 
+		annotation = mock(DefaultToColorSupplier.class);
 		doReturn(ColorSupplier.class).when(annotation).value();
 	}
 
