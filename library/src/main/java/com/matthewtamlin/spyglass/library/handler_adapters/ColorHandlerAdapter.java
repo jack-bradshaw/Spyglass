@@ -8,8 +8,10 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler> {
 	@Override
-	public boolean attributeValueIsAvailable(final TypedArray attrs,
+	public boolean attributeValueIsAvailable(
+			final TypedArray attrs,
 			final ColorHandler annotation) {
+
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
