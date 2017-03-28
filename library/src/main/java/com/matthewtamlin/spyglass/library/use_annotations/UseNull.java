@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.parameter_annotations;
+package com.matthewtamlin.spyglass.library.use_annotations;
 
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 
@@ -7,9 +7,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Use(UseString.class)
+@Use(UseNull.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface UseString {
-	String value();
-}
+public @interface UseNull {}
