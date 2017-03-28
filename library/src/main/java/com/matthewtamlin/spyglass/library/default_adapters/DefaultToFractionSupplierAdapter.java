@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFractionSupplier;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.instantiateSupplier;
 
 public class DefaultToFractionSupplierAdapter
@@ -11,6 +12,8 @@ public class DefaultToFractionSupplierAdapter
 
 	@Override
 	public Float getDefault(final DefaultToFractionSupplier annotation, final Context context) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		return instantiateSupplier(annotation.value()).get();
 	}
 }
