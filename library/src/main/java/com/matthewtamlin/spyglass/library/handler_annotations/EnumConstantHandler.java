@@ -5,6 +5,7 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+//TODO this class needs significant wori
 //@Handler(EnumConstantHandler.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
