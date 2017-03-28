@@ -38,10 +38,12 @@ public class TestBooleanHandlerAdapter extends TestHandlerAdapter<Boolean, Boole
 		expectedValue = Boolean.TRUE;
 
 		containingAttribute = mock(TypedArray.class);
+		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
 		when(containingAttribute.getBoolean(eq(attributeId), anyBoolean()))
 				.thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
+		when(containingAttribute.hasValue(attributeId)).thenReturn(false);
 		when(missingAttribute.getBoolean(eq(attributeId), anyBoolean()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
