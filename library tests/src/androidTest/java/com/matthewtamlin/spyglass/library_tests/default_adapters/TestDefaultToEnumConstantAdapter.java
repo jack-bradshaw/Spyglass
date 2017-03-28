@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.default_adapters;
 
 import android.content.Context;
-import android.support.test.InstrumentationRegistry;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToEnumConstantAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
@@ -9,7 +8,6 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConst
 import org.junit.Before;
 import org.junit.Test;
 
-import static android.support.test.InstrumentationRegistry.getContext;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.doReturn;
@@ -17,8 +15,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestDefaultToEnumConstantAdapter {
-	private Context context;
-
 	private TestEnum expectedDefaultValue;
 
 	private DefaultToEnumConstantAdapter adapter;
@@ -27,7 +23,6 @@ public class TestDefaultToEnumConstantAdapter {
 
 	@Before
 	public void setup() {
-		context = InstrumentationRegistry.getTargetContext();
 		expectedDefaultValue = TestEnum.ITEM_2;
 		adapter = new DefaultToEnumConstantAdapter();
 
@@ -43,7 +38,7 @@ public class TestDefaultToEnumConstantAdapter {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetDefault_nullAnnotation() {
-		adapter.getDefault(null, getContext());
+		adapter.getDefault(null, mock(Context.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -53,7 +48,7 @@ public class TestDefaultToEnumConstantAdapter {
 
 	@Test
 	public void testGetDefault_validArguments() {
-		final Object returnedDefault = adapter.getDefault(annotation, getContext());
+		final Object returnedDefault = adapter.getDefault(annotation, mock(Context.class));
 
 		assertThat(returnedDefault, is((Object) expectedDefaultValue));
 	}
