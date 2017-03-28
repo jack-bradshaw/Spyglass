@@ -36,11 +36,11 @@ public class TestDefaultToColorResourceAdapter extends TestDefaultAdapter<
 
 	@Before
 	public void setup() {
-		annotation = mock(DefaultToColorResource.class);
-		adapter = new DefaultToColorResourceAdapter();
 		context = InstrumentationRegistry.getTargetContext();
 		expectedDefaultValue = ContextCompat.getColor(context, test_color);
+		adapter = new DefaultToColorResourceAdapter();
 
+		annotation = mock(DefaultToColorResource.class);
 		when(annotation.value()).thenReturn(test_color);
 	}
 
