@@ -13,6 +13,7 @@ public class DefaultToStringSupplierAdapter
 	@Override
 	public String getDefault(final DefaultToStringSupplier annotation, final Context context) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+		checkNotNull(context, "Argument \'context\' cannot be null.");
 
 		return instantiateSupplier(annotation.value()).get();
 	}
