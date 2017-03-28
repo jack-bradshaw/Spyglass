@@ -43,13 +43,13 @@ public class TestDefaultToColorSupplierAdapter extends TestDefaultAdapter<
 	}
 
 	@Override
-	public Integer getExpectedDefaultValue() {
-		return expectedDefaultValue;
+	public Context getContext() {
+		return context;
 	}
 
 	@Override
-	public DefaultToColorSupplier getAnnotation() {
-		return annotation;
+	public Integer getExpectedDefaultValue() {
+		return expectedDefaultValue;
 	}
 
 	@Override
@@ -58,8 +58,8 @@ public class TestDefaultToColorSupplierAdapter extends TestDefaultAdapter<
 	}
 
 	@Override
-	public Context getContext() {
-		return context;
+	public DefaultToColorSupplier getAnnotation() {
+		return annotation;
 	}
 
 	public static class ColorSupplier implements Supplier<Integer> {
