@@ -12,6 +12,7 @@ public class DefaultToIntegerAdapter
 	@Override
 	public Integer getDefault(final DefaultToInteger annotation, final Context context) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+		checkNotNull(context, "Argument \'context\' cannot be null.");
 
 		return annotation.value();
 	}
