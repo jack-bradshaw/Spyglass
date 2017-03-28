@@ -17,13 +17,13 @@ public class TestDefaultToBooleanSupplierAdapter extends TestDefaultAdapter<
 		DefaultToBooleanSupplier,
 		DefaultToBooleanSupplierAdapter> {
 
+	private Context context;
+
 	private static Boolean expectedDefaultValue;
 
 	private DefaultToBooleanSupplier annotation;
 
 	private DefaultToBooleanSupplierAdapter adapter;
-
-	private Context context;
 
 	@Before
 	public void setup() throws IllegalAccessException, InstantiationException {
