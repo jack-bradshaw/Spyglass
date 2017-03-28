@@ -13,6 +13,7 @@ public class DefaultToColorSupplierAdapter
 	@Override
 	public Integer getDefault(final DefaultToColorSupplier annotation, final Context context) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+		checkNotNull(context, "Argument \'context\' cannot be null.");
 
 		return instantiateSupplier(annotation.value()).get();
 	}
