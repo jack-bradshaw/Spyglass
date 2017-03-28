@@ -41,12 +41,14 @@ public class TestEnumHandlerAdapter {
 		expectedValue = TestEnum.ITEM_3;
 
 		containingAttribute = mock(TypedArray.class);
+		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
 		when(containingAttribute.getInt(eq(attributeId), anyInt()))
 				.thenReturn(expectedValue.ordinal());
 		when(containingAttribute.getInteger(eq(attributeId), anyInt()))
 				.thenReturn(expectedValue.ordinal());
 
 		missingAttribute = mock(TypedArray.class);
+		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
 		when(missingAttribute.getInt(eq(attributeId), anyInt()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
