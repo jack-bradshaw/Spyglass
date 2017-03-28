@@ -16,13 +16,13 @@ public abstract class TestDefaultAdapter<
 		A extends Annotation,
 		P extends DefaultAdapter<D, A>> {
 
+	public abstract Context getContext();
+
 	public abstract D getExpectedDefaultValue();
 
 	public abstract A getAnnotation();
 
 	public abstract P getAdapter();
-
-	public abstract Context getContext();
 
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
