@@ -41,13 +41,13 @@ public class TestDefaultToBooleanSupplierAdapter extends TestDefaultAdapter<
 	}
 
 	@Override
-	public Boolean getExpectedDefaultValue() {
-		return expectedDefaultValue;
+	public Context getContext() {
+		return context;
 	}
 
 	@Override
-	public DefaultToBooleanSupplier getAnnotation() {
-		return annotation;
+	public Boolean getExpectedDefaultValue() {
+		return expectedDefaultValue;
 	}
 
 	@Override
@@ -56,8 +56,8 @@ public class TestDefaultToBooleanSupplierAdapter extends TestDefaultAdapter<
 	}
 
 	@Override
-	public Context getContext() {
-		return context;
+	public DefaultToBooleanSupplier getAnnotation() {
+		return annotation;
 	}
 
 	public static class BooleanSupplier implements Supplier<Boolean> {
