@@ -16,6 +16,7 @@ import org.junit.runner.RunWith;
 
 import java.util.Random;
 
+import static com.matthewtamlin.spyglass.library_tests.R.color.test_color;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -38,9 +39,9 @@ public class TestDefaultToColorResourceAdapter extends TestDefaultAdapter<
 		annotation = mock(DefaultToColorResource.class);
 		adapter = new DefaultToColorResourceAdapter();
 		context = InstrumentationRegistry.getTargetContext();
-		expectedDefaultValue = ContextCompat.getColor(context, R.color.test_color);
+		expectedDefaultValue = ContextCompat.getColor(context, test_color);
 
-		when(annotation.value()).thenReturn(R.color.test_color);
+		when(annotation.value()).thenReturn(test_color);
 	}
 
 	@Override
