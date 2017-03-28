@@ -22,9 +22,9 @@ public class TestDefaultToBooleanAdapter extends TestDefaultAdapter<
 
 	private Boolean expectedDefaultValue;
 
-	private DefaultToBoolean annotation;
-
 	private DefaultToBooleanAdapter adapter;
+
+	private DefaultToBoolean annotation;
 
 	@Before
 	public void setup() {
@@ -48,12 +48,12 @@ public class TestDefaultToBooleanAdapter extends TestDefaultAdapter<
 	}
 
 	@Override
-	public DefaultToBoolean getAnnotation() {
-		return annotation;
+	public DefaultToBooleanAdapter getAdapter() {
+		return adapter;
 	}
 
 	@Override
-	public DefaultToBooleanAdapter getAdapter() {
-		return adapter;
+	public DefaultToBoolean getAnnotation() {
+		return annotation;
 	}
 }
