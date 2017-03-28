@@ -4,9 +4,13 @@ import android.content.Context;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFraction;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+
 public class DefaultToFractionAdapter implements DefaultAdapter<Float, DefaultToFraction> {
 	@Override
 	public Float getDefault(final DefaultToFraction annotation, final Context context) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		return annotation.value();
 	}
 }
