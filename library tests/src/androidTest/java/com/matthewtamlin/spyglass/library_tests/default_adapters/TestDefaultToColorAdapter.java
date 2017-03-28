@@ -40,13 +40,13 @@ public class TestDefaultToColorAdapter extends TestDefaultAdapter<
 	}
 
 	@Override
-	public Integer getExpectedDefaultValue() {
-		return expectedDefaultValue;
+	public Context getContext() {
+		return context;
 	}
 
 	@Override
-	public DefaultToColor getAnnotation() {
-		return annotation;
+	public Integer getExpectedDefaultValue() {
+		return expectedDefaultValue;
 	}
 
 	@Override
@@ -55,7 +55,7 @@ public class TestDefaultToColorAdapter extends TestDefaultAdapter<
 	}
 
 	@Override
-	public Context getContext() {
-		return context;
+	public DefaultToColor getAnnotation() {
+		return annotation;
 	}
 }
