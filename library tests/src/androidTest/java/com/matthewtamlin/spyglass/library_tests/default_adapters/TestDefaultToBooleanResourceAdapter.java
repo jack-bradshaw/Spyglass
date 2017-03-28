@@ -24,13 +24,13 @@ public class TestDefaultToBooleanResourceAdapter extends TestDefaultAdapter<
 		DefaultToBooleanResource,
 		DefaultToBooleanResourceAdapter> {
 
+	private Context context;
+
 	private Boolean expectedDefaultValue;
 
 	private DefaultToBooleanResource annotation;
 
 	private DefaultToBooleanResourceAdapter adapter;
-
-	private Context context;
 
 	@Before
 	public void setup() {
@@ -40,6 +40,11 @@ public class TestDefaultToBooleanResourceAdapter extends TestDefaultAdapter<
 		expectedDefaultValue =context.getResources().getBoolean(test_bool);
 
 		when(annotation.value()).thenReturn(test_bool);
+	}
+
+	@Override
+	public Context getContext() {
+		return context;
 	}
 
 	@Override
@@ -55,10 +60,5 @@ public class TestDefaultToBooleanResourceAdapter extends TestDefaultAdapter<
 	@Override
 	public DefaultToBooleanResourceAdapter getAdapter() {
 		return adapter;
-	}
-
-	@Override
-	public Context getContext() {
-		return context;
 	}
 }
