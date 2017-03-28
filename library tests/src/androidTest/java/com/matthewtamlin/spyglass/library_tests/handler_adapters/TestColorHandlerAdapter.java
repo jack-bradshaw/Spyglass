@@ -43,7 +43,7 @@ public class TestColorHandlerAdapter extends TestHandlerAdapter<Integer, ColorHa
 				.thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(false);
+		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
 		when(missingAttribute.getColor(eq(attributeId), anyInt()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
