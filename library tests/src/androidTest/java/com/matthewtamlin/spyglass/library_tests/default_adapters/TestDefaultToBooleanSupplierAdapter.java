@@ -27,11 +27,11 @@ public class TestDefaultToBooleanSupplierAdapter extends TestDefaultAdapter<
 
 	@Before
 	public void setup() throws IllegalAccessException, InstantiationException {
-		expectedDefaultValue = Boolean.TRUE;
-		annotation = mock(DefaultToBooleanSupplier.class);
-		adapter = new DefaultToBooleanSupplierAdapter();
 		context = mock(Context.class);
+		expectedDefaultValue = Boolean.TRUE;
+		adapter = new DefaultToBooleanSupplierAdapter();
 
+		annotation = mock(DefaultToBooleanSupplier.class);
 		doReturn(BooleanSupplier.class).when(annotation).value();
 	}
 
