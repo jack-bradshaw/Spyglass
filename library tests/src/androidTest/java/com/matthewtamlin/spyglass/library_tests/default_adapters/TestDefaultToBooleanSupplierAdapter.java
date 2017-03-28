@@ -60,8 +60,6 @@ public class TestDefaultToBooleanSupplierAdapter extends TestDefaultAdapter<
 	}
 
 	public static class BooleanSupplier implements Supplier<Boolean> {
-		public BooleanSupplier() {}
-
 		@Override
 		public Boolean get() {
 			return expectedDefaultValue;
