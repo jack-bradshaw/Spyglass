@@ -13,6 +13,7 @@ public class DefaultToEnumConstantAdapter
 	@Override
 	public Enum<?> getDefault(final DefaultToEnumConstant annotation, final Context context) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+		checkNotNull(context, "Argument \'context\' cannot be null.");
 
 		final int ordinal = annotation.ordinal();
 		return EnumUtil.getEnumConstant(annotation.enumClass(), ordinal);
