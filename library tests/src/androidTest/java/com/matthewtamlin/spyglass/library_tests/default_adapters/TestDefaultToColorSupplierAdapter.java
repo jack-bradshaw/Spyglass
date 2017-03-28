@@ -19,13 +19,13 @@ public class TestDefaultToColorSupplierAdapter extends TestDefaultAdapter<
 		DefaultToColorSupplier,
 		DefaultToColorSupplierAdapter> {
 
-	private static Integer expectedDefaultValue;
+	private Context context;
 
-	private DefaultToColorSupplier annotation;
+	private static Integer expectedDefaultValue;
 
 	private DefaultToColorSupplierAdapter adapter;
 
-	private Context context;
+	private DefaultToColorSupplier annotation;
 
 	@Before
 	public void setup() throws IllegalAccessException, InstantiationException {
