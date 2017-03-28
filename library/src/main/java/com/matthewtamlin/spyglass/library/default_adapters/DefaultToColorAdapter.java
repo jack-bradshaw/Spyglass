@@ -10,6 +10,7 @@ public class DefaultToColorAdapter implements DefaultAdapter<Integer, DefaultToC
 	@Override
 	public Integer getDefault(final DefaultToColor annotation, final Context context) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+		checkNotNull(context, "Argument \'context\' cannot be null.");
 
 		return annotation.value();
 	}

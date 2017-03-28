@@ -13,6 +13,7 @@ public class DefaultToIntegerSupplierAdapter
 	@Override
 	public Integer getDefault(final DefaultToIntegerSupplier annotation, final Context context) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+		checkNotNull(context, "Argument \'context\' cannot be null.");
 
 		return instantiateSupplier(annotation.value()).get();
 	}
