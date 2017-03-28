@@ -1,12 +1,14 @@
 package com.matthewtamlin.spyglass.library_tests.default_adapters;
 
 import android.content.Context;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToEnumConstantAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
@@ -14,6 +16,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(AndroidJUnit4.class)
 public class TestDefaultToEnumConstantAdapter {
 	private TestEnum expectedDefaultValue;
 
