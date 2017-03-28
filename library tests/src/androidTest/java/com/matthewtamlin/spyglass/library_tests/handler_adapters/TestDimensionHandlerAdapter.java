@@ -42,10 +42,12 @@ public class TestDimensionHandlerAdapter extends TestHandlerAdapter<Float, Dimen
 		expectedValue = Float.NEGATIVE_INFINITY;
 
 		containingAttribute = mock(TypedArray.class);
+		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
 		when(containingAttribute.getDimension(eq(attributeId), anyFloat()))
 				.thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
+		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
 		when(missingAttribute.getDimension(eq(attributeId), anyFloat()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
