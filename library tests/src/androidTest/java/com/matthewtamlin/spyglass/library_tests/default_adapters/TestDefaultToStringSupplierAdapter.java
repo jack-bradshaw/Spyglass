@@ -31,7 +31,7 @@ public class TestDefaultToStringSupplierAdapter extends TestDefaultAdapter<
 	@Before
 	public void setup() throws IllegalAccessException, InstantiationException {
 		context = mock(Context.class);
-		expectedDefaultValue = "It's not nice to String people along.";
+		expectedDefaultValue = "There are no Strings on me...";
 		adapter = new DefaultToStringSupplierAdapter();
 
 		annotation = mock(DefaultToStringSupplier.class);
