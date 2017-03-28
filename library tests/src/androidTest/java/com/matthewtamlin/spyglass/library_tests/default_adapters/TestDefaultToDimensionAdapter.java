@@ -4,9 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.default_adapters.DefaultToColorAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColor;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
 
 import org.junit.Before;
