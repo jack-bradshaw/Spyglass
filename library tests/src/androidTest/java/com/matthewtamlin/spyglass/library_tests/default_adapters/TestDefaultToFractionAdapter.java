@@ -29,7 +29,7 @@ public class TestDefaultToFractionAdapter extends TestDefaultAdapter<
 	@Before
 	public void setup() {
 		context = mock(Context.class);
-		expectedDefaultValue = Float.MIN_VALUE;
+		expectedDefaultValue = Float.NEGATIVE_INFINITY;
 		adapter = new DefaultToFractionAdapter();
 
 		annotation = mock(DefaultToFraction.class);
