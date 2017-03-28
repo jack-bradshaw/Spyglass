@@ -13,6 +13,7 @@ public class DefaultToFractionSupplierAdapter
 	@Override
 	public Float getDefault(final DefaultToFractionSupplier annotation, final Context context) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+		checkNotNull(context, "Argument \'context\' cannot be null.");
 
 		return instantiateSupplier(annotation.value()).get();
 	}
