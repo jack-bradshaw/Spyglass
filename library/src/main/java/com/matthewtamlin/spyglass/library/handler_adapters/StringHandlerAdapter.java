@@ -24,6 +24,6 @@ public class StringHandlerAdapter implements HandlerAdapter<String, StringHandle
 
 	@Override
 	public boolean attributeIsMandatory(final StringHandler annotation) {
-		return false;
+		return annotation.mandatory();
 	}
 }
