@@ -4,10 +4,7 @@ import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-
-import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class MethodUtil {
 	public static Annotation getHandlerAnnotation(final Method method) {
