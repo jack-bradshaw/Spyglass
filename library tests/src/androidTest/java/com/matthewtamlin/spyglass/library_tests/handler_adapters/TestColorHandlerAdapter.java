@@ -38,10 +38,12 @@ public class TestColorHandlerAdapter extends TestHandlerAdapter<Integer, ColorHa
 		expectedValue = new Random().nextInt(Integer.MAX_VALUE);
 
 		containingAttribute = mock(TypedArray.class);
+		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
 		when(containingAttribute.getColor(eq(attributeId), anyInt()))
 				.thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
+		when(containingAttribute.hasValue(attributeId)).thenReturn(false);
 		when(missingAttribute.getColor(eq(attributeId), anyInt()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
