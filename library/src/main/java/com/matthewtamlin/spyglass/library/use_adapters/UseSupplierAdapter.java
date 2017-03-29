@@ -6,6 +6,6 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseSupplier;
 public class UseSupplierAdapter implements UseAdapter<Object, UseSupplier> {
 	@Override
 	public Object getValue(final UseSupplier annotation) {
-		return SupplierInstantiator.instantiateSupplier(annotation.value()).get();
+		return SupplierInstantiator.instantiateWildcardSupplier(annotation.value()).get();
 	}
 }
