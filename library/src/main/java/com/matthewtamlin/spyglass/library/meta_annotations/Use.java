@@ -11,5 +11,5 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
 public @interface Use {
-	Class<? extends UseAdapter> value();
+	Class<? extends UseAdapter> adapterClass();
 }
