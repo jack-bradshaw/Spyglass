@@ -1,9 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.use_adapters;
 
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
-import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseByteAdapter;
-import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 
 import org.junit.Before;
