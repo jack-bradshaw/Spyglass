@@ -18,6 +18,7 @@ import static org.mockito.Mockito.when;
 @RunWith(AndroidJUnit4.class)
 public class TestTextHandlerAdapter
 		extends TestHandlerAdapter<CharSequence, TextHandler, TextHandlerAdapter> {
+
 	private CharSequence expectedValue;
 
 	private TypedArray containingAttribute;
