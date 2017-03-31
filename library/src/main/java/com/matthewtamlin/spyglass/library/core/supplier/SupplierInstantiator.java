@@ -1,8 +1,5 @@
 package com.matthewtamlin.spyglass.library.core.supplier;
 
-import com.matthewtamlin.spyglass.library.core.SupplierInstantiationException;
-import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
-
 public class SupplierInstantiator {
 	@SuppressWarnings("TryWithIdenticalCatches") // Can't be collapsed before API 19
 	public static <T> Supplier<T> instantiateSupplier(final Class<? extends Supplier<T>> clazz) {
