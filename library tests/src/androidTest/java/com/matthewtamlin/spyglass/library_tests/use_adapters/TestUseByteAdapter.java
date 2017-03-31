@@ -1,16 +1,20 @@
 package com.matthewtamlin.spyglass.library_tests.use_adapters;
 
+import android.support.test.runner.AndroidJUnit4;
+
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseByteAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 
 import org.junit.Before;
+import org.junit.runner.RunWith;
 
 import java.lang.annotation.Annotation;
 
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(AndroidJUnit4.class)
 public class TestUseByteAdapter extends TestUseAdapter {
 	private Byte expectedValue;
 
