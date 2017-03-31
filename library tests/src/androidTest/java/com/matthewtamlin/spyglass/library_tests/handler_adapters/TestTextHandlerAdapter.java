@@ -1,11 +1,13 @@
 package com.matthewtamlin.spyglass.library_tests.handler_adapters;
 
 import android.content.res.TypedArray;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.TextHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.TextHandler;
 
 import org.junit.Before;
+import org.junit.runner.RunWith;
 
 import java.util.Random;
 
@@ -13,6 +15,7 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(AndroidJUnit4.class)
 public class TestTextHandlerAdapter
 		extends TestHandlerAdapter<CharSequence, TextHandler, TextHandlerAdapter> {
 	private CharSequence expectedValue;
