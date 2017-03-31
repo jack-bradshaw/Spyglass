@@ -44,6 +44,8 @@ public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHan
 
 	@Override
 	public boolean attributeIsMandatory(final FractionHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		return annotation.mandatory();
 	}
 }
