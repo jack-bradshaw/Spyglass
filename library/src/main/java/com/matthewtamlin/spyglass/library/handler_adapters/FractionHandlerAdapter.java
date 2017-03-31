@@ -2,12 +2,14 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 
 import android.content.res.TypedArray;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
+@Tested(testMethod = "automated")
 public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
