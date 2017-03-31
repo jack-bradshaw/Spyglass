@@ -2,10 +2,12 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 
 import android.content.res.TypedArray;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+@Tested(testMethod = "automated")
 public class IntegerHandlerAdapter implements HandlerAdapter<Integer, IntegerHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
