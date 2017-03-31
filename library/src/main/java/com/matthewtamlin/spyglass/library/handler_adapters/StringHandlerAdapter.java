@@ -32,6 +32,8 @@ public class StringHandlerAdapter implements HandlerAdapter<String, StringHandle
 
 	@Override
 	public boolean attributeIsMandatory(final StringHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		return annotation.mandatory();
 	}
 }
