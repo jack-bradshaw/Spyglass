@@ -4,11 +4,16 @@ import android.content.res.TypedArray;
 
 import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+
 public class IntegerHandlerAdapter implements HandlerAdapter<Integer, IntegerHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
 			final IntegerHandler annotation) {
+
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		// Try with different defaults and compare the results to determine if the value is present
 		final int reading1 = attrs.getInt(annotation.attributeId(), 0);
@@ -20,6 +25,9 @@ public class IntegerHandlerAdapter implements HandlerAdapter<Integer, IntegerHan
 
 	@Override
 	public Integer getAttributeValue(final TypedArray attrs, final IntegerHandler annotation) {
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		if (attributeValueIsAvailable(attrs, annotation)) {
 			return attrs.getInt(annotation.attributeId(), 0);
 		} else {
@@ -29,6 +37,8 @@ public class IntegerHandlerAdapter implements HandlerAdapter<Integer, IntegerHan
 
 	@Override
 	public boolean attributeIsMandatory(final IntegerHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		return annotation.mandatory();
 	}
 }
