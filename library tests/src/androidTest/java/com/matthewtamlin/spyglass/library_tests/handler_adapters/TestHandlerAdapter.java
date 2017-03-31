@@ -50,6 +50,11 @@ public abstract class TestHandlerAdapter<V,
 		assertThat(available, is(false));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testAttributeValueIsAvailable_nullAttrs() {
+		getAdapter().attributeValueIsAvailable(null, getAnnotationMissingMandatoryFlag());
+	}
+
 	@Test
 	public void testGetAttributeValue_valueAvailable() {
 		final V value = getAdapter().getAttributeValue(
