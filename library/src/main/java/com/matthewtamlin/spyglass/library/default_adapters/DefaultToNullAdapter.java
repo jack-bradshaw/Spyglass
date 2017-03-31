@@ -2,10 +2,12 @@ package com.matthewtamlin.spyglass.library.default_adapters;
 
 import android.content.Context;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+@Tested(testMethod = "automated")
 public class DefaultToNullAdapter implements DefaultAdapter<Void, DefaultToNull> {
 	@Override
 	public Void getDefault(final DefaultToNull annotation, final Context context) {
