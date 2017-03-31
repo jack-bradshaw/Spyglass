@@ -1,5 +1,6 @@
-package com.matthewtamlin.spyglass.library.core;
+package com.matthewtamlin.spyglass.library.core.supplier;
 
+import com.matthewtamlin.spyglass.library.core.SupplierInstantiationException;
 import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
 
 public class SupplierInstantiator {
