@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.use_adapters;
 
-import com.matthewtamlin.spyglass.library.core.Supplier;
+import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseSupplierAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseSupplier;
