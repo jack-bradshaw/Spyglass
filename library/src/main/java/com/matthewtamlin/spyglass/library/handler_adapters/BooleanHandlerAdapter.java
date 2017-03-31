@@ -2,10 +2,12 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 
 import android.content.res.TypedArray;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+@Tested(testMethod = "automated")
 public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
