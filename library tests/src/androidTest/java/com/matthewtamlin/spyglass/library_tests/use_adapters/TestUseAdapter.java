@@ -21,7 +21,7 @@ public abstract class TestUseAdapter<T, A extends Annotation> {
 		getAdapter().getClass().newInstance();
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testGetValue_nullAttributeSupplied() {
 		getAdapter().getValue(null);
 	}
