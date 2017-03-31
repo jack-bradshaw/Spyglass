@@ -4,13 +4,12 @@ import android.content.Context;
 import android.graphics.Color;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.core.Supplier;
+import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToColorSupplierAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorSupplier;
 
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
 
 import static org.mockito.Mockito.doReturn;

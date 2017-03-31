@@ -5,7 +5,7 @@ import android.content.Context;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorSupplier;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.library.core.SupplierInstantiator.instantiateSupplier;
+import static com.matthewtamlin.spyglass.library.core.supplier.SupplierInstantiator.instantiateSupplier;
 
 public class DefaultToColorSupplierAdapter
 		implements DefaultAdapter<Integer, DefaultToColorSupplier> {

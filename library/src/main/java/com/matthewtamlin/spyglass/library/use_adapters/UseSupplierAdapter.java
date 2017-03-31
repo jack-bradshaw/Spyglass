@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library.use_adapters;
 
-import com.matthewtamlin.spyglass.library.core.SupplierInstantiator;
+import com.matthewtamlin.spyglass.library.core.supplier.SupplierInstantiator;
 import com.matthewtamlin.spyglass.library.use_annotations.UseSupplier;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;

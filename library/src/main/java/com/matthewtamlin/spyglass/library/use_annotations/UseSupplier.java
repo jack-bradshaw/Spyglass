@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library.use_annotations;
 
-import com.matthewtamlin.spyglass.library.core.Supplier;
+import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 import com.matthewtamlin.spyglass.library.use_adapters.UseSupplierAdapter;
 

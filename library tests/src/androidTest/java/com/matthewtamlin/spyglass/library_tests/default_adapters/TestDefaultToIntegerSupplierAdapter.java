@@ -3,7 +3,7 @@ package com.matthewtamlin.spyglass.library_tests.default_adapters;
 import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.core.Supplier;
+import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToIntegerSupplierAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToIntegerSupplier;
 
