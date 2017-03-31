@@ -5,7 +5,7 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.core.DimensionUnit;
-import com.matthewtamlin.spyglass.library.core.Supplier;
+import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionSupplierAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimensionSupplier;
 
