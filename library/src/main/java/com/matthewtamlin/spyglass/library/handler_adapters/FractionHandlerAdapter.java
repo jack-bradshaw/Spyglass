@@ -4,6 +4,7 @@ import android.content.res.TypedArray;
 
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
@@ -12,6 +13,9 @@ public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHan
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
 			final FractionHandler annotation) {
+
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		// Try with different defaults and compare the results to determine if the value is present
 		final float reading1 = attrs.getFraction(annotation.attributeId(), 1, 1, NEGATIVE_INFINITY);
@@ -24,6 +28,9 @@ public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHan
 
 	@Override
 	public Float getAttributeValue(final TypedArray attrs, final FractionHandler annotation) {
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		if (attributeValueIsAvailable(attrs, annotation)) {
 			return attrs.getFraction(
 					annotation.attributeId(),
@@ -37,6 +44,8 @@ public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHan
 
 	@Override
 	public boolean attributeIsMandatory(final FractionHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		return annotation.mandatory();
 	}
 }
