@@ -25,6 +25,9 @@ public class IntegerHandlerAdapter implements HandlerAdapter<Integer, IntegerHan
 
 	@Override
 	public Integer getAttributeValue(final TypedArray attrs, final IntegerHandler annotation) {
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		if (attributeValueIsAvailable(attrs, annotation)) {
 			return attrs.getInt(annotation.attributeId(), 0);
 		} else {
