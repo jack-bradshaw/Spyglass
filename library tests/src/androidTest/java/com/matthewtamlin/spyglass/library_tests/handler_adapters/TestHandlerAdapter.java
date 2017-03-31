@@ -101,4 +101,9 @@ public abstract class TestHandlerAdapter<V,
 
 		assertThat(mandatory, is(false));
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAttributeIsMandatory_nullAnnotation() {
+		getAdapter().attributeIsMandatory(null);
+	}
 }
