@@ -28,6 +28,9 @@ public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHan
 
 	@Override
 	public Float getAttributeValue(final TypedArray attrs, final FractionHandler annotation) {
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		if (attributeValueIsAvailable(attrs, annotation)) {
 			return attrs.getFraction(
 					annotation.attributeId(),
