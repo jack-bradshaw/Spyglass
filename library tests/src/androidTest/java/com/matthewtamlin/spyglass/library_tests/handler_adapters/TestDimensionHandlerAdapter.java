@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.handler_adapters;
 
 import android.content.res.TypedArray;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.DimensionHandlerAdapter;
@@ -8,6 +9,7 @@ import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
 
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -21,6 +23,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
+@RunWith(AndroidJUnit4.class)
 public class TestDimensionHandlerAdapter extends TestHandlerAdapter<Float, DimensionHandler,
 		DimensionHandlerAdapter> {
 	private Float expectedValue;

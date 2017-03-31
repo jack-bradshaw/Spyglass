@@ -1,11 +1,13 @@
 package com.matthewtamlin.spyglass.library_tests.handler_adapters;
 
 import android.content.res.TypedArray;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.IntegerHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 
 import org.junit.Before;
+import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
@@ -17,6 +19,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
+@RunWith(AndroidJUnit4.class)
 public class TestIntegerHandlerAdapter extends TestHandlerAdapter<Integer, IntegerHandler,
 		IntegerHandlerAdapter> {
 
