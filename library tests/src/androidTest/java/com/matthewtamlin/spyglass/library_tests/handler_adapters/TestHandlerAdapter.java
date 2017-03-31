@@ -76,6 +76,11 @@ public abstract class TestHandlerAdapter<V,
 				getAnnotationWithMandatoryFlag());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAttributeValue_nullAttrs() {
+		getAdapter().getAttributeValue(null, getAnnotationMissingMandatoryFlag());
+	}
+
 	@Test
 	public void testAttributeIsMandatory_mandatoryFlagPresent() {
 		final boolean mandatory = getAdapter().attributeIsMandatory(
