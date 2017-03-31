@@ -19,6 +19,7 @@ import static org.mockito.Mockito.when;
 @SuppressWarnings("ResourceType")
 public class TestIntegerHandlerAdapter extends TestHandlerAdapter<Integer, IntegerHandler,
 		IntegerHandlerAdapter> {
+
 	private Integer expectedValue;
 
 	private TypedArray containingAttribute;
