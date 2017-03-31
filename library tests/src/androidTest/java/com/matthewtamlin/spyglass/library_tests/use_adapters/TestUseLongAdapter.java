@@ -28,16 +28,16 @@ public class TestUseLongAdapter extends TestUseAdapter<Long, UseLong> {
 
 	@Override
 	public Long getExpectedValue() {
-		return null;
+		return expectedValue;
 	}
 
 	@Override
 	public UseLong getAnnotation() {
-		return null;
+		return annotation;
 	}
 
 	@Override
 	public UseAdapter<Long, UseLong> getAdapter() {
-		return null;
+		return adapter;
 	}
 }
