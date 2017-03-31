@@ -20,6 +20,9 @@ public class StringHandlerAdapter implements HandlerAdapter<String, StringHandle
 
 	@Override
 	public String getAttributeValue(final TypedArray attrs, final StringHandler annotation) {
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		if (attributeValueIsAvailable(attrs, annotation)) {
 			return attrs.getString(annotation.attributeId());
 		} else {
