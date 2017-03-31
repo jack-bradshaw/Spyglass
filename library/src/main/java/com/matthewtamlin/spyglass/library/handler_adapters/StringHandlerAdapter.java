@@ -4,11 +4,16 @@ import android.content.res.TypedArray;
 
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+
 public class StringHandlerAdapter implements HandlerAdapter<String, StringHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
 			final TypedArray attrs,
 			final StringHandler annotation) {
+
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return attrs.hasValue(annotation.attributeId());
 	}
