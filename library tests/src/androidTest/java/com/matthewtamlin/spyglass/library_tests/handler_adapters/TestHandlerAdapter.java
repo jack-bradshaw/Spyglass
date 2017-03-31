@@ -50,6 +50,16 @@ public abstract class TestHandlerAdapter<V,
 		assertThat(available, is(false));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testAttributeValueIsAvailable_nullAttrs() {
+		getAdapter().attributeValueIsAvailable(null, getAnnotationMissingMandatoryFlag());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAttributeValueIsAvailable_nullAnnotation() {
+		getAdapter().attributeValueIsAvailable(getTypedArrayContainingAttribute(), null);
+	}
+
 	@Test
 	public void testGetAttributeValue_valueAvailable() {
 		final V value = getAdapter().getAttributeValue(
@@ -66,6 +76,16 @@ public abstract class TestHandlerAdapter<V,
 				getAnnotationWithMandatoryFlag());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAttributeValue_nullAttrs() {
+		getAdapter().getAttributeValue(null, getAnnotationMissingMandatoryFlag());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAttributeValue_nullAnnotation() {
+		getAdapter().getAttributeValue(getTypedArrayContainingAttribute(), null);
+	}
+
 	@Test
 	public void testAttributeIsMandatory_mandatoryFlagPresent() {
 		final boolean mandatory = getAdapter().attributeIsMandatory(
@@ -80,5 +100,10 @@ public abstract class TestHandlerAdapter<V,
 				getAnnotationMissingMandatoryFlag());
 
 		assertThat(mandatory, is(false));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAttributeIsMandatory_nullAnnotation() {
+		getAdapter().attributeIsMandatory(null);
 	}
 }
