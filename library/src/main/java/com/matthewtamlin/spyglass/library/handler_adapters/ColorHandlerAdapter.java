@@ -28,7 +28,11 @@ public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		return attrs.getColor(annotation.attributeId(), 0);
+		if (attributeValueIsAvailable(attrs, annotation)) {
+			return attrs.getColor(annotation.attributeId(), 0);
+		} else {
+			throw new RuntimeException("No attribute found for ID " + annotation.attributeId());
+		}
 	}
 
 	@Override
