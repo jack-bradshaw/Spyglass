@@ -2,12 +2,15 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 
 import android.content.res.TypedArray;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.handler_annotations.FloatHandler;
 
+import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
+@Tested(testMethod = "automated")
 public class FloatHandlerAdapter implements HandlerAdapter<Float, FloatHandler> {
 	@Override
 	public boolean attributeValueIsAvailable(
