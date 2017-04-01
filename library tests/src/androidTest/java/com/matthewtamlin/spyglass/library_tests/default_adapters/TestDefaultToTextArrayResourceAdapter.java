@@ -2,11 +2,8 @@ package com.matthewtamlin.spyglass.library_tests.default_adapters;
 
 import android.content.Context;
 
-import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToTextArrayResourceAdapter;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToTextArrayResource;
-import com.matthewtamlin.spyglass.library_tests.R;
 
 import org.junit.Before;
 
