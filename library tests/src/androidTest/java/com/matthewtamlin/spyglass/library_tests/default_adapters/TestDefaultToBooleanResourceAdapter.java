@@ -31,7 +31,7 @@ public class TestDefaultToBooleanResourceAdapter extends TestDefaultAdapter<
 	@Before
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
-		expectedDefaultValue =context.getResources().getBoolean(test_bool);
+		expectedDefaultValue = context.getResources().getBoolean(test_bool);
 		adapter = new DefaultToBooleanResourceAdapter();
 
 		annotation = mock(DefaultToBooleanResource.class);
