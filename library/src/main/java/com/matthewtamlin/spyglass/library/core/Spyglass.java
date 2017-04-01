@@ -61,7 +61,7 @@ public class Spyglass {
 		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(handlerAnnotation);
 		final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(defaultAnnotation);
 
-		if (handlerAnnotation != null && handlerAdapter != null) {
+		if (handlerAnnotation != null) {
 			if (handlerAdapter.attributeValueIsAvailable(attrSource, handlerAnnotation)) {
 				final Object value = handlerAdapter.getAttributeValue(
 						attrSource,
