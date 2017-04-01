@@ -54,7 +54,7 @@ public class TestBooleanHandlerAdapter extends TestHandlerAdapter<
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
-						// Always return the second argument since is't the default
+						// Always return the second argument since it's the default
 						return invocation.getArgumentAt(1, Boolean.class);
 					}
 				});
