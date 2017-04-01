@@ -7,7 +7,7 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseSuppliedValue;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class UseSupplierAdapter implements UseAdapter<Object, UseSuppliedValue> {
+public class UseSuppliedValueAdapter implements UseAdapter<Object, UseSuppliedValue> {
 	@Override
 	public Object getValue(final UseSuppliedValue annotation) {
 		checkNotNull(annotation, "Argument 'annotation' cannot be null.");

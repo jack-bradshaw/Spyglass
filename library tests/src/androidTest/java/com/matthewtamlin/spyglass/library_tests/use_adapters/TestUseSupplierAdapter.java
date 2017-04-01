@@ -4,7 +4,7 @@ import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
-import com.matthewtamlin.spyglass.library.use_adapters.UseSupplierAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseSuppliedValueAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseSuppliedValue;
 
 import org.junit.Before;
@@ -43,7 +43,7 @@ public class TestUseSupplierAdapter extends TestUseAdapter<Object, UseSuppliedVa
 		annotation = mock(UseSuppliedValue.class);
 		doReturn(TestSupplier.class).when(annotation).value();
 
-		adapter = new UseSupplierAdapter();
+		adapter = new UseSuppliedValueAdapter();
 	}
 
 	public static class TestSupplier implements Supplier<Object> {
