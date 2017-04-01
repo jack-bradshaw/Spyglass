@@ -73,9 +73,11 @@ public class Spyglass {
 				if (defaultAnnotation != null) {
 					final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
 
-					defaultAdapter.getDefault(
+					final Object defaultValue = defaultAdapter.getDefault(
 							defaultAnnotation,
 							view.getContext());
+
+					// Assign value to field
 
 				} else if (handlerAdapter.attributeIsMandatory(handlerAnnotation)) {
 					// throw exception
