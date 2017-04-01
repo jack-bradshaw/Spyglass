@@ -36,7 +36,6 @@ public class TestDefaultToBooleanResourceAdapter extends TestDefaultAdapter<
 
 		annotation = mock(DefaultToBooleanResource.class);
 		when(annotation.value()).thenReturn(test_bool);
-
 	}
 
 	@Override
