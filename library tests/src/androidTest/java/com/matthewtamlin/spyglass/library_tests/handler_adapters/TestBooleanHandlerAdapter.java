@@ -24,7 +24,7 @@ public class TestBooleanHandlerAdapter extends TestHandlerAdapter<
 		Boolean,
 		BooleanHandler,
 		BooleanHandlerAdapter> {
-	
+
 	private Boolean expectedValue;
 
 	private TypedArray containingAttribute;
