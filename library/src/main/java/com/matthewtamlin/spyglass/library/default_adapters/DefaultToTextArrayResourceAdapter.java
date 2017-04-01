@@ -15,6 +15,6 @@ public class DefaultToTextArrayResourceAdapter
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 		checkNotNull(context, "Argument \'context\' cannot be null.");
 
-		return context.getResources().getText(annotation.value());
+		return context.getResources().getTextArray(annotation.value());
 	}
 }
