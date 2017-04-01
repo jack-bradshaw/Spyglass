@@ -10,7 +10,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorStat
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class DefaultToColorStateListAdapter
+public class DefaultToColorStateListResourceAdapter
 		implements DefaultAdapter<ColorStateList, DefaultToColorStateListResource> {
 
 	@Override
