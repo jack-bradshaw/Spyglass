@@ -15,6 +15,8 @@ import java.lang.reflect.Method;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.core.AdapterUtil.getDefaultAdapter;
 import static com.matthewtamlin.spyglass.library.core.AdapterUtil.getHandlerAdapter;
+import static com.matthewtamlin.spyglass.library.core.AnnotationUtil.getDefaultAnnotation;
+import static com.matthewtamlin.spyglass.library.core.AnnotationUtil.getHandlerAnnotation;
 
 public class Spyglass {
 	private View view;
@@ -42,8 +44,6 @@ public class Spyglass {
 		for (final Method m : view.getClass().getDeclaredMethods()) {
 			processMethod(m);
 		}
-
-		attrSource.recycle();
 	}
 
 	private void checkMainThread() {
@@ -55,13 +55,11 @@ public class Spyglass {
 	private void processField(final Field field) {
 		field.setAccessible(true);
 
-		final Annotation handlerAnnotation = FieldUtil.getHandlerAnnotation(field);
-		final Annotation defaultAnnotation = FieldUtil.getDefaultAnnotation(field);
+		final Annotation handlerAnnotation = getHandlerAnnotation(field);
 
-		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(handlerAnnotation);
-		final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(defaultAnnotation);
+		if (handlerAnnotation != null) {
+			final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(field);
 
-		if (handlerAnnotation != null && handlerAdapter != null) {
 			if (handlerAdapter.attributeValueIsAvailable(attrSource, handlerAnnotation)) {
 				final Object value = handlerAdapter.getAttributeValue(
 						attrSource,
@@ -70,10 +68,16 @@ public class Spyglass {
 				// Assign value to field
 
 			} else {
-				if (defaultAnnotation != null && defaultAdapter != null) {
-					defaultAdapter.getDefault(
+				final Annotation defaultAnnotation = getDefaultAnnotation(field);
+
+				if (defaultAnnotation != null) {
+					final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
+
+					final Object defaultValue = defaultAdapter.getDefault(
 							defaultAnnotation,
 							view.getContext());
+
+					// Assign value to field
 
 				} else if (handlerAdapter.attributeIsMandatory(handlerAnnotation)) {
 					// throw exception
@@ -85,31 +89,29 @@ public class Spyglass {
 	private void processMethod(final Method method) {
 		method.setAccessible(true);
 
-		final Annotation handlerAnnotation = MethodUtil.getHandlerAnnotation(method);
-		final Annotation defaultAnnotation = MethodUtil.getDefaultAnnotation(method);
+		final Annotation handlerAnnotation = getHandlerAnnotation(method);
 
-		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(handlerAnnotation);
-		final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(defaultAnnotation);
+		if (handlerAnnotation != null) {
+			final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
 
-		if (handlerAnnotation != null && handlerAdapter != null) {
 			if (handlerAdapter.attributeValueIsAvailable(attrSource, handlerAnnotation)) {
 				final Object value = handlerAdapter.getAttributeValue(
 						attrSource,
 						handlerAnnotation);
 
-				// Get extra arguments using @Use annotations
-
-				// Call method with value
+				// call method
 
 			} else {
-				if (defaultAnnotation != null && defaultAdapter != null) {
-					defaultAdapter.getDefault(
+				final Annotation defaultAnnotation = getDefaultAnnotation(method);
+
+				if (defaultAnnotation != null) {
+					final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(method);
+
+					final Object defaultValue = defaultAdapter.getDefault(
 							defaultAnnotation,
 							view.getContext());
 
-					// Get extra arguments using @Use annotations
-
-					// Call method with value
+					// call method
 
 				} else if (handlerAdapter.attributeIsMandatory(handlerAnnotation)) {
 					// throw exception
