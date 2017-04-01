@@ -20,8 +20,11 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestBooleanHandlerAdapter extends TestHandlerAdapter<Boolean, BooleanHandler,
+public class TestBooleanHandlerAdapter extends TestHandlerAdapter<
+		Boolean,
+		BooleanHandler,
 		BooleanHandlerAdapter> {
+	
 	private Boolean expectedValue;
 
 	private TypedArray containingAttribute;
