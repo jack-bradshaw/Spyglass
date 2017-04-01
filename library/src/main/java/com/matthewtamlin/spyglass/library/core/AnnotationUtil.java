@@ -47,4 +47,12 @@ public class AnnotationUtil {
 
 		return null;
 	}
+
+	public static void validateAnnotations(final Field field) {
+		//TODO
+	}
+
+	public static void validateAnnotations(final Method method) {
+		//TODO
+	}
 }
