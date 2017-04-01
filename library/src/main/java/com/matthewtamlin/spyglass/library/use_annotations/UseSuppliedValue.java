@@ -12,6 +12,6 @@ import java.lang.annotation.Target;
 @Use(adapterClass = UseSupplierAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
-public @interface UseSupplier {
+public @interface UseSuppliedValue {
 	Class<? extends Supplier<?>> value();
 }
