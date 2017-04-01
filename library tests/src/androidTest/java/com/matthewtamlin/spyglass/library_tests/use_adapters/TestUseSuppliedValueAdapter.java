@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.library_tests.use_adapters;
 
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
+import com.matthewtamlin.spyglass.library.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseSuppliedValueAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseSuppliedValue;
