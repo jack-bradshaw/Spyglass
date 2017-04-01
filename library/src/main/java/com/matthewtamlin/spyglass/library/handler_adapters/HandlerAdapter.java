@@ -5,13 +5,13 @@ import android.content.res.TypedArray;
 import java.lang.annotation.Annotation;
 
 /**
- * Accepts a set of attributes and a handler annotation specifying values to load from the
- * attributes.
+ * Interfaces with a handler annotation to provide information about the annotation itself, and
+ * give access to attribute values defined by the annotation.
  *
  * @param <T>
- * 		the type of data loaded by this adapter
+ * 		the type of attribute data this adapter provides access to
  * @param <A>
- * 		the type of annotation to load
+ * 		the type of annotation accepted by this adapter
  */
 public interface HandlerAdapter<T, A extends Annotation> {
 	public boolean attributeValueIsAvailable(TypedArray attrs, A annotation);
