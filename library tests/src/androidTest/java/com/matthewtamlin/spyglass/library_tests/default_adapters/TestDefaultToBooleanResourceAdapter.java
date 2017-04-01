@@ -1,18 +1,14 @@
 package com.matthewtamlin.spyglass.library_tests.default_adapters;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToBooleanResourceAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
-import com.matthewtamlin.spyglass.library_tests.R;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
-
-import java.util.Random;
 
 import static com.matthewtamlin.spyglass.library_tests.R.bool.test_bool;
 import static org.mockito.Mockito.mock;
@@ -35,7 +31,7 @@ public class TestDefaultToBooleanResourceAdapter extends TestDefaultAdapter<
 	@Before
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
-		expectedDefaultValue =context.getResources().getBoolean(test_bool);
+		expectedDefaultValue = context.getResources().getBoolean(test_bool);
 		adapter = new DefaultToBooleanResourceAdapter();
 
 		annotation = mock(DefaultToBooleanResource.class);

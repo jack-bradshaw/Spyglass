@@ -19,8 +19,10 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
-public class TestFloatHandlerAdapter
-		extends TestHandlerAdapter<Float, FloatHandler, FloatHandlerAdapter> {
+public class TestFloatHandlerAdapter extends TestHandlerAdapter<
+		Float,
+		FloatHandler,
+		FloatHandlerAdapter> {
 
 	private Float expectedValue;
 
