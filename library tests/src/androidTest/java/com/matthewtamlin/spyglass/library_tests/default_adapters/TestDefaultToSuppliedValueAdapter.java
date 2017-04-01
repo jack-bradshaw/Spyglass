@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.library_tests.default_adapters;
 
 import android.content.Context;
 
-import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
+import com.matthewtamlin.spyglass.library.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToSuppliedValueAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToSuppliedValue;
 

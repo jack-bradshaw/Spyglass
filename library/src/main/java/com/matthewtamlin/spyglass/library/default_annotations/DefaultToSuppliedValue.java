@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library.default_annotations;
 
-import com.matthewtamlin.spyglass.library.core.supplier.Supplier;
+import com.matthewtamlin.spyglass.library.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToSuppliedValueAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 
