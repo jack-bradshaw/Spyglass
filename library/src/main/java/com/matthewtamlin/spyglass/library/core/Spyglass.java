@@ -54,11 +54,12 @@ public class Spyglass {
 
 	private void processField(final Field field) {
 		field.setAccessible(true);
-		
-		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(handlerAnnotation);
-		final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(defaultAnnotation);
 
-		if (getHandlerAnnotation(field) != null) {
+		final Annotation handlerAnnotation = getHandlerAnnotation(field);
+
+		if (handlerAnnotation != null) {
+			final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(field);
+
 			if (handlerAdapter.attributeValueIsAvailable(attrSource, handlerAnnotation)) {
 				final Object value = handlerAdapter.getAttributeValue(
 						attrSource,
@@ -67,7 +68,11 @@ public class Spyglass {
 				// Assign value to field
 
 			} else {
-				if (getDefaultAnnotation(field) != null) {
+				final Annotation defaultAnnotation = getDefaultAnnotation(field);
+
+				if (defaultAnnotation != null) {
+					final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
+
 					defaultAdapter.getDefault(
 							defaultAnnotation,
 							view.getContext());
