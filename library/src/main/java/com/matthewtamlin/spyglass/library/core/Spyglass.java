@@ -44,8 +44,6 @@ public class Spyglass {
 		for (final Method m : view.getClass().getDeclaredMethods()) {
 			processMethod(m);
 		}
-
-		attrSource.recycle();
 	}
 
 	private void checkMainThread() {
