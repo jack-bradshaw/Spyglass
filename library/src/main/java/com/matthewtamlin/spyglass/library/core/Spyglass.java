@@ -15,6 +15,8 @@ import java.lang.reflect.Method;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.core.AdapterUtil.getDefaultAdapter;
 import static com.matthewtamlin.spyglass.library.core.AdapterUtil.getHandlerAdapter;
+import static com.matthewtamlin.spyglass.library.core.AnnotationUtil.getDefaultAnnotation;
+import static com.matthewtamlin.spyglass.library.core.AnnotationUtil.getHandlerAnnotation;
 
 public class Spyglass {
 	private View view;
@@ -55,8 +57,8 @@ public class Spyglass {
 	private void processField(final Field field) {
 		field.setAccessible(true);
 
-		final Annotation handlerAnnotation = FieldUtil.getHandlerAnnotation(field);
-		final Annotation defaultAnnotation = FieldUtil.getDefaultAnnotation(field);
+		final Annotation handlerAnnotation = getHandlerAnnotation(field);
+		final Annotation defaultAnnotation = getDefaultAnnotation(field);
 
 		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(handlerAnnotation);
 		final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(defaultAnnotation);
@@ -85,8 +87,8 @@ public class Spyglass {
 	private void processMethod(final Method method) {
 		method.setAccessible(true);
 
-		final Annotation handlerAnnotation = MethodUtil.getHandlerAnnotation(method);
-		final Annotation defaultAnnotation = MethodUtil.getDefaultAnnotation(method);
+		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+		final Annotation defaultAnnotation = getDefaultAnnotation(method);
 
 		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(handlerAnnotation);
 		final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(defaultAnnotation);
