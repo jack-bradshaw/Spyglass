@@ -24,8 +24,11 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestDimensionHandlerAdapter extends TestHandlerAdapter<Float, DimensionHandler,
+public class TestDimensionHandlerAdapter extends TestHandlerAdapter<
+		Float,
+		DimensionHandler,
 		DimensionHandlerAdapter> {
+
 	private Float expectedValue;
 
 	private TypedArray containingAttribute;

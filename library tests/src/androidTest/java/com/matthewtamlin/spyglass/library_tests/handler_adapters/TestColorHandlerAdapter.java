@@ -20,8 +20,11 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestColorHandlerAdapter extends TestHandlerAdapter<Integer, ColorHandler,
+public class TestColorHandlerAdapter extends TestHandlerAdapter<
+		Integer,
+		ColorHandler,
 		ColorHandlerAdapter> {
+
 	private Integer expectedValue;
 
 	private TypedArray containingAttribute;

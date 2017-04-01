@@ -18,8 +18,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
-public class TestTextArrayHandlerAdapter
-		extends TestHandlerAdapter<CharSequence[], TextArrayHandler, TextArrayHandlerAdapter> {
+public class TestTextArrayHandlerAdapter extends TestHandlerAdapter<
+		CharSequence[],
+		TextArrayHandler,
+		TextArrayHandlerAdapter> {
+
 	private CharSequence[] expectedValue;
 
 	private TypedArray containingAttribute;
