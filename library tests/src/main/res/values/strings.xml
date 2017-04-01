@@ -1,4 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<string name="test_string">When does a heap of Strings become a rope?</string>
+
+	<string-array name="test_string_array">
+		<item>String1</item>
+		<item>String2</item>
+		<item>String3</item>
+		<item>String4</item>
+	</string-array>
 </resources>
