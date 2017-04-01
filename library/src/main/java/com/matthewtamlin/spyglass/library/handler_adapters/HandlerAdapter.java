@@ -5,12 +5,13 @@ import android.content.res.TypedArray;
 import java.lang.annotation.Annotation;
 
 /**
- * Interfaces between a Handler annotation and a set of Android view attributes.
+ * Accepts a set of attributes and a handler annotation specifying values to load from the
+ * attributes.
  *
  * @param <T>
- * 		the data type the view attribute maps to
+ * 		the type of data loaded by this adapter
  * @param <A>
- * 		the type of annotation to interface with
+ * 		the type of annotation to load
  */
 public interface HandlerAdapter<T, A extends Annotation> {
 	public boolean attributeValueIsAvailable(TypedArray attrs, A annotation);
