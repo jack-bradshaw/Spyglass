@@ -6,7 +6,7 @@ import java.lang.annotation.Annotation;
 
 /**
  * Interfaces with a handler annotation to provide information about the annotation itself, and
- * give access to attribute values defined by the annotation.
+ * gives access to attribute values defined by the annotation.
  *
  * @param <T>
  * 		the type of attribute data this adapter provides access to
