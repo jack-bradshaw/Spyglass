@@ -18,9 +18,9 @@ public class AnnotationUtil {
 		return null;
 	}
 
-	public static Annotation getDefaultAnnotation(final Field field) {
-		for (final Annotation a : field.getDeclaredAnnotations()) {
-			if (a.annotationType().isAnnotationPresent(Default.class)) {
+	public static Annotation getHandlerAnnotation(final Method method) {
+		for (final Annotation a : method.getDeclaredAnnotations()) {
+			if (a.annotationType().isAnnotationPresent(Handler.class)) {
 				return a;
 			}
 		}
@@ -28,9 +28,9 @@ public class AnnotationUtil {
 		return null;
 	}
 
-	public static Annotation getHandlerAnnotation(final Method method) {
-		for (final Annotation a : method.getDeclaredAnnotations()) {
-			if (a.annotationType().isAnnotationPresent(Handler.class)) {
+	public static Annotation getDefaultAnnotation(final Field field) {
+		for (final Annotation a : field.getDeclaredAnnotations()) {
+			if (a.annotationType().isAnnotationPresent(Default.class)) {
 				return a;
 			}
 		}
