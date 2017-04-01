@@ -5,7 +5,7 @@ import android.content.res.ColorStateList;
 import android.support.test.InstrumentationRegistry;
 import android.support.v4.content.ContextCompat;
 
-import com.matthewtamlin.spyglass.library.default_adapters.DefaultToColorStateListAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToColorStateListResourceAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorStateListResource;
 
 import org.junit.Before;
@@ -17,13 +17,13 @@ import static org.mockito.Mockito.when;
 public class TestDefaultToColorStateListResourceAdapter extends TestDefaultAdapter<
 		ColorStateList,
 		DefaultToColorStateListResource,
-		DefaultToColorStateListAdapter> {
+		DefaultToColorStateListResourceAdapter> {
 
 	private Context context;
 
 	private ColorStateList expectedDefaultValue;
 
-	private DefaultToColorStateListAdapter adapter;
+	private DefaultToColorStateListResourceAdapter adapter;
 
 	private DefaultToColorStateListResource annotation;
 
@@ -31,7 +31,7 @@ public class TestDefaultToColorStateListResourceAdapter extends TestDefaultAdapt
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
 		expectedDefaultValue = ContextCompat.getColorStateList(context, color_state_list);
-		adapter = new DefaultToColorStateListAdapter();
+		adapter = new DefaultToColorStateListResourceAdapter();
 
 		annotation = mock(DefaultToColorStateListResource.class);
 		when(annotation.value()).thenReturn(color_state_list);
@@ -48,7 +48,7 @@ public class TestDefaultToColorStateListResourceAdapter extends TestDefaultAdapt
 	}
 
 	@Override
-	public DefaultToColorStateListAdapter getAdapter() {
+	public DefaultToColorStateListResourceAdapter getAdapter() {
 		return adapter;
 	}
 
