@@ -14,7 +14,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 
 @RunWith(AndroidJUnit4.class)
-public class TestUseSupplierAdapter extends TestUseAdapter<Object, UseSuppliedValue> {
+public class TestUseSuppliedValueAdapter extends TestUseAdapter<Object, UseSuppliedValue> {
 	private static Object expectedValue;
 
 	private UseSuppliedValue annotation;
