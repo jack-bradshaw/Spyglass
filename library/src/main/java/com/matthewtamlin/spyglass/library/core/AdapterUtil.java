@@ -6,15 +6,20 @@ import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 
 import java.lang.annotation.Annotation;
+import java.lang.reflect.Field;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @SuppressWarnings("TryWithIdenticalCatches") // Can't actually collapse blocks until API 19
 public class AdapterUtil {
 	public static HandlerAdapter<?, Annotation> getHandlerAdapter(
-			final Annotation handlerAnnotation) {
+			final Field field) {
 
-		checkNotNull(handlerAnnotation, "Argument \'handlerAnnotation\' cannot be null.");
+		checkNotNull(field, "Argument \'field\' cannot be null.");
+
+		final Annotation handlerAnnotation = AnnotationUtil.getHandlerAnnotation(field);
+
+		checkNotNull(handlerAnnotation, "The supplied field does not have a handler annotation.");
 
 		final Class<? extends HandlerAdapter> clazz = handlerAnnotation
 				.annotationType()
@@ -36,9 +41,13 @@ public class AdapterUtil {
 	}
 
 	public static DefaultAdapter<?, Annotation> getDefaultAdapter(
-			final Annotation defaultAnnotation) {
+			final Field field) {
 
-		checkNotNull(defaultAnnotation, "Argument \'defaultAnnotation\' cannot be null.");
+		checkNotNull(field, "Argument \'field\' cannot be null.");
+
+		final Annotation defaultAnnotation = AnnotationUtil.getDefaultAnnotation(field);
+
+		checkNotNull(defaultAnnotation, "The supplied field does not have a default annotation.");
 
 		final Class<? extends DefaultAdapter> clazz = defaultAnnotation
 				.annotationType()
