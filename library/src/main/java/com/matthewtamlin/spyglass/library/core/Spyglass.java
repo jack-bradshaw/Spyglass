@@ -87,39 +87,7 @@ public class Spyglass {
 	}
 
 	private void processMethod(final Method method) {
-		method.setAccessible(true);
-
-		final Annotation handlerAnnotation = getHandlerAnnotation(method);
-		final Annotation defaultAnnotation = getDefaultAnnotation(method);
-
-		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(handlerAnnotation);
-		final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(defaultAnnotation);
-
-		if (handlerAnnotation != null && handlerAdapter != null) {
-			if (handlerAdapter.attributeValueIsAvailable(attrSource, handlerAnnotation)) {
-				final Object value = handlerAdapter.getAttributeValue(
-						attrSource,
-						handlerAnnotation);
-
-				// Get extra arguments using @Use annotations
-
-				// Call method with value
-
-			} else {
-				if (defaultAnnotation != null && defaultAdapter != null) {
-					defaultAdapter.getDefault(
-							defaultAnnotation,
-							view.getContext());
-
-					// Get extra arguments using @Use annotations
-
-					// Call method with value
-
-				} else if (handlerAdapter.attributeIsMandatory(handlerAnnotation)) {
-					// throw exception
-				}
-			}
-		}
+		
 	}
 
 	public static Builder builder(final View view) {
