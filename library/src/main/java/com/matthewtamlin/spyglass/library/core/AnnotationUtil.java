@@ -56,9 +56,4 @@ public class AnnotationUtil {
 	public static void validateAnnotations(final Method method) {
 		//TODO
 	}
-
-	public static Map<Integer, Object> getArgumentsFromUseAnnotations(final Method method) {
-		//TODO
-		return null;
-	}
 }
