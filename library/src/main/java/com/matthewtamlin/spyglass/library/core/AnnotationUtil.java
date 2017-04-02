@@ -2,10 +2,14 @@ package com.matthewtamlin.spyglass.library.core;
 
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
+import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Map;
+
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class AnnotationUtil {
 	public static Annotation getHandlerAnnotation(final Field field) {
@@ -54,5 +58,10 @@ public class AnnotationUtil {
 
 	public static void validateAnnotations(final Method method) {
 		//TODO
+	}
+
+	public static Map<Integer, Object> unwrapUseAnnotations(final Method method) {
+		//TODO
+		return null;
 	}
 }
