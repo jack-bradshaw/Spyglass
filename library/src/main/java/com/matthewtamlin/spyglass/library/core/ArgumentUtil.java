@@ -15,6 +15,8 @@ public class ArgumentUtil {
 	}
 
 	public static Integer getIndexOfUnannotatedArg(final Method method) {
+		checkNotNull(method, "Argument \'method\' cannot be null.");
+
 		// Iterate over the each method parameter
 		for (Annotation[] annotationsOnParam : method.getParameterAnnotations()) {
 			// Iterate over each annotation on a single parameter
