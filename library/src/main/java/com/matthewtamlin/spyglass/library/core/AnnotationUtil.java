@@ -59,5 +59,6 @@ public class AnnotationUtil {
 
 	public Map<Integer, Object> getArgumentsFromUseAnnotations(final Method method) {
 		//TODO
+		return null;
 	}
 }
