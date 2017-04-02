@@ -6,6 +6,7 @@ import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 public class AnnotationUtil {
 	public static Annotation getHandlerAnnotation(final Field field) {
