@@ -8,4 +8,9 @@ public class ArgumentUtil {
 		//TODO
 		return null;
 	}
+
+	public static Integer getIndexOfUnannotatedArg(final Method method) {
+		//TODO
+		return null;
+	}
 }
