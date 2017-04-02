@@ -13,9 +13,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @SuppressWarnings("TryWithIdenticalCatches") // Can't actually collapse blocks until API 19
 public class AdapterUtil {
-	public static HandlerAdapter<?, Annotation> getHandlerAdapter(
-			final Field field) {
-
+	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Field field) {
 		checkNotNull(field, "Argument \'field\' cannot be null.");
 
 		final Annotation handlerAnnotation = AnnotationUtil.getHandlerAnnotation(field);
@@ -41,9 +39,7 @@ public class AdapterUtil {
 		}
 	}
 
-	public static HandlerAdapter<?, Annotation> getHandlerAdapter(
-			final Method method) {
-
+	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Method method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		final Annotation handlerAnnotation = AnnotationUtil.getHandlerAnnotation(method);
@@ -69,9 +65,7 @@ public class AdapterUtil {
 		}
 	}
 
-	public static DefaultAdapter<?, Annotation> getDefaultAdapter(
-			final Field field) {
-
+	public static DefaultAdapter<?, Annotation> getDefaultAdapter(final Field field) {
 		checkNotNull(field, "Argument \'field\' cannot be null.");
 
 		final Annotation defaultAnnotation = AnnotationUtil.getDefaultAnnotation(field);
@@ -97,9 +91,7 @@ public class AdapterUtil {
 		}
 	}
 
-	public static DefaultAdapter<?, Annotation> getDefaultAdapter(
-			final Method method) {
-
+	public static DefaultAdapter<?, Annotation> getDefaultAdapter(final Method method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		final Annotation defaultAnnotation = AnnotationUtil.getDefaultAnnotation(method);
