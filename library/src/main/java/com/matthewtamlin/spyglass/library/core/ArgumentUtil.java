@@ -30,7 +30,7 @@ public class ArgumentUtil {
 		return null;
 	}
 
-	public static Integer countArguments(final Method method) {
+	public static Integer countArgs(final Method method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		return method.getParameterTypes().length;
