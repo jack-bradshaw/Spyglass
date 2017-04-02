@@ -1,5 +1,8 @@
 package com.matthewtamlin.spyglass.library.core;
 
+import com.matthewtamlin.spyglass.library.meta_annotations.Use;
+
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -12,7 +15,18 @@ public class ArgumentUtil {
 	}
 
 	public static Integer getIndexOfUnannotatedArg(final Method method) {
-		//TODO
+		// Iterate over the each method parameter
+		for (Annotation[] annotationsOnParam : method.getParameterAnnotations()) {
+			// Iterate over each annotation on a single parameter
+			for (Annotation annotation : annotationsOnParam) {
+				if (annotation.annotationType().isAnnotationPresent(Use.class)) {
+					// The parameter has a Use annotation, so move to the next parameter
+					break;
+				}
+			}
+		}
+
+		// All parameters are annotated with a Use annotation
 		return null;
 	}
 
