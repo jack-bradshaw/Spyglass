@@ -4,7 +4,7 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 public class ArgumentUtil {
-	public static Map<Integer, Object> getArgumentsFromUseAnnotations(final Method method) {
+	public static Map<Integer, Object> getArgsFromUseAnnotations(final Method method) {
 		//TODO
 		return null;
 	}
