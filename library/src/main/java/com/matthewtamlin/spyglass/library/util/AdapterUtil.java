@@ -70,17 +70,17 @@ public class AdapterUtil {
 
 		checkNotNull(defaultAnnotation, "The supplied field does not have a default annotation.");
 
-		final Class<? extends DefaultAdapter> clazz = defaultAnnotation
+		final Class<? extends DefaultAdapter> adapterClass = defaultAnnotation
 				.annotationType()
 				.getAnnotation(Default.class)
 				.adapterClass();
 
 		try {
-			return clazz.newInstance();
+			return adapterClass.newInstance();
 		} catch (final InstantiationException e) {
-			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
 		}
 	}
 
