@@ -53,7 +53,9 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_noHandlerAnnotations() {
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(1));
 
+		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
@@ -152,6 +154,9 @@ public class TestAdapterUtil {
 		@FieldTag(2)
 		@BooleanHandler(attributeId = 1)
 		private Object field2;
+
+		@MethodTag(1)
+		private void method1() {}
 	}
 
 	@Target(ElementType.FIELD)
