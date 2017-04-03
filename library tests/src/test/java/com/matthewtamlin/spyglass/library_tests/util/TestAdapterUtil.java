@@ -1,8 +1,11 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 
+import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -15,7 +18,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
 
@@ -35,7 +40,10 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(2));
 
+		assertThat(adapter, is(not(nullValue())));
+		assertThat(adapter, instanceOf(BooleanHandlerAdapter.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -140,6 +148,10 @@ public class TestAdapterUtil {
 	private static class TestClass {
 		@FieldTag(1)
 		private Field field1;
+
+		@FieldTag(2)
+		@BooleanHandler(attributeId = 1)
+		private Object field2;
 	}
 
 	@Target(ElementType.FIELD)
