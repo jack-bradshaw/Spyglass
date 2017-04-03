@@ -16,10 +16,12 @@ public class TestAdapterUtil {
 		AdapterUtil.getHandlerAdapter((Field) null);
 	}
 
+	@Test
 	public void testGetHandlerAdapter_fieldVariant_noHandlerAnnotations() {
 
 	}
 
+	@Test
 	public void testGetHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
 
 	}
@@ -29,10 +31,12 @@ public class TestAdapterUtil {
 		AdapterUtil.getHandlerAdapter((Method) null);
 	}
 
+	@Test
 	public void testGetHandlerAdapter_methodVariant_noHandlerAnnotations() {
 
 	}
 
+	@Test
 	public void testGetHandlerAdapter_methodVariant_oneHandlerAnnotation() {
 
 	}
@@ -42,10 +46,12 @@ public class TestAdapterUtil {
 		AdapterUtil.getDefaultAdapter((Field) null);
 	}
 
+	@Test
 	public void testGetDefaultAdapter_fieldVariant_noDefaultAnnotations() {
 
 	}
 
+	@Test
 	public void testGetDefaultAdapter_fieldVariant_oneDefaultAnnotation() {
 
 	}
@@ -55,10 +61,12 @@ public class TestAdapterUtil {
 		AdapterUtil.getDefaultAdapter((Method) null);
 	}
 
+	@Test
 	public void testGetDefaultAdapter_methodVariant_noDefaultAnnotations() {
 
 	}
 
+	@Test
 	public void testGetHandlerAdapter_methodVariant_oneDefaultAnnotation() {
 
 	}
