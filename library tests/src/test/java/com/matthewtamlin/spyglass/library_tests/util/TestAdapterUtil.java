@@ -1,8 +1,11 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
+import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 
 import org.hamcrest.core.IsInstanceOf;
@@ -60,7 +63,10 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_oneHandlerAnnotation() {
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(2));
 
+		assertThat(adapter, is(not(nullValue())));
+		assertThat(adapter, instanceOf(DrawableHandlerAdapter.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -157,6 +163,10 @@ public class TestAdapterUtil {
 
 		@MethodTag(1)
 		private void method1() {}
+
+		@MethodTag(2)
+		@DrawableHandler(attributeId = 10)
+		private Object method2() {}
 	}
 
 	@Target(ElementType.FIELD)
