@@ -105,8 +105,7 @@ public class AdapterUtil {
 	}
 
 	public static Map<Integer, UseAdapter<?, Annotation>> getUseAdapters(
-			final Method method,
-			final int index) {
+			final Method method) {
 
 		// Get annotations for all methods in the class
 		final Annotation[][] annotationsByParam = method.getParameterAnnotations();
