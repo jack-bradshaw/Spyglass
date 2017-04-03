@@ -24,9 +24,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_fieldVariant_noHandlerAnnotations() {
-		final Field[] field = TestClass.class.getDeclaredFields();
-
-		AdapterUtil.getHandlerAdapter()
+		
 	}
 
 	@Test
@@ -134,7 +132,7 @@ public class TestAdapterUtil {
 	}
 
 	private static class TestClass {
-		
+
 	}
 
 	@Target(ElementType.FIELD)
