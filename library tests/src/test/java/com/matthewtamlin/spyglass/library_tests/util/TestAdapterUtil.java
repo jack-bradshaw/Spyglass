@@ -4,11 +4,9 @@ import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter
 import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 
-import org.hamcrest.core.IsInstanceOf;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -20,7 +18,6 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -166,7 +163,7 @@ public class TestAdapterUtil {
 
 		@MethodTag(2)
 		@DrawableHandler(attributeId = 10)
-		private Object method2() {}
+		private Object method2() {return null;}
 	}
 
 	@Target(ElementType.FIELD)
