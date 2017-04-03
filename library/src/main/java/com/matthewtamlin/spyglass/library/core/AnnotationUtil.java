@@ -3,11 +3,14 @@ package com.matthewtamlin.spyglass.library.core;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
+import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
@@ -60,8 +63,32 @@ public class AnnotationUtil {
 		//TODO
 	}
 
-	public static Map<Integer, Object> unwrapUseAnnotations(final Method method) {
-		//TODO
+	public static TreeMap<Integer, Annotation> getUseAnnotations(final Method method) {
+		final Map<Integer, Annotation> useAnnotationsByIndex = new TreeMap<>();
+
+		final Annotation[][] annotationsByParam = method.getParameterAnnotations();
+
+		for (int i = 0; i < annotationsByParam.length; i++) {
+			final Annotation[] singleParamAnnotations  = annotationsByParam[i];
+			final Annotation useAnnotation = getUseAnnotationForMethodParam(singleParamAnnotations);
+
+			if (useAnnotation != null) {
+				useAnnotationsByIndex.put(i, useAnnotation);
+			}
+		}
+
+		return useAnnotationsByIndex;
+	}
+
+	private static Annotation getUseAnnotationForMethodParam(final Annotation[] annotations) {
+		for (final Annotation a : annotations) {
+			final Use useAnnotation = a.annotationType().getAnnotation(Use.class);
+
+			if (useAnnotation != null) {
+				return a;
+			}
+		}
+
 		return null;
 	}
 }
