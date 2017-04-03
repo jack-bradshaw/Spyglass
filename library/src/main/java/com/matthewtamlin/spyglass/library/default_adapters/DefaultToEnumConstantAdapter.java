@@ -3,7 +3,7 @@ package com.matthewtamlin.spyglass.library.default_adapters;
 import android.content.Context;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.library.core.EnumUtil;
+import com.matthewtamlin.spyglass.library.util.EnumUtil;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
