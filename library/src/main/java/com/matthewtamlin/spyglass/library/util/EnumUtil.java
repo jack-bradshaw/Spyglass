@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.core;
+package com.matthewtamlin.spyglass.library.util;
 
 public class EnumUtil {
 	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal) {
