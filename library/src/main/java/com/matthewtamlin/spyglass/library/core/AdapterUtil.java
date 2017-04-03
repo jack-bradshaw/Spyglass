@@ -108,6 +108,24 @@ public class AdapterUtil {
 	public static Map<Integer, UseAdapter<?, Annotation>> getUseAdapters(
 			final Method method) {
 
-		
+		final Map<Integer, UseAdapter<?, Annotation>> adapters = new HashMap<>();
+
+		final Map<Integer, Annotation> useAnnotations = getUseAnnotations(method);
+
+		for (final Integer i : useAnnotations.keySet()) {
+			final Class<? extends UseAdapter> adapterClass = useAnnotations
+					.get(i)
+					.annotationType()
+					.getAnnotation(Use.class)
+					.adapterClass();
+
+			try {
+				adapters.put(i, adapterClass.newInstance());
+			} catch (final Exception e) {
+				throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
+			}
+		}
+
+		return adapters;
 	}
 }
