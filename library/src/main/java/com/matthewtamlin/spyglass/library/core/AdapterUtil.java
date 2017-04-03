@@ -14,6 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+import static com.matthewtamlin.spyglass.library.core.AnnotationUtil.getUseAnnotations;
 
 @SuppressWarnings("TryWithIdenticalCatches") // Can't actually collapse blocks until API 19
 public class AdapterUtil {
@@ -107,25 +108,6 @@ public class AdapterUtil {
 	public static Map<Integer, UseAdapter<?, Annotation>> getUseAdapters(
 			final Method method) {
 
-		// Get annotations for all methods in the class
-		final Annotation[][] annotationsByParam = method.getParameterAnnotations();
-
-		// Iterate over the annotations for the specific parameter of interest
-		for (final Annotation annotation : annotationsByParam[index]) {
-			// May be null
-			final Use useAnnotation = annotation.annotationType().getAnnotation(Use.class);
-
-			if (useAnnotation != null) {
-				final Class<? extends UseAdapter> adapterClass = useAnnotation.adapterClass();
-
-				try {
-					return adapterClass.newInstance();
-				} catch (Exception e) {
-					throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
-				}
-			}
-		}
-
-		return null;
+		
 	}
 }
