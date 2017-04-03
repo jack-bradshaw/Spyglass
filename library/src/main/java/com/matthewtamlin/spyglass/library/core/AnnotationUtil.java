@@ -63,7 +63,7 @@ public class AnnotationUtil {
 		//TODO
 	}
 
-	public static TreeMap<Integer, Annotation> getUseAnnotations(final Method method) {
+	public static Map<Integer, Annotation> getUseAnnotations(final Method method) {
 		final Map<Integer, Annotation> useAnnotationsByIndex = new TreeMap<>();
 
 		final Annotation[][] annotationsByParam = method.getParameterAnnotations();
