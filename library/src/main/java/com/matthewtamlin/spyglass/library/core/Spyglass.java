@@ -7,16 +7,17 @@ import android.view.View;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.library.core.AdapterUtil.getDefaultAdapter;
-import static com.matthewtamlin.spyglass.library.core.AdapterUtil.getHandlerAdapter;
-import static com.matthewtamlin.spyglass.library.core.AnnotationUtil.getDefaultAnnotation;
-import static com.matthewtamlin.spyglass.library.core.AnnotationUtil.getHandlerAnnotation;
+import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
+import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getHandlerAdapter;
+import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
+import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 
 public class Spyglass {
 	private View view;

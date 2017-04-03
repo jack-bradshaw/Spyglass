@@ -1,18 +1,26 @@
-package com.matthewtamlin.spyglass.library.core;
+package com.matthewtamlin.spyglass.library.util;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
+import com.matthewtamlin.spyglass.library.meta_annotations.Use;
+import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getUseAnnotations;
 
 @SuppressWarnings("TryWithIdenticalCatches") // Can't actually collapse blocks until API 19
 public class AdapterUtil {
+	private static final String EXCEPTION_MESSAGE = "Could not instantiate class %1$s. " +
+			"Does the class have a public no-arg constructor?";
+
 	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Field field) {
 		checkNotNull(field, "Argument \'field\' cannot be null.");
 
@@ -25,17 +33,12 @@ public class AdapterUtil {
 				.getAnnotation(Handler.class)
 				.adapterClass();
 
-		final String exceptionMessage = String.format(
-				"Could not instantiate HandlerAdapter from class %1$s. Does the class have a " +
-						"public no-arg constructor?",
-				clazz.getName());
-
 		try {
 			return clazz.newInstance();
 		} catch (final InstantiationException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		}
 	}
 
@@ -51,17 +54,12 @@ public class AdapterUtil {
 				.getAnnotation(Handler.class)
 				.adapterClass();
 
-		final String exceptionMessage = String.format(
-				"Could not instantiate HandlerAdapter from class %1$s. Does the class have a " +
-						"public no-arg constructor?",
-				clazz.getName());
-
 		try {
 			return clazz.newInstance();
 		} catch (final InstantiationException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		}
 	}
 
@@ -77,17 +75,12 @@ public class AdapterUtil {
 				.getAnnotation(Default.class)
 				.adapterClass();
 
-		final String exceptionMessage = String.format(
-				"Could not instantiate DefaultAdapter from class %1$s. Does the class have a " +
-						"public no-arg constructor?",
-				clazz.getName());
-
 		try {
 			return clazz.newInstance();
 		} catch (final InstantiationException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		}
 	}
 
@@ -103,17 +96,36 @@ public class AdapterUtil {
 				.getAnnotation(Default.class)
 				.adapterClass();
 
-		final String exceptionMessage = String.format(
-				"Could not instantiate DefaultAdapter from class %1$s. Does the class have a " +
-						"public no-arg constructor?",
-				clazz.getName());
-
 		try {
 			return clazz.newInstance();
 		} catch (final InstantiationException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		}
+	}
+
+	public static Map<Integer, UseAdapter<?, Annotation>> getUseAdapters(
+			final Method method) {
+
+		final Map<Integer, UseAdapter<?, Annotation>> adapters = new HashMap<>();
+
+		final Map<Integer, Annotation> useAnnotations = getUseAnnotations(method);
+
+		for (final Integer i : useAnnotations.keySet()) {
+			final Class<? extends UseAdapter> adapterClass = useAnnotations
+					.get(i)
+					.annotationType()
+					.getAnnotation(Use.class)
+					.adapterClass();
+
+			try {
+				adapters.put(i, adapterClass.newInstance());
+			} catch (final Exception e) {
+				throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
+			}
+		}
+
+		return adapters;
 	}
 }
