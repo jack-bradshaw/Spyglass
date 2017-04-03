@@ -121,7 +121,9 @@ public class AdapterUtil {
 
 			try {
 				adapters.put(i, adapterClass.newInstance());
-			} catch (final Exception e) {
+			} catch (final InstantiationException e) {
+				throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
+			} catch (final IllegalAccessException e) {
 				throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
 			}
 		}
