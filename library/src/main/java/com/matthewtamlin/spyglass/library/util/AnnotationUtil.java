@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.core;
+package com.matthewtamlin.spyglass.library.util;
 
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
