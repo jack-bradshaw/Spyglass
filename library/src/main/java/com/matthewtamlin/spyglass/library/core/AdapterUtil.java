@@ -17,6 +17,9 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @SuppressWarnings("TryWithIdenticalCatches") // Can't actually collapse blocks until API 19
 public class AdapterUtil {
+	private static final String EXCEPTION_MESSAGE = "Could not instantiate %1$s from class %1$s. " +
+			"Does the class have a public no-arg constructor?";
+
 	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Field field) {
 		checkNotNull(field, "Argument \'field\' cannot be null.");
 
