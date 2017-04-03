@@ -32,17 +32,12 @@ public class AdapterUtil {
 				.getAnnotation(Handler.class)
 				.adapterClass();
 
-		final String exceptionMessage = String.format(
-				"Could not instantiate HandlerAdapter from class %1$s. Does the class have a " +
-						"public no-arg constructor?",
-				clazz.getName());
-
 		try {
 			return clazz.newInstance();
 		} catch (final InstantiationException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		}
 	}
 
@@ -58,17 +53,12 @@ public class AdapterUtil {
 				.getAnnotation(Handler.class)
 				.adapterClass();
 
-		final String exceptionMessage = String.format(
-				"Could not instantiate HandlerAdapter from class %1$s. Does the class have a " +
-						"public no-arg constructor?",
-				clazz.getName());
-
 		try {
 			return clazz.newInstance();
 		} catch (final InstantiationException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		}
 	}
 
@@ -84,16 +74,12 @@ public class AdapterUtil {
 				.getAnnotation(Default.class)
 				.adapterClass();
 
-		final String exceptionMessage = String.format(
-				"Could not instantiate DefaultAdapter from class %1$s. Does the class have a " +
-						"public no-arg constructor?",
-				clazz.getName());
-
 		try {
 			return clazz.newInstance();
 		} catch (final InstantiationException e) {
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		}
 	}
 
@@ -109,17 +95,12 @@ public class AdapterUtil {
 				.getAnnotation(Default.class)
 				.adapterClass();
 
-		final String exceptionMessage = String.format(
-				"Could not instantiate DefaultAdapter from class %1$s. Does the class have a " +
-						"public no-arg constructor?",
-				clazz.getName());
-
 		try {
 			return clazz.newInstance();
 		} catch (final InstantiationException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException(exceptionMessage, e);
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, clazz), e);
 		}
 	}
 
@@ -141,12 +122,7 @@ public class AdapterUtil {
 				try {
 					return adapterClass.newInstance();
 				} catch (Exception e) {
-					throw new RuntimeException(
-							String.format(
-									"Could not instantiate UseAdapter from class %1$s. Does the " +
-											"class have a public no-arg constructor?",
-									adapterClass),
-							e);
+					throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
 				}
 			}
 		}
