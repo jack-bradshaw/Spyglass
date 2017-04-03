@@ -64,7 +64,7 @@ public class AnnotationUtil {
 	}
 
 	public static Map<Integer, Annotation> getUseAnnotations(final Method method) {
-		final Map<Integer, Annotation> useAnnotationsByIndex = new TreeMap<>();
+		final Map<Integer, Annotation> useAnnotationsByIndex = new HashMap<>();
 
 		final Annotation[][] annotationsByParam = method.getParameterAnnotations();
 
