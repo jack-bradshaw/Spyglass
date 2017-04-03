@@ -3,16 +3,12 @@ package com.matthewtamlin.spyglass.library.util;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
-import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.TreeMap;
-
-import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class AnnotationUtil {
 	public static Annotation getHandlerAnnotation(final Field field) {
@@ -55,11 +51,11 @@ public class AnnotationUtil {
 		return null;
 	}
 
-	public static void validateAnnotations(final Field field) {
+	public static void validateAnnotations(final Field field) throws SpyglassValidationException {
 		//TODO
 	}
 
-	public static void validateAnnotations(final Method method) {
+	public static void validateAnnotations(final Method method) throws SpyglassValidationException {
 		//TODO
 	}
 
@@ -69,7 +65,7 @@ public class AnnotationUtil {
 		final Annotation[][] annotationsByParam = method.getParameterAnnotations();
 
 		for (int i = 0; i < annotationsByParam.length; i++) {
-			final Annotation[] singleParamAnnotations  = annotationsByParam[i];
+			final Annotation[] singleParamAnnotations = annotationsByParam[i];
 			final Annotation useAnnotation = getUseAnnotationForMethodParam(singleParamAnnotations);
 
 			if (useAnnotation != null) {
