@@ -1,14 +1,19 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.util.AdapterUtil;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 @RunWith(JUnit4.class)
 public class TestAdapterUtil {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAdapter_fieldVariant_nullField() {
-
+		AdapterUtil.getHandlerAdapter((Field) null);
 	}
 
 	public void testGetHandlerAdapter_fieldVariant_noHandlerAnnotations() {
@@ -21,7 +26,7 @@ public class TestAdapterUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAdapter_methodVariant_nullMethod() {
-
+		AdapterUtil.getHandlerAdapter((Method) null);
 	}
 
 	public void testGetHandlerAdapter_methodVariant_noHandlerAnnotations() {
@@ -34,7 +39,7 @@ public class TestAdapterUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetDefaultAdapter_fieldVariant_nullField() {
-
+		AdapterUtil.getDefaultAdapter((Field) null);
 	}
 
 	public void testGetDefaultAdapter_fieldVariant_noDefaultAnnotations() {
@@ -47,7 +52,7 @@ public class TestAdapterUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetDefaultAdapter_methodVariant_nullMethod() {
-
+		AdapterUtil.getDefaultAdapter((Method) null);
 	}
 
 	public void testGetDefaultAdapter_methodVariant_noDefaultAnnotations() {
@@ -60,7 +65,7 @@ public class TestAdapterUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetUseAdapters_nullMethod() {
-
+		AdapterUtil.getUseAdapters(null);
 	}
 
 	@Test
