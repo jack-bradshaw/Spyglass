@@ -13,8 +13,8 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.library.core.AdapterUtil.getDefaultAdapter;
-import static com.matthewtamlin.spyglass.library.core.AdapterUtil.getHandlerAdapter;
+import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
+import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getHandlerAdapter;
 import static com.matthewtamlin.spyglass.library.core.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.core.AnnotationUtil.getHandlerAnnotation;
 
