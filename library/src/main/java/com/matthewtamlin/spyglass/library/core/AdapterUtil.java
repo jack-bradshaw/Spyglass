@@ -4,10 +4,14 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
+import com.matthewtamlin.spyglass.library.meta_annotations.Use;
+import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
@@ -115,5 +119,36 @@ public class AdapterUtil {
 		} catch (final IllegalAccessException e) {
 			throw new RuntimeException(exceptionMessage, e);
 		}
+	}
+
+	public static UseAdapter<?, Annotation> getUseAdapterForParam(
+			final Method method,
+			final int index) {
+
+		// Get annotations for all methods in the class
+		final Annotation[][] annotationsByParam = method.getParameterAnnotations();
+
+		// Iterate over the annotations for the specific parameter of interest
+		for (final Annotation annotation : annotationsByParam[index]) {
+			// May be null
+			final Use useAnnotation = annotation.annotationType().getAnnotation(Use.class);
+
+			if (useAnnotation != null) {
+				final Class<? extends UseAdapter> adapterClass = useAnnotation.adapterClass();
+
+				try {
+					return adapterClass.newInstance();
+				} catch (Exception e) {
+					throw new RuntimeException(
+							String.format(
+									"Could not instantiate UseAdapter from class %1$s. Does the " +
+											"class have a public no-arg constructor?",
+									adapterClass),
+							e);
+				}
+			}
+		}
+
+		return null;
 	}
 }
