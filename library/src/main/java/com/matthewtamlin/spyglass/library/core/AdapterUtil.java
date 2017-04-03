@@ -104,7 +104,7 @@ public class AdapterUtil {
 		}
 	}
 
-	public static UseAdapter<?, Annotation> getUseAdapterForParam(
+	public static Map<Integer, UseAdapter<?, Annotation>> getUseAdapterForParam(
 			final Method method,
 			final int index) {
 
