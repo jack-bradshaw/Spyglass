@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 
 import org.junit.Test;
@@ -14,6 +15,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.nullValue;
+import static org.junit.Assert.assertThat;
 
 @RunWith(JUnit4.class)
 public class TestAdapterUtil {
@@ -24,7 +28,9 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_fieldVariant_noHandlerAnnotations() {
-		
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(1));
+
+		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
@@ -132,7 +138,8 @@ public class TestAdapterUtil {
 	}
 
 	private static class TestClass {
-
+		@FieldTag(1)
+		private Field field1;
 	}
 
 	@Target(ElementType.FIELD)
