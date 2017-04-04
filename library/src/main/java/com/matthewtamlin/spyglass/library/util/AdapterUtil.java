@@ -105,10 +105,10 @@ public class AdapterUtil {
 		}
 	}
 
-	public static Map<Integer, UseAdapter<?, Annotation>> getUseAdapters(
+	public static Map<Integer, UseAdapter> getUseAdapters(
 			final Method method) {
 
-		final Map<Integer, UseAdapter<?, Annotation>> adapters = new HashMap<>();
+		final Map<Integer, UseAdapter> adapters = new HashMap<>();
 
 		final Map<Integer, Annotation> useAnnotations = getUseAnnotations(method);
 
