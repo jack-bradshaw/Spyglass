@@ -173,6 +173,11 @@ public class TestAdapterUtil {
 		@DefaultToString("default string")
 		private Object field2;
 
+		@FieldTag(3)
+		@BooleanHandler(attributeId = 3)
+		@DefaultToString("default string")
+		private Object field3;
+
 		@MethodTag(1)
 		private void method1() {}
 
