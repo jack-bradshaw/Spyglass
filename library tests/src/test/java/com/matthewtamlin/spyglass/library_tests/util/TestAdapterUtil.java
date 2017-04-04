@@ -169,7 +169,7 @@ public class TestAdapterUtil {
 		private Field field1;
 
 		@FieldTag(2)
-		@BooleanHandler(attributeId = 1)
+		@BooleanHandler(attributeId = 2)
 		private Object field2;
 
 		@FieldTag(3)
