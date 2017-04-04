@@ -191,6 +191,7 @@ public class TestAdapterUtil {
 		throw new RuntimeException("No method found with tag index " + tagValue);
 	}
 
+	@SuppressWarnings("unused")
 	private static class TestClass {
 		@FieldTag(1)
 		private Field field1;
