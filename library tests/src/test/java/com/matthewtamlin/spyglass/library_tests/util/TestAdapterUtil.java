@@ -14,6 +14,8 @@ import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
+import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 
 import org.junit.Test;
@@ -216,6 +218,13 @@ public class TestAdapterUtil {
 		@MethodTag(6)
 		@ColorHandler(attributeId = 6)
 		private void method6(@UseBoolean(false) final int i) {}
+
+		@MethodTag(7)
+		@ColorHandler(attributeId = 7)
+		private void method7(
+				@UseBoolean(false) final int i,
+				@UseChar(0) final char c,
+				@UseString("string") final String s) {}
 	}
 
 	@Target(ElementType.FIELD)
