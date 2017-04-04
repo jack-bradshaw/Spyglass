@@ -184,6 +184,11 @@ public class TestAdapterUtil {
 		@DrawableHandler(attributeId = 10)
 		@DefaultToDimension(value = 10, unit = DP)
 		private Object method2(int i) {return null;}
+
+		@MethodTag(3)
+		@DrawableHandler(attributeId = 3)
+		@DefaultToDimension(value = 10, unit = DP)
+		private Object method3(int i) {return null;}
 	}
 
 	@Target(ElementType.FIELD)
