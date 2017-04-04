@@ -97,12 +97,14 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_methodVariant_noDefaultAnnotations() {
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(1));
 
+		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_oneDefaultAnnotation() {
-
+		
 	}
 
 	@Test(expected = IllegalArgumentException.class)
