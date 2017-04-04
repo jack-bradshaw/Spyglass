@@ -104,7 +104,10 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_oneDefaultAnnotation() {
-		
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(2));
+
+		assertThat(adapter, is(not(nullValue())));
+		assertThat(adapter, instanceOf(DefaultToDimension.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
