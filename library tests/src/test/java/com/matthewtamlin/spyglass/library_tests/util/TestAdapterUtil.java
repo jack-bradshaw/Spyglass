@@ -170,7 +170,6 @@ public class TestAdapterUtil {
 
 		@FieldTag(2)
 		@BooleanHandler(attributeId = 1)
-		@DefaultToString("default string")
 		private Object field2;
 
 		@FieldTag(3)
