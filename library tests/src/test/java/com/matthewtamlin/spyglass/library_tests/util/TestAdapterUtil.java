@@ -7,7 +7,11 @@ import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter
 import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 
 import org.junit.Test;
@@ -188,6 +192,18 @@ public class TestAdapterUtil {
 		@DrawableHandler(attributeId = 3)
 		@DefaultToDimension(value = 10, unit = DP)
 		private Object method3(int i) {return null;}
+
+		@MethodTag(4)
+		@StringHandler(attributeId = 4)
+		private void method4() {}
+
+		@MethodTag(5)
+		@FractionHandler(attributeId = 5)
+		private void method5(final int i) {}
+
+		@MethodTag(6)
+		@ColorHandler(attributeId = 6)
+		private void method6(final int i) {}
 	}
 
 	@Target(ElementType.FIELD)
