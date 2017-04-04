@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
@@ -159,6 +160,7 @@ public class TestAdapterUtil {
 
 		@FieldTag(2)
 		@BooleanHandler(attributeId = 1)
+		@DefaultToString("default string")
 		private Object field2;
 
 		@MethodTag(1)
