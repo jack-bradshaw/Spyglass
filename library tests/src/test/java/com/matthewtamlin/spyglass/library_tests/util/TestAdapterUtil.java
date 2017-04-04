@@ -182,7 +182,6 @@ public class TestAdapterUtil {
 
 		@MethodTag(2)
 		@DrawableHandler(attributeId = 10)
-		@DefaultToDimension(value = 10, unit = DP)
 		private Object method2(int i) {return null;}
 
 		@MethodTag(3)
