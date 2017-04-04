@@ -9,7 +9,6 @@ import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
@@ -22,7 +21,6 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
