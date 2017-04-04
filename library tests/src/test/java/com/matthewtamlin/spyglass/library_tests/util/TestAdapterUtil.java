@@ -3,7 +3,6 @@ package com.matthewtamlin.spyglass.library_tests.util;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToSuppliedValue;
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
@@ -22,6 +21,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -175,7 +175,8 @@ public class TestAdapterUtil {
 
 		@MethodTag(2)
 		@DrawableHandler(attributeId = 10)
-		private Object method2() {return null;}
+		@DefaultToDimension(value = 10, unit = DP)
+		private Object method2(int i) {return null;}
 	}
 
 	@Target(ElementType.FIELD)
