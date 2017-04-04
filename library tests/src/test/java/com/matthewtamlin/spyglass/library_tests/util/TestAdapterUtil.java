@@ -12,6 +12,7 @@ import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 
@@ -19,14 +20,17 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Map;
 
 import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
+import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getUseAdapters;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -117,22 +121,29 @@ public class TestAdapterUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetUseAdapters_nullMethod() {
-		AdapterUtil.getUseAdapters(null);
+		getUseAdapters(null);
 	}
 
 	@Test
 	public void testGetUseAdapters_noArguments() {
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(4));
 
+		assertThat(adapters.isEmpty(), is(true));
 	}
 
 	@Test
 	public void testGetUseAdapters_oneArgument_noUseAnnotations() {
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(5));
 
+		assertThat(adapters.isEmpty(), is(true));
 	}
 
 	@Test
 	public void testGetUseAdapters_oneArgument_oneUseAnnotation() {
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(6));
 
+		assertThat(adapters.size(), is(1));
+		assertThat(adapters.get(0).getClass(), instanceOf(UseBoolean.class));
 	}
 
 	@Test
