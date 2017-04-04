@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
@@ -73,7 +74,9 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_fieldVariant_noDefaultAnnotations() {
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(1));
 
+		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
