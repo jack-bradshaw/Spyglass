@@ -159,7 +159,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_threeUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(7));
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(8));
 
 		assertThat(adapters.size(), is(3));
 		assertThat(adapters.get(0).getClass(), instanceOf(UseBoolean.class));
