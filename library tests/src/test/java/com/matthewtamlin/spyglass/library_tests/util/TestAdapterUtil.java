@@ -224,7 +224,7 @@ public class TestAdapterUtil {
 		private void method7(
 				@UseBoolean(false) final int i,
 				@UseChar(0) final char c,
-				@UseString("string") final String s) {}
+				final String s) {}
 
 		@MethodTag(8)
 		@ColorHandler(attributeId = 8)
