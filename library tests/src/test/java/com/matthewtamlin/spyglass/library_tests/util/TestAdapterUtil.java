@@ -181,7 +181,7 @@ public class TestAdapterUtil {
 		private void method1() {}
 
 		@MethodTag(2)
-		@DrawableHandler(attributeId = 10)
+		@DrawableHandler(attributeId = 2)
 		private Object method2(int i) {return null;}
 
 		@MethodTag(3)
