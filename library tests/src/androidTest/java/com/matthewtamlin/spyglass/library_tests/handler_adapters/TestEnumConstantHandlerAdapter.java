@@ -12,6 +12,7 @@ import org.mockito.stubbing.Answer;
 
 import java.util.Random;
 
+import static android.R.attr.value;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -84,76 +85,6 @@ public class TestEnumConstantHandlerAdapter {
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
 		EnumConstantHandlerAdapter.class.newInstance();
-	}
-
-	@Test
-	public void testAttributeValueIsAvailable_valueAvailableAndCorrectOrdinal() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				containingAttributeWithCorrectOrdinal,
-				annotation);
-
-		assertThat(available, is(true));
-	}
-
-	@Test
-	public void testAttributeValueIsAvailable_valueAvailableAndWrongOrdinal() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				containingAttributeWithWrongOrdinal,
-				annotation);
-
-		assertThat(available, is(false));
-	}
-
-	@Test
-	public void testAttributeValueIsAvailable_valueMissing() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				missingAttribute,
-				annotation);
-
-		assertThat(available, is(false));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeValueIsAvailable_nullAttrs() {
-		adapter.attributeValueIsAvailable(null, annotation);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeValueIsAvailable_nullAnnotation() {
-		adapter.attributeValueIsAvailable(containingAttributeWithCorrectOrdinal, null);
-	}
-
-	@Test
-	public void testGetAttributeValue_valueAvailableAndCorrectOrdinal() {
-		final Object value = adapter.getAttributeValue(
-				containingAttributeWithCorrectOrdinal,
-				annotation);
-
-		assertThat(value, is(nullValue()));
-	}
-
-	@Test(expected = RuntimeException.class)
-	public void testGetAttributeValue_valueAvailableAndWrongOrdinal() {
-		adapter.getAttributeValue(
-				containingAttributeWithWrongOrdinal,
-				annotation);
-	}
-
-	@Test(expected = RuntimeException.class)
-	public void testGetAttributeValue_valueMissing() {
-		adapter.getAttributeValue(
-				missingAttribute,
-				annotation);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeValue_nullAttrs() {
-		adapter.getAttributeValue(null, annotation);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeValue_nullAnnotation() {
-		adapter.getAttributeValue(containingAttributeWithCorrectOrdinal, null);
 	}
 
 	@Test
