@@ -21,7 +21,7 @@ public class DimensionHandlerAdapter implements HandlerAdapter<Float, DimensionH
 				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				// Compare two different results to see if the default is consistently returned
-				float reading1 = array.getDimension(
+				final float reading1 = array.getDimension(
 						annotation.attributeId(),
 						NEGATIVE_INFINITY);
 				final float reading2 = array.getDimension(
