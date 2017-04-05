@@ -88,6 +88,50 @@ public class TestEnumHandlerAdapter {
 		adapter.getClass().newInstance();
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_nullAnnotation() {
+		adapter.getAccessor(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_callValueExistsInArray_nullSupplied() {
+		adapter.getAccessor(withMandatoryFlag).valueExistsInArray(null);
+	}
+
+	@Test
+	public void testGetAccessor_callValueExistsInArray_valueAvailable() {
+		final boolean result = adapter.getAccessor(withMandatoryFlag)
+				.valueExistsInArray(containingAttribute);
+
+		assertThat(result, is(true));
+	}
+
+	@Test
+	public void testGetAccessor_callValueExistsInArray_valueMissing() {
+		final boolean result = adapter.getAccessor(withMandatoryFlag)
+				.valueExistsInArray(missingAttribute);
+
+		assertThat(result, is(false));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_callGetValueFromArray_nullSupplied() {
+		adapter.getAccessor(withMandatoryFlag).getValueFromArray(null);
+	}
+
+	@Test
+	public void testGetAccessor_callGetValueFromArray_valueAvailable() {
+		final Enum value = adapter.getAccessor(withMandatoryFlag)
+				.getValueFromArray(containingAttribute);
+
+		assertThat(value, is(expectedValue));
+	}
+
+	@Test(expected = RuntimeException.class)
+	public void testGetAccessor_callGetValueFromArray_valueMissing() {
+		adapter.getAccessor(withMandatoryFlag).getValueFromArray(missingAttribute);
+	}
+
 	@Test
 	public void testAttributeIsMandatory_mandatoryFlagPresent() {
 		final boolean mandatory = adapter.attributeIsMandatory(withMandatoryFlag);
