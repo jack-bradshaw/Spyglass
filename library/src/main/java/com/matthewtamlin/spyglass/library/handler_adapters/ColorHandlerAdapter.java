@@ -32,7 +32,7 @@ public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler
 				if (valueExistsInArray(array)) {
 					return array.getColor(annotation.attributeId(), 0);
 				} else {
-					throw new RuntimeException("No attribute found at index " +
+					throw new RuntimeException("No attribute found for attribute ID " +
 							annotation.attributeId());
 				}
 			}
