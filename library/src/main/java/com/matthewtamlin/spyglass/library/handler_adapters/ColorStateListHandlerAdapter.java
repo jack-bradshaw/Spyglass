@@ -12,8 +12,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 public class ColorStateListHandlerAdapter
 		implements HandlerAdapter<ColorStateList, ColorStateListHandler> {
 	@Override
-	public TypedArrayAccessor<ColorStateList> getAccessor(
-			final ColorStateListHandler annotation) {
+	public TypedArrayAccessor<ColorStateList> getAccessor(final ColorStateListHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return new TypedArrayAccessor<ColorStateList>() {
