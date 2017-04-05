@@ -34,9 +34,32 @@ public interface HandlerAdapter<T, A extends Annotation> {
 	 */
 	public boolean attributeIsMandatory(A annotation);
 
+	/**
+	 * Accesses specific data in a TypedArray.
+	 *
+	 * @param <T>
+	 * 		the type of the accessed data
+	 */
 	public interface TypedArrayAccessor<T> {
+		/**
+		 * Determines whether or not the supplied typed array contains the specific data of
+		 * interest.
+		 *
+		 * @param array
+		 * 		the array to check, not null
+		 *
+		 * @return true if the data is contained in the array, false otherwise
+		 */
 		public boolean valueExistsInArray(TypedArray array);
 
+		/**
+		 * Gets the specific data from the supplied typed array.
+		 *
+		 * @param array
+		 * 		the array to access
+		 *
+		 * @return the data
+		 */
 		public T getValueFromArray(TypedArray array);
 	}
 }
