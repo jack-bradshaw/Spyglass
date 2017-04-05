@@ -12,32 +12,37 @@ import static java.lang.Float.POSITIVE_INFINITY;
 @Tested(testMethod = "automated")
 public class DimensionHandlerAdapter implements HandlerAdapter<Float, DimensionHandler> {
 	@Override
-	public boolean attributeValueIsAvailable(
-			final TypedArray attrs,
-			final DimensionHandler annotation) {
-
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+	public TypedArrayAccessor<Float> getAccessor(final DimensionHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		// Try with different defaults and compare the results to determine if the value is present
-		final float reading1 = attrs.getDimension(annotation.attributeId(), NEGATIVE_INFINITY);
-		final float reading2 = attrs.getDimension(annotation.attributeId(), POSITIVE_INFINITY);
-		final boolean defaultConsistentlyReturned =
-				(reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+		return new TypedArrayAccessor<Float>() {
+			@Override
+			public boolean valueExistsInArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'attrs\' cannot be null.");
 
-		return !defaultConsistentlyReturned;
-	}
+				// Compare two different results to see if the default is consistently returned
+				float reading1 = array.getDimension(
+						annotation.attributeId(),
+						NEGATIVE_INFINITY);
+				final float reading2 = array.getDimension(
+						annotation.attributeId(),
+						POSITIVE_INFINITY);
 
-	@Override
-	public Float getAttributeValue(final TypedArray attrs, final DimensionHandler annotation) {
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+				return (reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+			}
 
-		if (attributeValueIsAvailable(attrs, annotation)) {
-			return attrs.getDimension(annotation.attributeId(), 0f);
-		} else {
-			throw new RuntimeException("No attribute found for ID " + annotation.attributeId());
-		}
+			@Override
+			public Float getValueFromArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+
+				if (valueExistsInArray(array)) {
+					return array.getDimension(annotation.attributeId(), 0f);
+				} else {
+					throw new RuntimeException("No attribute found for attribute ID " +
+							annotation.attributeId());
+				}
+			}
+		};
 	}
 
 	@Override
