@@ -43,7 +43,7 @@ public class TestAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAnnotation_methodVariant_nullMethod() {
-
+		getHandlerAnnotation((Method) null);
 	}
 
 	@Test
