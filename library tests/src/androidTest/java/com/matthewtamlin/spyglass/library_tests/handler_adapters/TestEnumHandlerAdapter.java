@@ -14,6 +14,7 @@ import org.mockito.stubbing.Answer;
 
 import java.util.Random;
 
+import static android.R.attr.value;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.anyInt;
@@ -87,38 +88,48 @@ public class TestEnumHandlerAdapter {
 		adapter.getClass().newInstance();
 	}
 
-	@Test
-	public void testAttributeValueIsAvailable_valueAvailable() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				containingAttribute,
-				withMandatoryFlag);
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_nullAnnotation() {
+		adapter.getAccessor(null);
+	}
 
-		assertThat(available, is(true));
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_callValueExistsInArray_nullSupplied() {
+		adapter.getAccessor(withMandatoryFlag).valueExistsInArray(null);
 	}
 
 	@Test
-	public void testAttributeValueIsAvailable_valueMissing() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				missingAttribute,
-				withMandatoryFlag);
+	public void testGetAccessor_callValueExistsInArray_valueAvailable() {
+		final boolean result = adapter.getAccessor(withMandatoryFlag)
+				.valueExistsInArray(containingAttribute);
 
-		assertThat(available, is(false));
+		assertThat(result, is(true));
 	}
 
 	@Test
-	public void testGetAttributeValue_valueAvailable() {
-		final Enum value = adapter.getAttributeValue(
-				containingAttribute,
-				withMandatoryFlag);
+	public void testGetAccessor_callValueExistsInArray_valueMissing() {
+		final boolean result = adapter.getAccessor(withMandatoryFlag)
+				.valueExistsInArray(missingAttribute);
+
+		assertThat(result, is(false));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_callGetValueFromArray_nullSupplied() {
+		adapter.getAccessor(withMandatoryFlag).getValueFromArray(null);
+	}
+
+	@Test
+	public void testGetAccessor_callGetValueFromArray_valueAvailable() {
+		final Enum value = adapter.getAccessor(withMandatoryFlag)
+				.getValueFromArray(containingAttribute);
 
 		assertThat(value, is(expectedValue));
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void testGetAttributeValue_valueMissing() {
-		adapter.getAttributeValue(
-				missingAttribute,
-				withMandatoryFlag);
+	public void testGetAccessor_callGetValueFromArray_valueMissing() {
+		adapter.getAccessor(withMandatoryFlag).getValueFromArray(missingAttribute);
 	}
 
 	@Test
