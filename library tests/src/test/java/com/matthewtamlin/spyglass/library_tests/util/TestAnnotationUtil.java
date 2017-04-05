@@ -13,6 +13,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.nullValue;
@@ -22,19 +23,19 @@ import static org.mockito.AdditionalMatchers.not;
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAnnotation_fieldVariant_nullField() {
-		AnnotationUtil.getHandlerAnnotation((Field) null);
+		getHandlerAnnotation((Field) null);
 	}
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_noAnnotation() {
-		final Annotation annotation = AnnotationUtil.getHandlerAnnotation(getFieldWithTag(1));
+		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(1));
 
 		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = AnnotationUtil.getHandlerAnnotation(getFieldWithTag(1));
+		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(1));
 
 		assertThat(annotation, is(not(nullValue())));
 		assertThat(annotation.getClass(), instanceOf(BooleanHandler.class));
