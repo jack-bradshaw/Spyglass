@@ -101,7 +101,7 @@ public class TestAnnotationUtil {
 	}
 
 
-	private Field getFieldWithTag(final int tagValue) {
+	private static Field getFieldWithTag(final int tagValue) {
 		for (final Field f : TestClass.class.getDeclaredFields()) {
 			final FieldTag tag = f.getAnnotation(FieldTag.class);
 
@@ -113,7 +113,7 @@ public class TestAnnotationUtil {
 		throw new RuntimeException("No field found with tag index " + tagValue);
 	}
 
-	private Method getMethodWithTag(final int tagValue) {
+	private static Method getMethodWithTag(final int tagValue) {
 		for (final Method m : TestClass.class.getDeclaredMethods()) {
 			final MethodTag tag = m.getAnnotation(MethodTag.class);
 
@@ -127,18 +127,18 @@ public class TestAnnotationUtil {
 
 	@SuppressWarnings("unused")
 	private static class TestClass {
-		
+
 	}
 
 	@Target(ElementType.FIELD)
 	@Retention(RetentionPolicy.RUNTIME)
-	private @interface FieldTag {
+	private static @interface FieldTag {
 		int value();
 	}
 
 	@Target(ElementType.METHOD)
 	@Retention(RetentionPolicy.RUNTIME)
-	private @interface MethodTag {
+	private static @interface MethodTag {
 		int value();
 	}
 }
