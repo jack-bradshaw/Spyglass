@@ -22,7 +22,7 @@ public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler
 				final int reading1 = array.getColor(annotation.attributeId(), 0);
 				final int reading2 = array.getColor(annotation.attributeId(), 1);
 
-				return (reading1 == 0) && (reading2 == 1);
+				return (reading1 != 0) || (reading2 != 1);
 			}
 
 			@Override
