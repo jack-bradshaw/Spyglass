@@ -1,5 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
+
 import org.junit.Test;
 
 import java.lang.annotation.ElementType;
@@ -12,7 +14,7 @@ import java.lang.reflect.Method;
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAnnotation_fieldVariant_nullField() {
-
+		AnnotationUtil.getHandlerAnnotation((Field) null);
 	}
 
 	@Test
