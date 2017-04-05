@@ -143,7 +143,7 @@ public class TestAdapterUtil {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(6));
 
 		assertThat(adapters.size(), is(1));
-		assertThat(adapters.get(0).getClass(), instanceOf(UseBoolean.class));
+		assertThat(adapters.get(0), instanceOf(UseBoolean.class));
 	}
 
 	@Test
@@ -151,8 +151,8 @@ public class TestAdapterUtil {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(7));
 
 		assertThat(adapters.size(), is(2));
-		assertThat(adapters.get(0).getClass(), instanceOf(UseBoolean.class));
-		assertThat(adapters.get(1).getClass(), instanceOf(UseChar.class));
+		assertThat(adapters.get(0), instanceOf(UseBoolean.class));
+		assertThat(adapters.get(1), instanceOf(UseChar.class));
 	}
 
 	@Test
@@ -160,9 +160,9 @@ public class TestAdapterUtil {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(8));
 
 		assertThat(adapters.size(), is(3));
-		assertThat(adapters.get(0).getClass(), instanceOf(UseBoolean.class));
-		assertThat(adapters.get(1).getClass(), instanceOf(UseChar.class));
-		assertThat(adapters.get(2).getClass(), instanceOf(UseString.class));
+		assertThat(adapters.get(0), instanceOf(UseBoolean.class));
+		assertThat(adapters.get(1), instanceOf(UseChar.class));
+		assertThat(adapters.get(2), instanceOf(UseString.class));
 	}
 
 	private Field getFieldWithTag(final int tagValue) {
