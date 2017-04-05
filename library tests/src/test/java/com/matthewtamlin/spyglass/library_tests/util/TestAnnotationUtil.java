@@ -4,12 +4,17 @@ import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
 
 import org.junit.Test;
 
+import java.lang.annotation.Annotation;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
 
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
@@ -19,7 +24,9 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_noAnnotation() {
+		final Annotation annotation = AnnotationUtil.getHandlerAnnotation(getFieldWithTag(1));
 
+		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
@@ -129,7 +136,8 @@ public class TestAnnotationUtil {
 
 	@SuppressWarnings("unused")
 	private static class TestClass {
-
+		@FieldTag(1)
+		private Object field1;
 	}
 
 	@Target(ElementType.FIELD)
