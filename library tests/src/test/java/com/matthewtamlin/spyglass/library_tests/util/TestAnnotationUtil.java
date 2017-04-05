@@ -93,7 +93,10 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetDefaultAnnotation_methodVariant_annotationPresent() {
+		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(3));
 
+		assertThat(annotation, is(not(nullValue())));
+		assertThat(annotation, instanceOf(StringHandler.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -159,6 +162,11 @@ public class TestAnnotationUtil {
 		@FieldTag(2)
 		@BooleanHandler(attributeId = 2)
 		private Boolean field2;
+
+		@FieldTag(3)
+		@StringHandler(attributeId = 3)
+		@DefaultToString("something")
+		private String field3;
 
 		@MethodTag(1)
 		private void method1() {}
