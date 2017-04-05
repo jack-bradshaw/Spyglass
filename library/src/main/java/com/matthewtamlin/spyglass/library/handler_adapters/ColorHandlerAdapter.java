@@ -16,7 +16,7 @@ public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler
 		return new TypedArrayAccessor<Integer>() {
 			@Override
 			public boolean valueExistsInArray(final TypedArray array) {
-				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				// Compare two different results to see if the default is consistently returned
 				final int reading1 = array.getColor(annotation.attributeId(), 0);
@@ -27,7 +27,7 @@ public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler
 
 			@Override
 			public Integer getValueFromArray(final TypedArray array) {
-				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				if (valueExistsInArray(array)) {
 					return array.getColor(annotation.attributeId(), 0);

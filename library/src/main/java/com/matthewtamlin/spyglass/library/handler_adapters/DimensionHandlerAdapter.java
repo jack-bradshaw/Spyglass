@@ -18,7 +18,7 @@ public class DimensionHandlerAdapter implements HandlerAdapter<Float, DimensionH
 		return new TypedArrayAccessor<Float>() {
 			@Override
 			public boolean valueExistsInArray(final TypedArray array) {
-				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				// Compare two different results to see if the default is consistently returned
 				float reading1 = array.getDimension(
@@ -33,7 +33,7 @@ public class DimensionHandlerAdapter implements HandlerAdapter<Float, DimensionH
 
 			@Override
 			public Float getValueFromArray(final TypedArray array) {
-				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				if (valueExistsInArray(array)) {
 					return array.getDimension(annotation.attributeId(), 0f);

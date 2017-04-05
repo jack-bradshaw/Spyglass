@@ -19,14 +19,14 @@ public class ColorStateListHandlerAdapter
 		return new TypedArrayAccessor<ColorStateList>() {
 			@Override
 			public boolean valueExistsInArray(final TypedArray array) {
-				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				return array.getColorStateList(annotation.attributeId()) != null;
 			}
 
 			@Override
 			public ColorStateList getValueFromArray(final TypedArray array) {
-				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				if (valueExistsInArray(array)) {
 					return array.getColorStateList(annotation.attributeId());
