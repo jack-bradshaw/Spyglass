@@ -5,8 +5,7 @@ import android.content.res.TypedArray;
 import java.lang.annotation.Annotation;
 
 /**
- * Interfaces with a handler annotation to provide information about the annotation itself, and
- * gives access to attribute values defined by the annotation.
+ * Provides information about handler annotations.
  *
  * @param <T>
  * 		the type of attribute data this adapter provides access to
