@@ -3,7 +3,6 @@ package com.matthewtamlin.spyglass.library_tests.util;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
 
 import org.junit.Test;
 
@@ -71,12 +70,17 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetDefaultAnnotation_fieldVariant_noAnnotation() {
+		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(1));
 
+		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetDefaultAnnotation_fieldVariant_annotationPresent() {
+		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(3));
 
+		assertThat(annotation, is(not(nullValue())));
+		assertThat(annotation, instanceOf(StringHandler.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -86,17 +90,12 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetDefaultAnnotation_methodVariant_noAnnotation() {
-		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(1));
 
-		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetDefaultAnnotation_methodVariant_annotationPresent() {
-		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(3));
 
-		assertThat(annotation, is(not(nullValue())));
-		assertThat(annotation, instanceOf(StringHandler.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
