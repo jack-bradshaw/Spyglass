@@ -14,7 +14,7 @@ public class EnumConstantHandlerAdapter implements HandlerAdapter<Void, EnumCons
 		return new TypedArrayAccessor<Void>() {
 			@Override
 			public boolean valueExistsInArray(final TypedArray array) {
-				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				// Compare two different results to see if the default is consistently returned
 				final int reading1 = array.getInt(annotation.attributeId(), 0);
@@ -32,7 +32,7 @@ public class EnumConstantHandlerAdapter implements HandlerAdapter<Void, EnumCons
 
 			@Override
 			public Void getValueFromArray(final TypedArray array) {
-				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				if (valueExistsInArray(array)) {
 					return null;
