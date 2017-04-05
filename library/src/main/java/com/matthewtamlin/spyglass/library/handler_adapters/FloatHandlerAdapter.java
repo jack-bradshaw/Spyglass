@@ -25,7 +25,7 @@ public class FloatHandlerAdapter implements HandlerAdapter<Float, FloatHandler> 
 				final float reading1 = array.getFloat(annotation.attributeId(), NEGATIVE_INFINITY);
 				final float reading2 = array.getFloat(annotation.attributeId(), POSITIVE_INFINITY);
 
-				return (reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+				return !((reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY));
 			}
 
 			@Override
