@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
 
 import org.junit.Test;
@@ -48,12 +49,17 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetHandlerAnnotation_methodVariant_noAnnotation() {
+		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(1));
 
+		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetHandlerAnnotation_methodVariant_annotationPresent() {
+		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(2));
 
+		assertThat(annotation, is(not(nullValue())));
+		assertThat(annotation.getClass(), instanceOf(StringHandler.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -149,6 +155,13 @@ public class TestAnnotationUtil {
 		@FieldTag(2)
 		@BooleanHandler(attributeId = 2)
 		private Boolean field2;
+		
+		@MethodTag(1)
+		private void method1() {}
+
+		@MethodTag(2)
+		@StringHandler(attributeId = 2)
+		private void method2(final String value) {}
 	}
 
 	@Target(ElementType.FIELD)
