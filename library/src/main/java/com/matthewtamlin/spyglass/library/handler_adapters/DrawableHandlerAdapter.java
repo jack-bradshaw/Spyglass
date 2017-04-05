@@ -11,24 +11,29 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 @Tested(testMethod = "automated")
 public class DrawableHandlerAdapter implements HandlerAdapter<Drawable, DrawableHandler> {
 	@Override
-	public boolean attributeValueIsAvailable(final TypedArray attrs,
-			final DrawableHandler annotation) {
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+	public TypedArrayAccessor<Drawable> getAccessor(final DrawableHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		return attrs.getDrawable(annotation.attributeId()) != null;
-	}
+		return new TypedArrayAccessor<Drawable>() {
+			@Override
+			public boolean valueExistsInArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-	@Override
-	public Drawable getAttributeValue(final TypedArray attrs, final DrawableHandler annotation) {
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+				return array.getDrawable(annotation.attributeId()) != null;
+			}
 
-		if (attributeValueIsAvailable(attrs, annotation)) {
-			return attrs.getDrawable(annotation.attributeId());
-		} else {
-			throw new RuntimeException("No attribute found for ID " + annotation.attributeId());
-		}
+			@Override
+			public Drawable getValueFromArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'array\' cannot be null.");
+
+				if (valueExistsInArray(array)) {
+					return array.getDrawable(annotation.attributeId());
+				} else {
+					throw new RuntimeException("No attribute found for attribute ID " +
+							annotation.attributeId());
+				}
+			}
+		};
 	}
 
 	@Override

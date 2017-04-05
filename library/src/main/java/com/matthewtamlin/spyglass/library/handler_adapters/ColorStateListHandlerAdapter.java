@@ -12,29 +12,29 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 public class ColorStateListHandlerAdapter
 		implements HandlerAdapter<ColorStateList, ColorStateListHandler> {
 	@Override
-	public boolean attributeValueIsAvailable(
-			final TypedArray attrs,
-			final ColorStateListHandler annotation) {
-
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+	public TypedArrayAccessor<ColorStateList> getAccessor(final ColorStateListHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		return attrs.getColorStateList(annotation.attributeId()) != null;
-	}
+		return new TypedArrayAccessor<ColorStateList>() {
+			@Override
+			public boolean valueExistsInArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-	@Override
-	public ColorStateList getAttributeValue(
-			final TypedArray attrs,
-			final ColorStateListHandler annotation) {
+				return array.getColorStateList(annotation.attributeId()) != null;
+			}
 
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+			@Override
+			public ColorStateList getValueFromArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-		if (attributeValueIsAvailable(attrs, annotation)) {
-			return attrs.getColorStateList(annotation.attributeId());
-		} else {
-			throw new RuntimeException("No attribute found for ID " + annotation.attributeId());
-		}
+				if (valueExistsInArray(array)) {
+					return array.getColorStateList(annotation.attributeId());
+				} else {
+					throw new RuntimeException("No attribute found for attribute ID " +
+							annotation.attributeId());
+				}
+			}
+		};
 	}
 
 	@Override
