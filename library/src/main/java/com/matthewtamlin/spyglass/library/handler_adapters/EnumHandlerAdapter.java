@@ -19,7 +19,7 @@ public class EnumHandlerAdapter implements HandlerAdapter<Enum, EnumHandler> {
 			public boolean valueExistsInArray(final TypedArray array) {
 				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-				// Try with different defaults and compare the results to determine if the value is present
+				// Compare two different results to see if the default is consistently returned
 				final int reading1 = array.getInt(annotation.attributeId(), 0);
 				final int reading2 = array.getInt(annotation.attributeId(), 1);
 
