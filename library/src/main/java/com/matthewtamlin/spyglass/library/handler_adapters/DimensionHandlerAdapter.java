@@ -28,7 +28,7 @@ public class DimensionHandlerAdapter implements HandlerAdapter<Float, DimensionH
 						annotation.attributeId(),
 						POSITIVE_INFINITY);
 
-				return (reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+				return (reading1 != NEGATIVE_INFINITY) || (reading2 != POSITIVE_INFINITY);
 			}
 
 			@Override
