@@ -12,36 +12,44 @@ import static java.lang.Float.POSITIVE_INFINITY;
 @Tested(testMethod = "automated")
 public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHandler> {
 	@Override
-	public boolean attributeValueIsAvailable(
-			final TypedArray attrs,
-			final FractionHandler annotation) {
-
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+	public TypedArrayAccessor<Float> getAccessor(final FractionHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		// Try with different defaults and compare the results to determine if the value is present
-		final float reading1 = attrs.getFraction(annotation.attributeId(), 1, 1, NEGATIVE_INFINITY);
-		final float reading2 = attrs.getFraction(annotation.attributeId(), 1, 1, POSITIVE_INFINITY);
-		final boolean defaultConsistentlyReturned =
-				(reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+		return new TypedArrayAccessor<Float>() {
+			@Override
+			public boolean valueExistsInArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-		return !defaultConsistentlyReturned;
-	}
+				// Compare two different results to see if the default is consistently returned
+				final float reading1 = array.getFraction(
+						annotation.attributeId(),
+						1,
+						1,
+						NEGATIVE_INFINITY);
 
-	@Override
-	public Float getAttributeValue(final TypedArray attrs, final FractionHandler annotation) {
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+				final float reading2 = array.getFraction(
+						annotation.attributeId(),
+						1,
+						1,
+						POSITIVE_INFINITY);
 
-		if (attributeValueIsAvailable(attrs, annotation)) {
-			return attrs.getFraction(
-					annotation.attributeId(),
-					annotation.baseMultiplier(),
-					annotation.parentMultiplier(),
-					0);
-		} else {
-			throw new RuntimeException("No attribute found for ID " + annotation.attributeId());
-		}
+				return !((reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY));
+			}
+
+			@Override
+			public Float getValueFromArray(final TypedArray array) {
+				if (valueExistsInArray(array)) {
+					return array.getFraction(
+							annotation.attributeId(),
+							annotation.baseMultiplier(),
+							annotation.parentMultiplier(),
+							0);
+				} else {
+					throw new RuntimeException("No attribute found for attribute ID " +
+							annotation.attributeId());
+				}
+			}
+		};
 	}
 
 	@Override

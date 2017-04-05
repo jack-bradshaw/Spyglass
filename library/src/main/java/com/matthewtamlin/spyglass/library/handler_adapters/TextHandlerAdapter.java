@@ -10,29 +10,29 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 @Tested(testMethod = "automated")
 public class TextHandlerAdapter implements HandlerAdapter<CharSequence, TextHandler> {
 	@Override
-	public boolean attributeValueIsAvailable(
-			final TypedArray attrs,
-			final TextHandler annotation) {
-
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+	public TypedArrayAccessor<CharSequence> getAccessor(final TextHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		return attrs.getText(annotation.attributeId()) != null;
-	}
+		return new TypedArrayAccessor<CharSequence>() {
+			@Override
+			public boolean valueExistsInArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-	@Override
-	public CharSequence getAttributeValue(
-			final TypedArray attrs,
-			final TextHandler annotation) {
+				return array.getText(annotation.attributeId()) != null;
+			}
 
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+			@Override
+			public CharSequence getValueFromArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-		if (attributeValueIsAvailable(attrs, annotation)) {
-			return attrs.getText(annotation.attributeId());
-		} else {
-			throw new RuntimeException("No attribute found for ID " + annotation.attributeId());
-		}
+				if (valueExistsInArray(array)) {
+					return array.getText(annotation.attributeId());
+				} else {
+					throw new RuntimeException("No attribute found for attribute ID " +
+							annotation.attributeId());
+				}
+			}
+		};
 	}
 
 	@Override
