@@ -41,7 +41,7 @@ public class TestAnnotationUtil {
 		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(1));
 
 		assertThat(annotation, is(not(nullValue())));
-		assertThat(annotation.getClass(), instanceOf(BooleanHandler.class));
+		assertThat(annotation, instanceOf(BooleanHandler.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -61,7 +61,7 @@ public class TestAnnotationUtil {
 		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(2));
 
 		assertThat(annotation, is(not(nullValue())));
-		assertThat(annotation.getClass(), instanceOf(StringHandler.class));
+		assertThat(annotation, instanceOf(StringHandler.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
