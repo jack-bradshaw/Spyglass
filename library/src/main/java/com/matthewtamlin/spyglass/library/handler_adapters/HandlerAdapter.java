@@ -14,6 +14,17 @@ import java.lang.annotation.Annotation;
  */
 public interface HandlerAdapter<T, A extends Annotation> {
 	/**
+	 * Gets a TypedArrayAccessor which encapsulates the data retrieval logic of the supplied
+	 * annotation.
+	 *
+	 * @param annotation
+	 * 		the annotation to base the accessor on, not null
+	 *
+	 * @return the accessor, not null
+	 */
+	public TypedArrayAccessor<T> getAccessor(A annotation);
+
+	/**
 	 * Returns whether or not the supplied annotation has been declared as mandatory.
 	 *
 	 * @param annotation
