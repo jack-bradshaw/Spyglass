@@ -32,58 +32,49 @@ public abstract class TestHandlerAdapter<V,
 		getAdapter().getClass().newInstance();
 	}
 
-	@Test
-	public void testAttributeValueIsAvailable_valueAvailable() {
-		final boolean available = getAdapter().attributeValueIsAvailable(
-				getTypedArrayContainingAttribute(),
-				getAnnotationWithMandatoryFlag());
-
-		assertThat(available, is(true));
-	}
-
-	@Test
-	public void testAttributeValueIsAvailable_valueMissing() {
-		final boolean available = getAdapter().attributeValueIsAvailable(
-				getTypedArrayMissingAttribute(),
-				getAnnotationWithMandatoryFlag());
-
-		assertThat(available, is(false));
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_nullAnnotation() {
+		getAdapter().getAccessor(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeValueIsAvailable_nullAttrs() {
-		getAdapter().attributeValueIsAvailable(null, getAnnotationMissingMandatoryFlag());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeValueIsAvailable_nullAnnotation() {
-		getAdapter().attributeValueIsAvailable(getTypedArrayContainingAttribute(), null);
+	public void testGetAccessor_callValueExistsInArray_nullSupplied() {
+		getAdapter().getAccessor(getAnnotationWithMandatoryFlag()).valueExistsInArray(null);
 	}
 
 	@Test
-	public void testGetAttributeValue_valueAvailable() {
-		final V value = getAdapter().getAttributeValue(
-				getTypedArrayContainingAttribute(),
-				getAnnotationWithMandatoryFlag());
+	public void testGetAccessor_callValueExistsInArray_valueAvailable() {
+		final boolean result = getAdapter().getAccessor(getAnnotationWithMandatoryFlag())
+				.valueExistsInArray(getTypedArrayContainingAttribute());
+
+		assertThat(result, is(true));
+	}
+
+	@Test
+	public void testGetAccessor_callValueExistsInArray_valueMissing() {
+		final boolean result = getAdapter().getAccessor(getAnnotationWithMandatoryFlag())
+				.valueExistsInArray(getTypedArrayMissingAttribute());
+
+		assertThat(result, is(false));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_callGetValueFromArray_nullSupplied() {
+		getAdapter().getAccessor(getAnnotationWithMandatoryFlag()).getValueFromArray(null);
+	}
+
+	@Test
+	public void testGetAccessor_callGetValueFromArray_valueAvailable() {
+		final V value = getAdapter().getAccessor(getAnnotationWithMandatoryFlag())
+				.getValueFromArray(getTypedArrayContainingAttribute());
 
 		assertThat(value, is(getExpectedValue()));
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void testGetAttributeValue_valueMissing() {
-		getAdapter().getAttributeValue(
-				getTypedArrayMissingAttribute(),
-				getAnnotationWithMandatoryFlag());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeValue_nullAttrs() {
-		getAdapter().getAttributeValue(null, getAnnotationMissingMandatoryFlag());
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeValue_nullAnnotation() {
-		getAdapter().getAttributeValue(getTypedArrayContainingAttribute(), null);
+	public void testGetAccessor_callGetValueFromArray_valueMissing() {
+		getAdapter().getAccessor(getAnnotationWithMandatoryFlag())
+				.getValueFromArray(getTypedArrayMissingAttribute());
 	}
 
 	@Test

@@ -12,6 +12,7 @@ import org.mockito.stubbing.Answer;
 
 import java.util.Random;
 
+import static android.R.attr.value;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -86,74 +87,60 @@ public class TestEnumConstantHandlerAdapter {
 		EnumConstantHandlerAdapter.class.newInstance();
 	}
 
-	@Test
-	public void testAttributeValueIsAvailable_valueAvailableAndCorrectOrdinal() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				containingAttributeWithCorrectOrdinal,
-				annotation);
-
-		assertThat(available, is(true));
-	}
-
-	@Test
-	public void testAttributeValueIsAvailable_valueAvailableAndWrongOrdinal() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				containingAttributeWithWrongOrdinal,
-				annotation);
-
-		assertThat(available, is(false));
-	}
-
-	@Test
-	public void testAttributeValueIsAvailable_valueMissing() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				missingAttribute,
-				annotation);
-
-		assertThat(available, is(false));
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_nullAnnotation() {
+		adapter.getAccessor(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeValueIsAvailable_nullAttrs() {
-		adapter.attributeValueIsAvailable(null, annotation);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeValueIsAvailable_nullAnnotation() {
-		adapter.attributeValueIsAvailable(containingAttributeWithCorrectOrdinal, null);
+	public void testGetAccessor_callValueExistsInArray_nullSupplied() {
+		adapter.getAccessor(annotation).valueExistsInArray(null);
 	}
 
 	@Test
-	public void testGetAttributeValue_valueAvailableAndCorrectOrdinal() {
-		final Object value = adapter.getAttributeValue(
-				containingAttributeWithCorrectOrdinal,
-				annotation);
+	public void testGetAccessor_callValueExistsInArray_valueAvailableAndCorrectOrdinal() {
+		final boolean result = adapter.getAccessor(annotation)
+				.valueExistsInArray(containingAttributeWithCorrectOrdinal);
+
+		assertThat(result, is(true));
+	}
+
+	@Test
+	public void testGetAccessor_callValueExistsInArray_valueAvailableAndIncorrectOrdinal() {
+		final boolean result = adapter.getAccessor(annotation)
+				.valueExistsInArray(containingAttributeWithWrongOrdinal);
+
+		assertThat(result, is(false));
+	}
+
+	@Test
+	public void testGetAccessor_callValueExistsInArray_valueMissing() {
+		final boolean result = adapter.getAccessor(annotation).valueExistsInArray(missingAttribute);
+
+		assertThat(result, is(false));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAccessor_callGetValueFromArray_nullSupplied() {
+		adapter.getAccessor(annotation).getValueFromArray(null);
+	}
+
+	@Test
+	public void testGetAccessor_callGetValueFromArray_valueAvailableAndCorrectOrdinal() {
+		final Void value = adapter.getAccessor(annotation)
+				.getValueFromArray(containingAttributeWithCorrectOrdinal);
 
 		assertThat(value, is(nullValue()));
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void testGetAttributeValue_valueAvailableAndWrongOrdinal() {
-		adapter.getAttributeValue(
-				containingAttributeWithWrongOrdinal,
-				annotation);
+	public void testGetAccessor_callGetValueFromArray_valueAvailableAndIncorrectOrdinal() {
+		adapter.getAccessor(annotation).getValueFromArray(containingAttributeWithWrongOrdinal);
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void testGetAttributeValue_valueMissing() {
-		adapter.getAttributeValue(
-				missingAttribute,
-				annotation);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeValue_nullAttrs() {
-		adapter.getAttributeValue(null, annotation);
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeValue_nullAnnotation() {
-		adapter.getAttributeValue(containingAttributeWithCorrectOrdinal, null);
+	public void testGetAccessor_callGetValueFromArray_valueMissing() {
+		adapter.getAccessor(annotation).getValueFromArray(missingAttribute);
 	}
 
 	@Test
