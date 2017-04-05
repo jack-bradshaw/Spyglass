@@ -10,31 +10,33 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 @Tested(testMethod = "automated")
 public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler> {
 	@Override
-	public boolean attributeValueIsAvailable(
-			final TypedArray attrs,
-			final ColorHandler annotation) {
-
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+	public TypedArrayAccessor<Integer> getAccessor(final ColorHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		// Try with different defaults and compare the results to determine if the value is present
-		final int reading1 = attrs.getColor(annotation.attributeId(), 0);
-		final int reading2 = attrs.getColor(annotation.attributeId(), 1);
-		final boolean defaultConsistentlyReturned = (reading1 == 0) && (reading2 == 1);
+		return new TypedArrayAccessor<Integer>() {
+			@Override
+			public boolean valueExistsInArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'attrs\' cannot be null.");
 
-		return !defaultConsistentlyReturned;
-	}
+				// Compare two different results to see if the default is consistently returned
+				final int reading1 = array.getColor(annotation.attributeId(), 0);
+				final int reading2 = array.getColor(annotation.attributeId(), 1);
 
-	@Override
-	public Integer getAttributeValue(final TypedArray attrs, final ColorHandler annotation) {
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+				return (reading1 == 0) && (reading2 == 1);
+			}
 
-		if (attributeValueIsAvailable(attrs, annotation)) {
-			return attrs.getColor(annotation.attributeId(), 0);
-		} else {
-			throw new RuntimeException("No attribute found for ID " + annotation.attributeId());
-		}
+			@Override
+			public Integer getValueFromArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'attrs\' cannot be null.");
+
+				if (valueExistsInArray(array)) {
+					return array.getColor(annotation.attributeId(), 0);
+				} else {
+					throw new RuntimeException("No attribute found at index " +
+							annotation.attributeId());
+				}
+			}
+		};
 	}
 
 	@Override
