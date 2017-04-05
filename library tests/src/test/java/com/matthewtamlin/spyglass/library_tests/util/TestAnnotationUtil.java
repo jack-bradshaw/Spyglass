@@ -14,6 +14,7 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
+import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
@@ -64,7 +65,7 @@ public class TestAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetDefaultAnnotation_fieldVariant_nullField() {
-
+		getDefaultAnnotation((Field) null);
 	}
 
 	@Test
@@ -79,7 +80,7 @@ public class TestAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetDefaultAnnotation_methodVariant_nullMethod() {
-
+		getDefaultAnnotation((Method) null);
 	}
 
 	@Test
@@ -155,7 +156,7 @@ public class TestAnnotationUtil {
 		@FieldTag(2)
 		@BooleanHandler(attributeId = 2)
 		private Boolean field2;
-		
+
 		@MethodTag(1)
 		private void method1() {}
 
