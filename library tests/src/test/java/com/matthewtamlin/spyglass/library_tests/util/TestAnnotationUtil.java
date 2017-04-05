@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
 
 import org.junit.Test;
@@ -13,8 +14,10 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
+import static org.mockito.AdditionalMatchers.not;
 
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
@@ -31,7 +34,10 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_annotationPresent() {
+		final Annotation annotation = AnnotationUtil.getHandlerAnnotation(getFieldWithTag(1));
 
+		assertThat(annotation, is(not(nullValue())));
+		assertThat(annotation.getClass(), instanceOf(BooleanHandler.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -138,6 +144,10 @@ public class TestAnnotationUtil {
 	private static class TestClass {
 		@FieldTag(1)
 		private Object field1;
+
+		@FieldTag(2)
+		@BooleanHandler(attributeId = 2)
+		private Boolean field2;
 	}
 
 	@Target(ElementType.FIELD)
