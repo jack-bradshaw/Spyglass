@@ -32,7 +32,7 @@ public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHan
 				if (valueExistsInArray(array)) {
 					return array.getBoolean(annotation.attributeId(), false);
 				} else {
-					throw new RuntimeException("No attribute found at index "
+					throw new RuntimeException("No attribute found for attribute ID "
 							+ annotation.attributeId());
 				}
 			}
