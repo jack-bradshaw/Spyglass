@@ -23,7 +23,7 @@ public class EnumHandlerAdapter implements HandlerAdapter<Enum, EnumHandler> {
 				final int reading1 = array.getInt(annotation.attributeId(), 0);
 				final int reading2 = array.getInt(annotation.attributeId(), 1);
 
-				return (reading1 == 0) && (reading2 == 1);
+				return !((reading1 == 0) && (reading2 == 1));
 			}
 
 			@Override
