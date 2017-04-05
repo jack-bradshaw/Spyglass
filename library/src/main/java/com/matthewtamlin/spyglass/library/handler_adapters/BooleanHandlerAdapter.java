@@ -22,7 +22,7 @@ public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHan
 				final boolean reading1 = array.getBoolean(annotation.attributeId(), false);
 				final boolean reading2 = array.getBoolean(annotation.attributeId(), true);
 
-				return (reading1 != false) || (reading2 != true);
+				return !((reading1 == false) && (reading2 == true));
 			}
 
 			@Override
