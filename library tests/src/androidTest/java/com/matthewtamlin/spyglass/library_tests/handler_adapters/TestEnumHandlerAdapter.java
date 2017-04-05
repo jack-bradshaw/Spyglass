@@ -14,6 +14,7 @@ import org.mockito.stubbing.Answer;
 
 import java.util.Random;
 
+import static android.R.attr.value;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.anyInt;
@@ -85,40 +86,6 @@ public class TestEnumHandlerAdapter {
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
 		adapter.getClass().newInstance();
-	}
-
-	@Test
-	public void testAttributeValueIsAvailable_valueAvailable() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				containingAttribute,
-				withMandatoryFlag);
-
-		assertThat(available, is(true));
-	}
-
-	@Test
-	public void testAttributeValueIsAvailable_valueMissing() {
-		final boolean available = adapter.attributeValueIsAvailable(
-				missingAttribute,
-				withMandatoryFlag);
-
-		assertThat(available, is(false));
-	}
-
-	@Test
-	public void testGetAttributeValue_valueAvailable() {
-		final Enum value = adapter.getAttributeValue(
-				containingAttribute,
-				withMandatoryFlag);
-
-		assertThat(value, is(expectedValue));
-	}
-
-	@Test(expected = RuntimeException.class)
-	public void testGetAttributeValue_valueMissing() {
-		adapter.getAttributeValue(
-				missingAttribute,
-				withMandatoryFlag);
 	}
 
 	@Test
