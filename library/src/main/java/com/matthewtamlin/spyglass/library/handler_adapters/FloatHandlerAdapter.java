@@ -13,32 +13,31 @@ import static java.lang.Float.POSITIVE_INFINITY;
 @Tested(testMethod = "automated")
 public class FloatHandlerAdapter implements HandlerAdapter<Float, FloatHandler> {
 	@Override
-	public boolean attributeValueIsAvailable(
-			final TypedArray attrs,
-			final FloatHandler annotation) {
-
-		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
+	public TypedArrayAccessor<Float> getAccessor(final FloatHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		// Try with different defaults and compare the results to determine if the value is present
-		final float reading1 = attrs.getFloat(annotation.attributeId(), NEGATIVE_INFINITY);
-		final float reading2 = attrs.getFloat(annotation.attributeId(), POSITIVE_INFINITY);
-		final boolean defaultConsistentlyReturned =
-				(reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+		return new TypedArrayAccessor<Float>() {
+			@Override
+			public boolean valueExistsInArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-		return !defaultConsistentlyReturned;
-	}
+				// Compare two different results to see if the default is consistently returned
+				final float reading1 = array.getFloat(annotation.attributeId(), NEGATIVE_INFINITY);
+				final float reading2 = array.getFloat(annotation.attributeId(), POSITIVE_INFINITY);
 
-	@Override
-	public Float getAttributeValue(
-			final TypedArray attrs,
-			final FloatHandler annotation) {
+				return (reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+			}
 
-		if (attributeValueIsAvailable(attrs, annotation)) {
-			return attrs.getFloat(annotation.attributeId(), 0);
-		} else {
-			throw new RuntimeException("No attribute found for ID " + annotation.attributeId());
-		}
+			@Override
+			public Float getValueFromArray(final TypedArray array) {
+				if (valueExistsInArray(array)) {
+					return array.getFloat(annotation.attributeId(), 0);
+				} else {
+					throw new RuntimeException("No attribute found for attribute ID " +
+							annotation.attributeId());
+				}
+			}
+		};
 	}
 
 	@Override
