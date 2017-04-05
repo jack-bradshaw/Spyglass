@@ -33,7 +33,7 @@ public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHan
 						1,
 						POSITIVE_INFINITY);
 
-				return (reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY);
+				return !((reading1 == NEGATIVE_INFINITY) && (reading2 == POSITIVE_INFINITY));
 			}
 
 			@Override
