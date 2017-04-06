@@ -9,6 +9,7 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
 import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
+import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 
 import org.junit.Test;
@@ -236,6 +237,18 @@ public class TestAnnotationUtil {
 		@MethodTag(4)
 		@DefaultToBoolean(true)
 		private void method4(boolean b) {}
+
+		private void method5() {}
+
+		private void method6(boolean b) {}
+
+		private void method7(@UseDouble(2.0) double d) {}
+
+		private void method8(float f, boolean b, char c) {}
+
+		private void method8(@UseChar('a') char c, @UseInt(1) int i, long l) {}
+
+		private void method9(@UseLong(1L) long l, @UseString("s") String s, @UseByte(9) byte b) {}
 	}
 
 	@Target(ElementType.FIELD)
