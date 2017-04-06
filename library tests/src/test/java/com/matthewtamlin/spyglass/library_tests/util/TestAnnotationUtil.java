@@ -144,7 +144,13 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_threeArgs_twoAnnotations() {
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(4));
 
+		assertThat(annotations, is(notNullValue()));
+		assertThat(annotations.isEmpty(), is(false));
+		assertThat(annotations.keySet().contains(0), is(true));
+		assertThat(annotations.get(0), is(not(nullValue())));
+		assertThat(annotations.get(0), instanceOf(UseString.class));
 	}
 
 	@Test
@@ -205,6 +211,9 @@ public class TestAnnotationUtil {
 
 		@MethodTag(4)
 		private void method4(@UseString("something") final String s) {}
+
+		@MethodTag(5)
+		private void method5(@UseChar('a') char c, @UseInt(1) int i, String s) {}
 	}
 
 	@Target(ElementType.FIELD)
