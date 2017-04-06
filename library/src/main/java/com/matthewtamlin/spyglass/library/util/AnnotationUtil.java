@@ -51,14 +51,6 @@ public class AnnotationUtil {
 		return null;
 	}
 
-	public static void validateAnnotations(final Field field) throws SpyglassValidationException {
-		//TODO
-	}
-
-	public static void validateAnnotations(final Method method) throws SpyglassValidationException {
-		//TODO
-	}
-
 	public static Map<Integer, Annotation> getUseAnnotations(final Method method) {
 		final Map<Integer, Annotation> useAnnotationsByIndex = new HashMap<>();
 
