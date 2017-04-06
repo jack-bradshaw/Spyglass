@@ -4,7 +4,10 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
+import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
 import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 
@@ -155,7 +158,22 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_threeArgs_threeAnnotations() {
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(4));
 
+		assertThat(annotations, is(notNullValue()));
+		assertThat(annotations.size(), is(3));
+
+		assertThat(annotations.keySet().contains(0), is(true));
+		assertThat(annotations.get(0), is(not(nullValue())));
+		assertThat(annotations.get(0), instanceOf(UseBoolean.class));
+
+		assertThat(annotations.keySet().contains(1), is(true));
+		assertThat(annotations.get(1), is(not(nullValue())));
+		assertThat(annotations.get(1), instanceOf(UseByte.class));
+
+		assertThat(annotations.keySet().contains(2), is(true));
+		assertThat(annotations.get(2), is(not(nullValue())));
+		assertThat(annotations.get(2), instanceOf(UseDouble.class));
 	}
 
 
@@ -214,6 +232,12 @@ public class TestAnnotationUtil {
 
 		@MethodTag(5)
 		private void method5(@UseChar('a') char c, @UseInt(1) int i, String s) {}
+
+		@MethodTag(6)
+		private void method6(
+				@UseBoolean(true) boolean b1,
+				@UseByte(1) byte b2,
+				@UseDouble(2.0) double d) {}
 	}
 
 	@Target(ElementType.FIELD)
