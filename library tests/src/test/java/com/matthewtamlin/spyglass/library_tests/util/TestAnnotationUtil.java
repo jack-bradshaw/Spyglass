@@ -230,22 +230,7 @@ public class TestAnnotationUtil {
 		@StringHandler(attributeId = 2)
 		private void method2(final String value) {}
 
-		@MethodTag(3)
-		@BooleanHandler(attributeId = 3)
-		@DefaultToBoolean(false)
-		private void method3(final boolean value) {}
-
-		@MethodTag(4)
-		private void method4(@UseString("something") final String s) {}
-
-		@MethodTag(5)
-		private void method5(@UseChar('a') char c, @UseInt(1) int i, String s) {}
-
-		@MethodTag(6)
-		private void method6(
-				@UseBoolean(true) boolean b1,
-				@UseByte(1) byte b2,
-				@UseDouble(2.0) double d) {}
+		
 	}
 
 	@Target(ElementType.FIELD)
