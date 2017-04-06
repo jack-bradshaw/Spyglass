@@ -217,9 +217,7 @@ public class TestAnnotationUtil {
 		private Boolean field2;
 
 		@FieldTag(3)
-		@StringHandler(attributeId = 3)
-		@DefaultToString("something")
-		private String field3;
+		private Object field3;
 
 		@MethodTag(1)
 		private void method1() {}
