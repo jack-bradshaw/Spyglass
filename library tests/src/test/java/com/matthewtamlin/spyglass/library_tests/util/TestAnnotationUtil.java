@@ -149,7 +149,10 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_threeArgs_noAnnotations() {
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(8));
 
+		assertThat(annotations, is(notNullValue()));
+		assertThat(annotations.isEmpty(), is(true));
 	}
 
 	@Test
