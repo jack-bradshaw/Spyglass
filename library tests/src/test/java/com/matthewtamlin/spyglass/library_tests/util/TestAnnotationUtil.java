@@ -232,7 +232,10 @@ public class TestAnnotationUtil {
 
 		@MethodTag(3)
 		private Object method3() {return null;}
-		
+
+		@MethodTag(4)
+		@DefaultToBoolean(true)
+		private void method4(boolean b) {}
 	}
 
 	@Target(ElementType.FIELD)
