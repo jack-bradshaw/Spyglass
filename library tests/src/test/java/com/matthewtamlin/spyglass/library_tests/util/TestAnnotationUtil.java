@@ -230,6 +230,8 @@ public class TestAnnotationUtil {
 		@StringHandler(attributeId = 2)
 		private void method2(final String value) {}
 
+		@MethodTag(3)
+		private Object method3() {return null;}
 		
 	}
 
