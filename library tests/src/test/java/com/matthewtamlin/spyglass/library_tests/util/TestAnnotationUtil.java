@@ -150,10 +150,15 @@ public class TestAnnotationUtil {
 		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(4));
 
 		assertThat(annotations, is(notNullValue()));
-		assertThat(annotations.isEmpty(), is(false));
+		assertThat(annotations.size(), is(2));
+
 		assertThat(annotations.keySet().contains(0), is(true));
 		assertThat(annotations.get(0), is(not(nullValue())));
-		assertThat(annotations.get(0), instanceOf(UseString.class));
+		assertThat(annotations.get(0), instanceOf(UseChar.class));
+
+		assertThat(annotations.keySet().contains(1), is(true));
+		assertThat(annotations.get(1), is(not(nullValue())));
+		assertThat(annotations.get(1), instanceOf(UseInt.class));
 	}
 
 	@Test
