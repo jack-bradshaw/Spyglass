@@ -11,6 +11,8 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDrawableR
 import org.junit.Before;
 
 import static com.matthewtamlin.spyglass.library_tests.R.drawable.drawable;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -55,5 +57,16 @@ public class TestDefaultToDrawableResourceAdapter extends TestDefaultAdapter<
 	@Override
 	public DefaultToDrawableResource getAnnotation() {
 		return annotation;
+	}
+
+	/**
+	 * Superclass compares objects directly. For bitmap drawables, the constant state must be
+	 * compared.
+	 */
+	@Override
+	public void testGetDefault_validArguments() {
+		final Drawable defaultValue = adapter.getDefault(annotation, context);
+
+		assertThat(defaultValue.getConstantState(), is(expectedDefaultValue.getConstantState()));
 	}
 }
