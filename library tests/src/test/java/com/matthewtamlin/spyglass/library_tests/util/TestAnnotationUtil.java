@@ -148,6 +148,11 @@ public class TestAnnotationUtil {
 	}
 
 	@Test
+	public void testGetUseAnnotations_threeArgs_noAnnotations() {
+
+	}
+
+	@Test
 	public void testGetUseAnnotations_threeArgs_twoAnnotations() {
 		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(4));
 
