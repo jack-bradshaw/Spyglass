@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.default_adapters;
 
 import android.content.Context;
+import android.support.test.InstrumentationRegistry;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToTextArrayResourceAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToTextArrayResource;
@@ -26,7 +27,7 @@ public class TestDefaultToTextArrayResourceAdapter extends TestDefaultAdapter<
 
 	@Before
 	public void setup() {
-		context = mock(Context.class);
+		context = InstrumentationRegistry.getTargetContext();
 		expectedDefaultValue = context.getResources().getTextArray(test_string_array);
 		adapter = new DefaultToTextArrayResourceAdapter();
 
