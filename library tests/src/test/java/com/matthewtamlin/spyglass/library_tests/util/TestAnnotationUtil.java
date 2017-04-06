@@ -48,7 +48,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(1));
+		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(2));
 
 		assertThat(annotation, is(not(nullValue())));
 		assertThat(annotation, instanceOf(BooleanHandler.class));
@@ -81,14 +81,14 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetDefaultAnnotation_fieldVariant_noAnnotation() {
-		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(1));
+		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(3));
 
 		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetDefaultAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(3));
+		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(4));
 
 		assertThat(annotation, is(not(nullValue())));
 		assertThat(annotation, instanceOf(StringHandler.class));
@@ -101,14 +101,14 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetDefaultAnnotation_methodVariant_noAnnotation() {
-		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(1));
+		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(3));
 
 		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetDefaultAnnotation_methodVariant_annotationPresent() {
-		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(3));
+		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(4));
 
 		assertThat(annotation, is(not(nullValue())));
 		assertThat(annotation, instanceOf(BooleanHandler.class));
@@ -121,7 +121,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_noArgs() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(1));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(5));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.isEmpty(), is(true));
@@ -129,7 +129,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_oneArg_noAnnotations() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(2));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(6));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.isEmpty(), is(true));
@@ -137,7 +137,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_oneArg_oneAnnotation() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(4));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(7));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.size(), is(1));
@@ -154,7 +154,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_threeArgs_twoAnnotations() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(4));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(9));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.size(), is(2));
@@ -243,16 +243,22 @@ public class TestAnnotationUtil {
 		@DefaultToBoolean(true)
 		private void method4(boolean b) {}
 
+		@MethodTag(5)
 		private void method5() {}
 
+		@MethodTag(6)
 		private void method6(boolean b) {}
 
+		@MethodTag(7)
 		private void method7(@UseDouble(2.0) double d) {}
 
+		@MethodTag(8)
 		private void method8(float f, boolean b, char c) {}
 
+		@MethodTag(9)
 		private void method8(@UseChar('a') char c, @UseInt(1) int i, long l) {}
 
+		@MethodTag(10)
 		private void method9(@UseLong(1L) long l, @UseString("s") String s, @UseByte(9) byte b) {}
 	}
 
