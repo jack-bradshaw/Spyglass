@@ -140,6 +140,7 @@ public class TestAnnotationUtil {
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.isEmpty(), is(false));
+		
 		assertThat(annotations.keySet().contains(0), is(true));
 		assertThat(annotations.get(0), is(not(nullValue())));
 		assertThat(annotations.get(0), instanceOf(UseString.class));
