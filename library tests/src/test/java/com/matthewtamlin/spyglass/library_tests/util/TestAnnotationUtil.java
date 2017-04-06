@@ -228,7 +228,7 @@ public class TestAnnotationUtil {
 
 		@MethodTag(2)
 		@StringHandler(attributeId = 2)
-		private void method2(final String value) {}
+		private void method2(String value) {}
 
 		@MethodTag(3)
 		private Object method3() {return null;}
