@@ -155,6 +155,7 @@ public class TestAnnotationUtil {
 		assertThat(annotations.isEmpty(), is(true));
 	}
 
+
 	@Test
 	public void testGetUseAnnotations_threeArgs_twoAnnotations() {
 		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(9));
@@ -173,22 +174,22 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_threeArgs_threeAnnotations() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(4));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(10));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.size(), is(3));
 
 		assertThat(annotations.keySet().contains(0), is(true));
 		assertThat(annotations.get(0), is(not(nullValue())));
-		assertThat(annotations.get(0), instanceOf(UseBoolean.class));
+		assertThat(annotations.get(0), instanceOf(UseLong.class));
 
 		assertThat(annotations.keySet().contains(1), is(true));
 		assertThat(annotations.get(1), is(not(nullValue())));
-		assertThat(annotations.get(1), instanceOf(UseByte.class));
+		assertThat(annotations.get(1), instanceOf(UseString.class));
 
 		assertThat(annotations.keySet().contains(2), is(true));
 		assertThat(annotations.get(2), is(not(nullValue())));
-		assertThat(annotations.get(2), instanceOf(UseDouble.class));
+		assertThat(annotations.get(2), instanceOf(UseByte.class));
 	}
 
 
