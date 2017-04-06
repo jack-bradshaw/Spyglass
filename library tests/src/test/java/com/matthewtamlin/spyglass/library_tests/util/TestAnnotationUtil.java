@@ -219,6 +219,10 @@ public class TestAnnotationUtil {
 		@FieldTag(3)
 		private Object field3;
 
+		@FieldTag(4)
+		@DefaultToString("something")
+		private String field4;
+
 		@MethodTag(1)
 		private void method1() {}
 
