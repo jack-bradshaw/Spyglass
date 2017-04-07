@@ -1,6 +1,8 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
@@ -12,6 +14,9 @@ import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseStringAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
@@ -35,6 +40,7 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(JUnit4.class)
@@ -55,7 +61,7 @@ public class TestAdapterUtil {
 	public void testGetHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
 		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(2));
 
-		assertThat(adapter, is(not(nullValue())));
+		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(BooleanHandlerAdapter.class));
 	}
 
@@ -75,7 +81,7 @@ public class TestAdapterUtil {
 	public void testGetHandlerAdapter_methodVariant_oneHandlerAnnotation() {
 		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(2));
 
-		assertThat(adapter, is(not(nullValue())));
+		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(DrawableHandlerAdapter.class));
 	}
 
@@ -95,8 +101,8 @@ public class TestAdapterUtil {
 	public void testGetDefaultAdapter_fieldVariant_oneDefaultAnnotation() {
 		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3));
 
-		assertThat(adapter, is(not(nullValue())));
-		assertThat(adapter, instanceOf(DefaultToString.class));
+		assertThat(adapter, is(notNullValue()));
+		assertThat(adapter, instanceOf(DefaultToStringAdapter.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -115,8 +121,8 @@ public class TestAdapterUtil {
 	public void testGetHandlerAdapter_methodVariant_oneDefaultAnnotation() {
 		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(3));
 
-		assertThat(adapter, is(not(nullValue())));
-		assertThat(adapter, instanceOf(DefaultToDimension.class));
+		assertThat(adapter, is(notNullValue()));
+		assertThat(adapter, instanceOf(DefaultToDimensionAdapter.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -143,7 +149,7 @@ public class TestAdapterUtil {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(6));
 
 		assertThat(adapters.size(), is(1));
-		assertThat(adapters.get(0), instanceOf(UseBoolean.class));
+		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
 	}
 
 	@Test
@@ -151,8 +157,8 @@ public class TestAdapterUtil {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(7));
 
 		assertThat(adapters.size(), is(2));
-		assertThat(adapters.get(0), instanceOf(UseBoolean.class));
-		assertThat(adapters.get(1), instanceOf(UseChar.class));
+		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
+		assertThat(adapters.get(1), instanceOf(UseCharAdapter.class));
 	}
 
 	@Test
@@ -160,9 +166,9 @@ public class TestAdapterUtil {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(8));
 
 		assertThat(adapters.size(), is(3));
-		assertThat(adapters.get(0), instanceOf(UseBoolean.class));
-		assertThat(adapters.get(1), instanceOf(UseChar.class));
-		assertThat(adapters.get(2), instanceOf(UseString.class));
+		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
+		assertThat(adapters.get(1), instanceOf(UseCharAdapter.class));
+		assertThat(adapters.get(2), instanceOf(UseStringAdapter.class));
 	}
 
 	private Field getFieldWithTag(final int tagValue) {

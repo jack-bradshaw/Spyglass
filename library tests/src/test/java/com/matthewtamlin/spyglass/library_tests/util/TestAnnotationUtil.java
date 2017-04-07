@@ -50,7 +50,7 @@ public class TestAnnotationUtil {
 	public void testGetHandlerAnnotation_fieldVariant_annotationPresent() {
 		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(2));
 
-		assertThat(annotation, is(not(nullValue())));
+		assertThat(annotation, is(notNullValue()));
 		assertThat(annotation, instanceOf(BooleanHandler.class));
 	}
 
@@ -70,7 +70,7 @@ public class TestAnnotationUtil {
 	public void testGetHandlerAnnotation_methodVariant_annotationPresent() {
 		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(2));
 
-		assertThat(annotation, is(not(nullValue())));
+		assertThat(annotation, is(notNullValue()));
 		assertThat(annotation, instanceOf(StringHandler.class));
 	}
 
@@ -90,8 +90,8 @@ public class TestAnnotationUtil {
 	public void testGetDefaultAnnotation_fieldVariant_annotationPresent() {
 		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(4));
 
-		assertThat(annotation, is(not(nullValue())));
-		assertThat(annotation, instanceOf(StringHandler.class));
+		assertThat(annotation, is(notNullValue()));
+		assertThat(annotation, instanceOf(DefaultToString.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -110,8 +110,8 @@ public class TestAnnotationUtil {
 	public void testGetDefaultAnnotation_methodVariant_annotationPresent() {
 		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(4));
 
-		assertThat(annotation, is(not(nullValue())));
-		assertThat(annotation, instanceOf(BooleanHandler.class));
+		assertThat(annotation, is(notNullValue()));
+		assertThat(annotation, instanceOf(DefaultToBoolean.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -143,8 +143,8 @@ public class TestAnnotationUtil {
 		assertThat(annotations.size(), is(1));
 
 		assertThat(annotations.keySet().contains(0), is(true));
-		assertThat(annotations.get(0), is(not(nullValue())));
-		assertThat(annotations.get(0), instanceOf(UseString.class));
+		assertThat(annotations.get(0), is(notNullValue()));
+		assertThat(annotations.get(0), instanceOf(UseDouble.class));
 	}
 
 	@Test
@@ -164,11 +164,11 @@ public class TestAnnotationUtil {
 		assertThat(annotations.size(), is(2));
 
 		assertThat(annotations.keySet().contains(0), is(true));
-		assertThat(annotations.get(0), is(not(nullValue())));
+		assertThat(annotations.get(0), is(notNullValue()));
 		assertThat(annotations.get(0), instanceOf(UseChar.class));
 
 		assertThat(annotations.keySet().contains(1), is(true));
-		assertThat(annotations.get(1), is(not(nullValue())));
+		assertThat(annotations.get(1), is(notNullValue()));
 		assertThat(annotations.get(1), instanceOf(UseInt.class));
 	}
 
@@ -180,15 +180,15 @@ public class TestAnnotationUtil {
 		assertThat(annotations.size(), is(3));
 
 		assertThat(annotations.keySet().contains(0), is(true));
-		assertThat(annotations.get(0), is(not(nullValue())));
+		assertThat(annotations.get(0), is(notNullValue()));
 		assertThat(annotations.get(0), instanceOf(UseLong.class));
 
 		assertThat(annotations.keySet().contains(1), is(true));
-		assertThat(annotations.get(1), is(not(nullValue())));
+		assertThat(annotations.get(1), is(notNullValue()));
 		assertThat(annotations.get(1), instanceOf(UseString.class));
 
 		assertThat(annotations.keySet().contains(2), is(true));
-		assertThat(annotations.get(2), is(not(nullValue())));
+		assertThat(annotations.get(2), is(notNullValue()));
 		assertThat(annotations.get(2), instanceOf(UseByte.class));
 	}
 
