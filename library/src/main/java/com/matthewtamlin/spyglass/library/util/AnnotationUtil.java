@@ -10,8 +10,12 @@ import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+
 public class AnnotationUtil {
 	public static Annotation getHandlerAnnotation(final Field field) {
+		checkNotNull(field, "Argument \'field \' cannot be null.");
+
 		for (final Annotation a : field.getDeclaredAnnotations()) {
 			if (a.annotationType().isAnnotationPresent(Handler.class)) {
 				return a;
@@ -22,6 +26,8 @@ public class AnnotationUtil {
 	}
 
 	public static Annotation getHandlerAnnotation(final Method method) {
+		checkNotNull(method, "Argument \'method \' cannot be null.");
+
 		for (final Annotation a : method.getDeclaredAnnotations()) {
 			if (a.annotationType().isAnnotationPresent(Handler.class)) {
 				return a;
@@ -32,6 +38,8 @@ public class AnnotationUtil {
 	}
 
 	public static Annotation getDefaultAnnotation(final Field field) {
+		checkNotNull(field, "Argument \'field \' cannot be null.");
+
 		for (final Annotation a : field.getDeclaredAnnotations()) {
 			if (a.annotationType().isAnnotationPresent(Default.class)) {
 				return a;
@@ -42,6 +50,8 @@ public class AnnotationUtil {
 	}
 
 	public static Annotation getDefaultAnnotation(final Method method) {
+		checkNotNull(method, "Argument \'method \' cannot be null.");
+
 		for (final Annotation a : method.getDeclaredAnnotations()) {
 			if (a.annotationType().isAnnotationPresent(Default.class)) {
 				return a;
@@ -52,6 +62,8 @@ public class AnnotationUtil {
 	}
 
 	public static Map<Integer, Annotation> getUseAnnotations(final Method method) {
+		checkNotNull(method, "Argument \'method \' cannot be null.");
+
 		final Map<Integer, Annotation> useAnnotationsByIndex = new HashMap<>();
 
 		final Annotation[][] annotationsByParam = method.getParameterAnnotations();
@@ -69,6 +81,8 @@ public class AnnotationUtil {
 	}
 
 	private static Annotation getUseAnnotationForMethodParam(final Annotation[] annotations) {
+		checkNotNull(annotations, "Argument \'annotations \' cannot be null.");
+
 		for (final Annotation a : annotations) {
 			final Use useAnnotation = a.annotationType().getAnnotation(Use.class);
 
