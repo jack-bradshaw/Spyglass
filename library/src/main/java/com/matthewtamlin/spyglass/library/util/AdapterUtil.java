@@ -26,7 +26,9 @@ public class AdapterUtil {
 
 		final Annotation handlerAnnotation = AnnotationUtil.getHandlerAnnotation(field);
 
-		checkNotNull(handlerAnnotation, "The supplied field does not have a handler annotation.");
+		if (handlerAnnotation == null) {
+			return null;
+		}
 
 		final Class<? extends HandlerAdapter> adapterClass = handlerAnnotation
 				.annotationType()
@@ -47,7 +49,9 @@ public class AdapterUtil {
 
 		final Annotation handlerAnnotation = AnnotationUtil.getHandlerAnnotation(method);
 
-		checkNotNull(handlerAnnotation, "The supplied method does not have a handler annotation.");
+		if (handlerAnnotation == null) {
+			return null;
+		}
 
 		final Class<? extends HandlerAdapter> adapterClass = handlerAnnotation
 				.annotationType()
@@ -68,7 +72,9 @@ public class AdapterUtil {
 
 		final Annotation defaultAnnotation = AnnotationUtil.getDefaultAnnotation(field);
 
-		checkNotNull(defaultAnnotation, "The supplied field does not have a default annotation.");
+		if (defaultAnnotation == null) {
+			return null;
+		}
 
 		final Class<? extends DefaultAdapter> adapterClass = defaultAnnotation
 				.annotationType()
@@ -89,7 +95,9 @@ public class AdapterUtil {
 
 		final Annotation defaultAnnotation = AnnotationUtil.getDefaultAnnotation(method);
 
-		checkNotNull(defaultAnnotation, "The supplied method does not have a default annotation.");
+		if (defaultAnnotation == null) {
+			return null;
+		}
 
 		final Class<? extends DefaultAdapter> adapterClass = defaultAnnotation
 				.annotationType()
@@ -105,8 +113,8 @@ public class AdapterUtil {
 		}
 	}
 
-	public static Map<Integer, UseAdapter> getUseAdapters(
-			final Method method) {
+	public static Map<Integer, UseAdapter> getUseAdapters(final Method method) {
+		checkNotNull(method, "Argument \'method \' cannot be null.");
 
 		final Map<Integer, UseAdapter> adapters = new HashMap<>();
 
