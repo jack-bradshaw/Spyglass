@@ -35,6 +35,7 @@ import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
 
 @RunWith(JUnit4.class)
@@ -55,7 +56,7 @@ public class TestAdapterUtil {
 	public void testGetHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
 		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(2));
 
-		assertThat(adapter, is(not(nullValue())));
+		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(BooleanHandlerAdapter.class));
 	}
 
@@ -75,7 +76,7 @@ public class TestAdapterUtil {
 	public void testGetHandlerAdapter_methodVariant_oneHandlerAnnotation() {
 		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(2));
 
-		assertThat(adapter, is(not(nullValue())));
+		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(DrawableHandlerAdapter.class));
 	}
 
@@ -95,7 +96,7 @@ public class TestAdapterUtil {
 	public void testGetDefaultAdapter_fieldVariant_oneDefaultAnnotation() {
 		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3));
 
-		assertThat(adapter, is(not(nullValue())));
+		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(DefaultToString.class));
 	}
 
@@ -115,7 +116,7 @@ public class TestAdapterUtil {
 	public void testGetHandlerAdapter_methodVariant_oneDefaultAnnotation() {
 		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(3));
 
-		assertThat(adapter, is(not(nullValue())));
+		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(DefaultToDimension.class));
 	}
 
