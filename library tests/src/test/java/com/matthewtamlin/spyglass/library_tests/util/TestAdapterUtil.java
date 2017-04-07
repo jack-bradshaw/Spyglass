@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
+import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
@@ -101,7 +102,7 @@ public class TestAdapterUtil {
 		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3));
 
 		assertThat(adapter, is(notNullValue()));
-		assertThat(adapter, instanceOf(DefaultToString.class));
+		assertThat(adapter, instanceOf(DefaultToStringAdapter.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
