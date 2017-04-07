@@ -113,8 +113,7 @@ public class AdapterUtil {
 		}
 	}
 
-	public static Map<Integer, UseAdapter> getUseAdapters(
-			final Method method) {
+	public static Map<Integer, UseAdapter> getUseAdapters(final Method method) {
 
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
