@@ -111,7 +111,7 @@ public class TestAnnotationUtil {
 		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(4));
 
 		assertThat(annotation, is(notNullValue()));
-		assertThat(annotation, instanceOf(BooleanHandler.class));
+		assertThat(annotation, instanceOf(DefaultToBoolean.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
