@@ -144,7 +144,7 @@ public class TestAnnotationUtil {
 
 		assertThat(annotations.keySet().contains(0), is(true));
 		assertThat(annotations.get(0), is(notNullValue()));
-		assertThat(annotations.get(0), instanceOf(UseString.class));
+		assertThat(annotations.get(0), instanceOf(UseDouble.class));
 	}
 
 	@Test
