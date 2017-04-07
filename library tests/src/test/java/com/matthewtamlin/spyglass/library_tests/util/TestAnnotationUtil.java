@@ -91,7 +91,7 @@ public class TestAnnotationUtil {
 		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(4));
 
 		assertThat(annotation, is(notNullValue()));
-		assertThat(annotation, instanceOf(StringHandler.class));
+		assertThat(annotation, instanceOf(DefaultToString.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
