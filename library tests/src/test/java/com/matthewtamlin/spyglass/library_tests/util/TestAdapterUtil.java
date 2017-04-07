@@ -13,6 +13,9 @@ import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseStringAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
@@ -145,7 +148,7 @@ public class TestAdapterUtil {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(6));
 
 		assertThat(adapters.size(), is(1));
-		assertThat(adapters.get(0), instanceOf(UseBoolean.class));
+		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
 	}
 
 	@Test
@@ -153,8 +156,8 @@ public class TestAdapterUtil {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(7));
 
 		assertThat(adapters.size(), is(2));
-		assertThat(adapters.get(0), instanceOf(UseBoolean.class));
-		assertThat(adapters.get(1), instanceOf(UseChar.class));
+		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
+		assertThat(adapters.get(1), instanceOf(UseCharAdapter.class));
 	}
 
 	@Test
@@ -162,9 +165,9 @@ public class TestAdapterUtil {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(8));
 
 		assertThat(adapters.size(), is(3));
-		assertThat(adapters.get(0), instanceOf(UseBoolean.class));
-		assertThat(adapters.get(1), instanceOf(UseChar.class));
-		assertThat(adapters.get(2), instanceOf(UseString.class));
+		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
+		assertThat(adapters.get(1), instanceOf(UseCharAdapter.class));
+		assertThat(adapters.get(2), instanceOf(UseStringAdapter.class));
 	}
 
 	private Field getFieldWithTag(final int tagValue) {
