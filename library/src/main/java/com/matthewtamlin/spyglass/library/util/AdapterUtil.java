@@ -114,7 +114,6 @@ public class AdapterUtil {
 	}
 
 	public static Map<Integer, UseAdapter> getUseAdapters(final Method method) {
-
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
 		final Map<Integer, UseAdapter> adapters = new HashMap<>();
