@@ -6,13 +6,15 @@ import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class ValidationUtil {
-	private static Set<FieldRule> fieldRules = new HashSet<>();
+	private static List<FieldRule> fieldRules = new ArrayList<>();
 
-	private static Set<MethodRule> methodRules = new HashSet<>();
+	private static List<MethodRule> methodRules = new ArrayList<>();
 
 	static {
 		createFieldRules();
