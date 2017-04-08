@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.HashSet;
@@ -33,6 +34,21 @@ public class ValidationUtil {
 
 	private static void createMethodRules() {
 
+	}
+
+	private static int countAnnotations(
+			final Annotation[] annotations,
+			final Class<? extends Annotation> metaAnnotation) {
+
+		int count = 0;
+
+		for (final Annotation a : annotations) {
+			if (a.annotationType().isAnnotationPresent(metaAnnotation)) {
+				count++;
+			}
+		}
+
+		return count;
 	}
 
 	private interface FieldRule {
