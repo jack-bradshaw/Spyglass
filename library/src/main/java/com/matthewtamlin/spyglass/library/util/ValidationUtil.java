@@ -27,7 +27,7 @@ public class ValidationUtil {
 
 	public static void validateAnnotations(final Method method) throws SpyglassValidationException {
 		for (final MethodRule rule : methodRules) {
-			rule.checkMethod(method);
+			rule.checkMethodComplies(method);
 		}
 	}
 
@@ -76,7 +76,7 @@ public class ValidationUtil {
 	private static void createMethodRules() {
 		methodRules.add(new MethodRule() {
 			@Override
-			public void checkMethod(final Method method) {
+			public void checkMethodComplies(final Method method) {
 				final Annotation[] annotations = method.getDeclaredAnnotations();
 				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
 
@@ -89,7 +89,7 @@ public class ValidationUtil {
 
 		methodRules.add(new MethodRule() {
 			@Override
-			public void checkMethod(final Method method) {
+			public void checkMethodComplies(final Method method) {
 				final Annotation[] annotations = method.getDeclaredAnnotations();
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
@@ -102,7 +102,7 @@ public class ValidationUtil {
 
 		methodRules.add(new MethodRule() {
 			@Override
-			public void checkMethod(final Method method) {
+			public void checkMethodComplies(final Method method) {
 				final Annotation[] annotations = method.getDeclaredAnnotations();
 				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
@@ -135,6 +135,6 @@ public class ValidationUtil {
 	}
 
 	private interface MethodRule {
-		public void checkMethod(Method method);
+		public void checkMethodComplies(Method method);
 	}
 }
