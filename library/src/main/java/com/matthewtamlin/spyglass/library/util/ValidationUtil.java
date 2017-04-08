@@ -1,5 +1,8 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.spyglass.library.meta_annotations.Default;
+import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
+
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -29,7 +32,45 @@ public class ValidationUtil {
 	}
 
 	private static void createFieldRules() {
+		fieldRules.add(new FieldRule() {
+			@Override
+			public void checkField(final Field field) {
+				final Annotation[] annotations = field.getDeclaredAnnotations();
+				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
 
+				if (handlerAnnotationCount > 1) {
+					throw new SpyglassValidationException("Field " + field + " has multiple " +
+							"handler annotations.");
+				}
+			}
+		});
+
+		fieldRules.add(new FieldRule() {
+			@Override
+			public void checkField(final Field field) {
+				final Annotation[] annotations = field.getDeclaredAnnotations();
+				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
+
+				if (defaultAnnotationCount > 1) {
+					throw new SpyglassValidationException("Field " + field + " has multiple " +
+							"default annotations.");
+				}
+			}
+		});
+
+		fieldRules.add(new FieldRule() {
+			@Override
+			public void checkField(final Field field) {
+				final Annotation[] annotations = field.getDeclaredAnnotations();
+				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
+
+				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
+					throw new SpyglassValidationException("Field " + field + " has a default " +
+							"annotation but no handler annotation.");
+				}
+			}
+		});
 	}
 
 	private static void createMethodRules() {
