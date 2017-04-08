@@ -11,11 +11,6 @@ public class TestEnumUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetEnumConstant_nonEnumClassSupplied() {
-		
-	}
-
-	@Test(expected = IllegalArgumentException.class)
 	public void testGetEnumConstant_ordinalIsNegativeOne() {
 
 	}
