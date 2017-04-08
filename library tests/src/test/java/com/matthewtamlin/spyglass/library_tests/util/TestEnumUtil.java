@@ -40,7 +40,7 @@ public class TestEnumUtil {
 		EnumUtil.getEnumConstant(TestEnum.class, MAX + 1);
 	}
 
-	private enum TestEnum {
+	public enum TestEnum {
 		CONST1,
 		CONST2,
 		CONST3,
