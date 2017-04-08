@@ -9,7 +9,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 public class TestEnumUtil {
-	private static final int MAX = TestEnum.values().length - 1;
+	private static final int MAX_ORDINAL = TestEnum.values().length - 1;
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetEnumConstant_nullClassSupplied() {
@@ -30,14 +30,14 @@ public class TestEnumUtil {
 
 	@Test
 	public void testGetEnumConstant_ordinalIsMax() {
-		final TestEnum returnedValue = EnumUtil.getEnumConstant(TestEnum.class, MAX);
+		final TestEnum returnedValue = EnumUtil.getEnumConstant(TestEnum.class, MAX_ORDINAL);
 
 		assertThat(returnedValue, is(CONST1));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetEnumConstant_ordinalExceedsMax() {
-		EnumUtil.getEnumConstant(TestEnum.class, MAX + 1);
+		EnumUtil.getEnumConstant(TestEnum.class, MAX_ORDINAL + 1);
 	}
 
 	public enum TestEnum {
