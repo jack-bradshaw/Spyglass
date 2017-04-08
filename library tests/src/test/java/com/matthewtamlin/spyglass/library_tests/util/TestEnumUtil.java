@@ -4,8 +4,6 @@ import com.matthewtamlin.spyglass.library.util.EnumUtil;
 
 import org.junit.Test;
 
-import static com.matthewtamlin.spyglass.library_tests.util.TestEnumUtil.TestEnum.CONST1;
-import static com.matthewtamlin.spyglass.library_tests.util.TestEnumUtil.TestEnum.CONST4;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
