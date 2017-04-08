@@ -21,7 +21,7 @@ public class ValidationUtil {
 
 	public static void validateAnnotations(final Field field) throws SpyglassValidationException {
 		for (final FieldRule rule : fieldRules) {
-			rule.checkField(field);
+			rule.checkFieldComplies(field);
 		}
 	}
 
@@ -34,7 +34,7 @@ public class ValidationUtil {
 	private static void createFieldRules() {
 		fieldRules.add(new FieldRule() {
 			@Override
-			public void checkField(final Field field) {
+			public void checkFieldComplies(final Field field) {
 				final Annotation[] annotations = field.getDeclaredAnnotations();
 				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
 
@@ -47,7 +47,7 @@ public class ValidationUtil {
 
 		fieldRules.add(new FieldRule() {
 			@Override
-			public void checkField(final Field field) {
+			public void checkFieldComplies(final Field field) {
 				final Annotation[] annotations = field.getDeclaredAnnotations();
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
@@ -60,7 +60,7 @@ public class ValidationUtil {
 
 		fieldRules.add(new FieldRule() {
 			@Override
-			public void checkField(final Field field) {
+			public void checkFieldComplies(final Field field) {
 				final Annotation[] annotations = field.getDeclaredAnnotations();
 				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
@@ -131,7 +131,7 @@ public class ValidationUtil {
 	}
 
 	private interface FieldRule {
-		public void checkField(Field field);
+		public void checkFieldComplies(Field field);
 	}
 
 	private interface MethodRule {
