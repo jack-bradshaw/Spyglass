@@ -74,7 +74,45 @@ public class ValidationUtil {
 	}
 
 	private static void createMethodRules() {
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethod(final Method method) {
+				final Annotation[] annotations = method.getDeclaredAnnotations();
+				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
 
+				if (handlerAnnotationCount > 1) {
+					throw new SpyglassValidationException("Method " + method + " has multiple " +
+							"handler annotations.");
+				}
+			}
+		});
+
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethod(final Method method) {
+				final Annotation[] annotations = method.getDeclaredAnnotations();
+				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
+
+				if (defaultAnnotationCount > 1) {
+					throw new SpyglassValidationException("Method " + method + " has multiple " +
+							"default annotations.");
+				}
+			}
+		});
+
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethod(final Method method) {
+				final Annotation[] annotations = method.getDeclaredAnnotations();
+				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
+
+				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
+					throw new SpyglassValidationException("Method " + method + " has a default " +
+							"annotation but no handler annotation.");
+				}
+			}
+		});
 	}
 
 	private static int countAnnotations(
