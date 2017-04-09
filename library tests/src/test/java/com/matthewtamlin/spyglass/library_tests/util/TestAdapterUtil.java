@@ -254,9 +254,9 @@ public class TestAdapterUtil {
 		private void method8(String s, boolean b, float f) {}
 
 		@MethodTag(9)
-		private void method8(@UseBoolean(false) int i, char c, @UseFloat(0F) String s) {}
+		private void method9(@UseBoolean(false) int i, char c, @UseFloat(0F) String s) {}
 
 		@MethodTag(10)
-		private void method9(@UseLong(0L) long l, @UseChar(0) char c, @UseString("s") String s) {}
+		private void method10(@UseLong(0L) long l, @UseChar(0) char c, @UseString("s") String s) {}
 	}
 }
