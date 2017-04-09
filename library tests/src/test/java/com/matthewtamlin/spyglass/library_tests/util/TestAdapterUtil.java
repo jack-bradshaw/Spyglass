@@ -221,24 +221,21 @@ public class TestAdapterUtil {
 
 		@MethodTag(6)
 		@FractionHandler(attributeId = 6)
-		private void method6(final int i) {}
+		private void method6(int i) {}
 
 		@MethodTag(7)
 		@ColorHandler(attributeId = 7)
-		private void method7(@UseBoolean(false) final int i) {}
+		private void method7(@UseBoolean(false) int i) {}
 
 		@MethodTag(8)
 		@ColorHandler(attributeId = 8)
-		private void method8(
-				@UseBoolean(false) final int i,
-				@UseChar(0) final char c,
-				final String s) {}
+		private void method8(@UseBoolean(false) int i, @UseChar(0) char c, String s) {}
 
 		@MethodTag(8)
 		@ColorHandler(attributeId = 9)
 		private void method9(
-				@UseBoolean(false) final int i,
-				@UseChar(0) final char c,
-				@UseString("string") final String s) {}
+				@UseBoolean(false) int i,
+				@UseChar(0) char c,
+				@UseString("s") String s) {}
 	}
 }
