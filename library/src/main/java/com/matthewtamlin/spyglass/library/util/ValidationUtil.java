@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
@@ -129,6 +130,42 @@ public class ValidationUtil {
 						throw new SpyglassValidationException("A parameter for method " + method
 								+ " has multiple use annotations.");
 					}
+				}
+			}
+		});
+
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				final int parameterCount = method.getParameterAnnotations().length;
+
+				// Expect one additional use annotation if the EnumConstantHandler is present
+				final int expectedUseAnnotationCount =
+						method.isAnnotationPresent(EnumConstantHandler.class) ?
+								parameterCount :
+								parameterCount - 1;
+
+				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(method);
+
+				int useAnnotationCount = 0;
+
+				for (final Set<Annotation> annotationsOnParameter : useAnnotations.values()) {
+					if (!annotationsOnParameter.isEmpty()) {
+						useAnnotationCount++;
+					}
+				}
+
+				if (useAnnotationCount != expectedUseAnnotationCount) {
+					final String message = "Method %1$s has an incorrect number of Use " +
+							"annotations. Expected %2$s but instead found %3$s.";
+
+					final String formattedMessage = String.format(
+							message,
+							method,
+							expectedUseAnnotationCount,
+							useAnnotationCount);
+
+					throw new SpyglassValidationException(formattedMessage);
 				}
 			}
 		});
