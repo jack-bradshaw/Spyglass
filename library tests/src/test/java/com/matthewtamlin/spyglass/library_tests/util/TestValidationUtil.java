@@ -3,22 +3,39 @@ package com.matthewtamlin.spyglass.library_tests.util;
 import com.matthewtamlin.spyglass.library.core.DimensionUnit;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimensionResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDrawableResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFloat;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToInteger;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringResource;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToSuppliedValue;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FloatHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.library.meta_annotations.Default;
+import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
+import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
+import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
+import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.library.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+
+import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
 
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
@@ -200,5 +217,83 @@ public class TestValidationUtil {
 
 		@DefaultToColorStateListResource(1)
 		private Object field8;
+
+		private void method1() {}
+
+		@BooleanHandler(attributeId = 2)
+		private void method2(Object o) {}
+
+		@StringHandler(attributeId = 3)
+		@FloatHandler(attributeId = 3)
+		private void method3(Object o) {}
+
+		@FractionHandler(attributeId = 4)
+		@DimensionHandler(attributeId = 4)
+		@IntegerHandler(attributeId = 4)
+		private void method4(Object o) {}
+
+		@FractionHandler(attributeId = 5)
+		@DefaultToFloat(5)
+		private void method5(Object o) {}
+
+		@BooleanHandler(attributeId = 6)
+		@DefaultToColorResource(6)
+		@DefaultToNull
+		private void method6(Object o) {}
+
+		@BooleanHandler(attributeId = 6)
+		@DefaultToColorResource(6)
+		@DefaultToDimensionResource(6)
+		@DefaultToDimension(value = 10, unit = DP)
+		private void method7(Object o) {}
+
+		@DefaultToString("something")
+		private void method8(Object o) {}
+
+		@IntegerHandler(attributeId = 9)
+		private void method9() {}
+
+		@DimensionHandler(attributeId = 10)
+		private void method10(Object o) {}
+
+		@FractionHandler(attributeId = 11)
+		private void method11(@UseBoolean(true) Object o) {}
+
+		@StringHandler(attributeId = 12)
+		private void method12(Object o1, Object o2, Object o3) {}
+
+		@BooleanHandler(attributeId = 13)
+		private void method13(@UseChar('A') Object o1, Object o2, @UseBoolean(true) Object o3) {}
+
+		@EnumConstantHandler(attributeId = 14, enumClass = TestEnum.class, ordinal = 0)
+		private void method14(
+				@UseLong(0L) Object o1,
+				@UseInt(1) Object o2,
+				@UseByte(0) Object o3) {}
+
+		@EnumConstantHandler(attributeId = 15, enumClass = TestEnum.class, ordinal = 0)
+		private void method15() {}
+
+		@EnumConstantHandler(attributeId = 16, enumClass = TestEnum.class, ordinal = 0)
+		private void method16(Object o) {}
+
+		@EnumConstantHandler(attributeId = 17, enumClass = TestEnum.class, ordinal = 0)
+		private void method17(@UseBoolean(true) Object o) {}
+
+		@EnumConstantHandler(attributeId = 18, enumClass = TestEnum.class, ordinal = 0)
+		private void method18(Object o1, Object o2, Object o3) {}
+
+		@EnumConstantHandler(attributeId = 19, enumClass = TestEnum.class, ordinal = 0)
+		private void method19(@UseChar('A') Object o1, Object o2, @UseBoolean(true) Object o3) {}
+
+		@EnumConstantHandler(attributeId = 20, enumClass = TestEnum.class, ordinal = 0)
+		private void method20(
+				@UseLong(0L) Object o1,
+				@UseInt(1) Object o2,
+				@UseByte(0) Object o3) {}
+	}
+
+	private enum TestEnum {
+		CONST1
 	}
 }
