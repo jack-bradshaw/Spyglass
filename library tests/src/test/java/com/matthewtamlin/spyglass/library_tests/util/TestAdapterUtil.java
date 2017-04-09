@@ -192,6 +192,9 @@ public class TestAdapterUtil {
 		@BooleanHandler(attributeId = 2)
 		private Object field2;
 
+		@FieldTag(3)
+		private Object field3;
+
 		@FieldTag(4)
 		@BooleanHandler(attributeId = 4)
 		@DefaultToString("default string")
