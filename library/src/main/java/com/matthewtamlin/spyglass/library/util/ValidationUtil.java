@@ -165,7 +165,7 @@ public class ValidationUtil {
 		}
 	}
 
-	public static void validateAnnotations(final Method method) throws SpyglassValidationException {
+	public static void validateMethod(final Method method) throws SpyglassValidationException {
 		for (final MethodRule rule : methodRules) {
 			rule.checkMethodComplies(method);
 		}
