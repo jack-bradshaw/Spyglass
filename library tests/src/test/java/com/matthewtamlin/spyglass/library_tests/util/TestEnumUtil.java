@@ -3,10 +3,13 @@ package com.matthewtamlin.spyglass.library_tests.util;
 import com.matthewtamlin.spyglass.library.util.EnumUtil;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+@RunWith(JUnit4.class)
 public class TestEnumUtil {
 	private static final int MAX_ORDINAL = TestEnum.values().length - 1;
 
