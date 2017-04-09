@@ -200,7 +200,7 @@ public class TestAdapterUtil {
 
 		@FieldTag(4)
 		@DefaultToString("default string")
-		private Drawable field4;
+		private String field4;
 
 		@MethodTag(1)
 		private void method1() {}
