@@ -22,7 +22,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestEnumConstantHandlerAdapter {
-
 	private static int CORRECT_ORDINAL = 2;
 
 	private TypedArray containingAttributeWithCorrectOrdinal;
@@ -143,14 +142,14 @@ public class TestEnumConstantHandlerAdapter {
 	}
 
 	@Test
-	public void testAttributeIsMandatory() {
+	public void testIsMandatory() {
 		final boolean mandatory = adapter.isMandatory(annotation);
 
 		assertThat(mandatory, is(false));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeIsMandatory_nullAnnotation() {
+	public void testIsMandatory_nullAnnotation() {
 		adapter.isMandatory(null);
 	}
 
