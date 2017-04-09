@@ -22,6 +22,7 @@ import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseStringAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
@@ -233,7 +234,7 @@ public class TestAdapterUtil {
 
 		@MethodTag(10)
 		private void method9(
-				@UseBoolean(false) int i,
+				@UseLong(0L) long l,
 				@UseChar(0) char c,
 				@UseString("s") String s) {}
 	}
