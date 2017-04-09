@@ -27,6 +27,8 @@ public abstract class TestHandlerAdapter<V,
 
 	public abstract H getAdapter();
 
+	public abstract int getAttributeId();
+
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
 		getAdapter().getClass().newInstance();
