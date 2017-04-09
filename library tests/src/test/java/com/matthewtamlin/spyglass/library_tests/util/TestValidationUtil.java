@@ -210,7 +210,7 @@ public class TestValidationUtil {
 		private Object field6;
 
 		@StringHandler(attributeId = 7)
-		@DefaultToEnumConstant(enumClass = DimensionUnit.class, ordinal = 0)
+		@DefaultToEnumConstant(enumClass = TestEnum.class, ordinal = 0)
 		@DefaultToBooleanResource(7)
 		@DefaultToStringResource(7)
 		private Object field7;
