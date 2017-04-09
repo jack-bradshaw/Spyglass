@@ -4,6 +4,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -34,6 +35,13 @@ public class DrawableHandlerAdapter implements HandlerAdapter<Drawable, Drawable
 				}
 			}
 		};
+	}
+
+	@Override
+	public int getAttributeId(final DrawableHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
+		return annotation.attributeId();
 	}
 
 	@Override
