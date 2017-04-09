@@ -81,6 +81,11 @@ public class TestValidationUtil {
 	}
 
 	@Test
+	public void testValidateMethod_noAnnotations() {
+		ValidationUtil.validateMethod(getMethodWithTag(1, TestClass.class));
+	}
+
+	@Test
 	public void testValidateMethod_oneHandlerAnnotation() {
 		ValidationUtil.validateMethod(getMethodWithTag(2, TestClass.class));
 	}
