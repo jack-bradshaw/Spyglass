@@ -1,18 +1,24 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
+import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ValidationUtil {
-	private static Set<FieldRule> fieldRules = new HashSet<>();
+	private static List<FieldRule> fieldRules = new ArrayList<>();
 
-	private static Set<MethodRule> methodRules = new HashSet<>();
+	private static List<MethodRule> methodRules = new ArrayList<>();
 
 	static {
 		createFieldRules();
@@ -113,6 +119,56 @@ public class ValidationUtil {
 				}
 			}
 		});
+
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(method);
+
+				for (final Set<Annotation> annotationsOnParameter : useAnnotations.values()) {
+					if (annotationsOnParameter.size() > 1) {
+						throw new SpyglassValidationException("A parameter for method " + method
+								+ " has multiple use annotations.");
+					}
+				}
+			}
+		});
+
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				final int parameterCount = method.getParameterAnnotations().length;
+
+				// Expect one additional use annotation if the EnumConstantHandler is present
+				final int expectedUseAnnotationCount =
+						method.isAnnotationPresent(EnumConstantHandler.class) ?
+								parameterCount :
+								parameterCount - 1;
+
+				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(method);
+
+				int useAnnotationCount = 0;
+
+				for (final Set<Annotation> annotationsOnParameter : useAnnotations.values()) {
+					if (!annotationsOnParameter.isEmpty()) {
+						useAnnotationCount++;
+					}
+				}
+
+				if (useAnnotationCount != expectedUseAnnotationCount) {
+					final String message = "Method %1$s has an incorrect number of Use " +
+							"annotations. Expected %2$s but instead found %3$s.";
+
+					final String formattedMessage = String.format(
+							message,
+							method,
+							expectedUseAnnotationCount,
+							useAnnotationCount);
+
+					throw new SpyglassValidationException(formattedMessage);
+				}
+			}
+		});
 	}
 
 	private static int countAnnotations(
@@ -128,6 +184,24 @@ public class ValidationUtil {
 		}
 
 		return count;
+	}
+
+	private static Map<Integer, Set<Annotation>> getUseAnnotations(final Method method) {
+		final Map<Integer, Set<Annotation>> useAnnotationsByParameterIndex = new HashMap<>();
+
+		final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+
+		for (int i = 0; i < parameterAnnotations.length; i++) {
+			useAnnotationsByParameterIndex.put(i, new HashSet<Annotation>());
+
+			for (final Annotation a : parameterAnnotations[i]) {
+				if (a.annotationType().isAnnotationPresent(Use.class)) {
+					useAnnotationsByParameterIndex.get(i).add(a);
+				}
+			}
+		}
+
+		return useAnnotationsByParameterIndex;
 	}
 
 	private interface FieldRule {
