@@ -1,14 +1,18 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
+import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class ValidationUtil {
@@ -130,6 +134,24 @@ public class ValidationUtil {
 		}
 
 		return count;
+	}
+
+	private static Map<Integer, Set<Annotation>> getUseAnnotations(final Method method) {
+		final Map<Integer, Set<Annotation>> useAnnotationsByParameterIndex = new HashMap<>();
+
+		final Annotation[][] parameterAnnotations = method.getParameterAnnotations();
+
+		for (int i = 0; i < parameterAnnotations.length; i++) {
+			useAnnotationsByParameterIndex.put(i, new HashSet<Annotation>());
+
+			for (final Annotation a : parameterAnnotations[i]) {
+				if (a.annotationType().isAnnotationPresent(Use.class)) {
+					useAnnotationsByParameterIndex.get(i).add(a);
+				}
+			}
+		}
+
+		return useAnnotationsByParameterIndex;
 	}
 
 	private interface FieldRule {
