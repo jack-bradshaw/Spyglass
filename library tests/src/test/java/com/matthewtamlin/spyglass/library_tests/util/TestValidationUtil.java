@@ -183,6 +183,11 @@ public class TestValidationUtil {
 		ValidationUtil.validateMethod(getMethodWithTag(21, TestClass.class));
 	}
 
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_useAnnotationsWithoutHandlerAnnotation() {
+		ValidationUtil.validateMethod(getMethodWithTag(22, TestClass.class));
+	}
+
 	@SuppressWarnings("unused")
 	public class TestClass {
 		private Object field1;
@@ -293,7 +298,7 @@ public class TestValidationUtil {
 
 		@BooleanHandler(attributeId = 21)
 		private void method21(@UseLong(0L) @UseBoolean(true) Object o) {}
-		
+
 		private void method22(@UseBoolean(true) Object o) {}
 	}
 
