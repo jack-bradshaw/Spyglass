@@ -38,6 +38,7 @@ import java.util.Map;
 
 import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getUseAdapters;
+import static com.matthewtamlin.spyglass.library_tests.util.FieldHelper.getFieldWithTag;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
@@ -54,14 +55,16 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_fieldVariant_noHandlerAnnotations() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(1));
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(1,
+				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
 	public void testGetHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(2));
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(2,
+				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(BooleanHandlerAdapter.class));
@@ -94,14 +97,16 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_fieldVariant_noDefaultAnnotations() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(1));
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(1,
+				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
 	public void testGetDefaultAdapter_fieldVariant_oneDefaultAnnotation() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3));
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3,
+				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(DefaultToStringAdapter.class));
@@ -171,18 +176,6 @@ public class TestAdapterUtil {
 		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
 		assertThat(adapters.get(1), instanceOf(UseCharAdapter.class));
 		assertThat(adapters.get(2), instanceOf(UseStringAdapter.class));
-	}
-
-	private Field getFieldWithTag(final int tagValue) {
-		for (final Field f : TestClass.class.getDeclaredFields()) {
-			final FieldTag tag = f.getAnnotation(FieldTag.class);
-
-			if (tag != null && tag.value() == tagValue) {
-				return f;
-			}
-		}
-
-		throw new RuntimeException("No field found with tag index " + tagValue);
 	}
 
 	private Method getMethodWithTag(final int tagValue) {
