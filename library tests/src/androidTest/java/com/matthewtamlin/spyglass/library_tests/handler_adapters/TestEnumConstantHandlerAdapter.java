@@ -22,6 +22,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class TestEnumConstantHandlerAdapter {
+	private static final int ATTRIBUTE_ID = 5927;
+
 	private static int CORRECT_ORDINAL = 2;
 
 	private TypedArray containingAttributeWithCorrectOrdinal;
@@ -36,34 +38,32 @@ public class TestEnumConstantHandlerAdapter {
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		containingAttributeWithCorrectOrdinal = mock(TypedArray.class);
-		when(containingAttributeWithCorrectOrdinal.hasValue(attributeId))
+		when(containingAttributeWithCorrectOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
-		when(containingAttributeWithCorrectOrdinal.getInt(eq(attributeId), anyInt()))
+		when(containingAttributeWithCorrectOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(CORRECT_ORDINAL);
-		when(containingAttributeWithCorrectOrdinal.getInteger(eq(attributeId), anyInt()))
+		when(containingAttributeWithCorrectOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(CORRECT_ORDINAL);
 
 		containingAttributeWithWrongOrdinal = mock(TypedArray.class);
-		when(containingAttributeWithWrongOrdinal.hasValue(attributeId))
+		when(containingAttributeWithWrongOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
-		when(containingAttributeWithWrongOrdinal.getInt(eq(attributeId), anyInt()))
+		when(containingAttributeWithWrongOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(CORRECT_ORDINAL - 1);
-		when(containingAttributeWithWrongOrdinal.getInteger(eq(attributeId), anyInt()))
+		when(containingAttributeWithWrongOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(CORRECT_ORDINAL - 1);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getInt(eq(attributeId), anyInt())).thenAnswer(new Answer<Object>() {
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt())).thenAnswer(new Answer<Object>() {
 			@Override
 			public Object answer(final InvocationOnMock invocation) throws Throwable {
 				// Always return the second argument since it's the default
 				return invocation.getArgumentAt(1, Integer.class);
 			}
 		});
-		when(missingAttribute.getInteger(eq(attributeId), anyInt()))
+		when(missingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
@@ -73,7 +73,7 @@ public class TestEnumConstantHandlerAdapter {
 				});
 
 		annotation = mock(EnumConstantHandler.class);
-		when(annotation.attributeId()).thenReturn(attributeId);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 		doReturn(TestEnum.class).when(annotation).enumClass();
 		when(annotation.ordinal()).thenReturn(CORRECT_ORDINAL);
 
@@ -139,6 +139,18 @@ public class TestEnumConstantHandlerAdapter {
 	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_valueMissing() {
 		adapter.getAccessor(annotation).getValueFromArray(missingAttribute);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAttributeId_nullSupplied() {
+		adapter.getAttributeId(null);
+	}
+
+	@Test
+	public void testGetAttributeId_nonNullSupplied() {
+		final int attributeId = adapter.getAttributeId(annotation);
+
+		assertThat(attributeId, is(ATTRIBUTE_ID));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
