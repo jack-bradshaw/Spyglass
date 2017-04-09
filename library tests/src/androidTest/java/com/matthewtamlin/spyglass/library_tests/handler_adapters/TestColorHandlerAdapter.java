@@ -25,6 +25,8 @@ public class TestColorHandlerAdapter extends TestHandlerAdapter<
 		ColorHandler,
 		ColorHandlerAdapter> {
 
+	private static final int ATTRIBUTE_ID = 9422;
+
 	private Integer expectedValue;
 
 	private TypedArray containingAttribute;
@@ -39,18 +41,16 @@ public class TestColorHandlerAdapter extends TestHandlerAdapter<
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		expectedValue = new Random().nextInt(Integer.MAX_VALUE);
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getColor(eq(attributeId), anyInt()))
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getColor(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getColor(eq(attributeId), anyInt()))
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getColor(eq(ATTRIBUTE_ID), anyInt()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
@@ -60,11 +60,11 @@ public class TestColorHandlerAdapter extends TestHandlerAdapter<
 				});
 
 		withMandatoryFlag = mock(ColorHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(ColorHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
 		adapter = new ColorHandlerAdapter();
@@ -98,5 +98,10 @@ public class TestColorHandlerAdapter extends TestHandlerAdapter<
 	@Override
 	public ColorHandlerAdapter getAdapter() {
 		return adapter;
+	}
+
+	@Override
+	public int getAttributeId() {
+		return ATTRIBUTE_ID;
 	}
 }

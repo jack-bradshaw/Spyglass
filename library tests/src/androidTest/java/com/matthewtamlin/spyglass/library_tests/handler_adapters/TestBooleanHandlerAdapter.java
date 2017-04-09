@@ -25,6 +25,8 @@ public class TestBooleanHandlerAdapter extends TestHandlerAdapter<
 		BooleanHandler,
 		BooleanHandlerAdapter> {
 
+	private static final int ATTRIBUTE_ID = 1829; // random
+	
 	private Boolean expectedValue;
 
 	private TypedArray containingAttribute;
@@ -39,18 +41,16 @@ public class TestBooleanHandlerAdapter extends TestHandlerAdapter<
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		expectedValue = Boolean.TRUE;
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getBoolean(eq(attributeId), anyBoolean()))
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getBoolean(eq(ATTRIBUTE_ID), anyBoolean()))
 				.thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getBoolean(eq(attributeId), anyBoolean()))
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getBoolean(eq(ATTRIBUTE_ID), anyBoolean()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
@@ -60,11 +60,11 @@ public class TestBooleanHandlerAdapter extends TestHandlerAdapter<
 				});
 
 		withMandatoryFlag = mock(BooleanHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(BooleanHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
 		adapter = new BooleanHandlerAdapter();
@@ -98,5 +98,10 @@ public class TestBooleanHandlerAdapter extends TestHandlerAdapter<
 	@Override
 	public BooleanHandlerAdapter getAdapter() {
 		return adapter;
+	}
+
+	@Override
+	public int getAttributeId() {
+		return ATTRIBUTE_ID;
 	}
 }
