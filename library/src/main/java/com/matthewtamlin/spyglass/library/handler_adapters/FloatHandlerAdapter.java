@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 import android.content.res.TypedArray;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FloatHandler;
 
 import static android.icu.lang.UCharacter.GraphemeClusterBreak.T;
@@ -41,7 +42,14 @@ public class FloatHandlerAdapter implements HandlerAdapter<Float, FloatHandler> 
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final FloatHandler annotation) {
+	public int getAttributeId(final FloatHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
+		return annotation.attributeId();
+	}
+
+	@Override
+	public boolean isMandatory(final FloatHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

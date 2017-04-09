@@ -25,6 +25,11 @@ public interface HandlerAdapter<T, A extends Annotation> {
 	public TypedArrayAccessor<T> getAccessor(A annotation);
 
 	/**
+	 * @return the attribute ID declared in the supplied annotation
+	 */
+	public int getAttributeId(A annotation);
+
+	/**
 	 * Returns whether or not the supplied annotation has been declared as mandatory.
 	 *
 	 * @param annotation
@@ -32,7 +37,7 @@ public interface HandlerAdapter<T, A extends Annotation> {
 	 *
 	 * @return true if the supplied annotation was declared mandatory, false otherwise
 	 */
-	public boolean attributeIsMandatory(A annotation);
+	public boolean isMandatory(A annotation);
 
 	/**
 	 * Accesses specific data in a TypedArray.

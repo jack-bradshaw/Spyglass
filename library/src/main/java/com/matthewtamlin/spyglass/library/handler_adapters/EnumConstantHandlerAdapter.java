@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 
 import android.content.res.TypedArray;
 
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -45,7 +46,14 @@ public class EnumConstantHandlerAdapter implements HandlerAdapter<Void, EnumCons
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final EnumConstantHandler annotation) {
+	public int getAttributeId(final EnumConstantHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
+		return annotation.attributeId();
+	}
+
+	@Override
+	public boolean isMandatory(final EnumConstantHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return false;

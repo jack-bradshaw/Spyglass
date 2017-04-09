@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 import android.content.res.TypedArray;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.TextHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -36,7 +37,14 @@ public class TextHandlerAdapter implements HandlerAdapter<CharSequence, TextHand
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final TextHandler annotation) {
+	public int getAttributeId(final TextHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
+		return annotation.attributeId();
+	}
+
+	@Override
+	public boolean isMandatory(final TextHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

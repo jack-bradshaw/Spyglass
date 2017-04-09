@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 import android.content.res.TypedArray;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.ColorHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -40,7 +41,14 @@ public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final ColorHandler annotation) {
+	public int getAttributeId(final ColorHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
+		return annotation.attributeId();
+	}
+
+	@Override
+	public boolean isMandatory(final ColorHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

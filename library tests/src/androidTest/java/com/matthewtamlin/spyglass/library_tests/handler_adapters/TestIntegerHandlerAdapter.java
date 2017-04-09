@@ -25,6 +25,8 @@ public class TestIntegerHandlerAdapter extends TestHandlerAdapter<
 		IntegerHandler,
 		IntegerHandlerAdapter> {
 
+	private static final int ATTRIBUTE_ID = 103;
+	
 	private Integer expectedValue;
 
 	private TypedArray containingAttribute;
@@ -39,25 +41,23 @@ public class TestIntegerHandlerAdapter extends TestHandlerAdapter<
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		expectedValue = new Random().nextInt(Integer.MAX_VALUE);
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getInt(eq(attributeId), anyInt())).thenReturn(expectedValue);
-		when(containingAttribute.getInteger(eq(attributeId), anyInt())).thenReturn(expectedValue);
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(expectedValue);
+		when(containingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt())).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getInt(eq(attributeId), anyInt())).thenAnswer(new Answer<Object>() {
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt())).thenAnswer(new Answer<Object>() {
 			@Override
 			public Object answer(final InvocationOnMock invocation) throws Throwable {
 				// Always return the second argument since it's the default
 				return invocation.getArgumentAt(1, Integer.class);
 			}
 		});
-		when(missingAttribute.getInteger(eq(attributeId), anyInt()))
+		when(missingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
@@ -67,11 +67,11 @@ public class TestIntegerHandlerAdapter extends TestHandlerAdapter<
 				});
 
 		withMandatoryFlag = mock(IntegerHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(IntegerHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
 		adapter = new IntegerHandlerAdapter();
@@ -105,5 +105,10 @@ public class TestIntegerHandlerAdapter extends TestHandlerAdapter<
 	@Override
 	public IntegerHandlerAdapter getAdapter() {
 		return adapter;
+	}
+
+	@Override
+	public int getAttributeId() {
+		return ATTRIBUTE_ID;
 	}
 }

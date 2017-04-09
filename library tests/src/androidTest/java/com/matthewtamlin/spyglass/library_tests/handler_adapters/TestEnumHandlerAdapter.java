@@ -14,7 +14,6 @@ import org.mockito.stubbing.Answer;
 
 import java.util.Random;
 
-import static android.R.attr.value;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.anyInt;
@@ -26,6 +25,8 @@ import static org.mockito.Mockito.when;
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
 public class TestEnumHandlerAdapter {
+	private static final int ATTRIBUTE_ID = 3329;
+
 	private Enum expectedValue;
 
 	private TypedArray containingAttribute;
@@ -40,20 +41,18 @@ public class TestEnumHandlerAdapter {
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		expectedValue = TestEnum.ITEM_3;
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getInt(eq(attributeId), anyInt()))
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(expectedValue.ordinal());
-		when(containingAttribute.getInteger(eq(attributeId), anyInt()))
+		when(containingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(expectedValue.ordinal());
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getInt(eq(attributeId), anyInt()))
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
@@ -61,7 +60,7 @@ public class TestEnumHandlerAdapter {
 						return invocation.getArgumentAt(1, Integer.class);
 					}
 				});
-		when(missingAttribute.getInteger(eq(attributeId), anyInt()))
+		when(missingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
@@ -71,12 +70,12 @@ public class TestEnumHandlerAdapter {
 				});
 
 		withMandatoryFlag = mock(EnumHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		doReturn(TestEnum.class).when(withMandatoryFlag).enumClass();
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(EnumHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		doReturn(TestEnum.class).when(withMandatoryFlag).enumClass();
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
@@ -132,16 +131,28 @@ public class TestEnumHandlerAdapter {
 		adapter.getAccessor(withMandatoryFlag).getValueFromArray(missingAttribute);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAttributeId_nullSupplied() {
+		adapter.getAttributeId(null);
+	}
+
+	@Test
+	public void testGetAttributeId_nonNullSupplied() {
+		final int attributeId = adapter.getAttributeId(withMandatoryFlag);
+
+		assertThat(attributeId, is(ATTRIBUTE_ID));
+	}
+
 	@Test
 	public void testAttributeIsMandatory_mandatoryFlagPresent() {
-		final boolean mandatory = adapter.attributeIsMandatory(withMandatoryFlag);
+		final boolean mandatory = adapter.isMandatory(withMandatoryFlag);
 
 		assertThat(mandatory, is(true));
 	}
 
 	@Test
 	public void testAttributeIsMandatory_mandatoryFlagMissing() {
-		final boolean mandatory = adapter.attributeIsMandatory(missingMandatoryFlag);
+		final boolean mandatory = adapter.isMandatory(missingMandatoryFlag);
 
 		assertThat(mandatory, is(false));
 	}
