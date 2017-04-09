@@ -293,7 +293,7 @@ public class TestValidationUtil {
 		private void method13(@UseChar('A') Object o1, Object o2, @UseBoolean(true) Object o3) {}
 
 		@MethodTag(14)
-		@EnumConstantHandler(attributeId = 14, enumClass = TestEnum.class, ordinal = 0)
+		@FractionHandler(attributeId = 14)
 		private void method14(
 				@UseLong(0L) Object o1,
 				@UseInt(1) Object o2,
