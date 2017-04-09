@@ -1,5 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import android.graphics.drawable.Drawable;
+
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
@@ -196,9 +198,9 @@ public class TestAdapterUtil {
 		private Object field3;
 
 		@FieldTag(4)
-		@BooleanHandler(attributeId = 4)
+		@DrawableHandler(attributeId = 4)
 		@DefaultToString("default string")
-		private Object field4;
+		private Drawable field4;
 
 		@MethodTag(1)
 		private void method1() {}
