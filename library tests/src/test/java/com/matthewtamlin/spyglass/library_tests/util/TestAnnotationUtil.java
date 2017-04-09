@@ -28,6 +28,7 @@ import java.util.Map;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getUseAnnotations;
+import static com.matthewtamlin.spyglass.library_tests.util.FieldHelper.getFieldWithTag;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.nullValue;
@@ -43,14 +44,16 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_noAnnotation() {
-		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(1));
+		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(1,
+				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(2));
+		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(2,
+				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
 		assertThat(annotation, instanceOf(BooleanHandler.class));
@@ -83,14 +86,16 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetDefaultAnnotation_fieldVariant_noAnnotation() {
-		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(3));
+		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(3,
+				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetDefaultAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(4));
+		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(4,
+				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
 		assertThat(annotation, instanceOf(DefaultToString.class));
@@ -194,18 +199,6 @@ public class TestAnnotationUtil {
 		assertThat(annotations.get(2), instanceOf(UseByte.class));
 	}
 
-
-	private static Field getFieldWithTag(final int tagValue) {
-		for (final Field f : TestClass.class.getDeclaredFields()) {
-			final FieldTag tag = f.getAnnotation(FieldTag.class);
-
-			if (tag != null && tag.value() == tagValue) {
-				return f;
-			}
-		}
-
-		throw new RuntimeException("No field found with tag index " + tagValue);
-	}
 
 	private static Method getMethodWithTag(final int tagValue) {
 		for (final Method m : TestClass.class.getDeclaredMethods()) {
