@@ -125,6 +125,18 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
+				if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
+					if (method.getParameterAnnotations().length < 1) {
+						throw new SpyglassValidationException("Method " + method + " has no " +
+								"parameters.");
+					}
+				}
+			}
+		});
+
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
 				final int parameterCount = method.getParameterAnnotations().length;
 
 				// Expect one additional use annotation if the EnumConstantHandler is present
