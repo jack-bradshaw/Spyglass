@@ -61,14 +61,16 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetHandlerAnnotation_methodVariant_noAnnotation() {
-		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(1));
+		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(1,
+				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetHandlerAnnotation_methodVariant_annotationPresent() {
-		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(2));
+		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(2,
+				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
 		assertThat(annotation, instanceOf(StringHandler.class));
