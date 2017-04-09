@@ -16,6 +16,7 @@ import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseFloatAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseLongAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseNullAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseStringAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
@@ -165,7 +166,7 @@ public class TestAdapterUtil {
 
 		assertThat(adapters.keySet().contains(0), is(true));
 		assertThat(adapters.get(0), is(notNullValue()));
-		assertThat(adapters.get(0), instanceOf(UseNull.class));
+		assertThat(adapters.get(0), instanceOf(UseNullAdapter.class));
 	}
 
 	@Test
