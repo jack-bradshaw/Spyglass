@@ -227,6 +227,9 @@ public class TestValidationUtil {
 		@DefaultToColorStateListResource(1)
 		private Object field8;
 
+		@MethodTag(1)
+		private void method1() {}
+
 		@MethodTag(2)
 		@BooleanHandler(attributeId = 2)
 		private void method2(Object o) {}
