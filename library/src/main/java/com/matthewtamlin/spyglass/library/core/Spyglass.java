@@ -58,7 +58,7 @@ public class Spyglass {
 		}
 	}
 
-	private void processField(final Field field) {
+	private void processField(final Field field, final View view) {
 		field.setAccessible(true);
 
 		final Annotation handlerAnnotation = getHandlerAnnotation(field);
