@@ -217,27 +217,21 @@ public class TestAdapterUtil {
 		private Object method4(int i) {return null;}
 
 		@MethodTag(5)
-		@StringHandler(attributeId = 5)
 		private void method5() {}
 
 		@MethodTag(6)
-		@FractionHandler(attributeId = 6)
 		private void method6(int i) {}
 
 		@MethodTag(7)
-		@ColorHandler(attributeId = 7)
 		private void method7(@UseBoolean(false) int i) {}
 
 		@MethodTag(8)
-		@DrawableHandler(attributeId = 8)
 		private void method8(String s, boolean b, float f) {}
 
 		@MethodTag(9)
-		@ColorHandler(attributeId = 9)
 		private void method8(@UseBoolean(false) int i, @UseChar(0) char c, String s) {}
 
 		@MethodTag(10)
-		@ColorHandler(attributeId = 10)
 		private void method9(
 				@UseBoolean(false) int i,
 				@UseChar(0) char c,
