@@ -180,7 +180,7 @@ public class TestValidationUtil {
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_multipleUseAnnotationsOnOneParameter() {
-		
+
 	}
 
 	@SuppressWarnings("unused")
@@ -290,6 +290,8 @@ public class TestValidationUtil {
 				@UseLong(0L) Object o1,
 				@UseInt(1) Object o2,
 				@UseByte(0) Object o3) {}
+
+		private void method21(@UseLong(0L) @UseBoolean(true) Object o) {}
 	}
 
 	private enum TestEnum {
