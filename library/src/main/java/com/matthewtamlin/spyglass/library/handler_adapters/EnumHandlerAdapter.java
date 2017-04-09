@@ -50,7 +50,7 @@ public class EnumHandlerAdapter implements HandlerAdapter<Enum, EnumHandler> {
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final EnumHandler annotation) {
+	public boolean isMandatory(final EnumHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

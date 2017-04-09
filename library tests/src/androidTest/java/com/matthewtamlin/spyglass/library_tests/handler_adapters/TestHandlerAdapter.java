@@ -79,7 +79,7 @@ public abstract class TestHandlerAdapter<V,
 
 	@Test
 	public void testAttributeIsMandatory_mandatoryFlagPresent() {
-		final boolean mandatory = getAdapter().attributeIsMandatory(
+		final boolean mandatory = getAdapter().isMandatory(
 				getAnnotationWithMandatoryFlag());
 
 		assertThat(mandatory, is(true));
@@ -87,7 +87,7 @@ public abstract class TestHandlerAdapter<V,
 
 	@Test
 	public void testAttributeIsMandatory_mandatoryFlagMissing() {
-		final boolean mandatory = getAdapter().attributeIsMandatory(
+		final boolean mandatory = getAdapter().isMandatory(
 				getAnnotationMissingMandatoryFlag());
 
 		assertThat(mandatory, is(false));
@@ -95,6 +95,6 @@ public abstract class TestHandlerAdapter<V,
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testAttributeIsMandatory_nullAnnotation() {
-		getAdapter().attributeIsMandatory(null);
+		getAdapter().isMandatory(null);
 	}
 }

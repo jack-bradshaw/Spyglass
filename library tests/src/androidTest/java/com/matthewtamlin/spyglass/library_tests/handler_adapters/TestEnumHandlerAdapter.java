@@ -14,7 +14,6 @@ import org.mockito.stubbing.Answer;
 
 import java.util.Random;
 
-import static android.R.attr.value;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.anyInt;
@@ -134,14 +133,14 @@ public class TestEnumHandlerAdapter {
 
 	@Test
 	public void testAttributeIsMandatory_mandatoryFlagPresent() {
-		final boolean mandatory = adapter.attributeIsMandatory(withMandatoryFlag);
+		final boolean mandatory = adapter.isMandatory(withMandatoryFlag);
 
 		assertThat(mandatory, is(true));
 	}
 
 	@Test
 	public void testAttributeIsMandatory_mandatoryFlagMissing() {
-		final boolean mandatory = adapter.attributeIsMandatory(missingMandatoryFlag);
+		final boolean mandatory = adapter.isMandatory(missingMandatoryFlag);
 
 		assertThat(mandatory, is(false));
 	}
