@@ -21,6 +21,8 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
+import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
+import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -246,17 +248,5 @@ public class TestAdapterUtil {
 				@UseBoolean(false) final int i,
 				@UseChar(0) final char c,
 				@UseString("string") final String s) {}
-	}
-
-	@Target(ElementType.FIELD)
-	@Retention(RetentionPolicy.RUNTIME)
-	private @interface FieldTag {
-		int value();
-	}
-
-	@Target(ElementType.METHOD)
-	@Retention(RetentionPolicy.RUNTIME)
-	private @interface MethodTag {
-		int value();
 	}
 }
