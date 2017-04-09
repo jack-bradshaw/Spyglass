@@ -293,6 +293,8 @@ public class TestValidationUtil {
 
 		@BooleanHandler(attributeId = 21)
 		private void method21(@UseLong(0L) @UseBoolean(true) Object o) {}
+		
+		private void method22(@UseBoolean(true) Object o) {}
 	}
 
 	private enum TestEnum {
