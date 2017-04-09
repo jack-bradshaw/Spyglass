@@ -103,7 +103,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_fieldVariant_oneDefaultAnnotation() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3,
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(4,
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
@@ -192,8 +192,8 @@ public class TestAdapterUtil {
 		@BooleanHandler(attributeId = 2)
 		private Object field2;
 
-		@FieldTag(3)
-		@BooleanHandler(attributeId = 3)
+		@FieldTag(4)
+		@BooleanHandler(attributeId = 4)
 		@DefaultToString("default string")
 		private Object field3;
 
