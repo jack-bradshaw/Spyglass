@@ -12,7 +12,6 @@ import org.mockito.stubbing.Answer;
 
 import java.util.Random;
 
-import static android.R.attr.value;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -145,14 +144,14 @@ public class TestEnumConstantHandlerAdapter {
 
 	@Test
 	public void testAttributeIsMandatory() {
-		final boolean mandatory = adapter.attributeIsMandatory(annotation);
+		final boolean mandatory = adapter.isMandatory(annotation);
 
 		assertThat(mandatory, is(false));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testAttributeIsMandatory_nullAnnotation() {
-		adapter.attributeIsMandatory(null);
+		adapter.isMandatory(null);
 	}
 
 	public enum TestEnum {

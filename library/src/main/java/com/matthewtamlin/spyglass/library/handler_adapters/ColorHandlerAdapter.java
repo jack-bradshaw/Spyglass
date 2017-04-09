@@ -48,7 +48,7 @@ public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final ColorHandler annotation) {
+	public boolean isMandatory(final ColorHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

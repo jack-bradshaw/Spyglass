@@ -53,7 +53,7 @@ public class EnumConstantHandlerAdapter implements HandlerAdapter<Void, EnumCons
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final EnumConstantHandler annotation) {
+	public boolean isMandatory(final EnumConstantHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return false;
