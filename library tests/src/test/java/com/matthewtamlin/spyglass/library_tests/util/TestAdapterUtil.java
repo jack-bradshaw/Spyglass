@@ -191,8 +191,8 @@ public class TestAdapterUtil {
 		assertThat(adapters.keySet().contains(1), is(false));
 
 		assertThat(adapters.keySet().contains(2), is(true));
-		assertThat(adapters.get(1), is(notNullValue()));
-		assertThat(adapters.get(1), instanceOf(UseFloatAdapter.class));
+		assertThat(adapters.get(2), is(notNullValue()));
+		assertThat(adapters.get(2), instanceOf(UseFloatAdapter.class));
 	}
 
 	@Test
