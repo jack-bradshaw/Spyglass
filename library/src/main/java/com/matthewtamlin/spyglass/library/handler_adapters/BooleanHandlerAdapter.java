@@ -40,6 +40,13 @@ public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHan
 	}
 
 	@Override
+	public int getAttributeId(final BooleanHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
+		return annotation.attributeId();
+	}
+
+	@Override
 	public boolean attributeIsMandatory(final BooleanHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
