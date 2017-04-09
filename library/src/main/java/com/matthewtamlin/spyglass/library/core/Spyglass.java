@@ -178,12 +178,12 @@ public class Spyglass {
 			checkNotNull(view, new InvalidBuilderStateException("Unable to build a Spyglass " +
 					"without a view. Call method forView(View) before calling build()."));
 
+			checkNotNull(context, new InvalidBuilderStateException("Unable to build a Spyglass " +
+					"without a context. Call method withContext(Context) before calling build()."));
+
 			checkNotNull(styleableRes, new InvalidBuilderStateException("Unable to build a " +
 					"Spyglass without a styleable resource. Call method withStyleableRes(int[]) " +
 					"before calling build()."));
-
-			checkNotNull(context, new InvalidBuilderStateException("Unable to build a Spyglass " +
-					"without a context. Call method withContext(Context) before calling build()."));
 
 			return new Spyglass(this);
 		}
