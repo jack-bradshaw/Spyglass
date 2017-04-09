@@ -213,7 +213,6 @@ public class TestAdapterUtil {
 		private void method3() {}
 
 		@MethodTag(4)
-		@DrawableHandler(attributeId = 4)
 		@DefaultToDimension(value = 10, unit = DP)
 		private Object method4(int i) {return null;}
 
