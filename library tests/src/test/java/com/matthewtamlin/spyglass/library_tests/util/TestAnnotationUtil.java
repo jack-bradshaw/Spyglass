@@ -7,7 +7,6 @@ import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
-import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
@@ -178,9 +177,11 @@ public class TestAnnotationUtil {
 		assertThat(annotations.get(0), is(notNullValue()));
 		assertThat(annotations.get(0), instanceOf(UseChar.class));
 
-		assertThat(annotations.keySet().contains(1), is(true));
-		assertThat(annotations.get(1), is(notNullValue()));
-		assertThat(annotations.get(1), instanceOf(UseInt.class));
+		assertThat(annotations.keySet().contains(1), is(false));
+
+		assertThat(annotations.keySet().contains(2), is(true));
+		assertThat(annotations.get(2), is(notNullValue()));
+		assertThat(annotations.get(2), instanceOf(UseLong.class));
 	}
 
 	@Test
@@ -203,8 +204,7 @@ public class TestAnnotationUtil {
 		assertThat(annotations.get(2), is(notNullValue()));
 		assertThat(annotations.get(2), instanceOf(UseByte.class));
 	}
-
-
+	
 	@SuppressWarnings("unused")
 	private static class TestClass {
 		@FieldTag(1)
@@ -248,7 +248,7 @@ public class TestAnnotationUtil {
 		private void method8(float f, boolean b, char c) {}
 
 		@MethodTag(9)
-		private void method9(@UseChar('a') char c, @UseInt(1) int i, long l) {}
+		private void method9(@UseChar('a') char c, int i, @UseLong(1L) long l) {}
 
 		@MethodTag(10)
 		private void method10(@UseLong(1L) long l, @UseString("s") String s, @UseByte(9) byte b) {}
