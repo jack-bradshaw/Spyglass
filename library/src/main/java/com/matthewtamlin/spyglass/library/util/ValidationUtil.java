@@ -131,7 +131,7 @@ public class ValidationUtil {
 				final int expectedUseAnnotationCount =
 						method.isAnnotationPresent(EnumConstantHandler.class) ?
 								parameterCount :
-								parameterCount - 1;
+								Math.max(0, parameterCount - 1);
 
 				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(method);
 
@@ -142,7 +142,7 @@ public class ValidationUtil {
 						useAnnotationCount++;
 					}
 				}
-
+				
 				if (useAnnotationCount != expectedUseAnnotationCount) {
 					final String message = "Method %1$s has an incorrect number of Use " +
 							"annotations. Expected %2$s but instead found %3$s.";
