@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.core;
 
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Looper;
 import android.util.AttributeSet;
@@ -25,10 +26,14 @@ import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMet
 public class Spyglass {
 	private View view;
 
+	private Context context;
+
 	private TypedArray attrSource;
 
 	private Spyglass(final Builder builder) {
 		this.view = builder.view;
+
+		this.context = builder.context;
 
 		this.attrSource = view.getContext().obtainStyledAttributes(
 				builder.attributeSet,
@@ -133,6 +138,8 @@ public class Spyglass {
 	public static class Builder {
 		private View view;
 
+		private Context context;
+
 		private int styleableRes[];
 
 		private AttributeSet attributeSet;
@@ -143,6 +150,10 @@ public class Spyglass {
 
 		private Builder(final View view) {
 			this.view = checkNotNull(view, "Argument 'view' cannot be null.");
+		}
+
+		public void withContext(final Context context) {
+			this.context = context;
 		}
 
 		public void withStyleableResource(final int[] styleableRes) {
@@ -165,6 +176,9 @@ public class Spyglass {
 			checkNotNull(styleableRes, new InvalidBuilderStateException("Unable to build " +
 					"Spyglass without a styleable resource. Call method withStyleableRes(int[]) " +
 					"before calling build()"));
+
+			checkNotNull(context, new InvalidBuilderStateException("Unable to build Spyglass " +
+					"without a context. Call method withContext(Context) before calling build()."));
 
 			return new Spyglass(this);
 		}
