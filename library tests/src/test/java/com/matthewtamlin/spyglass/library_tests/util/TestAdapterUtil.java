@@ -95,7 +95,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_fieldVariant_noDefaultAnnotations() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(1,
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3,
 				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
