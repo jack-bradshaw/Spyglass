@@ -1,18 +1,19 @@
 package com.matthewtamlin.spyglass.library_tests.handler_adapters;
 
 import android.content.res.TypedArray;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.EnumConstantHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import java.util.Random;
 
-import static android.R.attr.value;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;
 import static org.junit.Assert.assertThat;
@@ -22,7 +23,10 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("ResourceType")
+@RunWith(AndroidJUnit4.class)
 public class TestEnumConstantHandlerAdapter {
+	private static final int ATTRIBUTE_ID = 5927;
 
 	private static int CORRECT_ORDINAL = 2;
 
@@ -38,34 +42,32 @@ public class TestEnumConstantHandlerAdapter {
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		containingAttributeWithCorrectOrdinal = mock(TypedArray.class);
-		when(containingAttributeWithCorrectOrdinal.hasValue(attributeId))
+		when(containingAttributeWithCorrectOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
-		when(containingAttributeWithCorrectOrdinal.getInt(eq(attributeId), anyInt()))
+		when(containingAttributeWithCorrectOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(CORRECT_ORDINAL);
-		when(containingAttributeWithCorrectOrdinal.getInteger(eq(attributeId), anyInt()))
+		when(containingAttributeWithCorrectOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(CORRECT_ORDINAL);
 
 		containingAttributeWithWrongOrdinal = mock(TypedArray.class);
-		when(containingAttributeWithWrongOrdinal.hasValue(attributeId))
+		when(containingAttributeWithWrongOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
-		when(containingAttributeWithWrongOrdinal.getInt(eq(attributeId), anyInt()))
+		when(containingAttributeWithWrongOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(CORRECT_ORDINAL - 1);
-		when(containingAttributeWithWrongOrdinal.getInteger(eq(attributeId), anyInt()))
+		when(containingAttributeWithWrongOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(CORRECT_ORDINAL - 1);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getInt(eq(attributeId), anyInt())).thenAnswer(new Answer<Object>() {
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt())).thenAnswer(new Answer<Object>() {
 			@Override
 			public Object answer(final InvocationOnMock invocation) throws Throwable {
 				// Always return the second argument since it's the default
 				return invocation.getArgumentAt(1, Integer.class);
 			}
 		});
-		when(missingAttribute.getInteger(eq(attributeId), anyInt()))
+		when(missingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
@@ -75,7 +77,7 @@ public class TestEnumConstantHandlerAdapter {
 				});
 
 		annotation = mock(EnumConstantHandler.class);
-		when(annotation.attributeId()).thenReturn(attributeId);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 		doReturn(TestEnum.class).when(annotation).enumClass();
 		when(annotation.ordinal()).thenReturn(CORRECT_ORDINAL);
 
@@ -143,16 +145,28 @@ public class TestEnumConstantHandlerAdapter {
 		adapter.getAccessor(annotation).getValueFromArray(missingAttribute);
 	}
 
-	@Test
-	public void testAttributeIsMandatory() {
-		final boolean mandatory = adapter.attributeIsMandatory(annotation);
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAttributeId_nullSupplied() {
+		adapter.getAttributeId(null);
+	}
 
-		assertThat(mandatory, is(false));
+	@Test
+	public void testGetAttributeId_nonNullSupplied() {
+		final int attributeId = adapter.getAttributeId(annotation);
+
+		assertThat(attributeId, is(ATTRIBUTE_ID));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeIsMandatory_nullAnnotation() {
-		adapter.attributeIsMandatory(null);
+	public void testIsMandatory_nullAnnotation() {
+		adapter.isMandatory(null);
+	}
+
+	@Test
+	public void testIsMandatory_nonNullSupplied() {
+		final boolean mandatory = adapter.isMandatory(annotation);
+
+		assertThat(mandatory, is(false));
 	}
 
 	public enum TestEnum {

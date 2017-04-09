@@ -16,11 +16,14 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
 public class TestColorStateListHandlerAdapter extends TestHandlerAdapter<
 		ColorStateList,
 		ColorStateListHandler,
 		ColorStateListHandlerAdapter> {
+
+	private static final int ATTRIBUTE_ID = 4626;
 
 	private ColorStateList expectedValue;
 
@@ -36,24 +39,22 @@ public class TestColorStateListHandlerAdapter extends TestHandlerAdapter<
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		expectedValue = mock(ColorStateList.class);
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getColorStateList(eq(attributeId))).thenReturn(expectedValue);
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getColorStateList(eq(ATTRIBUTE_ID))).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getColorStateList(eq(attributeId))).thenReturn(null);
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getColorStateList(eq(ATTRIBUTE_ID))).thenReturn(null);
 
 		withMandatoryFlag = mock(ColorStateListHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(ColorStateListHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
 		adapter = new ColorStateListHandlerAdapter();
@@ -87,5 +88,10 @@ public class TestColorStateListHandlerAdapter extends TestHandlerAdapter<
 	@Override
 	public ColorStateListHandlerAdapter getAdapter() {
 		return adapter;
+	}
+
+	@Override
+	public int getAttributeId() {
+		return ATTRIBUTE_ID;
 	}
 }

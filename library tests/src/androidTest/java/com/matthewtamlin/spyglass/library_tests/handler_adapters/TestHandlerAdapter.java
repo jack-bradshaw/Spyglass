@@ -27,6 +27,8 @@ public abstract class TestHandlerAdapter<V,
 
 	public abstract H getAdapter();
 
+	public abstract int getAttributeId();
+
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
 		getAdapter().getClass().newInstance();
@@ -77,24 +79,34 @@ public abstract class TestHandlerAdapter<V,
 				.getValueFromArray(getTypedArrayMissingAttribute());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAttributeId_nullSupplied() {
+		getAdapter().getAttributeId(null);
+	}
+
 	@Test
-	public void testAttributeIsMandatory_mandatoryFlagPresent() {
-		final boolean mandatory = getAdapter().attributeIsMandatory(
+	public void testGetAttributeId_nonNullSupplied() {
+		//TODO
+	}
+
+	@Test
+	public void testIsMandatory_mandatoryFlagPresent() {
+		final boolean mandatory = getAdapter().isMandatory(
 				getAnnotationWithMandatoryFlag());
 
 		assertThat(mandatory, is(true));
 	}
 
 	@Test
-	public void testAttributeIsMandatory_mandatoryFlagMissing() {
-		final boolean mandatory = getAdapter().attributeIsMandatory(
+	public void testIsMandatory_mandatoryFlagMissing() {
+		final boolean mandatory = getAdapter().isMandatory(
 				getAnnotationMissingMandatoryFlag());
 
 		assertThat(mandatory, is(false));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testAttributeIsMandatory_nullAnnotation() {
-		getAdapter().attributeIsMandatory(null);
+	public void testIsMandatory_nullAnnotation() {
+		getAdapter().isMandatory(null);
 	}
 }

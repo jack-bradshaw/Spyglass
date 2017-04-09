@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 import android.content.res.TypedArray;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumHandler;
 import com.matthewtamlin.spyglass.library.util.EnumUtil;
 
@@ -42,7 +43,14 @@ public class EnumHandlerAdapter implements HandlerAdapter<Enum, EnumHandler> {
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final EnumHandler annotation) {
+	public int getAttributeId(final EnumHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
+		return annotation.attributeId();
+	}
+
+	@Override
+	public boolean isMandatory(final EnumHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();
