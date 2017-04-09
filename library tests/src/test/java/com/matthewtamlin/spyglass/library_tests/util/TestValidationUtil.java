@@ -1,5 +1,19 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.core.DimensionUnit;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDrawableResource;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToInteger;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringResource;
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.FloatHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
 
 import org.junit.Test;
@@ -30,7 +44,7 @@ public class TestValidationUtil {
 
 	@Test
 	public void testValidateField_oneDefaultAnnotation() {
-		
+
 	}
 
 	@Test(expected = SpyglassValidationException.class)
@@ -151,5 +165,10 @@ public class TestValidationUtil {
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_multipleUseAnnotationsOnOneParameter() {
 
+	}
+
+	@SuppressWarnings("unused")
+	public class TestClass {
+		
 	}
 }
