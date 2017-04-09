@@ -141,16 +141,16 @@ public class TestEnumConstantHandlerAdapter {
 		adapter.getAccessor(annotation).getValueFromArray(missingAttribute);
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testIsMandatory_nullAnnotation() {
+		adapter.isMandatory(null);
+	}
+
 	@Test
 	public void testIsMandatory() {
 		final boolean mandatory = adapter.isMandatory(annotation);
 
 		assertThat(mandatory, is(false));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsMandatory_nullAnnotation() {
-		adapter.isMandatory(null);
 	}
 
 	public enum TestEnum {
