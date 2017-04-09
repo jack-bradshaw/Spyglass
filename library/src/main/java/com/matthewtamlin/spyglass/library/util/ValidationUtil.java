@@ -125,35 +125,58 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				final int parameterCount = method.getParameterAnnotations().length;
-
-				// Expect one additional use annotation if the EnumConstantHandler is present
-				final int expectedUseAnnotationCount =
-						method.isAnnotationPresent(EnumConstantHandler.class) ?
-								parameterCount :
-								parameterCount - 1;
-
-				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(method);
-
-				int useAnnotationCount = 0;
-
-				for (final Set<Annotation> annotationsOnParameter : useAnnotations.values()) {
-					if (!annotationsOnParameter.isEmpty()) {
-						useAnnotationCount++;
+				if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
+					if (method.getParameterAnnotations().length < 1) {
+						throw new SpyglassValidationException("Method " + method + " has no " +
+								"parameters.");
 					}
 				}
+			}
+		});
 
-				if (useAnnotationCount != expectedUseAnnotationCount) {
-					final String message = "Method %1$s has an incorrect number of Use " +
-							"annotations. Expected %2$s but instead found %3$s.";
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				if (method.isAnnotationPresent(EnumConstantHandler.class)) {
+					final int expectedUseAnnotationCount = method.getParameterAnnotations().length;
+					final int actualUseAnnotationCount = countUseAnnotations(method);
 
-					final String formattedMessage = String.format(
-							message,
-							method,
-							expectedUseAnnotationCount,
-							useAnnotationCount);
+					if (actualUseAnnotationCount != expectedUseAnnotationCount) {
+						final String message = "Method %1$s has an incorrect number of Use " +
+								"annotations. Expected %2$s but instead found %3$s.";
 
-					throw new SpyglassValidationException(formattedMessage);
+						final String formattedMessage = String.format(
+								message,
+								method,
+								expectedUseAnnotationCount,
+								actualUseAnnotationCount);
+
+						throw new SpyglassValidationException(formattedMessage);
+					}
+				}
+			}
+		});
+
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
+					final int parameterCount = method.getParameterAnnotations().length;
+					final int expectedUseAnnotationCount = Math.max(0, parameterCount - 1);
+					final int actualUseAnnotationCount = countUseAnnotations(method);
+
+					if (actualUseAnnotationCount != expectedUseAnnotationCount) {
+						final String message = "Method %1$s has an incorrect number of Use " +
+								"annotations. Expected %2$s but instead found %3$s.";
+
+						final String formattedMessage = String.format(
+								message,
+								method,
+								expectedUseAnnotationCount,
+								actualUseAnnotationCount);
+
+						throw new SpyglassValidationException(formattedMessage);
+					}
 				}
 			}
 		});
@@ -202,6 +225,18 @@ public class ValidationUtil {
 		}
 
 		return useAnnotationsByParameterIndex;
+	}
+
+	private static int countUseAnnotations(final Method method) {
+		int count = 0;
+
+		for (final Set<Annotation> annotation : getUseAnnotations(method).values()) {
+			if (!annotation.isEmpty()) {
+				count++;
+			}
+		}
+
+		return count;
 	}
 
 	private interface FieldRule {

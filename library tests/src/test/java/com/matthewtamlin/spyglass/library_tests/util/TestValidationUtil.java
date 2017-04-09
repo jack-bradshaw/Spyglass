@@ -81,113 +81,108 @@ public class TestValidationUtil {
 	}
 
 	@Test
-	public void testValidateMethod_noHandlerAnnotation() {
-		ValidationUtil.validateMethod(getMethodWithTag(1, TestClass.class));
-	}
-
-	@Test
 	public void testValidateMethod_oneHandlerAnnotation() {
-		ValidationUtil.validateMethod(getMethodWithTag(2, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(1, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_twoHandlerAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(3, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(2, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_threeHandlerAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(4, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(3, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_oneDefaultAnnotation() {
-		ValidationUtil.validateMethod(getMethodWithTag(5, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(4, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_twoDefaultAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(6, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(5, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_threeDefaultAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(7, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(6, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_defaultAnnotationWithoutHandlerAnnotation() {
-		ValidationUtil.validateMethod(getMethodWithTag(8, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(7, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_standardHandler_noArguments() {
-		ValidationUtil.validateMethod(getMethodWithTag(9, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(8, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_standardHandler_oneArgumentNoUseAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(10, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(9, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_standardHandler_oneArgumentOneUseAnnotation() {
-		ValidationUtil.validateMethod(getMethodWithTag(11, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(10, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_standardHandler_threeArgumentsNoUseAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(12, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(11, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_standardHandler_threeArgumentsTwoUseAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(13, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(12, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_standardHandler_threeArgumentsThreeUseAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(14, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(13, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_enumConstantHandler_noArguments() {
-		ValidationUtil.validateMethod(getMethodWithTag(15, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(14, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_enumConstantHandler_oneArgumentNoUseAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(16, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(15, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_enumConstantHandler_oneArgumentOneUseAnnotation() {
-		ValidationUtil.validateMethod(getMethodWithTag(17, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(16, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_enumConstantHandler_threeArgumentsNoUseAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(18, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(17, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_enumConstantHandler_threeArgumentsTwoUseAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(19, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(18, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_enumConstantHandler_threeArgumentsThreeUseAnnotations() {
-		ValidationUtil.validateMethod(getMethodWithTag(20, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(19, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_multipleUseAnnotationsOnOneParameter() {
-		ValidationUtil.validateMethod(getMethodWithTag(21, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(20, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_useAnnotationsWithoutHandlerAnnotation() {
-		ValidationUtil.validateMethod(getMethodWithTag(22, TestClass.class));
+		ValidationUtil.validateMethod(getMethodWithTag(21, TestClass.class));
 	}
 
 	@SuppressWarnings("unused")
@@ -233,104 +228,101 @@ public class TestValidationUtil {
 		private Object field8;
 
 		@MethodTag(1)
-		private void method1() {}
-
-		@MethodTag(2)
 		@BooleanHandler(attributeId = 2)
 		private void method2(Object o) {}
 
-		@MethodTag(3)
+		@MethodTag(2)
 		@StringHandler(attributeId = 3)
 		@FloatHandler(attributeId = 3)
 		private void method3(Object o) {}
 
-		@MethodTag(4)
+		@MethodTag(3)
 		@FractionHandler(attributeId = 4)
 		@DimensionHandler(attributeId = 4)
 		@IntegerHandler(attributeId = 4)
 		private void method4(Object o) {}
 
-		@MethodTag(5)
+		@MethodTag(4)
 		@FractionHandler(attributeId = 5)
 		@DefaultToFloat(5)
 		private void method5(Object o) {}
 
-		@MethodTag(6)
+		@MethodTag(5)
 		@BooleanHandler(attributeId = 6)
 		@DefaultToColorResource(6)
 		@DefaultToNull
 		private void method6(Object o) {}
 
-		@MethodTag(7)
+		@MethodTag(6)
 		@BooleanHandler(attributeId = 6)
 		@DefaultToColorResource(6)
 		@DefaultToDimensionResource(6)
 		@DefaultToDimension(value = 10, unit = DP)
 		private void method7(Object o) {}
 
-		@MethodTag(8)
+		@MethodTag(7)
 		@DefaultToString("something")
 		private void method8(Object o) {}
 
-		@MethodTag(9)
+		@MethodTag(8)
 		@IntegerHandler(attributeId = 9)
 		private void method9() {}
 
-		@MethodTag(10)
+		@MethodTag(9)
 		@DimensionHandler(attributeId = 10)
 		private void method10(Object o) {}
 
-		@MethodTag(11)
+		@MethodTag(10)
 		@FractionHandler(attributeId = 11)
 		private void method11(@UseBoolean(true) Object o) {}
 
-		@MethodTag(12)
+		@MethodTag(11)
 		@StringHandler(attributeId = 12)
 		private void method12(Object o1, Object o2, Object o3) {}
 
-		@MethodTag(13)
+		@MethodTag(12)
 		@BooleanHandler(attributeId = 13)
 		private void method13(@UseChar('A') Object o1, Object o2, @UseBoolean(true) Object o3) {}
 
-		@MethodTag(14)
-		@EnumConstantHandler(attributeId = 14, enumClass = TestEnum.class, ordinal = 0)
+		@MethodTag(13)
+		@FractionHandler(attributeId = 14)
 		private void method14(
 				@UseLong(0L) Object o1,
 				@UseInt(1) Object o2,
 				@UseByte(0) Object o3) {}
 
-		@MethodTag(15)
+		@MethodTag(14)
 		@EnumConstantHandler(attributeId = 15, enumClass = TestEnum.class, ordinal = 0)
 		private void method15() {}
 
-		@MethodTag(16)
+		@MethodTag(15)
 		@EnumConstantHandler(attributeId = 16, enumClass = TestEnum.class, ordinal = 0)
 		private void method16(Object o) {}
 
-		@MethodTag(17)
+		@MethodTag(16)
 		@EnumConstantHandler(attributeId = 17, enumClass = TestEnum.class, ordinal = 0)
 		private void method17(@UseBoolean(true) Object o) {}
 
-		@MethodTag(18)
+		@MethodTag(17)
 		@EnumConstantHandler(attributeId = 18, enumClass = TestEnum.class, ordinal = 0)
 		private void method18(Object o1, Object o2, Object o3) {}
 
-		@MethodTag(19)
+		@MethodTag(18)
 		@EnumConstantHandler(attributeId = 19, enumClass = TestEnum.class, ordinal = 0)
 		private void method19(@UseChar('A') Object o1, Object o2, @UseBoolean(true) Object o3) {}
 
-		@MethodTag(20)
+		@MethodTag(19)
 		@EnumConstantHandler(attributeId = 20, enumClass = TestEnum.class, ordinal = 0)
 		private void method20(
 				@UseLong(0L) Object o1,
 				@UseInt(1) Object o2,
 				@UseByte(0) Object o3) {}
 
-		@MethodTag(21)
+		@MethodTag(20)
 		@BooleanHandler(attributeId = 21)
 		private void method21(@UseLong(0L) @UseBoolean(true) Object o) {}
 
-		@MethodTag(22)
+		@MethodTag(21)
 		private void method22(@UseBoolean(true) Object o) {}
 	}
 
