@@ -42,21 +42,6 @@ public class Spyglass {
 				builder.defStyleRes);
 	}
 
-	public void applyAttributesTo(final View view) {
-		checkNotNull(view, "Argument \'view\' cannot be null.");
-		checkMainThread();
-
-		for (final Field f : view.getClass().getDeclaredFields()) {
-			validateField(f);
-			processField(f);
-		}
-
-		for (final Method m : view.getClass().getDeclaredMethods()) {
-			validateMethod(m);
-			processMethod(m);
-		}
-	}
-
 	private void checkMainThread() {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
 			throw new IllegalThreadException("Spyglasses must only be touched by the UI thread.");
