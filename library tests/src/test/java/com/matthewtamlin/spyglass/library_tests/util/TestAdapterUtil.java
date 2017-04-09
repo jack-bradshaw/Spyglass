@@ -228,6 +228,10 @@ public class TestAdapterUtil {
 		private void method7(@UseBoolean(false) int i) {}
 
 		@MethodTag(8)
+		@DrawableHandler(attributeId = 8)
+		private void method8(String s, boolean b, float f) {}
+
+		@MethodTag(8)
 		@ColorHandler(attributeId = 8)
 		private void method8(@UseBoolean(false) int i, @UseChar(0) char c, String s) {}
 
