@@ -42,6 +42,15 @@ public class Spyglass {
 				builder.defStyleRes);
 	}
 
+	public void bindDataToFields() {
+		checkMainThread();
+
+		for (final Field f : view.getClass().getDeclaredFields()) {
+			validateField(f);
+			processField(f);
+		}
+	}
+
 	private void checkMainThread() {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
 			throw new IllegalThreadException("Spyglasses must only be touched by the UI thread.");
