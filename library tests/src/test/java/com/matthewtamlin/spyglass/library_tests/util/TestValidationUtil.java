@@ -26,158 +26,161 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
+import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
+import static com.matthewtamlin.spyglass.library_tests.util.FieldHelper.getFieldWithTag;
+import static com.matthewtamlin.spyglass.library_tests.util.MethodHelper.getMethodWithTag;
 
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
 	@Test
 	public void testValidateField_noHandlerAnnotation() {
-
+		ValidationUtil.validateField(getFieldWithTag(1, TestClass.class));
 	}
 
 	@Test
 	public void testValidateField_oneHandlerAnnotation() {
-
+		ValidationUtil.validateField(getFieldWithTag(2, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateField_twoHandlerAnnotations() {
-
+		ValidationUtil.validateField(getFieldWithTag(3, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateField_threeHandlerAnnotations() {
-
+		ValidationUtil.validateField(getFieldWithTag(4, TestClass.class));
 	}
 
 	@Test
 	public void testValidateField_oneDefaultAnnotation() {
-
+		ValidationUtil.validateField(getFieldWithTag(5, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateField_twoDefaultAnnotations() {
-
+		ValidationUtil.validateField(getFieldWithTag(6, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateField_threeDefaultAnnotations() {
-
+		ValidationUtil.validateField(getFieldWithTag(7, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateField_defaultAnnotationWithoutHandlerAnnotation() {
-
+		ValidationUtil.validateField(getFieldWithTag(8, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_noHandlerAnnotation() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(1, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_oneHandlerAnnotation() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(2, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_twoHandlerAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(3, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_threeHandlerAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(4, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_oneDefaultAnnotation() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(5, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_twoDefaultAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(6, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_threeDefaultAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(7, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_defaultAnnotationWithoutHandlerAnnotation() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(8, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_standardHandler_noArguments() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(9, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_standardHandler_oneArgumentNoUseAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(10, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_standardHandler_oneArgumentOneUseAnnotation() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(11, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_standardHandler_threeArgumentsNoUseAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(12, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_standardHandler_threeArgumentsTwoUseAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(13, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_standardHandler_threeArgumentsThreeUseAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(14, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_enumConstantHandler_noArguments() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(15, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_enumConstantHandler_oneArgumentNoUseAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(16, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_enumConstantHandler_oneArgumentOneUseAnnotation() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(17, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_enumConstantHandler_threeArgumentsNoUseAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(18, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_enumConstantHandler_threeArgumentsTwoUseAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(19, TestClass.class));
 	}
 
 	@Test
 	public void testValidateMethod_enumConstantHandler_threeArgumentsThreeUseAnnotations() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(20, TestClass.class));
 	}
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_multipleUseAnnotationsOnOneParameter() {
-
+		
 	}
 
 	@SuppressWarnings("unused")
