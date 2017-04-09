@@ -21,6 +21,7 @@ import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("ResourceType")
 public class TestEnumConstantHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 5927;
 
