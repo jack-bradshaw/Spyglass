@@ -21,24 +21,23 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
+import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
+import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 
 import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getUseAdapters;
+import static com.matthewtamlin.spyglass.library_tests.util.FieldHelper.getFieldWithTag;
+import static com.matthewtamlin.spyglass.library_tests.util.MethodHelper.getMethodWithTag;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.junit.Assert.assertThat;
@@ -52,14 +51,16 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_fieldVariant_noHandlerAnnotations() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(1));
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(1,
+				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
 	public void testGetHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(2));
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(2,
+				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(BooleanHandlerAdapter.class));
@@ -72,14 +73,16 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_noHandlerAnnotations() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(1));
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(1,
+				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_oneHandlerAnnotation() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(2));
+		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(2,
+				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(DrawableHandlerAdapter.class));
@@ -92,14 +95,16 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_fieldVariant_noDefaultAnnotations() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(1));
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(1,
+				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
 	public void testGetDefaultAdapter_fieldVariant_oneDefaultAnnotation() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3));
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3,
+				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(DefaultToStringAdapter.class));
@@ -112,14 +117,16 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_methodVariant_noDefaultAnnotations() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(1));
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(1,
+				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_oneDefaultAnnotation() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(3));
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(3,
+				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(DefaultToDimensionAdapter.class));
@@ -132,21 +139,24 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_noArguments() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(4));
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(4,
+				TestClass.class));
 
 		assertThat(adapters.isEmpty(), is(true));
 	}
 
 	@Test
 	public void testGetUseAdapters_oneArgument_noUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(5));
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(5,
+				TestClass.class));
 
 		assertThat(adapters.isEmpty(), is(true));
 	}
 
 	@Test
 	public void testGetUseAdapters_oneArgument_oneUseAnnotation() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(6));
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(6,
+				TestClass.class));
 
 		assertThat(adapters.size(), is(1));
 		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
@@ -154,7 +164,8 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_twoUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(7));
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(7,
+				TestClass.class));
 
 		assertThat(adapters.size(), is(2));
 		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
@@ -163,36 +174,13 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_threeUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(8));
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(8,
+				TestClass.class));
 
 		assertThat(adapters.size(), is(3));
 		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
 		assertThat(adapters.get(1), instanceOf(UseCharAdapter.class));
 		assertThat(adapters.get(2), instanceOf(UseStringAdapter.class));
-	}
-
-	private Field getFieldWithTag(final int tagValue) {
-		for (final Field f : TestClass.class.getDeclaredFields()) {
-			final FieldTag tag = f.getAnnotation(FieldTag.class);
-
-			if (tag != null && tag.value() == tagValue) {
-				return f;
-			}
-		}
-
-		throw new RuntimeException("No field found with tag index " + tagValue);
-	}
-
-	private Method getMethodWithTag(final int tagValue) {
-		for (final Method m : TestClass.class.getDeclaredMethods()) {
-			final MethodTag tag = m.getAnnotation(MethodTag.class);
-
-			if (tag != null && tag.value() == tagValue) {
-				return m;
-			}
-		}
-
-		throw new RuntimeException("No method found with tag index " + tagValue);
 	}
 
 	@SuppressWarnings("unused")
@@ -246,17 +234,5 @@ public class TestAdapterUtil {
 				@UseBoolean(false) final int i,
 				@UseChar(0) final char c,
 				@UseString("string") final String s) {}
-	}
-
-	@Target(ElementType.FIELD)
-	@Retention(RetentionPolicy.RUNTIME)
-	private @interface FieldTag {
-		int value();
-	}
-
-	@Target(ElementType.METHOD)
-	@Retention(RetentionPolicy.RUNTIME)
-	private @interface MethodTag {
-		int value();
 	}
 }
