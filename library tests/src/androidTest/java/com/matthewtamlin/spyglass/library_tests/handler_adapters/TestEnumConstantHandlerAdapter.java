@@ -147,7 +147,7 @@ public class TestEnumConstantHandlerAdapter {
 	}
 
 	@Test
-	public void testIsMandatory() {
+	public void testIsMandatory_nonNullSupplied() {
 		final boolean mandatory = adapter.isMandatory(annotation);
 
 		assertThat(mandatory, is(false));
