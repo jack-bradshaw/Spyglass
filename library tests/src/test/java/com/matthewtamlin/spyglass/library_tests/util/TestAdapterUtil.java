@@ -138,7 +138,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_noArguments() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(5,
+		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(5,
 				TestClass.class));
 
 		assertThat(adapters.isEmpty(), is(true));
@@ -146,7 +146,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_oneArgument_noUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(6,
+		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(6,
 				TestClass.class));
 
 		assertThat(adapters.isEmpty(), is(true));
@@ -154,7 +154,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_oneArgument_oneUseAnnotation() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(7,
+		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(7,
 				TestClass.class));
 
 		assertThat(adapters.size(), is(1));
@@ -163,7 +163,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_noUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(8,
+		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(8,
 				TestClass.class));
 
 		assertThat(adapters.isEmpty(), is(true));
@@ -171,7 +171,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_twoUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(9,
+		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(9,
 				TestClass.class));
 
 		assertThat(adapters.size(), is(2));
@@ -181,7 +181,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_threeUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(10,
+		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(10,
 				TestClass.class));
 
 		assertThat(adapters.size(), is(3));
