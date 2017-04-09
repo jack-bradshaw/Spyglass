@@ -11,6 +11,8 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
 import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
+import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
+import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
 import org.junit.Test;
 
@@ -264,17 +266,5 @@ public class TestAnnotationUtil {
 
 		@MethodTag(10)
 		private void method10(@UseLong(1L) long l, @UseString("s") String s, @UseByte(9) byte b) {}
-	}
-
-	@Target(ElementType.FIELD)
-	@Retention(RetentionPolicy.RUNTIME)
-	private static @interface FieldTag {
-		int value();
-	}
-
-	@Target(ElementType.METHOD)
-	@Retention(RetentionPolicy.RUNTIME)
-	private static @interface MethodTag {
-		int value();
 	}
 }
