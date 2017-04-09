@@ -169,6 +169,36 @@ public class TestValidationUtil {
 
 	@SuppressWarnings("unused")
 	public class TestClass {
-		
+		private Object field1;
+
+		@BooleanHandler(attributeId = 2)
+		private Object field2;
+
+		@FloatHandler(attributeId = 3)
+		@DimensionHandler(attributeId = 3)
+		private Object field3;
+
+		@StringHandler(attributeId = 4)
+		@IntegerHandler(attributeId = 4)
+		@FractionHandler(attributeId = 4)
+		private Object field4;
+
+		@BooleanHandler(attributeId = 5)
+		@DefaultToBoolean(true)
+		private Object field5;
+
+		@DimensionHandler(attributeId = 6)
+		@DefaultToInteger(6)
+		@DefaultToDrawableResource(6)
+		private Object field6;
+
+		@StringHandler(attributeId = 7)
+		@DefaultToEnumConstant(enumClass = DimensionUnit.class, ordinal = 0)
+		@DefaultToBooleanResource(7)
+		@DefaultToStringResource(7)
+		private Object field7;
+
+		@DefaultToColorStateListResource(1)
+		private Object field8;
 	}
 }
