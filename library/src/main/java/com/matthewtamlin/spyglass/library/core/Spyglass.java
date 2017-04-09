@@ -8,6 +8,7 @@ import android.view.View;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
+import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -18,6 +19,8 @@ import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdap
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getHandlerAdapter;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
+import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateField;
+import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
 public class Spyglass {
 	private View view;
@@ -39,10 +42,12 @@ public class Spyglass {
 		checkMainThread();
 
 		for (final Field f : view.getClass().getDeclaredFields()) {
+			validateField(f);
 			processField(f);
 		}
 
 		for (final Method m : view.getClass().getDeclaredMethods()) {
+			validateMethod(m);
 			processMethod(m);
 		}
 	}
