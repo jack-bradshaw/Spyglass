@@ -21,6 +21,7 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseFloat;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.library.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
@@ -248,7 +249,7 @@ public class TestAdapterUtil {
 		private void method6(int i) {}
 
 		@MethodTag(7)
-		private void method7(@UseBoolean(false) int i) {}
+		private void method7(@UseNull Object o) {}
 
 		@MethodTag(8)
 		private void method8(String s, boolean b, float f) {}
