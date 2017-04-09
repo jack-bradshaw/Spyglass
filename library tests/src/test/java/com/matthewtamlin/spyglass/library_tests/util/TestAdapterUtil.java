@@ -233,9 +233,6 @@ public class TestAdapterUtil {
 		private void method8(@UseBoolean(false) int i, @UseChar(0) char c, String s) {}
 
 		@MethodTag(10)
-		private void method9(
-				@UseLong(0L) long l,
-				@UseChar(0) char c,
-				@UseString("s") String s) {}
+		private void method9(@UseLong(0L) long l, @UseChar(0) char c, @UseString("s") String s) {}
 	}
 }
