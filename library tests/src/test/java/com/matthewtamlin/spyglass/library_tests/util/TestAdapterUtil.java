@@ -165,7 +165,7 @@ public class TestAdapterUtil {
 
 		assertThat(adapters.keySet().contains(0), is(true));
 		assertThat(adapters.get(0), is(notNullValue()));
-		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
+		assertThat(adapters.get(0), instanceOf(UseNull.class));
 	}
 
 	@Test
