@@ -125,10 +125,12 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
-					if (method.getParameterAnnotations().length < 1) {
-						throw new SpyglassValidationException("Method " + method + " has no " +
-								"parameters.");
+				if (countAnnotations(method.getDeclaredAnnotations(), Handler.class) > 0) {
+					if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
+						if (method.getParameterAnnotations().length < 1) {
+							throw new SpyglassValidationException("Method " + method + " has no " +
+									"parameters.");
+						}
 					}
 				}
 			}
