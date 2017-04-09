@@ -195,7 +195,7 @@ public class TestAdapterUtil {
 		@FieldTag(4)
 		@BooleanHandler(attributeId = 4)
 		@DefaultToString("default string")
-		private Object field3;
+		private Object field4;
 
 		@MethodTag(1)
 		private void method1() {}
