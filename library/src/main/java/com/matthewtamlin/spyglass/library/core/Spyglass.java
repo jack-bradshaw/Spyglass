@@ -51,6 +51,15 @@ public class Spyglass {
 		}
 	}
 
+	public void passDataToMethods() {
+		checkMainThread();
+
+		for (final Method m : view.getClass().getDeclaredMethods()) {
+			validateMethod(m);
+			processMethod(m);
+		}
+	}
+
 	private void checkMainThread() {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
 			throw new IllegalThreadException("Spyglasses must only be touched by the UI thread.");
