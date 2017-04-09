@@ -17,11 +17,14 @@ import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
 public class TestTextArrayHandlerAdapter extends TestHandlerAdapter<
 		CharSequence[],
 		TextArrayHandler,
 		TextArrayHandlerAdapter> {
+
+	private static final int ATTRIBUTE_ID = 7626;
 
 	private CharSequence[] expectedValue;
 
@@ -37,24 +40,22 @@ public class TestTextArrayHandlerAdapter extends TestHandlerAdapter<
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		expectedValue = new CharSequence[]{"something", "something else", ""};
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getTextArray(eq(attributeId))).thenReturn(expectedValue);
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getTextArray(eq(ATTRIBUTE_ID))).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getTextArray(eq(attributeId))).thenReturn(null);
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getTextArray(eq(ATTRIBUTE_ID))).thenReturn(null);
 
 		withMandatoryFlag = mock(TextArrayHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(TextArrayHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
 		adapter = new TextArrayHandlerAdapter();
@@ -88,5 +89,10 @@ public class TestTextArrayHandlerAdapter extends TestHandlerAdapter<
 	@Override
 	public TextArrayHandlerAdapter getAdapter() {
 		return adapter;
+	}
+
+	@Override
+	public int getAttributeId() {
+		return ATTRIBUTE_ID;
 	}
 }
