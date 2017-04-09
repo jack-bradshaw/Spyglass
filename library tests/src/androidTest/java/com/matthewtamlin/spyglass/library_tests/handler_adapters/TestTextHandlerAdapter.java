@@ -21,6 +21,8 @@ public class TestTextHandlerAdapter extends TestHandlerAdapter<
 		TextHandler,
 		TextHandlerAdapter> {
 
+	private static final int ATTRIBUTE_ID = 1593;
+
 	private CharSequence expectedValue;
 
 	private TypedArray containingAttribute;
@@ -35,24 +37,22 @@ public class TestTextHandlerAdapter extends TestHandlerAdapter<
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		expectedValue = "something";
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getText(eq(attributeId))).thenReturn(expectedValue);
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getText(eq(ATTRIBUTE_ID))).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getText(eq(attributeId))).thenReturn(null);
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getText(eq(ATTRIBUTE_ID))).thenReturn(null);
 
 		withMandatoryFlag = mock(TextHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(TextHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
 		adapter = new TextHandlerAdapter();
@@ -86,5 +86,10 @@ public class TestTextHandlerAdapter extends TestHandlerAdapter<
 	@Override
 	public TextHandlerAdapter getAdapter() {
 		return adapter;
+	}
+
+	@Override
+	public int getAttributeId() {
+		return ATTRIBUTE_ID;
 	}
 }
