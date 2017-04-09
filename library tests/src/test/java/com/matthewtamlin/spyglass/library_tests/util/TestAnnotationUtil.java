@@ -4,7 +4,6 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
@@ -17,10 +16,6 @@ import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 import org.junit.Test;
 
 import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
-import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
-import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -29,12 +24,12 @@ import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultA
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getUseAnnotations;
 import static com.matthewtamlin.spyglass.library_tests.util.FieldHelper.getFieldWithTag;
+import static com.matthewtamlin.spyglass.library_tests.util.MethodHelper.getMethodWithTag;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
-import static org.mockito.AdditionalMatchers.not;
 
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
@@ -108,14 +103,16 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetDefaultAnnotation_methodVariant_noAnnotation() {
-		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(3));
+		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(3,
+				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
 	public void testGetDefaultAnnotation_methodVariant_annotationPresent() {
-		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(4));
+		final Annotation annotation = getDefaultAnnotation(getMethodWithTag(4,
+				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
 		assertThat(annotation, instanceOf(DefaultToBoolean.class));
@@ -128,7 +125,8 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_noArgs() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(5));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(5,
+				TestClass.class));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.isEmpty(), is(true));
@@ -136,7 +134,8 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_oneArg_noAnnotations() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(6));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(6,
+				TestClass.class));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.isEmpty(), is(true));
@@ -144,7 +143,8 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_oneArg_oneAnnotation() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(7));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(7,
+				TestClass.class));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.size(), is(1));
@@ -156,7 +156,8 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_threeArgs_noAnnotations() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(8));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(8,
+				TestClass.class));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.isEmpty(), is(true));
@@ -165,7 +166,8 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_threeArgs_twoAnnotations() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(9));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(9,
+				TestClass.class));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.size(), is(2));
@@ -181,7 +183,8 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetUseAnnotations_threeArgs_threeAnnotations() {
-		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(10));
+		final Map<Integer, Annotation> annotations = getUseAnnotations(getMethodWithTag(10,
+				TestClass.class));
 
 		assertThat(annotations, is(notNullValue()));
 		assertThat(annotations.size(), is(3));
@@ -199,18 +202,6 @@ public class TestAnnotationUtil {
 		assertThat(annotations.get(2), instanceOf(UseByte.class));
 	}
 
-
-	private static Method getMethodWithTag(final int tagValue) {
-		for (final Method m : TestClass.class.getDeclaredMethods()) {
-			final MethodTag tag = m.getAnnotation(MethodTag.class);
-
-			if (tag != null && tag.value() == tagValue) {
-				return m;
-			}
-		}
-
-		throw new RuntimeException("No method found with tag index " + tagValue);
-	}
 
 	@SuppressWarnings("unused")
 	private static class TestClass {
