@@ -178,9 +178,11 @@ public class TestAnnotationUtil {
 		assertThat(annotations.get(0), is(notNullValue()));
 		assertThat(annotations.get(0), instanceOf(UseChar.class));
 
-		assertThat(annotations.keySet().contains(1), is(true));
-		assertThat(annotations.get(1), is(notNullValue()));
-		assertThat(annotations.get(1), instanceOf(UseInt.class));
+		assertThat(annotations.keySet().contains(1), is(false));
+
+		assertThat(annotations.keySet().contains(2), is(true));
+		assertThat(annotations.get(2), is(notNullValue()));
+		assertThat(annotations.get(2), instanceOf(UseLong.class));
 	}
 
 	@Test
