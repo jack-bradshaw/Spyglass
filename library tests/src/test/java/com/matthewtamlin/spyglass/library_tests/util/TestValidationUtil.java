@@ -23,7 +23,7 @@ import org.junit.runners.JUnit4;
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
 	@Test
-	public void testValidateField_noAnnotations() {
+	public void testValidateField_noHandlerAnnotation() {
 
 	}
 
@@ -63,7 +63,7 @@ public class TestValidationUtil {
 	}
 
 	@Test
-	public void testValidateMethod_noAnnotations() {
+	public void testValidateMethod_noHandlerAnnotation() {
 
 	}
 
