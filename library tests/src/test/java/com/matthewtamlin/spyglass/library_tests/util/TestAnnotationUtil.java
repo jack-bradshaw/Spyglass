@@ -248,7 +248,7 @@ public class TestAnnotationUtil {
 		private void method8(float f, boolean b, char c) {}
 
 		@MethodTag(9)
-		private void method9(@UseChar('a') char c, @UseInt(1) int i, long l) {}
+		private void method9(@UseChar('a') char c, int i, @UseLong(1L) long l) {}
 
 		@MethodTag(10)
 		private void method10(@UseLong(1L) long l, @UseString("s") String s, @UseByte(9) byte b) {}
