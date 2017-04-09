@@ -23,6 +23,8 @@ import static org.mockito.Mockito.when;
 @RunWith(AndroidJUnit4.class)
 public class TestFractionHandlerAdapter extends TestHandlerAdapter<Float, FractionHandler,
 		FractionHandlerAdapter> {
+	private static final int ATTRIBUTE_ID = 9927;
+
 	private Float expectedValue;
 
 	private TypedArray containingAttribute;
@@ -37,26 +39,24 @@ public class TestFractionHandlerAdapter extends TestHandlerAdapter<Float, Fracti
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		final int baseValue = 10;
 		final int multiplier = 2;
 		final int parentMultiplier = 5;
 		expectedValue = (float) baseValue * multiplier;
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
 		when(containingAttribute.getFraction(
-				eq(attributeId),
+				eq(ATTRIBUTE_ID),
 				eq(multiplier),
 				eq(parentMultiplier),
 				anyFloat()))
 				.thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
 		when(missingAttribute.getFraction(
-				eq(attributeId),
+				eq(ATTRIBUTE_ID),
 				anyInt(),
 				anyInt(),
 				anyFloat()))
@@ -69,13 +69,13 @@ public class TestFractionHandlerAdapter extends TestHandlerAdapter<Float, Fracti
 				});
 
 		withMandatoryFlag = mock(FractionHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.baseMultiplier()).thenReturn(multiplier);
 		when(withMandatoryFlag.parentMultiplier()).thenReturn(parentMultiplier);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(FractionHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.baseMultiplier()).thenReturn(multiplier);
 		when(withMandatoryFlag.parentMultiplier()).thenReturn(parentMultiplier);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
@@ -111,5 +111,10 @@ public class TestFractionHandlerAdapter extends TestHandlerAdapter<Float, Fracti
 	@Override
 	public FractionHandlerAdapter getAdapter() {
 		return adapter;
+	}
+
+	@Override
+	public int getAttributeId() {
+		return ATTRIBUTE_ID;
 	}
 }
