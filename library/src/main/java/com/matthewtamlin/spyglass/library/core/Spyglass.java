@@ -61,8 +61,6 @@ public class Spyglass {
 	private void processField(final Field field) {
 		field.setAccessible(true);
 
-		AnnotationUtil.validateAnnotations(field);
-
 		final Annotation handlerAnnotation = getHandlerAnnotation(field);
 
 		if (handlerAnnotation != null) {
@@ -96,8 +94,6 @@ public class Spyglass {
 
 	private void processMethod(final Method method) {
 		method.setAccessible(true);
-
-		AnnotationUtil.validateAnnotations(method);
 
 		final Annotation handlerAnnotation = getHandlerAnnotation(method);
 
