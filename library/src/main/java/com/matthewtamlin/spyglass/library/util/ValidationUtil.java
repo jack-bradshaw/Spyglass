@@ -1,6 +1,5 @@
 package com.matthewtamlin.spyglass.library.util;
 
-import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
@@ -116,6 +115,20 @@ public class ValidationUtil {
 				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
 					throw new SpyglassValidationException("Method " + method + " has a default " +
 							"annotation but no handler annotation.");
+				}
+			}
+		});
+
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(method);
+
+				for (final Set<Annotation> annotationsOnParameter : useAnnotations.values()) {
+					if (annotationsOnParameter.size() > 1) {
+						throw new SpyglassValidationException("A parameter for method " + method
+								+ " has multiple use annotations.");
+					}
 				}
 			}
 		});
