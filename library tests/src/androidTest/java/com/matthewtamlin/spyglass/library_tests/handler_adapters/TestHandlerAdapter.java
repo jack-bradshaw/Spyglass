@@ -85,7 +85,7 @@ public abstract class TestHandlerAdapter<V,
 	}
 
 	@Test
-	public void testGetAttributeId_nonNullSupplieD() {
+	public void testGetAttributeId_nonNullSupplied() {
 		//TODO
 	}
 
