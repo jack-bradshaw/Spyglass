@@ -35,7 +35,7 @@ public class Spyglass {
 	}
 
 	public void applyAttributesTo(final View view) {
-		checkNotNull(view, "Argument 'view' cannot be null.");
+		checkNotNull(view, "Argument \'view\' cannot be null.");
 		checkMainThread();
 
 		for (final Field f : view.getClass().getDeclaredFields()) {
