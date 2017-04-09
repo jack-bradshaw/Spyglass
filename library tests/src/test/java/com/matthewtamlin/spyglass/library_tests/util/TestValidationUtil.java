@@ -228,9 +228,6 @@ public class TestValidationUtil {
 		private Object field8;
 
 		@MethodTag(1)
-		private void method1() {}
-
-		@MethodTag(1)
 		@BooleanHandler(attributeId = 2)
 		private void method2(Object o) {}
 
