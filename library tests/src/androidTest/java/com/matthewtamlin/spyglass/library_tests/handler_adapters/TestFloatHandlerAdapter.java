@@ -24,6 +24,8 @@ public class TestFloatHandlerAdapter extends TestHandlerAdapter<
 		FloatHandler,
 		FloatHandlerAdapter> {
 
+	private static final int ATTRIBUTE_ID = 9928;
+
 	private Float expectedValue;
 
 	private TypedArray containingAttribute;
@@ -38,17 +40,15 @@ public class TestFloatHandlerAdapter extends TestHandlerAdapter<
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		expectedValue = Float.MAX_VALUE;
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getFloat(eq(attributeId), anyFloat())).thenReturn(expectedValue);
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getFloat(eq(ATTRIBUTE_ID), anyFloat())).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getFloat(eq(attributeId), anyFloat()))
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getFloat(eq(ATTRIBUTE_ID), anyFloat()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
@@ -58,11 +58,11 @@ public class TestFloatHandlerAdapter extends TestHandlerAdapter<
 				});
 
 		withMandatoryFlag = mock(FloatHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(FloatHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
 		adapter = new FloatHandlerAdapter();
@@ -96,5 +96,10 @@ public class TestFloatHandlerAdapter extends TestHandlerAdapter<
 	@Override
 	public FloatHandlerAdapter getAdapter() {
 		return adapter;
+	}
+
+	@Override
+	public int getAttributeId() {
+		return ATTRIBUTE_ID;
 	}
 }
