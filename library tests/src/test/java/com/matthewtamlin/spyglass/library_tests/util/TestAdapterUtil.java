@@ -109,7 +109,7 @@ public class TestAdapterUtil {
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
-		assertThat(adapter, instanceOf(DefaultToDimensionAdapter.class));
+		assertThat(adapter, instanceOf(DefaultToStringAdapter.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
