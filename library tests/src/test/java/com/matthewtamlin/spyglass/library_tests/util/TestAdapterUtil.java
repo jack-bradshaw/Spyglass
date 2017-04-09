@@ -1,5 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import android.graphics.drawable.Drawable;
+
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
@@ -12,6 +14,7 @@ import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
@@ -19,6 +22,8 @@ import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseStringAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.library.use_annotations.UseFloat;
+import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
@@ -95,7 +100,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_fieldVariant_noDefaultAnnotations() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(1,
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3,
 				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
@@ -103,7 +108,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_fieldVariant_oneDefaultAnnotation() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3,
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(4,
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
@@ -117,7 +122,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetDefaultAdapter_methodVariant_noDefaultAnnotations() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(1,
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(3,
 				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
@@ -125,7 +130,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_oneDefaultAnnotation() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(3,
+		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(4,
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
@@ -139,14 +144,6 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_noArguments() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(4,
-				TestClass.class));
-
-		assertThat(adapters.isEmpty(), is(true));
-	}
-
-	@Test
-	public void testGetUseAdapters_oneArgument_noUseAnnotations() {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(5,
 				TestClass.class));
 
@@ -154,8 +151,16 @@ public class TestAdapterUtil {
 	}
 
 	@Test
-	public void testGetUseAdapters_oneArgument_oneUseAnnotation() {
+	public void testGetUseAdapters_oneArgument_noUseAnnotations() {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(6,
+				TestClass.class));
+
+		assertThat(adapters.isEmpty(), is(true));
+	}
+
+	@Test
+	public void testGetUseAdapters_oneArgument_oneUseAnnotation() {
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(7,
 				TestClass.class));
 
 		assertThat(adapters.size(), is(1));
@@ -164,7 +169,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_twoUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(7,
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(9,
 				TestClass.class));
 
 		assertThat(adapters.size(), is(2));
@@ -174,7 +179,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_threeUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(8,
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(10,
 				TestClass.class));
 
 		assertThat(adapters.size(), is(3));
@@ -190,49 +195,45 @@ public class TestAdapterUtil {
 
 		@FieldTag(2)
 		@BooleanHandler(attributeId = 2)
-		private Object field2;
+		private boolean field2;
 
 		@FieldTag(3)
-		@BooleanHandler(attributeId = 3)
-		@DefaultToString("default string")
 		private Object field3;
+
+		@FieldTag(4)
+		@DefaultToString("default string")
+		private String field4;
 
 		@MethodTag(1)
 		private void method1() {}
 
 		@MethodTag(2)
-		@DrawableHandler(attributeId = 2)
+		@IntegerHandler(attributeId = 2)
 		private Object method2(int i) {return null;}
 
 		@MethodTag(3)
-		@DrawableHandler(attributeId = 3)
-		@DefaultToDimension(value = 10, unit = DP)
-		private Object method3(int i) {return null;}
+		private void method3() {}
 
 		@MethodTag(4)
-		@StringHandler(attributeId = 4)
-		private void method4() {}
+		@DefaultToDimension(value = 10, unit = DP)
+		private Object method4(int i) {return null;}
 
 		@MethodTag(5)
-		@FractionHandler(attributeId = 5)
-		private void method5(final int i) {}
+		private void method5() {}
 
 		@MethodTag(6)
-		@ColorHandler(attributeId = 6)
-		private void method6(@UseBoolean(false) final int i) {}
+		private void method6(int i) {}
 
 		@MethodTag(7)
-		@ColorHandler(attributeId = 7)
-		private void method7(
-				@UseBoolean(false) final int i,
-				@UseChar(0) final char c,
-				final String s) {}
+		private void method7(@UseBoolean(false) int i) {}
 
 		@MethodTag(8)
-		@ColorHandler(attributeId = 8)
-		private void method8(
-				@UseBoolean(false) final int i,
-				@UseChar(0) final char c,
-				@UseString("string") final String s) {}
+		private void method8(String s, boolean b, float f) {}
+
+		@MethodTag(9)
+		private void method8(@UseBoolean(false) int i, @UseFloat(0F) char c, String s) {}
+
+		@MethodTag(10)
+		private void method9(@UseLong(0L) long l, @UseChar(0) char c, @UseString("s") String s) {}
 	}
 }
