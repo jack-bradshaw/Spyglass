@@ -37,7 +37,7 @@ public interface HandlerAdapter<T, A extends Annotation> {
 	 *
 	 * @return true if the supplied annotation was declared mandatory, false otherwise
 	 */
-	public boolean attributeIsMandatory(A annotation);
+	public boolean isMandatory(A annotation);
 
 	/**
 	 * Accesses specific data in a TypedArray.

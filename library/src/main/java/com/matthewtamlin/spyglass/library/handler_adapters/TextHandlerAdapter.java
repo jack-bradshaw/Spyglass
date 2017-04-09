@@ -44,7 +44,7 @@ public class TextHandlerAdapter implements HandlerAdapter<CharSequence, TextHand
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final TextHandler annotation) {
+	public boolean isMandatory(final TextHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

@@ -47,7 +47,7 @@ public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHan
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final BooleanHandler annotation) {
+	public boolean isMandatory(final BooleanHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();
