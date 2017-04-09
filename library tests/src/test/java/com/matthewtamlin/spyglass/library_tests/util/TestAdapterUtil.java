@@ -208,32 +208,35 @@ public class TestAdapterUtil {
 		private Object method2(int i) {return null;}
 
 		@MethodTag(3)
-		@DrawableHandler(attributeId = 3)
-		@DefaultToDimension(value = 10, unit = DP)
-		private Object method3(int i) {return null;}
+		private void method3() {}
 
 		@MethodTag(4)
-		@StringHandler(attributeId = 4)
-		private void method4() {}
+		@DrawableHandler(attributeId = 4)
+		@DefaultToDimension(value = 10, unit = DP)
+		private Object method4(int i) {return null;}
 
 		@MethodTag(5)
-		@FractionHandler(attributeId = 5)
-		private void method5(final int i) {}
+		@StringHandler(attributeId = 5)
+		private void method5() {}
 
 		@MethodTag(6)
-		@ColorHandler(attributeId = 6)
-		private void method6(@UseBoolean(false) final int i) {}
+		@FractionHandler(attributeId = 6)
+		private void method6(final int i) {}
 
 		@MethodTag(7)
 		@ColorHandler(attributeId = 7)
-		private void method7(
+		private void method7(@UseBoolean(false) final int i) {}
+
+		@MethodTag(8)
+		@ColorHandler(attributeId = 8)
+		private void method8(
 				@UseBoolean(false) final int i,
 				@UseChar(0) final char c,
 				final String s) {}
 
 		@MethodTag(8)
-		@ColorHandler(attributeId = 8)
-		private void method8(
+		@ColorHandler(attributeId = 9)
+		private void method9(
 				@UseBoolean(false) final int i,
 				@UseChar(0) final char c,
 				@UseString("string") final String s) {}
