@@ -205,10 +205,10 @@ public class ValidationUtil {
 	}
 
 	private interface FieldRule {
-		public void checkFieldComplies(Field field);
+		public void checkFieldComplies(Field field) throws SpyglassValidationException;
 	}
 
 	private interface MethodRule {
-		public void checkMethodComplies(Method method);
+		public void checkMethodComplies(Method method) throws SpyglassValidationException;
 	}
 }
