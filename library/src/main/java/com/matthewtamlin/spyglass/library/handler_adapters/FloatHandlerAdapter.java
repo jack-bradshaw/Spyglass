@@ -49,7 +49,7 @@ public class FloatHandlerAdapter implements HandlerAdapter<Float, FloatHandler> 
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final FloatHandler annotation) {
+	public boolean isMandatory(final FloatHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

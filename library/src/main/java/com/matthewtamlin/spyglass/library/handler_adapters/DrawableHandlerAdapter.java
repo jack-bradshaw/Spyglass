@@ -45,7 +45,7 @@ public class DrawableHandlerAdapter implements HandlerAdapter<Drawable, Drawable
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final DrawableHandler annotation) {
+	public boolean isMandatory(final DrawableHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

@@ -48,7 +48,7 @@ public class IntegerHandlerAdapter implements HandlerAdapter<Integer, IntegerHan
 	}
 
 	@Override
-	public boolean attributeIsMandatory(final IntegerHandler annotation) {
+	public boolean isMandatory(final IntegerHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();
