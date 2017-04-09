@@ -8,6 +8,7 @@ import android.view.View;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
+import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -18,6 +19,8 @@ import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdap
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getHandlerAdapter;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
+import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateField;
+import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
 public class Spyglass {
 	private View view;
@@ -35,14 +38,16 @@ public class Spyglass {
 	}
 
 	public void applyAttributesTo(final View view) {
-		checkNotNull(view, "Argument 'view' cannot be null.");
+		checkNotNull(view, "Argument \'view\' cannot be null.");
 		checkMainThread();
 
 		for (final Field f : view.getClass().getDeclaredFields()) {
+			validateField(f);
 			processField(f);
 		}
 
 		for (final Method m : view.getClass().getDeclaredMethods()) {
+			validateMethod(m);
 			processMethod(m);
 		}
 	}
@@ -53,10 +58,8 @@ public class Spyglass {
 		}
 	}
 
-	private void processField(final Field field) {
+	private void processField(final Field field, final View view) {
 		field.setAccessible(true);
-
-		AnnotationUtil.validateAnnotations(field);
 
 		final Annotation handlerAnnotation = getHandlerAnnotation(field);
 
@@ -89,10 +92,8 @@ public class Spyglass {
 		}
 	}
 
-	private void processMethod(final Method method) {
+	private void processMethod(final Method method, final View view) {
 		method.setAccessible(true);
-
-		AnnotationUtil.validateAnnotations(method);
 
 		final Annotation handlerAnnotation = getHandlerAnnotation(method);
 
