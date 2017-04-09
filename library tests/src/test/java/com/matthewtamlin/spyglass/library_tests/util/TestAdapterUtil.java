@@ -6,7 +6,6 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapte
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.IntegerHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
