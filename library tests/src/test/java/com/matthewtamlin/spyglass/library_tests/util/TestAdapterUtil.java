@@ -1,7 +1,5 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
-import android.graphics.drawable.Drawable;
-
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
@@ -11,11 +9,7 @@ import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter
 import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.ColorHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
