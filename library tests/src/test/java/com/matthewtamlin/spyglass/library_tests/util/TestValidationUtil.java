@@ -180,7 +180,7 @@ public class TestValidationUtil {
 
 	@Test(expected = SpyglassValidationException.class)
 	public void testValidateMethod_multipleUseAnnotationsOnOneParameter() {
-
+		ValidationUtil.validateMethod(getMethodWithTag(21, TestClass.class));
 	}
 
 	@SuppressWarnings("unused")
