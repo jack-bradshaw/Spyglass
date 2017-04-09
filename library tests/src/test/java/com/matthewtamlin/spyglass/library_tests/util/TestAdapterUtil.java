@@ -161,6 +161,9 @@ public class TestAdapterUtil {
 				TestClass.class));
 
 		assertThat(adapters.size(), is(1));
+
+		assertThat(adapters.keySet().contains(0), is(true));
+		assertThat(adapters.get(0), is(notNullValue()));
 		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
 	}
 
@@ -178,7 +181,13 @@ public class TestAdapterUtil {
 				TestClass.class));
 
 		assertThat(adapters.size(), is(2));
+
+		assertThat(adapters.keySet().contains(0), is(true));
+		assertThat(adapters.get(0), is(notNullValue()));
 		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
+
+		assertThat(adapters.keySet().contains(1), is(true));
+		assertThat(adapters.get(1), is(notNullValue()));
 		assertThat(adapters.get(1), instanceOf(UseFloatAdapter.class));
 	}
 
@@ -188,8 +197,17 @@ public class TestAdapterUtil {
 				TestClass.class));
 
 		assertThat(adapters.size(), is(3));
+
+		assertThat(adapters.keySet().contains(0), is(true));
+		assertThat(adapters.get(0), is(notNullValue()));
 		assertThat(adapters.get(0), instanceOf(UseLongAdapter.class));
+
+		assertThat(adapters.keySet().contains(1), is(true));
+		assertThat(adapters.get(1), is(notNullValue()));
 		assertThat(adapters.get(1), instanceOf(UseCharAdapter.class));
+
+		assertThat(adapters.keySet().contains(2), is(true));
+		assertThat(adapters.get(2), is(notNullValue()));
 		assertThat(adapters.get(2), instanceOf(UseStringAdapter.class));
 	}
 
