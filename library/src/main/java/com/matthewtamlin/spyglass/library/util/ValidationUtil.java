@@ -159,7 +159,7 @@ public class ValidationUtil {
 		});
 	}
 
-	public static void validateAnnotations(final Field field) throws SpyglassValidationException {
+	public static void validateField(final Field field) throws SpyglassValidationException {
 		for (final FieldRule rule : fieldRules) {
 			rule.checkFieldComplies(field);
 		}
