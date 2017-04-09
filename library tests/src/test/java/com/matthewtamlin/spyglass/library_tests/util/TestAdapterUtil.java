@@ -14,6 +14,7 @@ import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
@@ -206,7 +207,7 @@ public class TestAdapterUtil {
 		private void method1() {}
 
 		@MethodTag(2)
-		@DrawableHandler(attributeId = 2)
+		@IntegerHandler(attributeId = 2)
 		private Object method2(int i) {return null;}
 
 		@MethodTag(3)
