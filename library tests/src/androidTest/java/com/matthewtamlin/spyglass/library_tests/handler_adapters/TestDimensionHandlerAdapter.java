@@ -3,9 +3,7 @@ package com.matthewtamlin.spyglass.library_tests.handler_adapters;
 import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.DimensionHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
 
 import org.junit.Before;
@@ -13,11 +11,7 @@ import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
-import java.util.Random;
-
-import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyFloat;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
@@ -28,6 +22,8 @@ public class TestDimensionHandlerAdapter extends TestHandlerAdapter<
 		Float,
 		DimensionHandler,
 		DimensionHandlerAdapter> {
+
+	private static final int ATTRIBUTE_ID = 1952;
 
 	private Float expectedValue;
 
@@ -43,18 +39,16 @@ public class TestDimensionHandlerAdapter extends TestHandlerAdapter<
 
 	@Before
 	public void setup() {
-		final int attributeId = new Random().nextInt(Integer.MAX_VALUE);
-
 		expectedValue = Float.NEGATIVE_INFINITY;
 
 		containingAttribute = mock(TypedArray.class);
-		when(containingAttribute.hasValue(attributeId)).thenReturn(true);
-		when(containingAttribute.getDimension(eq(attributeId), anyFloat()))
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getDimension(eq(ATTRIBUTE_ID), anyFloat()))
 				.thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
-		when(missingAttribute.hasValue(attributeId)).thenReturn(false);
-		when(missingAttribute.getDimension(eq(attributeId), anyFloat()))
+		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
+		when(missingAttribute.getDimension(eq(ATTRIBUTE_ID), anyFloat()))
 				.thenAnswer(new Answer<Object>() {
 					@Override
 					public Object answer(final InvocationOnMock invocation) throws Throwable {
@@ -64,11 +58,11 @@ public class TestDimensionHandlerAdapter extends TestHandlerAdapter<
 				});
 
 		withMandatoryFlag = mock(DimensionHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(DimensionHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(attributeId);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
 		adapter = new DimensionHandlerAdapter();
@@ -102,5 +96,10 @@ public class TestDimensionHandlerAdapter extends TestHandlerAdapter<
 	@Override
 	public DimensionHandlerAdapter getAdapter() {
 		return adapter;
+	}
+
+	@Override
+	public int getAttributeId() {
+		return ATTRIBUTE_ID;
 	}
 }
