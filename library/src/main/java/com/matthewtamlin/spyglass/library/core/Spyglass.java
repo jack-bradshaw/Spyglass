@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.core;
 
+import android.content.Context;
 import android.content.res.TypedArray;
 import android.os.Looper;
 import android.util.AttributeSet;
@@ -25,10 +26,14 @@ import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMet
 public class Spyglass {
 	private View view;
 
+	private Context context;
+
 	private TypedArray attrSource;
 
 	private Spyglass(final Builder builder) {
 		this.view = builder.view;
+
+		this.context = builder.context;
 
 		this.attrSource = view.getContext().obtainStyledAttributes(
 				builder.attributeSet,
@@ -37,14 +42,17 @@ public class Spyglass {
 				builder.defStyleRes);
 	}
 
-	public void applyAttributesTo(final View view) {
-		checkNotNull(view, "Argument \'view\' cannot be null.");
+	public void bindDataToFields() {
 		checkMainThread();
 
 		for (final Field f : view.getClass().getDeclaredFields()) {
 			validateField(f);
 			processField(f);
 		}
+	}
+
+	public void passDataToMethods() {
+		checkMainThread();
 
 		for (final Method m : view.getClass().getDeclaredMethods()) {
 			validateMethod(m);
@@ -58,7 +66,7 @@ public class Spyglass {
 		}
 	}
 
-	private void processField(final Field field, final View view) {
+	private void processField(final Field field) {
 		field.setAccessible(true);
 
 		final Annotation handlerAnnotation = getHandlerAnnotation(field);
@@ -92,7 +100,7 @@ public class Spyglass {
 		}
 	}
 
-	private void processMethod(final Method method, final View view) {
+	private void processMethod(final Method method) {
 		method.setAccessible(true);
 
 		final Annotation handlerAnnotation = getHandlerAnnotation(method);
@@ -126,12 +134,14 @@ public class Spyglass {
 		}
 	}
 
-	public static Builder builder(final View view) {
-		return new Builder(view);
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	public static class Builder {
 		private View view;
+
+		private Context context;
 
 		private int styleableRes[];
 
@@ -141,8 +151,14 @@ public class Spyglass {
 
 		private int defStyleRes;
 
-		private Builder(final View view) {
-			this.view = checkNotNull(view, "Argument 'view' cannot be null.");
+		private Builder() {}
+
+		public void forView(final View view) {
+			this.view = view;
+		}
+
+		public void withContext(final Context context) {
+			this.context = context;
 		}
 
 		public void withStyleableResource(final int[] styleableRes) {
@@ -162,9 +178,15 @@ public class Spyglass {
 		}
 
 		public Spyglass build() {
-			checkNotNull(styleableRes, new InvalidBuilderStateException("Unable to build " +
+			checkNotNull(view, new InvalidBuilderStateException("Unable to build a Spyglass " +
+					"without a view. Call method forView(View) before calling build()."));
+
+			checkNotNull(context, new InvalidBuilderStateException("Unable to build a Spyglass " +
+					"without a context. Call method withContext(Context) before calling build()."));
+
+			checkNotNull(styleableRes, new InvalidBuilderStateException("Unable to build a " +
 					"Spyglass without a styleable resource. Call method withStyleableRes(int[]) " +
-					"before calling build()"));
+					"before calling build()."));
 
 			return new Spyglass(this);
 		}
