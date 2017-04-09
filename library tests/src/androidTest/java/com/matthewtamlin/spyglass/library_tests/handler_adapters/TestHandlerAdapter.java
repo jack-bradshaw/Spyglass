@@ -77,6 +77,16 @@ public abstract class TestHandlerAdapter<V,
 				.getValueFromArray(getTypedArrayMissingAttribute());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAttributeId_nullSupplied() {
+		getAdapter().getAttributeId(null);
+	}
+
+	@Test
+	public void testGetAttributeId_nonNullSupplieD() {
+		//TODO
+	}
+
 	@Test
 	public void testIsMandatory_mandatoryFlagPresent() {
 		final boolean mandatory = getAdapter().isMandatory(
