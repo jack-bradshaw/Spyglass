@@ -168,6 +168,14 @@ public class TestAdapterUtil {
 	}
 
 	@Test
+	public void testGetUseAdapters_threeArguments_noUseAnnotations() {
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(8,
+				TestClass.class));
+
+		assertThat(adapters.isEmpty(), is(true));
+	}
+
+	@Test
 	public void testGetUseAdapters_threeArguments_twoUseAnnotations() {
 		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(getMethodWithTag(9,
 				TestClass.class));
