@@ -291,6 +291,7 @@ public class TestValidationUtil {
 				@UseInt(1) Object o2,
 				@UseByte(0) Object o3) {}
 
+		@BooleanHandler(attributeId = 21)
 		private void method21(@UseLong(0L) @UseBoolean(true) Object o) {}
 	}
 
