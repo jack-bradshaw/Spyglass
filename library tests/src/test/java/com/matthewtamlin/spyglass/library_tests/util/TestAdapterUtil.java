@@ -199,7 +199,6 @@ public class TestAdapterUtil {
 		private Object field3;
 
 		@FieldTag(4)
-		@DrawableHandler(attributeId = 4)
 		@DefaultToString("default string")
 		private Drawable field4;
 
