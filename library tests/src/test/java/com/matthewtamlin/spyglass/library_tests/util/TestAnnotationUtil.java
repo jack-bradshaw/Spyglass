@@ -205,8 +205,7 @@ public class TestAnnotationUtil {
 		assertThat(annotations.get(2), is(notNullValue()));
 		assertThat(annotations.get(2), instanceOf(UseByte.class));
 	}
-
-
+	
 	@SuppressWarnings("unused")
 	private static class TestClass {
 		@FieldTag(1)
