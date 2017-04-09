@@ -8,6 +8,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.handler_adapters.IntegerHandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
@@ -84,7 +85,7 @@ public class TestAdapterUtil {
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
-		assertThat(adapter, instanceOf(DrawableHandlerAdapter.class));
+		assertThat(adapter, instanceOf(IntegerHandlerAdapter.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -106,7 +107,7 @@ public class TestAdapterUtil {
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
-		assertThat(adapter, instanceOf(DefaultToStringAdapter.class));
+		assertThat(adapter, instanceOf(DefaultToDimensionAdapter.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
