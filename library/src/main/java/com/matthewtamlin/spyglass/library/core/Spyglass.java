@@ -131,8 +131,8 @@ public class Spyglass {
 		}
 	}
 
-	public static Builder builder(final View view) {
-		return new Builder(view);
+	public static Builder builder() {
+		return new Builder();
 	}
 
 	public static class Builder {
@@ -148,8 +148,10 @@ public class Spyglass {
 
 		private int defStyleRes;
 
-		private Builder(final View view) {
-			this.view = checkNotNull(view, "Argument 'view' cannot be null.");
+		private Builder() {}
+
+		public void forView(final View view) {
+			this.view = view;
 		}
 
 		public void withContext(final Context context) {
@@ -173,6 +175,9 @@ public class Spyglass {
 		}
 
 		public Spyglass build() {
+			checkNotNull(view, new InvalidBuilderStateException("Unable to build a Spyglass " +
+					"without a view. Call method forView(View) before calling build()."));
+
 			checkNotNull(styleableRes, new InvalidBuilderStateException("Unable to build " +
 					"Spyglass without a styleable resource. Call method withStyleableRes(int[]) " +
 					"before calling build()"));
