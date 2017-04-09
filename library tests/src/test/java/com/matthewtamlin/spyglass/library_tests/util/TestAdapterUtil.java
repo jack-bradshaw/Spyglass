@@ -14,6 +14,8 @@ import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseFloatAdapter;
+import com.matthewtamlin.spyglass.library.use_adapters.UseLongAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseStringAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
@@ -177,7 +179,7 @@ public class TestAdapterUtil {
 
 		assertThat(adapters.size(), is(2));
 		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
-		assertThat(adapters.get(1), instanceOf(UseCharAdapter.class));
+		assertThat(adapters.get(1), instanceOf(UseFloatAdapter.class));
 	}
 
 	@Test
@@ -186,7 +188,7 @@ public class TestAdapterUtil {
 				TestClass.class));
 
 		assertThat(adapters.size(), is(3));
-		assertThat(adapters.get(0), instanceOf(UseBooleanAdapter.class));
+		assertThat(adapters.get(0), instanceOf(UseLongAdapter.class));
 		assertThat(adapters.get(1), instanceOf(UseCharAdapter.class));
 		assertThat(adapters.get(2), instanceOf(UseStringAdapter.class));
 	}
