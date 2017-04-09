@@ -25,18 +25,6 @@ public class ValidationUtil {
 		createMethodRules();
 	}
 
-	public static void validateAnnotations(final Field field) throws SpyglassValidationException {
-		for (final FieldRule rule : fieldRules) {
-			rule.checkFieldComplies(field);
-		}
-	}
-
-	public static void validateAnnotations(final Method method) throws SpyglassValidationException {
-		for (final MethodRule rule : methodRules) {
-			rule.checkMethodComplies(method);
-		}
-	}
-
 	private static void createFieldRules() {
 		fieldRules.add(new FieldRule() {
 			@Override
@@ -171,6 +159,18 @@ public class ValidationUtil {
 		});
 	}
 
+	public static void validateAnnotations(final Field field) throws SpyglassValidationException {
+		for (final FieldRule rule : fieldRules) {
+			rule.checkFieldComplies(field);
+		}
+	}
+
+	public static void validateAnnotations(final Method method) throws SpyglassValidationException {
+		for (final MethodRule rule : methodRules) {
+			rule.checkMethodComplies(method);
+		}
+	}
+
 	private static int countAnnotations(
 			final Annotation[] annotations,
 			final Class<? extends Annotation> metaAnnotation) {
@@ -205,10 +205,10 @@ public class ValidationUtil {
 	}
 
 	private interface FieldRule {
-		public void checkFieldComplies(Field field);
+		public void checkFieldComplies(Field field) throws SpyglassValidationException;
 	}
 
 	private interface MethodRule {
-		public void checkMethodComplies(Method method);
+		public void checkMethodComplies(Method method) throws SpyglassValidationException;
 	}
 }
