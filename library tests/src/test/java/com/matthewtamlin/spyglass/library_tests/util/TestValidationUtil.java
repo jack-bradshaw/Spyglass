@@ -1,8 +1,155 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
+
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
+	@Test
+	public void testValidateField_noAnnotations() {
+
+	}
+
+	@Test
+	public void testValidateField_oneHandlerAnnotation() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateField_twoHandlerAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateField_threeHandlerAnnotations() {
+
+	}
+
+	@Test
+	public void testValidateField_oneDefaultAnnotation() {
+		
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateField_twoDefaultAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateField_threeDefaultAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateField_defaultAnnotationWithoutHandlerAnnotation() {
+
+	}
+
+	@Test
+	public void testValidateMethod_noAnnotations() {
+
+	}
+
+	@Test
+	public void testValidateMethod_oneHandlerAnnotation() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_twoHandlerAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_threeHandlerAnnotations() {
+
+	}
+
+	@Test
+	public void testValidateMethod_oneDefaultAnnotation() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_twoDefaultAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_threeDefaultAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_defaultAnnotationWithoutHandlerAnnotation() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_standardHandler_noArguments() {
+
+	}
+
+	@Test
+	public void testValidateMethod_standardHandler_oneArgumentNoUseAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_standardHandler_oneArgumentOneUseAnnotation() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_standardHandler_threeArgumentsNoUseAnnotations() {
+
+	}
+
+	@Test
+	public void testValidateMethod_standardHandler_threeArgumentsTwoUseAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_standardHandler_threeArgumentsThreeUseAnnotations() {
+
+	}
+
+	@Test
+	public void testValidateMethod_enumConstantHandler_noArguments() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_enumConstantHandler_oneArgumentNoUseAnnotations() {
+
+	}
+
+	@Test
+	public void testValidateMethod_enumConstantHandler_oneArgumentOneUseAnnotation() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_enumConstantHandler_threeArgumentsNoUseAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_enumConstantHandler_threeArgumentsTwoUseAnnotations() {
+
+	}
+
+	@Test
+	public void testValidateMethod_enumConstantHandler_threeArgumentsThreeUseAnnotations() {
+
+	}
+
+	@Test(expected = SpyglassValidationException.class)
+	public void testValidateMethod_multipleUseAnnotationsOnOneParameter() {
+
+	}
 }
