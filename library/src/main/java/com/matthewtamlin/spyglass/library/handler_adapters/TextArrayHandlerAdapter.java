@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 import android.content.res.TypedArray;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.TextArrayHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -33,6 +34,13 @@ public class TextArrayHandlerAdapter implements HandlerAdapter<CharSequence[], T
 				}
 			}
 		};
+	}
+
+	@Override
+	public int getAttributeId(final TextArrayHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
+		return annotation.attributeId();
 	}
 
 	@Override
