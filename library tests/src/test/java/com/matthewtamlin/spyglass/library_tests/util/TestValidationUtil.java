@@ -1,6 +1,5 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
-import com.matthewtamlin.spyglass.library.core.DimensionUnit;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorResource;
@@ -14,7 +13,6 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToInteger;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringResource;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToSuppliedValue;
 import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
@@ -22,13 +20,11 @@ import com.matthewtamlin.spyglass.library.handler_annotations.FloatHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
-import com.matthewtamlin.spyglass.library.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
 
 import org.junit.Test;
