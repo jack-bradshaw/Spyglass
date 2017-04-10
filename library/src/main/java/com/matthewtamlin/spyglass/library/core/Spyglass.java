@@ -95,6 +95,11 @@ public class Spyglass {
 	}
 
 	private void processMethod(final Method method) {
+
+	}
+
+	private void processMethodEnumConstantCase(final Method method) {
+
 	}
 
 	private void bindDataToField(final Field field, final Object value) {
