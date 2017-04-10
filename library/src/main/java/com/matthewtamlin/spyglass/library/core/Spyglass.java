@@ -10,11 +10,16 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter.TypedArrayAccessor;
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
+import com.matthewtamlin.spyglass.library.util.AdapterUtil;
+import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
@@ -135,6 +140,20 @@ public class Spyglass {
 					String.format(message, message, Arrays.toString(arguments)),
 					e);
 		}
+	}
+
+	private Map<Integer, Object> getArgsFromUseAnnotations(final Method method) {
+		final Map<Integer, Object> args = new HashMap<>();
+
+		final Map<Integer, Annotation> annotations = AnnotationUtil.getUseAnnotations(method);
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(method);
+
+		for (final Integer i : annotations.keySet()) {
+			final Object value = adapters.get(i).getValue(annotations.get(i));
+			args.put(i, value);
+		}
+
+		return args;
 	}
 
 	public static Builder builder() {
