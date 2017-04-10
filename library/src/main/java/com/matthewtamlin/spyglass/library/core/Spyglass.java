@@ -67,6 +67,31 @@ public class Spyglass {
 	}
 
 	private void processField(final Field field) {
+		field.setAccessible(true);
+
+		final Annotation handlerAnnotation = getHandlerAnnotation(field);
+
+		if (handlerAnnotation != null) {
+			final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(field);
+			final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
+
+			if (accessor.valueExistsInArray(attrSource)) {
+				bindDataToField(field, accessor.getValueFromArray(attrSource));
+			} else if (getDefaultAnnotation(field) != null) {
+				final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
+				bindDataToField(
+						field,
+						defaultAdapter.getDefault(getDefaultAnnotation(field), context));
+			} else {
+				final String message = "Missing mandatory attribute %1$s in view %2$s.";
+
+				final int resId = handlerAdapter.getAttributeId(handlerAnnotation);
+				final String resIdName = context.getResources().getResourceEntryName(resId);
+
+				throw new MandatoryAttributeMissingException(
+						String.format(message, resIdName, view));
+			}
+		}
 	}
 
 	private void processMethod(final Method method) {
