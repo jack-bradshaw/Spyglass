@@ -8,16 +8,25 @@ import android.view.View;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter.TypedArrayAccessor;
+import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
+import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
+import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
-import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.TreeMap;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getHandlerAdapter;
+import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getUseAdapters;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateField;
@@ -73,29 +82,23 @@ public class Spyglass {
 
 		if (handlerAnnotation != null) {
 			final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(field);
+			final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
-			if (handlerAdapter.attributeValueIsAvailable(attrSource, handlerAnnotation)) {
-				final Object value = handlerAdapter.getAttributeValue(
-						attrSource,
-						handlerAnnotation);
-
-				// Assign value to field
-
+			if (accessor.valueExistsInArray(attrSource)) {
+				bindDataToField(field, accessor.getValueFromArray(attrSource));
+			} else if (getDefaultAnnotation(field) != null) {
+				final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
+				bindDataToField(
+						field,
+						defaultAdapter.getDefault(getDefaultAnnotation(field), context));
 			} else {
-				final Annotation defaultAnnotation = getDefaultAnnotation(field);
+				final String message = "Missing mandatory attribute %1$s in view %2$s.";
 
-				if (defaultAnnotation != null) {
-					final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
+				final int resId = handlerAdapter.getAttributeId(handlerAnnotation);
+				final String resIdName = context.getResources().getResourceEntryName(resId);
 
-					final Object defaultValue = defaultAdapter.getDefault(
-							defaultAnnotation,
-							view.getContext());
-
-					// Assign value to field
-
-				} else if (handlerAdapter.attributeIsMandatory(handlerAnnotation)) {
-					// throw exception
-				}
+				throw new MandatoryAttributeMissingException(
+						String.format(message, resIdName, view));
 			}
 		}
 	}
@@ -106,30 +109,95 @@ public class Spyglass {
 		final Annotation handlerAnnotation = getHandlerAnnotation(method);
 
 		if (handlerAnnotation != null) {
-			final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
-
-			if (handlerAdapter.attributeValueIsAvailable(attrSource, handlerAnnotation)) {
-				final Object value = handlerAdapter.getAttributeValue(
-						attrSource,
-						handlerAnnotation);
-
-				// call method
-
+			if (handlerAnnotation instanceof EnumConstantHandler) {
+				processMethodEnumConstantCase(method);
 			} else {
-				final Annotation defaultAnnotation = getDefaultAnnotation(method);
+				processMethodStandardCase(method);
+			}
+		}
+	}
 
-				if (defaultAnnotation != null) {
-					final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(method);
+	private void processMethodEnumConstantCase(final Method method) {
+		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
+		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
-					final Object defaultValue = defaultAdapter.getDefault(
-							defaultAnnotation,
-							view.getContext());
+		if (accessor.valueExistsInArray(attrSource)) {
+			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+			callMethod(method, args.values().toArray());
+		}
+	}
 
-					// call method
+	private void processMethodStandardCase(final Method method) {
+		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
+		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
-				} else if (handlerAdapter.attributeIsMandatory(handlerAnnotation)) {
-					// throw exception
-				}
+		if (accessor.valueExistsInArray(attrSource)) {
+			final Object value = accessor.getValueFromArray(attrSource);
+			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+
+			addValueAtEmptyPosition(args, value);
+			callMethod(method, args.values().toArray());
+
+		} else if (getDefaultAnnotation(method) != null) {
+			final Object value = accessor.getValueFromArray(attrSource);
+			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+
+			addValueAtEmptyPosition(args, value);
+			callMethod(method, args.values().toArray());
+
+		} else {
+			final String message = "Missing mandatory attribute %1$s in view %2$s.";
+
+			final int resId = handlerAdapter.getAttributeId(handlerAnnotation);
+			final String resIdName = context.getResources().getResourceEntryName(resId);
+
+			throw new MandatoryAttributeMissingException(
+					String.format(message, resIdName, view));
+		}
+	}
+
+	private void bindDataToField(final Field field, final Object value) {
+		try {
+			field.set(view, value);
+		} catch (final Exception e) {
+			final String message = "Failed to bind data to field %1$s.";
+			throw new SpyglassFieldBindException(String.format(message, value), e);
+		}
+	}
+
+	private void callMethod(final Method method, Object[] arguments) {
+		try {
+			method.invoke(view, arguments);
+		} catch (final Exception e) {
+			final String message = "Failed to call method %1$s with arguments %2$s.";
+			throw new SpyglassMethodCallException(
+					String.format(message, message, Arrays.toString(arguments)),
+					e);
+		}
+	}
+
+	private Map<Integer, Object> getArgsFromUseAnnotations(final Method method) {
+		final Map<Integer, Object> args = new HashMap<>();
+
+		final Map<Integer, Annotation> annotations = AnnotationUtil.getUseAnnotations(method);
+		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(method);
+
+		for (final Integer i : annotations.keySet()) {
+			final Object value = adapters.get(i).getValue(annotations.get(i));
+			args.put(i, value);
+		}
+
+		return args;
+	}
+
+	private void addValueAtEmptyPosition(final Map<Integer, Object> args, final Object value) {
+		// Use size + 1 so to handle the case where the existing values have consecutive keys
+		// For example, [1 = a, 2 = b, 3 = c] would become [1 = a, 2 = b, 3 = c, 4 = value]
+		for (int i = 0; i < args.size() + 1; i++) {
+			if (!args.containsKey(i)) {
+				args.put(i, value);
 			}
 		}
 	}
