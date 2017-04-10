@@ -9,6 +9,7 @@ import android.view.View;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter.TypedArrayAccessor;
+import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -95,7 +96,17 @@ public class Spyglass {
 	}
 
 	private void processMethod(final Method method) {
+		method.setAccessible(true);
 
+		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+
+		if (handlerAnnotation != null) {
+			if (handlerAnnotation instanceof EnumConstantHandler) {
+				processMethodEnumConstantCase(method);
+			} else {
+				processMethodStandardCase(method);
+			}
+		}
 	}
 
 	private void processMethodEnumConstantCase(final Method method) {
