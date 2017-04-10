@@ -14,6 +14,7 @@ import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.Arrays;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
@@ -140,6 +141,17 @@ public class Spyglass {
 		} catch (final Exception e) {
 			final String message = "Failed to bind data to field %1$s.";
 			throw new SpyglassFieldBindException(String.format(message, value), e);
+		}
+	}
+
+	private void callMethod(final Method method, Object[] arguments) {
+		try {
+			method.invoke(view, arguments);
+		} catch (final Exception e) {
+			final String message = "Failed to call method %1$s with arguments %2$s.";
+			throw new SpyglassMethodCallException(
+					String.format(message, message, Arrays.toString(arguments)),
+					e);
 		}
 	}
 
