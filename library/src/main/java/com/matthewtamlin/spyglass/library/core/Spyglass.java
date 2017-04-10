@@ -143,7 +143,8 @@ public class Spyglass {
 			callMethod(method, args.values().toArray());
 
 		} else if (getDefaultAnnotation(method) != null) {
-			final Object value = accessor.getValueFromArray(attrSource);
+			final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(method);
+			final Object value = defaultAdapter.getDefault(getDefaultAnnotation(method), context);
 			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
 
 			addValueAtEmptyPosition(args, value);
