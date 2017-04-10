@@ -185,7 +185,7 @@ public class Spyglass {
 		final Map<Integer, Object> args = new HashMap<>();
 
 		final Map<Integer, Annotation> annotations = AnnotationUtil.getUseAnnotations(method);
-		final Map<Integer, UseAdapter> adapters = AdapterUtil.getUseAdapters(method);
+		final Map<Integer, UseAdapter<?, Annotation>> adapters = AdapterUtil.getUseAdapters(method);
 
 		for (final Integer i : annotations.keySet()) {
 			final Object value = adapters.get(i).getValue(annotations.get(i));
