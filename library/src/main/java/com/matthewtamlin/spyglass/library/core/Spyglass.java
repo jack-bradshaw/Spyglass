@@ -134,6 +134,15 @@ public class Spyglass {
 		}
 	}
 
+	private void bindDataToField(final Field field, final Object value) {
+		try {
+			field.set(view, value);
+		} catch (final Exception e) {
+			final String message = "Failed to bind data to field %1$s.";
+			throw new SpyglassFieldBindException(String.format(message, value), e);
+		}
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
