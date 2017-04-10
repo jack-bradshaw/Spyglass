@@ -87,9 +87,11 @@ public class Spyglass {
 
 			} else if (getDefaultAnnotation(field) != null) {
 				final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
-				bindDataToField(
-						field,
-						defaultAdapter.getDefault(getDefaultAnnotation(field), context));
+				final Object defaultValue = defaultAdapter.getDefault(
+						getDefaultAnnotation(field),
+						context);
+
+				bindDataToField(field, defaultValue);
 
 			} else {
 				final String message = "Missing mandatory attribute %1$s in view %2$s.";
