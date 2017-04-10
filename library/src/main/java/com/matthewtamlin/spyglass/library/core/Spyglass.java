@@ -10,6 +10,7 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter.TypedArrayAccessor;
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
@@ -25,6 +26,7 @@ import java.util.TreeMap;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getHandlerAdapter;
+import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getUseAdapters;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateField;
@@ -127,7 +129,33 @@ public class Spyglass {
 	}
 
 	private void processMethodStandardCase(final Method method) {
+		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
+		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
+		if (accessor.valueExistsInArray(attrSource)) {
+			final Object value = accessor.getValueFromArray(attrSource);
+			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+
+			addValueAtEmptyPosition(args, value);
+			callMethod(method, args.values().toArray());
+
+		} else if (getDefaultAnnotation(method) != null) {
+			final Object value = accessor.getValueFromArray(attrSource);
+			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+
+			addValueAtEmptyPosition(args, value);
+			callMethod(method, args.values().toArray());
+
+		} else {
+			final String message = "Missing mandatory attribute %1$s in view %2$s.";
+
+			final int resId = handlerAdapter.getAttributeId(handlerAnnotation);
+			final String resIdName = context.getResources().getResourceEntryName(resId);
+
+			throw new MandatoryAttributeMissingException(
+					String.format(message, resIdName, view));
+		}
 	}
 
 	private void bindDataToField(final Field field, final Object value) {
