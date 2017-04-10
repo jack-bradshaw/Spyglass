@@ -10,7 +10,6 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter.TypedArrayAccessor;
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
@@ -26,7 +25,6 @@ import java.util.TreeMap;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getHandlerAdapter;
-import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getUseAdapters;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateField;
@@ -86,11 +84,13 @@ public class Spyglass {
 
 			if (accessor.valueExistsInArray(attrSource)) {
 				bindDataToField(field, accessor.getValueFromArray(attrSource));
+
 			} else if (getDefaultAnnotation(field) != null) {
 				final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
 				bindDataToField(
 						field,
 						defaultAdapter.getDefault(getDefaultAnnotation(field), context));
+
 			} else {
 				final String message = "Missing mandatory attribute %1$s in view %2$s.";
 
