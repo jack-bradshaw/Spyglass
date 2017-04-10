@@ -8,8 +8,7 @@ import android.view.View;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
-import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
-import com.matthewtamlin.spyglass.library.util.ValidationUtil;
+import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter.TypedArrayAccessor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -68,37 +67,6 @@ public class Spyglass {
 	}
 
 	private void processField(final Field field) {
-		field.setAccessible(true);
-
-		final Annotation handlerAnnotation = getHandlerAnnotation(field);
-
-		if (handlerAnnotation != null) {
-			final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(field);
-
-			if (handlerAdapter.attributeValueIsAvailable(attrSource, handlerAnnotation)) {
-				final Object value = handlerAdapter.getAttributeValue(
-						attrSource,
-						handlerAnnotation);
-
-				// Assign value to field
-
-			} else {
-				final Annotation defaultAnnotation = getDefaultAnnotation(field);
-
-				if (defaultAnnotation != null) {
-					final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
-
-					final Object defaultValue = defaultAdapter.getDefault(
-							defaultAnnotation,
-							view.getContext());
-
-					// Assign value to field
-
-				} else if (handlerAdapter.attributeIsMandatory(handlerAnnotation)) {
-					// throw exception
-				}
-			}
-		}
 	}
 
 	private void processMethod(final Method method) {
