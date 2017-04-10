@@ -20,6 +20,7 @@ import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.TreeMap;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
@@ -115,7 +116,14 @@ public class Spyglass {
 	}
 
 	private void processMethodEnumConstantCase(final Method method) {
+		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
+		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
+		if (accessor.valueExistsInArray(attrSource)) {
+			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+			callMethod(method, args.values().toArray());
+		}
 	}
 
 	private void processMethodStandardCase(final Method method) {
