@@ -102,6 +102,10 @@ public class Spyglass {
 
 	}
 
+	private void processMethodStandardCase(final Method method) {
+
+	}
+
 	private void bindDataToField(final Field field, final Object value) {
 		try {
 			field.set(view, value);
