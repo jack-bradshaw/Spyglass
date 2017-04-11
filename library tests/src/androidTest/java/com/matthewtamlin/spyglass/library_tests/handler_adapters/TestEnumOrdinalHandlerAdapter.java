@@ -111,6 +111,14 @@ public class TestEnumOrdinalHandlerAdapter {
 		adapter.getAccessor(withMandatoryFlag).getValueFromArray(null);
 	}
 
+	@Test
+	public void testGetAccessor_callGetValueFromArray_valueAvailable() {
+		final int result = adapter.getAccessor(withMandatoryFlag).getValueFromArray
+				(containingAttribute);
+
+		assertThat(result, is(correctOrdinal));
+	}
+
 	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_valueMissing() {
 		adapter.getAccessor(withMandatoryFlag).getValueFromArray(missingAttribute);
