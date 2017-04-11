@@ -166,7 +166,7 @@ public class TestFlagHandlerAdapter {
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_noFlags() {
+	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_missingAttribute() {
 
 	}
 
@@ -191,7 +191,7 @@ public class TestFlagHandlerAdapter {
 	}
 
 	@Test(expected = RuntimeException.class)
-	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_noFlags() {
+	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_missingAttribute() {
 
 	}
 
