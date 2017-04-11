@@ -125,7 +125,7 @@ public class TestFlagHandlerAdapter {
 	@Test
 	public void testGetAccessor_callValueExistsInArray_handlesSingleFlag_oneFlagNoMatch() {
 		final boolean result = adapter.getAccessor(handlesFlag1).valueExistsInArray
-				(containingFlag0);
+				(containingFlag2);
 
 		assertThat(result, is(false));
 	}
@@ -140,16 +140,16 @@ public class TestFlagHandlerAdapter {
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_handlesSingleFlag_twoFlagsOneMatch() {
-		final boolean result = adapter.getAccessor(handlesFlag1And2).valueExistsInArray
-				(containingFlag2);
+		final boolean result = adapter.getAccessor(handlesFlag1)
+				.valueExistsInArray(containingFlags1And2);
 
 		assertThat(result, is(true));
 	}
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_handlesMultipleFlags_missingAttribute() {
-		final boolean result = adapter.getAccessor(handlesFlag1And2).valueExistsInArray
-				(containingFlag0);
+		final boolean result = adapter.getAccessor(handlesFlag1And2)
+				.valueExistsInArray(missingAttribute);
 
 		assertThat(result, is(true));
 	}
