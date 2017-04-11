@@ -171,11 +171,6 @@ public class TestFlagHandlerAdapter {
 	}
 
 	@Test
-	public void testGetAccessor_callValueExistsInArray_handlesMultipleFlags_twoFlagsNoMatch() {
-
-	}
-
-	@Test
 	public void testGetAccessor_callValueExistsInArray_handlesMultipleFlags_twoFlagsOneMatch() {
 
 	}
