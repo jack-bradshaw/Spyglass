@@ -170,12 +170,12 @@ public class TestFlagHandlerAdapter {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_noFlags() {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_oneFlagNoMatch() {
 
 	}
@@ -185,7 +185,7 @@ public class TestFlagHandlerAdapter {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_twoFlagsNoMatch() {
 
 	}
@@ -195,12 +195,12 @@ public class TestFlagHandlerAdapter {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_noFlags() {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_oneFlagNoMatch() {
 
 	}
@@ -210,7 +210,7 @@ public class TestFlagHandlerAdapter {
 
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_twoFlagsNoMatch() {
 
 	}
