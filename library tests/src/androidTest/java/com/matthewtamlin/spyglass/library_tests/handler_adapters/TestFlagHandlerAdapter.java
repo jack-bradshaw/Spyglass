@@ -220,11 +220,6 @@ public class TestFlagHandlerAdapter {
 
 	}
 
-	@Test(expected = RuntimeException.class)
-	public void testGetAccessor_callGetValueFromArray_valueMissing() {
-
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAttributeId_nullSupplied() {
 
