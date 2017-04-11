@@ -27,7 +27,7 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	private int correctOrdinal;
 
-	private TypedArray containingAttributeWithCorrectOrdinal;
+	private TypedArray containingAttribute;
 
 	private TypedArray containingAttributeWithWrongOrdinal;
 
@@ -43,13 +43,10 @@ public class TestEnumOrdinalHandlerAdapter {
 	public void setup() {
 		correctOrdinal = 3;
 
-		containingAttributeWithCorrectOrdinal = mock(TypedArray.class);
-		when(containingAttributeWithCorrectOrdinal.hasValue(ATTRIBUTE_ID))
-				.thenReturn(true);
-		when(containingAttributeWithCorrectOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(correctOrdinal);
-		when(containingAttributeWithCorrectOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(correctOrdinal);
+		containingAttribute = mock(TypedArray.class);
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(correctOrdinal);
+		when(containingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt())).thenReturn(correctOrdinal);
 
 		containingAttributeWithWrongOrdinal = mock(TypedArray.class);
 		when(containingAttributeWithWrongOrdinal.hasValue(ATTRIBUTE_ID))
@@ -106,7 +103,7 @@ public class TestEnumOrdinalHandlerAdapter {
 	@Test
 	public void testGetAccessor_callValueExistsInArray_valueAvailableAndCorrectOrdinal() {
 		final boolean result = adapter.getAccessor(withMandatoryFlag)
-				.valueExistsInArray(containingAttributeWithCorrectOrdinal);
+				.valueExistsInArray(containingAttribute);
 
 		assertThat(result, is(true));
 	}
