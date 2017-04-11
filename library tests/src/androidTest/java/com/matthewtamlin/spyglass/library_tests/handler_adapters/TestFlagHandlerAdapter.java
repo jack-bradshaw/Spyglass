@@ -106,7 +106,7 @@ public class TestFlagHandlerAdapter {
 	}
 
 	@Test
-	public void testGetAccessor_callValueExistsInArray_handlesSingleFlag_noFlags() {
+	public void testGetAccessor_callValueExistsInArray_handlesSingleFlag_missingAttribute() {
 
 	}
 
@@ -131,7 +131,7 @@ public class TestFlagHandlerAdapter {
 	}
 
 	@Test
-	public void testGetAccessor_callValueExistsInArray_handlesMultipleFlags_noFlags() {
+	public void testGetAccessor_callValueExistsInArray_handlesMultipleFlags_missingAttribute() {
 
 	}
 
