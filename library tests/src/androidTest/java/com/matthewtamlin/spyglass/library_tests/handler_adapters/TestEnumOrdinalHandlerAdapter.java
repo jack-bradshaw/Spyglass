@@ -91,7 +91,7 @@ public class TestEnumOrdinalHandlerAdapter {
 	}
 
 	@Test
-	public void testGetAccessor_callValueExistsInArray_valueAvailableAndCorrectOrdinal() {
+	public void testGetAccessor_callValueExistsInArray_valueAvailable() {
 		final boolean result = adapter.getAccessor(withMandatoryFlag)
 				.valueExistsInArray(containingAttribute);
 
