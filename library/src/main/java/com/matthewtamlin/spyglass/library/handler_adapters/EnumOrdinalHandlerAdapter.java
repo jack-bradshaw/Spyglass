@@ -25,6 +25,8 @@ public class EnumOrdinalHandlerAdapter implements HandlerAdapter<Integer, EnumOr
 
 			@Override
 			public Integer getValueFromArray(final TypedArray array) {
+				checkNotNull(array, "Argument \'array\' cannot be null.");
+
 				if (valueExistsInArray(array)) {
 					return array.getInt(annotation.attributeId(), 0);
 				} else {
@@ -37,11 +39,15 @@ public class EnumOrdinalHandlerAdapter implements HandlerAdapter<Integer, EnumOr
 
 	@Override
 	public int getAttributeId(final EnumOrdinalHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		return annotation.attributeId();
 	}
 
 	@Override
 	public boolean isMandatory(final EnumOrdinalHandler annotation) {
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
+
 		return annotation.mandatory();
 	}
 }
