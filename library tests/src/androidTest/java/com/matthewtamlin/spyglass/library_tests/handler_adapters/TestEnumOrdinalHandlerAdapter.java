@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class TestEnumOrdinalHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 2993;
 
-	private int correctOrdinal = 3;
+	private int correctOrdinal;
 
 	private TypedArray containingAttributeWithCorrectOrdinal;
 
@@ -41,6 +41,8 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Before
 	public void setup() {
+		correctOrdinal = 3;
+
 		containingAttributeWithCorrectOrdinal = mock(TypedArray.class);
 		when(containingAttributeWithCorrectOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
