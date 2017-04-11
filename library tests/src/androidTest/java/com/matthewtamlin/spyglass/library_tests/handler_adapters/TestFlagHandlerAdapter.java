@@ -33,6 +33,8 @@ public class TestFlagHandlerAdapter {
 
 	private static final int FLAG_3 = 0b100;
 
+	private static final int FLAG_4 = 0b1000;
+
 	private TypedArray missingAttribute;
 
 	private TypedArray containingFlag0;
@@ -46,6 +48,8 @@ public class TestFlagHandlerAdapter {
 	private TypedArray containingFlags1And2;
 
 	private TypedArray containingFlags2And3;
+
+	private TypedArray containingFlags3And4;
 
 	private FlagHandler handlesFlag1;
 
@@ -105,6 +109,12 @@ public class TestFlagHandlerAdapter {
 		when(containingFlags2And3.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(FLAG_2 | FLAG_3);
 
+		containingFlags3And4 = mock(TypedArray.class);
+		when(containingFlags3And4.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingFlags3And4.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_3 | FLAG_4);
+		when(containingFlags3And4.getInteger(eq(ATTRIBUTE_ID), anyInt()))
+				.thenReturn(FLAG_3 | FLAG_4);
+
 		handlesFlag1 = mock(FlagHandler.class);
 		when(handlesFlag1.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(handlesFlag1.handledFlags()).thenReturn(FLAG_1);
@@ -157,7 +167,10 @@ public class TestFlagHandlerAdapter {
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_handlesSingleFlag_twoFlagsNoMatch() {
+		final boolean result = adapter.getAccessor(handlesFlag1And2).valueExistsInArray
+				(containingFlags3And4);
 
+		assertThat(result, is(false));
 	}
 
 	@Test
@@ -264,9 +277,9 @@ public class TestFlagHandlerAdapter {
 		assertThat(result, is(nullValue()));
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_twoFlagsNoMatch() {
-
+		adapter.getAccessor(handlesFlag1And2).getValueFromArray(containingFlags3And4);
 	}
 
 	@Test
