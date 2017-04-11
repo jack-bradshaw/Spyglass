@@ -25,11 +25,9 @@ import static org.mockito.Mockito.when;
 public class TestEnumOrdinalHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 2993;
 
-	private int correctOrdinal;
+	private int expectedValue;
 
-	private TypedArray containingAttributeWithCorrectOrdinal;
-
-	private TypedArray containingAttributeWithWrongOrdinal;
+	private TypedArray containingAttribute;
 
 	private TypedArray missingAttribute;
 
@@ -41,23 +39,12 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Before
 	public void setup() {
-		correctOrdinal = 3;
+		expectedValue = 3;
 
-		containingAttributeWithCorrectOrdinal = mock(TypedArray.class);
-		when(containingAttributeWithCorrectOrdinal.hasValue(ATTRIBUTE_ID))
-				.thenReturn(true);
-		when(containingAttributeWithCorrectOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(correctOrdinal);
-		when(containingAttributeWithCorrectOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(correctOrdinal);
-
-		containingAttributeWithWrongOrdinal = mock(TypedArray.class);
-		when(containingAttributeWithWrongOrdinal.hasValue(ATTRIBUTE_ID))
-				.thenReturn(true);
-		when(containingAttributeWithWrongOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(correctOrdinal - 1);
-		when(containingAttributeWithWrongOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(correctOrdinal - 1);
+		containingAttribute = mock(TypedArray.class);
+		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(expectedValue);
+		when(containingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt())).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
 		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
@@ -104,19 +91,11 @@ public class TestEnumOrdinalHandlerAdapter {
 	}
 
 	@Test
-	public void testGetAccessor_callValueExistsInArray_valueAvailableAndCorrectOrdinal() {
+	public void testGetAccessor_callValueExistsInArray_valueAvailable() {
 		final boolean result = adapter.getAccessor(withMandatoryFlag)
-				.valueExistsInArray(containingAttributeWithCorrectOrdinal);
+				.valueExistsInArray(containingAttribute);
 
 		assertThat(result, is(true));
-	}
-
-	@Test
-	public void testGetAccessor_callValueExistsInArray_valueAvailableAndIncorrectOrdinal() {
-		final boolean result = adapter.getAccessor(withMandatoryFlag)
-				.valueExistsInArray(containingAttributeWithWrongOrdinal);
-
-		assertThat(result, is(false));
 	}
 
 	@Test
@@ -133,17 +112,11 @@ public class TestEnumOrdinalHandlerAdapter {
 	}
 
 	@Test
-	public void testGetAccessor_callGetValueFromArray_valueAvailableAndCorrectOrdinal() {
-		final int value = adapter.getAccessor(withMandatoryFlag)
-				.getValueFromArray(containingAttributeWithCorrectOrdinal);
+	public void testGetAccessor_callGetValueFromArray_valueAvailable() {
+		final int result = adapter.getAccessor(withMandatoryFlag).getValueFromArray
+				(containingAttribute);
 
-		assertThat(value, is(correctOrdinal));
-	}
-
-	@Test(expected = RuntimeException.class)
-	public void testGetAccessor_callGetValueFromArray_valueAvailableAndIncorrectOrdinal() {
-		adapter.getAccessor(withMandatoryFlag)
-				.getValueFromArray(containingAttributeWithWrongOrdinal);
+		assertThat(result, is(expectedValue));
 	}
 
 	@Test(expected = RuntimeException.class)
