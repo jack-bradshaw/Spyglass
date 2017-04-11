@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class TestEnumOrdinalHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 2993;
 
-	private int correctOrdinal;
+	private int expectedValue;
 
 	private TypedArray containingAttribute;
 
@@ -39,12 +39,12 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Before
 	public void setup() {
-		correctOrdinal = 3;
+		expectedValue = 3;
 
 		containingAttribute = mock(TypedArray.class);
 		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
-		when(containingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(correctOrdinal);
-		when(containingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt())).thenReturn(correctOrdinal);
+		when(containingAttribute.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(expectedValue);
+		when(containingAttribute.getInteger(eq(ATTRIBUTE_ID), anyInt())).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
 		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
@@ -116,7 +116,7 @@ public class TestEnumOrdinalHandlerAdapter {
 		final int result = adapter.getAccessor(withMandatoryFlag).getValueFromArray
 				(containingAttribute);
 
-		assertThat(result, is(correctOrdinal));
+		assertThat(result, is(expectedValue));
 	}
 
 	@Test(expected = RuntimeException.class)
