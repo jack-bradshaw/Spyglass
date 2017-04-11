@@ -30,6 +30,8 @@ public class TestFlagHandlerAdapter {
 
 	private static final int FLAG_2 = 0b10;
 
+	private static final int FLAG_3 = 0b100;
+
 	private TypedArray missingAttribute;
 
 	private TypedArray containingFlag0;
@@ -38,7 +40,11 @@ public class TestFlagHandlerAdapter {
 
 	private TypedArray containingFlag2;
 
+	private TypedArray containingFlag3;
+
 	private TypedArray containingFlags1And2;
+
+	private TypedArray containingFlags1And3;
 
 	private FlagHandler handlesFlag1;
 
@@ -81,11 +87,22 @@ public class TestFlagHandlerAdapter {
 		when(containingFlag2.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_2);
 		when(containingFlag2.getInteger(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_2);
 
+		containingFlag3 = mock(TypedArray.class);
+		when(containingFlag3.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingFlag3.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_3);
+		when(containingFlag3.getInteger(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_3);
+
 		containingFlags1And2 = mock(TypedArray.class);
 		when(containingFlags1And2.hasValue(ATTRIBUTE_ID)).thenReturn(true);
 		when(containingFlags1And2.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_1 | FLAG_2);
 		when(containingFlags1And2.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(FLAG_1 | FLAG_2);
+
+		containingFlags1And3 = mock(TypedArray.class);
+		when(containingFlags1And3.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingFlags1And3.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_1 | FLAG_3);
+		when(containingFlags1And3.getInteger(eq(ATTRIBUTE_ID), anyInt()))
+				.thenReturn(FLAG_1 | FLAG_3);
 
 		handlesFlag1 = mock(FlagHandler.class);
 		when(handlesFlag1.attributeId()).thenReturn(ATTRIBUTE_ID);
