@@ -157,6 +157,7 @@ public class TestEnumHandlerAdapter {
 		assertThat(mandatory, is(false));
 	}
 
+	@SuppressWarnings("unused")
 	public enum TestEnum {
 		ITEM_1,
 		ITEM_2,
