@@ -25,7 +25,7 @@ import static org.mockito.Mockito.when;
 public class TestEnumOrdinalHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 2993;
 
-	private int CORRECT_ORDINAL = 3;
+	private int correctOrdinal = 3;
 
 	private TypedArray containingAttributeWithCorrectOrdinal;
 
@@ -45,17 +45,17 @@ public class TestEnumOrdinalHandlerAdapter {
 		when(containingAttributeWithCorrectOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
 		when(containingAttributeWithCorrectOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(CORRECT_ORDINAL);
+				.thenReturn(correctOrdinal);
 		when(containingAttributeWithCorrectOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(CORRECT_ORDINAL);
+				.thenReturn(correctOrdinal);
 
 		containingAttributeWithWrongOrdinal = mock(TypedArray.class);
 		when(containingAttributeWithWrongOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
 		when(containingAttributeWithWrongOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(CORRECT_ORDINAL - 1);
+				.thenReturn(correctOrdinal - 1);
 		when(containingAttributeWithWrongOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(CORRECT_ORDINAL - 1);
+				.thenReturn(correctOrdinal - 1);
 
 		missingAttribute = mock(TypedArray.class);
 		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
@@ -135,7 +135,7 @@ public class TestEnumOrdinalHandlerAdapter {
 		final int value = adapter.getAccessor(withMandatoryFlag)
 				.getValueFromArray(containingAttributeWithCorrectOrdinal);
 
-		assertThat(value, is(CORRECT_ORDINAL));
+		assertThat(value, is(correctOrdinal));
 	}
 
 	@Test(expected = RuntimeException.class)
