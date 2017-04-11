@@ -92,17 +92,17 @@ public class TestFlagHandlerAdapter {
 
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
-
+		FlagHandlerAdapter.class.newInstance();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_nullAnnotation() {
-
+		adapter.getAccessor(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_callValueExistsInArray_nullSupplied() {
-
+		adapter.getAccessor(handlesFlag1).valueExistsInArray(null);
 	}
 
 	@Test
