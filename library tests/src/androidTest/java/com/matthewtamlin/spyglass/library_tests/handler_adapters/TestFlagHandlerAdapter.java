@@ -25,11 +25,15 @@ import static org.mockito.Mockito.when;
 public class TestFlagHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 8527;
 
+	private static final int FLAG_0 = 0b0;
+
 	private static final int FLAG_1 = 0b1;
 
 	private static final int FLAG_2 = 0b10;
 
 	private TypedArray missingAttribute;
+
+	private TypedArray containingFlag0;
 
 	private TypedArray containingFlag1;
 
@@ -62,6 +66,11 @@ public class TestFlagHandlerAdapter {
 						return invocation.getArgumentAt(1, Integer.class);
 					}
 				});
+
+		containingFlag0 = mock(TypedArray.class);
+		when(containingFlag0.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingFlag0.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_0);
+		when(containingFlag0.getInteger(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_0);
 
 		containingFlag1 = mock(TypedArray.class);
 		when(containingFlag1.hasValue(ATTRIBUTE_ID)).thenReturn(true);
