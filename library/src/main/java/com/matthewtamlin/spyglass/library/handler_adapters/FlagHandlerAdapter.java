@@ -27,7 +27,7 @@ public class FlagHandlerAdapter implements HandlerAdapter<Void, FlagHandler> {
 					final int foundFlags = array.getInt(annotation.attributeId(), 0);
 
 					// Return true if at least one flag bit matches
-					return (reading1 & handledFlags) > 0;
+					return (foundFlags & handledFlags) > 0;
 				} else {
 					return false;
 				}
