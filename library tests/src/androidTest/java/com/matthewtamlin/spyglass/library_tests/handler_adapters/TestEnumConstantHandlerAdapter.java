@@ -40,23 +40,23 @@ public class TestEnumConstantHandlerAdapter {
 
 	@Before
 	public void setup() {
-		final int ordinal = 3;
+		final int correctOrdinal = 3;
 
 		containingAttributeWithCorrectOrdinal = mock(TypedArray.class);
 		when(containingAttributeWithCorrectOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
 		when(containingAttributeWithCorrectOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(ordinal);
+				.thenReturn(correctOrdinal);
 		when(containingAttributeWithCorrectOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(ordinal);
+				.thenReturn(correctOrdinal);
 
 		containingAttributeWithWrongOrdinal = mock(TypedArray.class);
 		when(containingAttributeWithWrongOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
 		when(containingAttributeWithWrongOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(ordinal - 1);
+				.thenReturn(correctOrdinal - 1);
 		when(containingAttributeWithWrongOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(ordinal - 1);
+				.thenReturn(correctOrdinal - 1);
 
 		missingAttribute = mock(TypedArray.class);
 		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
@@ -79,7 +79,7 @@ public class TestEnumConstantHandlerAdapter {
 		annotation = mock(EnumConstantHandler.class);
 		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 		doReturn(TestEnum.class).when(annotation).enumClass();
-		when(annotation.ordinal()).thenReturn(ordinal);
+		when(annotation.ordinal()).thenReturn(correctOrdinal);
 
 		adapter = new EnumConstantHandlerAdapter();
 	}
