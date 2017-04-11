@@ -160,11 +160,6 @@ public class TestFlagHandlerAdapter {
 
 	}
 
-	@Test
-	public void testGetAccessor_callValueExistsInArray_valueMissing() {
-
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_callGetValueFromArray_nullSupplied() {
 
