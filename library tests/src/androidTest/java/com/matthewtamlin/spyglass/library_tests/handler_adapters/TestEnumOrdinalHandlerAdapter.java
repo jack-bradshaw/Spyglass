@@ -82,8 +82,8 @@ public class TestEnumOrdinalHandlerAdapter {
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
 		missingMandatoryFlag = mock(EnumOrdinalHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.mandatory()).thenReturn(false);
+		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
+		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
 		adapter = new EnumOrdinalHandlerAdapter();
 	}
