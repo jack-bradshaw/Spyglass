@@ -44,7 +44,7 @@ public class TestFlagHandlerAdapter {
 
 	private TypedArray containingFlags1And2;
 
-	private TypedArray containingFlags1And3;
+	private TypedArray containingFlags2And3;
 
 	private FlagHandler handlesFlag1;
 
@@ -98,11 +98,11 @@ public class TestFlagHandlerAdapter {
 		when(containingFlags1And2.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(FLAG_1 | FLAG_2);
 
-		containingFlags1And3 = mock(TypedArray.class);
-		when(containingFlags1And3.hasValue(ATTRIBUTE_ID)).thenReturn(true);
-		when(containingFlags1And3.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_1 | FLAG_3);
-		when(containingFlags1And3.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(FLAG_1 | FLAG_3);
+		containingFlags2And3 = mock(TypedArray.class);
+		when(containingFlags2And3.hasValue(ATTRIBUTE_ID)).thenReturn(true);
+		when(containingFlags2And3.getInt(eq(ATTRIBUTE_ID), anyInt())).thenReturn(FLAG_2 | FLAG_3);
+		when(containingFlags2And3.getInteger(eq(ATTRIBUTE_ID), anyInt()))
+				.thenReturn(FLAG_2 | FLAG_3);
 
 		handlesFlag1 = mock(FlagHandler.class);
 		when(handlesFlag1.attributeId()).thenReturn(ATTRIBUTE_ID);
@@ -156,7 +156,7 @@ public class TestFlagHandlerAdapter {
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_handlesSingleFlag_twoFlagsNoMatch() {
-		
+
 	}
 
 	@Test
