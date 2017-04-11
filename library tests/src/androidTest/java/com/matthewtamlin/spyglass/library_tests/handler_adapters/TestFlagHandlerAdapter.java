@@ -13,6 +13,7 @@ import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
 
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Matchers.eq;
@@ -209,47 +210,58 @@ public class TestFlagHandlerAdapter {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_callGetValueFromArray_nullSupplied() {
-
+		adapter.getAccessor(null);
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_missingAttribute() {
-
+		final Void result = adapter.getAccessor(handlesFlag1).getValueFromArray(missingAttribute);
+		assertThat(result, is(nullValue()));
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_oneFlagNoMatch() {
-
+		adapter.getAccessor(handlesFlag1).getValueFromArray(containingFlag2);
 	}
 
 	@Test
 	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_oneFlagOneMatch() {
-
+		final Void result = adapter.getAccessor(handlesFlag1).getValueFromArray(containingFlag1);
+		assertThat(result, is(nullValue()));
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_twoFlagsNoMatch() {
-
+		adapter.getAccessor(handlesFlag1).getValueFromArray(containingFlags2And3);
 	}
 
 	@Test
 	public void testGetAccessor_callGetValueFromArray_handlesSingleFlag_twoFlagsOneMatch() {
+		final Void result = adapter.getAccessor(handlesFlag1)
+				.getValueFromArray(containingFlags1And2);
 
+		assertThat(result, is(nullValue()));
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_missingAttribute() {
-
+		adapter.getAccessor(handlesFlag1And2).getValueFromArray(missingAttribute);
 	}
 
 	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_oneFlagNoMatch() {
+		final Void result = adapter.getAccessor(handlesFlag1And2)
+				.getValueFromArray(containingFlag3);
 
+		assertThat(result, is(nullValue()));
 	}
 
 	@Test
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_oneFlagOneMatch() {
+		final Void result = adapter.getAccessor(handlesFlag1And2)
+				.getValueFromArray(containingFlag1);
 
+		assertThat(result, is(nullValue()));
 	}
 
 	@Test
@@ -259,31 +271,39 @@ public class TestFlagHandlerAdapter {
 
 	@Test
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_twoFlagsOneMatch() {
+		final Void result = adapter.getAccessor(handlesFlag1And2)
+				.getValueFromArray(containingFlags2And3);
 
+		assertThat(result, is(nullValue()));
 	}
 
 	@Test
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_twoFlagsTwoMatches() {
+		final Void result = adapter.getAccessor(handlesFlag1And2)
+				.getValueFromArray(containingFlags1And2);
 
+		assertThat(result, is(nullValue()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAttributeId_nullSupplied() {
-
+		adapter.getAttributeId(null);
 	}
 
 	@Test
 	public void testGetAttributeId_nonNullSupplied() {
-
+		final int result = adapter.getAttributeId(handlesFlag1);
+		assertThat(result, is(ATTRIBUTE_ID));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testIsMandatory_nullAnnotation() {
-
+		adapter.isMandatory(null);
 	}
 
 	@Test
 	public void testIsMandatory_nonNullSupplied() {
-
+		final boolean result = adapter.isMandatory(handlesFlag1);
+		assertThat(result, is(false));
 	}
 }
