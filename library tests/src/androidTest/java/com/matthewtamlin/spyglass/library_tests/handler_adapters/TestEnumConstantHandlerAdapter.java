@@ -169,10 +169,5 @@ public class TestEnumConstantHandlerAdapter {
 		assertThat(mandatory, is(false));
 	}
 
-	public enum TestEnum {
-		ITEM_1,
-		ITEM_2,
-		ITEM_3,
-		ITEM_4
-	}
+	public enum TestEnum {}
 }
