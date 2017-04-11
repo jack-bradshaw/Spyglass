@@ -193,7 +193,10 @@ public class TestFlagHandlerAdapter {
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_handlesMultipleFlags_twoFlagsOneMatch() {
+		final boolean result = adapter.getAccessor(handlesFlag1And2)
+				.valueExistsInArray(containingFlags2And3);
 
+		assertThat(result, is(true));
 	}
 
 	@Test
