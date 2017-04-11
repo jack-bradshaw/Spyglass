@@ -177,7 +177,10 @@ public class TestFlagHandlerAdapter {
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_handlesMultipleFlags_twoFlagsTwoMatches() {
+		final boolean result = adapter.getAccessor(handlesFlag1And2)
+				.valueExistsInArray(containingFlags1And2);
 
+		assertThat(result, is(true));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
