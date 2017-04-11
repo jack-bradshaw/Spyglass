@@ -277,7 +277,7 @@ public class TestFlagHandlerAdapter {
 		assertThat(result, is(nullValue()));
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_handlesMultipleFlags_twoFlagsNoMatch() {
 		adapter.getAccessor(handlesFlag1And2).getValueFromArray(containingFlags3And4);
 	}
