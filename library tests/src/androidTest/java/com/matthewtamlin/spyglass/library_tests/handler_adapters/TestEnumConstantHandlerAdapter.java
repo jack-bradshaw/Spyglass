@@ -28,8 +28,6 @@ import static org.mockito.Mockito.when;
 public class TestEnumConstantHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 5927;
 
-	private static int CORRECT_ORDINAL = 2;
-
 	private TypedArray containingAttributeWithCorrectOrdinal;
 
 	private TypedArray containingAttributeWithWrongOrdinal;
@@ -42,21 +40,23 @@ public class TestEnumConstantHandlerAdapter {
 
 	@Before
 	public void setup() {
+		final int ordinal = 3;
+
 		containingAttributeWithCorrectOrdinal = mock(TypedArray.class);
 		when(containingAttributeWithCorrectOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
 		when(containingAttributeWithCorrectOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(CORRECT_ORDINAL);
+				.thenReturn(ordinal);
 		when(containingAttributeWithCorrectOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(CORRECT_ORDINAL);
+				.thenReturn(ordinal);
 
 		containingAttributeWithWrongOrdinal = mock(TypedArray.class);
 		when(containingAttributeWithWrongOrdinal.hasValue(ATTRIBUTE_ID))
 				.thenReturn(true);
 		when(containingAttributeWithWrongOrdinal.getInt(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(CORRECT_ORDINAL - 1);
+				.thenReturn(ordinal - 1);
 		when(containingAttributeWithWrongOrdinal.getInteger(eq(ATTRIBUTE_ID), anyInt()))
-				.thenReturn(CORRECT_ORDINAL - 1);
+				.thenReturn(ordinal - 1);
 
 		missingAttribute = mock(TypedArray.class);
 		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
@@ -79,7 +79,7 @@ public class TestEnumConstantHandlerAdapter {
 		annotation = mock(EnumConstantHandler.class);
 		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 		doReturn(TestEnum.class).when(annotation).enumClass();
-		when(annotation.ordinal()).thenReturn(CORRECT_ORDINAL);
+		when(annotation.ordinal()).thenReturn(ordinal);
 
 		adapter = new EnumConstantHandlerAdapter();
 	}
@@ -169,10 +169,5 @@ public class TestEnumConstantHandlerAdapter {
 		assertThat(mandatory, is(false));
 	}
 
-	public enum TestEnum {
-		ITEM_1,
-		ITEM_2,
-		ITEM_3,
-		ITEM_4
-	}
+	public enum TestEnum {}
 }
