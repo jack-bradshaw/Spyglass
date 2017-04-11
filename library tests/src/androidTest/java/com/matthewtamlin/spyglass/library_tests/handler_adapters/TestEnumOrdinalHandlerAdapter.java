@@ -99,11 +99,6 @@ public class TestEnumOrdinalHandlerAdapter {
 	}
 
 	@Test
-	public void testGetAccessor_callValueExistsInArray_valueAvailableAndIncorrectOrdinal() {
-
-	}
-
-	@Test
 	public void testGetAccessor_callValueExistsInArray_valueMissing() {
 		final boolean result = adapter.getAccessor(withMandatoryFlag)
 				.valueExistsInArray(missingAttribute);
@@ -114,16 +109,6 @@ public class TestEnumOrdinalHandlerAdapter {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_callGetValueFromArray_nullSupplied() {
 		adapter.getAccessor(withMandatoryFlag).getValueFromArray(null);
-	}
-
-	@Test
-	public void testGetAccessor_callGetValueFromArray_valueAvailableAndCorrectOrdinal() {
-
-	}
-
-	@Test(expected = RuntimeException.class)
-	public void testGetAccessor_callGetValueFromArray_valueAvailableAndIncorrectOrdinal() {
-		
 	}
 
 	@Test(expected = RuntimeException.class)
