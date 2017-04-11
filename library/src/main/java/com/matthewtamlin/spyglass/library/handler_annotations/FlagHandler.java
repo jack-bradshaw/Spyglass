@@ -4,6 +4,4 @@ public @interface FlagHandler {
 	int attributeId();
 
 	int handledFlags();
-
-	boolean mandatory() default false;
 }
