@@ -151,7 +151,7 @@ public class TestFlagHandlerAdapter {
 		final boolean result = adapter.getAccessor(handlesFlag1And2)
 				.valueExistsInArray(missingAttribute);
 
-		assertThat(result, is(true));
+		assertThat(result, is(false));
 	}
 
 	@Test
