@@ -20,7 +20,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestIntegerHandlerAdapter extends TestHandlerAdapter<
+public class TestIntegerHandlerAdapter extends TestValueHandlerAdapter<
 		Integer,
 		IntegerHandler,
 		IntegerHandlerAdapter> {

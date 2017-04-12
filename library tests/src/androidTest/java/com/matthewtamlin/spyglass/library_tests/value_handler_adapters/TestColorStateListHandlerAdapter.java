@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestColorStateListHandlerAdapter extends TestHandlerAdapter<
+public class TestColorStateListHandlerAdapter extends TestValueHandlerAdapter<
 		ColorStateList,
 		ColorStateListHandler,
 		ColorStateListHandlerAdapter> {

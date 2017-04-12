@@ -11,7 +11,7 @@ import java.lang.annotation.Annotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
-public abstract class TestHandlerAdapter<V,
+public abstract class TestValueHandlerAdapter<V,
 		A extends Annotation,
 		H extends ValueHandlerAdapter<V, A>> {
 

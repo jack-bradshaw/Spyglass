@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestBooleanHandlerAdapter extends TestHandlerAdapter<
+public class TestBooleanHandlerAdapter extends TestValueHandlerAdapter<
 		Boolean,
 		BooleanHandler,
 		BooleanHandlerAdapter> {
