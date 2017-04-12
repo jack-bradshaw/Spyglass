@@ -10,7 +10,7 @@ import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
 @Tested(testMethod = "automated")
-public class FractionHandlerAdapter implements HandlerAdapter<Float, FractionHandler> {
+public class FractionHandlerAdapter implements ValueHandlerAdapter<Float, FractionHandler> {
 	@Override
 	public TypedArrayAccessor<Float> getAccessor(final FractionHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");

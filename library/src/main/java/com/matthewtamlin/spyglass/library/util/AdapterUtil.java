@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.util;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
@@ -21,7 +21,7 @@ public class AdapterUtil {
 	private static final String EXCEPTION_MESSAGE = "Could not instantiate class %1$s. " +
 			"Does the class have a public no-arg constructor?";
 
-	public static HandlerAdapter<?, Annotation> getValueHandlerAdapter(final Field field) {
+	public static ValueHandlerAdapter<?, Annotation> getValueHandlerAdapter(final Field field) {
 		checkNotNull(field, "Argument \'field\' cannot be null.");
 
 		final Annotation handlerAnnotation = AnnotationUtil.getValueHandlerAnnotation(field);
@@ -30,7 +30,7 @@ public class AdapterUtil {
 			return null;
 		}
 
-		final Class<? extends HandlerAdapter> adapterClass = handlerAnnotation
+		final Class<? extends ValueHandlerAdapter> adapterClass = handlerAnnotation
 				.annotationType()
 				.getAnnotation(ValueHandler.class)
 				.adapterClass();
@@ -44,7 +44,7 @@ public class AdapterUtil {
 		}
 	}
 
-	public static HandlerAdapter<?, Annotation> getValueHandlerAdapter(final Method method) {
+	public static ValueHandlerAdapter<?, Annotation> getValueHandlerAdapter(final Method method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		final Annotation handlerAnnotation = AnnotationUtil.getValueHandlerAnnotation(method);
@@ -53,7 +53,7 @@ public class AdapterUtil {
 			return null;
 		}
 
-		final Class<? extends HandlerAdapter> adapterClass = handlerAnnotation
+		final Class<? extends ValueHandlerAdapter> adapterClass = handlerAnnotation
 				.annotationType()
 				.getAnnotation(ValueHandler.class)
 				.adapterClass();

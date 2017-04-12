@@ -10,8 +10,8 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
-import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter.TypedArrayAccessor;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter.TypedArrayAccessor;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import java.lang.annotation.Annotation;
@@ -79,7 +79,7 @@ public class Spyglass {
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(field);
 
 		if (handlerAnnotation != null) {
-			final HandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(field);
+			final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(field);
 			final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
 			if (accessor.valueExistsInArray(attrSource)) {
@@ -121,7 +121,7 @@ public class Spyglass {
 
 	private void processMethodEnumConstantCase(final Method method) {
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
-		final HandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
+		final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
 		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
 		if (accessor.valueExistsInArray(attrSource)) {
@@ -132,7 +132,7 @@ public class Spyglass {
 
 	private void processMethodStandardCase(final Method method) {
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
-		final HandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
+		final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
 		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
 		if (accessor.valueExistsInArray(attrSource)) {

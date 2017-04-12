@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.library_tests.value_handler_adapters;
 
 import android.content.res.TypedArray;
 
-import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 
 import org.junit.Test;
 
@@ -13,7 +13,7 @@ import static org.hamcrest.core.Is.is;
 
 public abstract class TestHandlerAdapter<V,
 		A extends Annotation,
-		H extends HandlerAdapter<V, A>> {
+		H extends ValueHandlerAdapter<V, A>> {
 
 	public abstract V getExpectedValue();
 

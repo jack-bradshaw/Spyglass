@@ -10,7 +10,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @Tested(testMethod = "automated")
 public class ColorStateListHandlerAdapter
-		implements HandlerAdapter<ColorStateList, ColorStateListHandler> {
+		implements ValueHandlerAdapter<ColorStateList, ColorStateListHandler> {
 	@Override
 	public TypedArrayAccessor<ColorStateList> getAccessor(final ColorStateListHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");

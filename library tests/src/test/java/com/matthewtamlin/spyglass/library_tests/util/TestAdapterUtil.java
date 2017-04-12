@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapte
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.BooleanHandlerAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.IntegerHandlerAdapter;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
@@ -54,7 +54,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetValueHandlerAdapter_fieldVariant_noHandlerAnnotations() {
-		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(1,
+		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(1,
 				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
@@ -62,7 +62,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetValueHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
-		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(2,
+		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(2,
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
@@ -76,7 +76,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetValueHandlerAdapter_methodVariant_noHandlerAnnotations() {
-		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(1,
+		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(1,
 				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
@@ -84,7 +84,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetValueHandlerAdapter_methodVariant_oneHandlerAnnotation() {
-		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(2,
+		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(2,
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));

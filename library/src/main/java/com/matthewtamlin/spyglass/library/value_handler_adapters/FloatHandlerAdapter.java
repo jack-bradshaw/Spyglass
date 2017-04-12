@@ -10,7 +10,7 @@ import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
 @Tested(testMethod = "automated")
-public class FloatHandlerAdapter implements HandlerAdapter<Float, FloatHandler> {
+public class FloatHandlerAdapter implements ValueHandlerAdapter<Float, FloatHandler> {
 	@Override
 	public TypedArrayAccessor<Float> getAccessor(final FloatHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");

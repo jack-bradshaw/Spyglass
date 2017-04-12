@@ -8,7 +8,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandle
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class StringHandlerAdapter implements HandlerAdapter<String, StringHandler> {
+public class StringHandlerAdapter implements ValueHandlerAdapter<String, StringHandler> {
 	@Override
 	public TypedArrayAccessor<String> getAccessor(final StringHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");

@@ -8,7 +8,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.ColorHandler
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class ColorHandlerAdapter implements HandlerAdapter<Integer, ColorHandler> {
+public class ColorHandlerAdapter implements ValueHandlerAdapter<Integer, ColorHandler> {
 	@Override
 	public TypedArrayAccessor<Integer> getAccessor(final ColorHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
