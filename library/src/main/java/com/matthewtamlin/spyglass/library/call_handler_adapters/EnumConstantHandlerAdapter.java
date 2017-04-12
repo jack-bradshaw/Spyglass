@@ -13,7 +13,7 @@ public class EnumConstantHandlerAdapter implements CallHandlerAdapter<EnumConsta
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 
-		if (arrayContainsValue(annotation, attrs)) {
+		if (arrayContainsValue(attrs, annotation.attributeId())) {
 			return attrs.getInt(annotation.attributeId(), 0) == annotation.ordinal();
 		} else {
 			return false;
@@ -27,13 +27,11 @@ public class EnumConstantHandlerAdapter implements CallHandlerAdapter<EnumConsta
 		return annotation.attributeId();
 	}
 
-	private static boolean arrayContainsValue(
-			final EnumConstantHandler annotation,
-			final TypedArray attrs) {
+	private static boolean arrayContainsValue(final TypedArray attrs, final int attrId) {
 
 		// Compare two different results to see if the default is consistently returned
-		final int reading1 = attrs.getInt(annotation.attributeId(), 0);
-		final int reading2 = attrs.getInt(annotation.attributeId(), 1);
+		final int reading1 = attrs.getInt(attrId, 0);
+		final int reading2 = attrs.getInt(attrId, 1);
 
 		return !((reading1 == 0) && (reading2 == 1));
 	}
