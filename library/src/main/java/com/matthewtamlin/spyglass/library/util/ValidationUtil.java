@@ -133,7 +133,7 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (method.isAnnotationPresent(EnumConstantHandler.class)) {
+				if (countAnnotations(method.getDeclaredAnnotations(), CallHandler.class) == 1) {
 					final int expectedUseAnnotationCount = method.getParameterAnnotations().length;
 					final int actualUseAnnotationCount = countUseAnnotations(method);
 
@@ -156,7 +156,7 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
+				if (countAnnotations(method.getDeclaredAnnotations(), ValueHandler.class) == 1) {
 					final int parameterCount = method.getParameterAnnotations().length;
 					final int expectedUseAnnotationCount = Math.max(0, parameterCount - 1);
 					final int actualUseAnnotationCount = countUseAnnotations(method);
