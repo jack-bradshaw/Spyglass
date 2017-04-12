@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
@@ -30,6 +31,18 @@ public class AnnotationUtil {
 
 		for (final Annotation a : method.getDeclaredAnnotations()) {
 			if (a.annotationType().isAnnotationPresent(ValueHandler.class)) {
+				return a;
+			}
+		}
+
+		return null;
+	}
+	
+	public static Annotation getCallHandlerAnnotation(final Method method) {
+		checkNotNull(method, "Argument \'method \' cannot be null.");
+
+		for (final Annotation a : method.getDeclaredAnnotations()) {
+			if (a.annotationType().isAnnotationPresent(CallHandler.class)) {
 				return a;
 			}
 		}
