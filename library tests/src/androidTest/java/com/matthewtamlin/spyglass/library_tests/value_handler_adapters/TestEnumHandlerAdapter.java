@@ -3,7 +3,7 @@ package com.matthewtamlin.spyglass.library_tests.value_handler_adapters;
 import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.value_handler_adapters.EnumHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.EnumConstantHandlerAdapter;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import org.junit.Before;
@@ -35,7 +35,7 @@ public class TestEnumHandlerAdapter {
 
 	private EnumConstantHandler missingMandatoryFlag;
 
-	private EnumHandlerAdapter adapter;
+	private EnumConstantHandlerAdapter adapter;
 
 	@Before
 	public void setup() {
@@ -77,7 +77,7 @@ public class TestEnumHandlerAdapter {
 		doReturn(TestEnum.class).when(withMandatoryFlag).enumClass();
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
-		adapter = new EnumHandlerAdapter();
+		adapter = new EnumConstantHandlerAdapter();
 	}
 
 	@Test
