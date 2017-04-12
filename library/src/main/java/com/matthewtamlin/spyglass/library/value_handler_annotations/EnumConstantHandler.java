@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @ValueHandler(adapterClass = EnumHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
-public @interface EnumHandler {
+public @interface EnumConstantHandler {
 	int attributeId();
 
 	Class<? extends Enum> enumClass();
