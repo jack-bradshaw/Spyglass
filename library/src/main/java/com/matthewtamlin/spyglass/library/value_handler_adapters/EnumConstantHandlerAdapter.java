@@ -9,7 +9,7 @@ import com.matthewtamlin.spyglass.library.util.EnumUtil;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class EnumHandlerAdapter implements ValueHandlerAdapter<Enum, EnumConstantHandler> {
+public class EnumConstantHandlerAdapter implements ValueHandlerAdapter<Enum, EnumConstantHandler> {
 	@Override
 	public TypedArrayAccessor<Enum> getAccessor(final EnumConstantHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
