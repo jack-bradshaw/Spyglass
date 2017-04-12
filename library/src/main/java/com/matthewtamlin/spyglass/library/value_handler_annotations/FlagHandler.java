@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.handler_annotations;
+package com.matthewtamlin.spyglass.library.value_handler_annotations;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.FlagHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;

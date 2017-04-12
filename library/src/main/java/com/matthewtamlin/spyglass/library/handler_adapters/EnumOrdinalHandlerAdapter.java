@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.library.handler_adapters;
 
 import android.content.res.TypedArray;
 
-import com.matthewtamlin.spyglass.library.handler_annotations.EnumOrdinalHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumOrdinalHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 

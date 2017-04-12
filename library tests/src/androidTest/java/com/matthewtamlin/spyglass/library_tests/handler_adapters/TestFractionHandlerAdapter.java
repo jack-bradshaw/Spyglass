@@ -4,14 +4,12 @@ import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.FractionHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.FractionHandler;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-
-import java.util.Random;
 
 import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Matchers.anyInt;
