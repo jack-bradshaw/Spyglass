@@ -33,7 +33,7 @@ public class FlagHandlerAdapter implements CallHandlerAdapter<FlagHandler> {
 	private static boolean arrayContainsValue(
 			final FlagHandler annotation,
 			final TypedArray attrs) {
-		
+
 		// Compare two different results to see if the default is consistently returned
 		final int reading1 = attrs.getInt(annotation.attributeId(), 0);
 		final int reading2 = attrs.getInt(annotation.attributeId(), 1);
