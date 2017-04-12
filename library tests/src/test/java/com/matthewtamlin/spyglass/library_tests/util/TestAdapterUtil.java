@@ -7,11 +7,6 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAda
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.library.value_handler_adapters.BooleanHandlerAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_adapters.IntegerHandlerAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
@@ -26,6 +21,11 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.BooleanHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.IntegerHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
 import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
@@ -219,12 +219,19 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetCallHandlerAdapter_noHandlerAnnotation() {
+		final CallHandlerAdapter adapter = AdapterUtil.getCallHandlerAdapter(getMethodWithTag(11,
+				TestClass.class));
 
+		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
 	public void testGetCallHandlerAdapter_oneHandlerAnnotation() {
+		final CallHandlerAdapter adapter = AdapterUtil.getCallHandlerAdapter(getMethodWithTag(12,
+				TestClass.class));
 
+		assertThat(adapter, is(notNullValue()));
+		assertThat(adapter, instanceOf(FlagHandler.class));
 	}
 
 	@SuppressWarnings("unused")
