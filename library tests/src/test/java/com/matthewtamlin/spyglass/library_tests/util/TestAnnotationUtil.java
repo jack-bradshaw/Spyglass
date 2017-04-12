@@ -2,14 +2,13 @@ package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
 import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
@@ -23,8 +22,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
-import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getUseAnnotations;
+import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library_tests.util.FieldHelper.getFieldWithTag;
 import static com.matthewtamlin.spyglass.library_tests.util.MethodHelper.getMethodWithTag;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -37,12 +36,12 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAnnotation_fieldVariant_nullField() {
-		AnnotationUtil.getValueHandlerAnnotation((Field) null);
+		getValueHandlerAnnotation((Field) null);
 	}
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_noAnnotation() {
-		final Annotation annotation = AnnotationUtil.getValueHandlerAnnotation(getFieldWithTag(1,
+		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(1,
 				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
@@ -50,7 +49,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = AnnotationUtil.getValueHandlerAnnotation(getFieldWithTag(2,
+		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(2,
 				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
