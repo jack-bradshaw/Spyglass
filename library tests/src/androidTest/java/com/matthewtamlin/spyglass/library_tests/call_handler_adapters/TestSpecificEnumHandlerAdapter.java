@@ -70,7 +70,6 @@ public class TestSpecificEnumHandlerAdapter {
 
 		annotation = mock(SpecificEnumHandler.class);
 		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
-		doReturn(TestEnum.class).when(annotation).enumClass();
 		when(annotation.ordinal()).thenReturn(correctOrdinal);
 
 		adapter = new SpecificEnumHandlerAdapter();
