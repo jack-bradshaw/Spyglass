@@ -4,7 +4,7 @@ import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.IntegerHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;

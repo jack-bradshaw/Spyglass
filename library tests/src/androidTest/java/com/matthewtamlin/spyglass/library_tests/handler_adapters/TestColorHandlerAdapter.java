@@ -4,7 +4,7 @@ import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.ColorHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_annotations.ColorHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.ColorHandler;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;

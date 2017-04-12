@@ -5,12 +5,10 @@ import android.graphics.drawable.Drawable;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_annotations.DrawableHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.DrawableHandler;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
-
-import java.util.Random;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;

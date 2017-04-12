@@ -4,15 +4,13 @@ import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.EnumConstantHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.invocation.InvocationOnMock;
 import org.mockito.stubbing.Answer;
-
-import java.util.Random;
 
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.nullValue;

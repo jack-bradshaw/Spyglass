@@ -5,12 +5,10 @@ import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.handler_adapters.ColorStateListHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_annotations.ColorStateListHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.ColorStateListHandler;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
-
-import java.util.Random;
 
 import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
