@@ -3,15 +3,15 @@ package com.matthewtamlin.spyglass.library.value_handler_adapters;
 import android.content.res.TypedArray;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.util.EnumUtil;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class EnumHandlerAdapter implements ValueHandlerAdapter<Enum, EnumHandler> {
+public class EnumHandlerAdapter implements ValueHandlerAdapter<Enum, EnumConstantHandler> {
 	@Override
-	public TypedArrayAccessor<Enum> getAccessor(final EnumHandler annotation) {
+	public TypedArrayAccessor<Enum> getAccessor(final EnumConstantHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return new TypedArrayAccessor<Enum>() {
@@ -42,14 +42,14 @@ public class EnumHandlerAdapter implements ValueHandlerAdapter<Enum, EnumHandler
 	}
 
 	@Override
-	public int getAttributeId(final EnumHandler annotation) {
+	public int getAttributeId(final EnumConstantHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.attributeId();
 	}
 
 	@Override
-	public boolean isMandatory(final EnumHandler annotation) {
+	public boolean isMandatory(final EnumConstantHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

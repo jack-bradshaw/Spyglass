@@ -4,7 +4,7 @@ import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.value_handler_adapters.EnumHandlerAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -31,9 +31,9 @@ public class TestEnumHandlerAdapter {
 
 	private TypedArray missingAttribute;
 
-	private EnumHandler withMandatoryFlag;
+	private EnumConstantHandler withMandatoryFlag;
 
-	private EnumHandler missingMandatoryFlag;
+	private EnumConstantHandler missingMandatoryFlag;
 
 	private EnumHandlerAdapter adapter;
 
@@ -67,12 +67,12 @@ public class TestEnumHandlerAdapter {
 					}
 				});
 
-		withMandatoryFlag = mock(EnumHandler.class);
+		withMandatoryFlag = mock(EnumConstantHandler.class);
 		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		doReturn(TestEnum.class).when(withMandatoryFlag).enumClass();
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
-		missingMandatoryFlag = mock(EnumHandler.class);
+		missingMandatoryFlag = mock(EnumConstantHandler.class);
 		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		doReturn(TestEnum.class).when(withMandatoryFlag).enumClass();
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
