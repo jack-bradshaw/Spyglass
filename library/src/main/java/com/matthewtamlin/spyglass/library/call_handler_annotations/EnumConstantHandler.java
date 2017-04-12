@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.call_handler_annotations;
 
+import com.matthewtamlin.spyglass.library.call_handler_adapters.EnumConstantHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
 
 import java.lang.annotation.ElementType;
