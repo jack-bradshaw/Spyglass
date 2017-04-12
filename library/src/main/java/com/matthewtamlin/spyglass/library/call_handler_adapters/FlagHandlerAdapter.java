@@ -12,7 +12,7 @@ public class FlagHandlerAdapter implements CallHandlerAdapter<FlagHandler> {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 
-		if (arrayContainsAttr(annotation, attrs)) {
+		if (arrayContainsValue(annotation, attrs)) {
 			final int handledFlags = annotation.handledFlags();
 			final int foundFlags = attrs.getInt(annotation.attributeId(), 0);
 
@@ -30,7 +30,10 @@ public class FlagHandlerAdapter implements CallHandlerAdapter<FlagHandler> {
 		return annotation.attributeId();
 	}
 
-	private static boolean arrayContainsAttr(final FlagHandler annotation, final TypedArray attrs) {
+	private static boolean arrayContainsValue(
+			final FlagHandler annotation,
+			final TypedArray attrs) {
+		
 		// Compare two different results to see if the default is consistently returned
 		final int reading1 = attrs.getInt(annotation.attributeId(), 0);
 		final int reading2 = attrs.getInt(annotation.attributeId(), 1);
