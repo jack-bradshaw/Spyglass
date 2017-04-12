@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestEnumHandlerAdapter {
+public class TestEnumConstantHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 3329;
 
 	private Enum expectedValue;
