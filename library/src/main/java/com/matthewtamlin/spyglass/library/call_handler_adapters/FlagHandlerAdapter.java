@@ -10,7 +10,7 @@ public class FlagHandlerAdapter implements CallHandlerAdapter<FlagHandler> {
 	@Override
 	public boolean shouldCallMethod(final FlagHandler annotation, final TypedArray attrs) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-		checkNotNull(attrs, "Argument \'array\' cannot be null.");
+		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 
 		if (arrayContainsAttr(annotation, attrs)) {
 			final int handledFlags = annotation.handledFlags();
