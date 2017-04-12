@@ -1,32 +1,32 @@
-package com.matthewtamlin.spyglass.library.handler_adapters;
+package com.matthewtamlin.spyglass.library.value_handler_adapters;
 
 import android.content.res.TypedArray;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.TextHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class StringHandlerAdapter implements HandlerAdapter<String, StringHandler> {
+public class TextHandlerAdapter implements HandlerAdapter<CharSequence, TextHandler> {
 	@Override
-	public TypedArrayAccessor<String> getAccessor(final StringHandler annotation) {
+	public TypedArrayAccessor<CharSequence> getAccessor(final TextHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		return new TypedArrayAccessor<String>() {
+		return new TypedArrayAccessor<CharSequence>() {
 			@Override
 			public boolean valueExistsInArray(final TypedArray array) {
 				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-				return array.hasValue(annotation.attributeId());
+				return array.getText(annotation.attributeId()) != null;
 			}
 
 			@Override
-			public String getValueFromArray(final TypedArray array) {
+			public CharSequence getValueFromArray(final TypedArray array) {
 				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				if (valueExistsInArray(array)) {
-					return array.getString(annotation.attributeId());
+					return array.getText(annotation.attributeId());
 				} else {
 					throw new RuntimeException("No attribute found for attribute ID " +
 							annotation.attributeId());
@@ -36,14 +36,14 @@ public class StringHandlerAdapter implements HandlerAdapter<String, StringHandle
 	}
 
 	@Override
-	public int getAttributeId(final StringHandler annotation) {
+	public int getAttributeId(final TextHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.attributeId();
 	}
 
 	@Override
-	public boolean isMandatory(final StringHandler annotation) {
+	public boolean isMandatory(final TextHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();

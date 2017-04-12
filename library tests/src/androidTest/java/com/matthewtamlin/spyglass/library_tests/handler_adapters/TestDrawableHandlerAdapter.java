@@ -4,7 +4,7 @@ import android.content.res.TypedArray;
 import android.graphics.drawable.Drawable;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.handler_adapters.DrawableHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.DrawableHandlerAdapter;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.DrawableHandler;
 
 import org.junit.Before;

@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library.meta_annotations;
 
-import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

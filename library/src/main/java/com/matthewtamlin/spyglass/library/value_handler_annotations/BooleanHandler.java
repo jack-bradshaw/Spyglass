@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.value_handler_annotations;
 
 
-import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.BooleanHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 
 import java.lang.annotation.ElementType;
