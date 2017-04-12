@@ -2,8 +2,8 @@ package com.matthewtamlin.spyglass.library.util;
 
 import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
-import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
+import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import java.lang.annotation.Annotation;
@@ -125,20 +125,6 @@ public class ValidationUtil {
 					if (annotationsOnParameter.size() > 1) {
 						throw new SpyglassValidationException("A parameter for method " + method
 								+ " has multiple use annotations.");
-					}
-				}
-			}
-		});
-
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				if (countAnnotations(method.getDeclaredAnnotations(), ValueHandler.class) > 0) {
-					if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
-						if (method.getParameterAnnotations().length < 1) {
-							throw new SpyglassValidationException("Method " + method + " has no " +
-									"parameters.");
-						}
 					}
 				}
 			}
