@@ -211,9 +211,10 @@ public class ValidationUtil {
 		return count;
 	}
 
+	@SafeVarargs
 	private static int countAnnotations(
 			final Annotation[] annotations,
-			final Class<? extends Annotation>[] metaAnnotations) {
+			final Class<? extends Annotation>... metaAnnotations) {
 
 		int count = 0;
 
