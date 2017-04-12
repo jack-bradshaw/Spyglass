@@ -22,7 +22,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestEnumConstantHandlerAdapter {
+public class TestSpecificEnumHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 5927;
 
 	private TypedArray withCorrectOrdinal;
