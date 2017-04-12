@@ -21,7 +21,7 @@ public class AdapterUtil {
 	private static final String EXCEPTION_MESSAGE = "Could not instantiate class %1$s. " +
 			"Does the class have a public no-arg constructor?";
 
-	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Field field) {
+	public static HandlerAdapter<?, Annotation> getValueHandlerAdapter(final Field field) {
 		checkNotNull(field, "Argument \'field\' cannot be null.");
 
 		final Annotation handlerAnnotation = AnnotationUtil.getValueHandlerAnnotation(field);
@@ -44,7 +44,7 @@ public class AdapterUtil {
 		}
 	}
 
-	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Method method) {
+	public static HandlerAdapter<?, Annotation> getValueHandlerAdapter(final Method method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		final Annotation handlerAnnotation = AnnotationUtil.getValueHandlerAnnotation(method);

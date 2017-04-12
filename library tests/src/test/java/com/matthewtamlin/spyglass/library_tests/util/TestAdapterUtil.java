@@ -49,12 +49,12 @@ import static org.junit.Assert.assertThat;
 public class TestAdapterUtil {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAdapter_fieldVariant_nullField() {
-		AdapterUtil.getHandlerAdapter((Field) null);
+		AdapterUtil.getValueHandlerAdapter((Field) null);
 	}
 
 	@Test
 	public void testGetHandlerAdapter_fieldVariant_noHandlerAnnotations() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(1,
+		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(1,
 				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
@@ -62,7 +62,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(2,
+		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(2,
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
@@ -71,12 +71,12 @@ public class TestAdapterUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAdapter_methodVariant_nullMethod() {
-		AdapterUtil.getHandlerAdapter((Method) null);
+		AdapterUtil.getValueHandlerAdapter((Method) null);
 	}
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_noHandlerAnnotations() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(1,
+		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(1,
 				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
@@ -84,7 +84,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetHandlerAdapter_methodVariant_oneHandlerAnnotation() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(2,
+		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(2,
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
