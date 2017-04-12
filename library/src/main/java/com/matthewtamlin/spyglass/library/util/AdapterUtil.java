@@ -1,6 +1,8 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
+import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
@@ -56,6 +58,29 @@ public class AdapterUtil {
 		final Class<? extends ValueHandlerAdapter> adapterClass = handlerAnnotation
 				.annotationType()
 				.getAnnotation(ValueHandler.class)
+				.adapterClass();
+
+		try {
+			return adapterClass.newInstance();
+		} catch (final InstantiationException e) {
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
+		} catch (final IllegalAccessException e) {
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
+		}
+	}
+
+	public static CallHandlerAdapter<Annotation> getCallHandlerAdapter(final Method method) {
+		checkNotNull(method, "Argument \'method\' cannot be null.");
+
+		final Annotation handlerAnnotation = AnnotationUtil.getCallHandlerAnnotation(method);
+
+		if (handlerAnnotation == null) {
+			return null;
+		}
+
+		final Class<? extends CallHandlerAdapter> adapterClass = handlerAnnotation
+				.annotationType()
+				.getAnnotation(CallHandler.class)
 				.adapterClass();
 
 		try {
