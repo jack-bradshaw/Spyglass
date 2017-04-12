@@ -35,12 +35,12 @@ import static org.hamcrest.core.IsNull.notNullValue;
 @RunWith(JUnit4.class)
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetHandlerAnnotation_fieldVariant_nullField() {
+	public void testGetValueHandlerAnnotation_fieldVariant_nullField() {
 		getValueHandlerAnnotation((Field) null);
 	}
 
 	@Test
-	public void testGetHandlerAnnotation_fieldVariant_noAnnotation() {
+	public void testGetValueHandlerAnnotation_fieldVariant_noAnnotation() {
 		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(1,
 				TestClass.class));
 
@@ -48,7 +48,7 @@ public class TestAnnotationUtil {
 	}
 
 	@Test
-	public void testGetHandlerAnnotation_fieldVariant_annotationPresent() {
+	public void testGetValueHandlerAnnotation_fieldVariant_annotationPresent() {
 		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(2,
 				TestClass.class));
 
@@ -57,12 +57,12 @@ public class TestAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetHandlerAnnotation_methodVariant_nullMethod() {
+	public void testGetValueHandlerAnnotation_methodVariant_nullMethod() {
 		getValueHandlerAnnotation((Method) null);
 	}
 
 	@Test
-	public void testGetHandlerAnnotation_methodVariant_noAnnotation() {
+	public void testGetValueHandlerAnnotation_methodVariant_noAnnotation() {
 		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(1,
 				TestClass.class));
 
@@ -70,7 +70,7 @@ public class TestAnnotationUtil {
 	}
 
 	@Test
-	public void testGetHandlerAnnotation_methodVariant_annotationPresent() {
+	public void testGetValueHandlerAnnotation_methodVariant_annotationPresent() {
 		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(2,
 				TestClass.class));
 
