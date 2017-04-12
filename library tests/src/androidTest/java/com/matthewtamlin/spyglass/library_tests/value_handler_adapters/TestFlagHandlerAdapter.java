@@ -3,7 +3,6 @@ package com.matthewtamlin.spyglass.library_tests.value_handler_adapters;
 import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.value_handler_adapters.FlagHandlerAdapter;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.FlagHandler;
 
 import org.junit.Before;
