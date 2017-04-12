@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
@@ -90,6 +91,16 @@ public class TestAdapterUtil {
 
 		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(IntegerHandlerAdapter.class));
+	}
+
+	@Test
+	public void testGetCallHandlerAdapter_noHandlerAnnotation() {
+		
+	}
+
+	@Test
+	public void testGetCallHandlerAdapter_oneHandlerAnnotation() {
+
 	}
 
 	@Test(expected = IllegalArgumentException.class)
