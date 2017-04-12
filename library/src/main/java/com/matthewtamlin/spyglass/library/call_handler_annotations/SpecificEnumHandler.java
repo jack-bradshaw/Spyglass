@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 @CallHandler(adapterClass = SpecificEnumHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface EnumConstantHandler {
+public @interface SpecificEnumHandler {
 	int attributeId();
 
 	Class<? extends Enum> enumClass();

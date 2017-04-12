@@ -3,13 +3,13 @@ package com.matthewtamlin.spyglass.library.call_handler_adapters;
 import android.content.res.TypedArray;
 
 
-import com.matthewtamlin.spyglass.library.call_handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class SpecificEnumHandlerAdapter implements CallHandlerAdapter<EnumConstantHandler> {
+public class SpecificEnumHandlerAdapter implements CallHandlerAdapter<SpecificEnumHandler> {
 	@Override
-	public boolean shouldCallMethod(final EnumConstantHandler annotation, final TypedArray attrs) {
+	public boolean shouldCallMethod(final SpecificEnumHandler annotation, final TypedArray attrs) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 
@@ -21,7 +21,7 @@ public class SpecificEnumHandlerAdapter implements CallHandlerAdapter<EnumConsta
 	}
 
 	@Override
-	public int getAttributeId(final EnumConstantHandler annotation) {
+	public int getAttributeId(final SpecificEnumHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.attributeId();
