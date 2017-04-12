@@ -1,9 +1,10 @@
 package com.matthewtamlin.spyglass.library.util;
 
-import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
-import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
+import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -30,7 +31,7 @@ public class ValidationUtil {
 			@Override
 			public void checkFieldComplies(final Field field) {
 				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
 
 				if (handlerAnnotationCount > 1) {
 					throw new SpyglassValidationException("Field " + field + " has multiple " +
@@ -56,7 +57,7 @@ public class ValidationUtil {
 			@Override
 			public void checkFieldComplies(final Field field) {
 				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
 				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
@@ -72,7 +73,10 @@ public class ValidationUtil {
 			@Override
 			public void checkMethodComplies(final Method method) {
 				final Annotation[] annotations = method.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+				final int handlerAnnotationCount = countAnnotations(
+						annotations,
+						ValueHandler.class,
+						CallHandler.class);
 
 				if (handlerAnnotationCount > 1) {
 					throw new SpyglassValidationException("Method " + method + " has multiple " +
@@ -98,7 +102,11 @@ public class ValidationUtil {
 			@Override
 			public void checkMethodComplies(final Method method) {
 				final Annotation[] annotations = method.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+
+				final int handlerAnnotationCount = countAnnotations(annotations,
+						ValueHandler.class,
+						CallHandler.class);
+
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
 				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
@@ -125,21 +133,7 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (countAnnotations(method.getDeclaredAnnotations(), Handler.class) > 0) {
-					if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
-						if (method.getParameterAnnotations().length < 1) {
-							throw new SpyglassValidationException("Method " + method + " has no " +
-									"parameters.");
-						}
-					}
-				}
-			}
-		});
-
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				if (method.isAnnotationPresent(EnumConstantHandler.class)) {
+				if (countAnnotations(method.getDeclaredAnnotations(), CallHandler.class) == 1) {
 					final int expectedUseAnnotationCount = method.getParameterAnnotations().length;
 					final int actualUseAnnotationCount = countUseAnnotations(method);
 
@@ -162,7 +156,7 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
+				if (countAnnotations(method.getDeclaredAnnotations(), ValueHandler.class) == 1) {
 					final int parameterCount = method.getParameterAnnotations().length;
 					final int expectedUseAnnotationCount = Math.max(0, parameterCount - 1);
 					final int actualUseAnnotationCount = countUseAnnotations(method);
@@ -206,6 +200,20 @@ public class ValidationUtil {
 			if (a.annotationType().isAnnotationPresent(metaAnnotation)) {
 				count++;
 			}
+		}
+
+		return count;
+	}
+
+	@SafeVarargs
+	private static int countAnnotations(
+			final Annotation[] annotations,
+			final Class<? extends Annotation>... metaAnnotations) {
+
+		int count = 0;
+
+		for (Class<? extends Annotation> metaAnnotation : metaAnnotations) {
+			count += countAnnotations(annotations, metaAnnotation);
 		}
 
 		return count;
