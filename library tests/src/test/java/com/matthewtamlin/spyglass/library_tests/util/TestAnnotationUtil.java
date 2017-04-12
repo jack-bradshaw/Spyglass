@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
@@ -255,5 +256,12 @@ public class TestAnnotationUtil {
 
 		@MethodTag(10)
 		private void method10(@UseLong(1L) long l, @UseString("s") String s, @UseByte(9) byte b) {}
+
+		@MethodTag(11)
+		private void method11() {}
+
+		@MethodTag(12)
+		@FlagHandler(attributeId = 12, handledFlags = 1)
+		private void method12() {}
 	}
 }
