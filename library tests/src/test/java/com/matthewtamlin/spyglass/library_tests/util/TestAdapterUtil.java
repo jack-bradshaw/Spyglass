@@ -48,12 +48,12 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class TestAdapterUtil {
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetHandlerAdapter_fieldVariant_nullField() {
+	public void testGetValueHandlerAdapter_fieldVariant_nullField() {
 		AdapterUtil.getValueHandlerAdapter((Field) null);
 	}
 
 	@Test
-	public void testGetHandlerAdapter_fieldVariant_noHandlerAnnotations() {
+	public void testGetValueHandlerAdapter_fieldVariant_noHandlerAnnotations() {
 		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(1,
 				TestClass.class));
 
@@ -61,7 +61,7 @@ public class TestAdapterUtil {
 	}
 
 	@Test
-	public void testGetHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
+	public void testGetValueHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
 		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(2,
 				TestClass.class));
 
@@ -70,12 +70,12 @@ public class TestAdapterUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetHandlerAdapter_methodVariant_nullMethod() {
+	public void testGetValueHandlerAdapter_methodVariant_nullMethod() {
 		AdapterUtil.getValueHandlerAdapter((Method) null);
 	}
 
 	@Test
-	public void testGetHandlerAdapter_methodVariant_noHandlerAnnotations() {
+	public void testGetValueHandlerAdapter_methodVariant_noHandlerAnnotations() {
 		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(1,
 				TestClass.class));
 
@@ -83,7 +83,7 @@ public class TestAdapterUtil {
 	}
 
 	@Test
-	public void testGetHandlerAdapter_methodVariant_oneHandlerAnnotation() {
+	public void testGetValueHandlerAdapter_methodVariant_oneHandlerAnnotation() {
 		final HandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(2,
 				TestClass.class));
 
@@ -127,7 +127,7 @@ public class TestAdapterUtil {
 	}
 
 	@Test
-	public void testGetHandlerAdapter_methodVariant_oneDefaultAnnotation() {
+	public void testGetValueHandlerAdapter_methodVariant_oneDefaultAnnotation() {
 		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(4,
 				TestClass.class));
 
