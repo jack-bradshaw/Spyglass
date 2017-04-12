@@ -17,6 +17,4 @@ public @interface EnumConstantHandler {
 	Class<? extends Enum> enumClass();
 
 	int ordinal();
-
-	boolean mandatory() default false;
 }
