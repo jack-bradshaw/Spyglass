@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.library.util;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -205,6 +206,19 @@ public class ValidationUtil {
 			if (a.annotationType().isAnnotationPresent(metaAnnotation)) {
 				count++;
 			}
+		}
+
+		return count;
+	}
+
+	private static int countAnnotations(
+			final Annotation[] annotations,
+			final Class<? extends Annotation>[] metaAnnotations) {
+
+		int count = 0;
+
+		for (Class<? extends Annotation> metaAnnotation : metaAnnotations) {
+			count += countAnnotations(annotations, metaAnnotation);
 		}
 
 		return count;
