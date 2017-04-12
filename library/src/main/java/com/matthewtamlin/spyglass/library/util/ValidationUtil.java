@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
@@ -72,7 +73,10 @@ public class ValidationUtil {
 			@Override
 			public void checkMethodComplies(final Method method) {
 				final Annotation[] annotations = method.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
+				final int handlerAnnotationCount = countAnnotations(
+						annotations,
+						ValueHandler.class,
+						CallHandler.class);
 
 				if (handlerAnnotationCount > 1) {
 					throw new SpyglassValidationException("Method " + method + " has multiple " +
@@ -98,7 +102,11 @@ public class ValidationUtil {
 			@Override
 			public void checkMethodComplies(final Method method) {
 				final Annotation[] annotations = method.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
+
+				final int handlerAnnotationCount = countAnnotations(annotations,
+						ValueHandler.class,
+						CallHandler.class);
+
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
 				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
