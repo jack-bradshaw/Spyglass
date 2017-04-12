@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
@@ -273,5 +274,12 @@ public class TestAdapterUtil {
 
 		@MethodTag(10)
 		private void method10(@UseLong(0L) long l, @UseChar(0) char c, @UseString("s") String s) {}
+
+		@MethodTag(11)
+		private void method11() {}
+
+		@MethodTag(12)
+		@FlagHandler(attributeId = 12, handledFlags = 1)
+		private void method12() {}
 	}
 }
