@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
@@ -209,6 +210,23 @@ public class TestAnnotationUtil {
 		assertThat(annotations.get(2), instanceOf(UseByte.class));
 	}
 
+	@Test
+	public void testGetCallHandlerAnnotation_noAnnotation() {
+		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(11,
+				TestClass.class));
+
+		assertThat(annotation, is(nullValue()));
+	}
+
+	@Test
+	public void testGetCallHandlerAnnotation_annotationPresent() {
+		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(12,
+				TestClass.class));
+
+		assertThat(annotation, is(notNullValue()));
+		assertThat(annotation, instanceOf(SpecificEnumHandler.class));
+	}
+
 	@SuppressWarnings("unused")
 	private static class TestClass {
 		@FieldTag(1)
@@ -261,7 +279,7 @@ public class TestAnnotationUtil {
 		private void method11() {}
 
 		@MethodTag(12)
-		@FlagHandler(attributeId = 12, handledFlags = 1)
+		@SpecificEnumHandler(attributeId = 12, ordinal = 1)
 		private void method12() {}
 	}
 }
