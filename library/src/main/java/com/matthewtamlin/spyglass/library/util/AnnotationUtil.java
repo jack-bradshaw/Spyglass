@@ -37,7 +37,7 @@ public class AnnotationUtil {
 
 		return null;
 	}
-	
+
 	public static Annotation getCallHandlerAnnotation(final Method method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
