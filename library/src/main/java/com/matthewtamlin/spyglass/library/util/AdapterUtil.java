@@ -24,7 +24,7 @@ public class AdapterUtil {
 	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Field field) {
 		checkNotNull(field, "Argument \'field\' cannot be null.");
 
-		final Annotation handlerAnnotation = AnnotationUtil.getHandlerAnnotation(field);
+		final Annotation handlerAnnotation = AnnotationUtil.getValueHandlerAnnotation(field);
 
 		if (handlerAnnotation == null) {
 			return null;
@@ -47,7 +47,7 @@ public class AdapterUtil {
 	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Method method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		final Annotation handlerAnnotation = AnnotationUtil.getHandlerAnnotation(method);
+		final Annotation handlerAnnotation = AnnotationUtil.getValueHandlerAnnotation(method);
 
 		if (handlerAnnotation == null) {
 			return null;
