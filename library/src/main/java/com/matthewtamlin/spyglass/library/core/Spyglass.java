@@ -76,7 +76,7 @@ public class Spyglass {
 	private void processField(final Field field) {
 		field.setAccessible(true);
 
-		final Annotation handlerAnnotation = getHandlerAnnotation(field);
+		final Annotation handlerAnnotation = AnnotationUtil.getValueHandlerAnnotation(field);
 
 		if (handlerAnnotation != null) {
 			final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(field);
@@ -108,7 +108,7 @@ public class Spyglass {
 	private void processMethod(final Method method) {
 		method.setAccessible(true);
 
-		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
 
 		if (handlerAnnotation != null) {
 			if (handlerAnnotation instanceof EnumConstantHandler) {
@@ -120,7 +120,7 @@ public class Spyglass {
 	}
 
 	private void processMethodEnumConstantCase(final Method method) {
-		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
 		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
 		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
@@ -131,7 +131,7 @@ public class Spyglass {
 	}
 
 	private void processMethodStandardCase(final Method method) {
-		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
 		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
 		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 

@@ -13,7 +13,7 @@ import java.util.Map;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class AnnotationUtil {
-	public static Annotation getHandlerAnnotation(final Field field) {
+	public static Annotation getValueHandlerAnnotation(final Field field) {
 		checkNotNull(field, "Argument \'field \' cannot be null.");
 
 		for (final Annotation a : field.getDeclaredAnnotations()) {
@@ -25,7 +25,7 @@ public class AnnotationUtil {
 		return null;
 	}
 
-	public static Annotation getHandlerAnnotation(final Method method) {
+	public static Annotation getValueHandlerAnnotation(final Method method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
 		for (final Annotation a : method.getDeclaredAnnotations()) {

@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
@@ -36,12 +37,12 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAnnotation_fieldVariant_nullField() {
-		getHandlerAnnotation((Field) null);
+		AnnotationUtil.getValueHandlerAnnotation((Field) null);
 	}
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_noAnnotation() {
-		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(1,
+		final Annotation annotation = AnnotationUtil.getValueHandlerAnnotation(getFieldWithTag(1,
 				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
@@ -49,7 +50,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetHandlerAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(2,
+		final Annotation annotation = AnnotationUtil.getValueHandlerAnnotation(getFieldWithTag(2,
 				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
@@ -58,12 +59,12 @@ public class TestAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetHandlerAnnotation_methodVariant_nullMethod() {
-		getHandlerAnnotation((Method) null);
+		getValueHandlerAnnotation((Method) null);
 	}
 
 	@Test
 	public void testGetHandlerAnnotation_methodVariant_noAnnotation() {
-		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(1,
+		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(1,
 				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
@@ -71,7 +72,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetHandlerAnnotation_methodVariant_annotationPresent() {
-		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(2,
+		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(2,
 				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
