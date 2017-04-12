@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumOrdinalH
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class EnumOrdinalHandlerAdapter implements HandlerAdapter<Integer, EnumOrdinalHandler> {
+public class EnumOrdinalHandlerAdapter implements ValueHandlerAdapter<Integer, EnumOrdinalHandler> {
 	@Override
 	public TypedArrayAccessor<Integer> getAccessor(final EnumOrdinalHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");

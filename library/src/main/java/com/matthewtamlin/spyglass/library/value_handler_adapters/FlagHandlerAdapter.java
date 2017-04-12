@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.FlagHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class FlagHandlerAdapter implements HandlerAdapter<Void, FlagHandler> {
+public class FlagHandlerAdapter implements ValueHandlerAdapter<Void, FlagHandler> {
 	@Override
 	public TypedArrayAccessor<Void> getAccessor(final FlagHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");

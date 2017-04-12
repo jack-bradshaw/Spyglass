@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstant
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class EnumConstantHandlerAdapter implements HandlerAdapter<Void, EnumConstantHandler> {
+public class EnumConstantHandlerAdapter implements ValueHandlerAdapter<Void, EnumConstantHandler> {
 	@Override
 	public TypedArrayAccessor<Void> getAccessor(final EnumConstantHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");

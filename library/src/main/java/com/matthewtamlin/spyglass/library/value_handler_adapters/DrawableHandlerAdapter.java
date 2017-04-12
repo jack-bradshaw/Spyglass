@@ -9,7 +9,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.DrawableHand
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class DrawableHandlerAdapter implements HandlerAdapter<Drawable, DrawableHandler> {
+public class DrawableHandlerAdapter implements ValueHandlerAdapter<Drawable, DrawableHandler> {
 	@Override
 	public TypedArrayAccessor<Drawable> getAccessor(final DrawableHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");

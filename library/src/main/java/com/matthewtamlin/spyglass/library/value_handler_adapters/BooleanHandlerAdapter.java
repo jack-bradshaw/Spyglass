@@ -8,7 +8,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandl
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class BooleanHandlerAdapter implements HandlerAdapter<Boolean, BooleanHandler> {
+public class BooleanHandlerAdapter implements ValueHandlerAdapter<Boolean, BooleanHandler> {
 	@Override
 	public TypedArrayAccessor<Boolean> getAccessor(final BooleanHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");

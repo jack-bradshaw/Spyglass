@@ -12,7 +12,7 @@ import java.lang.annotation.Annotation;
  * @param <A>
  * 		the type of annotation accepted by this adapter
  */
-public interface HandlerAdapter<T, A extends Annotation> {
+public interface ValueHandlerAdapter<T, A extends Annotation> {
 	/**
 	 * Gets a TypedArrayAccessor which encapsulates the data retrieval logic of the supplied
 	 * annotation.
