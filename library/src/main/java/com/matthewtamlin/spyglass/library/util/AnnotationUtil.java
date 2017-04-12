@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.util;
 
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
-import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
+import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 
 import java.lang.annotation.Annotation;
@@ -17,7 +17,7 @@ public class AnnotationUtil {
 		checkNotNull(field, "Argument \'field \' cannot be null.");
 
 		for (final Annotation a : field.getDeclaredAnnotations()) {
-			if (a.annotationType().isAnnotationPresent(Handler.class)) {
+			if (a.annotationType().isAnnotationPresent(ValueHandler.class)) {
 				return a;
 			}
 		}
@@ -29,7 +29,7 @@ public class AnnotationUtil {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
 		for (final Annotation a : method.getDeclaredAnnotations()) {
-			if (a.annotationType().isAnnotationPresent(Handler.class)) {
+			if (a.annotationType().isAnnotationPresent(ValueHandler.class)) {
 				return a;
 			}
 		}

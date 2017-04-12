@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.library.util;
 
 import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
-import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
+import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 
 import java.lang.annotation.Annotation;
@@ -30,7 +30,7 @@ public class ValidationUtil {
 			@Override
 			public void checkFieldComplies(final Field field) {
 				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
 
 				if (handlerAnnotationCount > 1) {
 					throw new SpyglassValidationException("Field " + field + " has multiple " +
@@ -56,7 +56,7 @@ public class ValidationUtil {
 			@Override
 			public void checkFieldComplies(final Field field) {
 				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
 				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
@@ -72,7 +72,7 @@ public class ValidationUtil {
 			@Override
 			public void checkMethodComplies(final Method method) {
 				final Annotation[] annotations = method.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
 
 				if (handlerAnnotationCount > 1) {
 					throw new SpyglassValidationException("Method " + method + " has multiple " +
@@ -98,7 +98,7 @@ public class ValidationUtil {
 			@Override
 			public void checkMethodComplies(final Method method) {
 				final Annotation[] annotations = method.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, Handler.class);
+				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
 				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
@@ -125,7 +125,7 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (countAnnotations(method.getDeclaredAnnotations(), Handler.class) > 0) {
+				if (countAnnotations(method.getDeclaredAnnotations(), ValueHandler.class) > 0) {
 					if (!method.isAnnotationPresent(EnumConstantHandler.class)) {
 						if (method.getParameterAnnotations().length < 1) {
 							throw new SpyglassValidationException("Method " + method + " has no " +
