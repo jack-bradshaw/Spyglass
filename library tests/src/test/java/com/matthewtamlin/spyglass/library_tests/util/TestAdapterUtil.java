@@ -93,16 +93,6 @@ public class TestAdapterUtil {
 		assertThat(adapter, instanceOf(IntegerHandlerAdapter.class));
 	}
 
-	@Test
-	public void testGetCallHandlerAdapter_noHandlerAnnotation() {
-		
-	}
-
-	@Test
-	public void testGetCallHandlerAdapter_oneHandlerAnnotation() {
-
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetDefaultAdapter_fieldVariant_nullField() {
 		AdapterUtil.getDefaultAdapter((Field) null);
@@ -224,6 +214,16 @@ public class TestAdapterUtil {
 		assertThat(adapters.keySet().contains(2), is(true));
 		assertThat(adapters.get(2), is(notNullValue()));
 		assertThat(adapters.get(2), instanceOf(UseStringAdapter.class));
+	}
+
+	@Test
+	public void testGetCallHandlerAdapter_noHandlerAnnotation() {
+
+	}
+
+	@Test
+	public void testGetCallHandlerAdapter_oneHandlerAnnotation() {
+
 	}
 
 	@SuppressWarnings("unused")
