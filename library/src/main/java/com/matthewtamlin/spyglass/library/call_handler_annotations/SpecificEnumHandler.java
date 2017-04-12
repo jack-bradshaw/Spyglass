@@ -14,7 +14,5 @@ import java.lang.annotation.Target;
 public @interface SpecificEnumHandler {
 	int attributeId();
 
-	Class<? extends Enum> enumClass();
-
 	int ordinal();
 }
