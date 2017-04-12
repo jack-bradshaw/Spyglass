@@ -16,7 +16,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestDrawableHandlerAdapter extends TestHandlerAdapter<
+public class TestDrawableHandlerAdapter extends TestValueHandlerAdapter<
 		Drawable,
 		DrawableHandler,
 		DrawableHandlerAdapter> {

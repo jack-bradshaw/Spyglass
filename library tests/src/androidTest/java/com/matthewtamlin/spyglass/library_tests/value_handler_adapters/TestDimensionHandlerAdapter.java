@@ -18,7 +18,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestDimensionHandlerAdapter extends TestHandlerAdapter<
+public class TestDimensionHandlerAdapter extends TestValueHandlerAdapter<
 		Float,
 		DimensionHandler,
 		DimensionHandlerAdapter> {

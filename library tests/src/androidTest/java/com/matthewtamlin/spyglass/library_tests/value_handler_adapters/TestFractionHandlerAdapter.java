@@ -19,7 +19,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestFractionHandlerAdapter extends TestHandlerAdapter<Float, FractionHandler,
+public class TestFractionHandlerAdapter extends TestValueHandlerAdapter<Float, FractionHandler,
 		FractionHandlerAdapter> {
 	private static final int ATTRIBUTE_ID = 9927;
 
