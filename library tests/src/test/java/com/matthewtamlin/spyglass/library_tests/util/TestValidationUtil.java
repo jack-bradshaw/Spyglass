@@ -13,13 +13,12 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToInteger;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringResource;
-import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.DimensionHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.FloatHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.FractionHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.FloatHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
@@ -300,27 +299,21 @@ public class TestValidationUtil {
 				@UseByte(0) Object o3) {}
 
 		@MethodTag(15)
-		@EnumConstantHandler(attributeId = 15, enumClass = TestEnum.class, ordinal = 0)
 		private void method15() {}
 
 		@MethodTag(16)
-		@EnumConstantHandler(attributeId = 16, enumClass = TestEnum.class, ordinal = 0)
 		private void method16(Object o) {}
 
 		@MethodTag(17)
-		@EnumConstantHandler(attributeId = 17, enumClass = TestEnum.class, ordinal = 0)
 		private void method17(@UseBoolean(true) Object o) {}
 
 		@MethodTag(18)
-		@EnumConstantHandler(attributeId = 18, enumClass = TestEnum.class, ordinal = 0)
 		private void method18(Object o1, Object o2, Object o3) {}
 
 		@MethodTag(19)
-		@EnumConstantHandler(attributeId = 19, enumClass = TestEnum.class, ordinal = 0)
 		private void method19(@UseChar('A') Object o1, Object o2, @UseBoolean(true) Object o3) {}
 
 		@MethodTag(20)
-		@EnumConstantHandler(attributeId = 20, enumClass = TestEnum.class, ordinal = 0)
 		private void method20(
 				@UseLong(0L) Object o1,
 				@UseInt(1) Object o2,

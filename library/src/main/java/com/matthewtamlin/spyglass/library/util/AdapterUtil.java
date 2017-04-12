@@ -1,9 +1,11 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
-import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
-import com.matthewtamlin.spyglass.library.meta_annotations.Handler;
+import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 
@@ -21,18 +23,18 @@ public class AdapterUtil {
 	private static final String EXCEPTION_MESSAGE = "Could not instantiate class %1$s. " +
 			"Does the class have a public no-arg constructor?";
 
-	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Field field) {
+	public static ValueHandlerAdapter<?, Annotation> getValueHandlerAdapter(final Field field) {
 		checkNotNull(field, "Argument \'field\' cannot be null.");
 
-		final Annotation handlerAnnotation = AnnotationUtil.getHandlerAnnotation(field);
+		final Annotation handlerAnnotation = AnnotationUtil.getValueHandlerAnnotation(field);
 
 		if (handlerAnnotation == null) {
 			return null;
 		}
 
-		final Class<? extends HandlerAdapter> adapterClass = handlerAnnotation
+		final Class<? extends ValueHandlerAdapter> adapterClass = handlerAnnotation
 				.annotationType()
-				.getAnnotation(Handler.class)
+				.getAnnotation(ValueHandler.class)
 				.adapterClass();
 
 		try {
@@ -44,18 +46,41 @@ public class AdapterUtil {
 		}
 	}
 
-	public static HandlerAdapter<?, Annotation> getHandlerAdapter(final Method method) {
+	public static ValueHandlerAdapter<?, Annotation> getValueHandlerAdapter(final Method method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		final Annotation handlerAnnotation = AnnotationUtil.getHandlerAnnotation(method);
+		final Annotation handlerAnnotation = AnnotationUtil.getValueHandlerAnnotation(method);
 
 		if (handlerAnnotation == null) {
 			return null;
 		}
 
-		final Class<? extends HandlerAdapter> adapterClass = handlerAnnotation
+		final Class<? extends ValueHandlerAdapter> adapterClass = handlerAnnotation
 				.annotationType()
-				.getAnnotation(Handler.class)
+				.getAnnotation(ValueHandler.class)
+				.adapterClass();
+
+		try {
+			return adapterClass.newInstance();
+		} catch (final InstantiationException e) {
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
+		} catch (final IllegalAccessException e) {
+			throw new RuntimeException(String.format(EXCEPTION_MESSAGE, adapterClass), e);
+		}
+	}
+
+	public static CallHandlerAdapter<Annotation> getCallHandlerAdapter(final Method method) {
+		checkNotNull(method, "Argument \'method\' cannot be null.");
+
+		final Annotation handlerAnnotation = AnnotationUtil.getCallHandlerAnnotation(method);
+
+		if (handlerAnnotation == null) {
+			return null;
+		}
+
+		final Class<? extends CallHandlerAdapter> adapterClass = handlerAnnotation
+				.annotationType()
+				.getAnnotation(CallHandler.class)
 				.adapterClass();
 
 		try {

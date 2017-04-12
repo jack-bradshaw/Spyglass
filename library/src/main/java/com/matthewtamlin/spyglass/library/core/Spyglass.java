@@ -7,12 +7,11 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
-import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter.TypedArrayAccessor;
-import com.matthewtamlin.spyglass.library.handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter.TypedArrayAccessor;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -24,9 +23,9 @@ import java.util.TreeMap;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
-import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getHandlerAdapter;
+import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getValueHandlerAdapter;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
-import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
+import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateField;
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
@@ -76,10 +75,10 @@ public class Spyglass {
 	private void processField(final Field field) {
 		field.setAccessible(true);
 
-		final Annotation handlerAnnotation = getHandlerAnnotation(field);
+		final Annotation handlerAnnotation = getValueHandlerAnnotation(field);
 
 		if (handlerAnnotation != null) {
-			final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(field);
+			final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(field);
 			final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
 			if (accessor.valueExistsInArray(attrSource)) {
@@ -108,7 +107,7 @@ public class Spyglass {
 	private void processMethod(final Method method) {
 		method.setAccessible(true);
 
-		final Annotation handlerAnnotation = getHandlerAnnotation(method);
+		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
 
 		if (handlerAnnotation != null) {
 			if (handlerAnnotation instanceof EnumConstantHandler) {
@@ -120,8 +119,8 @@ public class Spyglass {
 	}
 
 	private void processMethodEnumConstantCase(final Method method) {
-		final Annotation handlerAnnotation = getHandlerAnnotation(method);
-		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
+		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
+		final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
 		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
 		if (accessor.valueExistsInArray(attrSource)) {
@@ -131,8 +130,8 @@ public class Spyglass {
 	}
 
 	private void processMethodStandardCase(final Method method) {
-		final Annotation handlerAnnotation = getHandlerAnnotation(method);
-		final HandlerAdapter<?, Annotation> handlerAdapter = getHandlerAdapter(method);
+		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
+		final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
 		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
 
 		if (accessor.valueExistsInArray(attrSource)) {

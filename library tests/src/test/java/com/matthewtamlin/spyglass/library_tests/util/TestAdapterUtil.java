@@ -1,15 +1,12 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_adapters.IntegerHandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseBooleanAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
@@ -24,6 +21,11 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.BooleanHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.IntegerHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
 import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
@@ -31,6 +33,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
@@ -48,21 +51,21 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class TestAdapterUtil {
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetHandlerAdapter_fieldVariant_nullField() {
-		AdapterUtil.getHandlerAdapter((Field) null);
+	public void testGetValueHandlerAdapter_fieldVariant_nullField() {
+		AdapterUtil.getValueHandlerAdapter((Field) null);
 	}
 
 	@Test
-	public void testGetHandlerAdapter_fieldVariant_noHandlerAnnotations() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(1,
+	public void testGetValueHandlerAdapter_fieldVariant_noHandlerAnnotations() {
+		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(1,
 				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
-	public void testGetHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getFieldWithTag(2,
+	public void testGetValueHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
+		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(2,
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
@@ -70,21 +73,21 @@ public class TestAdapterUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetHandlerAdapter_methodVariant_nullMethod() {
-		AdapterUtil.getHandlerAdapter((Method) null);
+	public void testGetValueHandlerAdapter_methodVariant_nullMethod() {
+		AdapterUtil.getValueHandlerAdapter((Method) null);
 	}
 
 	@Test
-	public void testGetHandlerAdapter_methodVariant_noHandlerAnnotations() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(1,
+	public void testGetValueHandlerAdapter_methodVariant_noHandlerAnnotations() {
+		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(1,
 				TestClass.class));
 
 		assertThat(adapter, is(nullValue()));
 	}
 
 	@Test
-	public void testGetHandlerAdapter_methodVariant_oneHandlerAnnotation() {
-		final HandlerAdapter adapter = AdapterUtil.getHandlerAdapter(getMethodWithTag(2,
+	public void testGetValueHandlerAdapter_methodVariant_oneHandlerAnnotation() {
+		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(2,
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
@@ -127,7 +130,7 @@ public class TestAdapterUtil {
 	}
 
 	@Test
-	public void testGetHandlerAdapter_methodVariant_oneDefaultAnnotation() {
+	public void testGetValueHandlerAdapter_methodVariant_oneDefaultAnnotation() {
 		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(4,
 				TestClass.class));
 
@@ -142,7 +145,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_noArguments() {
-		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(5,
+		final Map<Integer, UseAdapter<?, Annotation>> adapters = getUseAdapters(getMethodWithTag(5,
 				TestClass.class));
 
 		assertThat(adapters.isEmpty(), is(true));
@@ -150,7 +153,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_oneArgument_noUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(6,
+		final Map<Integer, UseAdapter<?, Annotation>> adapters = getUseAdapters(getMethodWithTag(6,
 				TestClass.class));
 
 		assertThat(adapters.isEmpty(), is(true));
@@ -158,7 +161,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_oneArgument_oneUseAnnotation() {
-		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(7,
+		final Map<Integer, UseAdapter<?, Annotation>> adapters = getUseAdapters(getMethodWithTag(7,
 				TestClass.class));
 
 		assertThat(adapters.size(), is(1));
@@ -170,7 +173,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_noUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(8,
+		final Map<Integer, UseAdapter<?, Annotation>> adapters = getUseAdapters(getMethodWithTag(8,
 				TestClass.class));
 
 		assertThat(adapters.isEmpty(), is(true));
@@ -178,7 +181,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_twoUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(9,
+		final Map<Integer, UseAdapter<?, Annotation>> adapters = getUseAdapters(getMethodWithTag(9,
 				TestClass.class));
 
 		assertThat(adapters.size(), is(2));
@@ -196,7 +199,7 @@ public class TestAdapterUtil {
 
 	@Test
 	public void testGetUseAdapters_threeArguments_threeUseAnnotations() {
-		final Map<Integer, UseAdapter> adapters = getUseAdapters(getMethodWithTag(10,
+		final Map<Integer, UseAdapter<?, Annotation>> adapters = getUseAdapters(getMethodWithTag(10,
 				TestClass.class));
 
 		assertThat(adapters.size(), is(3));
@@ -212,6 +215,23 @@ public class TestAdapterUtil {
 		assertThat(adapters.keySet().contains(2), is(true));
 		assertThat(adapters.get(2), is(notNullValue()));
 		assertThat(adapters.get(2), instanceOf(UseStringAdapter.class));
+	}
+
+	@Test
+	public void testGetCallHandlerAdapter_noHandlerAnnotation() {
+		final CallHandlerAdapter adapter = AdapterUtil.getCallHandlerAdapter(getMethodWithTag(11,
+				TestClass.class));
+
+		assertThat(adapter, is(nullValue()));
+	}
+
+	@Test
+	public void testGetCallHandlerAdapter_oneHandlerAnnotation() {
+		final CallHandlerAdapter adapter = AdapterUtil.getCallHandlerAdapter(getMethodWithTag(12,
+				TestClass.class));
+
+		assertThat(adapter, is(notNullValue()));
+		assertThat(adapter, instanceOf(FlagHandler.class));
 	}
 
 	@SuppressWarnings("unused")
@@ -261,5 +281,12 @@ public class TestAdapterUtil {
 
 		@MethodTag(10)
 		private void method10(@UseLong(0L) long l, @UseChar(0) char c, @UseString("s") String s) {}
+
+		@MethodTag(11)
+		private void method11() {}
+
+		@MethodTag(12)
+		@FlagHandler(attributeId = 12, handledFlags = 1)
+		private void method12() {}
 	}
 }

@@ -1,14 +1,16 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.library.handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.library.handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
 import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
@@ -22,8 +24,8 @@ import java.lang.reflect.Method;
 import java.util.Map;
 
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
-import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getUseAnnotations;
+import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library_tests.util.FieldHelper.getFieldWithTag;
 import static com.matthewtamlin.spyglass.library_tests.util.MethodHelper.getMethodWithTag;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -35,21 +37,21 @@ import static org.hamcrest.core.IsNull.notNullValue;
 @RunWith(JUnit4.class)
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetHandlerAnnotation_fieldVariant_nullField() {
-		getHandlerAnnotation((Field) null);
+	public void testGetValueHandlerAnnotation_fieldVariant_nullField() {
+		getValueHandlerAnnotation((Field) null);
 	}
 
 	@Test
-	public void testGetHandlerAnnotation_fieldVariant_noAnnotation() {
-		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(1,
+	public void testGetValueHandlerAnnotation_fieldVariant_noAnnotation() {
+		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(1,
 				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
-	public void testGetHandlerAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = getHandlerAnnotation(getFieldWithTag(2,
+	public void testGetValueHandlerAnnotation_fieldVariant_annotationPresent() {
+		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(2,
 				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
@@ -57,21 +59,21 @@ public class TestAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetHandlerAnnotation_methodVariant_nullMethod() {
-		getHandlerAnnotation((Method) null);
+	public void testGetValueHandlerAnnotation_methodVariant_nullMethod() {
+		getValueHandlerAnnotation((Method) null);
 	}
 
 	@Test
-	public void testGetHandlerAnnotation_methodVariant_noAnnotation() {
-		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(1,
+	public void testGetValueHandlerAnnotation_methodVariant_noAnnotation() {
+		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(1,
 				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
 	}
 
 	@Test
-	public void testGetHandlerAnnotation_methodVariant_annotationPresent() {
-		final Annotation annotation = getHandlerAnnotation(getMethodWithTag(2,
+	public void testGetValueHandlerAnnotation_methodVariant_annotationPresent() {
+		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(2,
 				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
@@ -208,6 +210,23 @@ public class TestAnnotationUtil {
 		assertThat(annotations.get(2), instanceOf(UseByte.class));
 	}
 
+	@Test
+	public void testGetCallHandlerAnnotation_noAnnotation() {
+		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(11,
+				TestClass.class));
+
+		assertThat(annotation, is(nullValue()));
+	}
+
+	@Test
+	public void testGetCallHandlerAnnotation_annotationPresent() {
+		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(12,
+				TestClass.class));
+
+		assertThat(annotation, is(notNullValue()));
+		assertThat(annotation, instanceOf(SpecificEnumHandler.class));
+	}
+
 	@SuppressWarnings("unused")
 	private static class TestClass {
 		@FieldTag(1)
@@ -255,5 +274,12 @@ public class TestAnnotationUtil {
 
 		@MethodTag(10)
 		private void method10(@UseLong(1L) long l, @UseString("s") String s, @UseByte(9) byte b) {}
+
+		@MethodTag(11)
+		private void method11() {}
+
+		@MethodTag(12)
+		@SpecificEnumHandler(attributeId = 12, ordinal = 1)
+		private void method12() {}
 	}
 }
