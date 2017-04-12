@@ -1,10 +1,10 @@
-package com.matthewtamlin.spyglass.library_tests.handler_adapters;
+package com.matthewtamlin.spyglass.library_tests.value_handler_adapters;
 
 import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.value_handler_adapters.StringHandlerAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.TextArrayHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.TextArrayHandler;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -15,50 +15,50 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestStringHandlerAdapter extends TestHandlerAdapter<
-		String,
-		StringHandler,
-		StringHandlerAdapter> {
+public class TestTextArrayHandlerAdapter extends TestHandlerAdapter<
+		CharSequence[],
+		TextArrayHandler,
+		TextArrayHandlerAdapter> {
 
-	private static final int ATTRIBUTE_ID = 2389;
+	private static final int ATTRIBUTE_ID = 7626;
 
-	private String expectedValue;
+	private CharSequence[] expectedValue;
 
 	private TypedArray containingAttribute;
 
 	private TypedArray missingAttribute;
 
-	private StringHandler withMandatoryFlag;
+	private TextArrayHandler withMandatoryFlag;
 
-	private StringHandler missingMandatoryFlag;
+	private TextArrayHandler missingMandatoryFlag;
 
-	private StringHandlerAdapter adapter;
+	private TextArrayHandlerAdapter adapter;
 
 	@Before
 	public void setup() {
-		expectedValue = "Some String";
+		expectedValue = new CharSequence[]{"something", "something else", ""};
 
 		containingAttribute = mock(TypedArray.class);
 		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
-		when(containingAttribute.getString(eq(ATTRIBUTE_ID))).thenReturn(expectedValue);
+		when(containingAttribute.getTextArray(eq(ATTRIBUTE_ID))).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
 		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
-		when(missingAttribute.getString(eq(ATTRIBUTE_ID))).thenReturn(null);
+		when(missingAttribute.getTextArray(eq(ATTRIBUTE_ID))).thenReturn(null);
 
-		withMandatoryFlag = mock(StringHandler.class);
+		withMandatoryFlag = mock(TextArrayHandler.class);
 		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
-		missingMandatoryFlag = mock(StringHandler.class);
+		missingMandatoryFlag = mock(TextArrayHandler.class);
 		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
-		adapter = new StringHandlerAdapter();
+		adapter = new TextArrayHandlerAdapter();
 	}
 
 	@Override
-	public String getExpectedValue() {
+	public CharSequence[] getExpectedValue() {
 		return expectedValue;
 	}
 
@@ -73,17 +73,17 @@ public class TestStringHandlerAdapter extends TestHandlerAdapter<
 	}
 
 	@Override
-	public StringHandler getAnnotationWithMandatoryFlag() {
+	public TextArrayHandler getAnnotationWithMandatoryFlag() {
 		return withMandatoryFlag;
 	}
 
 	@Override
-	public StringHandler getAnnotationMissingMandatoryFlag() {
+	public TextArrayHandler getAnnotationMissingMandatoryFlag() {
 		return missingMandatoryFlag;
 	}
 
 	@Override
-	public StringHandlerAdapter getAdapter() {
+	public TextArrayHandlerAdapter getAdapter() {
 		return adapter;
 	}
 

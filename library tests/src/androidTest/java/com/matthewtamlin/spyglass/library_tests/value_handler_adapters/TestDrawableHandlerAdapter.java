@@ -1,11 +1,11 @@
-package com.matthewtamlin.spyglass.library_tests.handler_adapters;
+package com.matthewtamlin.spyglass.library_tests.value_handler_adapters;
 
-import android.content.res.ColorStateList;
 import android.content.res.TypedArray;
+import android.graphics.drawable.Drawable;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.value_handler_adapters.ColorStateListHandlerAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.ColorStateListHandler;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.DrawableHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.DrawableHandler;
 
 import org.junit.Before;
 import org.junit.runner.RunWith;
@@ -16,50 +16,50 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestColorStateListHandlerAdapter extends TestHandlerAdapter<
-		ColorStateList,
-		ColorStateListHandler,
-		ColorStateListHandlerAdapter> {
+public class TestDrawableHandlerAdapter extends TestHandlerAdapter<
+		Drawable,
+		DrawableHandler,
+		DrawableHandlerAdapter> {
 
-	private static final int ATTRIBUTE_ID = 4626;
+	private static final int ATTRIBUTE_ID = 5728;
 
-	private ColorStateList expectedValue;
+	private Drawable expectedValue;
 
 	private TypedArray containingAttribute;
 
 	private TypedArray missingAttribute;
 
-	private ColorStateListHandler withMandatoryFlag;
+	private DrawableHandler withMandatoryFlag;
 
-	private ColorStateListHandler missingMandatoryFlag;
+	private DrawableHandler missingMandatoryFlag;
 
-	private ColorStateListHandlerAdapter adapter;
+	private DrawableHandlerAdapter adapter;
 
 	@Before
 	public void setup() {
-		expectedValue = mock(ColorStateList.class);
+		expectedValue = mock(Drawable.class);
 
 		containingAttribute = mock(TypedArray.class);
 		when(containingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(true);
-		when(containingAttribute.getColorStateList(eq(ATTRIBUTE_ID))).thenReturn(expectedValue);
+		when(containingAttribute.getDrawable(eq(ATTRIBUTE_ID))).thenReturn(expectedValue);
 
 		missingAttribute = mock(TypedArray.class);
 		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
-		when(missingAttribute.getColorStateList(eq(ATTRIBUTE_ID))).thenReturn(null);
+		when(missingAttribute.getDrawable(eq(ATTRIBUTE_ID))).thenReturn(null);
 
-		withMandatoryFlag = mock(ColorStateListHandler.class);
+		withMandatoryFlag = mock(DrawableHandler.class);
 		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(withMandatoryFlag.mandatory()).thenReturn(true);
 
-		missingMandatoryFlag = mock(ColorStateListHandler.class);
+		missingMandatoryFlag = mock(DrawableHandler.class);
 		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(missingMandatoryFlag.mandatory()).thenReturn(false);
 
-		adapter = new ColorStateListHandlerAdapter();
+		adapter = new DrawableHandlerAdapter();
 	}
 
 	@Override
-	public ColorStateList getExpectedValue() {
+	public Drawable getExpectedValue() {
 		return expectedValue;
 	}
 
@@ -74,17 +74,17 @@ public class TestColorStateListHandlerAdapter extends TestHandlerAdapter<
 	}
 
 	@Override
-	public ColorStateListHandler getAnnotationWithMandatoryFlag() {
+	public DrawableHandler getAnnotationWithMandatoryFlag() {
 		return withMandatoryFlag;
 	}
 
 	@Override
-	public ColorStateListHandler getAnnotationMissingMandatoryFlag() {
+	public DrawableHandler getAnnotationMissingMandatoryFlag() {
 		return missingMandatoryFlag;
 	}
 
 	@Override
-	public ColorStateListHandlerAdapter getAdapter() {
+	public DrawableHandlerAdapter getAdapter() {
 		return adapter;
 	}
 
