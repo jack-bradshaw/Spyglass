@@ -7,8 +7,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
-import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
-import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter.TypedArrayAccessor;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter.TypedArrayAccessor;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;

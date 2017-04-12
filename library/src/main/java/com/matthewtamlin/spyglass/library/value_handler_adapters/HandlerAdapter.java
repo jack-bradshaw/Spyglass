@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.handler_adapters;
+package com.matthewtamlin.spyglass.library.value_handler_adapters;
 
 import android.content.res.TypedArray;
 

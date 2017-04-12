@@ -3,7 +3,7 @@ package com.matthewtamlin.spyglass.library_tests.handler_adapters;
 import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.handler_adapters.BooleanHandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.BooleanHandlerAdapter;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
 
 import org.junit.Before;

@@ -1,14 +1,14 @@
-package com.matthewtamlin.spyglass.library.handler_adapters;
+package com.matthewtamlin.spyglass.library.value_handler_adapters;
 
 import android.content.res.TypedArray;
 
-import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.FlagHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class EnumConstantHandlerAdapter implements HandlerAdapter<Void, EnumConstantHandler> {
+public class FlagHandlerAdapter implements HandlerAdapter<Void, FlagHandler> {
 	@Override
-	public TypedArrayAccessor<Void> getAccessor(final EnumConstantHandler annotation) {
+	public TypedArrayAccessor<Void> getAccessor(final FlagHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return new TypedArrayAccessor<Void>() {
@@ -22,9 +22,12 @@ public class EnumConstantHandlerAdapter implements HandlerAdapter<Void, EnumCons
 
 				final boolean consistentlyDefault = (reading1 == 0) && (reading2 == 1);
 
-				// Even if a value is available, make sure it's has the ordinal of interest
 				if (!consistentlyDefault) {
-					return array.getInt(annotation.attributeId(), 0) == annotation.ordinal();
+					final int handledFlags = annotation.handledFlags();
+					final int foundFlags = array.getInt(annotation.attributeId(), 0);
+
+					// Return true if at least one flag bit matches
+					return (foundFlags & handledFlags) > 0;
 				} else {
 					return false;
 				}
@@ -45,14 +48,14 @@ public class EnumConstantHandlerAdapter implements HandlerAdapter<Void, EnumCons
 	}
 
 	@Override
-	public int getAttributeId(final EnumConstantHandler annotation) {
+	public int getAttributeId(final FlagHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.attributeId();
 	}
 
 	@Override
-	public boolean isMandatory(final EnumConstantHandler annotation) {
+	public boolean isMandatory(final FlagHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return false;

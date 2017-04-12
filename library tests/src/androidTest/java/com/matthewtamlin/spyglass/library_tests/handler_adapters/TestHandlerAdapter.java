@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.library_tests.handler_adapters;
 
 import android.content.res.TypedArray;
 
-import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter;
 
 import org.junit.Test;
 

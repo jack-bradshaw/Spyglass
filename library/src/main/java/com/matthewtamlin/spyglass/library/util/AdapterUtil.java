@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.util;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
-import com.matthewtamlin.spyglass.library.handler_adapters.HandlerAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.HandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;

@@ -1,33 +1,32 @@
-package com.matthewtamlin.spyglass.library.handler_adapters;
+package com.matthewtamlin.spyglass.library.value_handler_adapters;
 
 import android.content.res.TypedArray;
-import android.graphics.drawable.Drawable;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.DrawableHandler;
+import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class DrawableHandlerAdapter implements HandlerAdapter<Drawable, DrawableHandler> {
+public class StringHandlerAdapter implements HandlerAdapter<String, StringHandler> {
 	@Override
-	public TypedArrayAccessor<Drawable> getAccessor(final DrawableHandler annotation) {
+	public TypedArrayAccessor<String> getAccessor(final StringHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
-		return new TypedArrayAccessor<Drawable>() {
+		return new TypedArrayAccessor<String>() {
 			@Override
 			public boolean valueExistsInArray(final TypedArray array) {
 				checkNotNull(array, "Argument \'array\' cannot be null.");
 
-				return array.getDrawable(annotation.attributeId()) != null;
+				return array.hasValue(annotation.attributeId());
 			}
 
 			@Override
-			public Drawable getValueFromArray(final TypedArray array) {
+			public String getValueFromArray(final TypedArray array) {
 				checkNotNull(array, "Argument \'array\' cannot be null.");
 
 				if (valueExistsInArray(array)) {
-					return array.getDrawable(annotation.attributeId());
+					return array.getString(annotation.attributeId());
 				} else {
 					throw new RuntimeException("No attribute found for attribute ID " +
 							annotation.attributeId());
@@ -37,14 +36,14 @@ public class DrawableHandlerAdapter implements HandlerAdapter<Drawable, Drawable
 	}
 
 	@Override
-	public int getAttributeId(final DrawableHandler annotation) {
+	public int getAttributeId(final StringHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.attributeId();
 	}
 
 	@Override
-	public boolean isMandatory(final DrawableHandler annotation) {
+	public boolean isMandatory(final StringHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.mandatory();
