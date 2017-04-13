@@ -4,7 +4,6 @@ import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -27,155 +26,11 @@ public class ValidationUtil {
 	}
 
 	private static void createFieldRules() {
-		fieldRules.add(new FieldRule() {
-			@Override
-			public void checkFieldComplies(final Field field) {
-				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
 
-				if (handlerAnnotationCount > 1) {
-					throw new SpyglassValidationException("Field " + field + " has multiple " +
-							"handler annotations.");
-				}
-			}
-		});
-
-		fieldRules.add(new FieldRule() {
-			@Override
-			public void checkFieldComplies(final Field field) {
-				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
-
-				if (defaultAnnotationCount > 1) {
-					throw new SpyglassValidationException("Field " + field + " has multiple " +
-							"default annotations.");
-				}
-			}
-		});
-
-		fieldRules.add(new FieldRule() {
-			@Override
-			public void checkFieldComplies(final Field field) {
-				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(annotations, ValueHandler.class);
-				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
-
-				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
-					throw new SpyglassValidationException("Field " + field + " has a default " +
-							"annotation but no handler annotation.");
-				}
-			}
-		});
 	}
 
 	private static void createMethodRules() {
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				final Annotation[] annotations = method.getDeclaredAnnotations();
-				final int handlerAnnotationCount = countAnnotations(
-						annotations,
-						ValueHandler.class,
-						CallHandler.class);
 
-				if (handlerAnnotationCount > 1) {
-					throw new SpyglassValidationException("Method " + method + " has multiple " +
-							"handler annotations.");
-				}
-			}
-		});
-
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				final Annotation[] annotations = method.getDeclaredAnnotations();
-				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
-
-				if (defaultAnnotationCount > 1) {
-					throw new SpyglassValidationException("Method " + method + " has multiple " +
-							"default annotations.");
-				}
-			}
-		});
-
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				final Annotation[] annotations = method.getDeclaredAnnotations();
-
-				final int handlerAnnotationCount = countAnnotations(annotations,
-						ValueHandler.class,
-						CallHandler.class);
-
-				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
-
-				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
-					throw new SpyglassValidationException("Method " + method + " has a default " +
-							"annotation but no handler annotation.");
-				}
-			}
-		});
-
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(method);
-
-				for (final Set<Annotation> annotationsOnParameter : useAnnotations.values()) {
-					if (annotationsOnParameter.size() > 1) {
-						throw new SpyglassValidationException("A parameter for method " + method
-								+ " has multiple use annotations.");
-					}
-				}
-			}
-		});
-
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				if (countAnnotations(method.getDeclaredAnnotations(), CallHandler.class) == 1) {
-					final int expectedUseAnnotationCount = method.getParameterAnnotations().length;
-					final int actualUseAnnotationCount = countUseAnnotations(method);
-
-					if (actualUseAnnotationCount != expectedUseAnnotationCount) {
-						final String message = "Method %1$s has an incorrect number of Use " +
-								"annotations. Expected %2$s but instead found %3$s.";
-
-						final String formattedMessage = String.format(
-								message,
-								method,
-								expectedUseAnnotationCount,
-								actualUseAnnotationCount);
-
-						throw new SpyglassValidationException(formattedMessage);
-					}
-				}
-			}
-		});
-
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				if (countAnnotations(method.getDeclaredAnnotations(), ValueHandler.class) == 1) {
-					final int parameterCount = method.getParameterAnnotations().length;
-					final int expectedUseAnnotationCount = Math.max(0, parameterCount - 1);
-					final int actualUseAnnotationCount = countUseAnnotations(method);
-
-					if (actualUseAnnotationCount != expectedUseAnnotationCount) {
-						final String message = "Method %1$s has an incorrect number of Use " +
-								"annotations. Expected %2$s but instead found %3$s.";
-
-						final String formattedMessage = String.format(
-								message,
-								method,
-								expectedUseAnnotationCount,
-								actualUseAnnotationCount);
-
-						throw new SpyglassValidationException(formattedMessage);
-					}
-				}
-			}
-		});
 	}
 
 	public static void validateField(final Field field) throws SpyglassValidationException {
