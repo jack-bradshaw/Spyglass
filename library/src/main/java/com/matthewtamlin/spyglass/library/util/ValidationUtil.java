@@ -91,7 +91,6 @@ public class ValidationUtil {
 			}
 		});
 
-
 		// Check for multiple default annotations
 		methodRules.add(new MethodRule() {
 			@Override
@@ -106,7 +105,6 @@ public class ValidationUtil {
 				}
 			}
 		});
-
 
 		// Check for a default annotation without a handler annotation
 		methodRules.add(new MethodRule() {
@@ -127,7 +125,6 @@ public class ValidationUtil {
 				}
 			}
 		});
-
 
 		// Check for use annotations without a handler annotation
 		methodRules.add(new MethodRule() {
