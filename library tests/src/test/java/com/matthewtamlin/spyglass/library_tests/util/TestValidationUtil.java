@@ -18,6 +18,8 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
+import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.FloatHandler;
@@ -31,6 +33,11 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.lang.annotation.Annotation;
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 
 import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
@@ -179,7 +186,9 @@ public class TestValidationUtil {
 		CONST1
 	}
 
-	private @interface ExpectedToPassValidation {
+	@Retention(RetentionPolicy.RUNTIME)
+	@Target(ElementType.FIELD)
+	public @interface ExpectedToPassValidation {
 		boolean value();
 	}
 }
