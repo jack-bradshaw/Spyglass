@@ -183,7 +183,7 @@ public class ValidationUtil {
 			}
 		});
 
-		// Check correct number of parameters have use annotations for value handlers
+		// Check correct number of parameters have use annotations (value handlers case)
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
@@ -206,7 +206,7 @@ public class ValidationUtil {
 			}
 		});
 
-		// Check correct number of parameters have use annotations for call handlers
+		// Check correct number of parameters have use annotations (call handlers case)
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
