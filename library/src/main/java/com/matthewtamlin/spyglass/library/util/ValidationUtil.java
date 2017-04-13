@@ -127,8 +127,7 @@ public class ValidationUtil {
 		// Check for use annotations without a handler annotation
 		methodRules.add(new MethodRule() {
 			@Override
-			public void checkMethodComplies(final Method method)
-					throws SpyglassValidationException {
+			public void checkMethodComplies(final Method method) {
 				final int handlerCount = countAnnotations(
 						method.getDeclaredAnnotations(),
 						ValueHandler.class,
