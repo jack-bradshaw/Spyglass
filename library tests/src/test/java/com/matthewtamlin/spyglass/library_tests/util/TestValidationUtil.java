@@ -197,9 +197,7 @@ public class TestValidationUtil {
 		private void method22(@UseBoolean(true) Object o) {}
 	}
 
-	private enum TestEnum {
-		CONST1
-	}
+	private enum TestEnum {}
 
 	@Target({METHOD, FIELD})
 	@Retention(RUNTIME)
