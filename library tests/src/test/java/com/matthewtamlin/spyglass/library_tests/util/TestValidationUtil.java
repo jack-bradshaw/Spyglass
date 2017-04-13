@@ -185,10 +185,4 @@ public class TestValidationUtil {
 	private enum TestEnum {
 		CONST1
 	}
-
-	@Retention(RetentionPolicy.RUNTIME)
-	@Target(ElementType.FIELD)
-	public @interface ExpectedToPassValidation {
-		boolean value();
-	}
 }
