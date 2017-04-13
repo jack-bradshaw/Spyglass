@@ -26,6 +26,7 @@ public class ValidationUtil {
 	}
 
 	private static void createFieldRules() {
+		// Check for multiple handler annotations
 		fieldRules.add(new FieldRule() {
 			@Override
 			public void checkFieldComplies(final Field field) {
@@ -40,6 +41,7 @@ public class ValidationUtil {
 			}
 		});
 
+		// Check for multiple default annotations
 		fieldRules.add(new FieldRule() {
 			@Override
 			public void checkFieldComplies(final Field field) {
@@ -53,6 +55,7 @@ public class ValidationUtil {
 			}
 		});
 
+		// Check for a default annotation without a handler annotation
 		fieldRules.add(new FieldRule() {
 			@Override
 			public void checkFieldComplies(final Field field) {
@@ -67,6 +70,8 @@ public class ValidationUtil {
 				}
 			}
 		});
+
+
 	}
 
 	private static void createMethodRules() {
