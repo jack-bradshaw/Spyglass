@@ -18,6 +18,8 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
+import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.FloatHandler;
@@ -32,14 +34,61 @@ import org.junit.runners.JUnit4;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
+import static android.R.id.message;
 import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
+	private static final String FIELD_MESSAGE = "Expected validation of field %1$s to %2$s.";
+
+	private static final String METHOD_MESSAGE = "Expected validation of method %1$s to %2$s.";
+
+	public void testValidateField_usingFieldsOfTestClass() {
+		for (final Field f : TestClass.class.getDeclaredFields()) {
+			final boolean shouldPass = f.getAnnotation(ValidationTestTarget.class).isValid();
+			final boolean doesPass = passesValidation(f);
+
+			final String message = String.format(FIELD_MESSAGE, f, (shouldPass ? "pass" : "fail"));
+			assertThat(message, shouldPass, is(doesPass));
+		}
+	}
+
+	public void testValidateMethod_usingMethodsOfTestClass() {
+		for (final Method m : TestClass.class.getDeclaredMethods()) {
+			final boolean shouldPass = m.getAnnotation(ValidationTestTarget.class).isValid();
+			final boolean doesPass = passesValidation(m);
+
+			final String message = String.format(METHOD_MESSAGE, m, (shouldPass ? "pass" : "fail"));
+			assertThat(message, shouldPass, is(doesPass));
+		}
+	}
+
+	public boolean passesValidation(final Field field) {
+		try {
+			ValidationUtil.validateField(field);
+			return true;
+		} catch (final SpyglassValidationException e) {
+			return false;
+		}
+	}
+
+	public boolean passesValidation(final Method method) {
+		try {
+			ValidationUtil.validateMethod(method);
+			return true;
+		} catch (final SpyglassValidationException e) {
+			return false;
+		}
+	}
+
 	@SuppressWarnings("unused")
 	public class TestClass {
 		@FieldTag(1)
