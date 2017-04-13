@@ -178,4 +178,8 @@ public class TestValidationUtil {
 	private enum TestEnum {
 		CONST1
 	}
+
+	private @interface ExpectedToPassValidation {
+		boolean value();
+	}
 }
