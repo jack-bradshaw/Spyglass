@@ -187,31 +187,6 @@ public class ValidationUtil {
 				}
 			}
 		});
-
-		// Check correct number of parameters have use annotations
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				final int parameterCount = method.getParameterAnnotations().length;
-
-				final int expectedUseCount = method.isAnnotationPresent(ValueHandler.class) ?
-						parameterCount - 1 :
-						parameterCount;
-
-				final int actualUseCount = countUseAnnotations(method);
-
-				if (actualUseCount != expectedUseCount) {
-					final String message = "Method %1$s has an incorrect number of Use " +
-							"annotations. Expected %2$s but instead found %3$s.";
-
-					throw new SpyglassValidationException(String.format(
-							message,
-							method,
-							expectedUseCount,
-							actualUseCount));
-				}
-			}
-		});
 	}
 
 	public static void validateField(final Field field) throws SpyglassValidationException {
