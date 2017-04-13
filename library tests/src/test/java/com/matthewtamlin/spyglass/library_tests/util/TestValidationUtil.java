@@ -91,43 +91,35 @@ public class TestValidationUtil {
 
 	@SuppressWarnings("unused")
 	public class TestClass {
-		@FieldTag(1)
 		private Object field1;
 
-		@FieldTag(2)
 		@BooleanHandler(attributeId = 2)
 		private Object field2;
 
-		@FieldTag(3)
 		@FloatHandler(attributeId = 3)
 		@DimensionHandler(attributeId = 3)
 		private Object field3;
 
-		@FieldTag(4)
 		@StringHandler(attributeId = 4)
 		@IntegerHandler(attributeId = 4)
 		@FractionHandler(attributeId = 4)
 		private Object field4;
 
-		@FieldTag(5)
 		@BooleanHandler(attributeId = 5)
 		@DefaultToBoolean(true)
 		private Object field5;
 
-		@FieldTag(6)
 		@DimensionHandler(attributeId = 6)
 		@DefaultToInteger(6)
 		@DefaultToDrawableResource(6)
 		private Object field6;
 
-		@FieldTag(7)
 		@StringHandler(attributeId = 7)
 		@DefaultToEnumConstant(enumClass = TestEnum.class, ordinal = 0)
 		@DefaultToBooleanResource(7)
 		@DefaultToStringResource(7)
 		private Object field7;
 
-		@FieldTag(8)
 		@DefaultToColorStateListResource(1)
 		private Object field8;
 
