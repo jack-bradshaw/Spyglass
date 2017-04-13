@@ -182,6 +182,51 @@ public class ValidationUtil {
 				}
 			}
 		});
+
+		// Check correct number of parameters have use annotations for value handlers
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				if (method.isAnnotationPresent(ValueHandler.class)) {
+					final int parameterCount = method.getParameterAnnotations().length;
+					final int expectedUseCount = parameterCount - 1;
+					final int actualUseCount = countUseAnnotations(method);
+
+					if (actualUseCount != expectedUseCount) {
+						final String message = "Method %1$s has an incorrect number of Use " +
+								"annotations. Expected %2$s but instead found %3$s.";
+
+						throw new SpyglassValidationException(String.format(
+								message,
+								method,
+								expectedUseCount,
+								actualUseCount));
+					}
+				}
+			}
+		});
+
+		// Check correct number of parameters have use annotations for call handlers
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				if (method.isAnnotationPresent(CallHandler.class)) {
+					final int expectedUseCount = method.getParameterAnnotations().length;
+					final int actualUseCount = countUseAnnotations(method);
+
+					if (actualUseCount != expectedUseCount) {
+						final String message = "Method %1$s has an incorrect number of Use " +
+								"annotations. Expected %2$s but instead found %3$s.";
+
+						throw new SpyglassValidationException(String.format(
+								message,
+								method,
+								expectedUseCount,
+								actualUseCount));
+					}
+				}
+			}
+		});
 	}
 
 	public static void validateField(final Field field) throws SpyglassValidationException {
