@@ -18,8 +18,6 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
-import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
-import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.FloatHandler;
@@ -29,18 +27,16 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandle
 import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
 import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
-import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.lang.annotation.Annotation;
-import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
-import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import java.lang.reflect.Field;
 
 import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
+import static java.lang.annotation.ElementType.FIELD;
+import static java.lang.annotation.ElementType.METHOD;
+import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
@@ -184,5 +180,11 @@ public class TestValidationUtil {
 
 	private enum TestEnum {
 		CONST1
+	}
+
+	@Target({METHOD, FIELD})
+	@Retention(RUNTIME)
+	public @interface ValidationTestTarget {
+		boolean isValid();
 	}
 }
