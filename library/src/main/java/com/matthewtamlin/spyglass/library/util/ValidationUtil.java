@@ -71,7 +71,7 @@ public class ValidationUtil {
 			}
 		});
 
-
+		// Check for compatibility between the field type and the handler type
 	}
 
 	private static void createMethodRules() {
