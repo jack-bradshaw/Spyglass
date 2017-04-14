@@ -404,8 +404,8 @@ public class TestValidationUtil {
 
 		@ValidationTestTarget(
 				isValid = false,
-				failureMessage = "Methods with a call handler, one non-use arguments and two " +
-						"use argument should fail.")
+				failureMessage = "Methods with a call handler, one non-use argument and two " +
+						"use arguments should fail.")
 		@FlagHandler(attributeId = 1, handledFlags = 1)
 		private void method33(Object o1, @UseFloat(2F) Object o2, @UseChar('A') Object o3) {}
 
@@ -422,7 +422,7 @@ public class TestValidationUtil {
 
 		@ValidationTestTarget(
 				isValid = false,
-				failureMessage = "Methods with multiple use argument but no handler should fail.")
+				failureMessage = "Methods with multiple use arguments but no handler should fail.")
 		private void method36(@UseBoolean(false) Object o1, @UseString("something") Object o2) {}
 	}
 
