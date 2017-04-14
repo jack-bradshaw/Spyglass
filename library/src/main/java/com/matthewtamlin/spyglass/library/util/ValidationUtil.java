@@ -161,27 +161,6 @@ public class ValidationUtil {
 			}
 		});
 
-		// Check parameter count exceeds viable minimum
-		methodRules.add(new MethodRule() {
-			@Override
-			public void checkMethodComplies(final Method method) {
-				final int minimumViableParameterCount =
-						method.isAnnotationPresent(ValueHandler.class) ? 1 : 0;
-
-				final int actualParameterCount = method.getParameterAnnotations().length;
-
-				if (actualParameterCount < minimumViableParameterCount) {
-					final String message = "Method %1$s has an insufficient number of parameters." +
-							" Expect at least %2$s but found %3$s.";
-
-					throw new SpyglassValidationException(String.format(message,
-							method,
-							minimumViableParameterCount,
-							actualParameterCount));
-				}
-			}
-		});
-
 		// Check for parameters with multiple use annotations
 		methodRules.add(new MethodRule() {
 			@Override
