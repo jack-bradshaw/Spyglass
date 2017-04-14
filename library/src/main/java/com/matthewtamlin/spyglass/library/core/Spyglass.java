@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
@@ -22,6 +23,7 @@ import java.util.Map;
 import java.util.TreeMap;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getCallHandlerAdapter;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getValueHandlerAdapter;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getCallHandlerAnnotation;
@@ -116,11 +118,17 @@ public class Spyglass {
 	}
 
 	private void processMethodWithCallHandler(final Method method) {
+		final Annotation handlerAnnotation = getCallHandlerAnnotation(method);
+		final CallHandlerAdapter<Annotation> handlerAdapter = getCallHandlerAdapter(method);
 
+		if (handlerAdapter.shouldCallMethod(handlerAnnotation, attrSource)) {
+			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+			callMethod(method, args.values().toArray());
+		}
 	}
 
 	private void processMethodWithValueHandler(final Method method) {
-
+		
 	}
 
 	private void bindDataToField(final Field field, final Object value) {
