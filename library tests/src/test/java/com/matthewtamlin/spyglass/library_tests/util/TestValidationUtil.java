@@ -56,6 +56,7 @@ public class TestValidationUtil {
 
 	private static final String METHOD_MESSAGE = "Test for method %1$s failed with reason %2$s.";
 
+	@Test
 	public void testValidateField_usingFieldsOfTestClass() {
 		for (final Field f : TestClass.class.getDeclaredFields()) {
 			final ValidationTestTarget annotation = f.getAnnotation(ValidationTestTarget.class);
@@ -68,6 +69,7 @@ public class TestValidationUtil {
 		}
 	}
 
+	@Test
 	public void testValidateMethod_usingMethodsOfTestClass() {
 		for (final Method m : TestClass.class.getDeclaredMethods()) {
 			final ValidationTestTarget annotation = m.getAnnotation(ValidationTestTarget.class);
