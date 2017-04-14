@@ -3,16 +3,10 @@ package com.matthewtamlin.spyglass.library_tests.util;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorResource;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorStateListResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimensionResource;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDrawableResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFloat;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFractionResource;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToInteger;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringResource;
@@ -30,7 +24,6 @@ import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.FloatHandler;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 
@@ -424,6 +417,22 @@ public class TestValidationUtil {
 				isValid = false,
 				failureMessage = "Methods with multiple use arguments but no handler should fail.")
 		private void method36(@UseBoolean(false) Object o1, @UseString("something") Object o2) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with multiple use annotations on a single parameter " +
+						"should fail."
+		)
+		@BooleanHandler(attributeId = 1)
+		private void method37(@UseInt(1) @UseBoolean(true) Object o1, Object o2) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with multiple use annotations on a single parameter " +
+						"should fail."
+		)
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method38(@UseInt(1) @UseBoolean(true) @UseString("something") Object o1) {}
 	}
 
 	private enum TestEnum {}
