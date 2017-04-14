@@ -12,7 +12,6 @@ import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter.TypedArrayAccessor;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -107,15 +106,15 @@ public class Spyglass {
 	}
 
 	private void processMethod(final Method method) {
-
-	}
-
-	private void processMethodEnumConstantCase(final Method method) {
-
-	}
-
-	private void processMethodStandardCase(final Method method) {
 		
+	}
+
+	private void processMethodWithCallHandler(final Method method) {
+
+	}
+
+	private void processMethodWithValueHandler(final Method method) {
+
 	}
 
 	private void bindDataToField(final Field field, final Object value) {
