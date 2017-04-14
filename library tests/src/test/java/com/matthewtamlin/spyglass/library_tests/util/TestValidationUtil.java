@@ -73,7 +73,7 @@ public class TestValidationUtil {
 					f.getName(),
 					annotation.failureMessage());
 
-			assertThat(message, shouldPass, is(doesPass));
+			assertThat(message, doesPass, is(shouldPass));
 		}
 	}
 
@@ -94,7 +94,7 @@ public class TestValidationUtil {
 					m.getName(),
 					annotation.failureMessage());
 
-			assertThat(message, shouldPass, is(doesPass));
+			assertThat(message, doesPass, is(shouldPass));
 		}
 	}
 
