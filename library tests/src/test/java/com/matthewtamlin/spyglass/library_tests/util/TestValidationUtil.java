@@ -59,6 +59,10 @@ public class TestValidationUtil {
 	@Test
 	public void testValidateField_usingFieldsOfTestClass() {
 		for (final Field f : TestClass.class.getDeclaredFields()) {
+			if (!f.isAnnotationPresent(ValidationTestTarget.class)) {
+				continue;
+			}
+
 			final ValidationTestTarget annotation = f.getAnnotation(ValidationTestTarget.class);
 
 			final boolean shouldPass = annotation.isValid();
@@ -72,6 +76,10 @@ public class TestValidationUtil {
 	@Test
 	public void testValidateMethod_usingMethodsOfTestClass() {
 		for (final Method m : TestClass.class.getDeclaredMethods()) {
+			if (!m.isAnnotationPresent(ValidationTestTarget.class)) {
+				continue;
+			}
+
 			final ValidationTestTarget annotation = m.getAnnotation(ValidationTestTarget.class);
 
 			final boolean shouldPass = annotation.isValid();
