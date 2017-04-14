@@ -68,7 +68,11 @@ public class TestValidationUtil {
 			final boolean shouldPass = annotation.isValid();
 			final boolean doesPass = passesValidation(f);
 
-			final String message = String.format(FIELD_MESSAGE, f, annotation.failureMessage());
+			final String message = String.format(
+					FIELD_MESSAGE,
+					f.getName(),
+					annotation.failureMessage());
+			
 			assertThat(message, shouldPass, is(doesPass));
 		}
 	}
@@ -85,7 +89,11 @@ public class TestValidationUtil {
 			final boolean shouldPass = annotation.isValid();
 			final boolean doesPass = passesValidation(m);
 
-			final String message = String.format(METHOD_MESSAGE, m, annotation.failureMessage());
+			final String message = String.format(
+					METHOD_MESSAGE,
+					m.getName(),
+					annotation.failureMessage());
+
 			assertThat(message, shouldPass, is(doesPass));
 		}
 	}
