@@ -52,9 +52,9 @@ import static org.hamcrest.core.Is.is;
 
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
-	private static final String FIELD_MESSAGE = "Test for field %1$s failed with reason %2$s.";
+	private static final String FIELD_MESSAGE = "Test for field %1$s failed with reason \"%2$s\"";
 
-	private static final String METHOD_MESSAGE = "Test for method %1$s failed with reason %2$s.";
+	private static final String METHOD_MESSAGE = "Test for method %1$s failed with reason \"%2$s\"";
 
 	@Test
 	public void testValidateField_usingFieldsOfTestClass() {
@@ -72,7 +72,7 @@ public class TestValidationUtil {
 					FIELD_MESSAGE,
 					f.getName(),
 					annotation.failureMessage());
-			
+
 			assertThat(message, shouldPass, is(doesPass));
 		}
 	}
