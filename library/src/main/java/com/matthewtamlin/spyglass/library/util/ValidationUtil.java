@@ -124,6 +124,25 @@ public class ValidationUtil {
 			}
 		});
 
+		// Check for call handlers with defaults
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				final int callHandlerCount = countAnnotations(
+						method.getDeclaredAnnotations(),
+						CallHandler.class);
+
+				final int defaultCount = countAnnotations(
+						method.getDeclaredAnnotations(),
+						Default.class);
+
+				if (callHandlerCount == 1 && defaultCount == 1) {
+					throw new SpyglassValidationException("Method " + method + "should not have a" +
+							" default annotation.");
+				}
+			}
+		});
+
 		// Check for use annotations without a handler annotation
 		methodRules.add(new MethodRule() {
 			@Override
