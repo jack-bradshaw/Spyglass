@@ -1,5 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
+import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorResource;
@@ -9,6 +11,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDrawableResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFloat;
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFractionResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToInteger;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
@@ -16,8 +19,12 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringRes
 import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
+import com.matthewtamlin.spyglass.library.use_annotations.UseFloat;
 import com.matthewtamlin.spyglass.library.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.library.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
 import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
@@ -27,6 +34,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.FractionHand
 import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 
+import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
@@ -44,6 +52,10 @@ import static org.hamcrest.core.Is.is;
 
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
+	private static final String FIELD_MESSAGE = "Test for field %1$s failed with reason %2$s.";
+
+	private static final String METHOD_MESSAGE = "Test for method %1$s failed with reason %2$s.";
+
 	public void testValidateField_usingFieldsOfTestClass() {
 		for (final Field f : TestClass.class.getDeclaredFields()) {
 			final ValidationTestTarget annotation = f.getAnnotation(ValidationTestTarget.class);
@@ -51,7 +63,8 @@ public class TestValidationUtil {
 			final boolean shouldPass = annotation.isValid();
 			final boolean doesPass = passesValidation(f);
 
-			assertThat(annotation.failureMessage(), shouldPass, is(doesPass));
+			final String message = String.format(FIELD_MESSAGE, f, annotation.failureMessage());
+			assertThat(message, shouldPass, is(doesPass));
 		}
 	}
 
@@ -62,7 +75,8 @@ public class TestValidationUtil {
 			final boolean shouldPass = annotation.isValid();
 			final boolean doesPass = passesValidation(m);
 
-			assertThat(annotation.failureMessage(), shouldPass, is(doesPass));
+			final String message = String.format(METHOD_MESSAGE, m, annotation.failureMessage());
+			assertThat(message, shouldPass, is(doesPass));
 		}
 	}
 
