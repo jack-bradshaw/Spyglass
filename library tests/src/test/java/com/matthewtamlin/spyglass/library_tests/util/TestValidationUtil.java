@@ -51,7 +51,7 @@ public class TestValidationUtil {
 			final boolean shouldPass = annotation.isValid();
 			final boolean doesPass = passesValidation(f);
 
-			assertThat(annotation.reason(), shouldPass, is(doesPass));
+			assertThat(annotation.failureMessage(), shouldPass, is(doesPass));
 		}
 	}
 
@@ -62,7 +62,7 @@ public class TestValidationUtil {
 			final boolean shouldPass = annotation.isValid();
 			final boolean doesPass = passesValidation(m);
 
-			assertThat(annotation.reason(), shouldPass, is(doesPass));
+			assertThat(annotation.failureMessage(), shouldPass, is(doesPass));
 		}
 	}
 
@@ -199,6 +199,6 @@ public class TestValidationUtil {
 	public @interface ValidationTestTarget {
 		boolean isValid();
 
-		String reason();
+		String failureMessage();
 	}
 }
