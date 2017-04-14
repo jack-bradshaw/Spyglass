@@ -199,7 +199,7 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (method.isAnnotationPresent(ValueHandler.class)) {
+				if (countAnnotations(method.getDeclaredAnnotations(), ValueHandler.class) == 1) {
 					final int parameterCount = method.getParameterAnnotations().length;
 					final int expectedUseCount = parameterCount - 1;
 					final int actualUseCount = countUseAnnotations(method);
