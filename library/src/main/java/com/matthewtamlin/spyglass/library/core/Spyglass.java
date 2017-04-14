@@ -128,7 +128,34 @@ public class Spyglass {
 	}
 
 	private void processMethodWithValueHandler(final Method method) {
-		
+		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
+		final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
+		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
+
+		if (accessor.valueExistsInArray(attrSource)) {
+			final Object value = accessor.getValueFromArray(attrSource);
+			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+
+			addValueAtEmptyPosition(args, value);
+			callMethod(method, args.values().toArray());
+
+		} else if (getDefaultAnnotation(method) != null) {
+			final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(method);
+			final Object value = defaultAdapter.getDefault(getDefaultAnnotation(method), context);
+			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+
+			addValueAtEmptyPosition(args, value);
+			callMethod(method, args.values().toArray());
+
+		} else if (handlerAdapter.isMandatory(handlerAnnotation)) {
+			final String message = "Missing mandatory attribute %1$s in view %2$s.";
+
+			final int resId = handlerAdapter.getAttributeId(handlerAnnotation);
+			final String resIdName = context.getResources().getResourceEntryName(resId);
+
+			throw new MandatoryAttributeMissingException(
+					String.format(message, resIdName, view));
+		}
 	}
 
 	private void bindDataToField(final Field field, final Object value) {
