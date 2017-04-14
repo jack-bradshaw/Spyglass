@@ -106,7 +106,13 @@ public class Spyglass {
 	}
 
 	private void processMethod(final Method method) {
-		
+		method.setAccessible(true);
+
+		if (getValueHandlerAnnotation(method) != null) {
+			processMethodWithCallHandler(method);
+		} else if (getCallHandlerAnnotation(method) != null) {
+			processMethodWithValueHandler(method);
+		}
 	}
 
 	private void processMethodWithCallHandler(final Method method) {
