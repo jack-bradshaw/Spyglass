@@ -124,11 +124,29 @@ public class ValidationUtil {
 			}
 		});
 
+		// Check for call handlers with defaults
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				final int callHandlerCount = countAnnotations(
+						method.getDeclaredAnnotations(),
+						CallHandler.class);
+
+				final int defaultCount = countAnnotations(
+						method.getDeclaredAnnotations(),
+						Default.class);
+
+				if (callHandlerCount == 1 && defaultCount == 1) {
+					throw new SpyglassValidationException("Method " + method + "should not have a" +
+							" default annotation.");
+				}
+			}
+		});
+
 		// Check for use annotations without a handler annotation
 		methodRules.add(new MethodRule() {
 			@Override
-			public void checkMethodComplies(final Method method)
-					throws SpyglassValidationException {
+			public void checkMethodComplies(final Method method) {
 				final int handlerCount = countAnnotations(
 						method.getDeclaredAnnotations(),
 						ValueHandler.class,
@@ -143,23 +161,17 @@ public class ValidationUtil {
 			}
 		});
 
-		// Check parameter count exceeds viable minimum
+		// Check parameter count exceeds viable minimum for value handlers
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				final int minimumViableParameterCount =
-						method.isAnnotationPresent(ValueHandler.class) ? 1 : 0;
+				if (countAnnotations(method.getDeclaredAnnotations(), ValueHandler.class) == 1) {
+					final int parameterCount = method.getParameterAnnotations().length;
 
-				final int actualParameterCount = method.getParameterAnnotations().length;
-
-				if (actualParameterCount < minimumViableParameterCount) {
-					final String message = "Method %1$s has an insufficient number of parameters." +
-							" Expect at least %2$s but found %3$s.";
-
-					throw new SpyglassValidationException(String.format(message,
-							method,
-							minimumViableParameterCount,
-							actualParameterCount));
+					if (parameterCount < 1) {
+						throw new SpyglassValidationException("Method " + method + " must have " +
+								"at least one parameter.");
+					}
 				}
 			}
 		});
@@ -187,7 +199,7 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (method.isAnnotationPresent(ValueHandler.class)) {
+				if (countAnnotations(method.getDeclaredAnnotations(), ValueHandler.class) == 1) {
 					final int parameterCount = method.getParameterAnnotations().length;
 					final int expectedUseCount = parameterCount - 1;
 					final int actualUseCount = countUseAnnotations(method);
@@ -210,7 +222,7 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (method.isAnnotationPresent(CallHandler.class)) {
+				if (countAnnotations(method.getDeclaredAnnotations(), CallHandler.class) == 1) {
 					final int expectedUseCount = method.getParameterAnnotations().length;
 					final int actualUseCount = countUseAnnotations(method);
 
