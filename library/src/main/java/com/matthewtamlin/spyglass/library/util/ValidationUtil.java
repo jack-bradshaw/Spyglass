@@ -161,6 +161,21 @@ public class ValidationUtil {
 			}
 		});
 
+		// Check parameter count exceeds viable minimum for value handlers
+		methodRules.add(new MethodRule() {
+			@Override
+			public void checkMethodComplies(final Method method) {
+				if (countAnnotations(method.getDeclaredAnnotations(), ValueHandler.class) == 1) {
+					final int parameterCount = method.getParameterAnnotations().length;
+
+					if (parameterCount < 1) {
+						throw new SpyglassValidationException("Method " + method + " must have " +
+								"at least one parameter.");
+					}
+				}
+			}
+		});
+
 		// Check for parameters with multiple use annotations
 		methodRules.add(new MethodRule() {
 			@Override
