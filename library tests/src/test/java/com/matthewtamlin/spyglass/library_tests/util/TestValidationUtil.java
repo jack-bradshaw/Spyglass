@@ -102,7 +102,312 @@ public class TestValidationUtil {
 
 	@SuppressWarnings("unused")
 	public class TestClass {
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Fields with no annotations should pass.")
+		private Object field1;
 
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Fields with just one handler should pass.")
+		@BooleanHandler(attributeId = 1)
+		private Object field2;
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Fields with multiple handlers should fail.")
+		@BooleanHandler(attributeId = 1)
+		@StringHandler(attributeId = 1)
+		private Object field3;
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Fields with multiple handlers should fail.")
+		@IntegerHandler(attributeId = 1)
+		@DimensionHandler(attributeId = 1)
+		@FloatHandler(attributeId = 1)
+		private Object field4;
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Fields with a handler and one default should pass.")
+		@StringHandler(attributeId = 1)
+		@DefaultToString("something")
+		private Object field5;
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Fields with a handler and multiple defaults should fail.")
+		@StringHandler(attributeId = 1)
+		@DefaultToString("something")
+		@DefaultToStringResource(1)
+		private Object field6;
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Fields with a handler and multiple defaults should fail.")
+		@FloatHandler(attributeId = 1)
+		@DefaultToFloat(1F)
+		@DefaultToFractionResource(resId = 1)
+		@DefaultToString("something")
+		private Object field7;
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Fields with one default and no handler should fail.")
+		@DefaultToDimension(value = 1, unit = DP)
+		private Object field8;
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Fields with multiple defaults and no handler should fail.")
+		@DefaultToBoolean(false)
+		@DefaultToString("something")
+		private Object field9;
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with no annotations should pass.")
+		private void method1() {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with just one value handler should pass.")
+		@StringHandler(attributeId = 1)
+		private void method2(Object o) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with multiple value handlers should fail.")
+		@StringHandler(attributeId = 1)
+		@BooleanHandler(attributeId = 1)
+		private void method3(Object o) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with multiple value handlers should fail.")
+		@StringHandler(attributeId = 1)
+		@BooleanHandler(attributeId = 1)
+		@FloatHandler(attributeId = 1)
+		private void method4(Object o) {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with just one call handler should pass.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method5() {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with multiple call handlers should fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificEnumHandler(attributeId = 1, ordinal = 1)
+		private void method6() {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a call handler and a value handler should fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@StringHandler(attributeId = 1)
+		private void method7() {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with a value handler and one default should pass.")
+		@BooleanHandler(attributeId = 1)
+		@DefaultToBoolean(false)
+		private void method8(Object o) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a value handler and multiple defaults should fail.")
+		@StringHandler(attributeId = 1)
+		@DefaultToString("something")
+		@DefaultToStringResource(1)
+		private void method9(Object o) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a value handler and multiple defaults should fail.")
+		@StringHandler(attributeId = 1)
+		@DefaultToString("something")
+		@DefaultToStringResource(1)
+		@DefaultToBoolean(false)
+		private void method10(Object o) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a call handler and one default should fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@DefaultToBoolean(false)
+		private void method11() {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a call handler and multiple defaults should fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@DefaultToString("something")
+		@DefaultToStringResource(1)
+		private void method12() {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a call handler and multiple defaults should fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@DefaultToString("something")
+		@DefaultToStringResource(1)
+		@DefaultToBoolean(false)
+		private void method13() {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with one default and no handler should fail.")
+		@DefaultToBoolean(true)
+		private void method14() {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with multiple defaults and no handler should fail.")
+		@DefaultToString("something")
+		@DefaultToNull
+		private void method15() {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with multiple defaults and no handler should fail.")
+		@DefaultToString("something")
+		@DefaultToNull
+		@DefaultToEnumConstant(enumClass = TestEnum.class, ordinal = 1)
+		private void method16() {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a value handler and no arguments should fail.")
+		@DimensionHandler(attributeId = 1)
+		private void method17() {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with a value handler and one non-use argument should " +
+						"pass.")
+		@FloatHandler(attributeId = 1)
+		private void method18(Object o) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a value handler and one use argument should fail.")
+		@BooleanHandler(attributeId = 1)
+		private void method19(@UseBoolean(false) Object o) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a value handler and two non-use arguments should " +
+						"fail.")
+		@BooleanHandler(attributeId = 1)
+		private void method20(Object o1, Object o2) {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with a value handler, one non-use argument and one use " +
+						"argument should pass.")
+		@BooleanHandler(attributeId = 1)
+		private void method21(@UseByte(1) Object o1, Object o2) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a value handler and two use arguments should fail.")
+		@BooleanHandler(attributeId = 1)
+		private void method22(@UseByte(1) Object o1, @UseLong(1) Object o2) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a value handler, two non-use arguments and one " +
+						"use argument should fail.")
+		@BooleanHandler(attributeId = 1)
+		private void method23(Object o1, @UseDouble(1) Object o2, Object o3) {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with a value handler, one non-use arguments and two " +
+						"use arguments should pass.")
+		@BooleanHandler(attributeId = 1)
+		private void method24(Object o1, @UseFloat(1F) Object o2, @UseChar('A') Object o3) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a value handler and three use arguments should " +
+						"fail.")
+		@BooleanHandler(attributeId = 1)
+		private void method25(@UseNull Object o1, @UseChar('A') Object o2, @UseInt(1) Object o3) {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with a call handler and no arguments should pass.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method26() {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a call handler and one non-use argument should " +
+						"fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method27(Object o) {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with a call handler and one use argument should pass.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method28(@UseBoolean(false) Object o) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a call handler and two non-use arguments should " +
+						"fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method29(Object o1, Object o2) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a call handler, one non-use argument and one use " +
+						"argument should fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method30(@UseByte(1) Object o1, Object o2) {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with a call handler and two use arguments should pass.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method31(@UseByte(1) Object o1, @UseLong(1) Object o2) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a call handler, two non-use arguments and one " +
+						"use argument should fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method32(Object o1, @UseDouble(2.0) Object o2, Object o3) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with a call handler, one non-use arguments and two " +
+						"use argument should fail.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method33(Object o1, @UseFloat(2F) Object o2, @UseChar('A') Object o3) {}
+
+		@ValidationTestTarget(
+				isValid = true,
+				failureMessage = "Methods with a call handler and three use arguments should pass.")
+		@FlagHandler(attributeId = 1, handledFlags = 1)
+		private void method34(@UseNull Object o1, @UseChar('A') Object o2, @UseInt(1) Object o3) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with one use argument but no handler should fail.")
+		private void method35(@UseLong(1) Object o1, Object o2) {}
+
+		@ValidationTestTarget(
+				isValid = false,
+				failureMessage = "Methods with multiple use argument but no handler should fail.")
+		private void method36(@UseBoolean(false) Object o1, @UseString("something") Object o2) {}
 	}
 
 	private enum TestEnum {}
