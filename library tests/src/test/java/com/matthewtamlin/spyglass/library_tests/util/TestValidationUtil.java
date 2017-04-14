@@ -1,7 +1,5 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
-import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
-import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorResource;
@@ -11,7 +9,6 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDrawableResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFloat;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFractionResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToInteger;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
@@ -29,8 +26,6 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.FloatHandler
 import com.matthewtamlin.spyglass.library.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
-import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -40,7 +35,6 @@ import java.lang.annotation.Target;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static android.R.id.message;
 import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
@@ -50,27 +44,25 @@ import static org.hamcrest.core.Is.is;
 
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
-	private static final String FIELD_MESSAGE = "Expected validation of field %1$s to %2$s.";
-
-	private static final String METHOD_MESSAGE = "Expected validation of method %1$s to %2$s.";
-
 	public void testValidateField_usingFieldsOfTestClass() {
 		for (final Field f : TestClass.class.getDeclaredFields()) {
-			final boolean shouldPass = f.getAnnotation(ValidationTestTarget.class).isValid();
+			final ValidationTestTarget annotation = f.getAnnotation(ValidationTestTarget.class);
+
+			final boolean shouldPass = annotation.isValid();
 			final boolean doesPass = passesValidation(f);
 
-			final String message = String.format(FIELD_MESSAGE, f, (shouldPass ? "pass" : "fail"));
-			assertThat(message, shouldPass, is(doesPass));
+			assertThat(annotation.reason(), shouldPass, is(doesPass));
 		}
 	}
 
 	public void testValidateMethod_usingMethodsOfTestClass() {
 		for (final Method m : TestClass.class.getDeclaredMethods()) {
-			final boolean shouldPass = m.getAnnotation(ValidationTestTarget.class).isValid();
+			final ValidationTestTarget annotation = m.getAnnotation(ValidationTestTarget.class);
+
+			final boolean shouldPass = annotation.isValid();
 			final boolean doesPass = passesValidation(m);
 
-			final String message = String.format(METHOD_MESSAGE, m, (shouldPass ? "pass" : "fail"));
-			assertThat(message, shouldPass, is(doesPass));
+			assertThat(annotation.reason(), shouldPass, is(doesPass));
 		}
 	}
 
