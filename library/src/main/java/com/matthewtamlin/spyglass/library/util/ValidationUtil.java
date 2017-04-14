@@ -222,7 +222,7 @@ public class ValidationUtil {
 		methodRules.add(new MethodRule() {
 			@Override
 			public void checkMethodComplies(final Method method) {
-				if (method.isAnnotationPresent(CallHandler.class)) {
+				if (countAnnotations(method.getDeclaredAnnotations(), CallHandler.class) == 1) {
 					final int expectedUseCount = method.getParameterAnnotations().length;
 					final int actualUseCount = countUseAnnotations(method);
 
