@@ -128,8 +128,8 @@ public class ValidationUtil {
 						Default.class);
 
 				if (handlerCount == 0 && defaultCount == 1) {
-					final String message = "Methods must not have a default annotation without a " +
-							"handler annotation. Check method \"%1$s\".";
+					final String message = "Methods must not have default annotations without " +
+							"handler annotations. Check method \"%1$s\".";
 
 					throw new SpyglassValidationException(String.format(message, method));
 				}
