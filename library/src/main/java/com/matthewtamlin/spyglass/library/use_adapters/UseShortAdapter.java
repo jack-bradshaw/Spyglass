@@ -9,7 +9,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 public class UseShortAdapter implements UseAdapter<Short, UseShort> {
 	@Override
 	public Short getValue(final UseShort annotation) {
-		checkNotNull(annotation, "Argument 'annotation' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.value();
 	}
