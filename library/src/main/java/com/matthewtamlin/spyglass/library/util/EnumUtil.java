@@ -1,7 +1,10 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
+
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+@Tested(testMethod = "automated")
 public class EnumUtil {
 	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal) {
 		checkNotNull(clazz, "Argument \'clazz\' cannot be null.");

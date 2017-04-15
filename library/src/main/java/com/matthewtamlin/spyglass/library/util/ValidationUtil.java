@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
@@ -15,6 +16,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Tested(testMethod = "automated")
 public class ValidationUtil {
 	private static List<FieldRule> fieldRules = new ArrayList<>();
 
