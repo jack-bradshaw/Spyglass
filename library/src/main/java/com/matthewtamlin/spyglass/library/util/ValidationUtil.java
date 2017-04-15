@@ -35,8 +35,10 @@ public class ValidationUtil {
 						countAnnotations(annotations, ValueHandler.class);
 
 				if (handlerAnnotationCount > 1) {
-					throw new SpyglassValidationException("Field " + field + " has multiple " +
-							"handler annotations.");
+					final String message = "Fields must not have multiple handler annotations. " +
+							"Check field \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, field));
 				}
 			}
 		});
@@ -49,8 +51,10 @@ public class ValidationUtil {
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
 				if (defaultAnnotationCount > 1) {
-					throw new SpyglassValidationException("Field " + field + " has multiple " +
-							"default annotations.");
+					final String message = "Fields must not have multiple default annotations. " +
+							"Check field \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, field));
 				}
 			}
 		});
@@ -65,8 +69,10 @@ public class ValidationUtil {
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
 				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
-					throw new SpyglassValidationException("Field " + field + " has a default " +
-							"annotation but no handler annotation.");
+					final String message = "Fields must not have default annotations without " +
+							"handler annotations. Check field \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, field));
 				}
 			}
 		});
@@ -83,8 +89,10 @@ public class ValidationUtil {
 						CallHandler.class);
 
 				if (handlerCount > 1) {
-					throw new SpyglassValidationException("Method " + method + " has multiple " +
-							"handler annotations.");
+					final String message = "Methods must not have multiple handler annotations. " +
+							"Check method \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, method));
 				}
 			}
 		});
@@ -98,8 +106,10 @@ public class ValidationUtil {
 						Default.class);
 
 				if (defaultCount > 1) {
-					throw new SpyglassValidationException("Method " + method + " has multiple " +
-							"default annotations.");
+					final String message = "Methods must not have multiple default annotations. " +
+							"Check method \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, method));
 				}
 			}
 		});
@@ -118,8 +128,10 @@ public class ValidationUtil {
 						Default.class);
 
 				if (handlerCount == 0 && defaultCount == 1) {
-					throw new SpyglassValidationException("Method " + method + " has a default " +
-							"annotation but no handler annotation.");
+					final String message = "Methods must not have default annotations without " +
+							"handler annotations. Check method \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, method));
 				}
 			}
 		});
@@ -137,8 +149,10 @@ public class ValidationUtil {
 						Default.class);
 
 				if (callHandlerCount == 1 && defaultCount == 1) {
-					throw new SpyglassValidationException("Method " + method + "should not have a" +
-							" default annotation.");
+					final String message = "Methods with handlers that pass no value must not " +
+							"have default annotations. Check method \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, method));
 				}
 			}
 		});
@@ -155,8 +169,10 @@ public class ValidationUtil {
 				final int useCount = countUseAnnotations(method);
 
 				if (handlerCount == 0 && useCount > 0) {
-					throw new SpyglassValidationException("Method " + method + " has Use " +
-							"annotations but no handler annotation.");
+					final String message = "Use-annotations must not be present on methods " +
+							"without handler annotations. Check method \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, method));
 				}
 			}
 		});
@@ -169,8 +185,10 @@ public class ValidationUtil {
 					final int parameterCount = method.getParameterAnnotations().length;
 
 					if (parameterCount < 1) {
-						throw new SpyglassValidationException("Method " + method + " must have " +
-								"at least one parameter.");
+						final String message = "An incorrect number of parameters were " +
+								"found on method \"%1$s\". Expected at least one.";
+
+						throw new SpyglassValidationException(String.format(message, method));
 					}
 				}
 			}
@@ -184,8 +202,8 @@ public class ValidationUtil {
 
 				for (final int parameterIndex : useAnnotations.keySet()) {
 					if (useAnnotations.get(parameterIndex).size() > 1) {
-						final String message = "Parameter %1$s of method %2$s has multiple use " +
-								"annotations.";
+						final String message = "Parameters must not have multiple use-annotations" +
+								". Check parameter %1$s of method \"%2$s\".";
 
 						throw new SpyglassValidationException(String.format(message,
 								parameterIndex,
@@ -205,8 +223,8 @@ public class ValidationUtil {
 					final int actualUseCount = countUseAnnotations(method);
 
 					if (actualUseCount != expectedUseCount) {
-						final String message = "Method %1$s has an incorrect number of Use " +
-								"annotations. Expected %2$s but instead found %3$s.";
+						final String message = "Method \"%1$s\" has an incorrect number of " +
+								"use-annotations. Expected %2$s but instead found %3$s.";
 
 						throw new SpyglassValidationException(String.format(
 								message,
@@ -227,8 +245,8 @@ public class ValidationUtil {
 					final int actualUseCount = countUseAnnotations(method);
 
 					if (actualUseCount != expectedUseCount) {
-						final String message = "Method %1$s has an incorrect number of Use " +
-								"annotations. Expected %2$s but instead found %3$s.";
+						final String message = "Method \"%1$s\" has an incorrect number of " +
+								"use-annotations. Expected %2$s but instead found %3$s.";
 
 						throw new SpyglassValidationException(String.format(
 								message,
