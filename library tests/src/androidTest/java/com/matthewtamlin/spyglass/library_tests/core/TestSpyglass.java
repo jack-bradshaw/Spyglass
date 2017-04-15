@@ -79,21 +79,6 @@ public class TestSpyglass {
 				.build();
 	}
 
-	@Test
-	public void testInstantiationViaBuilder_noAttributeSetEverSupplied() {
-
-	}
-
-	@Test
-	public void testInstantiationViaBuilder_noDefStyleAttrSetEverSupplied() {
-
-	}
-
-	@Test
-	public void testInstantiationViaBuilder_noDefStyleResEverSupplied() {
-
-	}
-
 	@Test(expected = IllegalThreadException.class)
 	public void testBindDataToFields_calledOnNonUiThread() {
 
