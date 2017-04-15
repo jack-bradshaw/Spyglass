@@ -149,8 +149,8 @@ public class ValidationUtil {
 						Default.class);
 
 				if (callHandlerCount == 1 && defaultCount == 1) {
-					final String message = "Some handlers cannot be used with defaults. Check " +
-							"method \"%1$s\".";
+					final String message = "A method was found with a default where there should " +
+							"be none. Check method \"%1$s\".";
 
 					throw new SpyglassValidationException(String.format(message, method));
 				}
