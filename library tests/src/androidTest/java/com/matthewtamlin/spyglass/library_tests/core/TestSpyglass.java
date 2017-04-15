@@ -150,6 +150,37 @@ public class TestSpyglass {
 
 	}
 
+	@Test(expected = IllegalThreadException.class)
+	public void testPassDataToMethods_calledOnNonUiThread() {
+		final Spyglass spyglass = Spyglass.builder()
+				.forView(mock(View.class))
+				.withContext(InstrumentationRegistry.getContext())
+				.withStyleableResource(new int[0])
+				.build();
+
+		final Future<Void> f = Executors.newSingleThreadExecutor().submit(new Callable<Void>() {
+			@Override
+			public Void call() throws Exception {
+				// This should fail
+				spyglass.passDataToMethods();
+				return null;
+			}
+		});
+
+		try {
+			// Test must not complete before the background task is done
+			f.get();
+
+		} catch (final InterruptedException e) {
+			// This is not expected
+			throw new RuntimeException("Test failed. Background task interrupted.");
+
+		} catch (final ExecutionException e) {
+			// This is expected
+			throw (IllegalThreadException) e.getCause();
+		}
+	}
+
 	@Test
 	public void testPassDataToMethods_noHandlerAnnotations() {
 
