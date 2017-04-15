@@ -1,46 +1,72 @@
 package com.matthewtamlin.spyglass.library_tests.core;
 
+import android.content.Context;
 import android.support.test.runner.AndroidJUnit4;
+import android.view.View;
 
 import com.matthewtamlin.spyglass.library.core.IllegalThreadException;
 import com.matthewtamlin.spyglass.library.core.InvalidBuilderStateException;
 import com.matthewtamlin.spyglass.library.core.MandatoryAttributeMissingException;
+import com.matthewtamlin.spyglass.library.core.Spyglass;
 import com.matthewtamlin.spyglass.library.core.SpyglassFieldBindException;
 import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.mockito.Mockito.mock;
+
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglass {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_noViewEverSupplied() {
-
+		Spyglass.builder()
+				.withContext(mock(Context.class))
+				.withStyleableResource(mock(int[].class))
+				.build();
 	}
 
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_nullViewSupplied() {
-
+		Spyglass.builder()
+				.forView(null)
+				.withContext(mock(Context.class))
+				.withStyleableResource(mock(int[].class))
+				.build();
 	}
 
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_noContextEverSupplied() {
-
+		Spyglass.builder()
+				.forView(mock(View.class))
+				.withStyleableResource(mock(int[].class))
+				.build();
 	}
 
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_nullContextSupplied() {
-
+		Spyglass.builder()
+				.forView(mock(View.class))
+				.withContext(null)
+				.withStyleableResource(mock(int[].class))
+				.build();
 	}
 
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_noStyleableResourceEverSupplied() {
-
+		Spyglass.builder()
+				.forView(mock(View.class))
+				.withContext(mock(Context.class))
+				.build();
 	}
 
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_nullStyleableResourceSupplied() {
-
+		Spyglass.builder()
+				.forView(mock(View.class))
+				.withContext(mock(Context.class))
+				.withStyleableResource(null)
+				.build();
 	}
 
 	@Test
