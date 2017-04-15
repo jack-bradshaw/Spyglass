@@ -169,8 +169,11 @@ public class ValidationUtil {
 				final int useCount = countUseAnnotations(method);
 
 				if (handlerCount == 0 && useCount > 0) {
-					throw new SpyglassValidationException("Method " + method + " has Use " +
-							"annotations but no handler annotation.");
+					final String message = "If a method has no handler annotation, its " +
+							"parameters should not be annotated with Use annotations. Check " +
+							"method \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, method));
 				}
 			}
 		});
