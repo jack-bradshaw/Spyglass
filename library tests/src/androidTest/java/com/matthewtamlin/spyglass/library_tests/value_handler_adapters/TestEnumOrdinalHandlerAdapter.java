@@ -76,7 +76,7 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
-		EnumConstantHandlerAdapter.class.newInstance();
+		EnumOrdinalHandlerAdapter.class.newInstance();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
