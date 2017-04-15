@@ -82,7 +82,7 @@ public class TestEnumConstantHandlerAdapter {
 
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
-		adapter.getClass().newInstance();
+		EnumConstantHandlerAdapter.class.newInstance();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
