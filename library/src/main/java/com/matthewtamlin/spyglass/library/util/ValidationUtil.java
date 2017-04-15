@@ -149,8 +149,10 @@ public class ValidationUtil {
 						Default.class);
 
 				if (callHandlerCount == 1 && defaultCount == 1) {
-					throw new SpyglassValidationException("Method " + method + "should not have a" +
-							" default annotation.");
+					final String message = "Some handlers cannot be used with defaults. Check " +
+							"method \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, method));
 				}
 			}
 		});
