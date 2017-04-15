@@ -186,8 +186,10 @@ public class ValidationUtil {
 					final int parameterCount = method.getParameterAnnotations().length;
 
 					if (parameterCount < 1) {
-						throw new SpyglassValidationException("Method " + method + " must have " +
-								"at least one parameter.");
+						final String message = "An insufficient number of parameters were found. " +
+								"Check method \"%1$s\".";
+
+						throw new SpyglassValidationException(String.format(message, method));
 					}
 				}
 			}
