@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.util;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
@@ -18,6 +19,7 @@ import java.util.Map;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getUseAnnotations;
 
+@Tested(testMethod = "automated")
 @SuppressWarnings("TryWithIdenticalCatches") // Can't actually collapse blocks until API 19
 public class AdapterUtil {
 	private static final String EXCEPTION_MESSAGE = "Could not instantiate class %1$s. " +
