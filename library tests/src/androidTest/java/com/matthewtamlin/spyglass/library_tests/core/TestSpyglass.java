@@ -15,6 +15,11 @@ import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
 import static org.mockito.Mockito.mock;
 
 @RunWith(AndroidJUnit4.class)
@@ -81,7 +86,33 @@ public class TestSpyglass {
 
 	@Test(expected = IllegalThreadException.class)
 	public void testBindDataToFields_calledOnNonUiThread() {
+		final Spyglass spyglass = Spyglass.builder()
+				.forView(mock(View.class))
+				.withContext(InstrumentationRegistry.getContext())
+				.withStyleableResource(new int[0])
+				.build();
 
+		final Future<Void> f = Executors.newSingleThreadExecutor().submit(new Callable<Void>() {
+			@Override
+			public Void call() throws Exception {
+				// This should fail
+				spyglass.bindDataToFields();
+				return null;
+			}
+		});
+
+		try {
+			// Test must not complete before the background task is done
+			f.get();
+
+		} catch (final InterruptedException e) {
+			// This is not expected
+			throw new RuntimeException("Test failed. Background task interrupted.");
+
+		} catch (final ExecutionException e) {
+			// This is expected
+			throw (IllegalThreadException) e.getCause();
+		}
 	}
 
 	@Test
