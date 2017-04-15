@@ -185,9 +185,8 @@ public class ValidationUtil {
 					final int parameterCount = method.getParameterAnnotations().length;
 
 					if (parameterCount < 1) {
-						final String message = "Methods with handler annotations which " +
-								"pass a value should have at least one parameter. Check method " +
-								"\"%1$s\".";
+						final String message = "An incorrect number of parameters were " +
+								"found on method \"%1$s\". Expected at least one.";
 
 						throw new SpyglassValidationException(String.format(message, method));
 					}
