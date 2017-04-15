@@ -223,8 +223,8 @@ public class ValidationUtil {
 					final int actualUseCount = countUseAnnotations(method);
 
 					if (actualUseCount != expectedUseCount) {
-						final String message = "Method %1$s has an incorrect number of Use " +
-								"annotations. Expected %2$s but instead found %3$s.";
+						final String message = "Method \"%1$s\" has an incorrect number of " +
+								"use-annotations. Expected %2$s but instead found %3$s.";
 
 						throw new SpyglassValidationException(String.format(
 								message,
