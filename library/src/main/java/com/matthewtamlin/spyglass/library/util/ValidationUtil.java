@@ -203,8 +203,8 @@ public class ValidationUtil {
 
 				for (final int parameterIndex : useAnnotations.keySet()) {
 					if (useAnnotations.get(parameterIndex).size() > 1) {
-						final String message = "Parameter %1$s of method %2$s has multiple use " +
-								"annotations.";
+						final String message = "Parameters must not have multiple use annotations" +
+								". Check parameter %1$s of method \"%2$s\".";
 
 						throw new SpyglassValidationException(String.format(message,
 								parameterIndex,
