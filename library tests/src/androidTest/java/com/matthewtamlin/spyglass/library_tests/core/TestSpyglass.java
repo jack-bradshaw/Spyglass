@@ -22,7 +22,7 @@ public class TestSpyglass {
 	public void testInstantiationViaBuilder_noViewEverSupplied() {
 		Spyglass.builder()
 				.withContext(mock(Context.class))
-				.withStyleableResource(mock(int[].class))
+				.withStyleableResource(new int[0])
 				.build();
 	}
 
@@ -31,7 +31,7 @@ public class TestSpyglass {
 		Spyglass.builder()
 				.forView(null)
 				.withContext(mock(Context.class))
-				.withStyleableResource(mock(int[].class))
+				.withStyleableResource(new int[0])
 				.build();
 	}
 
@@ -39,7 +39,7 @@ public class TestSpyglass {
 	public void testInstantiationViaBuilder_noContextEverSupplied() {
 		Spyglass.builder()
 				.forView(mock(View.class))
-				.withStyleableResource(mock(int[].class))
+				.withStyleableResource(new int[0])
 				.build();
 	}
 
@@ -48,7 +48,7 @@ public class TestSpyglass {
 		Spyglass.builder()
 				.forView(mock(View.class))
 				.withContext(null)
-				.withStyleableResource(mock(int[].class))
+				.withStyleableResource(new int[0])
 				.build();
 	}
 
