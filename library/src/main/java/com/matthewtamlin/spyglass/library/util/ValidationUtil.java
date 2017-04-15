@@ -35,8 +35,10 @@ public class ValidationUtil {
 						countAnnotations(annotations, ValueHandler.class);
 
 				if (handlerAnnotationCount > 1) {
-					throw new SpyglassValidationException("Field " + field + " has multiple " +
-							"handler annotations.");
+					final String message = "Fields must not have more than one handler annotation" +
+							". Check field \"%1$s\"";
+
+					throw new SpyglassValidationException(String.format(message, field));
 				}
 			}
 		});
