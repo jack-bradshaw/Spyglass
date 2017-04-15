@@ -221,28 +221,34 @@ public class Spyglass {
 
 		private Builder() {}
 
-		public void forView(final View view) {
+		public Builder forView(final View view) {
 			this.view = view;
+			return this;
 		}
 
-		public void withContext(final Context context) {
+		public Builder withContext(final Context context) {
 			this.context = context;
+			return this;
 		}
 
-		public void withStyleableResource(final int[] styleableRes) {
+		public Builder withStyleableResource(final int[] styleableRes) {
 			this.styleableRes = styleableRes;
+			return this;
 		}
 
-		public void withAttributeSet(final AttributeSet attributeSet) {
+		public Builder withAttributeSet(final AttributeSet attributeSet) {
 			this.attributeSet = attributeSet;
+			return this;
 		}
 
-		public void withDefStyleAttr(final int defStyleAttr) {
+		public Builder withDefStyleAttr(final int defStyleAttr) {
 			this.defStyleAttr = defStyleAttr;
+			return this;
 		}
 
-		public void withDefStyleRes(final int defStyleRes) {
+		public Builder withDefStyleRes(final int defStyleRes) {
 			this.defStyleRes = defStyleRes;
+			return this;
 		}
 
 		public Spyglass build() {
