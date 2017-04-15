@@ -36,7 +36,7 @@ public class ValidationUtil {
 
 				if (handlerAnnotationCount > 1) {
 					final String message = "Fields must not have multiple handler annotations. " +
-							"Check field \"%1$s\"";
+							"Check field \"%1$s\".";
 
 					throw new SpyglassValidationException(String.format(message, field));
 				}
@@ -70,7 +70,7 @@ public class ValidationUtil {
 
 				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
 					final String message = "Fields must not have a default annotation without a " +
-							"handler annotation. Check field \"%1$s\"";
+							"handler annotation. Check field \"%1$s\".";
 
 					throw new SpyglassValidationException(String.format(message, field));
 				}
