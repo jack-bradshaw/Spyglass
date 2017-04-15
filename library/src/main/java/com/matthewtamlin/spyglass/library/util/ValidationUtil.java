@@ -51,8 +51,10 @@ public class ValidationUtil {
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
 				if (defaultAnnotationCount > 1) {
-					throw new SpyglassValidationException("Field " + field + " has multiple " +
-							"default annotations.");
+					final String message = "Fields must not have multiple default annotations. " +
+							"Check field \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, field));
 				}
 			}
 		});
