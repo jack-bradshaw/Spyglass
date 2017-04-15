@@ -10,7 +10,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 public class UseSuppliedValueAdapter implements UseAdapter<Object, UseSuppliedValue> {
 	@Override
 	public Object getValue(final UseSuppliedValue annotation) {
-		checkNotNull(annotation, "Argument 'annotation' cannot be null.");
+		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return SupplierInstantiator.instantiateWildcardSupplier(annotation.value()).get();
 	}
