@@ -3,10 +3,12 @@ package com.matthewtamlin.spyglass.library.call_handler_adapters;
 import android.content.res.TypedArray;
 
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+@Tested(testMethod = "automated")
 public class SpecificEnumHandlerAdapter implements CallHandlerAdapter<SpecificEnumHandler> {
 	@Override
 	public boolean shouldCallMethod(final SpecificEnumHandler annotation, final TypedArray attrs) {

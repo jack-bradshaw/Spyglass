@@ -2,10 +2,12 @@ package com.matthewtamlin.spyglass.library.value_handler_adapters;
 
 import android.content.res.TypedArray;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumOrdinalHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+@Tested(testMethod = "automated")
 public class EnumOrdinalHandlerAdapter implements ValueHandlerAdapter<Integer, EnumOrdinalHandler> {
 	@Override
 	public TypedArrayAccessor<Integer> getAccessor(final EnumOrdinalHandler annotation) {
