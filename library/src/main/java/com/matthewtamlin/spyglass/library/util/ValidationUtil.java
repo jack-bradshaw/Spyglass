@@ -69,8 +69,10 @@ public class ValidationUtil {
 				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
 
 				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
-					throw new SpyglassValidationException("Field " + field + " has a default " +
-							"annotation but no handler annotation.");
+					final String message = "Fields must not have a default annotation without a " +
+							"handler annotation. Check field \"%1$s\"";
+
+					throw new SpyglassValidationException(String.format(message, field));
 				}
 			}
 		});
