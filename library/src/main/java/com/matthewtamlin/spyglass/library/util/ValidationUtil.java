@@ -169,8 +169,8 @@ public class ValidationUtil {
 				final int useCount = countUseAnnotations(method);
 
 				if (handlerCount == 0 && useCount > 0) {
-					final String message = "Use annotations should not be present on " +
-							"methods without handler annotations. Check method \"%1$s\".";
+					final String message = "Use-annotations must not be present on methods " +
+							"without handler annotations. Check method \"%1$s\".";
 
 					throw new SpyglassValidationException(String.format(message, method));
 				}
@@ -202,7 +202,7 @@ public class ValidationUtil {
 
 				for (final int parameterIndex : useAnnotations.keySet()) {
 					if (useAnnotations.get(parameterIndex).size() > 1) {
-						final String message = "Parameters must not have multiple use annotations" +
+						final String message = "Parameters must not have multiple use-annotations" +
 								". Check parameter %1$s of method \"%2$s\".";
 
 						throw new SpyglassValidationException(String.format(message,
