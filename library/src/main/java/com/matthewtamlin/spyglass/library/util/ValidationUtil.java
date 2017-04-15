@@ -89,8 +89,10 @@ public class ValidationUtil {
 						CallHandler.class);
 
 				if (handlerCount > 1) {
-					throw new SpyglassValidationException("Method " + method + " has multiple " +
-							"handler annotations.");
+					final String message = "Methods must not have multiple handler annotations. " +
+							"Check method \"%1$s\".";
+
+					throw new SpyglassValidationException(String.format(message, method));
 				}
 			}
 		});
