@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.core;
 
 import android.content.Context;
+import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
@@ -66,6 +67,15 @@ public class TestSpyglass {
 				.forView(mock(View.class))
 				.withContext(mock(Context.class))
 				.withStyleableResource(null)
+				.build();
+	}
+
+	@Test
+	public void testInstantiationViaBuilder_allMandatoryValuesSupplied() {
+		Spyglass.builder()
+				.forView(mock(View.class))
+				.withContext(InstrumentationRegistry.getContext())
+				.withStyleableResource(new int[0])
 				.build();
 	}
 
