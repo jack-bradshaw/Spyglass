@@ -39,7 +39,7 @@ public class TestSpyglass {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_nullViewSupplied() {
 		Spyglass.builder()
-				.forView(null)
+				.withView(null)
 				.withContext(mock(Context.class))
 				.withStyleableResource(new int[0])
 				.build();
@@ -48,7 +48,7 @@ public class TestSpyglass {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_noContextEverSupplied() {
 		Spyglass.builder()
-				.forView(mock(View.class))
+				.withView(mock(View.class))
 				.withStyleableResource(new int[0])
 				.build();
 	}
@@ -56,7 +56,7 @@ public class TestSpyglass {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_nullContextSupplied() {
 		Spyglass.builder()
-				.forView(mock(View.class))
+				.withView(mock(View.class))
 				.withContext(null)
 				.withStyleableResource(new int[0])
 				.build();
@@ -65,7 +65,7 @@ public class TestSpyglass {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_noStyleableResourceEverSupplied() {
 		Spyglass.builder()
-				.forView(mock(View.class))
+				.withView(mock(View.class))
 				.withContext(mock(Context.class))
 				.build();
 	}
@@ -73,7 +73,7 @@ public class TestSpyglass {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiationViaBuilder_nullStyleableResourceSupplied() {
 		Spyglass.builder()
-				.forView(mock(View.class))
+				.withView(mock(View.class))
 				.withContext(mock(Context.class))
 				.withStyleableResource(null)
 				.build();
@@ -82,7 +82,7 @@ public class TestSpyglass {
 	@Test
 	public void testInstantiationViaBuilder_allMandatoryValuesSupplied() {
 		Spyglass.builder()
-				.forView(mock(View.class))
+				.withView(mock(View.class))
 				.withContext(getContext())
 				.withStyleableResource(new int[0])
 				.build();
@@ -91,7 +91,7 @@ public class TestSpyglass {
 	@Test(expected = IllegalThreadException.class)
 	public void testBindDataToFields_calledOnNonUiThread() {
 		final Spyglass spyglass = Spyglass.builder()
-				.forView(mock(View.class))
+				.withView(mock(View.class))
 				.withContext(getContext())
 				.withStyleableResource(new int[0])
 				.build();
@@ -157,7 +157,7 @@ public class TestSpyglass {
 	@Test(expected = IllegalThreadException.class)
 	public void testPassDataToMethods_calledOnNonUiThread() {
 		final Spyglass spyglass = Spyglass.builder()
-				.forView(mock(View.class))
+				.withView(mock(View.class))
 				.withContext(getContext())
 				.withStyleableResource(new int[0])
 				.build();
