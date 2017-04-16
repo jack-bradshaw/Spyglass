@@ -20,6 +20,7 @@ import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
+import static android.support.test.InstrumentationRegistry.getContext;
 import static org.mockito.Mockito.mock;
 
 @RunWith(AndroidJUnit4.class)
@@ -79,7 +80,7 @@ public class TestSpyglass {
 	public void testInstantiationViaBuilder_allMandatoryValuesSupplied() {
 		Spyglass.builder()
 				.forView(mock(View.class))
-				.withContext(InstrumentationRegistry.getContext())
+				.withContext(getContext())
 				.withStyleableResource(new int[0])
 				.build();
 	}
@@ -88,7 +89,7 @@ public class TestSpyglass {
 	public void testBindDataToFields_calledOnNonUiThread() {
 		final Spyglass spyglass = Spyglass.builder()
 				.forView(mock(View.class))
-				.withContext(InstrumentationRegistry.getContext())
+				.withContext(getContext())
 				.withStyleableResource(new int[0])
 				.build();
 
@@ -154,7 +155,7 @@ public class TestSpyglass {
 	public void testPassDataToMethods_calledOnNonUiThread() {
 		final Spyglass spyglass = Spyglass.builder()
 				.forView(mock(View.class))
-				.withContext(InstrumentationRegistry.getContext())
+				.withContext(getContext())
 				.withStyleableResource(new int[0])
 				.build();
 
@@ -215,4 +216,5 @@ public class TestSpyglass {
 	public void testPassDataToMethods_dataTypeMismatch() {
 
 	}
+
 }
