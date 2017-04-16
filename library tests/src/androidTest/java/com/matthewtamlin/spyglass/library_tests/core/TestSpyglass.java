@@ -3,6 +3,8 @@ package com.matthewtamlin.spyglass.library_tests.core;
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.AttributeSet;
+import android.util.Xml;
 import android.view.View;
 
 import com.matthewtamlin.spyglass.library.core.IllegalThreadException;
@@ -14,6 +16,7 @@ import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.xmlpull.v1.XmlPullParser;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
@@ -217,4 +220,19 @@ public class TestSpyglass {
 
 	}
 
+	private AttributeSet getAttrSetFromXml(final int xmlResId) {
+		final Context context = InstrumentationRegistry.getTargetContext();
+
+		final XmlPullParser parser = context.getResources().getXml(xmlResId);
+
+		try {
+			for (int type = 0;
+				 (type != XmlPullParser.END_DOCUMENT) && (type != XmlPullParser.START_TAG);
+				 type = parser.next()) {}
+		} catch (final Exception e) {
+			throw new RuntimeException("Test aborted. Could not parse XML.", e);
+		}
+
+		return Xml.asAttributeSet(parser);
+	}
 }
