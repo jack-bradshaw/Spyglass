@@ -28,66 +28,6 @@ import static org.mockito.Mockito.mock;
 
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglass {
-	@Test(expected = InvalidBuilderStateException.class)
-	public void testInstantiationViaBuilder_noViewEverSupplied() {
-		Spyglass.builder()
-				.withContext(mock(Context.class))
-				.withStyleableResource(new int[0])
-				.build();
-	}
-
-	@Test(expected = InvalidBuilderStateException.class)
-	public void testInstantiationViaBuilder_nullViewSupplied() {
-		Spyglass.builder()
-				.withView(null)
-				.withContext(mock(Context.class))
-				.withStyleableResource(new int[0])
-				.build();
-	}
-
-	@Test(expected = InvalidBuilderStateException.class)
-	public void testInstantiationViaBuilder_noContextEverSupplied() {
-		Spyglass.builder()
-				.withView(mock(View.class))
-				.withStyleableResource(new int[0])
-				.build();
-	}
-
-	@Test(expected = InvalidBuilderStateException.class)
-	public void testInstantiationViaBuilder_nullContextSupplied() {
-		Spyglass.builder()
-				.withView(mock(View.class))
-				.withContext(null)
-				.withStyleableResource(new int[0])
-				.build();
-	}
-
-	@Test(expected = InvalidBuilderStateException.class)
-	public void testInstantiationViaBuilder_noStyleableResourceEverSupplied() {
-		Spyglass.builder()
-				.withView(mock(View.class))
-				.withContext(mock(Context.class))
-				.build();
-	}
-
-	@Test(expected = InvalidBuilderStateException.class)
-	public void testInstantiationViaBuilder_nullStyleableResourceSupplied() {
-		Spyglass.builder()
-				.withView(mock(View.class))
-				.withContext(mock(Context.class))
-				.withStyleableResource(null)
-				.build();
-	}
-
-	@Test
-	public void testInstantiationViaBuilder_allMandatoryValuesSupplied() {
-		Spyglass.builder()
-				.withView(mock(View.class))
-				.withContext(getContext())
-				.withStyleableResource(new int[0])
-				.build();
-	}
-
 	@Test(expected = IllegalThreadException.class)
 	public void testBindDataToFields_calledOnNonUiThread() {
 		final Spyglass spyglass = Spyglass.builder()
