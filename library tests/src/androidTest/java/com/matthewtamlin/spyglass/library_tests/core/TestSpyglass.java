@@ -60,7 +60,7 @@ public class TestSpyglass {
 	}
 
 	@Test
-	public void testBindDataToFields_noHandlerAnnotations() {
+	public void testBindDataToFields_noAnnotations() {
 
 	}
 
