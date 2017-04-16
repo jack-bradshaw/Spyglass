@@ -44,7 +44,7 @@ public class Spyglass {
 
 		this.context = builder.context;
 
-		this.attrSource = view.getContext().obtainStyledAttributes(
+		this.attrSource = context.obtainStyledAttributes(
 				builder.attributeSet,
 				builder.styleableRes,
 				builder.defStyleAttr,
@@ -221,7 +221,7 @@ public class Spyglass {
 
 		private Builder() {}
 
-		public Builder forView(final View view) {
+		public Builder withView(final View view) {
 			this.view = view;
 			return this;
 		}
