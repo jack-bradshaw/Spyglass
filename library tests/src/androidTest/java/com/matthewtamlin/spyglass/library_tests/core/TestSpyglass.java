@@ -187,7 +187,17 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_noHandlerAnnotations() {
+		// Create a view in xml with the desired attributes
 
+		// Inflate the attributes into an attribute set
+
+		// Define a test class in java
+
+		// Instantiate a mock of the test class
+
+		// Apply the spyglass to the mock
+
+		// Verify method calls
 	}
 
 	@Test
