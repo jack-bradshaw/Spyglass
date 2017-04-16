@@ -126,7 +126,7 @@ public class TestSpyglass {
 	}
 
 	@Test
-	public void testPassDataToMethods_noHandlerAnnotations() {
+	public void testPassDataToMethods_noAnnotations() {
 		// Create a view in xml with the desired attributes
 
 		// Inflate the attributes into an attribute set
