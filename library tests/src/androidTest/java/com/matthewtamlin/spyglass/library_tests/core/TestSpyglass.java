@@ -186,6 +186,21 @@ public class TestSpyglass {
 		spyglass.bindDataToFields();
 	}
 
+	@Test(expected = SpyglassFieldBindException.class)
+	public void testBindDataToFields_defaultTypeMismatch() {
+		final SpyglassTestViewsFieldVariants.DefaultTypeMismatch view =
+				mock(SpyglassTestViewsFieldVariants.DefaultTypeMismatch.class);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(getContext())
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.build();
+
+		spyglass.bindDataToFields();
+	}
+
 	@Test(expected = IllegalThreadException.class)
 	public void testPassDataToMethods_calledOnNonUiThread() {
 		final Spyglass spyglass = Spyglass.builder()
