@@ -143,7 +143,7 @@ public class Spyglass {
 			callMethod(method, args.values().toArray());
 
 		} else if (handlerAdapter.isMandatory(handlerAnnotation)) {
-			final String message = "Missing mandatory attribute in view \"%1$".";
+			final String message = "Missing mandatory attribute in view \"%1$\".";
 			throw new MandatoryAttributeMissingException(String.format(message, view));
 		}
 	}
