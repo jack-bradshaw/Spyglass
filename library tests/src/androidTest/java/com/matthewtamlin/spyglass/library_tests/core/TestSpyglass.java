@@ -421,13 +421,13 @@ public class TestSpyglass {
 	}
 
 	private void bindDataToFieldsSynchronously(final Spyglass spyglass) {
-		final ThrowableHandlingRunnable<SpyglassFieldBindException> runnable =
-				new ThrowableHandlingRunnable<SpyglassFieldBindException>() {
+		final ThrowableHandlingRunnable<RuntimeException> runnable =
+				new ThrowableHandlingRunnable<RuntimeException>() {
 					@Override
 					public void run() {
 						try {
 							spyglass.bindDataToFields();
-						} catch (final SpyglassFieldBindException e) {
+						} catch (final RuntimeException e) {
 							setThrowable(e);
 						}
 					}
@@ -442,13 +442,13 @@ public class TestSpyglass {
 	}
 
 	private void passDataToMethodsSynchronously(final Spyglass spyglass) {
-		final ThrowableHandlingRunnable<SpyglassFieldBindException> runnable =
-				new ThrowableHandlingRunnable<SpyglassFieldBindException>() {
+		final ThrowableHandlingRunnable<RuntimeException> runnable =
+				new ThrowableHandlingRunnable<RuntimeException>() {
 					@Override
 					public void run() {
 						try {
 							spyglass.passDataToMethods();
-						} catch (final SpyglassFieldBindException e) {
+						} catch (final RuntimeException e) {
 							setThrowable(e);
 						}
 					}
