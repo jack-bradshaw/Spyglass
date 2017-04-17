@@ -20,4 +20,6 @@
 			<flag name="flag_2" value="4"/>
 		</attr>
 	</declare-styleable>
+
+	<attr name="SpyglassTestDefStyleAttr" format="reference"/>
 </resources>
