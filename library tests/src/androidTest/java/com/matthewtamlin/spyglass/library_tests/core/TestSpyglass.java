@@ -28,7 +28,7 @@ import java.util.concurrent.Future;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static android.support.test.InstrumentationRegistry.getTargetContext;
-import static com.matthewtamlin.spyglass.library_tests.R.string.spyglass_test_string;
+import static com.matthewtamlin.spyglass.library_tests.R.string.test_string;
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
@@ -128,7 +128,7 @@ public class TestSpyglass {
 		});
 		getInstrumentation().waitForIdleSync();
 
-		assertThat(view.spyglassField, is(getTargetContext().getString(spyglass_test_string)));
+		assertThat(view.spyglassField, is(getTargetContext().getString(test_string)));
 	}
 
 	@Test
@@ -347,7 +347,7 @@ public class TestSpyglass {
 		});
 		getInstrumentation().waitForIdleSync();
 
-		final String expectedString = getTargetContext().getString(spyglass_test_string);
+		final String expectedString = getTargetContext().getString(test_string);
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
 
 		verify(view, times(1)).spyglassMethod(eq(expectedString), eq(expectedByte));
