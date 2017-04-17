@@ -96,13 +96,8 @@ public class Spyglass {
 				bindDataToField(field, defaultValue);
 
 			} else {
-				final String message = "Missing mandatory attribute %1$s in view %2$s.";
-
-				final int resId = handlerAdapter.getAttributeId(handlerAnnotation);
-				final String resIdName = context.getResources().getResourceEntryName(resId);
-
-				throw new MandatoryAttributeMissingException(
-						String.format(message, resIdName, view));
+				final String message = "Missing mandatory attribute in view %1$s.";
+				throw new MandatoryAttributeMissingException(String.format(message, view));
 			}
 		}
 	}
