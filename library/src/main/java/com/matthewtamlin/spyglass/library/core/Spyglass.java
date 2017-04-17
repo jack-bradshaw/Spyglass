@@ -95,7 +95,7 @@ public class Spyglass {
 
 				bindDataToField(field, defaultValue);
 
-			} else {
+			} else if (handlerAdapter.isMandatory(handlerAnnotation)) {
 				final String message = "Missing mandatory attribute in view \"%1$s\".";
 				throw new MandatoryAttributeMissingException(String.format(message, view));
 			}
