@@ -32,7 +32,9 @@ public class SpyglassTestViewsMethodVariants {
 	}
 
 	public static class NoAnnotations extends BaseClass {
-		public void spyglassMethod(final String arg1, byte arg2) {}
+		public void spyglassMethod(final String arg1, byte arg2) {
+			setArgsFromLastSpyglassMethodInvocation(new Object[] {arg1, arg2});
+		}
 
 		public NoAnnotations(final Context context) {
 			super(context);
