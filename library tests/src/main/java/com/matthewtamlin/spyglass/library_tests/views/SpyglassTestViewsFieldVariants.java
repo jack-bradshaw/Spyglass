@@ -14,7 +14,7 @@ public class SpyglassTestViewsFieldVariants {
 	public static final String DEFAULT_STRING = "default string";
 
 	public static class NoAnnotations extends SpyglassTestView {
-		public String spyglassField;
+		public String spyglassField = INITIAL_STRING;
 
 		public NoAnnotations(final Context context) {
 			super(context);
