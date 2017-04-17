@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.library_tests.views;
 
 import android.content.Context;
 
+import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 
@@ -63,6 +64,16 @@ public class SpyglassTestViewsFieldVariants {
 		public boolean spyglassField;
 
 		public HandlerTypeMismatch(final Context context) {
+			super(context);
+		}
+	}
+
+	public static class DefaultTypeMismatch extends SpyglassTestView {
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
+		@DefaultToBoolean(false)
+		public String spyglassField;
+
+		public DefaultTypeMismatch(final Context context) {
 			super(context);
 		}
 	}
