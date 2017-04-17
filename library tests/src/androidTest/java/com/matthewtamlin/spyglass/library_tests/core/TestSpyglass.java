@@ -35,14 +35,9 @@ import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
 import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants.INITIAL_STRING;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Matchers.anyByte;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglass {
@@ -266,7 +261,7 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		verify(view, never()).spyglassMethod(anyString(), anyByte());
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(nullValue()));
 	}
 
 	@Test
@@ -285,8 +280,9 @@ public class TestSpyglass {
 
 		final String expectedString = testString;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
 
-		verify(view, times(1)).spyglassMethod(eq(expectedString), eq(expectedByte));
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
 	}
 
 	@Test
@@ -303,7 +299,7 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		verify(view, never()).spyglassMethod(anyString(), anyByte());
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(nullValue()));
 	}
 
 	@Test(expected = MandatoryAttributeMissingException.class)
@@ -337,8 +333,9 @@ public class TestSpyglass {
 
 		final String expectedString = SpyglassTestViewsMethodVariants.DEFAULT_STRING;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
 
-		verify(view, times(1)).spyglassMethod(eq(expectedString), eq(expectedByte));
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
 	}
 
 	@Test
@@ -357,8 +354,9 @@ public class TestSpyglass {
 
 		final String expectedString = SpyglassTestViewsMethodVariants.DEFAULT_STRING;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
 
-		verify(view, times(1)).spyglassMethod(eq(expectedString), eq(expectedByte));
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)
