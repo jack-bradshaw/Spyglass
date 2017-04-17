@@ -35,14 +35,9 @@ import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
 import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants.INITIAL_STRING;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
-import static org.mockito.Matchers.anyByte;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Matchers.eq;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.never;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglass {
@@ -255,7 +250,7 @@ public class TestSpyglass {
 	@Test
 	public void testPassDataToMethods_noAnnotations() {
 		final SpyglassTestViewsMethodVariants.NoAnnotations view =
-				mock(SpyglassTestViewsMethodVariants.NoAnnotations.class);
+				new SpyglassTestViewsMethodVariants.NoAnnotations(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -266,13 +261,13 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		verify(view, never()).spyglassMethod(anyString(), anyByte());
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(nullValue()));
 	}
 
 	@Test
 	public void testPassDataToMethods_attrSupplied() {
 		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
-				mock(SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault.class);
+				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -285,14 +280,15 @@ public class TestSpyglass {
 
 		final String expectedString = testString;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
 
-		verify(view, times(1)).spyglassMethod(eq(expectedString), eq(expectedByte));
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
 	}
 
 	@Test
 	public void testPassDataToMethods_attrMissing_noDefault_notMandatory() {
 		final SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault view =
-				mock(SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault.class);
+				new SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -303,13 +299,13 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		verify(view, never()).spyglassMethod(anyString(), anyByte());
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(nullValue()));
 	}
 
 	@Test(expected = MandatoryAttributeMissingException.class)
 	public void testPassDataToMethods_attrMissing_noDefault_isMandatory() {
 		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
-				mock(SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault.class);
+				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -323,8 +319,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_attrMissing_hasDefault_notMandatory() {
-		final SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault view = mock
-				(SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault.class);
+		final SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault view =
+				new SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -337,14 +333,15 @@ public class TestSpyglass {
 
 		final String expectedString = SpyglassTestViewsMethodVariants.DEFAULT_STRING;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
 
-		verify(view, times(1)).spyglassMethod(eq(expectedString), eq(expectedByte));
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
 	}
 
 	@Test
 	public void testPassDataToMethods_attrMissing_hasDefault_isMandatory() {
-		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault view = mock
-				(SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault.class);
+		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault view =
+				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -357,14 +354,15 @@ public class TestSpyglass {
 
 		final String expectedString = SpyglassTestViewsMethodVariants.DEFAULT_STRING;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
 
-		verify(view, times(1)).spyglassMethod(eq(expectedString), eq(expectedByte));
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_handlerTypeMismatch() {
 		final SpyglassTestViewsMethodVariants.HandlerTypeMismatch view =
-				mock(SpyglassTestViewsMethodVariants.HandlerTypeMismatch.class);
+				new SpyglassTestViewsMethodVariants.HandlerTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -379,7 +377,7 @@ public class TestSpyglass {
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_defaultTypeMismatch() {
 		final SpyglassTestViewsMethodVariants.DefaultTypeMismatch view =
-				mock(SpyglassTestViewsMethodVariants.DefaultTypeMismatch.class);
+				new SpyglassTestViewsMethodVariants.DefaultTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -394,7 +392,7 @@ public class TestSpyglass {
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_useTypeMismatch() {
 		final SpyglassTestViewsMethodVariants.UseTypeMismatch view =
-				mock(SpyglassTestViewsMethodVariants.UseTypeMismatch.class);
+				new SpyglassTestViewsMethodVariants.UseTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
