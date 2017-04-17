@@ -9,6 +9,8 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandle
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView_string_attr;
 
 public class SpyglassTestViewsFieldVariants {
+	public static final String INITIAL_STRING = "initial string";
+
 	public static final String DEFAULT_STRING = "default string";
 
 	public static class NoAnnotations extends SpyglassTestView {
@@ -21,7 +23,7 @@ public class SpyglassTestViewsFieldVariants {
 
 	public static class OptionalStringHandlerNoDefault extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
-		public String spyglassField;
+		public String spyglassField = INITIAL_STRING;
 
 		public OptionalStringHandlerNoDefault(final Context context) {
 			super(context);
@@ -31,7 +33,7 @@ public class SpyglassTestViewsFieldVariants {
 	public static class OptionalStringHandlerWithDefault extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
 		@DefaultToString(DEFAULT_STRING)
-		public String spyglassField;
+		public String spyglassField = INITIAL_STRING;
 
 		public OptionalStringHandlerWithDefault(final Context context) {
 			super(context);
@@ -40,7 +42,7 @@ public class SpyglassTestViewsFieldVariants {
 
 	public static class MandatoryStringHandlerNoDefault extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
-		public String spyglassField;
+		public String spyglassField = INITIAL_STRING;
 
 		public MandatoryStringHandlerNoDefault(final Context context) {
 			super(context);
@@ -50,7 +52,7 @@ public class SpyglassTestViewsFieldVariants {
 	public static class MandatoryStringHandlerWithDefault extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
 		@DefaultToString(DEFAULT_STRING)
-		public String spyglassField;
+		public String spyglassField = INITIAL_STRING;
 
 		public MandatoryStringHandlerWithDefault(final Context context) {
 			super(context);
@@ -59,7 +61,7 @@ public class SpyglassTestViewsFieldVariants {
 
 	public static class HandlerTypeMismatch extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
-		public boolean spyglassField;
+		public boolean spyglassField = false;
 
 		public HandlerTypeMismatch(final Context context) {
 			super(context);
@@ -69,7 +71,7 @@ public class SpyglassTestViewsFieldVariants {
 	public static class DefaultTypeMismatch extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToBoolean(false)
-		public String spyglassField;
+		public String spyglassField = INITIAL_STRING;
 
 		public DefaultTypeMismatch(final Context context) {
 			super(context);
