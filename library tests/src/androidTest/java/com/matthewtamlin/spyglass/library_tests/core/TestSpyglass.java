@@ -94,7 +94,7 @@ public class TestSpyglass {
 	@Test
 	public void testBindDataToFields_noAnnotations() {
 		final SpyglassTestViewsFieldVariants.NoAnnotations view =
-				mock(SpyglassTestViewsFieldVariants.NoAnnotations.class);
+				new SpyglassTestViewsFieldVariants.NoAnnotations(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -111,7 +111,7 @@ public class TestSpyglass {
 	@Test
 	public void testBindDataToFields_attrSupplied() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
-				mock(SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault.class);
+				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -128,7 +128,7 @@ public class TestSpyglass {
 	@Test
 	public void testBindDataToFields_attrMissing_noDefault_notMandatory() {
 		final SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault view =
-				mock(SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault.class);
+				new SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -145,7 +145,7 @@ public class TestSpyglass {
 	@Test(expected = MandatoryAttributeMissingException.class)
 	public void testBindDataToFields_attrMissing_noDefault_isMandatory() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
-				mock(SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault.class);
+				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -160,7 +160,7 @@ public class TestSpyglass {
 	@Test
 	public void testBindDataToFields_attrMissing_hasDefault_notMandatory() {
 		final SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault view =
-				mock(SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault.class);
+				new SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -177,7 +177,7 @@ public class TestSpyglass {
 	@Test
 	public void testBindDataToFields_attrMissing_hasDefault_isMandatory() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerWithDefault view =
-				mock(SpyglassTestViewsFieldVariants.MandatoryStringHandlerWithDefault.class);
+				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerWithDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -194,7 +194,7 @@ public class TestSpyglass {
 	@Test(expected = SpyglassFieldBindException.class)
 	public void testBindDataToFields_handlerTypeMismatch() {
 		final SpyglassTestViewsFieldVariants.HandlerTypeMismatch view =
-				mock(SpyglassTestViewsFieldVariants.HandlerTypeMismatch.class);
+				new SpyglassTestViewsFieldVariants.HandlerTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -209,7 +209,7 @@ public class TestSpyglass {
 	@Test(expected = SpyglassFieldBindException.class)
 	public void testBindDataToFields_defaultTypeMismatch() {
 		final SpyglassTestViewsFieldVariants.DefaultTypeMismatch view =
-				mock(SpyglassTestViewsFieldVariants.DefaultTypeMismatch.class);
+				new SpyglassTestViewsFieldVariants.DefaultTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
