@@ -95,7 +95,7 @@ public class Spyglass {
 
 				bindDataToField(field, defaultValue);
 
-			} else {
+			} else if (handlerAdapter.isMandatory(handlerAnnotation)) {
 				final String message = "Missing mandatory attribute in view \"%1$s\".";
 				throw new MandatoryAttributeMissingException(String.format(message, view));
 			}
@@ -106,9 +106,9 @@ public class Spyglass {
 		method.setAccessible(true);
 
 		if (getValueHandlerAnnotation(method) != null) {
-			processMethodWithCallHandler(method);
-		} else if (getCallHandlerAnnotation(method) != null) {
 			processMethodWithValueHandler(method);
+		} else if (getCallHandlerAnnotation(method) != null) {
+			processMethodWithCallHandler(method);
 		}
 	}
 
@@ -193,6 +193,7 @@ public class Spyglass {
 		for (int i = 0; i < args.size() + 1; i++) {
 			if (!args.containsKey(i)) {
 				args.put(i, value);
+				break;
 			}
 		}
 	}
