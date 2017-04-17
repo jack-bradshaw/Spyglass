@@ -422,21 +422,44 @@ public class TestSpyglass {
 
 	private void bindDataToFieldsSynchronously(final Spyglass spyglass) {
 		activityRule.getActivity().runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				spyglass.bindDataToFields();
-			}
-		});
+		final ThrowableHandlingRunnable<SpyglassFieldBindException> runnable =
+				new ThrowableHandlingRunnable<SpyglassFieldBindException>() {
+					@Override
+					public void run() {
+						try {
+							spyglass.bindDataToFields();
+						} catch (final SpyglassFieldBindException e) {
+							setThrowable(e);
+						}
+					}
+				};
+
+		activityRule.getActivity().runOnUiThread(runnable);
 		getInstrumentation().waitForIdleSync();
+
+		if (runnable.getThrowable() != null) {
+			throw runnable.getThrowable();
+		}
 	}
 
 	private void passDataToMethodsSynchronously(final Spyglass spyglass) {
-		activityRule.getActivity().runOnUiThread(new Runnable() {
-			@Override
-			public void run() {
-				spyglass.passDataToMethods();
-			}
-		});
+		final ThrowableHandlingRunnable<SpyglassFieldBindException> runnable =
+				new ThrowableHandlingRunnable<SpyglassFieldBindException>() {
+					@Override
+					public void run() {
+						try {
+							spyglass.passDataToMethods();
+						} catch (final SpyglassFieldBindException e) {
+							setThrowable(e);
+						}
+					}
+				};
+
+		activityRule.getActivity().runOnUiThread(runnable);
 		getInstrumentation().waitForIdleSync();
+
+		if (runnable.getThrowable() != null) {
+			throw runnable.getThrowable();
+		}
 	}
 }
