@@ -28,6 +28,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import static android.support.test.InstrumentationRegistry.getContext;
+import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static com.matthewtamlin.spyglass.library_tests.R.string.spyglass_test_string;
 import static com.matthewtamlin.spyglass.library_tests.R.string.test_string;
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
@@ -45,6 +46,8 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglass {
+	private static final String INITIAL_FIELD_VALUE = "initial string";
+
 	@Rule
 	public ActivityTestRule<EmptyActivity> activityRule =
 			new ActivityTestRule<>(EmptyActivity.class);
@@ -85,6 +88,8 @@ public class TestSpyglass {
 		final SpyglassTestViewsFieldVariants.NoAnnotations view =
 				mock(SpyglassTestViewsFieldVariants.NoAnnotations.class);
 
+		view.spyglassField = INITIAL_FIELD_VALUE;
+
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(getContext())
@@ -94,13 +99,15 @@ public class TestSpyglass {
 
 		spyglass.bindDataToFields();
 
-		assertThat(view.spyglassField, is(SpyglassTestViewsFieldVariants.INITIAL_STRING));
+		assertThat(view.spyglassField, is(INITIAL_FIELD_VALUE));
 	}
 
 	@Test
 	public void testBindDataToFields_attrSupplied() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
 				mock(SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault.class);
+
+		view.spyglassField = INITIAL_FIELD_VALUE;
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -119,6 +126,8 @@ public class TestSpyglass {
 		final SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault view =
 				mock(SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault.class);
 
+		view.spyglassField = INITIAL_FIELD_VALUE;
+
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(getContext())
@@ -128,13 +137,15 @@ public class TestSpyglass {
 
 		spyglass.bindDataToFields();
 
-		assertThat(view.spyglassField, is(SpyglassTestViewsFieldVariants.INITIAL_STRING));
+		assertThat(view.spyglassField, is(INITIAL_FIELD_VALUE));
 	}
 
 	@Test(expected = MandatoryAttributeMissingException.class)
 	public void testBindDataToFields_attrMissing_noDefault_isMandatory() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
 				mock(SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault.class);
+
+		view.spyglassField = INITIAL_FIELD_VALUE;
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -150,6 +161,8 @@ public class TestSpyglass {
 	public void testBindDataToFields_attrMissing_hasDefault_notMandatory() {
 		final SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault view =
 				mock(SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault.class);
+
+		view.spyglassField = INITIAL_FIELD_VALUE;
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -168,6 +181,8 @@ public class TestSpyglass {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerWithDefault view =
 				mock(SpyglassTestViewsFieldVariants.MandatoryStringHandlerWithDefault.class);
 
+		view.spyglassField = INITIAL_FIELD_VALUE;
+
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(getContext())
@@ -185,6 +200,8 @@ public class TestSpyglass {
 		final SpyglassTestViewsFieldVariants.HandlerTypeMismatch view =
 				mock(SpyglassTestViewsFieldVariants.HandlerTypeMismatch.class);
 
+		view.spyglassField = INITIAL_FIELD_VALUE;
+
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(getContext())
@@ -199,6 +216,8 @@ public class TestSpyglass {
 	public void testBindDataToFields_defaultTypeMismatch() {
 		final SpyglassTestViewsFieldVariants.DefaultTypeMismatch view =
 				mock(SpyglassTestViewsFieldVariants.DefaultTypeMismatch.class);
+
+		view.spyglassField = INITIAL_FIELD_VALUE;
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
