@@ -45,8 +45,6 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglass {
-	private static final String INITIAL_FIELD_VALUE = "initial string";
-
 	@Rule
 	public ActivityTestRule<EmptyActivity> activityRule =
 			new ActivityTestRule<>(EmptyActivity.class);
@@ -94,8 +92,6 @@ public class TestSpyglass {
 		final SpyglassTestViewsFieldVariants.NoAnnotations view =
 				mock(SpyglassTestViewsFieldVariants.NoAnnotations.class);
 
-		view.spyglassField = INITIAL_FIELD_VALUE;
-
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(context)
@@ -118,8 +114,6 @@ public class TestSpyglass {
 	public void testBindDataToFields_attrSupplied() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
 				mock(SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault.class);
-
-		view.spyglassField = INITIAL_FIELD_VALUE;
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -144,8 +138,6 @@ public class TestSpyglass {
 		final SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault view =
 				mock(SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault.class);
 
-		view.spyglassField = INITIAL_FIELD_VALUE;
-
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(context)
@@ -169,8 +161,6 @@ public class TestSpyglass {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
 				mock(SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault.class);
 
-		view.spyglassField = INITIAL_FIELD_VALUE;
-
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(context)
@@ -191,8 +181,6 @@ public class TestSpyglass {
 	public void testBindDataToFields_attrMissing_hasDefault_notMandatory() {
 		final SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault view =
 				mock(SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault.class);
-
-		view.spyglassField = INITIAL_FIELD_VALUE;
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -216,8 +204,6 @@ public class TestSpyglass {
 	public void testBindDataToFields_attrMissing_hasDefault_isMandatory() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerWithDefault view =
 				mock(SpyglassTestViewsFieldVariants.MandatoryStringHandlerWithDefault.class);
-
-		view.spyglassField = INITIAL_FIELD_VALUE;
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -262,8 +248,6 @@ public class TestSpyglass {
 	public void testBindDataToFields_defaultTypeMismatch() {
 		final SpyglassTestViewsFieldVariants.DefaultTypeMismatch view =
 				mock(SpyglassTestViewsFieldVariants.DefaultTypeMismatch.class);
-
-		view.spyglassField = INITIAL_FIELD_VALUE;
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
