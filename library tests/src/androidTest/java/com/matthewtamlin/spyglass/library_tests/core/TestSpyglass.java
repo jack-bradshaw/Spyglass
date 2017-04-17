@@ -421,7 +421,6 @@ public class TestSpyglass {
 	}
 
 	private void bindDataToFieldsSynchronously(final Spyglass spyglass) {
-		activityRule.getActivity().runOnUiThread(new Runnable() {
 		final ThrowableHandlingRunnable<SpyglassFieldBindException> runnable =
 				new ThrowableHandlingRunnable<SpyglassFieldBindException>() {
 					@Override
