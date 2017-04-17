@@ -200,8 +200,6 @@ public class TestSpyglass {
 		final SpyglassTestViewsFieldVariants.HandlerTypeMismatch view =
 				mock(SpyglassTestViewsFieldVariants.HandlerTypeMismatch.class);
 
-		view.spyglassField = INITIAL_FIELD_VALUE;
-
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(getContext())
