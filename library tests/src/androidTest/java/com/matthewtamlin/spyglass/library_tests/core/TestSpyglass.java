@@ -52,9 +52,12 @@ public class TestSpyglass {
 
 	private Context context;
 
+	private String testString;
+
 	@Before
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
+		testString = context.getString(test_string);
 	}
 
 	@Test(expected = IllegalThreadException.class)
@@ -131,7 +134,7 @@ public class TestSpyglass {
 		});
 		getInstrumentation().waitForIdleSync();
 
-		assertThat(view.spyglassField, is(context.getString(test_string)));
+		assertThat(view.spyglassField, is(testString));
 	}
 
 	@Test
@@ -340,7 +343,7 @@ public class TestSpyglass {
 		});
 		getInstrumentation().waitForIdleSync();
 
-		final String expectedString = context.getString(test_string);
+		final String expectedString = testString;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
 
 		verify(view, times(1)).spyglassMethod(eq(expectedString), eq(expectedByte));
