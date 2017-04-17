@@ -356,6 +356,36 @@ public class TestSpyglass {
 		spyglass.passDataToMethods();
 	}
 
+	@Test(expected = SpyglassMethodCallException.class)
+	public void testPassDataToMethods_defaultTypeMismatch() {
+		final SpyglassTestViewsMethodVariants.DefaultTypeMismatch view =
+				mock(SpyglassTestViewsMethodVariants.DefaultTypeMismatch.class);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(getContext())
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.build();
+
+		spyglass.passDataToMethods();
+	}
+
+	@Test(expected = SpyglassMethodCallException.class)
+	public void testPassDataToMethods_useTypeMismatch() {
+		final SpyglassTestViewsMethodVariants.UseTypeMismatch view =
+				mock(SpyglassTestViewsMethodVariants.UseTypeMismatch.class);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(getContext())
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.build();
+
+		spyglass.passDataToMethods();
+	}
+
 	private AttributeSet getAttrSetFromXml(final int xmlResId) {
 		final Context context = InstrumentationRegistry.getTargetContext();
 
