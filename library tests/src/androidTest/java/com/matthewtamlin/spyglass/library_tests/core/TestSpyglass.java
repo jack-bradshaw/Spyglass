@@ -343,7 +343,17 @@ public class TestSpyglass {
 
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_dataTypeMismatch() {
+		final SpyglassTestViewsMethodVariants.HandlerTypeMismatch view =
+				mock(SpyglassTestViewsMethodVariants.HandlerTypeMismatch.class);
 
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(getContext())
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.build();
+
+		spyglass.passDataToMethods();
 	}
 
 	private AttributeSet getAttrSetFromXml(final int xmlResId) {
