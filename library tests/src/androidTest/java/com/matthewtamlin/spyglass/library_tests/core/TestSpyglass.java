@@ -97,7 +97,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.bindDataToFields();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.bindDataToFields();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		assertThat(view.spyglassField, is(INITIAL_FIELD_VALUE));
 	}
@@ -116,7 +122,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
 				.build();
 
-		spyglass.bindDataToFields();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.bindDataToFields();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		assertThat(view.spyglassField, is(getContext().getString(spyglass_test_string)));
 	}
@@ -135,7 +147,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.bindDataToFields();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.bindDataToFields();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		assertThat(view.spyglassField, is(INITIAL_FIELD_VALUE));
 	}
@@ -154,7 +172,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.bindDataToFields();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.bindDataToFields();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 	}
 
 	@Test
@@ -171,7 +195,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.bindDataToFields();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.bindDataToFields();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		assertThat(view.spyglassField, is(SpyglassTestViewsFieldVariants.DEFAULT_STRING));
 	}
@@ -190,7 +220,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.bindDataToFields();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.bindDataToFields();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		assertThat(view.spyglassField, is(SpyglassTestViewsFieldVariants.DEFAULT_STRING));
 	}
@@ -207,7 +243,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
 				.build();
 
-		spyglass.bindDataToFields();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.bindDataToFields();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 	}
 
 	@Test(expected = SpyglassFieldBindException.class)
@@ -224,7 +266,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.bindDataToFields();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.bindDataToFields();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 	}
 
 	@Test(expected = IllegalThreadException.class)
@@ -270,7 +318,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
 				.build();
 
-		spyglass.passDataToMethods();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.passDataToMethods();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		verify(view, never()).spyglassMethod(anyString(), anyByte());
 	}
@@ -287,7 +341,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
 				.build();
 
-		spyglass.passDataToMethods();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.passDataToMethods();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		final String expectedString = getContext().getString(test_string);
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
@@ -307,7 +367,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.passDataToMethods();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.passDataToMethods();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		verify(view, never()).spyglassMethod(anyString(), anyByte());
 	}
@@ -324,7 +390,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.passDataToMethods();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.passDataToMethods();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 	}
 
 	@Test
@@ -339,7 +411,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.passDataToMethods();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.passDataToMethods();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		final String expectedString = SpyglassTestViewsMethodVariants.DEFAULT_STRING;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
@@ -359,7 +437,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.passDataToMethods();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.passDataToMethods();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 
 		final String expectedString = SpyglassTestViewsMethodVariants.DEFAULT_STRING;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
@@ -379,7 +463,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
 				.build();
 
-		spyglass.passDataToMethods();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.passDataToMethods();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)
@@ -394,7 +484,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.build();
 
-		spyglass.passDataToMethods();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.passDataToMethods();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)
@@ -409,7 +505,13 @@ public class TestSpyglass {
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
 				.build();
 
-		spyglass.passDataToMethods();
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				spyglass.passDataToMethods();
+			}
+		});
+		getInstrumentation().waitForIdleSync();
 	}
 
 	private AttributeSet getAttrSetFromXml(final int xmlResId) {
