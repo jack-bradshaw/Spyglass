@@ -172,7 +172,7 @@ public class TestSpyglass {
 	}
 
 	@Test(expected = SpyglassFieldBindException.class)
-	public void testBindDataToFields_dataTypeMismatch() {
+	public void testBindDataToFields_handlerTypeMismatch() {
 		final SpyglassTestViewsFieldVariants.HandlerTypeMismatch view =
 				mock(SpyglassTestViewsFieldVariants.HandlerTypeMismatch.class);
 
