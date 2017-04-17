@@ -33,6 +33,7 @@ import static com.matthewtamlin.spyglass.library_tests.R.string.test_string;
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
+import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants.INITIAL_STRING;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 import static org.mockito.Matchers.anyByte;
@@ -107,7 +108,7 @@ public class TestSpyglass {
 		});
 		getInstrumentation().waitForIdleSync();
 
-		assertThat(view.spyglassField, is(INITIAL_FIELD_VALUE));
+		assertThat(view.spyglassField, is(INITIAL_STRING));
 	}
 
 	@Test
@@ -153,7 +154,7 @@ public class TestSpyglass {
 		});
 		getInstrumentation().waitForIdleSync();
 
-		assertThat(view.spyglassField, is(INITIAL_FIELD_VALUE));
+		assertThat(view.spyglassField, is(INITIAL_STRING));
 	}
 
 	@Test(expected = MandatoryAttributeMissingException.class)
