@@ -1,7 +1,15 @@
-<resources>
+<resources xmlns:app="http://schemas.android.com/tools">
 	<style name="AppTheme" parent="Theme.AppCompat.Light">
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
+
+	<style name="ThemeWithDefStyleAttr" parent="AppTheme">
+		<item name="SpyglassTestDefStyleAttr">@style/ThemeWithTestString</item>
+	</style>
+
+	<string name="ThemeWithTestString" parent="AppTheme">
+		<item name="string_attr">@string/test_string</item>
+	</string>
 </resources>
