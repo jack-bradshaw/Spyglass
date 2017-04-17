@@ -39,66 +39,80 @@ public class SpyglassTestViewsMethodVariants {
 		}
 	}
 
-	public static class OptionalStringHandlerNoDefault extends SpyglassTestView {
+	public static class OptionalStringHandlerNoDefault extends BaseClass {
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
-		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {}
+		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
+			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
+		}
 
 		public OptionalStringHandlerNoDefault(final Context context) {
 			super(context);
 		}
 	}
 
-	public static class OptionalStringHandlerWithDefault extends SpyglassTestView {
+	public static class OptionalStringHandlerWithDefault extends BaseClass {
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
 		@DefaultToString(DEFAULT_STRING)
-		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {}
+		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
+			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
+		}
 
 		public OptionalStringHandlerWithDefault(final Context context) {
 			super(context);
 		}
 	}
 
-	public static class MandatoryStringHandlerNoDefault extends SpyglassTestView {
+	public static class MandatoryStringHandlerNoDefault extends BaseClass {
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
-		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {}
+		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
+			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
+		}
 
 		public MandatoryStringHandlerNoDefault(final Context context) {
 			super(context);
 		}
 	}
 
-	public static class MandatoryStringHandlerWithDefault extends SpyglassTestView {
+	public static class MandatoryStringHandlerWithDefault extends BaseClass {
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
 		@DefaultToString(DEFAULT_STRING)
-		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {}
+		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
+			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
+		}
 
 		public MandatoryStringHandlerWithDefault(final Context context) {
 			super(context);
 		}
 	}
 
-	public static class HandlerTypeMismatch extends SpyglassTestView {
+	public static class HandlerTypeMismatch extends BaseClass {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
-		public void spyglassMethod(final boolean arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {}
+		public void spyglassMethod(final boolean arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
+			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
+		}
 
 		public HandlerTypeMismatch(final Context context) {
 			super(context);
 		}
 	}
 
-	public static class DefaultTypeMismatch extends SpyglassTestView {
+	public static class DefaultTypeMismatch extends BaseClass {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToBoolean(false)
-		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {}
+		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
+			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
+		}
 
 		public DefaultTypeMismatch(final Context context) {
 			super(context);
 		}
 	}
 
-	public static class UseTypeMismatch extends SpyglassTestView {
+	public static class UseTypeMismatch extends BaseClass {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
-		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) boolean arg2) {}
+		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) boolean arg2) {
+			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
+		}
 
 		public UseTypeMismatch(final Context context) {
 			super(context);
