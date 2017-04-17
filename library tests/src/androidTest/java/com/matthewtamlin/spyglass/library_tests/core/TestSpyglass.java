@@ -255,7 +255,7 @@ public class TestSpyglass {
 	@Test
 	public void testPassDataToMethods_noAnnotations() {
 		final SpyglassTestViewsMethodVariants.NoAnnotations view =
-				mock(SpyglassTestViewsMethodVariants.NoAnnotations.class);
+				new SpyglassTestViewsMethodVariants.NoAnnotations(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -272,7 +272,7 @@ public class TestSpyglass {
 	@Test
 	public void testPassDataToMethods_attrSupplied() {
 		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
-				mock(SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault.class);
+				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -292,7 +292,7 @@ public class TestSpyglass {
 	@Test
 	public void testPassDataToMethods_attrMissing_noDefault_notMandatory() {
 		final SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault view =
-				mock(SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault.class);
+				new SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -309,7 +309,7 @@ public class TestSpyglass {
 	@Test(expected = MandatoryAttributeMissingException.class)
 	public void testPassDataToMethods_attrMissing_noDefault_isMandatory() {
 		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
-				mock(SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault.class);
+				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -323,8 +323,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_attrMissing_hasDefault_notMandatory() {
-		final SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault view = mock
-				(SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault.class);
+		final SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault view =
+				new SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -343,8 +343,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_attrMissing_hasDefault_isMandatory() {
-		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault view = mock
-				(SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault.class);
+		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault view =
+				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -364,7 +364,7 @@ public class TestSpyglass {
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_handlerTypeMismatch() {
 		final SpyglassTestViewsMethodVariants.HandlerTypeMismatch view =
-				mock(SpyglassTestViewsMethodVariants.HandlerTypeMismatch.class);
+				new SpyglassTestViewsMethodVariants.HandlerTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -379,7 +379,7 @@ public class TestSpyglass {
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_defaultTypeMismatch() {
 		final SpyglassTestViewsMethodVariants.DefaultTypeMismatch view =
-				mock(SpyglassTestViewsMethodVariants.DefaultTypeMismatch.class);
+				new SpyglassTestViewsMethodVariants.DefaultTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -394,7 +394,7 @@ public class TestSpyglass {
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_useTypeMismatch() {
 		final SpyglassTestViewsMethodVariants.UseTypeMismatch view =
-				mock(SpyglassTestViewsMethodVariants.UseTypeMismatch.class);
+				new SpyglassTestViewsMethodVariants.UseTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
