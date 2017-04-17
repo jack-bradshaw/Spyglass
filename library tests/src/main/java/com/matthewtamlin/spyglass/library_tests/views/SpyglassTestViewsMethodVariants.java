@@ -40,8 +40,6 @@ public class SpyglassTestViewsMethodVariants {
 	}
 
 	public static class OptionalStringHandlerNoDefault extends SpyglassTestView {
-
-
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {}
 
