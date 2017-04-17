@@ -342,7 +342,7 @@ public class TestSpyglass {
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)
-	public void testPassDataToMethods_dataTypeMismatch() {
+	public void testPassDataToMethods_handlerTypeMismatch() {
 		final SpyglassTestViewsMethodVariants.HandlerTypeMismatch view =
 				mock(SpyglassTestViewsMethodVariants.HandlerTypeMismatch.class);
 
