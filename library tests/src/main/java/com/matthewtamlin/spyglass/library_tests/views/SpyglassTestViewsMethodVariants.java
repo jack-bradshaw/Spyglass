@@ -31,7 +31,7 @@ public class SpyglassTestViewsMethodVariants {
 		}
 	}
 
-	public static class NoAnnotations extends SpyglassTestView {
+	public static class NoAnnotations extends BaseClass {
 		public void spyglassMethod(final String arg1, byte arg2) {}
 
 		public NoAnnotations(final Context context) {
