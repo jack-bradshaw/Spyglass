@@ -8,4 +8,6 @@
 		<item>String3</item>
 		<item>String4</item>
 	</string-array>
+
+	<string name="spyglass_test_string">something12345</string>
 </resources>
