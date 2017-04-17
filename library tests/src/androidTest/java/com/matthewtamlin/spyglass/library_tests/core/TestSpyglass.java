@@ -86,6 +86,8 @@ public class TestSpyglass {
 				.build();
 
 		spyglass.bindDataToFields();
+
+		assertThat(view.spyglassField, is(SpyglassTestViewsFieldVariants.INITIAL_STRING));
 	}
 
 	@Test
