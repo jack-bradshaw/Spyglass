@@ -14,15 +14,41 @@ public class SpyglassTestViewsMethodVariants {
 
 	public static final String DEFAULT_STRING = "default string";
 
+	public static class BaseClass extends SpyglassTestView {
+		private Object[] argsFromLastSpyglassMethodInvocation;
+
+		public BaseClass(final Context context) {
+			super(context);
+		}
+
+		public Object[] getArgsFromLastSpyglassMethodInvocation() {
+			return argsFromLastSpyglassMethodInvocation;
+		}
+
+		public void setArgsFromLastSpyglassMethodInvocation(final Object[] args) {
+			this.argsFromLastSpyglassMethodInvocation = args;
+		}
+	}
+
 	public static class NoAnnotations extends SpyglassTestView {
-		public void spyglassMethod(final String arg1, byte arg2) {}
+		private Object[] argsFromLastSpyglassMethodInvocation;
+
+		public void spyglassMethod(final String arg1, byte arg2) {
+			argsFromLastSpyglassMethodInvocation = new Object[]{arg1, arg2};
+		}
 
 		public NoAnnotations(final Context context) {
 			super(context);
 		}
+
+		public Object[] getArgumentsFromSpyglassMethodInvocation() {
+
+		}
 	}
 
 	public static class OptionalStringHandlerNoDefault extends SpyglassTestView {
+
+
 		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {}
 
