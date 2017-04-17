@@ -96,7 +96,7 @@ public class Spyglass {
 				bindDataToField(field, defaultValue);
 
 			} else {
-				final String message = "Missing mandatory attribute in view %1$s.";
+				final String message = "Missing mandatory attribute in view \"%1$s\".";
 				throw new MandatoryAttributeMissingException(String.format(message, view));
 			}
 		}
