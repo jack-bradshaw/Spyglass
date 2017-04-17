@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.library_tests.core;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 import android.util.Xml;
@@ -12,9 +13,11 @@ import com.matthewtamlin.spyglass.library.core.MandatoryAttributeMissingExceptio
 import com.matthewtamlin.spyglass.library.core.Spyglass;
 import com.matthewtamlin.spyglass.library.core.SpyglassFieldBindException;
 import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
+import com.matthewtamlin.spyglass.library_tests.activity.EmptyActivity;
 import com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants;
 import com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsMethodVariants;
 
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.xmlpull.v1.XmlPullParser;
@@ -42,6 +45,10 @@ import static org.mockito.Mockito.verify;
 
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglass {
+	@Rule
+	public ActivityTestRule<EmptyActivity> activityRule =
+			new ActivityTestRule<>(EmptyActivity.class);
+
 	@Test(expected = IllegalThreadException.class)
 	public void testBindDataToFields_calledOnNonUiThread() {
 		final Spyglass spyglass = Spyglass.builder()
