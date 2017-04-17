@@ -8,6 +8,7 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView_string_attr;
+import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
 
 public class SpyglassTestViewsMethodVariants {
 	public static final byte USE_BYTE_VALUE = 54;
@@ -31,18 +32,10 @@ public class SpyglassTestViewsMethodVariants {
 	}
 
 	public static class NoAnnotations extends SpyglassTestView {
-		private Object[] argsFromLastSpyglassMethodInvocation;
-
-		public void spyglassMethod(final String arg1, byte arg2) {
-			argsFromLastSpyglassMethodInvocation = new Object[]{arg1, arg2};
-		}
+		public void spyglassMethod(final String arg1, byte arg2) {}
 
 		public NoAnnotations(final Context context) {
 			super(context);
-		}
-
-		public Object[] getArgumentsFromSpyglassMethodInvocation() {
-
 		}
 	}
 
