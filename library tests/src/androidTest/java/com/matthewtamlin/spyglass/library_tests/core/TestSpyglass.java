@@ -13,6 +13,7 @@ import com.matthewtamlin.spyglass.library.core.MandatoryAttributeMissingExceptio
 import com.matthewtamlin.spyglass.library.core.Spyglass;
 import com.matthewtamlin.spyglass.library.core.SpyglassFieldBindException;
 import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
+import com.matthewtamlin.spyglass.library_tests.R;
 import com.matthewtamlin.spyglass.library_tests.activity.EmptyActivity;
 import com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants;
 import com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsMethodVariants;
@@ -229,6 +230,24 @@ public class TestSpyglass {
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
 				.withDefStyleAttr(SpyglassTestDefStyleAttr)
+				.build();
+
+		bindDataToFieldsSynchronously(spyglass);
+
+		assertThat(view.spyglassField, is(testString));
+	}
+
+	@Test
+	public void testBindDataToFields_attributeOverriddenByDefStyleRes() {
+		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
+				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withDefStyleRes(R.style.ThemeWithTestString)
 				.build();
 
 		bindDataToFieldsSynchronously(spyglass);
