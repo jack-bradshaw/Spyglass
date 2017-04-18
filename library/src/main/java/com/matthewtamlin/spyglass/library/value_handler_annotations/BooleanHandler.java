@@ -10,7 +10,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Tags methods and fields which can be used by Spyglasses to handle boolean attributes.
+ * Identifies a method capable of receiving a boolean from the Spyglass framework, and defines
+ * the view attribute to source the boolean from.
  */
 @ValueHandler(adapterClass = BooleanHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
