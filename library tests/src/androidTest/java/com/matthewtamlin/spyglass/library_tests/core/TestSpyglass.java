@@ -189,7 +189,7 @@ public class TestSpyglass {
 	}
 
 	@Test
-	public void testBindDataToFields_attributeOverriddenByDefStyleAttr() {
+	public void testBindDataToFields_attributesOverriddenByDefStyleAttr() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
 				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
 
@@ -208,7 +208,7 @@ public class TestSpyglass {
 	}
 
 	@Test
-	public void testBindDataToFields_attributeOverriddenByDefStyleRes() {
+	public void testBindDataToFields_attributesOverriddenByDefStyleRes() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
 				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
 
