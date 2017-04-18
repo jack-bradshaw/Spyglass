@@ -524,23 +524,23 @@ public class TestSpyglass {
 	}
 
 	private void passDataToMethodsSynchronously(final Spyglass spyglass) {
-		final ThrowableHandlingRunnable<RuntimeException> runnable =
-				new ThrowableHandlingRunnable<RuntimeException>() {
-					@Override
-					public void run() {
-						try {
-							spyglass.passDataToMethods();
-						} catch (final RuntimeException e) {
-							setThrowable(e);
-						}
-					}
-				};
+		final RuntimeException[] exceptionHolder = new RuntimeException[1];
 
-		activityRule.getActivity().runOnUiThread(runnable);
+		activityRule.getActivity().runOnUiThread(new Runnable() {
+			@Override
+			public void run() {
+				try {
+					spyglass.passDataToMethods();
+				} catch (final RuntimeException e) {
+					exceptionHolder[0] = e;
+				}
+			}
+		});
+
 		getInstrumentation().waitForIdleSync();
 
-		if (runnable.getThrowable() != null) {
-			throw runnable.getThrowable();
+		if (exceptionHolder[0] != null) {
+			throw exceptionHolder[0];
 		}
 	}
 }
