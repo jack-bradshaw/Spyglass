@@ -32,6 +32,7 @@ import java.util.concurrent.Future;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static com.matthewtamlin.spyglass.library_tests.R.attr.SpyglassTestDefStyleAttr;
 import static com.matthewtamlin.spyglass.library_tests.R.string.test_string;
+import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestString;
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
@@ -188,6 +189,43 @@ public class TestSpyglass {
 		assertThat(view.spyglassField, is(SpyglassTestViewsFieldVariants.DEFAULT_STRING));
 	}
 
+	@Test
+	public void testBindDataToFields_attributesOverriddenByDefStyleAttr() {
+		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
+				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
+
+		// Use activity not context, since activity has the required theme
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(activityRule.getActivity())
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withDefStyleAttr(SpyglassTestDefStyleAttr)
+				.build();
+
+		bindDataToFieldsSynchronously(spyglass);
+
+		assertThat(view.spyglassField, is(testString));
+	}
+
+	@Test
+	public void testBindDataToFields_attributesOverriddenByDefStyleRes() {
+		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
+				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withDefStyleRes(ThemeWithTestString)
+				.build();
+
+		bindDataToFieldsSynchronously(spyglass);
+
+		assertThat(view.spyglassField, is(testString));
+	}
+
 	@Test(expected = SpyglassFieldBindException.class)
 	public void testBindDataToFields_handlerTypeMismatch() {
 		final SpyglassTestViewsFieldVariants.HandlerTypeMismatch view =
@@ -216,43 +254,6 @@ public class TestSpyglass {
 				.build();
 
 		bindDataToFieldsSynchronously(spyglass);
-	}
-
-	@Test
-	public void testBindDataToFields_attributeOverriddenByDefStyleAttr() {
-		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
-
-		// Use activity not context, since activity has the required theme
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(activityRule.getActivity())
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withDefStyleAttr(SpyglassTestDefStyleAttr)
-				.build();
-
-		bindDataToFieldsSynchronously(spyglass);
-
-		assertThat(view.spyglassField, is(testString));
-	}
-
-	@Test
-	public void testBindDataToFields_attributeOverriddenByDefStyleRes() {
-		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withDefStyleRes(R.style.ThemeWithTestString)
-				.build();
-
-		bindDataToFieldsSynchronously(spyglass);
-
-		assertThat(view.spyglassField, is(testString));
 	}
 
 	@Test(expected = IllegalThreadException.class)
@@ -392,6 +393,51 @@ public class TestSpyglass {
 		passDataToMethodsSynchronously(spyglass);
 
 		final String expectedString = SpyglassTestViewsMethodVariants.DEFAULT_STRING;
+		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
+
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
+	}
+
+	@Test
+	public void testPassDataToMethods_attributesOverriddenByDefStyleAttr() {
+		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
+				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
+
+		// Use activity not context, since activity has the required theme
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(activityRule.getActivity())
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withDefStyleAttr(SpyglassTestDefStyleAttr)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		final String expectedString = testString;
+		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
+
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
+	}
+
+	@Test
+	public void testPassDataToMethods_attributesOverriddenByDefStyleRes() {
+		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
+				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withDefStyleRes(ThemeWithTestString)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		final String expectedString = testString;
 		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
 		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
 
