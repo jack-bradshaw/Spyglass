@@ -32,6 +32,7 @@ import java.util.concurrent.Future;
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static com.matthewtamlin.spyglass.library_tests.R.attr.SpyglassTestDefStyleAttr;
 import static com.matthewtamlin.spyglass.library_tests.R.string.test_string;
+import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestString;
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
@@ -217,7 +218,7 @@ public class TestSpyglass {
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withDefStyleRes(R.style.ThemeWithTestString)
+				.withDefStyleRes(ThemeWithTestString)
 				.build();
 
 		bindDataToFieldsSynchronously(spyglass);
@@ -431,7 +432,7 @@ public class TestSpyglass {
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withDefStyleRes(R.style.ThemeWithTestString)
+				.withDefStyleRes(ThemeWithTestString)
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
