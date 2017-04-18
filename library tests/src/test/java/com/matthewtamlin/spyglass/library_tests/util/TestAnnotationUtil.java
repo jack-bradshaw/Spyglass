@@ -1,6 +1,5 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
-import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
