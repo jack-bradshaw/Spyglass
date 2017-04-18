@@ -38,7 +38,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
+import static com.matthewtamlin.spyglass.library.units.DimensionUnit.DP;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getUseAdapters;
 import static com.matthewtamlin.spyglass.library_tests.util.FieldHelper.getFieldWithTag;
 import static com.matthewtamlin.spyglass.library_tests.util.MethodHelper.getMethodWithTag;

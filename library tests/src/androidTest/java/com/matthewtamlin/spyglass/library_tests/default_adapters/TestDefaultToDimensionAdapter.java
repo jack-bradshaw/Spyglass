@@ -10,7 +10,7 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension
 import org.junit.Before;
 import org.junit.runner.RunWith;
 
-import static com.matthewtamlin.spyglass.library.core.DimensionUnit.DP;
+import static com.matthewtamlin.spyglass.library.units.DimensionUnit.DP;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
