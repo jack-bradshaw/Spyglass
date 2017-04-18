@@ -15,6 +15,4 @@ public @interface EnumConstantHandler {
 	int attributeId();
 
 	Class<? extends Enum> enumClass();
-
-	boolean mandatory() default false;
 }
