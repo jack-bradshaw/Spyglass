@@ -6,6 +6,7 @@ import android.os.Looper;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
@@ -32,6 +33,7 @@ import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHan
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateField;
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
+@Tested(testMethod = "automated")
 public class Spyglass {
 	private View view;
 

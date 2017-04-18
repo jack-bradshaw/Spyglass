@@ -4,4 +4,12 @@
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
+
+	<style name="ThemeWithDefStyleAttr" parent="AppTheme">
+		<item name="SpyglassTestDefStyleAttr">@style/ThemeWithTestString</item>
+	</style>
+
+	<style name="ThemeWithTestString" parent="AppTheme">
+		<item name="string_attr">@string/test_string</item>
+	</style>
 </resources>
