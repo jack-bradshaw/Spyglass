@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.value_handler_annotations;
 
-import com.matthewtamlin.spyglass.library.value_handler_adapters.FloatHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.FloatHandlerAdapter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
