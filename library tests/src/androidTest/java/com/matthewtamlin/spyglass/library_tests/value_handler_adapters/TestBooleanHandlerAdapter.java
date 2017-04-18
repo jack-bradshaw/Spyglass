@@ -24,7 +24,7 @@ public class TestBooleanHandlerAdapter extends TestValueHandlerAdapter<
 		BooleanHandlerAdapter> {
 
 	private static final int ATTRIBUTE_ID = 1829; // random
-	
+
 	private Boolean expectedValue;
 
 	private TypedArray containingAttribute;

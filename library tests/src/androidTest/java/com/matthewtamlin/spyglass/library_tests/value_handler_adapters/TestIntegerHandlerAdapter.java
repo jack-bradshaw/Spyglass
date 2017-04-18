@@ -26,7 +26,7 @@ public class TestIntegerHandlerAdapter extends TestValueHandlerAdapter<
 		IntegerHandlerAdapter> {
 
 	private static final int ATTRIBUTE_ID = 103;
-	
+
 	private Integer expectedValue;
 
 	private TypedArray containingAttribute;
