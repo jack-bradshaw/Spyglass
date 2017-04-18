@@ -1,4 +1,4 @@
-<resources xmlns:app="http://schemas.android.com/tools">
+<resources>
 	<style name="AppTheme" parent="Theme.AppCompat.Light">
 		<item name="colorPrimary">@color/colorPrimary</item>
 		<item name="colorPrimaryDark">@color/colorPrimaryDark</item>
