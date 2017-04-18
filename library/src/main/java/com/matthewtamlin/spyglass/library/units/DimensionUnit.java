@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.core;
+package com.matthewtamlin.spyglass.library.units;
 
 import android.content.Context;
 
