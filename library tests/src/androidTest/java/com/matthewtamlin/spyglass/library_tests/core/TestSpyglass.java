@@ -398,6 +398,29 @@ public class TestSpyglass {
 		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
 	}
 
+	@Test
+	public void testPassDataToMethods_attributesOverriddenByDefStyleAttr() {
+		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
+				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
+
+		// Use activity not context, since activity has the required theme
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(activityRule.getActivity())
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withDefStyleAttr(SpyglassTestDefStyleAttr)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		final String expectedString = testString;
+		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
+
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
+	}
+
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_handlerTypeMismatch() {
 		final SpyglassTestViewsMethodVariants.HandlerTypeMismatch view =
