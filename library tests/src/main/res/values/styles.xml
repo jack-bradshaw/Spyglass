@@ -9,7 +9,7 @@
 		<item name="SpyglassTestDefStyleAttr">@style/ThemeWithTestString</item>
 	</style>
 
-	<string name="ThemeWithTestString" parent="AppTheme">
+	<style name="ThemeWithTestString" parent="AppTheme">
 		<item name="string_attr">@string/test_string</item>
-	</string>
+	</style>
 </resources>
