@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.value_handler_annotations;
 
-import com.matthewtamlin.spyglass.library.value_handler_adapters.ColorStateListHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ColorStateListHandlerAdapter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
