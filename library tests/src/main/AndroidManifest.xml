@@ -9,6 +9,8 @@
 		android:supportsRtl="true"
 		android:theme="@style/AppTheme">
 
-		<activity android:name=".activity.EmptyActivity"/>
+		<activity
+			android:name=".activity.EmptyActivity"
+			android:theme="@style/ThemeWithDefStyleAttr"/>
 	</application>
 </manifest>	
