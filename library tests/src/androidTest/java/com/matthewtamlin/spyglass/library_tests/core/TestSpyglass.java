@@ -188,36 +188,6 @@ public class TestSpyglass {
 		assertThat(view.spyglassField, is(SpyglassTestViewsFieldVariants.DEFAULT_STRING));
 	}
 
-	@Test(expected = SpyglassFieldBindException.class)
-	public void testBindDataToFields_handlerTypeMismatch() {
-		final SpyglassTestViewsFieldVariants.HandlerTypeMismatch view =
-				new SpyglassTestViewsFieldVariants.HandlerTypeMismatch(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
-				.build();
-
-		bindDataToFieldsSynchronously(spyglass);
-	}
-
-	@Test(expected = SpyglassFieldBindException.class)
-	public void testBindDataToFields_defaultTypeMismatch() {
-		final SpyglassTestViewsFieldVariants.DefaultTypeMismatch view =
-				new SpyglassTestViewsFieldVariants.DefaultTypeMismatch(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.build();
-
-		bindDataToFieldsSynchronously(spyglass);
-	}
-
 	@Test
 	public void testBindDataToFields_attributeOverriddenByDefStyleAttr() {
 		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
@@ -253,6 +223,36 @@ public class TestSpyglass {
 		bindDataToFieldsSynchronously(spyglass);
 
 		assertThat(view.spyglassField, is(testString));
+	}
+
+	@Test(expected = SpyglassFieldBindException.class)
+	public void testBindDataToFields_handlerTypeMismatch() {
+		final SpyglassTestViewsFieldVariants.HandlerTypeMismatch view =
+				new SpyglassTestViewsFieldVariants.HandlerTypeMismatch(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.build();
+
+		bindDataToFieldsSynchronously(spyglass);
+	}
+
+	@Test(expected = SpyglassFieldBindException.class)
+	public void testBindDataToFields_defaultTypeMismatch() {
+		final SpyglassTestViewsFieldVariants.DefaultTypeMismatch view =
+				new SpyglassTestViewsFieldVariants.DefaultTypeMismatch(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.build();
+
+		bindDataToFieldsSynchronously(spyglass);
 	}
 
 	@Test(expected = IllegalThreadException.class)
