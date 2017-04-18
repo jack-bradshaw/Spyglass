@@ -29,6 +29,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
+import static com.matthewtamlin.spyglass.library_tests.R.attr.SpyglassTestDefStyleAttr;
 import static com.matthewtamlin.spyglass.library_tests.R.string.test_string;
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
@@ -214,6 +215,25 @@ public class TestSpyglass {
 				.build();
 
 		bindDataToFieldsSynchronously(spyglass);
+	}
+
+	@Test
+	public void testBindDataToFields_attributeOverriddenByDefStyleAttr() {
+		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
+				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
+
+		// Use activity not context, since activity has the required theme
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(activityRule.getActivity())
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withDefStyleAttr(SpyglassTestDefStyleAttr)
+				.build();
+
+		bindDataToFieldsSynchronously(spyglass);
+
+		assertThat(view.spyglassField, is(testString));
 	}
 
 	@Test(expected = IllegalThreadException.class)
