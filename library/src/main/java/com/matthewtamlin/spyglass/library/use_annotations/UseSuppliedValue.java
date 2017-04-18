@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.use_annotations;
 
-import com.matthewtamlin.spyglass.library.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
+import com.matthewtamlin.spyglass.library.supplier.Supplier;
 import com.matthewtamlin.spyglass.library.use_adapters.UseSuppliedValueAdapter;
 
 import java.lang.annotation.ElementType;

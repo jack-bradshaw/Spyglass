@@ -4,11 +4,11 @@ import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
-import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
-import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
+import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
+import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Field;
@@ -140,7 +140,7 @@ public class AdapterUtil {
 		}
 	}
 
-	public static Map<Integer, UseAdapter<?, Annotation>> getUseAdapters(final Method method)  {
+	public static Map<Integer, UseAdapter<?, Annotation>> getUseAdapters(final Method method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
 		final Map<Integer, UseAdapter<?, Annotation>> adapters = new HashMap<>();
