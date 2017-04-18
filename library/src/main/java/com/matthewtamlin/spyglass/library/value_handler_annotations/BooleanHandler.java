@@ -10,15 +10,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Identifies a method capable of receiving a boolean from the Spyglass framework, and defines
- * the view attribute to source the boolean from.
+ * Identifies a method/field capable of receiving a boolean from the Spyglass framework, and defines
+ * the handled view attribute.
  */
 @ValueHandler(adapterClass = BooleanHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})
 public @interface BooleanHandler {
 	/**
-	 * @return the resource ID of the handled attribute
+	 * @return the resource ID of the handled view attribute
 	 */
 	int attributeId();
 
