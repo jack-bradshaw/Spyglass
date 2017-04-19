@@ -21,21 +21,21 @@ public class SpyglassTestViewsFieldVariants {
 		}
 	}
 
-	public static class HandlerButNoDefault extends SpyglassTestView {
+	public static class OnlyHandlerPresent extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public String spyglassField = INITIAL_STRING;
 
-		public HandlerButNoDefault(final Context context) {
+		public OnlyHandlerPresent(final Context context) {
 			super(context);
 		}
 	}
 
-	public static class HandlerAndDefault extends SpyglassTestView {
+	public static class HandlerAndDefaultPresent extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToString(DEFAULT_STRING)
 		public String spyglassField = INITIAL_STRING;
 
-		public HandlerAndDefault(final Context context) {
+		public HandlerAndDefaultPresent(final Context context) {
 			super(context);
 		}
 	}
