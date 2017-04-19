@@ -30,9 +30,7 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	private TypedArray missingAttribute;
 
-	private EnumOrdinalHandler withMandatoryFlag;
-
-	private EnumOrdinalHandler missingMandatoryFlag;
+	private EnumOrdinalHandler annotation;
 
 	private EnumOrdinalHandlerAdapter adapter;
 
@@ -63,13 +61,8 @@ public class TestEnumOrdinalHandlerAdapter {
 					}
 				});
 
-		withMandatoryFlag = mock(EnumOrdinalHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.mandatory()).thenReturn(true);
-
-		missingMandatoryFlag = mock(EnumOrdinalHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(missingMandatoryFlag.mandatory()).thenReturn(false);
+		annotation = mock(EnumOrdinalHandler.class);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 
 		adapter = new EnumOrdinalHandlerAdapter();
 	}
@@ -86,12 +79,12 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_callValueExistsInArray_nullSupplied() {
-		adapter.getAccessor(withMandatoryFlag).valueExistsInArray(null);
+		adapter.getAccessor(annotation).valueExistsInArray(null);
 	}
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_valueAvailable() {
-		final boolean result = adapter.getAccessor(withMandatoryFlag)
+		final boolean result = adapter.getAccessor(annotation)
 				.valueExistsInArray(containingAttribute);
 
 		assertThat(result, is(true));
@@ -99,7 +92,7 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_valueMissing() {
-		final boolean result = adapter.getAccessor(withMandatoryFlag)
+		final boolean result = adapter.getAccessor(annotation)
 				.valueExistsInArray(missingAttribute);
 
 		assertThat(result, is(false));
@@ -107,12 +100,12 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_callGetValueFromArray_nullSupplied() {
-		adapter.getAccessor(withMandatoryFlag).getValueFromArray(null);
+		adapter.getAccessor(annotation).getValueFromArray(null);
 	}
 
 	@Test
 	public void testGetAccessor_callGetValueFromArray_valueAvailable() {
-		final int result = adapter.getAccessor(withMandatoryFlag).getValueFromArray
+		final int result = adapter.getAccessor(annotation).getValueFromArray
 				(containingAttribute);
 
 		assertThat(result, is(expectedValue));
@@ -120,7 +113,7 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_valueMissing() {
-		adapter.getAccessor(withMandatoryFlag).getValueFromArray(missingAttribute);
+		adapter.getAccessor(annotation).getValueFromArray(missingAttribute);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -130,7 +123,7 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Test
 	public void testGetAttributeId_nonNullSupplied() {
-		final int attributeId = adapter.getAttributeId(withMandatoryFlag);
+		final int attributeId = adapter.getAttributeId(annotation);
 
 		assertThat(attributeId, is(ATTRIBUTE_ID));
 	}
@@ -142,7 +135,7 @@ public class TestEnumOrdinalHandlerAdapter {
 
 	@Test
 	public void testIsMandatory_mandatoryFlagPresent() {
-		final boolean mandatory = adapter.isMandatory(withMandatoryFlag);
+		final boolean mandatory = adapter.isMandatory(annotation);
 
 		assertThat(mandatory, is(true));
 	}
