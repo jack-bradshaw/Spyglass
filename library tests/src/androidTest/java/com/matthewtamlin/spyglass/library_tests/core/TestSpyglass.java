@@ -326,8 +326,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_attrMissing_noDefault_notMandatory() {
-		final SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault view =
-				new SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault(context);
+		final SpyglassTestViewsMethodVariants.StringHandlerNoDefault view =
+				new SpyglassTestViewsMethodVariants.StringHandlerNoDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -358,8 +358,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_attrMissing_hasDefault_notMandatory() {
-		final SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault view =
-				new SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault(context);
+		final SpyglassTestViewsMethodVariants.StringHandlerWithDefault view =
+				new SpyglassTestViewsMethodVariants.StringHandlerWithDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
