@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
+import com.matthewtamlin.spyglass.library.call_handler_adapters.FlagHandlerAdapter;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
@@ -231,7 +232,7 @@ public class TestAdapterUtil {
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
-		assertThat(adapter, instanceOf(FlagHandler.class));
+		assertThat(adapter, instanceOf(FlagHandlerAdapter.class));
 	}
 
 	@SuppressWarnings("unused")
