@@ -124,8 +124,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testBindDataToFields_attrMissing_noDefault_notMandatory() {
-		final SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault view =
-				new SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault(context);
+		final SpyglassTestViewsFieldVariants.StringHandlerMissingDefault view =
+				new SpyglassTestViewsFieldVariants.StringHandlerMissingDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -156,8 +156,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testBindDataToFields_attrMissing_hasDefault_notMandatory() {
-		final SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault view =
-				new SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault(context);
+		final SpyglassTestViewsFieldVariants.StringHandlerWithDefault view =
+				new SpyglassTestViewsFieldVariants.StringHandlerWithDefault(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
