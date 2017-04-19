@@ -14,10 +14,10 @@ public class SpyglassTestViewsMethodVariants {
 
 	public static final String DEFAULT_STRING = "default string";
 
-	public static class BaseClass extends SpyglassTestView {
+	public static class ObservableSpyglassTestView extends SpyglassTestView {
 		private Object[] argsFromLastSpyglassMethodInvocation;
 
-		public BaseClass(final Context context) {
+		public ObservableSpyglassTestView(final Context context) {
 			super(context);
 		}
 
@@ -30,7 +30,7 @@ public class SpyglassTestViewsMethodVariants {
 		}
 	}
 
-	public static class NoAnnotations extends BaseClass {
+	public static class NoAnnotations extends ObservableSpyglassTestView {
 		public void spyglassMethod(final String arg1, byte arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
 		}
@@ -40,7 +40,7 @@ public class SpyglassTestViewsMethodVariants {
 		}
 	}
 
-	public static class OnlyHandlerPresent extends BaseClass {
+	public static class OnlyHandlerPresent extends ObservableSpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
@@ -51,7 +51,7 @@ public class SpyglassTestViewsMethodVariants {
 		}
 	}
 
-	public static class HandlerAndDefaultPresent extends BaseClass {
+	public static class HandlerAndDefaultPresent extends ObservableSpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToString(DEFAULT_STRING)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
@@ -63,7 +63,7 @@ public class SpyglassTestViewsMethodVariants {
 		}
 	}
 
-	public static class HandlerTypeMismatch extends BaseClass {
+	public static class HandlerTypeMismatch extends ObservableSpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public void spyglassMethod(final boolean arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
@@ -74,7 +74,7 @@ public class SpyglassTestViewsMethodVariants {
 		}
 	}
 
-	public static class DefaultTypeMismatch extends BaseClass {
+	public static class DefaultTypeMismatch extends ObservableSpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToBoolean(false)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
@@ -86,7 +86,7 @@ public class SpyglassTestViewsMethodVariants {
 		}
 	}
 
-	public static class UseTypeMismatch extends BaseClass {
+	public static class UseTypeMismatch extends ObservableSpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) boolean arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
