@@ -33,9 +33,9 @@ import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestStri
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
-import static com.matthewtamlin.spyglass.library_tests.core.SpyglassTestViewsFieldVariants.DEFAULT_STRING;
-import static com.matthewtamlin.spyglass.library_tests.core.SpyglassTestViewsFieldVariants.INITIAL_STRING;
-import static com.matthewtamlin.spyglass.library_tests.core.SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.DEFAULT_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.INITIAL_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.USE_BYTE_VALUE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -427,7 +427,7 @@ public class TestSpyglass {
 
 		assertThat(
 				view.getArgsFromLastSpyglassMethodInvocation(),
-				is(new Object[]{SpyglassTestViewsMethodVariants.DEFAULT_STRING, USE_BYTE_VALUE}));
+				is(new Object[]{DEFAULT_STRING, USE_BYTE_VALUE}));
 	}
 
 	@Test
