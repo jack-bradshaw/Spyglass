@@ -28,6 +28,7 @@ import java.util.concurrent.Future;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static com.matthewtamlin.spyglass.library_tests.R.attr.SpyglassTestDefStyleAttr;
+import static com.matthewtamlin.spyglass.library_tests.R.attr.string_attr;
 import static com.matthewtamlin.spyglass.library_tests.R.string.test_string;
 import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestString;
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
@@ -171,74 +172,6 @@ public class TestSpyglass {
 		bindDataToFieldsSynchronously(spyglass);
 
 		assertThat(view.spyglassField, is(DEFAULT_STRING));
-	}
-
-	@Test
-	public void testBindDataToFields_attributeIsMandatory_onlyHandlerPresent_attrPresent() {
-		final SpyglassTestViewsFieldVariants.OnlyHandlerPresent view =
-				new SpyglassTestViewsFieldVariants.OnlyHandlerPresent(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
-				.withMandatoryAttribute(test_string)
-				.build();
-
-		bindDataToFieldsSynchronously(spyglass);
-
-		assertThat(view.spyglassField, is(testString));
-	}
-
-	@Test(expected = MandatoryAttributeMissingException.class)
-	public void testBindDataToFields_attributeIsMandatory_onlyHandlerPresent_attrMissing() {
-		final SpyglassTestViewsFieldVariants.OnlyHandlerPresent view =
-				new SpyglassTestViewsFieldVariants.OnlyHandlerPresent(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withMandatoryAttribute(test_string)
-				.build();
-
-		bindDataToFieldsSynchronously(spyglass);
-	}
-
-	@Test
-	public void testBindDataToFields_attributeIsMandatory_handlerAndDefaultPresent_attrPresent() {
-		final SpyglassTestViewsFieldVariants.HandlerAndDefaultPresent view =
-				new SpyglassTestViewsFieldVariants.HandlerAndDefaultPresent(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
-				.withMandatoryAttribute(test_string)
-				.build();
-
-		bindDataToFieldsSynchronously(spyglass);
-
-		assertThat(view.spyglassField, is(testString));
-	}
-
-	@Test(expected = MandatoryAttributeMissingException.class)
-	public void testBindDataToFields_attributeIsMandatory_handlerAndDefaultPresent_attrMissing() {
-		final SpyglassTestViewsFieldVariants.HandlerAndDefaultPresent view =
-				new SpyglassTestViewsFieldVariants.HandlerAndDefaultPresent(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withMandatoryAttribute(test_string)
-				.build();
-
-		bindDataToFieldsSynchronously(spyglass);
 	}
 
 	@Test
@@ -428,78 +361,6 @@ public class TestSpyglass {
 		assertThat(
 				view.getArgsFromLastSpyglassMethodInvocation(),
 				is(new Object[]{DEFAULT_STRING, USE_BYTE_VALUE}));
-	}
-
-	@Test
-	public void testPassDataToMethods_attributeIsMandatory_onlyHandlerPresent_attrPresent() {
-		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
-				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
-				.withMandatoryAttribute(test_string)
-				.build();
-
-		passDataToMethodsSynchronously(spyglass);
-
-		assertThat(
-				view.getArgsFromLastSpyglassMethodInvocation(),
-				is(new Object[]{testString, USE_BYTE_VALUE}));
-	}
-
-	@Test(expected = MandatoryAttributeMissingException.class)
-	public void testPassDataToMethods_attributeIsMandatory_onlyHandlerPresent_attrMissing() {
-		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
-				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withMandatoryAttribute(test_string)
-				.build();
-
-		passDataToMethodsSynchronously(spyglass);
-	}
-
-	@Test
-	public void testPassDataToMethods_attributeIsMandatory_handlerAndDefaultPresent_attrPresent() {
-		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
-				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
-				.withMandatoryAttribute(test_string)
-				.build();
-
-		passDataToMethodsSynchronously(spyglass);
-
-		assertThat(
-				view.getArgsFromLastSpyglassMethodInvocation(),
-				is(new Object[]{testString, USE_BYTE_VALUE}));
-	}
-
-	@Test(expected = MandatoryAttributeMissingException.class)
-	public void testPassDataToMethods_attributeIsMandatory_handlerAndDefaultPresent_attrMissing() {
-		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
-				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withMandatoryAttribute(test_string)
-				.build();
-
-		passDataToMethodsSynchronously(spyglass);
 	}
 
 	@Test
