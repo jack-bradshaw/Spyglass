@@ -211,7 +211,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetCallHandlerAnnotation_noAnnotation() {
-		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(11,
+		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(11,
 				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
@@ -219,7 +219,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetCallHandlerAnnotation_annotationPresent() {
-		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(12,
+		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(12,
 				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
