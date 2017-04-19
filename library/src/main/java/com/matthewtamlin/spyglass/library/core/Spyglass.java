@@ -56,7 +56,7 @@ public class Spyglass {
 				builder.defStyleAttr,
 				builder.defStyleRes);
 
-		this.mandatoryAttrs.addAll(builder.mandatoryAttributeResIds);
+		this.mandatoryAttrs.addAll(builder.mandatoryAttrs);
 	}
 
 	public void bindDataToFields() {
@@ -206,7 +206,7 @@ public class Spyglass {
 	}
 
 	public static class Builder {
-		private final Set<Integer> mandatoryAttributeResIds = new HashSet<>();
+		private final Set<Integer> mandatoryAttrs = new HashSet<>();
 
 		private View view;
 
@@ -253,7 +253,7 @@ public class Spyglass {
 		}
 
 		public Builder withMandatoryAttribute(final int attributeResId) {
-			mandatoryAttributeResIds.add(attributeResId);
+			mandatoryAttrs.add(attributeResId);
 			return this;
 		}
 
