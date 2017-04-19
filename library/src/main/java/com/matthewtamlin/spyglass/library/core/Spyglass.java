@@ -37,8 +37,6 @@ import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMet
 
 @Tested(testMethod = "automated")
 public class Spyglass {
-	private final Set<Integer> mandatoryAttrs = new HashSet<>();
-
 	private View view;
 
 	private Context context;
@@ -55,8 +53,6 @@ public class Spyglass {
 				builder.styleableRes,
 				builder.defStyleAttr,
 				builder.defStyleRes);
-
-		this.mandatoryAttrs.addAll(builder.mandatoryAttrs);
 	}
 
 	public void bindDataToFields() {
@@ -94,10 +90,6 @@ public class Spyglass {
 
 			if (accessor.valueExistsInArray(attrSource)) {
 				bindDataToField(field, accessor.getValueFromArray(attrSource));
-
-			} else if (mandatoryAttrs.contains(handlerAdapter.getAttributeId(handlerAnnotation))) {
-				final String message = "Missing mandatory attribute in view \"%1$s\".";
-				throw new MandatoryAttributeMissingException(String.format(message, view));
 
 			} else if (getDefaultAnnotation(field) != null) {
 				final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
@@ -141,10 +133,6 @@ public class Spyglass {
 
 			addValueAtEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
-
-		} else if (mandatoryAttrs.contains(handlerAdapter.getAttributeId(handlerAnnotation))) {
-			final String message = "Missing mandatory attribute in view \"%1$s\".";
-			throw new MandatoryAttributeMissingException(String.format(message, view));
 
 		} else if (getDefaultAnnotation(method) != null) {
 			final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(method);
@@ -206,8 +194,6 @@ public class Spyglass {
 	}
 
 	public static class Builder {
-		private final Set<Integer> mandatoryAttrs = new HashSet<>();
-
 		private View view;
 
 		private Context context;
@@ -249,11 +235,6 @@ public class Spyglass {
 
 		public Builder withDefStyleRes(final int defStyleRes) {
 			this.defStyleRes = defStyleRes;
-			return this;
-		}
-
-		public Builder withMandatoryAttribute(final int attributeResId) {
-			mandatoryAttrs.add(attributeResId);
 			return this;
 		}
 
