@@ -9,13 +9,10 @@ import android.util.Xml;
 import android.view.View;
 
 import com.matthewtamlin.spyglass.library.core.IllegalThreadException;
-import com.matthewtamlin.spyglass.library.core.MandatoryAttributeMissingException;
 import com.matthewtamlin.spyglass.library.core.Spyglass;
 import com.matthewtamlin.spyglass.library.core.SpyglassFieldBindException;
 import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
 import com.matthewtamlin.spyglass.library_tests.activity.EmptyActivity;
-import com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants;
-import com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsMethodVariants;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -35,7 +32,9 @@ import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestStri
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
-import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants.INITIAL_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.DEFAULT_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.INITIAL_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.USE_BYTE_VALUE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -97,7 +96,7 @@ public class TestSpyglass {
 				.withView(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
 				.build();
 
 		bindDataToFieldsSynchronously(spyglass);
@@ -106,9 +105,9 @@ public class TestSpyglass {
 	}
 
 	@Test
-	public void testBindDataToFields_attrSupplied() {
-		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
+	public void testBindDataToFields_onlyHandlerPresent_attrPresent() {
+		final SpyglassTestViewsFieldVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsFieldVariants.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -123,9 +122,9 @@ public class TestSpyglass {
 	}
 
 	@Test
-	public void testBindDataToFields_attrMissing_noDefault_notMandatory() {
-		final SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault view =
-				new SpyglassTestViewsFieldVariants.OptionalStringHandlerNoDefault(context);
+	public void testBindDataToFields_onlyHandlerPresent_attrMissing() {
+		final SpyglassTestViewsFieldVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsFieldVariants.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -139,25 +138,27 @@ public class TestSpyglass {
 		assertThat(view.spyglassField, is(INITIAL_STRING));
 	}
 
-	@Test(expected = MandatoryAttributeMissingException.class)
-	public void testBindDataToFields_attrMissing_noDefault_isMandatory() {
-		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
+	@Test
+	public void testBindDataToFields_handlerAndDefaultPresent_attrPresent() {
+		final SpyglassTestViewsFieldVariants.HandlerAndDefaultPresent view =
+				new SpyglassTestViewsFieldVariants.HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
 				.build();
 
 		bindDataToFieldsSynchronously(spyglass);
+
+		assertThat(view.spyglassField, is(testString));
 	}
 
 	@Test
-	public void testBindDataToFields_attrMissing_hasDefault_notMandatory() {
-		final SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault view =
-				new SpyglassTestViewsFieldVariants.OptionalStringHandlerWithDefault(context);
+	public void testBindDataToFields_handlerAndDefaultPresent_attrMissing() {
+		final SpyglassTestViewsFieldVariants.HandlerAndDefaultPresent view =
+				new SpyglassTestViewsFieldVariants.HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -168,30 +169,13 @@ public class TestSpyglass {
 
 		bindDataToFieldsSynchronously(spyglass);
 
-		assertThat(view.spyglassField, is(SpyglassTestViewsFieldVariants.DEFAULT_STRING));
-	}
-
-	@Test
-	public void testBindDataToFields_attrMissing_hasDefault_isMandatory() {
-		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerWithDefault view =
-				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerWithDefault(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.build();
-
-		bindDataToFieldsSynchronously(spyglass);
-
-		assertThat(view.spyglassField, is(SpyglassTestViewsFieldVariants.DEFAULT_STRING));
+		assertThat(view.spyglassField, is(DEFAULT_STRING));
 	}
 
 	@Test
 	public void testBindDataToFields_attributesOverriddenByDefStyleAttr() {
-		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
+		final SpyglassTestViewsFieldVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsFieldVariants.OnlyHandlerPresent(context);
 
 		// Use activity not context, since activity has the required theme
 		final Spyglass spyglass = Spyglass.builder()
@@ -209,8 +193,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testBindDataToFields_attributesOverriddenByDefStyleRes() {
-		final SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsFieldVariants.MandatoryStringHandlerNoDefault(context);
+		final SpyglassTestViewsFieldVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsFieldVariants.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -304,9 +288,9 @@ public class TestSpyglass {
 	}
 
 	@Test
-	public void testPassDataToMethods_attrSupplied() {
-		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
+	public void testPassDataToMethods_onlyHandlerPresent_attrPresent() {
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -317,17 +301,15 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		final String expectedString = testString;
-		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
-		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
-
-		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
 	}
 
 	@Test
-	public void testPassDataToMethods_attrMissing_noDefault_notMandatory() {
-		final SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault view =
-				new SpyglassTestViewsMethodVariants.OptionalStringHandlerNoDefault(context);
+	public void testPassDataToMethods_onlyHandlerPresent_attrMissing() {
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -341,25 +323,29 @@ public class TestSpyglass {
 		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(nullValue()));
 	}
 
-	@Test(expected = MandatoryAttributeMissingException.class)
-	public void testPassDataToMethods_attrMissing_noDefault_isMandatory() {
-		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
+	@Test
+	public void testPassDataToMethods_handlerAndDefaultPresent_attrPresent() {
+		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
+				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
 	}
 
 	@Test
-	public void testPassDataToMethods_attrMissing_hasDefault_notMandatory() {
-		final SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault view =
-				new SpyglassTestViewsMethodVariants.OptionalStringHandlerWithDefault(context);
+	public void testPassDataToMethods_handlerAndDefaultPresent_attrMissing() {
+		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
+				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -370,38 +356,15 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		final String expectedString = SpyglassTestViewsMethodVariants.DEFAULT_STRING;
-		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
-		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
-
-		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
-	}
-
-	@Test
-	public void testPassDataToMethods_attrMissing_hasDefault_isMandatory() {
-		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault view =
-				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerWithDefault(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
-				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.build();
-
-		passDataToMethodsSynchronously(spyglass);
-
-		final String expectedString = SpyglassTestViewsMethodVariants.DEFAULT_STRING;
-		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
-		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
-
-		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{DEFAULT_STRING, USE_BYTE_VALUE}));
 	}
 
 	@Test
 	public void testPassDataToMethods_attributesOverriddenByDefStyleAttr() {
-		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
 
 		// Use activity not context, since activity has the required theme
 		final Spyglass spyglass = Spyglass.builder()
@@ -414,17 +377,15 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		final String expectedString = testString;
-		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
-		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
-
-		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
 	}
 
 	@Test
 	public void testPassDataToMethods_attributesOverriddenByDefStyleRes() {
-		final SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault view =
-				new SpyglassTestViewsMethodVariants.MandatoryStringHandlerNoDefault(context);
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -436,11 +397,9 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		final String expectedString = testString;
-		final byte expectedByte = SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
-		final Object[] expectedArgs = new Object[]{expectedString, expectedByte};
-
-		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(expectedArgs));
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)

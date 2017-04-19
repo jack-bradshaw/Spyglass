@@ -19,9 +19,4 @@ public @interface ColorHandler {
 	 * @return the resource ID of the handled attribute
 	 */
 	int attributeId();
-
-	/**
-	 * @return true if the method/field must be used, false otherwise
-	 */
-	boolean mandatory() default false;
 }

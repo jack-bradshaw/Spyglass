@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library_tests.views;
+package com.matthewtamlin.spyglass.library_tests.core;
 
 import android.content.Context;
 
@@ -7,12 +7,10 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView_string_attr;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.DEFAULT_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.INITIAL_STRING;
 
 public class SpyglassTestViewsFieldVariants {
-	public static final String INITIAL_STRING = "initial string";
-
-	public static final String DEFAULT_STRING = "default string";
-
 	public static class NoAnnotations extends SpyglassTestView {
 		public String spyglassField = INITIAL_STRING;
 
@@ -21,40 +19,21 @@ public class SpyglassTestViewsFieldVariants {
 		}
 	}
 
-	public static class OptionalStringHandlerNoDefault extends SpyglassTestView {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
+	public static class OnlyHandlerPresent extends SpyglassTestView {
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public String spyglassField = INITIAL_STRING;
 
-		public OptionalStringHandlerNoDefault(final Context context) {
+		public OnlyHandlerPresent(final Context context) {
 			super(context);
 		}
 	}
 
-	public static class OptionalStringHandlerWithDefault extends SpyglassTestView {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
+	public static class HandlerAndDefaultPresent extends SpyglassTestView {
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToString(DEFAULT_STRING)
 		public String spyglassField = INITIAL_STRING;
 
-		public OptionalStringHandlerWithDefault(final Context context) {
-			super(context);
-		}
-	}
-
-	public static class MandatoryStringHandlerNoDefault extends SpyglassTestView {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
-		public String spyglassField = INITIAL_STRING;
-
-		public MandatoryStringHandlerNoDefault(final Context context) {
-			super(context);
-		}
-	}
-
-	public static class MandatoryStringHandlerWithDefault extends SpyglassTestView {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
-		@DefaultToString(DEFAULT_STRING)
-		public String spyglassField = INITIAL_STRING;
-
-		public MandatoryStringHandlerWithDefault(final Context context) {
+		public HandlerAndDefaultPresent(final Context context) {
 			super(context);
 		}
 	}
