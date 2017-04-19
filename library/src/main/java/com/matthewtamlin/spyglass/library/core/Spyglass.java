@@ -95,6 +95,10 @@ public class Spyglass {
 			if (accessor.valueExistsInArray(attrSource)) {
 				bindDataToField(field, accessor.getValueFromArray(attrSource));
 
+			} else if (mandatoryAttrs.contains(handlerAdapter.getAttributeId(handlerAnnotation))) {
+				final String message = "Missing mandatory attribute in view \"%1$s\".";
+				throw new MandatoryAttributeMissingException(String.format(message, view));
+
 			} else if (getDefaultAnnotation(field) != null) {
 				final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
 				final Object defaultValue = defaultAdapter.getDefault(
@@ -102,10 +106,6 @@ public class Spyglass {
 						context);
 
 				bindDataToField(field, defaultValue);
-
-			} else if (mandatoryAttrs.contains(handlerAdapter.getAttributeId(handlerAnnotation))) {
-				final String message = "Missing mandatory attribute in view \"%1$s\".";
-				throw new MandatoryAttributeMissingException(String.format(message, view));
 			}
 		}
 	}
@@ -142,6 +142,10 @@ public class Spyglass {
 			addValueAtEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
 
+		} else if (mandatoryAttrs.contains(handlerAdapter.getAttributeId(handlerAnnotation))) {
+			final String message = "Missing mandatory attribute in view \"%1$s\".";
+			throw new MandatoryAttributeMissingException(String.format(message, view));
+
 		} else if (getDefaultAnnotation(method) != null) {
 			final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(method);
 			final Object value = defaultAdapter.getDefault(getDefaultAnnotation(method), context);
@@ -149,10 +153,6 @@ public class Spyglass {
 
 			addValueAtEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
-
-		} else if (mandatoryAttrs.contains(handlerAdapter.getAttributeId(handlerAnnotation))) {
-			final String message = "Missing mandatory attribute in view \"%1$s\".";
-			throw new MandatoryAttributeMissingException(String.format(message, view));
 		}
 	}
 
