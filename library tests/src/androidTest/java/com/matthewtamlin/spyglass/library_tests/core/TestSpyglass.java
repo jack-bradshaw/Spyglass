@@ -37,6 +37,7 @@ import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
 import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants.DEFAULT_STRING;
 import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants.INITIAL_STRING;
+import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -338,6 +339,210 @@ public class TestSpyglass {
 			// This is expected
 			throw (IllegalThreadException) e.getCause();
 		}
+	}
+
+	@Test
+	public void testPassDataToMethods_noAnnotations() {
+		final SpyglassTestViewsMethodVariants.NoAnnotations view =
+				new SpyglassTestViewsMethodVariants.NoAnnotations(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(nullValue()));
+	}
+
+	@Test
+	public void testPassDataToMethods_onlyHandlerPresent_attrPresent() {
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
+	}
+
+	@Test
+	public void testPassDataToMethods_onlyHandlerPresent_attrMissing() {
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(nullValue()));
+	}
+
+	@Test
+	public void testPassDataToMethods_handlerAndDefaultPresent_attrPresent() {
+		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
+				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
+	}
+
+	@Test
+	public void testPassDataToMethods_handlerAndDefaultPresent_attrMissing() {
+		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
+				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{SpyglassTestViewsMethodVariants.DEFAULT_STRING, USE_BYTE_VALUE}));
+	}
+
+	@Test
+	public void testPassDataToMethods_attributeIsMandatory_onlyHandlerPresent_attrPresent() {
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.withMandatoryAttribute(test_string)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
+	}
+
+	@Test(expected = MandatoryAttributeMissingException.class)
+	public void testPassDataToMethods_attributeIsMandatory_onlyHandlerPresent_attrMissing() {
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withMandatoryAttribute(test_string)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+	}
+
+	@Test
+	public void testPassDataToMethods_attributeIsMandatory_handlerAndDefaultPresent_attrPresent() {
+		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
+				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.withMandatoryAttribute(test_string)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
+	}
+
+	@Test(expected = MandatoryAttributeMissingException.class)
+	public void testPassDataToMethods_attributeIsMandatory_handlerAndDefaultPresent_attrMissing() {
+		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
+				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withMandatoryAttribute(test_string)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+	}
+
+	@Test
+	public void testPassDataToMethods_attributesOverriddenByDefStyleAttr() {
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+
+		// Use activity not context, since activity has the required theme
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(activityRule.getActivity())
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withDefStyleAttr(SpyglassTestDefStyleAttr)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
+	}
+
+	@Test
+	public void testPassDataToMethods_attributesOverriddenByDefStyleRes() {
+		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
+				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+
+		final Spyglass spyglass = Spyglass.builder()
+				.withView(view)
+				.withContext(context)
+				.withStyleableResource(SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withDefStyleRes(ThemeWithTestString)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getArgsFromLastSpyglassMethodInvocation(),
+				is(new Object[]{testString, USE_BYTE_VALUE}));
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)
