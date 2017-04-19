@@ -84,7 +84,7 @@ public class TestDimensionHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public DimensionHandler getAnnotationWithMandatoryFlag() {
+	public DimensionHandler getAnnotation() {
 		return withMandatoryFlag;
 	}
 

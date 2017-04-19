@@ -84,7 +84,7 @@ public class TestBooleanHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public BooleanHandler getAnnotationWithMandatoryFlag() {
+	public BooleanHandler getAnnotation() {
 		return withMandatoryFlag;
 	}
 

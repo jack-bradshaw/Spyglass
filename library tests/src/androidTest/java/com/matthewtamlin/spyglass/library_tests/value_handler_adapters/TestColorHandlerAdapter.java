@@ -86,7 +86,7 @@ public class TestColorHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public ColorHandler getAnnotationWithMandatoryFlag() {
+	public ColorHandler getAnnotation() {
 		return withMandatoryFlag;
 	}
 

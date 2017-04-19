@@ -83,7 +83,7 @@ public class TestFloatHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public FloatHandler getAnnotationWithMandatoryFlag() {
+	public FloatHandler getAnnotation() {
 		return withMandatoryFlag;
 	}
 
