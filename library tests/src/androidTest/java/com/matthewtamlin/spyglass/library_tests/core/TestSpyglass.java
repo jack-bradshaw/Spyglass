@@ -14,8 +14,6 @@ import com.matthewtamlin.spyglass.library.core.Spyglass;
 import com.matthewtamlin.spyglass.library.core.SpyglassFieldBindException;
 import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
 import com.matthewtamlin.spyglass.library_tests.activity.EmptyActivity;
-import com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants;
-import com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsMethodVariants;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -35,9 +33,9 @@ import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestStri
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
-import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants.DEFAULT_STRING;
-import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsFieldVariants.INITIAL_STRING;
-import static com.matthewtamlin.spyglass.library_tests.views.SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
+import static com.matthewtamlin.spyglass.library_tests.core.SpyglassTestViewsFieldVariants.DEFAULT_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.SpyglassTestViewsFieldVariants.INITIAL_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.SpyglassTestViewsMethodVariants.USE_BYTE_VALUE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
