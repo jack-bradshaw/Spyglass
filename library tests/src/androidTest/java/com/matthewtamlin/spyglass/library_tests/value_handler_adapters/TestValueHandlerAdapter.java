@@ -47,7 +47,7 @@ public abstract class TestValueHandlerAdapter<V,
 		final boolean result = getAdapter().getAccessor(getAnnotation())
 				.valueExistsInArray(getTypedArrayContainingAttribute());
 
-		assertThat(result, is(true));
+		assertThat("Accessor should report value as available.", result, is(true));
 	}
 
 	@Test
@@ -55,7 +55,7 @@ public abstract class TestValueHandlerAdapter<V,
 		final boolean result = getAdapter().getAccessor(getAnnotation())
 				.valueExistsInArray(getTypedArrayMissingAttribute());
 
-		assertThat(result, is(false));
+		assertThat("Accessor should report value as missing.", result, is(false));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -68,7 +68,7 @@ public abstract class TestValueHandlerAdapter<V,
 		final V value = getAdapter().getAccessor(getAnnotation())
 				.getValueFromArray(getTypedArrayContainingAttribute());
 
-		assertThat(value, is(getExpectedValue()));
+		assertThat("Incorrect value returned by accessor.", value, is(getExpectedValue()));
 	}
 
 	@Test(expected = RuntimeException.class)
@@ -85,6 +85,6 @@ public abstract class TestValueHandlerAdapter<V,
 	@Test
 	public void testGetAttributeId_nonNullSupplied() {
 		final int id = getAdapter().getAttributeId(getAnnotation());
-		assertThat(id, is(getAttributeId()));
+		assertThat("Incorrect attribute ID returned.", id, is(getAttributeId()));
 	}
 }
