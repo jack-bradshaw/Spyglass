@@ -84,6 +84,7 @@ public abstract class TestValueHandlerAdapter<V,
 
 	@Test
 	public void testGetAttributeId_nonNullSupplied() {
-		//TODO
+		final int id = getAdapter().getAttributeId(getAnnotation());
+		assertThat(id, is(getAttributeId()));
 	}
 }
