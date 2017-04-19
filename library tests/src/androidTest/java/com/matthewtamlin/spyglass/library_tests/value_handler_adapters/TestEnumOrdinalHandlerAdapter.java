@@ -127,23 +127,4 @@ public class TestEnumOrdinalHandlerAdapter {
 
 		assertThat(attributeId, is(ATTRIBUTE_ID));
 	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsMandatory_nullAnnotation() {
-		adapter.isMandatory(null);
-	}
-
-	@Test
-	public void testIsMandatory_mandatoryFlagPresent() {
-		final boolean mandatory = adapter.isMandatory(annotation);
-
-		assertThat(mandatory, is(true));
-	}
-
-	@Test
-	public void testIsMandatory_mandatoryFlagMissing() {
-		final boolean mandatory = adapter.isMandatory(missingMandatoryFlag);
-
-		assertThat(mandatory, is(false));
-	}
 }
