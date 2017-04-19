@@ -37,6 +37,8 @@ import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMet
 
 @Tested(testMethod = "automated")
 public class Spyglass {
+	private final Set<Integer> mandatoryAttributeResIds = new HashSet<>();
+
 	private View view;
 
 	private Context context;
@@ -53,6 +55,8 @@ public class Spyglass {
 				builder.styleableRes,
 				builder.defStyleAttr,
 				builder.defStyleRes);
+
+		this.mandatoryAttributeResIds.addAll(builder.mandatoryAttributeResIds);
 	}
 
 	public void bindDataToFields() {
