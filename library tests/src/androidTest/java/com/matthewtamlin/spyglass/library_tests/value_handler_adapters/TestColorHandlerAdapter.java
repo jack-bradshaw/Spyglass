@@ -33,9 +33,7 @@ public class TestColorHandlerAdapter extends TestValueHandlerAdapter<
 
 	private TypedArray missingAttribute;
 
-	private ColorHandler withMandatoryFlag;
-
-	private ColorHandler missingMandatoryFlag;
+	private ColorHandler annotation;
 
 	private ColorHandlerAdapter adapter;
 
@@ -59,13 +57,8 @@ public class TestColorHandlerAdapter extends TestValueHandlerAdapter<
 					}
 				});
 
-		withMandatoryFlag = mock(ColorHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.mandatory()).thenReturn(true);
-
-		missingMandatoryFlag = mock(ColorHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(missingMandatoryFlag.mandatory()).thenReturn(false);
+		annotation = mock(ColorHandler.class);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 
 		adapter = new ColorHandlerAdapter();
 	}
@@ -87,7 +80,7 @@ public class TestColorHandlerAdapter extends TestValueHandlerAdapter<
 
 	@Override
 	public ColorHandler getAnnotation() {
-		return withMandatoryFlag;
+		return annotation;
 	}
 
 	@Override
