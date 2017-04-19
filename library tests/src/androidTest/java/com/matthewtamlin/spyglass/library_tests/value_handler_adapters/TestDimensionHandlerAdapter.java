@@ -31,9 +31,7 @@ public class TestDimensionHandlerAdapter extends TestValueHandlerAdapter<
 
 	private TypedArray missingAttribute;
 
-	private DimensionHandler withMandatoryFlag;
-
-	private DimensionHandler missingMandatoryFlag;
+	private DimensionHandler annotation;
 
 	private DimensionHandlerAdapter adapter;
 
@@ -57,13 +55,8 @@ public class TestDimensionHandlerAdapter extends TestValueHandlerAdapter<
 					}
 				});
 
-		withMandatoryFlag = mock(DimensionHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.mandatory()).thenReturn(true);
-
-		missingMandatoryFlag = mock(DimensionHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(missingMandatoryFlag.mandatory()).thenReturn(false);
+		annotation = mock(DimensionHandler.class);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 
 		adapter = new DimensionHandlerAdapter();
 	}
@@ -85,7 +78,7 @@ public class TestDimensionHandlerAdapter extends TestValueHandlerAdapter<
 
 	@Override
 	public DimensionHandler getAnnotation() {
-		return withMandatoryFlag;
+		return annotation;
 	}
 
 	@Override
