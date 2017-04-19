@@ -30,16 +30,6 @@ public interface ValueHandlerAdapter<T, A extends Annotation> {
 	public int getAttributeId(A annotation);
 
 	/**
-	 * Returns whether or not the supplied annotation has been declared as mandatory.
-	 *
-	 * @param annotation
-	 * 		the annotation to check, not null
-	 *
-	 * @return true if the supplied annotation was declared mandatory, false otherwise
-	 */
-	public boolean isMandatory(A annotation);
-
-	/**
 	 * Accesses specific data in a TypedArray.
 	 *
 	 * @param <T>

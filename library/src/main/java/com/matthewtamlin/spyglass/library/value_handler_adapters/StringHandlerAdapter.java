@@ -41,11 +41,4 @@ public class StringHandlerAdapter implements ValueHandlerAdapter<String, StringH
 
 		return annotation.attributeId();
 	}
-
-	@Override
-	public boolean isMandatory(final StringHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.mandatory();
-	}
 }

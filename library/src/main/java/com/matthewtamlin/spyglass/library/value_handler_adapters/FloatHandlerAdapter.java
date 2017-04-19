@@ -45,11 +45,4 @@ public class FloatHandlerAdapter implements ValueHandlerAdapter<Float, FloatHand
 
 		return annotation.attributeId();
 	}
-
-	@Override
-	public boolean isMandatory(final FloatHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.mandatory();
-	}
 }
