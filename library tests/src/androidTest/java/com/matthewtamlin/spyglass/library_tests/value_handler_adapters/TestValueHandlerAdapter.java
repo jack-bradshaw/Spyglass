@@ -88,25 +88,4 @@ public abstract class TestValueHandlerAdapter<V,
 	public void testGetAttributeId_nonNullSupplied() {
 		//TODO
 	}
-
-	@Test
-	public void testIsMandatory_mandatoryFlagPresent() {
-		final boolean mandatory = getAdapter().isMandatory(
-				getAnnotationWithMandatoryFlag());
-
-		assertThat(mandatory, is(true));
-	}
-
-	@Test
-	public void testIsMandatory_mandatoryFlagMissing() {
-		final boolean mandatory = getAdapter().isMandatory(
-				getAnnotationMissingMandatoryFlag());
-
-		assertThat(mandatory, is(false));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsMandatory_nullAnnotation() {
-		getAdapter().isMandatory(null);
-	}
 }
