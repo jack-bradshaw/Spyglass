@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.matthewtamlin.spyglass.library_tests.views.SpyglassTestView
+<com.matthewtamlin.spyglass.library_tests.core.SpyglassTestView
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	app:string_attr="@string/test_string"/>

@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library_tests.views;
+package com.matthewtamlin.spyglass.library_tests.core;
 
 import android.content.Context;
 
