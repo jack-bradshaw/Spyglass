@@ -7,12 +7,10 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView_string_attr;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.DEFAULT_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.INITIAL_STRING;
 
 public class SpyglassTestViewsFieldVariants {
-	public static final String INITIAL_STRING = "initial string";
-
-	public static final String DEFAULT_STRING = "default string";
-
 	public static class NoAnnotations extends SpyglassTestView {
 		public String spyglassField = INITIAL_STRING;
 

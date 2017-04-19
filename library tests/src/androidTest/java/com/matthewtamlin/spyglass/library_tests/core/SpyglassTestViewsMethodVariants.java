@@ -8,12 +8,10 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView_string_attr;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.DEFAULT_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.Constants.USE_BYTE_VALUE;
 
 public class SpyglassTestViewsMethodVariants {
-	public static final byte USE_BYTE_VALUE = 54;
-
-	public static final String DEFAULT_STRING = "default string";
-
 	public static class ObservableSpyglassTestView extends SpyglassTestView {
 		private Object[] argsFromLastSpyglassMethodInvocation;
 
