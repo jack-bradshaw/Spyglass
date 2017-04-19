@@ -29,9 +29,7 @@ public class TestDrawableHandlerAdapter extends TestValueHandlerAdapter<
 
 	private TypedArray missingAttribute;
 
-	private DrawableHandler withMandatoryFlag;
-
-	private DrawableHandler missingMandatoryFlag;
+	private DrawableHandler annotation;
 
 	private DrawableHandlerAdapter adapter;
 
@@ -47,13 +45,8 @@ public class TestDrawableHandlerAdapter extends TestValueHandlerAdapter<
 		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
 		when(missingAttribute.getDrawable(eq(ATTRIBUTE_ID))).thenReturn(null);
 
-		withMandatoryFlag = mock(DrawableHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.mandatory()).thenReturn(true);
-
-		missingMandatoryFlag = mock(DrawableHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(missingMandatoryFlag.mandatory()).thenReturn(false);
+		annotation = mock(DrawableHandler.class);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 
 		adapter = new DrawableHandlerAdapter();
 	}
@@ -75,7 +68,7 @@ public class TestDrawableHandlerAdapter extends TestValueHandlerAdapter<
 
 	@Override
 	public DrawableHandler getAnnotation() {
-		return withMandatoryFlag;
+		return annotation;
 	}
 
 	@Override
