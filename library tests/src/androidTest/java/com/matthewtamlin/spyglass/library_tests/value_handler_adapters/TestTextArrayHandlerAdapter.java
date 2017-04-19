@@ -78,11 +78,6 @@ public class TestTextArrayHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public TextArrayHandler getAnnotationMissingMandatoryFlag() {
-		return missingMandatoryFlag;
-	}
-
-	@Override
 	public TextArrayHandlerAdapter getAdapter() {
 		return adapter;
 	}

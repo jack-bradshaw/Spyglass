@@ -79,11 +79,6 @@ public class TestDrawableHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public DrawableHandler getAnnotationMissingMandatoryFlag() {
-		return missingMandatoryFlag;
-	}
-
-	@Override
 	public DrawableHandlerAdapter getAdapter() {
 		return adapter;
 	}

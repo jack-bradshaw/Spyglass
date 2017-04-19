@@ -89,11 +89,6 @@ public class TestDimensionHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public DimensionHandler getAnnotationMissingMandatoryFlag() {
-		return missingMandatoryFlag;
-	}
-
-	@Override
 	public DimensionHandlerAdapter getAdapter() {
 		return adapter;
 	}

@@ -79,11 +79,6 @@ public class TestColorStateListHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public ColorStateListHandler getAnnotationMissingMandatoryFlag() {
-		return missingMandatoryFlag;
-	}
-
-	@Override
 	public ColorStateListHandlerAdapter getAdapter() {
 		return adapter;
 	}

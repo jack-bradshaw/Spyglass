@@ -98,11 +98,6 @@ public class TestIntegerHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public IntegerHandler getAnnotationMissingMandatoryFlag() {
-		return missingMandatoryFlag;
-	}
-
-	@Override
 	public IntegerHandlerAdapter getAdapter() {
 		return adapter;
 	}
