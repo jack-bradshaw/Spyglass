@@ -103,7 +103,7 @@ public class Spyglass {
 
 				bindDataToField(field, defaultValue);
 
-			} else if (handlerAdapter.isMandatory(handlerAnnotation)) {
+			} else if (mandatoryAttrs.contains(handlerAdapter.getAttributeId(handlerAnnotation))) {
 				final String message = "Missing mandatory attribute in view \"%1$s\".";
 				throw new MandatoryAttributeMissingException(String.format(message, view));
 			}
@@ -150,7 +150,7 @@ public class Spyglass {
 			addValueAtEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
 
-		} else if (handlerAdapter.isMandatory(handlerAnnotation)) {
+		} else if (mandatoryAttrs.contains(handlerAdapter.getAttributeId(handlerAnnotation))) {
 			final String message = "Missing mandatory attribute in view \"%1$s\".";
 			throw new MandatoryAttributeMissingException(String.format(message, view));
 		}
