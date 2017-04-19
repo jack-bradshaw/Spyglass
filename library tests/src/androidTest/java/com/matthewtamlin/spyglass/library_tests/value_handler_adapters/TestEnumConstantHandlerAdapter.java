@@ -133,20 +133,6 @@ public class TestEnumConstantHandlerAdapter {
 		assertThat(attributeId, is(ATTRIBUTE_ID));
 	}
 
-	@Test
-	public void testAttributeIsMandatory_mandatoryFlagPresent() {
-		final boolean mandatory = adapter.isMandatory(annotation);
-
-		assertThat(mandatory, is(true));
-	}
-
-	@Test
-	public void testAttributeIsMandatory_mandatoryFlagMissing() {
-		final boolean mandatory = adapter.isMandatory(missingMandatoryFlag);
-
-		assertThat(mandatory, is(false));
-	}
-
 	@SuppressWarnings("unused")
 	public enum TestEnum {
 		ITEM_1,
