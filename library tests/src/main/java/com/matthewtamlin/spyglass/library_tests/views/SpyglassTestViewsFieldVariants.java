@@ -22,7 +22,7 @@ public class SpyglassTestViewsFieldVariants {
 	}
 
 	public static class OptionalStringHandlerNoDefault extends SpyglassTestView {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public String spyglassField = INITIAL_STRING;
 
 		public OptionalStringHandlerNoDefault(final Context context) {
@@ -31,7 +31,7 @@ public class SpyglassTestViewsFieldVariants {
 	}
 
 	public static class OptionalStringHandlerWithDefault extends SpyglassTestView {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToString(DEFAULT_STRING)
 		public String spyglassField = INITIAL_STRING;
 
@@ -41,7 +41,7 @@ public class SpyglassTestViewsFieldVariants {
 	}
 
 	public static class MandatoryStringHandlerNoDefault extends SpyglassTestView {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public String spyglassField = INITIAL_STRING;
 
 		public MandatoryStringHandlerNoDefault(final Context context) {
@@ -50,7 +50,7 @@ public class SpyglassTestViewsFieldVariants {
 	}
 
 	public static class MandatoryStringHandlerWithDefault extends SpyglassTestView {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToString(DEFAULT_STRING)
 		public String spyglassField = INITIAL_STRING;
 
