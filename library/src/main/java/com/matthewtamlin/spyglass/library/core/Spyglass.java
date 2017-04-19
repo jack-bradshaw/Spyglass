@@ -20,7 +20,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -200,6 +202,8 @@ public class Spyglass {
 	}
 
 	public static class Builder {
+		private final Set<Integer> mandatoryAttributeResIds = new HashSet<>();
+
 		private View view;
 
 		private Context context;
@@ -241,6 +245,11 @@ public class Spyglass {
 
 		public Builder withDefStyleRes(final int defStyleRes) {
 			this.defStyleRes = defStyleRes;
+			return this;
+		}
+
+		public Builder withMandatoryAttribute(final int attributeResId) {
+			mandatoryAttributeResIds.add(attributeResId);
 			return this;
 		}
 
