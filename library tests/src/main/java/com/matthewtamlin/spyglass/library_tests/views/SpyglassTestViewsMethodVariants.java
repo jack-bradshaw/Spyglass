@@ -40,25 +40,25 @@ public class SpyglassTestViewsMethodVariants {
 		}
 	}
 
-	public static class OptionalStringHandlerNoDefault extends BaseClass {
+	public static class StringHandlerNoDefault extends BaseClass {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
 		}
 
-		public OptionalStringHandlerNoDefault(final Context context) {
+		public StringHandlerNoDefault(final Context context) {
 			super(context);
 		}
 	}
 
-	public static class OptionalStringHandlerWithDefault extends BaseClass {
+	public static class StringHandlerWithDefault extends BaseClass {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToString(DEFAULT_STRING)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
 		}
 
-		public OptionalStringHandlerWithDefault(final Context context) {
+		public StringHandlerWithDefault(final Context context) {
 			super(context);
 		}
 	}
