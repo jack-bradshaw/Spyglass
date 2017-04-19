@@ -33,9 +33,7 @@ public class TestIntegerHandlerAdapter extends TestValueHandlerAdapter<
 
 	private TypedArray missingAttribute;
 
-	private IntegerHandler withMandatoryFlag;
-
-	private IntegerHandler missingMandatoryFlag;
+	private IntegerHandler annotations;
 
 	private IntegerHandlerAdapter adapter;
 
@@ -66,13 +64,8 @@ public class TestIntegerHandlerAdapter extends TestValueHandlerAdapter<
 					}
 				});
 
-		withMandatoryFlag = mock(IntegerHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.mandatory()).thenReturn(true);
-
-		missingMandatoryFlag = mock(IntegerHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(missingMandatoryFlag.mandatory()).thenReturn(false);
+		annotations = mock(IntegerHandler.class);
+		when(annotations.attributeId()).thenReturn(ATTRIBUTE_ID);
 
 		adapter = new IntegerHandlerAdapter();
 	}
@@ -94,7 +87,7 @@ public class TestIntegerHandlerAdapter extends TestValueHandlerAdapter<
 
 	@Override
 	public IntegerHandler getAnnotation() {
-		return withMandatoryFlag;
+		return annotations;
 	}
 
 	@Override
