@@ -47,11 +47,4 @@ public class EnumConstantHandlerAdapter implements ValueHandlerAdapter<Enum, Enu
 
 		return annotation.attributeId();
 	}
-
-	@Override
-	public boolean isMandatory(final EnumConstantHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.mandatory();
-	}
 }

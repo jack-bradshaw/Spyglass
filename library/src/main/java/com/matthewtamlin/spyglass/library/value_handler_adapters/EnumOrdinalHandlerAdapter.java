@@ -45,11 +45,4 @@ public class EnumOrdinalHandlerAdapter implements ValueHandlerAdapter<Integer, E
 
 		return annotation.attributeId();
 	}
-
-	@Override
-	public boolean isMandatory(final EnumOrdinalHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.mandatory();
-	}
 }

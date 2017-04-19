@@ -29,9 +29,7 @@ public class TestFractionHandlerAdapter extends TestValueHandlerAdapter<Float, F
 
 	private TypedArray missingAttribute;
 
-	private FractionHandler withMandatoryFlag;
-
-	private FractionHandler missingMandatoryFlag;
+	private FractionHandler annotation;
 
 	private FractionHandlerAdapter adapter;
 
@@ -66,17 +64,10 @@ public class TestFractionHandlerAdapter extends TestValueHandlerAdapter<Float, F
 					}
 				});
 
-		withMandatoryFlag = mock(FractionHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.baseMultiplier()).thenReturn(multiplier);
-		when(withMandatoryFlag.parentMultiplier()).thenReturn(parentMultiplier);
-		when(withMandatoryFlag.mandatory()).thenReturn(true);
-
-		missingMandatoryFlag = mock(FractionHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.baseMultiplier()).thenReturn(multiplier);
-		when(withMandatoryFlag.parentMultiplier()).thenReturn(parentMultiplier);
-		when(missingMandatoryFlag.mandatory()).thenReturn(false);
+		annotation = mock(FractionHandler.class);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
+		when(annotation.baseMultiplier()).thenReturn(multiplier);
+		when(annotation.parentMultiplier()).thenReturn(parentMultiplier);
 
 		adapter = new FractionHandlerAdapter();
 	}
@@ -97,13 +88,8 @@ public class TestFractionHandlerAdapter extends TestValueHandlerAdapter<Float, F
 	}
 
 	@Override
-	public FractionHandler getAnnotationWithMandatoryFlag() {
-		return withMandatoryFlag;
-	}
-
-	@Override
-	public FractionHandler getAnnotationMissingMandatoryFlag() {
-		return missingMandatoryFlag;
+	public FractionHandler getAnnotation() {
+		return annotation;
 	}
 
 	@Override

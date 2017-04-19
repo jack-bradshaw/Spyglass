@@ -42,11 +42,4 @@ public class TextArrayHandlerAdapter implements
 
 		return annotation.attributeId();
 	}
-
-	@Override
-	public boolean isMandatory(final TextArrayHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.mandatory();
-	}
 }

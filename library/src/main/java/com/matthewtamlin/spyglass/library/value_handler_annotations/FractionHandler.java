@@ -17,6 +17,4 @@ public @interface FractionHandler {
 	int baseMultiplier() default 1;
 
 	int parentMultiplier() default 1;
-
-	boolean mandatory() default false;
 }

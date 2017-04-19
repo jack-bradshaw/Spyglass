@@ -21,9 +21,4 @@ public @interface BooleanHandler {
 	 * @return the resource ID of the handled view attribute
 	 */
 	int attributeId();
-
-	/**
-	 * @return true if the method/field must be used, false otherwise
-	 */
-	boolean mandatory() default false;
 }

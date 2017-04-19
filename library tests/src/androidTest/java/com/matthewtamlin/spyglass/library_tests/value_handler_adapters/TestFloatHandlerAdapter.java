@@ -31,9 +31,7 @@ public class TestFloatHandlerAdapter extends TestValueHandlerAdapter<
 
 	private TypedArray missingAttribute;
 
-	private FloatHandler withMandatoryFlag;
-
-	private FloatHandler missingMandatoryFlag;
+	private FloatHandler annotation;
 
 	private FloatHandlerAdapter adapter;
 
@@ -56,13 +54,8 @@ public class TestFloatHandlerAdapter extends TestValueHandlerAdapter<
 					}
 				});
 
-		withMandatoryFlag = mock(FloatHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.mandatory()).thenReturn(true);
-
-		missingMandatoryFlag = mock(FloatHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(missingMandatoryFlag.mandatory()).thenReturn(false);
+		annotation = mock(FloatHandler.class);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 
 		adapter = new FloatHandlerAdapter();
 	}
@@ -83,13 +76,8 @@ public class TestFloatHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public FloatHandler getAnnotationWithMandatoryFlag() {
-		return withMandatoryFlag;
-	}
-
-	@Override
-	public FloatHandler getAnnotationMissingMandatoryFlag() {
-		return missingMandatoryFlag;
+	public FloatHandler getAnnotation() {
+		return annotation;
 	}
 
 	@Override

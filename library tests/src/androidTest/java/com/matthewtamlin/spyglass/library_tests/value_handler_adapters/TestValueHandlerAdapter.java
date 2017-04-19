@@ -21,9 +21,7 @@ public abstract class TestValueHandlerAdapter<V,
 
 	public abstract TypedArray getTypedArrayMissingAttribute();
 
-	public abstract A getAnnotationWithMandatoryFlag();
-
-	public abstract A getAnnotationMissingMandatoryFlag();
+	public abstract A getAnnotation();
 
 	public abstract H getAdapter();
 
@@ -41,12 +39,12 @@ public abstract class TestValueHandlerAdapter<V,
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_callValueExistsInArray_nullSupplied() {
-		getAdapter().getAccessor(getAnnotationWithMandatoryFlag()).valueExistsInArray(null);
+		getAdapter().getAccessor(getAnnotation()).valueExistsInArray(null);
 	}
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_valueAvailable() {
-		final boolean result = getAdapter().getAccessor(getAnnotationWithMandatoryFlag())
+		final boolean result = getAdapter().getAccessor(getAnnotation())
 				.valueExistsInArray(getTypedArrayContainingAttribute());
 
 		assertThat(result, is(true));
@@ -54,7 +52,7 @@ public abstract class TestValueHandlerAdapter<V,
 
 	@Test
 	public void testGetAccessor_callValueExistsInArray_valueMissing() {
-		final boolean result = getAdapter().getAccessor(getAnnotationWithMandatoryFlag())
+		final boolean result = getAdapter().getAccessor(getAnnotation())
 				.valueExistsInArray(getTypedArrayMissingAttribute());
 
 		assertThat(result, is(false));
@@ -62,12 +60,12 @@ public abstract class TestValueHandlerAdapter<V,
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAccessor_callGetValueFromArray_nullSupplied() {
-		getAdapter().getAccessor(getAnnotationWithMandatoryFlag()).getValueFromArray(null);
+		getAdapter().getAccessor(getAnnotation()).getValueFromArray(null);
 	}
 
 	@Test
 	public void testGetAccessor_callGetValueFromArray_valueAvailable() {
-		final V value = getAdapter().getAccessor(getAnnotationWithMandatoryFlag())
+		final V value = getAdapter().getAccessor(getAnnotation())
 				.getValueFromArray(getTypedArrayContainingAttribute());
 
 		assertThat(value, is(getExpectedValue()));
@@ -75,7 +73,7 @@ public abstract class TestValueHandlerAdapter<V,
 
 	@Test(expected = RuntimeException.class)
 	public void testGetAccessor_callGetValueFromArray_valueMissing() {
-		getAdapter().getAccessor(getAnnotationWithMandatoryFlag())
+		getAdapter().getAccessor(getAnnotation())
 				.getValueFromArray(getTypedArrayMissingAttribute());
 	}
 
@@ -87,26 +85,5 @@ public abstract class TestValueHandlerAdapter<V,
 	@Test
 	public void testGetAttributeId_nonNullSupplied() {
 		//TODO
-	}
-
-	@Test
-	public void testIsMandatory_mandatoryFlagPresent() {
-		final boolean mandatory = getAdapter().isMandatory(
-				getAnnotationWithMandatoryFlag());
-
-		assertThat(mandatory, is(true));
-	}
-
-	@Test
-	public void testIsMandatory_mandatoryFlagMissing() {
-		final boolean mandatory = getAdapter().isMandatory(
-				getAnnotationMissingMandatoryFlag());
-
-		assertThat(mandatory, is(false));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsMandatory_nullAnnotation() {
-		getAdapter().isMandatory(null);
 	}
 }

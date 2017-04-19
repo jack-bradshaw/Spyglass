@@ -20,7 +20,9 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
 import java.util.TreeMap;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -96,10 +98,6 @@ public class Spyglass {
 						context);
 
 				bindDataToField(field, defaultValue);
-
-			} else if (handlerAdapter.isMandatory(handlerAnnotation)) {
-				final String message = "Missing mandatory attribute in view \"%1$s\".";
-				throw new MandatoryAttributeMissingException(String.format(message, view));
 			}
 		}
 	}
@@ -143,10 +141,6 @@ public class Spyglass {
 
 			addValueAtEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
-
-		} else if (handlerAdapter.isMandatory(handlerAnnotation)) {
-			final String message = "Missing mandatory attribute in view \"%1$s\".";
-			throw new MandatoryAttributeMissingException(String.format(message, view));
 		}
 	}
 
