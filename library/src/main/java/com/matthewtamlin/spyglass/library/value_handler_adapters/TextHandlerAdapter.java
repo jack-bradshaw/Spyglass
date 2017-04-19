@@ -41,11 +41,4 @@ public class TextHandlerAdapter implements ValueHandlerAdapter<CharSequence, Tex
 
 		return annotation.attributeId();
 	}
-
-	@Override
-	public boolean isMandatory(final TextHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.mandatory();
-	}
 }

@@ -58,11 +58,4 @@ public class FractionHandlerAdapter implements ValueHandlerAdapter<Float, Fracti
 
 		return annotation.attributeId();
 	}
-
-	@Override
-	public boolean isMandatory(final FractionHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.mandatory();
-	}
 }
