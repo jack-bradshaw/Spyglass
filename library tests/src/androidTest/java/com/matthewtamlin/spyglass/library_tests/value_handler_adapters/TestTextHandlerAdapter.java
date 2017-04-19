@@ -28,9 +28,7 @@ public class TestTextHandlerAdapter extends TestValueHandlerAdapter<
 
 	private TypedArray missingAttribute;
 
-	private TextHandler withMandatoryFlag;
-
-	private TextHandler missingMandatoryFlag;
+	private TextHandler annotation;
 
 	private TextHandlerAdapter adapter;
 
@@ -46,13 +44,8 @@ public class TestTextHandlerAdapter extends TestValueHandlerAdapter<
 		when(missingAttribute.hasValue(ATTRIBUTE_ID)).thenReturn(false);
 		when(missingAttribute.getText(eq(ATTRIBUTE_ID))).thenReturn(null);
 
-		withMandatoryFlag = mock(TextHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.mandatory()).thenReturn(true);
-
-		missingMandatoryFlag = mock(TextHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(missingMandatoryFlag.mandatory()).thenReturn(false);
+		annotation = mock(TextHandler.class);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 
 		adapter = new TextHandlerAdapter();
 	}
@@ -74,7 +67,7 @@ public class TestTextHandlerAdapter extends TestValueHandlerAdapter<
 
 	@Override
 	public TextHandler getAnnotation() {
-		return withMandatoryFlag;
+		return annotation;
 	}
 
 	@Override
