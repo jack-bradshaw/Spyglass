@@ -31,9 +31,7 @@ public class TestBooleanHandlerAdapter extends TestValueHandlerAdapter<
 
 	private TypedArray missingAttribute;
 
-	private BooleanHandler withMandatoryFlag;
-
-	private BooleanHandler missingMandatoryFlag;
+	private BooleanHandler annotation;
 
 	private BooleanHandlerAdapter adapter;
 
@@ -57,13 +55,8 @@ public class TestBooleanHandlerAdapter extends TestValueHandlerAdapter<
 					}
 				});
 
-		withMandatoryFlag = mock(BooleanHandler.class);
-		when(withMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(withMandatoryFlag.mandatory()).thenReturn(true);
-
-		missingMandatoryFlag = mock(BooleanHandler.class);
-		when(missingMandatoryFlag.attributeId()).thenReturn(ATTRIBUTE_ID);
-		when(missingMandatoryFlag.mandatory()).thenReturn(false);
+		annotation = mock(BooleanHandler.class);
+		when(annotation.attributeId()).thenReturn(ATTRIBUTE_ID);
 
 		adapter = new BooleanHandlerAdapter();
 	}
@@ -85,7 +78,7 @@ public class TestBooleanHandlerAdapter extends TestValueHandlerAdapter<
 
 	@Override
 	public BooleanHandler getAnnotation() {
-		return withMandatoryFlag;
+		return annotation;
 	}
 
 	@Override
