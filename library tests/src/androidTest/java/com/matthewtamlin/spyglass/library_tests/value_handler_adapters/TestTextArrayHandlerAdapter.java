@@ -73,7 +73,7 @@ public class TestTextArrayHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public TextArrayHandler getAnnotationWithMandatoryFlag() {
+	public TextArrayHandler getAnnotation() {
 		return withMandatoryFlag;
 	}
 

@@ -97,7 +97,7 @@ public class TestFractionHandlerAdapter extends TestValueHandlerAdapter<Float, F
 	}
 
 	@Override
-	public FractionHandler getAnnotationWithMandatoryFlag() {
+	public FractionHandler getAnnotation() {
 		return withMandatoryFlag;
 	}
 

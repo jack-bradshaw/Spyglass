@@ -93,7 +93,7 @@ public class TestIntegerHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public IntegerHandler getAnnotationWithMandatoryFlag() {
+	public IntegerHandler getAnnotation() {
 		return withMandatoryFlag;
 	}
 
