@@ -9,7 +9,6 @@ import android.util.Xml;
 import android.view.View;
 
 import com.matthewtamlin.spyglass.library.core.IllegalThreadException;
-import com.matthewtamlin.spyglass.library.core.MandatoryAttributeMissingException;
 import com.matthewtamlin.spyglass.library.core.Spyglass;
 import com.matthewtamlin.spyglass.library.core.SpyglassFieldBindException;
 import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
@@ -28,7 +27,6 @@ import java.util.concurrent.Future;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static com.matthewtamlin.spyglass.library_tests.R.attr.SpyglassTestDefStyleAttr;
-import static com.matthewtamlin.spyglass.library_tests.R.attr.string_attr;
 import static com.matthewtamlin.spyglass.library_tests.R.string.test_string;
 import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestString;
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
