@@ -22,6 +22,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 
+import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getUseAnnotations;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHandlerAnnotation;
@@ -211,7 +212,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetCallHandlerAnnotation_noAnnotation() {
-		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(11,
+		final Annotation annotation = getCallHandlerAnnotation(getMethodWithTag(11,
 				TestClass.class));
 
 		assertThat(annotation, is(nullValue()));
@@ -219,7 +220,7 @@ public class TestAnnotationUtil {
 
 	@Test
 	public void testGetCallHandlerAnnotation_annotationPresent() {
-		final Annotation annotation = getValueHandlerAnnotation(getMethodWithTag(12,
+		final Annotation annotation = getCallHandlerAnnotation(getMethodWithTag(12,
 				TestClass.class));
 
 		assertThat(annotation, is(notNullValue()));
