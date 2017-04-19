@@ -23,8 +23,6 @@ public abstract class TestValueHandlerAdapter<V,
 
 	public abstract A getAnnotationWithMandatoryFlag();
 
-	public abstract A getAnnotationMissingMandatoryFlag();
-
 	public abstract H getAdapter();
 
 	public abstract int getAttributeId();

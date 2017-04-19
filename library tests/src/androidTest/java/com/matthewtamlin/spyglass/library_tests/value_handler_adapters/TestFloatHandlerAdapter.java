@@ -88,11 +88,6 @@ public class TestFloatHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public FloatHandler getAnnotationMissingMandatoryFlag() {
-		return missingMandatoryFlag;
-	}
-
-	@Override
 	public FloatHandlerAdapter getAdapter() {
 		return adapter;
 	}

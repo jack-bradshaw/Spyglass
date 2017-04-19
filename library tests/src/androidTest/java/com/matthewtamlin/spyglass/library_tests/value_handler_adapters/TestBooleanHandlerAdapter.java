@@ -89,11 +89,6 @@ public class TestBooleanHandlerAdapter extends TestValueHandlerAdapter<
 	}
 
 	@Override
-	public BooleanHandler getAnnotationMissingMandatoryFlag() {
-		return missingMandatoryFlag;
-	}
-
-	@Override
 	public BooleanHandlerAdapter getAdapter() {
 		return adapter;
 	}
