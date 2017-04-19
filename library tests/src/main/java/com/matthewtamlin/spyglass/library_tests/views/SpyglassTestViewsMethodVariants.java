@@ -41,7 +41,7 @@ public class SpyglassTestViewsMethodVariants {
 	}
 
 	public static class OptionalStringHandlerNoDefault extends BaseClass {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
 		}
@@ -52,7 +52,7 @@ public class SpyglassTestViewsMethodVariants {
 	}
 
 	public static class OptionalStringHandlerWithDefault extends BaseClass {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = false)
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToString(DEFAULT_STRING)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
@@ -64,7 +64,7 @@ public class SpyglassTestViewsMethodVariants {
 	}
 
 	public static class MandatoryStringHandlerNoDefault extends BaseClass {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
 		}
@@ -75,7 +75,7 @@ public class SpyglassTestViewsMethodVariants {
 	}
 
 	public static class MandatoryStringHandlerWithDefault extends BaseClass {
-		@StringHandler(attributeId = SpyglassTestView_string_attr, mandatory = true)
+		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToString(DEFAULT_STRING)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
 			setArgsFromLastSpyglassMethodInvocation(new Object[]{arg1, arg2});
