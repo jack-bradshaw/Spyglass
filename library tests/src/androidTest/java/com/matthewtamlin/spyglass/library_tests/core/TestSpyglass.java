@@ -31,8 +31,8 @@ import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestStri
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
 import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
-import static com.matthewtamlin.spyglass.library_tests.core.Constants.DEFAULT_STRING;
-import static com.matthewtamlin.spyglass.library_tests.core.Constants.USE_BYTE_VALUE;
+import static com.matthewtamlin.spyglass.library_tests.core.SpyglassTestViews.DEFAULT_STRING;
+import static com.matthewtamlin.spyglass.library_tests.core.SpyglassTestViews.USE_BYTE_VALUE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
