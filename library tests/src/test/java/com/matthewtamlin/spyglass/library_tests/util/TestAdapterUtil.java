@@ -52,28 +52,6 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class TestAdapterUtil {
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetValueHandlerAdapter_fieldVariant_nullField() {
-		AdapterUtil.getValueHandlerAdapter((Field) null);
-	}
-
-	@Test
-	public void testGetValueHandlerAdapter_fieldVariant_noHandlerAnnotations() {
-		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(1,
-				TestClass.class));
-
-		assertThat(adapter, is(nullValue()));
-	}
-
-	@Test
-	public void testGetValueHandlerAdapter_fieldVariant_oneHandlerAnnotation() {
-		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getFieldWithTag(2,
-				TestClass.class));
-
-		assertThat(adapter, is(notNullValue()));
-		assertThat(adapter, instanceOf(BooleanHandlerAdapter.class));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
 	public void testGetValueHandlerAdapter_methodVariant_nullMethod() {
 		AdapterUtil.getValueHandlerAdapter((Method) null);
 	}
@@ -93,28 +71,6 @@ public class TestAdapterUtil {
 
 		assertThat(adapter, is(notNullValue()));
 		assertThat(adapter, instanceOf(IntegerHandlerAdapter.class));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetDefaultAdapter_fieldVariant_nullField() {
-		AdapterUtil.getDefaultAdapter((Field) null);
-	}
-
-	@Test
-	public void testGetDefaultAdapter_fieldVariant_noDefaultAnnotations() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(3,
-				TestClass.class));
-
-		assertThat(adapter, is(nullValue()));
-	}
-
-	@Test
-	public void testGetDefaultAdapter_fieldVariant_oneDefaultAnnotation() {
-		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getFieldWithTag(4,
-				TestClass.class));
-
-		assertThat(adapter, is(notNullValue()));
-		assertThat(adapter, instanceOf(DefaultToStringAdapter.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -237,20 +193,6 @@ public class TestAdapterUtil {
 
 	@SuppressWarnings("unused")
 	private static class TestClass {
-		@FieldTag(1)
-		private Field field1;
-
-		@FieldTag(2)
-		@BooleanHandler(attributeId = 2)
-		private boolean field2;
-
-		@FieldTag(3)
-		private Object field3;
-
-		@FieldTag(4)
-		@DefaultToString("default string")
-		private String field4;
-
 		@MethodTag(1)
 		private void method1() {}
 
