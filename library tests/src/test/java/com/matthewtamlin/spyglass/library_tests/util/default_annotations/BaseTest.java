@@ -1,8 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.util.default_annotations;
 
-import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
-import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 
 import org.junit.Before;
 import org.junit.Test;
