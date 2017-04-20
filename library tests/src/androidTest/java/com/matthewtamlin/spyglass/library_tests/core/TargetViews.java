@@ -9,7 +9,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandle
 
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView_string_attr;
 
-public class SpyglassTestViews {
+public class TargetViews {
 	public static final String DEFAULT_STRING = "default string";
 
 	public static final byte USE_BYTE_VALUE = 54;
