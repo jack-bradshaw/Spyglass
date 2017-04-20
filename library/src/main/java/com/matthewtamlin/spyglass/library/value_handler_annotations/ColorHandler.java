@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Tested(testMethod = "automated")
 @ValueHandler(adapterClass = ColorHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD})
 public @interface ColorHandler {
 	/**
 	 * @return the resource ID of the handled attribute
