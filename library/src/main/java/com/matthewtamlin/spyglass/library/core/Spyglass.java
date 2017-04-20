@@ -20,9 +20,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -127,7 +125,7 @@ public class Spyglass {
 			final Object value = accessor.getValueFromArray(attrSource);
 			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
 
-			addValueAtEmptyPosition(args, value);
+			addValueAtFirstEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
 
 		} else if (getDefaultAnnotation(method) != null) {
@@ -135,7 +133,7 @@ public class Spyglass {
 			final Object value = defaultAdapter.getDefault(getDefaultAnnotation(method), context);
 			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
 
-			addValueAtEmptyPosition(args, value);
+			addValueAtFirstEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
 		}
 	}
@@ -176,7 +174,7 @@ public class Spyglass {
 		return args;
 	}
 
-	private void addValueAtEmptyPosition(final Map<Integer, Object> args, final Object value) {
+	private void addValueAtFirstEmptyPosition(final Map<Integer, Object> args, final Object value) {
 		// Use size + 1 so to handle the case where the existing values have consecutive keys
 		// For example, [1 = a, 2 = b, 3 = c] would become [1 = a, 2 = b, 3 = c, 4 = value]
 		for (int i = 0; i < args.size() + 1; i++) {
