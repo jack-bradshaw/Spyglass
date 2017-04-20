@@ -80,8 +80,6 @@ public class Spyglass {
 	}
 
 	private void processField(final Field field) {
-		field.setAccessible(true);
-
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(field);
 
 		if (handlerAnnotation != null) {
@@ -103,8 +101,6 @@ public class Spyglass {
 	}
 
 	private void processMethod(final Method method) {
-		method.setAccessible(true);
-
 		if (getValueHandlerAnnotation(method) != null) {
 			processMethodWithValueHandler(method);
 		} else if (getCallHandlerAnnotation(method) != null) {
@@ -146,6 +142,7 @@ public class Spyglass {
 
 	private void bindDataToField(final Field field, final Object value) {
 		try {
+			field.setAccessible(true);
 			field.set(view, value);
 		} catch (final Exception e) {
 			final String message = "Failed to bind data to field %1$s.";
@@ -155,6 +152,7 @@ public class Spyglass {
 
 	private void callMethod(final Method method, Object[] arguments) {
 		try {
+			method.setAccessible(true);
 			method.invoke(view, arguments);
 		} catch (final Exception e) {
 			final String message = "Failed to call method %1$s with arguments %2$s.";
