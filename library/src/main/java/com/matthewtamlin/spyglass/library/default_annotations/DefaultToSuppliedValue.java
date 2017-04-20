@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
 @Tested(testMethod = "automated")
 @Default(adapterClass = DefaultToSuppliedValueAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD})
 public @interface DefaultToSuppliedValue {
 	Class<? extends Supplier<?>> value();
 }

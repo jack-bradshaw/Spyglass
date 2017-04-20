@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Tested(testMethod = "automated")
 @Default(adapterClass = DefaultToStringResourceAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD})
 public @interface DefaultToStringResource {
 	int value();
 }
