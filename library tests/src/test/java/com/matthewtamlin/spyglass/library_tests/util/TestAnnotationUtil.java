@@ -2,15 +2,12 @@ package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
 import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.library_tests.util.FieldHelper.FieldTag;
 import com.matthewtamlin.spyglass.library_tests.util.MethodHelper.MethodTag;
 
 import org.junit.Test;
@@ -18,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 
@@ -26,7 +22,6 @@ import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getCallHand
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getUseAnnotations;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHandlerAnnotation;
-import static com.matthewtamlin.spyglass.library_tests.util.FieldHelper.getFieldWithTag;
 import static com.matthewtamlin.spyglass.library_tests.util.MethodHelper.getMethodWithTag;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.instanceOf;
@@ -36,28 +31,6 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 @RunWith(JUnit4.class)
 public class TestAnnotationUtil {
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetValueHandlerAnnotation_fieldVariant_nullField() {
-		getValueHandlerAnnotation((Field) null);
-	}
-
-	@Test
-	public void testGetValueHandlerAnnotation_fieldVariant_noAnnotation() {
-		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(1,
-				TestClass.class));
-
-		assertThat(annotation, is(nullValue()));
-	}
-
-	@Test
-	public void testGetValueHandlerAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = getValueHandlerAnnotation(getFieldWithTag(2,
-				TestClass.class));
-
-		assertThat(annotation, is(notNullValue()));
-		assertThat(annotation, instanceOf(BooleanHandler.class));
-	}
-
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetValueHandlerAnnotation_methodVariant_nullMethod() {
 		getValueHandlerAnnotation((Method) null);
@@ -78,28 +51,6 @@ public class TestAnnotationUtil {
 
 		assertThat(annotation, is(notNullValue()));
 		assertThat(annotation, instanceOf(StringHandler.class));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetDefaultAnnotation_fieldVariant_nullField() {
-		getDefaultAnnotation((Field) null);
-	}
-
-	@Test
-	public void testGetDefaultAnnotation_fieldVariant_noAnnotation() {
-		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(3,
-				TestClass.class));
-
-		assertThat(annotation, is(nullValue()));
-	}
-
-	@Test
-	public void testGetDefaultAnnotation_fieldVariant_annotationPresent() {
-		final Annotation annotation = getDefaultAnnotation(getFieldWithTag(4,
-				TestClass.class));
-
-		assertThat(annotation, is(notNullValue()));
-		assertThat(annotation, instanceOf(DefaultToString.class));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -229,20 +180,6 @@ public class TestAnnotationUtil {
 
 	@SuppressWarnings("unused")
 	private static class TestClass {
-		@FieldTag(1)
-		private Object field1;
-
-		@FieldTag(2)
-		@BooleanHandler(attributeId = 2)
-		private Boolean field2;
-
-		@FieldTag(3)
-		private Object field3;
-
-		@FieldTag(4)
-		@DefaultToString("something")
-		private String field4;
-
 		@MethodTag(1)
 		private void method1() {}
 
