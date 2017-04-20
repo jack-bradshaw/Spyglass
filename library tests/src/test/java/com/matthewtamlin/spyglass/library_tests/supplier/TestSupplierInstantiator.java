@@ -5,7 +5,10 @@ import com.matthewtamlin.spyglass.library.supplier.SupplierInstantiationExceptio
 import com.matthewtamlin.spyglass.library.supplier.SupplierInstantiator;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
+@RunWith(JUnit4.class)
 public class TestSupplierInstantiator {
 	@Test(expected = IllegalArgumentException.class)
 	public void testInstantiateSupplier_nullClass() {

@@ -5,6 +5,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.ColorHandler
 
 import java.lang.annotation.Annotation;
 
+@RunWith(JUnit4.class)
 public class TestColorHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {

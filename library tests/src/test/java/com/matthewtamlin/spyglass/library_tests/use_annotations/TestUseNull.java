@@ -5,6 +5,7 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseNull;
 
 import java.lang.annotation.Annotation;
 
+@RunWith(JUnit4.class)
 public class TestUseNull extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
