@@ -15,7 +15,6 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Method;
 import java.util.Map;
 
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getCallHandlerAnnotation;
@@ -33,7 +32,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 public class TestAnnotationUtil {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetValueHandlerAnnotation_methodVariant_nullMethod() {
-		getValueHandlerAnnotation((Method) null);
+		getValueHandlerAnnotation(null);
 	}
 
 	@Test
@@ -55,7 +54,7 @@ public class TestAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetDefaultAnnotation_methodVariant_nullMethod() {
-		getDefaultAnnotation((Method) null);
+		getDefaultAnnotation(null);
 	}
 
 	@Test
