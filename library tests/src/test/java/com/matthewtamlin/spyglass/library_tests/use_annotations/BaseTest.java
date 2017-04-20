@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library_tests.util.use_annotations;
+package com.matthewtamlin.spyglass.library_tests.use_annotations;
 
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;

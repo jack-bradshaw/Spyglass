@@ -2,16 +2,19 @@ package com.matthewtamlin.spyglass.library_tests.default_adapters;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToTextArrayResourceAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToTextArrayResource;
 
 import org.junit.Before;
+import org.junit.runner.RunWith;
 
 import static com.matthewtamlin.spyglass.library_tests.R.array.test_string_array;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(AndroidJUnit4.class)
 public class TestDefaultToTextArrayResourceAdapter extends TestDefaultAdapter<
 		CharSequence[],
 		DefaultToTextArrayResource,
