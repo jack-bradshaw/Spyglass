@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.value_handler_annotations;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.ColorHandlerAdapter;
 
@@ -11,6 +12,7 @@ import java.lang.annotation.Target;
 /**
  * Tags methods and fields which can be used by Spyglasses to handle color attributes.
  */
+@Tested(testMethod = "automated")
 @ValueHandler(adapterClass = ColorHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target({ElementType.METHOD, ElementType.FIELD})

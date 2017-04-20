@@ -16,6 +16,7 @@ import java.lang.annotation.Target;
  * Methods tagged with this annotation must not have default annotations, and all parameters must
  * have a use annotation.
  */
+@Tested(testMethod = "automated")
 @CallHandler(adapterClass = SpecificEnumHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
