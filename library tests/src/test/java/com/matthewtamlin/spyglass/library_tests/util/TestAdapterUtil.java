@@ -44,12 +44,12 @@ import static org.junit.Assert.assertThat;
 @RunWith(JUnit4.class)
 public class TestAdapterUtil {
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetValueHandlerAdapter_methodVariant_nullMethod() {
+	public void testGetValueHandlerAdapter_nullMethod() {
 		AdapterUtil.getValueHandlerAdapter(null);
 	}
 
 	@Test
-	public void testGetValueHandlerAdapter_methodVariant_noHandlerAnnotations() {
+	public void testGetValueHandlerAdapter_noHandlerAnnotations() {
 		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(1,
 				TestClass.class));
 
@@ -57,7 +57,7 @@ public class TestAdapterUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAdapter_methodVariant_oneHandlerAnnotation() {
+	public void testGetValueHandlerAdapter_oneHandlerAnnotation() {
 		final ValueHandlerAdapter adapter = AdapterUtil.getValueHandlerAdapter(getMethodWithTag(2,
 				TestClass.class));
 
@@ -66,12 +66,12 @@ public class TestAdapterUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetDefaultAdapter_methodVariant_nullMethod() {
+	public void testGetDefaultAdapter_nullMethod() {
 		AdapterUtil.getDefaultAdapter(null);
 	}
 
 	@Test
-	public void testGetDefaultAdapter_methodVariant_noDefaultAnnotations() {
+	public void testGetDefaultAdapter_noDefaultAnnotations() {
 		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(3,
 				TestClass.class));
 
@@ -79,7 +79,7 @@ public class TestAdapterUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAdapter_methodVariant_oneDefaultAnnotation() {
+	public void testGetValueHandlerAdapter_oneDefaultAnnotation() {
 		final DefaultAdapter adapter = AdapterUtil.getDefaultAdapter(getMethodWithTag(4,
 				TestClass.class));
 
