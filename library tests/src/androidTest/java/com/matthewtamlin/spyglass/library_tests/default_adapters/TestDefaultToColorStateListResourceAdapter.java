@@ -3,17 +3,20 @@ package com.matthewtamlin.spyglass.library_tests.default_adapters;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToColorStateListResourceAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorStateListResource;
 
 import org.junit.Before;
+import org.junit.runner.RunWith;
 
 import static com.matthewtamlin.spyglass.library_tests.R.color.color_state_list;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
+@RunWith(AndroidJUnit4.class)
 public class TestDefaultToColorStateListResourceAdapter extends TestDefaultAdapter<
 		ColorStateList,
 		DefaultToColorStateListResource,
