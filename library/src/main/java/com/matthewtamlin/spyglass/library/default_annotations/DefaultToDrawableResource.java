@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.library.default_annotations;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDrawableResourceAdapter;
 import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 
