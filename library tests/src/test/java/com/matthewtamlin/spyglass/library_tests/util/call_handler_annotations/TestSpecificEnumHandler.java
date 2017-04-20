@@ -5,7 +5,7 @@ import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumH
 
 import java.lang.annotation.Annotation;
 
-public class TestSpecificEnumHandler extends TestCallHandler {
+public class TestSpecificEnumHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
 		return SpecificEnumHandler.class;
