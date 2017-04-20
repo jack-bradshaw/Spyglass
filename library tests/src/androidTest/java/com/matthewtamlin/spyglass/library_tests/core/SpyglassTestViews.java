@@ -11,7 +11,7 @@ import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestV
 import static com.matthewtamlin.spyglass.library_tests.core.Constants.DEFAULT_STRING;
 import static com.matthewtamlin.spyglass.library_tests.core.Constants.USE_BYTE_VALUE;
 
-public class SpyglassTestViewsMethodVariants {
+public class SpyglassTestViews {
 	public static class ObservableSpyglassTestView extends SpyglassTestView {
 		private Object[] argsFromLastSpyglassMethodInvocation;
 
