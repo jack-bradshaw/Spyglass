@@ -21,7 +21,7 @@ public abstract class TestValueHandler {
 
 	@Before
 	public void setup() {
-		// Could be null
+		// Will be null if not present
 		metaAnnotation = getAnnotationUnderTest().getAnnotation(ValueHandler.class);
 	}
 
