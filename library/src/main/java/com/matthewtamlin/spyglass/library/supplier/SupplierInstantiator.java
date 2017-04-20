@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.library.supplier;
 
+@SuppressWarnings("TryWithIdenticalCatches") // Can't be collapsed before API 19
 public class SupplierInstantiator {
-	@SuppressWarnings("TryWithIdenticalCatches") // Can't be collapsed before API 19
 	public static <T> Supplier<T> instantiateSupplier(final Class<? extends Supplier<T>> clazz) {
 		try {
 			return clazz.newInstance();
@@ -20,7 +20,6 @@ public class SupplierInstantiator {
 		}
 	}
 
-	@SuppressWarnings("TryWithIdenticalCatches") // Can't be collapsed before API 19
 	public static Supplier<?> instantiateWildcardSupplier(
 			final Class<? extends Supplier<?>> clazz) {
 
