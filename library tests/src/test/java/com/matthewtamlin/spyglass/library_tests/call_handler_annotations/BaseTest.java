@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library_tests.util.call_handler_annotations;
+package com.matthewtamlin.spyglass.library_tests.call_handler_annotations;
 
 import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
