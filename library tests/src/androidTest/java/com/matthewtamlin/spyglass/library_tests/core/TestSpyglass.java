@@ -87,8 +87,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_noAnnotations() {
-		final SpyglassTestViewsMethodVariants.NoAnnotations view =
-				new SpyglassTestViewsMethodVariants.NoAnnotations(context);
+		final SpyglassTestViews.NoAnnotations view =
+				new SpyglassTestViews.NoAnnotations(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -104,8 +104,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_onlyHandlerPresent_attrPresent() {
-		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
-				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+		final SpyglassTestViews.OnlyHandlerPresent view =
+				new SpyglassTestViews.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -123,8 +123,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_onlyHandlerPresent_attrMissing() {
-		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
-				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+		final SpyglassTestViews.OnlyHandlerPresent view =
+				new SpyglassTestViews.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -140,8 +140,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_handlerAndDefaultPresent_attrPresent() {
-		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
-				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
+		final SpyglassTestViews.HandlerAndDefaultPresent view =
+				new SpyglassTestViews.HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -159,8 +159,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_handlerAndDefaultPresent_attrMissing() {
-		final SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent view =
-				new SpyglassTestViewsMethodVariants.HandlerAndDefaultPresent(context);
+		final SpyglassTestViews.HandlerAndDefaultPresent view =
+				new SpyglassTestViews.HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -178,8 +178,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_attributesOverriddenByDefStyleAttr() {
-		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
-				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+		final SpyglassTestViews.OnlyHandlerPresent view =
+				new SpyglassTestViews.OnlyHandlerPresent(context);
 
 		// Use activity not context, since activity has the required theme
 		final Spyglass spyglass = Spyglass.builder()
@@ -199,8 +199,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_attributesOverriddenByDefStyleRes() {
-		final SpyglassTestViewsMethodVariants.OnlyHandlerPresent view =
-				new SpyglassTestViewsMethodVariants.OnlyHandlerPresent(context);
+		final SpyglassTestViews.OnlyHandlerPresent view =
+				new SpyglassTestViews.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -219,8 +219,8 @@ public class TestSpyglass {
 
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_handlerTypeMismatch() {
-		final SpyglassTestViewsMethodVariants.HandlerTypeMismatch view =
-				new SpyglassTestViewsMethodVariants.HandlerTypeMismatch(context);
+		final SpyglassTestViews.HandlerTypeMismatch view =
+				new SpyglassTestViews.HandlerTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -234,8 +234,8 @@ public class TestSpyglass {
 
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_defaultTypeMismatch() {
-		final SpyglassTestViewsMethodVariants.DefaultTypeMismatch view =
-				new SpyglassTestViewsMethodVariants.DefaultTypeMismatch(context);
+		final SpyglassTestViews.DefaultTypeMismatch view =
+				new SpyglassTestViews.DefaultTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
@@ -249,8 +249,8 @@ public class TestSpyglass {
 
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_useTypeMismatch() {
-		final SpyglassTestViewsMethodVariants.UseTypeMismatch view =
-				new SpyglassTestViewsMethodVariants.UseTypeMismatch(context);
+		final SpyglassTestViews.UseTypeMismatch view =
+				new SpyglassTestViews.UseTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withView(view)
