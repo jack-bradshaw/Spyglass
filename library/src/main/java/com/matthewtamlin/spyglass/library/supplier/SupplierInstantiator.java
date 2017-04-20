@@ -8,7 +8,6 @@ public class SupplierInstantiator {
 	public static <T> Supplier<T> instantiateSupplier(final Class<? extends Supplier<T>> clazz) {
 		try {
 			return clazz.newInstance();
-
 		} catch (final Exception e) {
 			throw new SupplierInstantiationException(String.format(MESSAGE, clazz), e);
 		}
@@ -19,7 +18,6 @@ public class SupplierInstantiator {
 
 		try {
 			return clazz.newInstance();
-			
 		} catch (final Exception e) {
 			throw new SupplierInstantiationException(String.format(MESSAGE, clazz), e);
 		}
