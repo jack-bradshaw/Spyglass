@@ -35,7 +35,7 @@ public class TestSupplierInstantiator {
 		return NonWildcardSupplierDefaultConstructor.class;
 	}
 
-	private class NonWildcardSupplierPrivateConstructor implements Supplier<Object> {
+	public static class NonWildcardSupplierPrivateConstructor implements Supplier<Object> {
 		private NonWildcardSupplierPrivateConstructor() {}
 
 		@Override
@@ -44,7 +44,7 @@ public class TestSupplierInstantiator {
 		}
 	}
 
-	private class NonWildcardSupplierDefaultConstructor implements Supplier<Object> {
+	public static class NonWildcardSupplierDefaultConstructor implements Supplier<Object> {
 		@Override
 		public Object get() {
 			return null;
