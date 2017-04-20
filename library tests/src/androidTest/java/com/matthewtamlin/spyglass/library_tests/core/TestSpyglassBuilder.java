@@ -1,16 +1,19 @@
 package com.matthewtamlin.spyglass.library_tests.core;
 
 import android.content.Context;
+import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
 import com.matthewtamlin.spyglass.library.core.InvalidBuilderStateException;
 import com.matthewtamlin.spyglass.library.core.Spyglass;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static android.support.test.InstrumentationRegistry.getContext;
 import static org.mockito.Mockito.mock;
 
+@RunWith(AndroidJUnit4.class)
 public class TestSpyglassBuilder {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testBuild_noViewEverSupplied() {
