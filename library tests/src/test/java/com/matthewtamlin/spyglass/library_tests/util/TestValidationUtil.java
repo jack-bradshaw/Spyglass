@@ -31,7 +31,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
 import java.lang.reflect.Method;
 
-import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -336,7 +335,7 @@ public class TestValidationUtil {
 
 	private enum TestEnum {}
 
-	@Target({METHOD, FIELD})
+	@Target({METHOD})
 	@Retention(RUNTIME)
 	public @interface ValidationTestTarget {
 		boolean isValid();
