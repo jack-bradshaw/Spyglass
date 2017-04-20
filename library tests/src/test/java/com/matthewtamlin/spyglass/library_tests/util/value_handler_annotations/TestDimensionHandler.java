@@ -5,7 +5,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.DimensionHan
 
 import java.lang.annotation.Annotation;
 
-public class TestDimensionHandler extends TestValueHandler {
+public class TestDimensionHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
 		return DimensionHandler.class;
