@@ -5,7 +5,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstant
 
 import java.lang.annotation.Annotation;
 
-public class TestEnumOrdinalHandler extends TestValueHandler {
+public class TestEnumOrdinalHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
 		return EnumConstantHandler.class;

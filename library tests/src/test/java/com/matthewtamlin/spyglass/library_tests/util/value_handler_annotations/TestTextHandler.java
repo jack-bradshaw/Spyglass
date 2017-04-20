@@ -5,7 +5,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.TextHandler;
 
 import java.lang.annotation.Annotation;
 
-public class TestTextHandler extends TestValueHandler {
+public class TestTextHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
 		return TextHandler.class;

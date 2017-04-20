@@ -12,7 +12,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
-public abstract class TestValueHandler {
+public abstract class BaseTest {
 	public abstract Class<? extends Annotation> getAnnotationUnderTest();
 
 	public abstract Class getExpectedAdapterClass();

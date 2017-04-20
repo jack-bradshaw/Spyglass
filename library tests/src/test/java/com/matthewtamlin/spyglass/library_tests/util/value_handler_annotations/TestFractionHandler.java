@@ -5,7 +5,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.FractionHand
 
 import java.lang.annotation.Annotation;
 
-public class TestFractionHandler extends TestValueHandler {
+public class TestFractionHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
 		return FractionHandler.class;

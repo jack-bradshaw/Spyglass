@@ -5,7 +5,7 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandl
 
 import java.lang.annotation.Annotation;
 
-public class TestBooleanHandler extends TestValueHandler {
+public class TestBooleanHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
 		return BooleanHandler.class;
