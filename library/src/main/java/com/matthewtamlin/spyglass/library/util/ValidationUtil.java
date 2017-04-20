@@ -7,7 +7,6 @@ import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -18,66 +17,10 @@ import java.util.Set;
 
 @Tested(testMethod = "automated")
 public class ValidationUtil {
-	private static List<FieldRule> fieldRules = new ArrayList<>();
-
 	private static List<MethodRule> methodRules = new ArrayList<>();
 
 	static {
-		createFieldRules();
 		createMethodRules();
-	}
-
-	private static void createFieldRules() {
-		// Check for multiple handler annotations
-		fieldRules.add(new FieldRule() {
-			@Override
-			public void checkFieldComplies(final Field field) {
-				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int handlerAnnotationCount =
-						countAnnotations(annotations, ValueHandler.class);
-
-				if (handlerAnnotationCount > 1) {
-					final String message = "Fields must not have multiple handler annotations. " +
-							"Check field \"%1$s\".";
-
-					throw new SpyglassValidationException(String.format(message, field));
-				}
-			}
-		});
-
-		// Check for multiple default annotations
-		fieldRules.add(new FieldRule() {
-			@Override
-			public void checkFieldComplies(final Field field) {
-				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
-
-				if (defaultAnnotationCount > 1) {
-					final String message = "Fields must not have multiple default annotations. " +
-							"Check field \"%1$s\".";
-
-					throw new SpyglassValidationException(String.format(message, field));
-				}
-			}
-		});
-
-		// Check for a default annotation without a handler annotation
-		fieldRules.add(new FieldRule() {
-			@Override
-			public void checkFieldComplies(final Field field) {
-				final Annotation[] annotations = field.getDeclaredAnnotations();
-				final int handlerAnnotationCount =
-						countAnnotations(annotations, ValueHandler.class);
-				final int defaultAnnotationCount = countAnnotations(annotations, Default.class);
-
-				if (handlerAnnotationCount == 0 && defaultAnnotationCount > 0) {
-					final String message = "Fields must not have default annotations without " +
-							"handler annotations. Check field \"%1$s\".";
-
-					throw new SpyglassValidationException(String.format(message, field));
-				}
-			}
-		});
 	}
 
 	private static void createMethodRules() {
@@ -261,12 +204,6 @@ public class ValidationUtil {
 		});
 	}
 
-	public static void validateField(final Field field) throws SpyglassValidationException {
-		for (final FieldRule rule : fieldRules) {
-			rule.checkFieldComplies(field);
-		}
-	}
-
 	public static void validateMethod(final Method method) throws SpyglassValidationException {
 		for (final MethodRule rule : methodRules) {
 			rule.checkMethodComplies(method);
@@ -330,10 +267,6 @@ public class ValidationUtil {
 		}
 
 		return count;
-	}
-
-	private interface FieldRule {
-		public void checkFieldComplies(Field field) throws SpyglassValidationException;
 	}
 
 	private interface MethodRule {
