@@ -5,7 +5,7 @@ import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
 
 import java.lang.annotation.Annotation;
 
-public class TestFlagHandler extends TestCallHandler {
+public class TestFlagHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
 		return FlagHandler.class;
