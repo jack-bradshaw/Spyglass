@@ -20,9 +20,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 import java.util.TreeMap;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -80,8 +78,6 @@ public class Spyglass {
 	}
 
 	private void processField(final Field field) {
-		field.setAccessible(true);
-
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(field);
 
 		if (handlerAnnotation != null) {
@@ -103,8 +99,6 @@ public class Spyglass {
 	}
 
 	private void processMethod(final Method method) {
-		method.setAccessible(true);
-
 		if (getValueHandlerAnnotation(method) != null) {
 			processMethodWithValueHandler(method);
 		} else if (getCallHandlerAnnotation(method) != null) {
@@ -131,7 +125,7 @@ public class Spyglass {
 			final Object value = accessor.getValueFromArray(attrSource);
 			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
 
-			addValueAtEmptyPosition(args, value);
+			addValueAtFirstEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
 
 		} else if (getDefaultAnnotation(method) != null) {
@@ -139,13 +133,14 @@ public class Spyglass {
 			final Object value = defaultAdapter.getDefault(getDefaultAnnotation(method), context);
 			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
 
-			addValueAtEmptyPosition(args, value);
+			addValueAtFirstEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
 		}
 	}
 
 	private void bindDataToField(final Field field, final Object value) {
 		try {
+			field.setAccessible(true);
 			field.set(view, value);
 		} catch (final Exception e) {
 			final String message = "Failed to bind data to field %1$s.";
@@ -155,6 +150,7 @@ public class Spyglass {
 
 	private void callMethod(final Method method, Object[] arguments) {
 		try {
+			method.setAccessible(true);
 			method.invoke(view, arguments);
 		} catch (final Exception e) {
 			final String message = "Failed to call method %1$s with arguments %2$s.";
@@ -178,7 +174,7 @@ public class Spyglass {
 		return args;
 	}
 
-	private void addValueAtEmptyPosition(final Map<Integer, Object> args, final Object value) {
+	private void addValueAtFirstEmptyPosition(final Map<Integer, Object> args, final Object value) {
 		// Use size + 1 so to handle the case where the existing values have consecutive keys
 		// For example, [1 = a, 2 = b, 3 = c] would become [1 = a, 2 = b, 3 = c, 4 = value]
 		for (int i = 0; i < args.size() + 1; i++) {
