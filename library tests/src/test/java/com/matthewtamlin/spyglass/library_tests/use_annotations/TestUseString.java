@@ -1,7 +1,10 @@
-package com.matthewtamlin.spyglass.library_tests.util.use_annotations;
+package com.matthewtamlin.spyglass.library_tests.use_annotations;
 
 import com.matthewtamlin.spyglass.library.use_adapters.UseStringAdapter;
 import com.matthewtamlin.spyglass.library.use_annotations.UseString;
+
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.lang.annotation.Annotation;
 
