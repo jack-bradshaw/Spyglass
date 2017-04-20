@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Tested(testMethod = "automated")
 @Default(adapterClass = DefaultToColorResourceAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD})
 public @interface DefaultToColorResource {
 	int value();
 }
