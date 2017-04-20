@@ -16,18 +16,6 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @Tested(testMethod = "automated")
 public class AnnotationUtil {
-	public static Annotation getValueHandlerAnnotation(final Field field) {
-		checkNotNull(field, "Argument \'field \' cannot be null.");
-
-		for (final Annotation a : field.getDeclaredAnnotations()) {
-			if (a.annotationType().isAnnotationPresent(ValueHandler.class)) {
-				return a;
-			}
-		}
-
-		return null;
-	}
-
 	public static Annotation getValueHandlerAnnotation(final Method method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
@@ -45,18 +33,6 @@ public class AnnotationUtil {
 
 		for (final Annotation a : method.getDeclaredAnnotations()) {
 			if (a.annotationType().isAnnotationPresent(CallHandler.class)) {
-				return a;
-			}
-		}
-
-		return null;
-	}
-
-	public static Annotation getDefaultAnnotation(final Field field) {
-		checkNotNull(field, "Argument \'field \' cannot be null.");
-
-		for (final Annotation a : field.getDeclaredAnnotations()) {
-			if (a.annotationType().isAnnotationPresent(Default.class)) {
 				return a;
 			}
 		}
