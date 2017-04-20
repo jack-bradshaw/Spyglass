@@ -12,6 +12,10 @@ import static com.matthewtamlin.spyglass.library_tests.core.Constants.DEFAULT_ST
 import static com.matthewtamlin.spyglass.library_tests.core.Constants.USE_BYTE_VALUE;
 
 public class SpyglassTestViews {
+	public static final String DEFAULT_STRING = "default string";
+
+	public static final byte USE_BYTE_VALUE = 54;
+
 	public static class ObservableSpyglassTestView extends SpyglassTestView {
 		private Object[] argsFromLastSpyglassMethodInvocation;
 
