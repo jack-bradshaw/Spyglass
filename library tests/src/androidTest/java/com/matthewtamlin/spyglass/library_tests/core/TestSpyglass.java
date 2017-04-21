@@ -173,47 +173,6 @@ public class TestSpyglass {
 				is(new Object[]{TargetViews.DEFAULT_STRING, TargetViews.USE_BYTE_VALUE}));
 	}
 
-	@Test
-	public void testPassDataToMethods_attributesOverriddenByDefStyleAttr() {
-		final TargetViews.OnlyHandlerPresent view =
-				new TargetViews.OnlyHandlerPresent(context);
-
-		// Use activity not context, since activity has the required theme
-		final Spyglass spyglass = Spyglass.builder()
-				.withTarget(view)
-				.withContext(activityRule.getActivity())
-				.withStyleableResource(R.styleable.SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
-				.withDefStyleAttr(R.attr.SpyglassTestDefStyleAttr)
-				.build();
-
-		passDataToMethodsSynchronously(spyglass);
-
-		assertThat(
-				view.getLastArgs(),
-				is(new Object[]{string1, TargetViews.USE_BYTE_VALUE}));
-	}
-
-	@Test
-	public void testPassDataToMethods_attributesOverriddenByDefStyleRes() {
-		final TargetViews.OnlyHandlerPresent view =
-				new TargetViews.OnlyHandlerPresent(context);
-
-		final Spyglass spyglass = Spyglass.builder()
-				.withTarget(view)
-				.withContext(context)
-				.withStyleableResource(R.styleable.SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
-				.withDefStyleRes(R.style.ThemeWithTestString)
-				.build();
-
-		passDataToMethodsSynchronously(spyglass);
-
-		assertThat(
-				view.getLastArgs(),
-				is(new Object[]{string1, TargetViews.USE_BYTE_VALUE}));
-	}
-
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_handlerTypeMismatch() {
 		final TargetViews.HandlerTypeMismatch view =
