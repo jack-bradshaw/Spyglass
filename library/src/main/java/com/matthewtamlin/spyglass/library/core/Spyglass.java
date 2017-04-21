@@ -32,8 +32,7 @@ import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHan
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
 /**
- * Translates view attributes into method calls using handler annotations, default annotations and
- * use annotations.
+ * Translates view attributes into method calls using annotations.
  */
 @Tested(testMethod = "automated")
 public class Spyglass {
