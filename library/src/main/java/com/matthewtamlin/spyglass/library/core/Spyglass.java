@@ -110,9 +110,8 @@ public class Spyglass {
 	}
 
 	/**
-	 * Processes a call handler method. The method is invoked reflectively, using the arguments
-	 * defined by the method's use annotations. No check is done to ensure the method is a call
-	 * handler.
+	 * Reflectively invokes a call handler method using the arguments defined by the method's
+	 * annotations.
 	 *
 	 * @param method
 	 * 		the method to process, not null, must have a call handler annotation
