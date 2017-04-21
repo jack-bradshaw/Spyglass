@@ -163,6 +163,9 @@ public class Spyglass {
 	 * 		the method to invoke
 	 * @param arguments
 	 * 		the arguments to pass to the method
+	 *
+	 * @throws SpyglassMethodCallException
+	 * 		if the method cannot be called or throws an exception when called
 	 */
 	private void callMethod(final Method method, Object[] arguments) {
 		try {
