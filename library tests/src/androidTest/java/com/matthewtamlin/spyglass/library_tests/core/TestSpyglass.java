@@ -11,6 +11,7 @@ import android.view.View;
 import com.matthewtamlin.spyglass.library.core.IllegalThreadException;
 import com.matthewtamlin.spyglass.library.core.Spyglass;
 import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
+import com.matthewtamlin.spyglass.library_tests.R;
 import com.matthewtamlin.spyglass.library_tests.activity.EmptyActivity;
 
 import org.junit.Before;
@@ -25,15 +26,6 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
-import static com.matthewtamlin.spyglass.library_tests.R.attr.SpyglassTestDefStyleAttr;
-import static com.matthewtamlin.spyglass.library_tests.R.string.test_spyglass_string_1;
-import static com.matthewtamlin.spyglass.library_tests.R.string.test_spyglass_string_2;
-import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestString;
-import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
-import static com.matthewtamlin.spyglass.library_tests.R.xml.no_attrs;
-import static com.matthewtamlin.spyglass.library_tests.R.xml.with_string_attr;
-import static com.matthewtamlin.spyglass.library_tests.core.TargetViews.DEFAULT_STRING;
-import static com.matthewtamlin.spyglass.library_tests.core.TargetViews.USE_BYTE_VALUE;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
@@ -55,8 +47,8 @@ public class TestSpyglass {
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
 
-		string1 = context.getString(test_spyglass_string_1);
-		string2 = context.getString(test_spyglass_string_2);
+		string1 = context.getString(R.string.test_spyglass_string_1);
+		string2 = context.getString(R.string.test_spyglass_string_2);
 	}
 
 	@Test(expected = IllegalThreadException.class)
@@ -98,8 +90,8 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_attr))
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
@@ -115,15 +107,15 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_attr))
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
 				view.getLastArgs(),
-				is(new Object[]{string1, USE_BYTE_VALUE}));
+				is(new Object[]{string1, TargetViews.USE_BYTE_VALUE}));
 	}
 
 	@Test
@@ -134,8 +126,8 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
@@ -151,15 +143,15 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_attr))
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
 				view.getLastArgs(),
-				is(new Object[]{string1, USE_BYTE_VALUE}));
+				is(new Object[]{string1, TargetViews.USE_BYTE_VALUE}));
 	}
 
 	@Test
@@ -170,15 +162,15 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
 				view.getLastArgs(),
-				is(new Object[]{DEFAULT_STRING, USE_BYTE_VALUE}));
+				is(new Object[]{TargetViews.DEFAULT_STRING, TargetViews.USE_BYTE_VALUE}));
 	}
 
 	@Test
@@ -190,16 +182,16 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(activityRule.getActivity())
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withDefStyleAttr(SpyglassTestDefStyleAttr)
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
+				.withDefStyleAttr(R.attr.SpyglassTestDefStyleAttr)
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
 				view.getLastArgs(),
-				is(new Object[]{string1, USE_BYTE_VALUE}));
+				is(new Object[]{string1, TargetViews.USE_BYTE_VALUE}));
 	}
 
 	@Test
@@ -210,16 +202,16 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
-				.withDefStyleRes(ThemeWithTestString)
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
+				.withDefStyleRes(R.style.ThemeWithTestString)
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
 				view.getLastArgs(),
-				is(new Object[]{string1, USE_BYTE_VALUE}));
+				is(new Object[]{string1, TargetViews.USE_BYTE_VALUE}));
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)
@@ -230,8 +222,8 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_attr))
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
@@ -245,8 +237,8 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(no_attrs))
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
@@ -260,8 +252,8 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
 				.withContext(context)
-				.withStyleableResource(SpyglassTestView)
-				.withAttributeSet(getAttrSetFromXml(with_string_attr))
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_attr))
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
