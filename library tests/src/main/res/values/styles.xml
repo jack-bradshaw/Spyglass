@@ -5,7 +5,7 @@
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
-	<style name="ThemeWithDefStyleAttr" parent="AppTheme">
+	<style name="TestSpyglassTheme" parent="AppTheme">
 		<item name="SpyglassTestDefStyleAttr">@style/ThemeWithTestString</item>
 	</style>
 

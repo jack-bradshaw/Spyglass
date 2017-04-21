@@ -12,6 +12,6 @@
 
 		<activity
 			android:name=".activity.EmptyActivity"
-			android:theme="@style/ThemeWithDefStyleAttr"/>
+			android:theme="@style/TestSpyglassTheme"/>
 	</application>
 </manifest>	
