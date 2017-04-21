@@ -20,4 +20,7 @@
 			<flag name="flag_2" value="4"/>
 		</attr>
 	</declare-styleable>
+
+	<attr name="StyleWithString1" format="reference"/>
+	<attr name="StyleWithString2" format="reference"/>
 </resources>
