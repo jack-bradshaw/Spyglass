@@ -13,6 +13,8 @@ import com.matthewtamlin.spyglass.library.core.Spyglass;
 import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
 import com.matthewtamlin.spyglass.library_tests.R;
 import com.matthewtamlin.spyglass.library_tests.activity.TestSpyglassActivity;
+import com.matthewtamlin.spyglass.library_tests.core.TargetViews.HandlerAndDefaultPresent;
+import com.matthewtamlin.spyglass.library_tests.core.TargetViews.OnlyHandlerPresent;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -101,8 +103,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_onlyHandlerPresent_attrPresent() {
-		final TargetViews.OnlyHandlerPresent view =
-				new TargetViews.OnlyHandlerPresent(context);
+		final OnlyHandlerPresent view =
+				new OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
@@ -120,8 +122,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_onlyHandlerPresent_attrMissing() {
-		final TargetViews.OnlyHandlerPresent view =
-				new TargetViews.OnlyHandlerPresent(context);
+		final OnlyHandlerPresent view =
+				new OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
@@ -137,8 +139,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_handlerAndDefaultPresent_attrPresent() {
-		final TargetViews.HandlerAndDefaultPresent view =
-				new TargetViews.HandlerAndDefaultPresent(context);
+		final HandlerAndDefaultPresent view =
+				new HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
@@ -156,8 +158,8 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_handlerAndDefaultPresent_attrMissing() {
-		final TargetViews.HandlerAndDefaultPresent view =
-				new TargetViews.HandlerAndDefaultPresent(context);
+		final HandlerAndDefaultPresent view =
+				new HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
