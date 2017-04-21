@@ -189,7 +189,7 @@ public class Spyglass {
 
 		private Builder() {}
 
-		public Builder withView(final View view) {
+		public Builder withTarget(final View view) {
 			this.view = view;
 			return this;
 		}
@@ -221,7 +221,7 @@ public class Spyglass {
 
 		public Spyglass build() {
 			checkNotNull(view, new InvalidBuilderStateException("Unable to build a Spyglass " +
-					"without a view. Call method forView(View) before calling build()."));
+					"without a target. Call method withTarget(View) before calling build()."));
 
 			checkNotNull(context, new InvalidBuilderStateException("Unable to build a Spyglass " +
 					"without a context. Call method withContext(Context) before calling build()."));
