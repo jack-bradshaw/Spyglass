@@ -3,10 +3,7 @@ package com.matthewtamlin.spyglass.library_tests.util;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFloat;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFractionResource;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringResource;
@@ -24,7 +21,6 @@ import com.matthewtamlin.spyglass.library.util.ValidationUtil;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.FloatHandler;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.library.value_handler_annotations.StringHandler;
 
 import org.junit.Test;
@@ -33,11 +29,8 @@ import org.junit.runners.JUnit4;
 
 import java.lang.annotation.Retention;
 import java.lang.annotation.Target;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-import static com.matthewtamlin.spyglass.library.units.DimensionUnit.DP;
-import static java.lang.annotation.ElementType.FIELD;
 import static java.lang.annotation.ElementType.METHOD;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -45,30 +38,7 @@ import static org.hamcrest.core.Is.is;
 
 @RunWith(JUnit4.class)
 public class TestValidationUtil {
-	private static final String FIELD_MESSAGE = "Test for field %1$s failed with reason \"%2$s\"";
-
 	private static final String METHOD_MESSAGE = "Test for method %1$s failed with reason \"%2$s\"";
-
-	@Test
-	public void testValidateField_usingFieldsOfTestClass() {
-		for (final Field f : TestClass.class.getDeclaredFields()) {
-			if (!f.isAnnotationPresent(ValidationTestTarget.class)) {
-				continue;
-			}
-
-			final ValidationTestTarget annotation = f.getAnnotation(ValidationTestTarget.class);
-
-			final boolean shouldPass = annotation.isValid();
-			final boolean doesPass = passesValidation(f);
-
-			final String message = String.format(
-					FIELD_MESSAGE,
-					f.getName(),
-					annotation.failureMessage());
-
-			assertThat(message, doesPass, is(shouldPass));
-		}
-	}
 
 	@Test
 	public void testValidateMethod_usingMethodsOfTestClass() {
@@ -91,15 +61,6 @@ public class TestValidationUtil {
 		}
 	}
 
-	public boolean passesValidation(final Field field) {
-		try {
-			ValidationUtil.validateField(field);
-			return true;
-		} catch (final SpyglassValidationException e) {
-			return false;
-		}
-	}
-
 	public boolean passesValidation(final Method method) {
 		try {
 			ValidationUtil.validateMethod(method);
@@ -111,69 +72,6 @@ public class TestValidationUtil {
 
 	@SuppressWarnings("unused")
 	public class TestClass {
-		@ValidationTestTarget(
-				isValid = true,
-				failureMessage = "Fields with no annotations should pass.")
-		private Object field1;
-
-		@ValidationTestTarget(
-				isValid = true,
-				failureMessage = "Fields with just one handler should pass.")
-		@BooleanHandler(attributeId = 1)
-		private Object field2;
-
-		@ValidationTestTarget(
-				isValid = false,
-				failureMessage = "Fields with multiple handlers should fail.")
-		@BooleanHandler(attributeId = 1)
-		@StringHandler(attributeId = 1)
-		private Object field3;
-
-		@ValidationTestTarget(
-				isValid = false,
-				failureMessage = "Fields with multiple handlers should fail.")
-		@IntegerHandler(attributeId = 1)
-		@DimensionHandler(attributeId = 1)
-		@FloatHandler(attributeId = 1)
-		private Object field4;
-
-		@ValidationTestTarget(
-				isValid = true,
-				failureMessage = "Fields with a handler and one default should pass.")
-		@StringHandler(attributeId = 1)
-		@DefaultToString("something")
-		private Object field5;
-
-		@ValidationTestTarget(
-				isValid = false,
-				failureMessage = "Fields with a handler and multiple defaults should fail.")
-		@StringHandler(attributeId = 1)
-		@DefaultToString("something")
-		@DefaultToStringResource(1)
-		private Object field6;
-
-		@ValidationTestTarget(
-				isValid = false,
-				failureMessage = "Fields with a handler and multiple defaults should fail.")
-		@FloatHandler(attributeId = 1)
-		@DefaultToFloat(1F)
-		@DefaultToFractionResource(resId = 1)
-		@DefaultToString("something")
-		private Object field7;
-
-		@ValidationTestTarget(
-				isValid = false,
-				failureMessage = "Fields with one default and no handler should fail.")
-		@DefaultToDimension(value = 1, unit = DP)
-		private Object field8;
-
-		@ValidationTestTarget(
-				isValid = false,
-				failureMessage = "Fields with multiple defaults and no handler should fail.")
-		@DefaultToBoolean(false)
-		@DefaultToString("something")
-		private Object field9;
-
 		@ValidationTestTarget(
 				isValid = true,
 				failureMessage = "Methods with no annotations should pass.")
@@ -437,7 +335,7 @@ public class TestValidationUtil {
 
 	private enum TestEnum {}
 
-	@Target({METHOD, FIELD})
+	@Target({METHOD})
 	@Retention(RUNTIME)
 	public @interface ValidationTestTarget {
 		boolean isValid();

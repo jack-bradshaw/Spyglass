@@ -16,7 +16,6 @@ import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAda
 import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter.TypedArrayAccessor;
 
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,7 +29,6 @@ import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getValueHandle
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHandlerAnnotation;
-import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateField;
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
 @Tested(testMethod = "automated")
@@ -53,15 +51,6 @@ public class Spyglass {
 				builder.defStyleRes);
 	}
 
-	public void bindDataToFields() {
-		checkMainThread();
-
-		for (final Field f : view.getClass().getDeclaredFields()) {
-			validateField(f);
-			processField(f);
-		}
-	}
-
 	public void passDataToMethods() {
 		checkMainThread();
 
@@ -74,27 +63,6 @@ public class Spyglass {
 	private void checkMainThread() {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
 			throw new IllegalThreadException("Spyglasses must only be touched by the UI thread.");
-		}
-	}
-
-	private void processField(final Field field) {
-		final Annotation handlerAnnotation = getValueHandlerAnnotation(field);
-
-		if (handlerAnnotation != null) {
-			final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(field);
-			final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
-
-			if (accessor.valueExistsInArray(attrSource)) {
-				bindDataToField(field, accessor.getValueFromArray(attrSource));
-
-			} else if (getDefaultAnnotation(field) != null) {
-				final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(field);
-				final Object defaultValue = defaultAdapter.getDefault(
-						getDefaultAnnotation(field),
-						context);
-
-				bindDataToField(field, defaultValue);
-			}
 		}
 	}
 
@@ -135,16 +103,6 @@ public class Spyglass {
 
 			addValueAtFirstEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
-		}
-	}
-
-	private void bindDataToField(final Field field, final Object value) {
-		try {
-			field.setAccessible(true);
-			field.set(view, value);
-		} catch (final Exception e) {
-			final String message = "Failed to bind data to field %1$s.";
-			throw new SpyglassFieldBindException(String.format(message, value), e);
 		}
 	}
 
