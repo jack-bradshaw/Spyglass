@@ -110,8 +110,8 @@ public class Spyglass {
 	}
 
 	/**
-	 * Reflectively invokes a call handler method using the arguments defined by the method's
-	 * annotations.
+	 * Reflectively invokes a call handler method in the target view using the arguments defined by
+	 * the method's annotations.
 	 *
 	 * @param method
 	 * 		the method to process, not null, must have a call handler annotation
