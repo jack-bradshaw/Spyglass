@@ -12,7 +12,7 @@ import com.matthewtamlin.spyglass.library.core.IllegalThreadException;
 import com.matthewtamlin.spyglass.library.core.Spyglass;
 import com.matthewtamlin.spyglass.library.core.SpyglassMethodCallException;
 import com.matthewtamlin.spyglass.library_tests.R;
-import com.matthewtamlin.spyglass.library_tests.activity.EmptyActivity;
+import com.matthewtamlin.spyglass.library_tests.activity.TestSpyglassActivity;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -34,8 +34,8 @@ import static org.mockito.Mockito.mock;
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglass {
 	@Rule
-	public ActivityTestRule<EmptyActivity> activityRule =
-			new ActivityTestRule<>(EmptyActivity.class);
+	public ActivityTestRule<TestSpyglassActivity> activityRule =
+			new ActivityTestRule<>(TestSpyglassActivity.class);
 
 	private Context context;
 
