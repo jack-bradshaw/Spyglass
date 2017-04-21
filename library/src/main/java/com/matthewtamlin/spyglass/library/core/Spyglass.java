@@ -40,7 +40,7 @@ public class Spyglass {
 	/**
 	 * The view to pass data to via reflective method calls.
 	 */
-	private View view;
+	private View target;
 
 	/**
 	 * A context which provides access to system resources.
@@ -59,7 +59,7 @@ public class Spyglass {
 	 * 		the builder to use as the base for the spyglass
 	 */
 	private Spyglass(final Builder builder) {
-		this.view = builder.view;
+		this.target = builder.view;
 
 		this.context = builder.context;
 
@@ -78,7 +78,7 @@ public class Spyglass {
 	public void passDataToMethods() {
 		checkMainThread("Spyglass methods must be called on the UI thread.");
 
-		for (final Method m : view.getClass().getDeclaredMethods()) {
+		for (final Method m : target.getClass().getDeclaredMethods()) {
 			validateMethod(m);
 
 			if (getValueHandlerAnnotation(m) != null) {
@@ -136,7 +136,7 @@ public class Spyglass {
 	private void callMethod(final Method method, Object[] arguments) {
 		try {
 			method.setAccessible(true);
-			method.invoke(view, arguments);
+			method.invoke(target, arguments);
 		} catch (final Exception e) {
 			final String message = "Failed to call method %1$s with arguments %2$s.";
 			throw new SpyglassMethodCallException(
