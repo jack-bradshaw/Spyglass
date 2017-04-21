@@ -157,6 +157,15 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * Invokes the supplied method using the supplied arguments. The call may fail when executed,
+	 * but no validation occurs prior to execution.
+	 *
+	 * @param method
+	 * 		the method to invoke
+	 * @param arguments
+	 * 		the arguments to pass to the method
+	 */
 	private void callMethod(final Method method, Object[] arguments) {
 		try {
 			method.setAccessible(true);
