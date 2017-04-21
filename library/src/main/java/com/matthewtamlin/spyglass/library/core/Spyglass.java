@@ -105,7 +105,7 @@ public class Spyglass {
 	 * the method's annotations.
 	 *
 	 * @param method
-	 * 		the method to process, not null, must have a call handler annotation
+	 * 		the method to invoke, not null, must have a call handler annotation
 	 */
 	private void processCallHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getCallHandlerAnnotation(method);
@@ -123,7 +123,7 @@ public class Spyglass {
 	 * method has a default annotation, then the default data is used in the call.
 	 *
 	 * @param method
-	 * 		the method to process, not null, must have a call handler annotation
+	 * 		the method to invoke, not null, must have a call handler annotation
 	 */
 	private void processValueHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
