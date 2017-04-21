@@ -33,8 +33,8 @@ import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHan
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
 /**
- * Translates view attributes into method calls using annotations. This class interacts with the
- * UI, so all method calls must be made on the UI thread.
+ * Translates view attributes into method calls. This class interacts with the UI, so all method
+ * calls must be made on the main thread.
  */
 @Tested(testMethod = "automated")
 public class Spyglass {
