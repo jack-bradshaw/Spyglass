@@ -54,7 +54,7 @@ public class Spyglass {
 	private TypedArray attrSource;
 
 	/**
-	 * Constructs a new Spyglass using a builder.
+	 * Constructs a new Spyglass from a builder.
 	 *
 	 * @param builder
 	 * 		the builder to use as the base for the spyglass
