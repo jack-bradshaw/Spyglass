@@ -99,7 +99,7 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(nullValue()));
+		assertThat(view.getLastArgs(), is(nullValue()));
 	}
 
 	@Test
@@ -117,7 +117,7 @@ public class TestSpyglass {
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
-				view.getArgsFromLastSpyglassMethodInvocation(),
+				view.getLastArgs(),
 				is(new Object[]{testString, USE_BYTE_VALUE}));
 	}
 
@@ -135,7 +135,7 @@ public class TestSpyglass {
 
 		passDataToMethodsSynchronously(spyglass);
 
-		assertThat(view.getArgsFromLastSpyglassMethodInvocation(), is(nullValue()));
+		assertThat(view.getLastArgs(), is(nullValue()));
 	}
 
 	@Test
@@ -153,7 +153,7 @@ public class TestSpyglass {
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
-				view.getArgsFromLastSpyglassMethodInvocation(),
+				view.getLastArgs(),
 				is(new Object[]{testString, USE_BYTE_VALUE}));
 	}
 
@@ -172,7 +172,7 @@ public class TestSpyglass {
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
-				view.getArgsFromLastSpyglassMethodInvocation(),
+				view.getLastArgs(),
 				is(new Object[]{DEFAULT_STRING, USE_BYTE_VALUE}));
 	}
 
@@ -193,7 +193,7 @@ public class TestSpyglass {
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
-				view.getArgsFromLastSpyglassMethodInvocation(),
+				view.getLastArgs(),
 				is(new Object[]{testString, USE_BYTE_VALUE}));
 	}
 
@@ -213,7 +213,7 @@ public class TestSpyglass {
 		passDataToMethodsSynchronously(spyglass);
 
 		assertThat(
-				view.getArgsFromLastSpyglassMethodInvocation(),
+				view.getLastArgs(),
 				is(new Object[]{testString, USE_BYTE_VALUE}));
 	}
 
