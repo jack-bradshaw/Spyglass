@@ -128,9 +128,9 @@ public class Spyglass {
 	}
 
 	/**
-	 * Processes a value handler method. The method is invoked reflectively, using the arguments
-	 * defined by the method's annotations. No check is done to ensure the method is a value
-	 * handler.
+	 * Reflectively invokes a value handler method using the arguments defined by the method's
+	 * annotations. If the data source does not contain the desired data and the method specifies
+	 * a default, then the default data is used.
 	 *
 	 * @param method
 	 * 		the method to process, not null, must have a call handler annotation
