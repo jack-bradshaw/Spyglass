@@ -84,7 +84,7 @@ public class Spyglass {
 			if (getValueHandlerAnnotation(m) != null) {
 				processMethodWithValueHandler(m);
 			} else if (getCallHandlerAnnotation(m) != null) {
-				processMethodWithCallHandler(m);
+				processCallHandlerMethod(m);
 			}
 		}
 	}
@@ -101,7 +101,7 @@ public class Spyglass {
 		}
 	}
 
-	private void processMethodWithCallHandler(final Method method) {
+	private void processCallHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getCallHandlerAnnotation(method);
 		final CallHandlerAdapter<Annotation> handlerAdapter = getCallHandlerAdapter(method);
 
