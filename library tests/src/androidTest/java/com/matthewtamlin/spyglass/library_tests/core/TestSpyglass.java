@@ -26,6 +26,7 @@ import java.util.concurrent.Future;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static com.matthewtamlin.spyglass.library_tests.R.attr.SpyglassTestDefStyleAttr;
+import static com.matthewtamlin.spyglass.library_tests.R.string.test_spyglass_string_1;
 import static com.matthewtamlin.spyglass.library_tests.R.string.test_string;
 import static com.matthewtamlin.spyglass.library_tests.R.style.ThemeWithTestString;
 import static com.matthewtamlin.spyglass.library_tests.R.styleable.SpyglassTestView;
@@ -51,7 +52,8 @@ public class TestSpyglass {
 	@Before
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
-		string1 = context.getString(test_string);
+		
+		string1 = context.getString(test_spyglass_string_1);
 	}
 
 	@Test(expected = IllegalThreadException.class)
