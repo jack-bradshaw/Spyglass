@@ -157,8 +157,7 @@ public class Spyglass {
 	}
 
 	/**
-	 * Invokes the supplied method using the supplied arguments. The call may fail when executed,
-	 * but no validation occurs prior to execution.
+	 * Invokes the supplied method using the supplied arguments.
 	 *
 	 * @param method
 	 * 		the method to invoke
