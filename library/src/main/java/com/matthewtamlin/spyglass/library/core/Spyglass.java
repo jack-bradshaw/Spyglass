@@ -76,7 +76,7 @@ public class Spyglass {
 	 * TODO talk about exceptions
 	 */
 	public void passDataToMethods() {
-		checkMainThread();
+		checkMainThread("Spyglass methods must be called on the UI thread.");
 
 		for (final Method m : view.getClass().getDeclaredMethods()) {
 			validateMethod(m);
@@ -90,9 +90,9 @@ public class Spyglass {
 	 * @throws IllegalThreadException
 	 * 		if the calling thread is not the main thread
 	 */
-	private void checkMainThread() {
+	private void checkMainThread(final String message) {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
-			throw new IllegalThreadException("Spyglasses must only be touched by the UI thread.");
+			throw new IllegalThreadException(message);
 		}
 	}
 
