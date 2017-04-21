@@ -46,12 +46,12 @@ public class TestSpyglass {
 
 	private Context context;
 
-	private String testString;
+	private String string1;
 
 	@Before
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
-		testString = context.getString(test_string);
+		string1 = context.getString(test_string);
 	}
 
 	@Test(expected = IllegalThreadException.class)
@@ -118,7 +118,7 @@ public class TestSpyglass {
 
 		assertThat(
 				view.getLastArgs(),
-				is(new Object[]{testString, USE_BYTE_VALUE}));
+				is(new Object[]{string1, USE_BYTE_VALUE}));
 	}
 
 	@Test
@@ -154,7 +154,7 @@ public class TestSpyglass {
 
 		assertThat(
 				view.getLastArgs(),
-				is(new Object[]{testString, USE_BYTE_VALUE}));
+				is(new Object[]{string1, USE_BYTE_VALUE}));
 	}
 
 	@Test
@@ -194,7 +194,7 @@ public class TestSpyglass {
 
 		assertThat(
 				view.getLastArgs(),
-				is(new Object[]{testString, USE_BYTE_VALUE}));
+				is(new Object[]{string1, USE_BYTE_VALUE}));
 	}
 
 	@Test
@@ -214,7 +214,7 @@ public class TestSpyglass {
 
 		assertThat(
 				view.getLastArgs(),
-				is(new Object[]{testString, USE_BYTE_VALUE}));
+				is(new Object[]{string1, USE_BYTE_VALUE}));
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)
