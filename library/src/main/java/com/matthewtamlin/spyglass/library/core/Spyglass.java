@@ -31,14 +31,33 @@ import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getDefaultA
 import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHandlerAnnotation;
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
+/**
+ * Translates view attributes into method calls using handler annotations, default annotations and
+ * use annotations.
+ */
 @Tested(testMethod = "automated")
 public class Spyglass {
+	/**
+	 * The view to pass data to via reflective method calls.
+	 */
 	private View view;
 
+	/**
+	 * A context which provides access to system resources.
+	 */
 	private Context context;
 
+	/**
+	 * The source of the data to pass to the view.
+	 */
 	private TypedArray attrSource;
 
+	/**
+	 * Constructs a new Spyglass using a spyglass builder.
+	 *
+	 * @param builder
+	 * 		the builder to use as the base for the spyglass
+	 */
 	private Spyglass(final Builder builder) {
 		this.view = builder.view;
 
@@ -51,6 +70,11 @@ public class Spyglass {
 				builder.defStyleRes);
 	}
 
+	/**
+	 * Passes data to the target view using its method annotations. Methods are validated prior to
+	 * use, to ensure that annotations have been applied correctly.
+	 * TODO talk about exceptions
+	 */
 	public void passDataToMethods() {
 		checkMainThread();
 
@@ -60,6 +84,12 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * Checks if the calling thread is the main thread.
+	 *
+	 * @throws IllegalThreadException
+	 * 		if the calling thread is not the main thread
+	 */
 	private void checkMainThread() {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
 			throw new IllegalThreadException("Spyglasses must only be touched by the UI thread.");
