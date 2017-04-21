@@ -33,7 +33,8 @@ import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHan
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
 /**
- * Translates view attributes into method calls using annotations.
+ * Translates view attributes into method calls using annotations. This class interacts with the
+ * UI, so all method calls must be made on the UI thread.
  */
 @Tested(testMethod = "automated")
 public class Spyglass {
@@ -72,7 +73,8 @@ public class Spyglass {
 
 	/**
 	 * Passes data to the target view using its method annotations. Methods are validated prior to
-	 * use, to ensure that annotations have been applied correctly.
+	 * use, to ensure that annotations have been applied correctly. This method will fail if
+	 * called on a non-UI thread.
 	 *
 	 * @throws IllegalThreadException
 	 * 		if this method is called on any non-UI thread
