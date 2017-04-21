@@ -37,7 +37,7 @@ import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMet
 @Tested(testMethod = "automated")
 public class Spyglass {
 	/**
-	 * The view to pass data to via reflective method calls.
+	 * The target to pass data to via reflective method calls.
 	 */
 	private View target;
 
