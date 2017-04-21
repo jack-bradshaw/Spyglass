@@ -173,6 +173,26 @@ public class TestSpyglass {
 				is(new Object[]{TargetViews.DEFAULT_STRING, TargetViews.USE_BYTE_VALUE}));
 	}
 
+	@Test
+	public void testPassDataToMethods_attributeSetConflictsWithDefStyleAttr() {
+
+	}
+
+	@Test
+	public void testPassDataToMethods_attributeSetConflictsWithDefStyleRes() {
+
+	}
+
+	@Test
+	public void testPassDataToMethods_defStyleAttrSuppliesMissingAttributes() {
+
+	}
+
+	@Test
+	public void testPassDataToMethods_defStyleResSuppliesMissingAttributes() {
+
+	}
+
 	@Test(expected = SpyglassMethodCallException.class)
 	public void testPassDataToMethods_handlerTypeMismatch() {
 		final TargetViews.HandlerTypeMismatch view =
