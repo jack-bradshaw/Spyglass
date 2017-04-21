@@ -12,6 +12,7 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
+import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter.TypedArrayAccessor;
 
@@ -72,7 +73,11 @@ public class Spyglass {
 	/**
 	 * Passes data to the target view using its method annotations. Methods are validated prior to
 	 * use, to ensure that annotations have been applied correctly.
-	 * TODO talk about exceptions
+	 *
+	 * @throws SpyglassValidationException
+	 * 		if a method in the target view is found to have invalid annotations
+	 * @throws SpyglassMethodCallException
+	 * 		if a method in the target view cannot be called or throws an exception when called
 	 */
 	public void passDataToMethods() {
 		checkMainThread("Spyglass methods must be called on the UI thread.");
