@@ -79,7 +79,7 @@ public class Spyglass {
 	 * @throws IllegalThreadException
 	 * 		if this method is called on a non-UI thread
 	 * @throws SpyglassValidationException
-	 * 		if a method in the target view is found to have invalid annotations
+	 * 		if a method in the target view has invalid annotations
 	 * @throws SpyglassMethodCallException
 	 * 		if a method in the target view cannot be called or throws an exception when called
 	 */
