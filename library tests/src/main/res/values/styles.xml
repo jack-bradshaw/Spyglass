@@ -6,14 +6,14 @@
 	</style>
 
 	<style name="TestSpyglassTheme" parent="AppTheme">
-		
+
 	</style>
 
-	<style name="ThemeWithString1">
+	<style name="StyleWithString1">
 		<item name="string_attr">@string/test_spyglass_string_1</item>
 	</style>
 
-	<style name="ThemeWithString2">
+	<style name="StyleWithString2">
 		<item name="string_attr">@string/test_spyglass_string_2</item>
 	</style>
 </resources>
