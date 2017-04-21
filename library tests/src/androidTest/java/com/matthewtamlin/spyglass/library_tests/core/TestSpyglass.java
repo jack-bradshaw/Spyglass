@@ -172,22 +172,78 @@ public class TestSpyglass {
 
 	@Test
 	public void testPassDataToMethods_attributeSetConflictsWithDefStyleAttr() {
+		final HandlerAndDefaultPresent view = new HandlerAndDefaultPresent(context);
 
+		final Spyglass spyglass = Spyglass.builder()
+				.withTarget(view)
+				.withContext(activityRule.getActivity())
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_1_attr))
+				.withDefStyleAttr(R.attr.StyleWithString2)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getLastArgs(),
+				is(new Object[]{string1, TargetViews.USE_BYTE_VALUE}));
 	}
 
 	@Test
 	public void testPassDataToMethods_attributeSetConflictsWithDefStyleRes() {
+		final HandlerAndDefaultPresent view = new HandlerAndDefaultPresent(context);
 
+		final Spyglass spyglass = Spyglass.builder()
+				.withTarget(view)
+				.withContext(activityRule.getActivity())
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_1_attr))
+				.withDefStyleRes(R.style.StyleWithString2)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getLastArgs(),
+				is(new Object[]{string1, TargetViews.USE_BYTE_VALUE}));
 	}
 
 	@Test
 	public void testPassDataToMethods_defStyleAttrSuppliesMissingAttributes() {
+		final HandlerAndDefaultPresent view = new HandlerAndDefaultPresent(context);
 
+		final Spyglass spyglass = Spyglass.builder()
+				.withTarget(view)
+				.withContext(activityRule.getActivity())
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
+				.withDefStyleAttr(R.attr.StyleWithString2)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getLastArgs(),
+				is(new Object[]{string2, TargetViews.USE_BYTE_VALUE}));
 	}
 
 	@Test
 	public void testPassDataToMethods_defStyleResSuppliesMissingAttributes() {
+		final HandlerAndDefaultPresent view = new HandlerAndDefaultPresent(context);
 
+		final Spyglass spyglass = Spyglass.builder()
+				.withTarget(view)
+				.withContext(activityRule.getActivity())
+				.withStyleableResource(R.styleable.SpyglassTestView)
+				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
+				.withDefStyleRes(R.style.StyleWithString2)
+				.build();
+
+		passDataToMethodsSynchronously(spyglass);
+
+		assertThat(
+				view.getLastArgs(),
+				is(new Object[]{string2, TargetViews.USE_BYTE_VALUE}));
 	}
 
 	@Test(expected = SpyglassMethodCallException.class)
