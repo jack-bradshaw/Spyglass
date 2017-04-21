@@ -8,4 +8,7 @@
 		<item>String3</item>
 		<item>String4</item>
 	</string-array>
+
+	<string name="test_spyglass_string_1"></string>
+	<string name="test_spyglass_string_2"></string>
 </resources>
