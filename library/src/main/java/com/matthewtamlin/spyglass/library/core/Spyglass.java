@@ -82,7 +82,7 @@ public class Spyglass {
 			validateMethod(m);
 
 			if (getValueHandlerAnnotation(m) != null) {
-				processMethodWithValueHandler(m);
+				processValueHandlerMethod(m);
 			} else if (getCallHandlerAnnotation(m) != null) {
 				processCallHandlerMethod(m);
 			}
@@ -111,7 +111,7 @@ public class Spyglass {
 		}
 	}
 
-	private void processMethodWithValueHandler(final Method method) {
+	private void processValueHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
 		final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
 		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
