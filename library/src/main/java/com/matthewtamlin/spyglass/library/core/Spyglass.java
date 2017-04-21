@@ -221,6 +221,9 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * @return a new spyglass builder
+	 */
 	public static Builder builder() {
 		return new Builder();
 	}
