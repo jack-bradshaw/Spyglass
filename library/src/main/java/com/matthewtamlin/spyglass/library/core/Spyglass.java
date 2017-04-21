@@ -339,6 +339,20 @@ public class Spyglass {
 			return this;
 		}
 
+		/**
+		 * Constructs a new spyglass using this builder. Attempting to call this method without
+		 * first setting the target, the context and the styleable resource will result in an
+		 * exception being thrown.
+		 *
+		 * @return the new spyglass
+		 *
+		 * @throws InvalidBuilderStateException
+		 * 		if no target has been set
+		 * @throws InvalidBuilderStateException
+		 * 		if no context has been set
+		 * @throws InvalidBuilderStateException
+		 * 		if no styleable resource has been set
+		 */
 		public Spyglass build() {
 			checkNotNull(target, new InvalidBuilderStateException("Unable to build a Spyglass " +
 					"without a target. Call method withTarget(View) before calling build()."));
