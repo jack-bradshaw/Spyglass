@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static android.R.id.message;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getCallHandlerAdapter;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
@@ -84,7 +85,10 @@ public class Spyglass {
 	 * 		if a method in the target view cannot be called or throws an exception when called
 	 */
 	public void passDataToMethods() {
-		checkMainThread("Spyglass methods must be called on the UI thread.");
+		// The spyglass interacts with the UI, so make sure this call is on the main thread
+		if (Looper.myLooper() != Looper.getMainLooper()) {
+			throw new IllegalThreadException("Spyglass methods must be called on the UI thread.");
+		}
 
 		for (final Method m : target.getClass().getDeclaredMethods()) {
 			validateMethod(m);
@@ -94,18 +98,6 @@ public class Spyglass {
 			} else if (getCallHandlerAnnotation(m) != null) {
 				processCallHandlerMethod(m);
 			}
-		}
-	}
-
-	/**
-	 * Checks if the calling thread is the main thread.
-	 *
-	 * @throws IllegalThreadException
-	 * 		if the calling thread is not the main thread
-	 */
-	private void checkMainThread(final String message) {
-		if (Looper.myLooper() != Looper.getMainLooper()) {
-			throw new IllegalThreadException(message);
 		}
 	}
 
