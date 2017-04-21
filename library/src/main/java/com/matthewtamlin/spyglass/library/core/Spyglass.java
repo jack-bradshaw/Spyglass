@@ -194,7 +194,8 @@ public class Spyglass {
 	}
 
 	/**
-	 * Adds the supplied value at the first index which does not have a mapping, counting from zero.
+	 * Adds the supplied value to the supplied map. The first index which does not already have a
+	 * value (counting from zero) is used as the key for the value.
 	 *
 	 * @param map
 	 * 		a map of values
