@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglassBuilder {
 	@Test(expected = InvalidBuilderStateException.class)
-	public void testBuild_noViewEverSupplied() {
+	public void testBuild_noTargetEverSupplied() {
 		Spyglass.builder()
 				.withContext(mock(Context.class))
 				.withStyleableResource(new int[0])
@@ -24,7 +24,7 @@ public class TestSpyglassBuilder {
 	}
 
 	@Test(expected = InvalidBuilderStateException.class)
-	public void testBuild_nullViewSupplied() {
+	public void testBuild_nullTargetSupplied() {
 		Spyglass.builder()
 				.withTarget(null)
 				.withContext(mock(Context.class))
