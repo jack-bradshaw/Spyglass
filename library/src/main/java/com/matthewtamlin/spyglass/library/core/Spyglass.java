@@ -228,36 +228,102 @@ public class Spyglass {
 		return new Builder();
 	}
 
+	/**
+	 * Builds new instances of the spyglass tool. Attempting to call {@link #build()} without
+	 * first setting the target, the context and the styleable resource will result in an exception
+	 * being thrown.
+	 */
 	public static class Builder {
+		/**
+		 * The target to use in the spyglass when built. This property is mandatory and must be
+		 * non-null prior to calling {@link #build()}.
+		 */
 		private View target;
 
+		/**
+		 * The context to use in the spyglass when built. This property is mandatory and must be
+		 * non-null prior to calling {@link #build()}.
+		 */
 		private Context context;
 
+		/**
+		 * The styleable resource to use in the spyglass when built. This property is mandatory
+		 * and must be non-null prior to calling {@link #build()}.
+		 */
 		private int styleableRes[];
 
+		/**
+		 * The attribute set to use in the spyglass when built. This property is optional and
+		 * does not need to be changed prior to calling {@link #build()}.
+		 */
 		private AttributeSet attributeSet;
 
+		/**
+		 * The resource ID of the attribute set to use in the spyglass when built. This property is
+		 * optional and does not need to be changed prior to calling {@link #build()}.
+		 */
 		private int defStyleAttr;
 
 		private int defStyleRes;
 
 		private Builder() {}
 
+		/**
+		 * Sets the target to pass data to when the spyglass is used. If this method is called more
+		 * than once, only the most recent value is used. This method must be called with a
+		 * non-null value prior to calling {@link #build()}.
+		 *
+		 * @param view
+		 * 		the target to pass data to
+		 *
+		 * @return this builder
+		 */
 		public Builder withTarget(final View view) {
 			this.target = view;
 			return this;
 		}
 
+		/**
+		 * Sets the context to source resource information from. If this method is called more
+		 * than once, only the most recent value is used. This method must be called with a
+		 * non-null value prior to calling {@link #build()}.
+		 *
+		 * @param context
+		 * 		the context to source resource information from
+		 *
+		 * @return this builder
+		 */
 		public Builder withContext(final Context context) {
 			this.context = context;
 			return this;
 		}
 
+		/**
+		 * Sets the styleable resource to use when interpreting attribute data. The behaviour of the
+		 * spyglass is undefined if the styleable resource is not applicable to the target
+		 * view. If this method is called more than once, only the most recent value is used.
+		 * This method must be called with a non-null value prior to calling {@link #build()}.
+		 *
+		 * @param styleableRes
+		 * 		the styleable resource to use when interpreting attribute data
+		 *
+		 * @return this builder
+		 */
 		public Builder withStyleableResource(final int[] styleableRes) {
 			this.styleableRes = styleableRes;
 			return this;
 		}
 
+		/**
+		 * Sets the attribute set to source data from. If this method is called more than once,
+		 * only the most recent value is used. An attribute set is not mandatory, and
+		 * {@link #build()} can safely be called without ever calling this method.
+		 *
+		 * @param attributeSet
+		 * 		the attribute set to source data from, may be null
+		 *
+		 * @return this builder
+		 */
 		public Builder withAttributeSet(final AttributeSet attributeSet) {
 			this.attributeSet = attributeSet;
 			return this;
