@@ -21,5 +21,6 @@
 		</attr>
 	</declare-styleable>
 
-	<attr name="SpyglassTestDefStyleAttr" format="reference"/>
+	<!-- For testing def-style-attr behaviour in TestSpyglass -->
+	<attr name="style_with_string_2" format="reference"/>
 </resources>

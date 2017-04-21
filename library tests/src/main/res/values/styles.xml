@@ -5,11 +5,11 @@
 		<item name="colorAccent">@color/colorAccent</item>
 	</style>
 
-	<style name="ThemeWithDefStyleAttr" parent="AppTheme">
-		<item name="SpyglassTestDefStyleAttr">@style/ThemeWithTestString</item>
+	<style name="TestSpyglassTheme" parent="AppTheme">
+		<item name="StyleWithString2">@style/StyleWithString2</item>
 	</style>
 
-	<style name="ThemeWithTestString" parent="AppTheme">
-		<item name="string_attr">@string/test_string</item>
+	<style name="StyleWithString2">
+		<item name="string_attr">@string/test_spyglass_string_2</item>
 	</style>
 </resources>
