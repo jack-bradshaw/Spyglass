@@ -75,7 +75,7 @@ public class Spyglass {
 	 * use, to ensure that annotations have been applied correctly.
 	 *
 	 * @throws IllegalThreadException
-	 * 		if this method is called on any thread other than the main thread
+	 * 		if this method is called on any non-UI thread
 	 * @throws SpyglassValidationException
 	 * 		if a method in the target view is found to have invalid annotations
 	 * @throws SpyglassMethodCallException
