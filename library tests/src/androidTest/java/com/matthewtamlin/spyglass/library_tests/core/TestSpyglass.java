@@ -57,7 +57,7 @@ public class TestSpyglass {
 	@Test(expected = IllegalThreadException.class)
 	public void testPassDataToMethods_calledOnNonUiThread() {
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(mock(View.class))
+				.withTarget(mock(View.class))
 				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
@@ -91,7 +91,7 @@ public class TestSpyglass {
 				new TargetViews.NoAnnotations(context);
 
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
@@ -108,7 +108,7 @@ public class TestSpyglass {
 				new TargetViews.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
@@ -127,7 +127,7 @@ public class TestSpyglass {
 				new TargetViews.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
@@ -144,7 +144,7 @@ public class TestSpyglass {
 				new TargetViews.HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
@@ -163,7 +163,7 @@ public class TestSpyglass {
 				new TargetViews.HandlerAndDefaultPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
@@ -183,7 +183,7 @@ public class TestSpyglass {
 
 		// Use activity not context, since activity has the required theme
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(activityRule.getActivity())
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
@@ -203,7 +203,7 @@ public class TestSpyglass {
 				new TargetViews.OnlyHandlerPresent(context);
 
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
@@ -223,7 +223,7 @@ public class TestSpyglass {
 				new TargetViews.HandlerTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
@@ -238,7 +238,7 @@ public class TestSpyglass {
 				new TargetViews.DefaultTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(no_attrs))
@@ -253,7 +253,7 @@ public class TestSpyglass {
 				new TargetViews.UseTypeMismatch(context);
 
 		final Spyglass spyglass = Spyglass.builder()
-				.withView(view)
+				.withTarget(view)
 				.withContext(context)
 				.withStyleableResource(SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(with_string_attr))
