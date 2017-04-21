@@ -6,7 +6,8 @@
 	</style>
 
 	<style name="TestSpyglassTheme" parent="AppTheme">
-
+		<item name="StyleWithString1">@style/StyleWithString1</item>
+		<item name="StyleWithString2">@style/StyleWithString2</item>
 	</style>
 
 	<style name="StyleWithString1">
