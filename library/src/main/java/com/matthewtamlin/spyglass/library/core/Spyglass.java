@@ -179,6 +179,15 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * Gets the values specified by the use annotations of a method. The values are returned in a
+	 * map, where each value is mapped to the index of the parameter it applies to.
+	 *
+	 * @param method
+	 * 		the method to get the values from
+	 *
+	 * @return the values
+	 */
 	private Map<Integer, Object> getArgsFromUseAnnotations(final Method method) {
 		final Map<Integer, Object> args = new HashMap<>();
 
