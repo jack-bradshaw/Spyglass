@@ -49,7 +49,7 @@ public class Spyglass {
 	private Context context;
 
 	/**
-	 * The source of the data to pass to the target.
+	 * Supplies the data to pass to the target.
 	 */
 	private TypedArray attrSource;
 
