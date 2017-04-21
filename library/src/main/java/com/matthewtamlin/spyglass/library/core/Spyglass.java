@@ -109,6 +109,13 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * Processes a call handler method. The method is invoked reflectively, using the arguments
+	 * defined by the method's use annotations.
+	 *
+	 * @param method
+	 * 		the method to process, not null, must have a call handler annotation
+	 */
 	private void processCallHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getCallHandlerAnnotation(method);
 		final CallHandlerAdapter<Annotation> handlerAdapter = getCallHandlerAdapter(method);
