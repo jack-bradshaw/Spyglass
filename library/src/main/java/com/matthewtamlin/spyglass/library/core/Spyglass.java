@@ -12,6 +12,7 @@ import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.use_adapters.UseAdapter;
 import com.matthewtamlin.spyglass.library.util.AdapterUtil;
 import com.matthewtamlin.spyglass.library.util.AnnotationUtil;
+import com.matthewtamlin.spyglass.library.util.SpyglassValidationException;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
 import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter.TypedArrayAccessor;
 
@@ -32,13 +33,13 @@ import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHan
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
 /**
- * Translates view attributes into method calls using handler annotations, default annotations and
- * use annotations.
+ * Translates view attributes into method calls using annotations. This class interacts with the
+ * UI, so all method calls must be made on the UI thread.
  */
 @Tested(testMethod = "automated")
 public class Spyglass {
 	/**
-	 * The view to pass data to via reflective method calls.
+	 * The target to pass data to via reflective method calls.
 	 */
 	private View target;
 
@@ -48,12 +49,12 @@ public class Spyglass {
 	private Context context;
 
 	/**
-	 * The source of the data to pass to the view.
+	 * The source of the data to pass to the target.
 	 */
 	private TypedArray attrSource;
 
 	/**
-	 * Constructs a new Spyglass using a spyglass builder.
+	 * Constructs a new Spyglass using a builder.
 	 *
 	 * @param builder
 	 * 		the builder to use as the base for the spyglass
@@ -72,8 +73,15 @@ public class Spyglass {
 
 	/**
 	 * Passes data to the target view using its method annotations. Methods are validated prior to
-	 * use, to ensure that annotations have been applied correctly.
-	 * TODO talk about exceptions
+	 * use, to ensure that annotations have been applied correctly. This method will fail if
+	 * called on a non-UI thread.
+	 *
+	 * @throws IllegalThreadException
+	 * 		if this method is called on any non-UI thread
+	 * @throws SpyglassValidationException
+	 * 		if a method in the target view is found to have invalid annotations
+	 * @throws SpyglassMethodCallException
+	 * 		if a method in the target view cannot be called or throws an exception when called
 	 */
 	public void passDataToMethods() {
 		checkMainThread("Spyglass methods must be called on the UI thread.");
@@ -101,6 +109,13 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * Reflectively invokes a call handler method in the target view using the arguments defined by
+	 * the method's annotations.
+	 *
+	 * @param method
+	 * 		the method to process, not null, must have a call handler annotation
+	 */
 	private void processCallHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getCallHandlerAnnotation(method);
 		final CallHandlerAdapter<Annotation> handlerAdapter = getCallHandlerAdapter(method);
@@ -111,6 +126,14 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * Reflectively invokes a value handler method in the target view using the arguments defined
+	 * by the method's annotations. If the data source does not contain the desired data and the
+	 * method specifies a default, then the default data is used.
+	 *
+	 * @param method
+	 * 		the method to process, not null, must have a call handler annotation
+	 */
 	private void processValueHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
 		final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
@@ -133,6 +156,17 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * Invokes the supplied method using the supplied arguments.
+	 *
+	 * @param method
+	 * 		the method to invoke
+	 * @param arguments
+	 * 		the arguments to pass to the method
+	 *
+	 * @throws SpyglassMethodCallException
+	 * 		if the method cannot be called or throws an exception when called
+	 */
 	private void callMethod(final Method method, Object[] arguments) {
 		try {
 			method.setAccessible(true);
@@ -145,6 +179,15 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * Gets the values specified by the use annotations of a method. The values are returned in a
+	 * map, where each value is mapped to the index of the parameter it applies to.
+	 *
+	 * @param method
+	 * 		the method to get the values from
+	 *
+	 * @return the values
+	 */
 	private Map<Integer, Object> getArgsFromUseAnnotations(final Method method) {
 		final Map<Integer, Object> args = new HashMap<>();
 
@@ -159,6 +202,14 @@ public class Spyglass {
 		return args;
 	}
 
+	/**
+	 * Adds the supplied value at the first index which does not have a mapping, counting from zero.
+	 *
+	 * @param args
+	 * 		the existing values
+	 * @param value
+	 * 		the value to add
+	 */
 	private void addValueAtFirstEmptyPosition(final Map<Integer, Object> args, final Object value) {
 		// Use size + 1 so to handle the case where the existing values have consecutive keys
 		// For example, [1 = a, 2 = b, 3 = c] would become [1 = a, 2 = b, 3 = c, 4 = value]
@@ -170,40 +221,109 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * @return a new spyglass builder
+	 */
 	public static Builder builder() {
 		return new Builder();
 	}
 
+	/**
+	 * Builds new instances of the spyglass tool. Attempting to call {@link #build()} without
+	 * first setting the target, the context and the styleable resource will result in an exception
+	 * being thrown.
+	 */
 	public static class Builder {
+		/**
+		 * The target to use in the spyglass when built. This property is mandatory and must be
+		 * non-null prior to calling {@link #build()}.
+		 */
 		private View target;
 
+		/**
+		 * The context to use in the spyglass when built. This property is mandatory and must be
+		 * non-null prior to calling {@link #build()}.
+		 */
 		private Context context;
 
+		/**
+		 * The styleable resource to use in the spyglass when built. This property is mandatory
+		 * and must be non-null prior to calling {@link #build()}.
+		 */
 		private int styleableRes[];
 
+		/**
+		 * The attribute set to use in the spyglass when built. This property is optional and
+		 * does not need to be changed prior to calling {@link #build()}.
+		 */
 		private AttributeSet attributeSet;
 
+		/**
+		 * The resource ID of the attribute set to use in the spyglass when built. This property is
+		 * optional and does not need to be changed prior to calling {@link #build()}.
+		 */
 		private int defStyleAttr;
 
 		private int defStyleRes;
 
 		private Builder() {}
 
+		/**
+		 * Sets the target to pass data to when the spyglass is used. If this method is called more
+		 * than once, only the most recent value is used. This method must be called with a
+		 * non-null value prior to calling {@link #build()}.
+		 *
+		 * @param view
+		 * 		the target to pass data to
+		 *
+		 * @return this builder
+		 */
 		public Builder withTarget(final View view) {
 			this.target = view;
 			return this;
 		}
 
+		/**
+		 * Sets the context to source resource information from. If this method is called more
+		 * than once, only the most recent value is used. This method must be called with a
+		 * non-null value prior to calling {@link #build()}.
+		 *
+		 * @param context
+		 * 		the context to source resource information from
+		 *
+		 * @return this builder
+		 */
 		public Builder withContext(final Context context) {
 			this.context = context;
 			return this;
 		}
 
+		/**
+		 * Sets the styleable resource to use when interpreting attribute data. The behaviour of the
+		 * spyglass is undefined if the styleable resource is not applicable to the target
+		 * view. If this method is called more than once, only the most recent value is used.
+		 * This method must be called with a non-null value prior to calling {@link #build()}.
+		 *
+		 * @param styleableRes
+		 * 		the styleable resource to use when interpreting attribute data
+		 *
+		 * @return this builder
+		 */
 		public Builder withStyleableResource(final int[] styleableRes) {
 			this.styleableRes = styleableRes;
 			return this;
 		}
 
+		/**
+		 * Sets the attribute set to source data from. If this method is called more than once,
+		 * only the most recent value is used. An attribute set is not mandatory, and
+		 * {@link #build()} can safely be called without ever calling this method.
+		 *
+		 * @param attributeSet
+		 * 		the attribute set to source data from, may be null
+		 *
+		 * @return this builder
+		 */
 		public Builder withAttributeSet(final AttributeSet attributeSet) {
 			this.attributeSet = attributeSet;
 			return this;
@@ -219,6 +339,20 @@ public class Spyglass {
 			return this;
 		}
 
+		/**
+		 * Constructs a new spyglass using this builder. Attempting to call this method without
+		 * first setting the target, the context and the styleable resource will result in an
+		 * exception being thrown.
+		 *
+		 * @return the new spyglass
+		 *
+		 * @throws InvalidBuilderStateException
+		 * 		if no target has been set
+		 * @throws InvalidBuilderStateException
+		 * 		if no context has been set
+		 * @throws InvalidBuilderStateException
+		 * 		if no styleable resource has been set
+		 */
 		public Spyglass build() {
 			checkNotNull(target, new InvalidBuilderStateException("Unable to build a Spyglass " +
 					"without a target. Call method withTarget(View) before calling build()."));
