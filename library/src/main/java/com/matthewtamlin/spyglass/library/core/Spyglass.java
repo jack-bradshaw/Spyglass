@@ -120,7 +120,7 @@ public class Spyglass {
 	/**
 	 * Reflectively invokes a value handler method in the target view using the arguments defined
 	 * by the method's annotations. If the data source does not contain the desired data and the
-	 * method specifies a default, then the default data is used.
+	 * method has a default annotation, then the default data is used in the call.
 	 *
 	 * @param method
 	 * 		the method to process, not null, must have a call handler annotation
