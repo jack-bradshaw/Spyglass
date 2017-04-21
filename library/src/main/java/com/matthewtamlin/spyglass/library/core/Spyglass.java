@@ -84,7 +84,10 @@ public class Spyglass {
 	 * 		if a method in the target view cannot be called or throws an exception when called
 	 */
 	public void passDataToMethods() {
-		checkMainThread("Spyglass methods must be called on the UI thread.");
+		// The spyglass interacts with the UI, so make sure this call is on the main thread
+		if (Looper.myLooper() != Looper.getMainLooper()) {
+			throw new IllegalThreadException("Spyglass methods must be called on the UI thread.");
+		}
 
 		for (final Method m : target.getClass().getDeclaredMethods()) {
 			validateMethod(m);
@@ -94,18 +97,6 @@ public class Spyglass {
 			} else if (getCallHandlerAnnotation(m) != null) {
 				processCallHandlerMethod(m);
 			}
-		}
-	}
-
-	/**
-	 * Checks if the calling thread is the main thread.
-	 *
-	 * @throws IllegalThreadException
-	 * 		if the calling thread is not the main thread
-	 */
-	private void checkMainThread(final String message) {
-		if (Looper.myLooper() != Looper.getMainLooper()) {
-			throw new IllegalThreadException(message);
 		}
 	}
 
@@ -121,7 +112,7 @@ public class Spyglass {
 		final CallHandlerAdapter<Annotation> handlerAdapter = getCallHandlerAdapter(method);
 
 		if (handlerAdapter.shouldCallMethod(handlerAnnotation, attrSource)) {
-			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+			final TreeMap<Integer, Object> args = new TreeMap<>(getUseAnnotationsValues(method));
 			callMethod(method, args.values().toArray());
 		}
 	}
@@ -141,7 +132,7 @@ public class Spyglass {
 
 		if (accessor.valueExistsInArray(attrSource)) {
 			final Object value = accessor.getValueFromArray(attrSource);
-			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+			final TreeMap<Integer, Object> args = new TreeMap<>(getUseAnnotationsValues(method));
 
 			addValueAtFirstEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
@@ -149,7 +140,7 @@ public class Spyglass {
 		} else if (getDefaultAnnotation(method) != null) {
 			final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(method);
 			final Object value = defaultAdapter.getDefault(getDefaultAnnotation(method), context);
-			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+			final TreeMap<Integer, Object> args = new TreeMap<>(getUseAnnotationsValues(method));
 
 			addValueAtFirstEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
@@ -188,7 +179,7 @@ public class Spyglass {
 	 *
 	 * @return the values
 	 */
-	private Map<Integer, Object> getArgsFromUseAnnotations(final Method method) {
+	private Map<Integer, Object> getUseAnnotationsValues(final Method method) {
 		final Map<Integer, Object> args = new HashMap<>();
 
 		final Map<Integer, Annotation> annotations = AnnotationUtil.getUseAnnotations(method);
@@ -203,19 +194,20 @@ public class Spyglass {
 	}
 
 	/**
-	 * Adds the supplied value at the first index which does not have a mapping, counting from zero.
+	 * Adds the supplied value to the supplied map. The first index which does not already have a
+	 * value (counting from zero) is used as the key for the value.
 	 *
-	 * @param args
-	 * 		the existing values
+	 * @param map
+	 * 		a map of values
 	 * @param value
-	 * 		the value to add
+	 * 		the value to add to the map
 	 */
-	private void addValueAtFirstEmptyPosition(final Map<Integer, Object> args, final Object value) {
+	private void addValueAtFirstEmptyPosition(final Map<Integer, Object> map, final Object value) {
 		// Use size + 1 so to handle the case where the existing values have consecutive keys
 		// For example, [1 = a, 2 = b, 3 = c] would become [1 = a, 2 = b, 3 = c, 4 = value]
-		for (int i = 0; i < args.size() + 1; i++) {
-			if (!args.containsKey(i)) {
-				args.put(i, value);
+		for (int i = 0; i < map.size() + 1; i++) {
+			if (!map.containsKey(i)) {
+				map.put(i, value);
 				break;
 			}
 		}
