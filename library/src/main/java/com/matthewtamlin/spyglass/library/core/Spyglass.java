@@ -23,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.TreeMap;
 
-import static android.R.id.message;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getCallHandlerAdapter;
 import static com.matthewtamlin.spyglass.library.util.AdapterUtil.getDefaultAdapter;
@@ -113,7 +112,7 @@ public class Spyglass {
 		final CallHandlerAdapter<Annotation> handlerAdapter = getCallHandlerAdapter(method);
 
 		if (handlerAdapter.shouldCallMethod(handlerAnnotation, attrSource)) {
-			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+			final TreeMap<Integer, Object> args = new TreeMap<>(getUseAnnotationsValues(method));
 			callMethod(method, args.values().toArray());
 		}
 	}
@@ -133,7 +132,7 @@ public class Spyglass {
 
 		if (accessor.valueExistsInArray(attrSource)) {
 			final Object value = accessor.getValueFromArray(attrSource);
-			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+			final TreeMap<Integer, Object> args = new TreeMap<>(getUseAnnotationsValues(method));
 
 			addValueAtFirstEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
@@ -141,7 +140,7 @@ public class Spyglass {
 		} else if (getDefaultAnnotation(method) != null) {
 			final DefaultAdapter<?, Annotation> defaultAdapter = getDefaultAdapter(method);
 			final Object value = defaultAdapter.getDefault(getDefaultAnnotation(method), context);
-			final TreeMap<Integer, Object> args = new TreeMap<>(getArgsFromUseAnnotations(method));
+			final TreeMap<Integer, Object> args = new TreeMap<>(getUseAnnotationsValues(method));
 
 			addValueAtFirstEmptyPosition(args, value);
 			callMethod(method, args.values().toArray());
@@ -180,7 +179,7 @@ public class Spyglass {
 	 *
 	 * @return the values
 	 */
-	private Map<Integer, Object> getArgsFromUseAnnotations(final Method method) {
+	private Map<Integer, Object> getUseAnnotationsValues(final Method method) {
 		final Map<Integer, Object> args = new HashMap<>();
 
 		final Map<Integer, Annotation> annotations = AnnotationUtil.getUseAnnotations(method);
