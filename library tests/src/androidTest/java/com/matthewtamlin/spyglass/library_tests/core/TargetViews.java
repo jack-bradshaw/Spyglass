@@ -22,18 +22,18 @@ public class TargetViews {
 			super(context);
 		}
 
-		public Object[] getArgs() {
+		public Object[] getLastArgs() {
 			return args;
 		}
 
-		public void setArgs(final Object[] args) {
+		public void setLastArgs(final Object[] args) {
 			this.args = args;
 		}
 	}
 
 	public static class NoAnnotations extends SpyglassTestView {
 		public void spyglassMethod(final String arg1, byte arg2) {
-			setArgs(new Object[]{arg1, arg2});
+			setLastArgs(new Object[]{arg1, arg2});
 		}
 
 		public NoAnnotations(final Context context) {
@@ -44,7 +44,7 @@ public class TargetViews {
 	public static class OnlyHandlerPresent extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
-			setArgs(new Object[]{arg1, arg2});
+			setLastArgs(new Object[]{arg1, arg2});
 		}
 
 		public OnlyHandlerPresent(final Context context) {
@@ -56,7 +56,7 @@ public class TargetViews {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToString(DEFAULT_STRING)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
-			setArgs(new Object[]{arg1, arg2});
+			setLastArgs(new Object[]{arg1, arg2});
 		}
 
 		public HandlerAndDefaultPresent(final Context context) {
@@ -67,7 +67,7 @@ public class TargetViews {
 	public static class HandlerTypeMismatch extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public void spyglassMethod(final boolean arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
-			setArgs(new Object[]{arg1, arg2});
+			setLastArgs(new Object[]{arg1, arg2});
 		}
 
 		public HandlerTypeMismatch(final Context context) {
@@ -79,7 +79,7 @@ public class TargetViews {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		@DefaultToBoolean(false)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) byte arg2) {
-			setArgs(new Object[]{arg1, arg2});
+			setLastArgs(new Object[]{arg1, arg2});
 		}
 
 		public DefaultTypeMismatch(final Context context) {
@@ -90,7 +90,7 @@ public class TargetViews {
 	public static class UseTypeMismatch extends SpyglassTestView {
 		@StringHandler(attributeId = SpyglassTestView_string_attr)
 		public void spyglassMethod(final String arg1, @UseByte(USE_BYTE_VALUE) boolean arg2) {
-			setArgs(new Object[]{arg1, arg2});
+			setLastArgs(new Object[]{arg1, arg2});
 		}
 
 		public UseTypeMismatch(final Context context) {
