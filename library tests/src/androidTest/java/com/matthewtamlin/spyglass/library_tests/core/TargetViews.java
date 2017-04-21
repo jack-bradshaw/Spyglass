@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.core;
 
 import android.content.Context;
+import android.view.View;
 
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
@@ -14,7 +15,7 @@ public class TargetViews {
 
 	public static final byte USE_BYTE_VALUE = 54;
 
-	public static class ObservableSpyglassTestView extends SpyglassTestView {
+	public static class ObservableSpyglassTestView extends View {
 		private Object[] argsFromLastSpyglassMethodInvocation;
 
 		public ObservableSpyglassTestView(final Context context) {
