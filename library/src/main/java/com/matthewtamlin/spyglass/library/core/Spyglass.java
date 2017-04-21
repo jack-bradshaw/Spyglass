@@ -126,6 +126,13 @@ public class Spyglass {
 		}
 	}
 
+	/**
+	 * Processes a value handler method. The method is invoked reflectively, using the arguments
+	 * defined by the method's annotations.
+	 *
+	 * @param method
+	 * 		the method to process, not null, must have a call handler annotation
+	 */
 	private void processValueHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
 		final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
