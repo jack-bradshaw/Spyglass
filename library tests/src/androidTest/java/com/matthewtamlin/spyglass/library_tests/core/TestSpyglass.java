@@ -47,7 +47,7 @@ public class TestSpyglass {
 
 	@Before
 	public void setup() {
-		context = InstrumentationRegistry.getTargetContext();
+		context = activityRule.getActivity();
 
 		string1 = context.getString(R.string.test_spyglass_string_1);
 		string2 = context.getString(R.string.test_spyglass_string_2);
@@ -176,7 +176,7 @@ public class TestSpyglass {
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
-				.withContext(activityRule.getActivity())
+				.withContext(context)
 				.withStyleableResource(R.styleable.SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_1_attr))
 				.withDefStyleAttr(R.attr.StyleWithString2)
@@ -195,7 +195,7 @@ public class TestSpyglass {
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
-				.withContext(activityRule.getActivity())
+				.withContext(context)
 				.withStyleableResource(R.styleable.SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_1_attr))
 				.withDefStyleRes(R.style.StyleWithString2)
@@ -214,7 +214,7 @@ public class TestSpyglass {
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
-				.withContext(activityRule.getActivity())
+				.withContext(context)
 				.withStyleableResource(R.styleable.SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
 				.withDefStyleAttr(R.attr.StyleWithString2)
@@ -233,7 +233,7 @@ public class TestSpyglass {
 
 		final Spyglass spyglass = Spyglass.builder()
 				.withTarget(view)
-				.withContext(activityRule.getActivity())
+				.withContext(context)
 				.withStyleableResource(R.styleable.SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
 				.withDefStyleRes(R.style.StyleWithString2)
