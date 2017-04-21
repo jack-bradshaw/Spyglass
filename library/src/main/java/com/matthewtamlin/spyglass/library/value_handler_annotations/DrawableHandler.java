@@ -15,7 +15,7 @@ import java.lang.annotation.Target;
 @Tested(testMethod = "automated")
 @ValueHandler(adapterClass = DrawableHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD, ElementType.FIELD})
+@Target({ElementType.METHOD})
 public @interface DrawableHandler {
 	/**
 	 * @return the resource ID of the handled attribute
