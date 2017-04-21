@@ -197,9 +197,9 @@ public class Spyglass {
 	 * Adds the supplied value at the first index which does not have a mapping, counting from zero.
 	 *
 	 * @param map
-	 * 		the existing values
+	 * 		a map of values
 	 * @param value
-	 * 		the value to add
+	 * 		the value to add to the map
 	 */
 	private void addValueAtFirstEmptyPosition(final Map<Integer, Object> map, final Object value) {
 		// Use size + 1 so to handle the case where the existing values have consecutive keys
