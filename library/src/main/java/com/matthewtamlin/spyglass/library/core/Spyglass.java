@@ -80,7 +80,12 @@ public class Spyglass {
 
 		for (final Method m : view.getClass().getDeclaredMethods()) {
 			validateMethod(m);
-			processMethod(m);
+
+			if (getValueHandlerAnnotation(m) != null) {
+				processMethodWithValueHandler(m);
+			} else if (getCallHandlerAnnotation(m) != null) {
+				processMethodWithCallHandler(m);
+			}
 		}
 	}
 
@@ -93,14 +98,6 @@ public class Spyglass {
 	private void checkMainThread(final String message) {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
 			throw new IllegalThreadException(message);
-		}
-	}
-
-	private void processMethod(final Method method) {
-		if (getValueHandlerAnnotation(method) != null) {
-			processMethodWithValueHandler(method);
-		} else if (getCallHandlerAnnotation(method) != null) {
-			processMethodWithCallHandler(method);
 		}
 	}
 
