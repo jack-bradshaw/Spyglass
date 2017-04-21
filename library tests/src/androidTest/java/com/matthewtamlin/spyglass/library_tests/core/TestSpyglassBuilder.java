@@ -16,7 +16,7 @@ import static org.mockito.Mockito.mock;
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglassBuilder {
 	@Test(expected = InvalidBuilderStateException.class)
-	public void testBuild_noViewEverSupplied() {
+	public void testBuild_noTargetEverSupplied() {
 		Spyglass.builder()
 				.withContext(mock(Context.class))
 				.withStyleableResource(new int[0])
@@ -24,9 +24,9 @@ public class TestSpyglassBuilder {
 	}
 
 	@Test(expected = InvalidBuilderStateException.class)
-	public void testBuild_nullViewSupplied() {
+	public void testBuild_nullTargetSupplied() {
 		Spyglass.builder()
-				.withView(null)
+				.withTarget(null)
 				.withContext(mock(Context.class))
 				.withStyleableResource(new int[0])
 				.build();
@@ -35,7 +35,7 @@ public class TestSpyglassBuilder {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testBuild_noContextEverSupplied() {
 		Spyglass.builder()
-				.withView(mock(View.class))
+				.withTarget(mock(View.class))
 				.withStyleableResource(new int[0])
 				.build();
 	}
@@ -43,7 +43,7 @@ public class TestSpyglassBuilder {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testBuild_nullContextSupplied() {
 		Spyglass.builder()
-				.withView(mock(View.class))
+				.withTarget(mock(View.class))
 				.withContext(null)
 				.withStyleableResource(new int[0])
 				.build();
@@ -52,7 +52,7 @@ public class TestSpyglassBuilder {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testBuild_noStyleableResourceEverSupplied() {
 		Spyglass.builder()
-				.withView(mock(View.class))
+				.withTarget(mock(View.class))
 				.withContext(mock(Context.class))
 				.build();
 	}
@@ -60,7 +60,7 @@ public class TestSpyglassBuilder {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testBuild_nullStyleableResourceSupplied() {
 		Spyglass.builder()
-				.withView(mock(View.class))
+				.withTarget(mock(View.class))
 				.withContext(mock(Context.class))
 				.withStyleableResource(null)
 				.build();
@@ -69,7 +69,7 @@ public class TestSpyglassBuilder {
 	@Test
 	public void testBuild_allMandatoryValuesSupplied() {
 		Spyglass.builder()
-				.withView(mock(View.class))
+				.withTarget(mock(View.class))
 				.withContext(getContext())
 				.withStyleableResource(new int[0])
 				.build();

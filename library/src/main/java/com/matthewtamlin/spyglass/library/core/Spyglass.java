@@ -76,11 +76,16 @@ public class Spyglass {
 	 * TODO talk about exceptions
 	 */
 	public void passDataToMethods() {
-		checkMainThread();
+		checkMainThread("Spyglass methods must be called on the UI thread.");
 
 		for (final Method m : view.getClass().getDeclaredMethods()) {
 			validateMethod(m);
-			processMethod(m);
+
+			if (getValueHandlerAnnotation(m) != null) {
+				processValueHandlerMethod(m);
+			} else if (getCallHandlerAnnotation(m) != null) {
+				processCallHandlerMethod(m);
+			}
 		}
 	}
 
@@ -90,21 +95,13 @@ public class Spyglass {
 	 * @throws IllegalThreadException
 	 * 		if the calling thread is not the main thread
 	 */
-	private void checkMainThread() {
+	private void checkMainThread(final String message) {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
-			throw new IllegalThreadException("Spyglasses must only be touched by the UI thread.");
+			throw new IllegalThreadException(message);
 		}
 	}
 
-	private void processMethod(final Method method) {
-		if (getValueHandlerAnnotation(method) != null) {
-			processMethodWithValueHandler(method);
-		} else if (getCallHandlerAnnotation(method) != null) {
-			processMethodWithCallHandler(method);
-		}
-	}
-
-	private void processMethodWithCallHandler(final Method method) {
+	private void processCallHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getCallHandlerAnnotation(method);
 		final CallHandlerAdapter<Annotation> handlerAdapter = getCallHandlerAdapter(method);
 
@@ -114,7 +111,7 @@ public class Spyglass {
 		}
 	}
 
-	private void processMethodWithValueHandler(final Method method) {
+	private void processValueHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
 		final ValueHandlerAdapter<?, Annotation> handlerAdapter = getValueHandlerAdapter(method);
 		final TypedArrayAccessor<?> accessor = handlerAdapter.getAccessor(handlerAnnotation);
@@ -192,7 +189,7 @@ public class Spyglass {
 
 		private Builder() {}
 
-		public Builder withView(final View view) {
+		public Builder withTarget(final View view) {
 			this.view = view;
 			return this;
 		}
@@ -224,7 +221,7 @@ public class Spyglass {
 
 		public Spyglass build() {
 			checkNotNull(view, new InvalidBuilderStateException("Unable to build a Spyglass " +
-					"without a view. Call method forView(View) before calling build()."));
+					"without a target. Call method withTarget(View) before calling build()."));
 
 			checkNotNull(context, new InvalidBuilderStateException("Unable to build a Spyglass " +
 					"without a context. Call method withContext(Context) before calling build()."));
