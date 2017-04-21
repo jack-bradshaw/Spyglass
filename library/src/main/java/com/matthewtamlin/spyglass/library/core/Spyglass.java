@@ -189,7 +189,7 @@ public class Spyglass {
 
 		private Builder() {}
 
-		public Builder withView(final View view) {
+		public Builder withTarget(final View view) {
 			this.view = view;
 			return this;
 		}
