@@ -148,12 +148,12 @@ public class Spyglass {
 	}
 
 	/**
-	 * Invokes the supplied method using the supplied arguments.
+	 * Reflectively calls the supplied method.
 	 *
 	 * @param method
 	 * 		the method to invoke
 	 * @param arguments
-	 * 		the arguments to pass to the method
+	 * 		the arguments to pass to the method when invoked, may be null
 	 *
 	 * @throws SpyglassMethodCallException
 	 * 		if the method cannot be called or throws an exception when called
