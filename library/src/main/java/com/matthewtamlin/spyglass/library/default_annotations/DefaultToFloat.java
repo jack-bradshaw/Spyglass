@@ -9,10 +9,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Declares a default value to the Spyglass framework. This annotation should only be applied to
+ * methods which accept a float and have a handler annotation, and it should not be used in
+ * conjunction with other defaults.
+ */
 @Tested(testMethod = "automated")
 @Default(adapterClass = DefaultToFloatAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface DefaultToFloat {
+	/**
+	 * @return the default value
+	 */
 	float value();
 }
