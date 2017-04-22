@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 
 /**
  * Declares a default value to the Spyglass framework. This annotation should only be applied to
- * methods which accept a CharSequency array and have a handler annotation, and it should not
+ * methods which accept a CharSequence array and have a handler annotation, and it should not
  * be used in conjunction with other defaults.
  */
 @Tested(testMethod = "automated")
