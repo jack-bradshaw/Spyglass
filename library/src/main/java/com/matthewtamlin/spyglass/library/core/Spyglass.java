@@ -280,8 +280,8 @@ public class Spyglass {
 		}
 
 		/**
-		 * Sets the context to source resource information from. If this method is called more
-		 * than once, only the most recent value is used. This method must be called with a
+		 * Sets the context to use when accessing system resources. If this method is called more
+		 * than once, only the most recent value is used. This method must be called with a 
 		 * non-null value prior to calling {@link #build()}.
 		 *
 		 * @param context
