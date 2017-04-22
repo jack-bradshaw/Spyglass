@@ -21,7 +21,7 @@ import static org.mockito.Mockito.when;
 
 @SuppressWarnings("ResourceType")
 @RunWith(AndroidJUnit4.class)
-public class TestFlagHandlerAdapter {
+public class TestSpecificFlagHandlerAdapter {
 	private static final int ATTRIBUTE_ID = 8527;
 
 	private static final int FLAG_0 = 0b0;
