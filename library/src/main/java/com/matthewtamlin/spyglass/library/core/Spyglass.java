@@ -243,14 +243,14 @@ public class Spyglass {
 		private Context context;
 
 		/**
-		 * The styleable resource to use in the spyglass when built. This property is mandatory
-		 * and must be non-null prior to calling {@link #build()}.
+		 * The styleable resource to use when interpreting data. This property is mandatory and
+		 * must be non-null prior to calling {@link #build()}.
 		 */
 		private int styleableRes[];
 
 		/**
-		 * The attribute set to use in the spyglass when built. This property is optional and
-		 * does not need to be changed prior to calling {@link #build()}.
+		 * The attribute set to source data from. This property is optional and does not need to be
+		 * changed prior to calling {@link #build()}.
 		 */
 		private AttributeSet attributeSet;
 
