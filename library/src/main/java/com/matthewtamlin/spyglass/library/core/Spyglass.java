@@ -208,7 +208,6 @@ public class Spyglass {
 	 */
 	private void addValueAtFirstEmptyPosition(final Map<Integer, Object> map, final Object value) {
 		// Use size + 1 so to handle the case where the existing values have consecutive keys
-		// For example, [1 = a, 2 = b, 3 = c] would become [1 = a, 2 = b, 3 = c, 4 = value]
 		for (int i = 0; i < map.size() + 1; i++) {
 			if (!map.containsKey(i)) {
 				map.put(i, value);
