@@ -1,5 +1,11 @@
 package com.matthewtamlin.spyglass.library.core;
 
+import android.annotation.TargetApi;
+import android.support.annotation.RequiresApi;
+
+/**
+ * Exception to indicate that a method has been called on a illegal thread.
+ */
 public class IllegalThreadException extends RuntimeException {
 	public IllegalThreadException() {
 		super();
