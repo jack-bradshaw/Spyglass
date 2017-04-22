@@ -1,9 +1,7 @@
 package com.matthewtamlin.spyglass.library_tests.call_handler_annotations;
 
-import android.support.test.runner.AndroidJUnit4;
-
-import com.matthewtamlin.spyglass.library.call_handler_adapters.FlagHandlerAdapter;
-import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
+import com.matthewtamlin.spyglass.library.call_handler_adapters.SpecificFlagHandlerAdapter;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagHandler;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -11,14 +9,14 @@ import org.junit.runners.JUnit4;
 import java.lang.annotation.Annotation;
 
 @RunWith(JUnit4.class)
-public class TestFlagHandler extends BaseTest {
+public class TestSpecificFlagHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
-		return FlagHandler.class;
+		return SpecificFlagHandler.class;
 	}
 
 	@Override
 	public Class getExpectedAdapterClass() {
-		return FlagHandlerAdapter.class;
+		return SpecificFlagHandlerAdapter.class;
 	}
 }
