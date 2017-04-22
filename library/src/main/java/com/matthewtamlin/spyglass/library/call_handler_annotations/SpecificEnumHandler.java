@@ -10,12 +10,8 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Methods tagged with this annotation will be called by Spyglasses to handle specific enums.
- * Tagged methods will only be called if the spyglass contains the supplied attribute ID, and the
- * attribute ID is mapped to the supplied enum ordinal.
- * <p>
- * Methods tagged with this annotation must not have default annotations, and all parameters must
- * have a use annotation.
+ * Declares a method capable of handling specific enum attributes. Methods tagged with this
+ * annotation must not have default annotations, and all parameters must have use annotations.
  */
 @Tested(testMethod = "automated")
 @CallHandler(adapterClass = SpecificEnumHandlerAdapter.class)
@@ -23,12 +19,12 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SpecificEnumHandler {
 	/**
-	 * @return the ID of the attribute handled by the tagged method
+	 * @return the resource ID of the attribute handled by the method
 	 */
 	int attributeId();
 
 	/**
-	 * @return the ordinal of the enum constant handled by the tagged method
+	 * @return the ordinal of the specific enum constant handled by the method
 	 */
 	int ordinal();
 }
