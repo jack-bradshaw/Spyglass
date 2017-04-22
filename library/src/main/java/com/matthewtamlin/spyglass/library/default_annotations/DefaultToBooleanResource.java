@@ -11,7 +11,8 @@ import java.lang.annotation.Target;
 
 /**
  * Declares a default value to the Spyglass framework. This annotation should only be applied to
- * methods with handler annotations, and should not be used in conjunction with other defaults.
+ * methods which accept booleans and handler annotations, and it should not be used in
+ * conjunction with other defaults.
  */
 @Tested(testMethod = "automated")
 @Default(adapterClass = DefaultToBooleanResourceAdapter.class)
