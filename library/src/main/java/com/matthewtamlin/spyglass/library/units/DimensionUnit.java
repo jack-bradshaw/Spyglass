@@ -5,7 +5,7 @@ import android.content.Context;
 import com.matthewtamlin.android_utilities.library.helpers.DimensionHelper;
 
 /**
- * The units which can be used to quantify screen dimensions.
+ * A unit of measurement which can quantify a screen dimensions.
  */
 public enum DimensionUnit {
 	/**
