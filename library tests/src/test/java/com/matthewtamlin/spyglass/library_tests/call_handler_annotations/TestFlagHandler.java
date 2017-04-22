@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.call_handler_annotations;
 
-import com.matthewtamlin.spyglass.library.call_handler_adapters.FlagHandlerAdapter;
+import com.matthewtamlin.spyglass.library.call_handler_adapters.SpecificFlagHandlerAdapter;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagHandler;
 
 import org.junit.runner.RunWith;
@@ -17,6 +17,6 @@ public class TestFlagHandler extends BaseTest {
 
 	@Override
 	public Class getExpectedAdapterClass() {
-		return FlagHandlerAdapter.class;
+		return SpecificFlagHandlerAdapter.class;
 	}
 }

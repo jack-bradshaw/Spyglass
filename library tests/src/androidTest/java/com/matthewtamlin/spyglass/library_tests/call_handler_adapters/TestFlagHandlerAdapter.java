@@ -3,7 +3,7 @@ package com.matthewtamlin.spyglass.library_tests.call_handler_adapters;
 import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.library.call_handler_adapters.FlagHandlerAdapter;
+import com.matthewtamlin.spyglass.library.call_handler_adapters.SpecificFlagHandlerAdapter;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagHandler;
 
 import org.junit.Before;
@@ -52,7 +52,7 @@ public class TestFlagHandlerAdapter {
 
 	private SpecificFlagHandler handlesFlag1And2;
 
-	private FlagHandlerAdapter adapter;
+	private SpecificFlagHandlerAdapter adapter;
 
 	@Before
 	public void setup() {
@@ -115,12 +115,12 @@ public class TestFlagHandlerAdapter {
 		when(handlesFlag1And2.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(handlesFlag1And2.handledFlags()).thenReturn(FLAG_1 | FLAG_2);
 
-		adapter = new FlagHandlerAdapter();
+		adapter = new SpecificFlagHandlerAdapter();
 	}
 
 	@Test
 	public void testReflectiveInstantiation() throws Exception {
-		FlagHandlerAdapter.class.newInstance();
+		SpecificFlagHandlerAdapter.class.newInstance();
 	}
 
 	@Test(expected = IllegalArgumentException.class)
