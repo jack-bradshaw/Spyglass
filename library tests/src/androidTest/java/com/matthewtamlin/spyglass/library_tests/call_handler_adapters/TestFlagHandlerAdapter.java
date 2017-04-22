@@ -4,7 +4,7 @@ import android.content.res.TypedArray;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.library.call_handler_adapters.FlagHandlerAdapter;
-import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagHandler;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,9 +48,9 @@ public class TestFlagHandlerAdapter {
 
 	private TypedArray containingFlags3And4;
 
-	private FlagHandler handlesFlag1;
+	private SpecificFlagHandler handlesFlag1;
 
-	private FlagHandler handlesFlag1And2;
+	private SpecificFlagHandler handlesFlag1And2;
 
 	private FlagHandlerAdapter adapter;
 
@@ -107,11 +107,11 @@ public class TestFlagHandlerAdapter {
 		when(containingFlags3And4.getInteger(eq(ATTRIBUTE_ID), anyInt()))
 				.thenReturn(FLAG_3 | FLAG_4);
 
-		handlesFlag1 = mock(FlagHandler.class);
+		handlesFlag1 = mock(SpecificFlagHandler.class);
 		when(handlesFlag1.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(handlesFlag1.handledFlags()).thenReturn(FLAG_1);
 
-		handlesFlag1And2 = mock(FlagHandler.class);
+		handlesFlag1And2 = mock(SpecificFlagHandler.class);
 		when(handlesFlag1And2.attributeId()).thenReturn(ATTRIBUTE_ID);
 		when(handlesFlag1And2.handledFlags()).thenReturn(FLAG_1 | FLAG_2);
 
