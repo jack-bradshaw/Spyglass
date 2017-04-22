@@ -261,6 +261,10 @@ public class Spyglass {
 		 */
 		private int defStyleAttr;
 
+		/**
+		 * The resource ID of the style to source defaults from. This property is optional and
+		 * does not need to be changed prior to calling {@link #build()}.
+		 */
 		private int defStyleRes;
 
 		private Builder() {}
