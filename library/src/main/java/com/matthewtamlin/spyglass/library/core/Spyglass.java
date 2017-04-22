@@ -342,6 +342,18 @@ public class Spyglass {
 			return this;
 		}
 
+		/**
+		 * Sets the style to source defaults from if the attribute set is missing data. The data
+		 * in the attribute set takes precedence, so the data in the default style is only used if
+		 * the attribute set is missing data for a particular attribute. If this method is called
+		 * more than once, only the most recent value is used. This value is not mandatory, and
+		 * {@link #build()} can safely be called without ever calling this method.
+		 *
+		 * @param defStyleRes
+		 * 		the resource ID of the default style, 0 to use no default style
+		 *
+		 * @return this builder
+		 */
 		public Builder withDefStyleRes(final int defStyleRes) {
 			this.defStyleRes = defStyleRes;
 			return this;
