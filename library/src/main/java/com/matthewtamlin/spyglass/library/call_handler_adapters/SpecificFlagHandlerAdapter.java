@@ -8,7 +8,7 @@ import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagH
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class FlagHandlerAdapter implements CallHandlerAdapter<SpecificFlagHandler> {
+public class SpecificFlagHandlerAdapter implements CallHandlerAdapter<SpecificFlagHandler> {
 	@Override
 	public boolean shouldCallMethod(final SpecificFlagHandler annotation, final TypedArray attrs) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
