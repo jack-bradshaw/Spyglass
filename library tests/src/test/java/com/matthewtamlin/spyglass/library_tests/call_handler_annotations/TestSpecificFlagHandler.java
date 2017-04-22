@@ -9,7 +9,7 @@ import org.junit.runners.JUnit4;
 import java.lang.annotation.Annotation;
 
 @RunWith(JUnit4.class)
-public class TestFlagHandler extends BaseTest {
+public class TestSpecificFlagHandler extends BaseTest {
 	@Override
 	public Class<? extends Annotation> getAnnotationUnderTest() {
 		return SpecificFlagHandler.class;
