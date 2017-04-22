@@ -237,8 +237,8 @@ public class Spyglass {
 		private View target;
 
 		/**
-		 * The context to use in the spyglass when built. This property is mandatory and must be
-		 * non-null prior to calling {@link #build()}.
+		 * The context to use when accessing system resources. This property is mandatory and
+		 * must be non-null prior to calling {@link #build()}.
 		 */
 		private Context context;
 
