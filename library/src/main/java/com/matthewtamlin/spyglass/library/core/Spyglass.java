@@ -285,7 +285,7 @@ public class Spyglass {
 		 * non-null value prior to calling {@link #build()}.
 		 *
 		 * @param context
-		 * 		the context to source resource information from
+		 * 		the context to use when accessing system resources
 		 *
 		 * @return this builder
 		 */
