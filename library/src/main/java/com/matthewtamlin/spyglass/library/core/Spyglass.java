@@ -33,8 +33,9 @@ import static com.matthewtamlin.spyglass.library.util.AnnotationUtil.getValueHan
 import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMethod;
 
 /**
- * Translates view attributes into method calls using annotations. This class interacts with the
- * UI, so all method calls must be made on the UI thread.
+ * Translates view attributes into method calls. This class interacts with the UI, so all method
+ * calls must be made on the main thread. This class uses the builder pattern for instantiation,
+ * see {@link #builder()}.
  */
 @Tested(testMethod = "automated")
 public class Spyglass {
@@ -49,12 +50,12 @@ public class Spyglass {
 	private Context context;
 
 	/**
-	 * The source of the data to pass to the target.
+	 * Supplies the data to pass to the target.
 	 */
 	private TypedArray attrSource;
 
 	/**
-	 * Constructs a new Spyglass using a builder.
+	 * Constructs a new Spyglass from a builder.
 	 *
 	 * @param builder
 	 * 		the builder to use as the base for the spyglass
@@ -77,9 +78,9 @@ public class Spyglass {
 	 * called on a non-UI thread.
 	 *
 	 * @throws IllegalThreadException
-	 * 		if this method is called on any non-UI thread
+	 * 		if this method is called on a non-UI thread
 	 * @throws SpyglassValidationException
-	 * 		if a method in the target view is found to have invalid annotations
+	 * 		if a method in the target view has invalid annotations
 	 * @throws SpyglassMethodCallException
 	 * 		if a method in the target view cannot be called or throws an exception when called
 	 */
@@ -101,11 +102,11 @@ public class Spyglass {
 	}
 
 	/**
-	 * Reflectively invokes a call handler method in the target view using the arguments defined by
+	 * Reflectively invokes a call-handler method in the target view using the arguments defined by
 	 * the method's annotations.
 	 *
 	 * @param method
-	 * 		the method to process, not null, must have a call handler annotation
+	 * 		the method to invoke, not null, must have a call handler annotation
 	 */
 	private void processCallHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getCallHandlerAnnotation(method);
@@ -120,10 +121,10 @@ public class Spyglass {
 	/**
 	 * Reflectively invokes a value handler method in the target view using the arguments defined
 	 * by the method's annotations. If the data source does not contain the desired data and the
-	 * method specifies a default, then the default data is used.
+	 * method has a default annotation, then the default data is used in the call.
 	 *
 	 * @param method
-	 * 		the method to process, not null, must have a call handler annotation
+	 * 		the method to invoke, not null, must have a call handler annotation
 	 */
 	private void processValueHandlerMethod(final Method method) {
 		final Annotation handlerAnnotation = getValueHandlerAnnotation(method);
@@ -148,12 +149,12 @@ public class Spyglass {
 	}
 
 	/**
-	 * Invokes the supplied method using the supplied arguments.
+	 * Reflectively calls the supplied method in the target view.
 	 *
 	 * @param method
 	 * 		the method to invoke
 	 * @param arguments
-	 * 		the arguments to pass to the method
+	 * 		the arguments to pass to the method when invoked, may be null
 	 *
 	 * @throws SpyglassMethodCallException
 	 * 		if the method cannot be called or throws an exception when called
@@ -195,7 +196,11 @@ public class Spyglass {
 
 	/**
 	 * Adds the supplied value to the supplied map. The first index which does not already have a
-	 * value (counting from zero) is used as the key for the value.
+	 * value (counting from zero) is used as the key.
+	 * <p>
+	 * For example, if the existing map is [0 = "hello", 2 = "world"], then the value will be
+	 * inserted with a key of 1. Alternatively if the existing map is [0 = "hello", 1 = "world"],
+	 * then the value will be inserted with a key of 2.
 	 *
 	 * @param map
 	 * 		a map of values
@@ -204,7 +209,6 @@ public class Spyglass {
 	 */
 	private void addValueAtFirstEmptyPosition(final Map<Integer, Object> map, final Object value) {
 		// Use size + 1 so to handle the case where the existing values have consecutive keys
-		// For example, [1 = a, 2 = b, 3 = c] would become [1 = a, 2 = b, 3 = c, 4 = value]
 		for (int i = 0; i < map.size() + 1; i++) {
 			if (!map.containsKey(i)) {
 				map.put(i, value);
@@ -222,48 +226,57 @@ public class Spyglass {
 
 	/**
 	 * Builds new instances of the spyglass tool. Attempting to call {@link #build()} without
-	 * first setting the target, the context and the styleable resource will result in an exception
-	 * being thrown.
+	 * first setting the target, context and styleable resource will result in an exception being
+	 * thrown.
 	 */
 	public static class Builder {
 		/**
-		 * The target to use in the spyglass when built. This property is mandatory and must be
-		 * non-null prior to calling {@link #build()}.
+		 * The target to pass data to. This property is mandatory and must be non-null prior to
+		 * calling {@link #build()}.
 		 */
 		private View target;
 
 		/**
-		 * The context to use in the spyglass when built. This property is mandatory and must be
-		 * non-null prior to calling {@link #build()}.
+		 * The context to use when accessing system resources. This property is mandatory and
+		 * must be non-null prior to calling {@link #build()}.
 		 */
 		private Context context;
 
 		/**
-		 * The styleable resource to use in the spyglass when built. This property is mandatory
-		 * and must be non-null prior to calling {@link #build()}.
+		 * The styleable resource to use when interpreting data. This property is mandatory and
+		 * must be non-null prior to calling {@link #build()}.
 		 */
 		private int styleableRes[];
 
 		/**
-		 * The attribute set to use in the spyglass when built. This property is optional and
-		 * does not need to be changed prior to calling {@link #build()}.
+		 * The attribute set to source data from. This property is optional and does not need to be
+		 * changed prior to calling {@link #build()}.
 		 */
 		private AttributeSet attributeSet;
 
 		/**
-		 * The resource ID of the attribute set to use in the spyglass when built. This property is
-		 * optional and does not need to be changed prior to calling {@link #build()}.
+		 * An attribute in the current theme which references the style to source defaults from.
+		 * This property is optional and does not need to be changed prior to calling
+		 * {@link #build()}.
 		 */
 		private int defStyleAttr;
 
+		/**
+		 * The resource ID of the style to source defaults from. This property is optional and
+		 * does not need to be changed prior to calling {@link #build()}.
+		 */
 		private int defStyleRes;
 
+		/**
+		 * Constructs a new builder without setting any values. The new builder cannot be used to
+		 * create a spyglass without setting the mandatory properties first.
+		 */
 		private Builder() {}
 
 		/**
-		 * Sets the target to pass data to when the spyglass is used. If this method is called more
-		 * than once, only the most recent value is used. This method must be called with a
-		 * non-null value prior to calling {@link #build()}.
+		 * Sets the target to pass data to. If this method is called more than once, only the
+		 * most recent value is used. This method must be called with a non-null value prior to
+		 * calling {@link #build()}.
 		 *
 		 * @param view
 		 * 		the target to pass data to
@@ -276,12 +289,12 @@ public class Spyglass {
 		}
 
 		/**
-		 * Sets the context to source resource information from. If this method is called more
+		 * Sets the context to use when accessing system resources. If this method is called more
 		 * than once, only the most recent value is used. This method must be called with a
 		 * non-null value prior to calling {@link #build()}.
 		 *
 		 * @param context
-		 * 		the context to source resource information from
+		 * 		the context to use when accessing system resources
 		 *
 		 * @return this builder
 		 */
@@ -321,11 +334,36 @@ public class Spyglass {
 			return this;
 		}
 
+		/**
+		 * Sets the style to source defaults from if the attribute set is missing data. The data
+		 * in the attribute set takes precedence, so the data in the default style is only used if
+		 * the attribute set is missing data for a particular attribute. If this method is called
+		 * more than once, only the most recent value is used. This value is not mandatory, and
+		 * {@link #build()} can safely be called without ever calling this method.
+		 *
+		 * @param defStyleAttr
+		 * 		an attribute in the current theme which references the default style, 0 to use no
+		 * 		default style
+		 *
+		 * @return this builder
+		 */
 		public Builder withDefStyleAttr(final int defStyleAttr) {
 			this.defStyleAttr = defStyleAttr;
 			return this;
 		}
 
+		/**
+		 * Sets the style to source defaults from if the attribute set is missing data. The data
+		 * in the attribute set takes precedence, so the data in the default style is only used if
+		 * the attribute set is missing data for a particular attribute. If this method is called
+		 * more than once, only the most recent value is used. This value is not mandatory, and
+		 * {@link #build()} can safely be called without ever calling this method.
+		 *
+		 * @param defStyleRes
+		 * 		the resource ID of the default style, 0 to use no default style
+		 *
+		 * @return this builder
+		 */
 		public Builder withDefStyleRes(final int defStyleRes) {
 			this.defStyleRes = defStyleRes;
 			return this;
