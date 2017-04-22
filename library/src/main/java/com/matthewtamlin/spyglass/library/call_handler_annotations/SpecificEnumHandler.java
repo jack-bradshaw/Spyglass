@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SpecificEnumHandler {
 	/**
-	 * @return the ID of the attribute handled by the tagged method
+	 * @return the resource ID of the attribute handled by the method
 	 */
 	int attributeId();
 
