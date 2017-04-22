@@ -255,8 +255,9 @@ public class Spyglass {
 		private AttributeSet attributeSet;
 
 		/**
-		 * An attribute in the current theme which references the style to source default from. This
-		 * property is optional and does not need to be changed prior to calling {@link #build()}.
+		 * An attribute in the current theme which references the style to source defaults from.
+		 * This property is optional and does not need to be changed prior to calling
+		 * {@link #build()}.
 		 */
 		private int defStyleAttr;
 
