@@ -22,5 +22,5 @@
 	</declare-styleable>
 
 	<!-- For testing def-style-attr behaviour in TestSpyglass -->
-	<attr name="style_with_string_2" format="reference"/>
+	<attr name="StyleWithString2" format="reference"/>
 </resources>
