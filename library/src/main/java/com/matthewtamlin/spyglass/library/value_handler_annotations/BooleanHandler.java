@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @Tested(testMethod = "automated")
 @ValueHandler(adapterClass = BooleanHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
+@Target(ElementType.METHOD)
 public @interface BooleanHandler {
 	/**
 	 * @return the resource ID of the handled view attribute
