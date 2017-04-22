@@ -231,8 +231,8 @@ public class Spyglass {
 	 */
 	public static class Builder {
 		/**
-		 * The target to use in the spyglass when built. This property is mandatory and must be
-		 * non-null prior to calling {@link #build()}.
+		 * The target to pass data to. This property is mandatory and must be non-null prior to
+		 * calling {@link #build()}.
 		 */
 		private View target;
 
@@ -281,7 +281,7 @@ public class Spyglass {
 
 		/**
 		 * Sets the context to use when accessing system resources. If this method is called more
-		 * than once, only the most recent value is used. This method must be called with a 
+		 * than once, only the most recent value is used. This method must be called with a
 		 * non-null value prior to calling {@link #build()}.
 		 *
 		 * @param context
