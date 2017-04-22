@@ -267,6 +267,10 @@ public class Spyglass {
 		 */
 		private int defStyleRes;
 
+		/**
+		 * Constructs a new builder without setting any values. The new builder cannot be used to
+		 * create a spyglass without setting the mandatory properties first.
+		 */
 		private Builder() {}
 
 		/**
