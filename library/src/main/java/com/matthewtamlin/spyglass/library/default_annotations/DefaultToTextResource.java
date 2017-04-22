@@ -9,10 +9,18 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Declares a default value to the Spyglass framework. This annotation should only be applied to
+ * methods which accept a CharSequence and have a handler annotation, and it should not be used
+ * in conjunction with other defaults.
+ */
 @Tested(testMethod = "automated")
 @Default(adapterClass = DefaultToTextResourceAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface DefaultToTextResource {
+	/**
+	 * @return the resource ID of the default value, must resolve to a text resource
+	 */
 	int value();
 }
