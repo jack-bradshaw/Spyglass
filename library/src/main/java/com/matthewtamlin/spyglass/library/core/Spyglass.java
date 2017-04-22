@@ -196,7 +196,7 @@ public class Spyglass {
 	/**
 	 * Adds the supplied value to the supplied map. The first index which does not already have a
 	 * value (counting from zero) is used as the key.
-	 *
+	 * <p>
 	 * For example, if the existing map is [0 = "hello", 2 = "world"], then the value will be
 	 * inserted with a key of 1. Alternatively if the existing map is [0 = "hello", 1 = "world"],
 	 * then the value will be inserted with a key of 2.
