@@ -19,7 +19,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface DefaultToBooleanResource {
 	/**
-	 * @return the resource ID of the default value, must resolve to a boolean
+	 * @return the resource ID of the default value, must resolve to a boolean resource
 	 */
 	int value();
 }
