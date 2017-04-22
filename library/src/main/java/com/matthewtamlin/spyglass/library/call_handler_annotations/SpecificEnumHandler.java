@@ -9,14 +9,6 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * Methods tagged with this annotation will be called by Spyglasses to handle specific enums.
- * Tagged methods will only be called if the spyglass contains the supplied attribute ID, and the
- * attribute ID is mapped to the supplied enum ordinal.
- * <p>
- * Methods tagged with this annotation must not have default annotations, and all parameters must
- * have a use annotation.
- */
 @Tested(testMethod = "automated")
 @CallHandler(adapterClass = SpecificEnumHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
