@@ -329,11 +329,11 @@ public class Spyglass {
 		 * in the attribute set takes precedence, so the data in the default style is only used if
 		 * the attribute set is missing data for a particular attribute. If this method is called
 		 * more than once, only the most recent value is used. This value is not mandatory, and
-		 * {@link #build()} can safely be called without ever calling this method. Supplying 0
-		 * clears the value and is equivalent to never having called the method.
+		 * {@link #build()} can safely be called without ever calling this method.
 		 *
 		 * @param defStyleAttr
-		 * 		an attribute in the current theme which references a style resource
+		 * 		an attribute in the current theme which references the default style, 0 to use no
+		 * 		default style
 		 *
 		 * @return this builder
 		 */
