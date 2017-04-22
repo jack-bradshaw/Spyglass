@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
 import com.matthewtamlin.spyglass.library.call_handler_adapters.CallHandlerAdapter;
-import com.matthewtamlin.spyglass.library.call_handler_adapters.FlagHandlerAdapter;
-import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
+import com.matthewtamlin.spyglass.library.call_handler_adapters.SpecificFlagHandlerAdapter;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToDimensionAdapter;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension;
@@ -180,7 +180,7 @@ public class TestAdapterUtil {
 				TestClass.class));
 
 		assertThat(adapter, is(notNullValue()));
-		assertThat(adapter, instanceOf(FlagHandlerAdapter.class));
+		assertThat(adapter, instanceOf(SpecificFlagHandlerAdapter.class));
 	}
 
 	@SuppressWarnings("unused")
@@ -221,7 +221,7 @@ public class TestAdapterUtil {
 		private void method11() {}
 
 		@MethodTag(12)
-		@FlagHandler(attributeId = 12, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 12, handledFlags = 1)
 		private void method12() {}
 	}
 }

@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.library_tests.util;
 
-import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.library.default_annotations.DefaultToEnumConstant;
@@ -101,20 +101,20 @@ public class TestValidationUtil {
 		@ValidationTestTarget(
 				isValid = true,
 				failureMessage = "Methods with just one call handler should pass.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method5() {}
 
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with multiple call handlers should fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		@SpecificEnumHandler(attributeId = 1, ordinal = 1)
 		private void method6() {}
 
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with a call handler and a value handler should fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		@StringHandler(attributeId = 1)
 		private void method7() {}
 
@@ -145,14 +145,14 @@ public class TestValidationUtil {
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with a call handler and one default should fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		@DefaultToBoolean(false)
 		private void method11() {}
 
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with a call handler and multiple defaults should fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		@DefaultToString("something")
 		@DefaultToStringResource(1)
 		private void method12() {}
@@ -160,7 +160,7 @@ public class TestValidationUtil {
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with a call handler and multiple defaults should fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		@DefaultToString("something")
 		@DefaultToStringResource(1)
 		@DefaultToBoolean(false)
@@ -250,60 +250,60 @@ public class TestValidationUtil {
 		@ValidationTestTarget(
 				isValid = true,
 				failureMessage = "Methods with a call handler and no arguments should pass.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method26() {}
 
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with a call handler and one non-use argument should " +
 						"fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method27(Object o) {}
 
 		@ValidationTestTarget(
 				isValid = true,
 				failureMessage = "Methods with a call handler and one use argument should pass.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method28(@UseBoolean(false) Object o) {}
 
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with a call handler and two non-use arguments should " +
 						"fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method29(Object o1, Object o2) {}
 
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with a call handler, one non-use argument and one use " +
 						"argument should fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method30(@UseByte(1) Object o1, Object o2) {}
 
 		@ValidationTestTarget(
 				isValid = true,
 				failureMessage = "Methods with a call handler and two use arguments should pass.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method31(@UseByte(1) Object o1, @UseLong(1) Object o2) {}
 
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with a call handler, two non-use arguments and one " +
 						"use argument should fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method32(Object o1, @UseDouble(2.0) Object o2, Object o3) {}
 
 		@ValidationTestTarget(
 				isValid = false,
 				failureMessage = "Methods with a call handler, one non-use argument and two " +
 						"use arguments should fail.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method33(Object o1, @UseFloat(2F) Object o2, @UseChar('A') Object o3) {}
 
 		@ValidationTestTarget(
 				isValid = true,
 				failureMessage = "Methods with a call handler and three use arguments should pass.")
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method34(@UseNull Object o1, @UseChar('A') Object o2, @UseInt(1) Object o3) {}
 
 		@ValidationTestTarget(
@@ -329,7 +329,7 @@ public class TestValidationUtil {
 				failureMessage = "Methods with multiple use annotations on a single parameter " +
 						"should fail."
 		)
-		@FlagHandler(attributeId = 1, handledFlags = 1)
+		@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 		private void method38(@UseInt(1) @UseBoolean(true) @UseString("something") Object o1) {}
 	}
 
