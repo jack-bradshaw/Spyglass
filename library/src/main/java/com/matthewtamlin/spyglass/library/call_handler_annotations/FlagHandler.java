@@ -19,12 +19,12 @@ import java.lang.annotation.Target;
 @Target({ElementType.METHOD})
 public @interface FlagHandler {
 	/**
-	 * @return the ID of the attribute handled by the tagged method
+	 * @return the resource ID of the attribute handled by this method
 	 */
 	int attributeId();
 
 	/**
-	 * @return the flags handled by the tagged method
+	 * @return the specific flags which this method can handle
 	 */
 	int handledFlags();
 }
