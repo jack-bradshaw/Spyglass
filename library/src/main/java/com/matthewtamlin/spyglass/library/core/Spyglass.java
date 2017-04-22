@@ -265,9 +265,9 @@ public class Spyglass {
 		private Builder() {}
 
 		/**
-		 * Sets the target to pass data to when the spyglass is used. If this method is called more
-		 * than once, only the most recent value is used. This method must be called with a
-		 * non-null value prior to calling {@link #build()}.
+		 * Sets the target to pass data to. If this method is called more than once, only the
+		 * most recent value is used. This method must be called with a non-null value prior to
+		 * calling {@link #build()}.
 		 *
 		 * @param view
 		 * 		the target to pass data to
