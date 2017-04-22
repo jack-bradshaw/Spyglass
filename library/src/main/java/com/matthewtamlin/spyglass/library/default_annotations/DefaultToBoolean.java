@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
 @Tested(testMethod = "automated")
 @Default(adapterClass = DefaultToBooleanAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
+@Target(ElementType.METHOD)
 public @interface DefaultToBoolean {
 	boolean value();
 }
