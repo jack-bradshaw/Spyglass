@@ -226,8 +226,8 @@ public class Spyglass {
 
 	/**
 	 * Builds new instances of the spyglass tool. Attempting to call {@link #build()} without
-	 * first setting the target, the context and the styleable resource will result in an exception
-	 * being thrown.
+	 * first setting the target, context and styleable resource will result in an exception being
+	 * thrown.
 	 */
 	public static class Builder {
 		/**
