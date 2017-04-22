@@ -178,7 +178,7 @@ public class TestSpyglass {
 				.withContext(context)
 				.withStyleableResource(R.styleable.SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(R.xml.with_string_1_attr))
-				.withDefStyleAttr(R.attr.style_with_string_2)
+				.withDefStyleAttr(R.attr.StyleWithString2)
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
@@ -216,7 +216,7 @@ public class TestSpyglass {
 				.withContext(context)
 				.withStyleableResource(R.styleable.SpyglassTestView)
 				.withAttributeSet(getAttrSetFromXml(R.xml.no_attrs))
-				.withDefStyleAttr(R.attr.style_with_string_2)
+				.withDefStyleAttr(R.attr.StyleWithString2)
 				.build();
 
 		passDataToMethodsSynchronously(spyglass);
