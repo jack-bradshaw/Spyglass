@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
 @Tested(testMethod = "automated")
 @CallHandler(adapterClass = FlagHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
-@Target({ElementType.METHOD})
+@Target(ElementType.METHOD)
 public @interface FlagHandler {
 	/**
 	 * @return the resource ID of the attribute handled by the method
