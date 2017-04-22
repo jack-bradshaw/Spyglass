@@ -148,7 +148,7 @@ public class Spyglass {
 	}
 
 	/**
-	 * Reflectively calls the supplied method.
+	 * Reflectively calls the supplied method in the target view.
 	 *
 	 * @param method
 	 * 		the method to invoke
