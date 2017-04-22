@@ -3,14 +3,14 @@ package com.matthewtamlin.spyglass.library.call_handler_adapters;
 import android.content.res.TypedArray;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.library.call_handler_annotations.FlagHandler;
+import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class FlagHandlerAdapter implements CallHandlerAdapter<FlagHandler> {
+public class FlagHandlerAdapter implements CallHandlerAdapter<SpecificFlagHandler> {
 	@Override
-	public boolean shouldCallMethod(final FlagHandler annotation, final TypedArray attrs) {
+	public boolean shouldCallMethod(final SpecificFlagHandler annotation, final TypedArray attrs) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 		checkNotNull(attrs, "Argument \'attrs\' cannot be null.");
 
@@ -26,7 +26,7 @@ public class FlagHandlerAdapter implements CallHandlerAdapter<FlagHandler> {
 	}
 
 	@Override
-	public int getAttributeId(final FlagHandler annotation) {
+	public int getAttributeId(final SpecificFlagHandler annotation) {
 		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
 
 		return annotation.attributeId();

@@ -17,7 +17,7 @@ import java.lang.annotation.Target;
 @CallHandler(adapterClass = FlagHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
-public @interface FlagHandler {
+public @interface SpecificFlagHandler {
 	/**
 	 * @return the resource ID of the attribute handled by the method
 	 */
