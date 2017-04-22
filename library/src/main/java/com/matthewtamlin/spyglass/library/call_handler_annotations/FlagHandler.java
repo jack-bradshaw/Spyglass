@@ -9,6 +9,10 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
+/**
+ * Declares a method capable of handling flag attributes. Methods tagged with this annotation must
+ * not have default annotations, and all parameters must have use annotations.
+ */
 @Tested(testMethod = "automated")
 @CallHandler(adapterClass = FlagHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
