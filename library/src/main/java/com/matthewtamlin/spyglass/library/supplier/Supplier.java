@@ -8,9 +8,9 @@ package com.matthewtamlin.spyglass.library.supplier;
  */
 public interface Supplier<T> {
 	/**
-	 * Supplied something. The same object does not need to be supplied each time.
+	 * Supplies something. The same object does not need to be supplied each time.
 	 *
-	 * @return the object
+	 * @return the supplied object, may be null
 	 */
 	public T get();
 }
