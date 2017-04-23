@@ -12,7 +12,8 @@ import java.lang.annotation.Target;
 
 /**
  * Defines a default for the annotated method, so that the Spyglass framework can invoke the
- * method if its handler annotation is not satisfied. This annotation should only be applied to
+ * method if its handler annotation is not satisfied. The dimension value is converted to units of
+ * pixels before being passed to the method. This annotation should only be applied to
  * methods which satisfy all of the following criteria:
  * <ul>
  * <li>The method has a handler annotation.</li>
@@ -21,8 +22,6 @@ import java.lang.annotation.Target;
  * <li>One integer parameter has no use annotation.</li>
  * <li>Every other parameter has a use annotation.</li>
  * </ul>
- * <p>
- * The dimension value is converted to units of pixels before being passed to the method.
  */
 @Tested(testMethod = "automated")
 @Default(adapterClass = DefaultToDimensionAdapter.class)
