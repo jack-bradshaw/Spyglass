@@ -1,5 +1,8 @@
 package com.matthewtamlin.spyglass.library.supplier;
 
+/**
+ * Exception to indicate that a {@link Supplier} could not be reflectively instantiated.
+ */
 public class SupplierInstantiationException extends RuntimeException {
 	public SupplierInstantiationException() {
 		super();
