@@ -11,7 +11,7 @@ import java.lang.annotation.Target;
 
 /**
  * Defines a default for the annotated method, so that the Spyglass framework can invoke the
- * method if its handler annotation is not satisfied. The dimension value retreived from
+ * method if its handler annotation is not satisfied. The dimension value retrieved from
  * resources is converted to units of pixels before being passed to the method. This annotation
  * should only be applied to methods which satisfy all of the following criteria:
  * <ul>
