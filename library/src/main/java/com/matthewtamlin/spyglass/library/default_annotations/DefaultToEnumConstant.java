@@ -18,9 +18,9 @@ import java.lang.annotation.Target;
  * <ul>
  * <li>The method has a handler annotation.</li>
  * <li>The method has no other default annotations.</li>
- * <li>The method has at least one parameter of the type passed to {@code enumClass()}.</li>
- * <li>Every parameter has a use annotation except for one parameter of the type passed to {@code
- * enumClass()}.</li>
+ * <li>The method has at least one parameter of the specified enum type.</li>
+ * <li>Every parameter has a use annotation except for one parameter of the specified enum type.
+ * </li>
  * </ul>
  */
 @Tested(testMethod = "automated")
