@@ -10,12 +10,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Declares a default value resource to the Spyglass framework. This annotation should only be
- * applied to methods which accept a Drawable and have a handler annotation, and it should not be
- * used in conjunction with other defaults.
- */
-
-/**
  * Defines a default for the annotated method, so that the Spyglass framework can invoke the
  * method if its handler annotation is not satisfied. This annotation should only be applied to
  * methods which satisfy all of the following criteria:
