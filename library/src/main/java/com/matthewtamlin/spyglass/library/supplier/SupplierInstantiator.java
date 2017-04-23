@@ -4,6 +4,9 @@ import com.matthewtamlin.java_utilities.testing.Tested;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Reflectively instantiates implementations of the {@link Supplier} interface.
+ */
 @Tested(testMethod = "automated")
 @SuppressWarnings("TryWithIdenticalCatches") // Can't be collapsed before API 19
 public class SupplierInstantiator {
