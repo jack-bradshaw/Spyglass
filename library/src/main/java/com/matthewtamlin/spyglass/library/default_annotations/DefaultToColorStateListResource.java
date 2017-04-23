@@ -17,8 +17,7 @@ import java.lang.annotation.Target;
  * <li>The method has a handler annotation.</li>
  * <li>The method has no other default annotations.</li>
  * <li>The method has at least one integer array parameter.</li>
- * <li>One integer array parameter has no use annotation.</li>
- * <li>Every other parameter has a use annotation.</li>
+ * <li>Except for one integer array parameter, every parameter has a use annotation.</li>
  * </ul>
  */
 @Tested(testMethod = "automated")
