@@ -35,11 +35,4 @@ public class TextArrayHandlerAdapter implements
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final TextArrayHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }

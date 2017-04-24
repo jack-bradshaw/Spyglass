@@ -38,11 +38,4 @@ public class ColorHandlerAdapter implements ValueHandlerAdapter<Integer, ColorHa
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final ColorHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }

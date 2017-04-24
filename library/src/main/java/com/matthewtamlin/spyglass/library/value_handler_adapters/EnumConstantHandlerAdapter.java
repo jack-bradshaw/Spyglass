@@ -40,11 +40,4 @@ public class EnumConstantHandlerAdapter implements ValueHandlerAdapter<Enum, Enu
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final EnumConstantHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }
