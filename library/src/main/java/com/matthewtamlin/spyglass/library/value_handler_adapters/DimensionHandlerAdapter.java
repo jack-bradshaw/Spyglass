@@ -9,6 +9,9 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
+/**
+ * Adapter for interfacing with DimensionHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class DimensionHandlerAdapter implements ValueHandlerAdapter<Float, DimensionHandler> {
 	@Override

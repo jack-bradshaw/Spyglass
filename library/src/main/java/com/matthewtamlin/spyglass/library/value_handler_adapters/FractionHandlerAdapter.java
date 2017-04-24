@@ -9,6 +9,9 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static java.lang.Float.NEGATIVE_INFINITY;
 import static java.lang.Float.POSITIVE_INFINITY;
 
+/**
+ * Adapter for interfacing with FractionHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class FractionHandlerAdapter implements ValueHandlerAdapter<Float, FractionHandler> {
 	@Override

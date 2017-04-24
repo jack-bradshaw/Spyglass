@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.IntegerHandl
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with IntegerHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class IntegerHandlerAdapter implements ValueHandlerAdapter<Integer, IntegerHandler> {
 	@Override

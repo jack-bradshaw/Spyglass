@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.TextHandler;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with TextHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class TextHandlerAdapter implements ValueHandlerAdapter<CharSequence, TextHandler> {
 	@Override

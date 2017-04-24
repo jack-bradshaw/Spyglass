@@ -8,6 +8,9 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstant
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with EnumConstantHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class EnumConstantHandlerAdapter implements ValueHandlerAdapter<Enum, EnumConstantHandler> {
 	@Override
