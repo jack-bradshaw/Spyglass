@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringRes
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToStringResource annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToStringResourceAdapter
 		implements DefaultAdapter<String, DefaultToStringResource> {

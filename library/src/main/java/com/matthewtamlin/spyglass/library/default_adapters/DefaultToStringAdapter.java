@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToString;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToString annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToStringAdapter implements DefaultAdapter<String, DefaultToString> {
 	@Override

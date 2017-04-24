@@ -9,6 +9,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorStat
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToColorStateList annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToColorStateListResourceAdapter
 		implements DefaultAdapter<ColorStateList, DefaultToColorStateListResource> {

@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDimension
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToDimensionResource annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToDimensionResourceAdapter
 		implements DefaultAdapter<Float, DefaultToDimensionResource> {
