@@ -31,7 +31,7 @@ public @interface SpecificEnumHandler {
 	int attributeId();
 
 	/**
-	 * @return the ordinal of the handled enum constant
+	 * @return the specific ordinal handled by the method
 	 */
 	int ordinal();
 }
