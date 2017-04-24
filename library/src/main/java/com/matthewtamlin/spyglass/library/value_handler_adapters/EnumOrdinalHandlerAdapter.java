@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumOrdinalH
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with EnumOrdinalHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class EnumOrdinalHandlerAdapter implements ValueHandlerAdapter<Integer, EnumOrdinalHandler> {
 	@Override

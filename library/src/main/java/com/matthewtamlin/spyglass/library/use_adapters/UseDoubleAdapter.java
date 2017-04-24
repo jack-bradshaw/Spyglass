@@ -5,6 +5,9 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseDouble;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with UseDouble annotations.
+ */
 @Tested(testMethod = "automated")
 public class UseDoubleAdapter implements UseAdapter<Double, UseDouble> {
 	@Override

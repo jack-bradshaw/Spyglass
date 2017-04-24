@@ -16,7 +16,7 @@ import java.lang.annotation.Target;
  * the {@code baseMultiplier} or {@code parentMultiplier} elements of the annotation are set. If
  * the fraction is defined in resources as a base type, then it will be multiplied by the {@code
  * baseMultiplier} and the {@code parentMultiplier} will be ignored. If the fraction is defined
- * in resources as a parent type, then the opposite case occurs. By default, both multiplier are
+ * in resources as a parent type, then the opposite case occurs. By default, both multipliers are
  * set to 1 so are effectively ignored.
  * <p>
  * This annotation should only be applied to methods which satisfy all of the following criteria:

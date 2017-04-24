@@ -5,10 +5,10 @@ import android.content.Context;
 import java.lang.annotation.Annotation;
 
 /**
- * Interfaces with a default annotation to get the default value.
+ * Interfaces with default annotations.
  *
  * @param <T>
- * 		the type of the default value
+ * 		the type of the accessed defaults
  * @param <A>
  * 		the type of annotation this adapter interfaces with
  */
