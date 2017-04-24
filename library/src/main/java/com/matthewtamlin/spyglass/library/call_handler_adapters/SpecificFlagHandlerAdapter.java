@@ -40,7 +40,6 @@ public class SpecificFlagHandlerAdapter implements CallHandlerAdapter<SpecificFl
 	 * @return true if a value exists, false otherwise
 	 */
 	private static boolean arrayContainsValue(final TypedArray attrs, final int attrId) {
-
 		// Compare two different results to see if the default is consistently returned
 		final int reading1 = attrs.getInt(attrId, 0);
 		final int reading2 = attrs.getInt(attrId, 1);
