@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagH
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with Specific Flag Handler annotations.
+ */
 @Tested(testMethod = "automated")
 public class SpecificFlagHandlerAdapter implements CallHandlerAdapter<SpecificFlagHandler> {
 	@Override
@@ -25,6 +28,17 @@ public class SpecificFlagHandlerAdapter implements CallHandlerAdapter<SpecificFl
 		}
 	}
 
+	/**
+	 * Determines whether the supplied set of attributes contains an integer value for the
+	 * supplied attribute.
+	 *
+	 * @param attrs
+	 * 		a set of attribute to check, not null
+	 * @param attrId
+	 * 		the resource ID of the attribute to check for
+	 *
+	 * @return true if a value exists, false otherwise
+	 */
 	private static boolean arrayContainsValue(final TypedArray attrs, final int attrId) {
 
 		// Compare two different results to see if the default is consistently returned
