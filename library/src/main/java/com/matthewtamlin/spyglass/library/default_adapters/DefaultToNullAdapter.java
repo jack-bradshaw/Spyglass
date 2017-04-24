@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToNull;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToNull annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToNullAdapter implements DefaultAdapter<Void, DefaultToNull> {
 	@Override

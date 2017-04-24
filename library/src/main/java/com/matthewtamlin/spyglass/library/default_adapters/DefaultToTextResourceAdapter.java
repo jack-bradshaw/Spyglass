@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToTextResou
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToTestResource annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToTextResourceAdapter
 		implements DefaultAdapter<CharSequence, DefaultToTextResource> {

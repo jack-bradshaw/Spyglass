@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFloat;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToFloat annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToFloatAdapter implements DefaultAdapter<Float, DefaultToFloat> {
 	@Override

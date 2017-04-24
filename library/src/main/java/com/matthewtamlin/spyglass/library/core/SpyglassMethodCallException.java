@@ -7,18 +7,30 @@ import android.support.annotation.RequiresApi;
  * Exception to indicate that the Spyglass framework was unable to reflectively invoke a method.
  */
 public class SpyglassMethodCallException extends RuntimeException {
+	/**
+	 * Constructs a new SpyglassMethodCallException with no cause or message. The
+	 */
 	public SpyglassMethodCallException() {
 		super();
 	}
 
+	/**
+	 * Constructs a new SpyglassMethodCallException with a message but no cause.
+	 */
 	public SpyglassMethodCallException(final String message) {
 		super(message);
 	}
 
+	/**
+	 * Constructs a new SpyglassMethodCallException with a message and a cause.
+	 */
 	public SpyglassMethodCallException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 
+	/**
+	 * Constructs a new SpyglassMethodCallException with a cause but no method.
+	 */
 	public SpyglassMethodCallException(final Throwable cause) {
 		super(cause);
 	}

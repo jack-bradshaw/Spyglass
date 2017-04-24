@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToTextArray
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToTextArrayResource annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToTextArrayResourceAdapter
 		implements DefaultAdapter<CharSequence[], DefaultToTextArrayResource> {

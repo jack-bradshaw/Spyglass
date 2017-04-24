@@ -8,6 +8,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorReso
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToColorResource annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToColorResourceAdapter
 		implements DefaultAdapter<Integer, DefaultToColorResource> {
