@@ -8,7 +8,7 @@ import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificFlagH
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 /**
- * Adapter for interfacing with Specific Flag Handler annotations.
+ * Adapter for interfacing with SpecificFlagHandler annotations.
  */
 @Tested(testMethod = "automated")
 public class SpecificFlagHandlerAdapter implements CallHandlerAdapter<SpecificFlagHandler> {

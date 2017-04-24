@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToInteger;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToInteger annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToIntegerAdapter
 		implements DefaultAdapter<Integer, DefaultToInteger> {

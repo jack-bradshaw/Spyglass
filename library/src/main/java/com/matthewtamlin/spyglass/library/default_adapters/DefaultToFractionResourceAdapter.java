@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToFractionR
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToFractionResource annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToFractionResourceAdapter
 		implements DefaultAdapter<Float, DefaultToFractionResource> {
