@@ -5,12 +5,12 @@ import android.content.res.TypedArray;
 import java.lang.annotation.Annotation;
 
 /**
- * Provides information about handler annotations.
+ * Interfaces with value handler annotations.
  *
  * @param <T>
- * 		the type of attribute data this adapter provides access to
+ * 		the type of the accessed value
  * @param <A>
- * 		the type of annotation accepted by this adapter
+ * 		the type of annotation this adapter interfaces with
  */
 public interface ValueHandlerAdapter<T, A extends Annotation> {
 	/**
