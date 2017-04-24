@@ -18,8 +18,8 @@ import java.lang.annotation.Target;
  * <ul>
  * <li>The method has a handler annotation.</li>
  * <li>The method has no other default annotations.</li>
- * <li>The method has at least one integer parameter.</li>
- * <li>Except for one integer parameter, every parameter has a use annotation.</li>
+ * <li>The method has at least one float parameter.</li>
+ * <li>Except for one float parameter, every parameter has a use annotation.</li>
  * </ul>
  */
 @Tested(testMethod = "automated")
