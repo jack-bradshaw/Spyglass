@@ -11,8 +11,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
  * Adapter for interfacing with DefaultToInteger annotations.
  */
 @Tested(testMethod = "automated")
-public class DefaultToIntegerAdapter
-		implements DefaultAdapter<Integer, DefaultToInteger> {
+public class DefaultToIntegerAdapter implements DefaultAdapter<Integer, DefaultToInteger> {
 
 	@Override
 	public Integer getDefault(final DefaultToInteger annotation, final Context context) {
