@@ -6,6 +6,9 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseSuppliedValue;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with UseSuppliedValue annotations.
+ */
 @Tested(testMethod = "automated")
 public class UseSuppliedValueAdapter implements UseAdapter<Object, UseSuppliedValue> {
 	@Override

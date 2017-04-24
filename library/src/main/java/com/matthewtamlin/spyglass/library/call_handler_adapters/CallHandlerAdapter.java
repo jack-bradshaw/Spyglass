@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 import java.lang.annotation.Annotation;
 
 /**
- * Interface between a call handler annotation and a set of attributes.
+ * Interfaces with call handler annotations.
  *
  * @param <A>
  * 		the type of annotation this adapter interfaces with

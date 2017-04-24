@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.BooleanHandl
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with BooleanHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class BooleanHandlerAdapter implements ValueHandlerAdapter<Boolean, BooleanHandler> {
 	@Override

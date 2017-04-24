@@ -8,6 +8,9 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.DrawableHand
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DrawableHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class DrawableHandlerAdapter implements ValueHandlerAdapter<Drawable, DrawableHandler> {
 	@Override

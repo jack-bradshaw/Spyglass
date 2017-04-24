@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.ColorHandler
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with ColorHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class ColorHandlerAdapter implements ValueHandlerAdapter<Integer, ColorHandler> {
 	@Override

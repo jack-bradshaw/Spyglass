@@ -10,7 +10,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Tags methods and fields which can be used by Spyglasses to handle color attributes.
+ * Declares a method capable of handling a color attribute. If the Spyglass framework finds
+ * a color value mapped to the specified attribute, it will invoke the method and pass in the
+ * value. This annotation should only be applied to methods which satisfy all of the following
+ * criteria:
+ * <ul>
+ * <li>The method has no other handler annotations.</li>
+ * <li>The method has at least one integer parameter.</li>
+ * <li>Except for one integer parameter, every parameter has a use annotation.</li>
+ * </ul>
  */
 @Tested(testMethod = "automated")
 @ValueHandler(adapterClass = ColorHandlerAdapter.class)

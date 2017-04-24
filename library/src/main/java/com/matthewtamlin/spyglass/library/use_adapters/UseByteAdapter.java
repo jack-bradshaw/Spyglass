@@ -5,6 +5,9 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseByte;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with UseByte annotations.
+ */
 @Tested(testMethod = "automated")
 public class UseByteAdapter implements UseAdapter<Byte, UseByte> {
 	@Override
