@@ -38,11 +38,4 @@ public class BooleanHandlerAdapter implements ValueHandlerAdapter<Boolean, Boole
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final BooleanHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }

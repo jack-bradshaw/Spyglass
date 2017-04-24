@@ -38,11 +38,4 @@ public class IntegerHandlerAdapter implements ValueHandlerAdapter<Integer, Integ
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final IntegerHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }
