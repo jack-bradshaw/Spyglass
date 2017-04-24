@@ -35,11 +35,4 @@ public class DrawableHandlerAdapter implements ValueHandlerAdapter<Drawable, Dra
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final DrawableHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }

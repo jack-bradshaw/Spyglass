@@ -105,19 +105,5 @@ public class TestSpecificEnumHandlerAdapter {
 	public void testShouldCallMethod_attrsHaveCorrectOrdinal() {
 		final boolean result = adapter.shouldCallMethod(annotation, withCorrectOrdinal);
 		assertThat(result, is(true));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeId_nullSupplied() {
-		adapter.getAttributeId(null);
-	}
-
-	@Test
-	public void testGetAttributeId_nonNullSupplied() {
-		final int attributeId = adapter.getAttributeId(annotation);
-
-		assertThat(attributeId, is(ATTRIBUTE_ID));
-	}
-
-	public enum TestEnum {}
+	}public enum TestEnum {}
 }

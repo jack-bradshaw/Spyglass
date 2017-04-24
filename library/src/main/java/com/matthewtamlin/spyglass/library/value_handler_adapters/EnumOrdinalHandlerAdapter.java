@@ -38,11 +38,4 @@ public class EnumOrdinalHandlerAdapter implements ValueHandlerAdapter<Integer, E
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final EnumOrdinalHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }
