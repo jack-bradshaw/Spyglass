@@ -19,6 +19,7 @@ import java.lang.annotation.Target;
  * <li>The method has no default annotation.</li>
  * <li>Every parameter has a use annotation.</li>
  * </ul>
+ * Is it valid for a method to have no parameters.
  */
 @Tested(testMethod = "automated")
 @CallHandler(adapterClass = SpecificEnumHandlerAdapter.class)
