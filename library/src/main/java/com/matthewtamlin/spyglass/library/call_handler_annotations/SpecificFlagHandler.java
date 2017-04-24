@@ -10,8 +10,16 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Declares a method capable of handling specific flag attributes. Methods tagged with this
- * annotation must not have default annotations, and all parameters must have use annotations.
+ * Declares a method capable of handling specific flag attributes. The method will only
+ * be invoked if the Spyglass framework finds at least one of the specified flags mapped to the
+ * specified attribute. This annotation should only be applied to methods which satisfy all of the
+ * following criteria:
+ * <ul>
+ * <li>The method has no other handler annotations.</li>
+ * <li>The method has no default annotation.</li>
+ * <li>Every parameter has a use annotation.</li>
+ * </ul>
+ * Is it valid for a method to have no parameters.
  */
 @Tested(testMethod = "automated")
 @CallHandler(adapterClass = SpecificFlagHandlerAdapter.class)
@@ -19,7 +27,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface SpecificFlagHandler {
 	/**
-	 * @return the resource ID of the attribute handled by the method
+	 * @return the resource ID of the handled attribute
 	 */
 	int attributeId();
 
