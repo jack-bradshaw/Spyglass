@@ -25,13 +25,6 @@ public class SpecificFlagHandlerAdapter implements CallHandlerAdapter<SpecificFl
 		}
 	}
 
-	@Override
-	public int getAttributeId(final SpecificFlagHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
-
 	private static boolean arrayContainsValue(final TypedArray attrs, final int attrId) {
 
 		// Compare two different results to see if the default is consistently returned
