@@ -5,6 +5,9 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseString;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with UseString annotations.
+ */
 @Tested(testMethod = "automated")
 public class UseStringAdapter implements UseAdapter<String, UseString> {
 	@Override

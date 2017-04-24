@@ -5,6 +5,9 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with UseBoolean annotations.
+ */
 @Tested(testMethod = "automated")
 public class UseBooleanAdapter implements UseAdapter<Boolean, UseBoolean> {
 	@Override
