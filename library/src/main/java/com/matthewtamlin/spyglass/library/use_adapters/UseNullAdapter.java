@@ -5,6 +5,9 @@ import com.matthewtamlin.spyglass.library.use_annotations.UseNull;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with UseNull annotations.
+ */
 @Tested(testMethod = "automated")
 public class UseNullAdapter implements UseAdapter<Void, UseNull> {
 	@Override
