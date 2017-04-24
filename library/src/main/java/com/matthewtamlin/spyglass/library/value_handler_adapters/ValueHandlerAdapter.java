@@ -25,11 +25,6 @@ public interface ValueHandlerAdapter<T, A extends Annotation> {
 	public TypedArrayAccessor<T> getAccessor(A annotation);
 
 	/**
-	 * @return the attribute ID declared in the supplied annotation
-	 */
-	public int getAttributeId(A annotation);
-
-	/**
 	 * Accesses specific data in a TypedArray.
 	 *
 	 * @param <T>

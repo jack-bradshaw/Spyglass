@@ -34,11 +34,4 @@ public class TextHandlerAdapter implements ValueHandlerAdapter<CharSequence, Tex
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final TextHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }
