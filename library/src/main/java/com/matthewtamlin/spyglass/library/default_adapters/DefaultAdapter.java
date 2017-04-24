@@ -8,7 +8,7 @@ import java.lang.annotation.Annotation;
  * Interfaces with default annotations.
  *
  * @param <T>
- * 		the type of defaults returned by the annotations this adapter interfaces with
+ * 		the type of the accessed defaults
  * @param <A>
  * 		the type of annotation this adapter interfaces with
  */
