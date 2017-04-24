@@ -41,9 +41,12 @@ public class IllegalThreadException extends RuntimeException {
 	 */
 	@RequiresApi(24) // For caller
 	@TargetApi(24) // For lint
-	protected IllegalThreadException(final String message, final Throwable cause,
+	protected IllegalThreadException(
+			final String message,
+			final Throwable cause,
 			final boolean enableSuppression,
 			final boolean writableStackTrace) {
+		
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 }
