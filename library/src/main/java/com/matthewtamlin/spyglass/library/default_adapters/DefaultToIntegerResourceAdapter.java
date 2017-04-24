@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToIntegerRe
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToIntegerResource annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToIntegerResourceAdapter
 		implements DefaultAdapter<Integer, DefaultToIntegerResource> {

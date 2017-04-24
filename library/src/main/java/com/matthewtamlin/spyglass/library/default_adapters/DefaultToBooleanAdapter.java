@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToBoolean;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToBoolean annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToBooleanAdapter implements DefaultAdapter<Boolean, DefaultToBoolean> {
 	@Override

@@ -8,6 +8,9 @@ import com.matthewtamlin.spyglass.library.supplier.SupplierInstantiator;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToSuppliedValue annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToSuppliedValueAdapter
 		implements DefaultAdapter<Object, DefaultToSuppliedValue> {

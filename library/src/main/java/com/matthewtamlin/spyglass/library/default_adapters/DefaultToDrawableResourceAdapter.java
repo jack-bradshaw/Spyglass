@@ -9,6 +9,9 @@ import com.matthewtamlin.spyglass.library.default_annotations.DefaultToDrawableR
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToDrawable annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToDrawableResourceAdapter
 		implements DefaultAdapter<Drawable, DefaultToDrawableResource> {

@@ -8,6 +8,9 @@ import com.matthewtamlin.spyglass.library.util.EnumUtil;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with DefaultToEnumConstant annotations.
+ */
 @Tested(testMethod = "automated")
 public class DefaultToEnumConstantAdapter
 		implements DefaultAdapter<Enum<?>, DefaultToEnumConstant> {
