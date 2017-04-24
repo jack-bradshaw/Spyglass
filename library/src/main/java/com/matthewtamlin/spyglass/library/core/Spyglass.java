@@ -34,8 +34,8 @@ import static com.matthewtamlin.spyglass.library.util.ValidationUtil.validateMet
 
 /**
  * Translates view attributes into method calls. This class interacts with the UI, so all method
- * calls must be made on the main thread. This class uses the builder pattern for instantiation,
- * see {@link #builder()}.
+ * calls must be made on the main thread. This class uses the builder pattern for instantiation
+ * (see {@link #builder()}).
  */
 @Tested(testMethod = "automated")
 public class Spyglass {
