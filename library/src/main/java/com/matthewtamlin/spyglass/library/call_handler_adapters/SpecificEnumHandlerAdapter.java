@@ -8,7 +8,7 @@ import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumH
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 /**
- * Call handler adapter for SpecificEnumHandler annotations.
+ * Adapter for interfacing with SpecificEnumHandler annotations.
  */
 @Tested(testMethod = "automated")
 public class SpecificEnumHandlerAdapter implements CallHandlerAdapter<SpecificEnumHandler> {
