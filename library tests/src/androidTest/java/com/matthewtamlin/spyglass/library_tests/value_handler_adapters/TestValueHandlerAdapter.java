@@ -76,15 +76,4 @@ public abstract class TestValueHandlerAdapter<V,
 		getAdapter().getAccessor(getAnnotation())
 				.getValueFromArray(getTypedArrayMissingAttribute());
 	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeId_nullSupplied() {
-		getAdapter().getAttributeId(null);
-	}
-
-	@Test
-	public void testGetAttributeId_nonNullSupplied() {
-		final int id = getAdapter().getAttributeId(getAnnotation());
-		assertThat("Incorrect attribute ID returned.", id, is(getAttributeId()));
-	}
 }

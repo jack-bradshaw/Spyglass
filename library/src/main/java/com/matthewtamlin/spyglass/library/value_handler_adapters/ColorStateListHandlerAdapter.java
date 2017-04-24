@@ -36,11 +36,4 @@ public class ColorStateListHandlerAdapter
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final ColorStateListHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }

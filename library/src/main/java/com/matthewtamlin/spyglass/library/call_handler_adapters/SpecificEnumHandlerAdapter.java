@@ -21,13 +21,6 @@ public class SpecificEnumHandlerAdapter implements CallHandlerAdapter<SpecificEn
 		}
 	}
 
-	@Override
-	public int getAttributeId(final SpecificEnumHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
-
 	private static boolean arrayContainsValue(final TypedArray attrs, final int attrId) {
 
 		// Compare two different results to see if the default is consistently returned

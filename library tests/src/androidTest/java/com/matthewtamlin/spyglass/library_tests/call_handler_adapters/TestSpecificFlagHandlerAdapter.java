@@ -198,15 +198,4 @@ public class TestSpecificFlagHandlerAdapter {
 		final boolean result = adapter.shouldCallMethod(handlesFlag1And2, containingFlags1And2);
 		assertThat(result, is(true));
 	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeId_nullSupplied() {
-		adapter.getAttributeId(null);
-	}
-
-	@Test
-	public void testGetAttributeId_nonNullSupplied() {
-		final int result = adapter.getAttributeId(handlesFlag1);
-		assertThat(result, is(ATTRIBUTE_ID));
-	}
 }

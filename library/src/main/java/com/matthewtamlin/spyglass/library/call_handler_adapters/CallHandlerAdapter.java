@@ -22,6 +22,4 @@ public interface CallHandlerAdapter<A extends Annotation> {
 	 * @return true if the method should be called, false otherwise
 	 */
 	boolean shouldCallMethod(A annotation, TypedArray attrs);
-
-	public int getAttributeId(A annotation);
 }
