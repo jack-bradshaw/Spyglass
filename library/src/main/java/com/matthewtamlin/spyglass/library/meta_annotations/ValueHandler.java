@@ -8,11 +8,6 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Annotations marked as value handlers declare methods which the Spyglass framework can invoke
- * and pass data to.
- */
-
-/**
  * Meta annotation for all value handler annotations. Value handler annotations identify methods
  * which the Spyglass framework can invoke and in doing so, pass data.
  */
