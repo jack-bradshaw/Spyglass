@@ -5,7 +5,7 @@ import android.content.Context;
 import java.lang.annotation.Annotation;
 
 /**
- * Interfaces with a default annotation to get the default value.
+ * Interfaces with default annotations.
  *
  * @param <T>
  * 		the type of the default value
