@@ -5,19 +5,19 @@ import android.content.res.TypedArray;
 import java.lang.annotation.Annotation;
 
 /**
- * Common interface for interacting with call handler annotations.
+ * Interface between a call handler annotation and a set of attributes.
  *
  * @param <A>
  * 		the type of annotation this adapter interfaces with
  */
 public interface CallHandlerAdapter<A extends Annotation> {
 	/**
-	 * Determines whether or not a method annotated with a call handler should be called.
+	 * Determines whether or not a method annotated with the supplied call handler should be called.
 	 *
 	 * @param annotation
 	 * 		the annotation to evaluate, not null
 	 * @param attrs
-	 * 		a set of attributes to base the evaluation on
+	 * 		a set of attributes to base the evaluation on, not null
 	 *
 	 * @return true if the method should be called, false otherwise
 	 */
