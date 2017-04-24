@@ -115,16 +115,4 @@ public class TestEnumOrdinalHandlerAdapter {
 	public void testGetAccessor_callGetValueFromArray_valueMissing() {
 		adapter.getAccessor(annotation).getValueFromArray(missingAttribute);
 	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testGetAttributeId_nullSupplied() {
-		adapter.getAttributeId(null);
-	}
-
-	@Test
-	public void testGetAttributeId_nonNullSupplied() {
-		final int attributeId = adapter.getAttributeId(annotation);
-
-		assertThat(attributeId, is(ATTRIBUTE_ID));
-	}
 }

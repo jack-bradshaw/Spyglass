@@ -44,11 +44,4 @@ public class DimensionHandlerAdapter implements ValueHandlerAdapter<Float, Dimen
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final DimensionHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }

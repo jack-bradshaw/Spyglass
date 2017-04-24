@@ -34,11 +34,4 @@ public class StringHandlerAdapter implements ValueHandlerAdapter<String, StringH
 			}
 		};
 	}
-
-	@Override
-	public int getAttributeId(final StringHandler annotation) {
-		checkNotNull(annotation, "Argument \'annotation\' cannot be null.");
-
-		return annotation.attributeId();
-	}
 }
