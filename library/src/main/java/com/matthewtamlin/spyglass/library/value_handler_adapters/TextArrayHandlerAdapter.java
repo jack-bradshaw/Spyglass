@@ -7,6 +7,9 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.TextArrayHan
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with TextArrayHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class TextArrayHandlerAdapter
 		implements ValueHandlerAdapter<CharSequence[], TextArrayHandler> {

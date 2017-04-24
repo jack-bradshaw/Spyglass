@@ -8,6 +8,9 @@ import com.matthewtamlin.spyglass.library.value_handler_annotations.ColorStateLi
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+/**
+ * Adapter for interfacing with ColorStateListHandler annotations.
+ */
 @Tested(testMethod = "automated")
 public class ColorStateListHandlerAdapter
 		implements ValueHandlerAdapter<ColorStateList, ColorStateListHandler> {
