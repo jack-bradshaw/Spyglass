@@ -46,7 +46,7 @@ public class IllegalThreadException extends RuntimeException {
 			final Throwable cause,
 			final boolean enableSuppression,
 			final boolean writableStackTrace) {
-		
+
 		super(message, cause, enableSuppression, writableStackTrace);
 	}
 }
