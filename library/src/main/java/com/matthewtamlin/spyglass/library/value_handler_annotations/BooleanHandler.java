@@ -11,8 +11,15 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Identifies a method/field capable of receiving a boolean from the Spyglass framework, and defines
- * the handled view attribute.
+ * Declares a method capable of handling a boolean attribute. If the Spyglass framework finds
+ * a boolean value mapped to the specified attribute, it will invoke the method and pass in the
+ * value. This annotation should only be applied to methods which satisfy all of the following
+ * criteria:
+ * <ul>
+ * <li>The method has no other handler annotations.</li>
+ * <li>The method has at least one boolean parameter.</li>
+ * <li>Except for one boolean parameter, every parameter has a use annotation.</li>
+ * </ul>
  */
 @Tested(testMethod = "automated")
 @ValueHandler(adapterClass = BooleanHandlerAdapter.class)
@@ -20,7 +27,7 @@ import java.lang.annotation.Target;
 @Target(ElementType.METHOD)
 public @interface BooleanHandler {
 	/**
-	 * @return the resource ID of the handled view attribute
+	 * @return the resource ID of the handled attribute
 	 */
 	int attributeId();
 }
