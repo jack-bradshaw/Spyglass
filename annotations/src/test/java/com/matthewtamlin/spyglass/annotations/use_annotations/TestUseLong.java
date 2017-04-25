@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.use_annotations;
 
 import com.matthewtamlin.spyglass.library.use_adapters.UseLongAdapter;
-import com.matthewtamlin.spyglass.library.use_annotations.UseLong;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

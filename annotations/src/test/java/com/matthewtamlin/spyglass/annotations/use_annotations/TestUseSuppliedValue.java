@@ -2,7 +2,6 @@ package com.matthewtamlin.spyglass.annotations.use_annotations;
 
 
 import com.matthewtamlin.spyglass.library.use_adapters.UseSuppliedValueAdapter;
-import com.matthewtamlin.spyglass.library.use_annotations.UseSuppliedValue;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

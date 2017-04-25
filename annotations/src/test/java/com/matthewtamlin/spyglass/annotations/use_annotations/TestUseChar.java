@@ -1,8 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.use_annotations;
 
 import com.matthewtamlin.spyglass.library.use_adapters.UseCharAdapter;
-import com.matthewtamlin.spyglass.library.use_annotations.UseBoolean;
-import com.matthewtamlin.spyglass.library.use_annotations.UseChar;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

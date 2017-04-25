@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.annotations.call_handler_annotations;
 
-import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
-import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
+
+import com.matthewtamlin.spyglass.annotations.meta_annotations.CallHandler;
 
 import org.junit.Before;
 import org.junit.Test;

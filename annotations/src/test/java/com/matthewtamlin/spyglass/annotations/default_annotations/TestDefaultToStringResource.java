@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.default_annotations;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToStringResourceAdapter;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToStringResource;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

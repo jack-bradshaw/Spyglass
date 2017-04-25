@@ -1,6 +1,5 @@
 package com.matthewtamlin.spyglass.annotations.use_annotations;
 
-import com.matthewtamlin.spyglass.library.meta_annotations.Default;
 import com.matthewtamlin.spyglass.library.meta_annotations.Use;
 
 import org.junit.Before;
