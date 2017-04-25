@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.value_handler_annotations;
 
 import com.matthewtamlin.spyglass.library.value_handler_adapters.EnumConstantHandlerAdapter;
-import com.matthewtamlin.spyglass.library.value_handler_annotations.EnumConstantHandler;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

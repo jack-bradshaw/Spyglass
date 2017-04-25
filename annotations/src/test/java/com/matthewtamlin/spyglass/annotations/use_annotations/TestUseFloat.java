@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.use_annotations;
 
 import com.matthewtamlin.spyglass.library.use_adapters.UseFloatAdapter;
-import com.matthewtamlin.spyglass.library.use_annotations.UseFloat;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

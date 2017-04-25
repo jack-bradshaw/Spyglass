@@ -1,8 +1,5 @@
 package com.matthewtamlin.spyglass.annotations.call_handler_annotations;
 
-import com.matthewtamlin.spyglass.library.call_handler_adapters.SpecificEnumHandlerAdapter;
-import com.matthewtamlin.spyglass.library.call_handler_annotations.SpecificEnumHandler;
-
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 

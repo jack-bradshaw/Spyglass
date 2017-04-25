@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.default_annotations;
 
 import com.matthewtamlin.spyglass.library.default_adapters.DefaultToColorResourceAdapter;
-import com.matthewtamlin.spyglass.library.default_annotations.DefaultToColorResource;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;

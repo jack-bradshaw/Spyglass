@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.use_annotations;
 
 import com.matthewtamlin.spyglass.library.use_adapters.UseNullAdapter;
-import com.matthewtamlin.spyglass.library.use_annotations.UseNull;
 
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
