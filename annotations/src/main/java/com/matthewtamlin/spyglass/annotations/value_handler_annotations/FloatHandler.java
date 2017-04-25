@@ -19,7 +19,8 @@ import java.lang.annotation.Target;
  * <li>The method has at least one float parameter.</li>
  * <li>Except for one float parameter, every parameter has a use annotation.</li>
  * </ul>
- */@Tested(testMethod = "automated")
+ */
+@Tested(testMethod = "automated")
 @ValueHandler(adapterClass = FloatHandlerAdapter.class)
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
