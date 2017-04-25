@@ -1,7 +1,5 @@
 package com.matthewtamlin.spyglass.annotations.meta_annotations;
 
-import com.matthewtamlin.spyglass.library.value_handler_adapters.ValueHandlerAdapter;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -13,9 +11,4 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
-public @interface ValueHandler {
-	/**
-	 * @return the class of adapter which can interpret the target annotation
-	 */
-	Class<? extends ValueHandlerAdapter> adapterClass();
-}
+public @interface ValueHandler {}

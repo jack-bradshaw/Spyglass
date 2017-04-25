@@ -1,7 +1,5 @@
 package com.matthewtamlin.spyglass.annotations.meta_annotations;
 
-import com.matthewtamlin.spyglass.library.default_adapters.DefaultAdapter;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -14,9 +12,4 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.ANNOTATION_TYPE)
-public @interface Default {
-	/**
-	 * @return the class of adapter which can interpret the target annotation
-	 */
-	Class<? extends DefaultAdapter> adapterClass();
-}
+public @interface Default {}
