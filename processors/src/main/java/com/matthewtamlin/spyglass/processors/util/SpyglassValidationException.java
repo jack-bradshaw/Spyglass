@@ -1,8 +1,5 @@
 package com.matthewtamlin.spyglass.processors.util;
 
-import android.annotation.TargetApi;
-import android.support.annotation.RequiresApi;
-
 /**
  * Exception to indicate that the Spyglass framework found a method with an invalid combination 
  * of handler annotations, default annotations and/or use annotation.
