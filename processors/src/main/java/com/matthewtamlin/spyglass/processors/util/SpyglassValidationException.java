@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.processors.util;
 
 /**
- * Exception to indicate that the Spyglass framework found a method with an invalid combination 
- * of handler annotations, default annotations and/or use annotation.
+ * Exception to indicate that the Spyglass framework detected a method with an illegal
+ * combination of annotations.
  */
 public class SpyglassValidationException extends RuntimeException {
 	/**
