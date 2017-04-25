@@ -1,10 +1,9 @@
 package com.matthewtamlin.spyglass.processors.util;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
-import com.matthewtamlin.spyglass.library.meta_annotations.Default;
-import com.matthewtamlin.spyglass.library.meta_annotations.Use;
-import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
+import com.matthewtamlin.spyglass.annotations.meta_annotations.CallHandler;
+import com.matthewtamlin.spyglass.annotations.meta_annotations.Default;
+import com.matthewtamlin.spyglass.annotations.meta_annotations.ValueHandler;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
