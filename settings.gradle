@@ -1,1 +1,1 @@
-include ':library', ':library tests', ':annotations'
+include ':library', ':library tests', ':annotations', ':processors'
