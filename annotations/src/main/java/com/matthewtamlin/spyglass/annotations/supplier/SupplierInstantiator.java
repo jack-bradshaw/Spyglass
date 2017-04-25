@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.supplier;
+package com.matthewtamlin.spyglass.annotations.supplier;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
