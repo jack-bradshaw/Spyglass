@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.util;
+package com.matthewtamlin.spyglass.processors.util;
 
 import android.annotation.TargetApi;
 import android.support.annotation.RequiresApi;
