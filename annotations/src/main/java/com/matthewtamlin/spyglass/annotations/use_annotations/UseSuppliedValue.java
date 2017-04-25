@@ -3,7 +3,6 @@ package com.matthewtamlin.spyglass.annotations.use_annotations;
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.annotations.meta_annotations.Use;
 import com.matthewtamlin.spyglass.library.supplier.Supplier;
-import com.matthewtamlin.spyglass.library.use_adapters.UseSuppliedValueAdapter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -22,7 +21,7 @@ import java.lang.annotation.Target;
  * </ul>
  */
 @Tested(testMethod = "automated")
-@Use(adapterClass = UseSuppliedValueAdapter.class)
+@Use
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.PARAMETER)
 public @interface UseSuppliedValue {

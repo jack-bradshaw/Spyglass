@@ -2,7 +2,6 @@ package com.matthewtamlin.spyglass.annotations.value_handler_annotations;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.annotations.meta_annotations.ValueHandler;
-import com.matthewtamlin.spyglass.library.value_handler_adapters.EnumConstantHandlerAdapter;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,7 +22,7 @@ import java.lang.annotation.Target;
  * </ul>
  */
 @Tested(testMethod = "automated")
-@ValueHandler(adapterClass = EnumConstantHandlerAdapter.class)
+@ValueHandler
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface EnumConstantHandler {
