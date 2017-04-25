@@ -16,6 +16,5 @@ allprojects {
 
 task clean(type: Delete) {
 	delete rootProject.buildDir
-	delete rootProject.project('library').buildDir
-	delete rootProject.project('library tests').buildDir
+	rootProject.getAllprojects().each {delete project.buildDir}
 }
