@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.library.util;
+package com.matthewtamlin.spyglass.processors.util;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.library.meta_annotations.CallHandler;
