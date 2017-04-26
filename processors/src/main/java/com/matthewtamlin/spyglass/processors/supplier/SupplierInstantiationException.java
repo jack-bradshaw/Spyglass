@@ -1,7 +1,9 @@
-package com.matthewtamlin.spyglass.annotations.supplier;
+package com.matthewtamlin.spyglass.processors.supplier;
 
 import android.annotation.TargetApi;
 import android.support.annotation.RequiresApi;
+
+import com.matthewtamlin.spyglass.annotations.supplier.Supplier;
 
 /**
  * Exception to indicate that a {@link Supplier} could not be reflectively instantiated.
