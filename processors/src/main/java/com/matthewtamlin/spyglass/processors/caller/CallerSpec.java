@@ -18,7 +18,7 @@ public final class CallerSpec {
 			"android.content.res",
 			"TypedArray");
 
-	public static final String PACKAGE = "com.matthewtamlin.spyglass.processor.caller";
+	public static final String PACKAGE = "com.matthewtamlin.spyglass.processors.caller";
 
 	public static final String INTERFACE_NAME = "Caller";
 
