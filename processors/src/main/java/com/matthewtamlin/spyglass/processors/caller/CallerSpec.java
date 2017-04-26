@@ -18,11 +18,11 @@ public final class CallerSpec {
 			"android.content.res",
 			"TypedArray");
 
-	private static final String PACKAGE = "com.matthewtamlin.spyglass.processor.caller";
+	public static final String PACKAGE = "com.matthewtamlin.spyglass.processor.caller";
 
-	private static final String INTERFACE_NAME = "Caller";
+	public static final String INTERFACE_NAME = "Caller";
 
-	private static final String METHOD_NAME = "callIfSatisfied";
+	public static final String METHOD_NAME = "callIfSatisfied";
 
 	public static JavaFile getJavaFile() {
 		final TypeVariableName targetType = TypeVariableName.get("T");
