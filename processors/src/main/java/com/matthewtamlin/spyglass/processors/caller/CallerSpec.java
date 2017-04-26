@@ -48,4 +48,8 @@ public final class CallerSpec {
 				.addFileComment("Spyglass auto-generated file. Do not modify!")
 				.build();
 	}
+
+	private CallerSpec() {
+		throw new RuntimeException("CallerSpec is a contract class. Do not instantiate.");
+	}
 }
