@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors;
+package com.matthewtamlin.spyglass.processors.caller;
 
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
