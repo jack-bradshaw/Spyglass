@@ -9,7 +9,7 @@ import com.squareup.javapoet.TypeVariableName;
 import static javax.lang.model.element.Modifier.ABSTRACT;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
-public final class CallerDefinition {
+public final class CallerInterfaceGenerator {
 	private static final ClassName androidContext = ClassName.get(
 			"android.content",
 			"Context");
@@ -49,7 +49,7 @@ public final class CallerDefinition {
 				.build();
 	}
 
-	private CallerDefinition() {
-		throw new RuntimeException("CallerDefinition is a contract class. Do not instantiate.");
+	private CallerInterfaceGenerator() {
+		throw new RuntimeException("Contract class. Do not instantiate.");
 	}
 }
