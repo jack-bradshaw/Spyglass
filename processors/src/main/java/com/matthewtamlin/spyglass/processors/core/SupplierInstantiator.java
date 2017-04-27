@@ -1,7 +1,8 @@
-package com.matthewtamlin.spyglass.processors.supplier;
+package com.matthewtamlin.spyglass.processors.core;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.annotations.supplier.Supplier;
+import com.matthewtamlin.spyglass.processors.supplier.SupplierInstantiationException;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
