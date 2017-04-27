@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.core;
+package com.matthewtamlin.spyglass.processors.supplier;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.annotations.supplier.Supplier;
