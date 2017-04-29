@@ -6,7 +6,7 @@ import java.util.Set;
 
 public class SetUtil {
 	@SafeVarargs
-	public static <T> Set<T> setOf(T... objects) {
+	public static <T> Set<T> immutableSetOf(T... objects) {
 		final Set<T> set = new HashSet<>();
 
 		Collections.addAll(set, objects);
