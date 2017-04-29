@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.util;
+package com.matthewtamlin.spyglass.processors.validation;
 
 /**
  * Exception to indicate that the Spyglass framework detected a method with an illegal
