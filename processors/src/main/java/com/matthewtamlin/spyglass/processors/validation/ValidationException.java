@@ -1,8 +1,7 @@
 package com.matthewtamlin.spyglass.processors.validation;
 
 /**
- * Exception to indicate that the Spyglass framework detected a method with an illegal
- * combination of annotations.
+ * Exception to indicate that the Spyglass framework detected an illegal use of Spyglass components.
  */
 public class ValidationException extends Exception {
 	/**
