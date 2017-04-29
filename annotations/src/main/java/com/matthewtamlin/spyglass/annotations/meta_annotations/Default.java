@@ -10,6 +10,6 @@ import java.lang.annotation.Target;
  * Spyglass framework can invoke in the absence of valid data, and they define the default values to
  * pass.
  */
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.ANNOTATION_TYPE)
 public @interface Default {}
