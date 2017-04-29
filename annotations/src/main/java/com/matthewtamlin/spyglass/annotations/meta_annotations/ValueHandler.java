@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
  * Meta annotation for all value handler annotations. Value handler annotations identify methods
  * which the Spyglass framework can invoke and in doing so, pass data.
  */
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.ANNOTATION_TYPE)
 public @interface ValueHandler {}
