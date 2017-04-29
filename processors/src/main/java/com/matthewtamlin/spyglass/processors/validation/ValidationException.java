@@ -4,7 +4,7 @@ package com.matthewtamlin.spyglass.processors.validation;
  * Exception to indicate that the Spyglass framework detected a method with an illegal
  * combination of annotations.
  */
-public class ValidationException extends RuntimeException {
+public class ValidationException extends Exception {
 	/**
 	 * Constructs a new ValidationException with no cause or message. The
 	 */
