@@ -6,12 +6,13 @@ import java.util.Map;
 import java.util.Set;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.TypeElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.ElementKind.CLASS;
 
 public class GroupUtil {
-	public static Map<Element, Set<Element>> groupByEnclosingClass(Set<Element> elements) {
+	public static Map<TypeElement, Set<Element>> groupByEnclosingClass(Set<Element> elements) {
 		final Map<Element, Set<Element>> map = new HashMap<>();
 
 		for (final Element e : elements) {
