@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
  */
 @Tested(testMethod = "automated")
 @Use
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface UseSuppliedValue {
 	/**
