@@ -23,7 +23,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
 
 @Tested(testMethod = "automated")
-public class AnnotationUtil {
+public class AnnotationRetriever {
 	public static Annotation getValueHandlerAnnotation(final Element method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
