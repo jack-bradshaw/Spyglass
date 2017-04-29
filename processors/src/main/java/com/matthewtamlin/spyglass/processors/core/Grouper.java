@@ -11,12 +11,14 @@ import javax.lang.model.element.TypeElement;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.ElementKind.CLASS;
 
-public class GroupUtil {
-	public static Map<TypeElement, Set<Element>> groupByEnclosingClass(Set<Element> elements) {
-		final Map<Element, Set<Element>> map = new HashMap<>();
+public class Grouper {
+	public static Map<TypeElement, Set<Element>> groupByEnclosingClass(
+			final Set<Element> elements) {
+
+		final Map<TypeElement, Set<Element>> map = new HashMap<>();
 
 		for (final Element e : elements) {
-			final Element parent = getEnclosingClass(e);
+			final TypeElement parent = getEnclosingClass(e);
 
 			if (!map.containsKey(parent)) {
 				map.put(parent, new HashSet<Element>());
@@ -41,7 +43,7 @@ public class GroupUtil {
 	 * @throws IllegalArgumentException
 	 * 		if {@code element} is null
 	 */
-	private static Element getEnclosingClass(final Element element) {
+	private static TypeElement getEnclosingClass(final Element element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		final Element enclosingElement = element.getEnclosingElement();
@@ -51,14 +53,14 @@ public class GroupUtil {
 			return null;
 		} else if (enclosingElement.getKind() == CLASS) {
 			// The enclosing class has been found
-			return enclosingElement;
+			return (TypeElement) enclosingElement;
 		} else {
 			// Keep searching up
 			return getEnclosingClass(enclosingElement);
 		}
 	}
 
-	private GroupUtil() {
+	private Grouper() {
 		throw new RuntimeException("Util class. Do not instantiate.");
 	}
 }
