@@ -9,78 +9,73 @@ import com.matthewtamlin.spyglass.library.meta_annotations.ValueHandler;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
+import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
+
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.CALL_HANDLER_ANNOTATIONS;
+import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFAULT_ANNOTATIONS;
+import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_ANNOTATIONS;
+import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
 
 @Tested(testMethod = "automated")
 public class AnnotationUtil {
-	public static Annotation getValueHandlerAnnotation(final Method method) {
+	public static Annotation getValueHandlerAnnotation(final Element method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
-		for (final Annotation a : method.getDeclaredAnnotations()) {
-			if (a.annotationType().isAnnotationPresent(ValueHandler.class)) {
-				return a;
+		for (final Class<? extends Annotation> a : VALUE_HANDLER_ANNOTATIONS) {
+			if (method.getAnnotation(a) != null) {
+				return method.getAnnotation(a);
 			}
 		}
 
 		return null;
 	}
 
-	public static Annotation getCallHandlerAnnotation(final Method method) {
+	public static Annotation getCallHandlerAnnotation(final Element method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
-		for (final Annotation a : method.getDeclaredAnnotations()) {
-			if (a.annotationType().isAnnotationPresent(CallHandler.class)) {
-				return a;
+		for (final Class<? extends Annotation> a : CALL_HANDLER_ANNOTATIONS) {
+			if (method.getAnnotation(a) != null) {
+				return method.getAnnotation(a);
 			}
 		}
 
 		return null;
 	}
 
-	public static Annotation getDefaultAnnotation(final Method method) {
+	public static Annotation getDefaultAnnotation(final Element method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
-		for (final Annotation a : method.getDeclaredAnnotations()) {
-			if (a.annotationType().isAnnotationPresent(Default.class)) {
-				return a;
+		for (final Class<? extends Annotation> a : DEFAULT_ANNOTATIONS) {
+			if (method.getAnnotation(a) != null) {
+				return method.getAnnotation(a);
 			}
 		}
 
 		return null;
 	}
 
-	public static Map<Integer, Annotation> getUseAnnotations(final Method method) {
+	public static Map<Integer, Annotation> getUseAnnotations(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
 		final Map<Integer, Annotation> useAnnotationsByIndex = new HashMap<>();
+		final List<? extends VariableElement> params = method.getParameters();
 
-		final Annotation[][] annotationsByParam = method.getParameterAnnotations();
+		for (int i = 0; i < params.size(); i++) {
+			for (final Class<? extends Annotation> a : USE_ANNOTATIONS) {
+				final Annotation foundAnnotation = params.get(i).getAnnotation(a);
 
-		for (int i = 0; i < annotationsByParam.length; i++) {
-			final Annotation[] singleParamAnnotations = annotationsByParam[i];
-			final Annotation useAnnotation = getUseAnnotationForMethodParam(singleParamAnnotations);
-
-			if (useAnnotation != null) {
-				useAnnotationsByIndex.put(i, useAnnotation);
+				if (foundAnnotation != null) {
+					useAnnotationsByIndex.put(i, foundAnnotation);
+				}
 			}
 		}
 
 		return useAnnotationsByIndex;
-	}
-
-	private static Annotation getUseAnnotationForMethodParam(final Annotation[] annotations) {
-		checkNotNull(annotations, "Argument \'annotations \' cannot be null.");
-
-		for (final Annotation a : annotations) {
-			final Use useAnnotation = a.annotationType().getAnnotation(Use.class);
-
-			if (useAnnotation != null) {
-				return a;
-			}
-		}
-
-		return null;
 	}
 }
