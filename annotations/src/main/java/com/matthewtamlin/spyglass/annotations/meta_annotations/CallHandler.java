@@ -9,6 +9,6 @@ import java.lang.annotation.Target;
  * Meta annotation for all call handler annotations. Call handler annotations identify methods
  * which the Spyglass framework can invoke without passing any data.
  */
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.ANNOTATION_TYPE)
 public @interface CallHandler {}

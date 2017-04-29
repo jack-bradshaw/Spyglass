@@ -22,7 +22,7 @@ import java.lang.annotation.Target;
  */
 @Tested(testMethod = "automated")
 @CallHandler
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface SpecificEnumHandler {
 	/**

@@ -21,6 +21,6 @@ import java.lang.annotation.Target;
  */
 @Tested(testMethod = "automated")
 @Default
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToNull {}
