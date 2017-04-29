@@ -11,6 +11,6 @@ public class SetUtil {
 
 		Collections.addAll(set, objects);
 
-		return set;
+		return Collections.unmodifiableSet(set);
 	}
 }
