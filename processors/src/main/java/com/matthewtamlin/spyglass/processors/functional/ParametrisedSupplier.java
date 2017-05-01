@@ -6,6 +6,6 @@ package com.matthewtamlin.spyglass.processors.functional;
  * @param <A> the type of object to accept
  * @param <R> the type of object to return
  */
-public interface Consumer<A, R> {
+public interface ParametrisedSupplier<A, R> {
 	public R accept(A object);
 }
