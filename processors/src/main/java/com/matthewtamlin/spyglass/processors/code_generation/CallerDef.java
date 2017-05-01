@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.caller;
+package com.matthewtamlin.spyglass.processors.code_generation;
 
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -9,7 +9,7 @@ import com.squareup.javapoet.TypeVariableName;
 import static javax.lang.model.element.Modifier.ABSTRACT;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
-public final class CallerDefinition {
+public final class CallerDef {
 	private static final ClassName androidContext = ClassName.get(
 			"android.content",
 			"Context");
@@ -18,11 +18,11 @@ public final class CallerDefinition {
 			"android.content.res",
 			"TypedArray");
 
-	public static final String PACKAGE = "com.matthewtamlin.spyglass.processors.caller";
+	public static final String PACKAGE = "com.matthewtamlin.spyglass.processors.code_generation";
 
 	public static final String INTERFACE_NAME = "Caller";
 
-	public static final String METHOD_NAME = "callIfSatisfied";
+	public static final String METHOD_NAME = "callMethod";
 
 	public static JavaFile getJavaFile() {
 		final TypeVariableName targetType = TypeVariableName.get("T");
@@ -49,7 +49,7 @@ public final class CallerDefinition {
 				.build();
 	}
 
-	private CallerDefinition() {
+	private CallerDef() {
 		throw new RuntimeException("Contract class. Do not instantiate.");
 	}
 }
