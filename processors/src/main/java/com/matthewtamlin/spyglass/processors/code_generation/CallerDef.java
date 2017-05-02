@@ -1,6 +1,5 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -11,14 +10,6 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 
 //TODO make sure this class is generated
 public final class CallerDef {
-	private static final ClassName androidContext = ClassName.get(
-			"android.content",
-			"Context");
-
-	private static final ClassName androidTypedArray = ClassName.get(
-			"android.content.res",
-			"TypedArray");
-
 	public static final String PACKAGE = "com.matthewtamlin.spyglass.processors.code_generation";
 
 	public static final String INTERFACE_NAME = "Caller";
@@ -33,8 +24,8 @@ public final class CallerDef {
 				.addModifiers(PUBLIC, ABSTRACT)
 				.returns(void.class)
 				.addParameter(targetType, "target")
-				.addParameter(androidContext, "context")
-				.addParameter(androidTypedArray, "attributes")
+				.addParameter(AndroidClassDefinitions.CONTEXT, "context")
+				.addParameter(AndroidClassDefinitions.TYPED_ARRAY, "attributes")
 				.build();
 
 		final TypeSpec interfaceSpec = TypeSpec
