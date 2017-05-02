@@ -7,5 +7,5 @@ package com.matthewtamlin.spyglass.processors.functional;
  * @param <R> the type of object to return
  */
 public interface ParametrisedSupplier<A, R> {
-	public R accept(A object);
+	public R supplyFor(A object);
 }
