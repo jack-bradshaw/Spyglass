@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.default_annotations;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.annotations.meta_annotations.Default;
 import com.matthewtamlin.spyglass.annotations.supplier.Supplier;
 
 import java.lang.annotation.ElementType;
@@ -23,7 +22,6 @@ import java.lang.annotation.Target;
  * </ul>
  */
 @Tested(testMethod = "automated")
-@Default
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToSuppliedValue {
