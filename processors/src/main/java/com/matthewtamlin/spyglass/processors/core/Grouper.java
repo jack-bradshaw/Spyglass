@@ -12,16 +12,14 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static javax.lang.model.element.ElementKind.CLASS;
 
 public class Grouper {
-	public static Map<TypeElement, Set<Element>> groupByEnclosingClass(
-			final Set<Element> elements) {
+	public static <T extends Element> Map<TypeElement, Set<T>> groupByEnclosingClass(final Set<T> elements) {
+		final Map<TypeElement, Set<T>> map = new HashMap<>();
 
-		final Map<TypeElement, Set<Element>> map = new HashMap<>();
-
-		for (final Element e : elements) {
+		for (final T e : elements) {
 			final TypeElement parent = getEnclosingClass(e);
 
 			if (!map.containsKey(parent)) {
-				map.put(parent, new HashSet<Element>());
+				map.put(parent, new HashSet<T>());
 			}
 
 			map.get(parent).add(e);
