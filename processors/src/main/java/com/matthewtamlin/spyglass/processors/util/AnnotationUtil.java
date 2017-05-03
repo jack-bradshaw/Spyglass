@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.core;
+package com.matthewtamlin.spyglass.processors.util;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
@@ -18,7 +18,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
 
 @Tested(testMethod = "automated")
-public class AnnotationRetriever {
+public class AnnotationUtil {
 	public static Annotation getValueHandlerAnnotation(final Element method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
 
