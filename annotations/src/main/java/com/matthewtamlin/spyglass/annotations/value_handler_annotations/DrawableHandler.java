@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.value_handler_annotations;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.annotations.meta_annotations.ValueHandler;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -20,7 +19,6 @@ import java.lang.annotation.Target;
  * </ul>
  */
 @Tested(testMethod = "automated")
-@ValueHandler
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DrawableHandler {
