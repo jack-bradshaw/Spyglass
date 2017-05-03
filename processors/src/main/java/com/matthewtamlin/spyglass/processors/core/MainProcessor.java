@@ -25,7 +25,7 @@ import javax.lang.model.element.TypeElement;
 import static com.matthewtamlin.spyglass.processors.core.Grouper.groupByEnclosingClass;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
-public class SpyglassProcessor extends AbstractProcessor {
+public class MainProcessor extends AbstractProcessor {
 	private static final Set<Element> PROCESSED_CLASSES = new HashSet<>();
 
 	private Messager messager;
