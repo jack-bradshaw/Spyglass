@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.supplier;
+package com.matthewtamlin.spyglass.processors.supplier_instantiator;
 
 import com.matthewtamlin.spyglass.annotations.supplier.Supplier;
 
