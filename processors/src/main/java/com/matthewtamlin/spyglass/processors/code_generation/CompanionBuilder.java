@@ -35,14 +35,14 @@ public class CompanionBuilder {
 		return new CompanionBuilder(ClassName.get(packageName, className));
 	}
 
-	private CompanionBuilder(final ClassName targetClass) {
-		this.targetClass = checkNotNull(targetClass, "Argument \'targetClass\' cannot be null.");
-	}
-
-	private JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
+	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
 		final Set<TypeSpec> callerSpecs = generateCallerSpecs(methods);
 
 		return null; //TODO
+	}
+
+	private CompanionBuilder(final ClassName targetClass) {
+		this.targetClass = checkNotNull(targetClass, "Argument \'targetClass\' cannot be null.");
 	}
 
 	private Set<TypeSpec> generateCallerSpecs(final Set<ExecutableElement> methods) {
