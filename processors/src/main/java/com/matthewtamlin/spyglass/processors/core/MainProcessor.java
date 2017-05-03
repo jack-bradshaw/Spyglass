@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processors.core;
 
+import com.matthewtamlin.spyglass.processors.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processors.code_generation.CompanionBuilder;
 import com.matthewtamlin.spyglass.processors.util.ElementUtil;
 import com.matthewtamlin.spyglass.processors.validation.ValidationException;
@@ -50,6 +51,8 @@ public class MainProcessor extends AbstractProcessor {
 
 		messager = processingEnvironment.getMessager();
 		filer = processingEnvironment.getFiler();
+
+		createRequiredFiles();
 	}
 
 	@Override
@@ -91,6 +94,14 @@ public class MainProcessor extends AbstractProcessor {
 		}
 
 		return false;
+	}
+
+	private void createRequiredFiles() {
+		try {
+			CallerDef.getJavaFile().writeTo(filer);
+		} catch (final IOException e) {
+			messager.printMessage(ERROR, "Unable to create required Spyglass framework file.");
+		}
 	}
 
 	private Set<ExecutableElement> findSupportedElements(final RoundEnvironment roundEnv) {
