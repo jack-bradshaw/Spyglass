@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.annotations.call_handler_annotations;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.annotations.meta_annotations.CallHandler;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -21,7 +20,6 @@ import java.lang.annotation.Target;
  * Is it valid for a method with this annotation to have no parameters.
  */
 @Tested(testMethod = "automated")
-@CallHandler
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface SpecificFlagHandler {
