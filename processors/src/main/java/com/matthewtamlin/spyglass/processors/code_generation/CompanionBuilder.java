@@ -170,8 +170,6 @@ public class CompanionBuilder {
 			public V getDefault(Context context, TypedArray attrs) {
 
 			}
-
-			public void
 		}
 
 		 */
