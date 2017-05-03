@@ -1,6 +1,5 @@
-package com.matthewtamlin.spyglass.processors.caller;
+package com.matthewtamlin.spyglass.processors.code_generation;
 
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -9,20 +8,13 @@ import com.squareup.javapoet.TypeVariableName;
 import static javax.lang.model.element.Modifier.ABSTRACT;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
-public final class CallerInterfaceDefinition {
-	private static final ClassName androidContext = ClassName.get(
-			"android.content",
-			"Context");
-
-	private static final ClassName androidTypedArray = ClassName.get(
-			"android.content.res",
-			"TypedArray");
-
-	public static final String PACKAGE = "com.matthewtamlin.spyglass.processors.caller";
+//TODO make sure this class is generated
+public final class CallerDef {
+	public static final String PACKAGE = "com.matthewtamlin.spyglass.processors.code_generation";
 
 	public static final String INTERFACE_NAME = "Caller";
 
-	public static final String METHOD_NAME = "callIfSatisfied";
+	public static final String METHOD_NAME = "callMethod";
 
 	public static JavaFile getJavaFile() {
 		final TypeVariableName targetType = TypeVariableName.get("T");
@@ -32,8 +24,8 @@ public final class CallerInterfaceDefinition {
 				.addModifiers(PUBLIC, ABSTRACT)
 				.returns(void.class)
 				.addParameter(targetType, "target")
-				.addParameter(androidContext, "context")
-				.addParameter(androidTypedArray, "attributes")
+				.addParameter(AndroidClassDefinitions.CONTEXT, "context")
+				.addParameter(AndroidClassDefinitions.TYPED_ARRAY, "attributes")
 				.build();
 
 		final TypeSpec interfaceSpec = TypeSpec
@@ -49,7 +41,7 @@ public final class CallerInterfaceDefinition {
 				.build();
 	}
 
-	private CallerInterfaceDefinition() {
+	private CallerDef() {
 		throw new RuntimeException("Contract class. Do not instantiate.");
 	}
 }
