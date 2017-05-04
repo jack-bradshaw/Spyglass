@@ -14,10 +14,10 @@ import java.util.Set;
 import javax.lang.model.element.ExecutableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.getGetDefaultValueSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.getGetValueSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.getShouldCallMethodSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.getValueIsAvailableSpecFor;
+import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildGetDefaultValueSpecFor;
+import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildGetValueSpecFor;
+import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildShouldCallMethodSpecFor;
+import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildValueIsAvailableSpecFor;
 import static com.matthewtamlin.spyglass.processors.code_generation.InvocationLiteralGenerator.getInvocationLiteral;
 import static com.matthewtamlin.spyglass.processors.util.AnnotationUtil.getCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.processors.util.AnnotationUtil.getDefaultAnnotation;
@@ -83,7 +83,7 @@ public class CompanionBuilder {
 		}
 		 */
 
-		final MethodSpec shouldCallMethod = getShouldCallMethodSpecFor(getCallHandlerAnnotation(e));
+		final MethodSpec shouldCallMethod = buildShouldCallMethodSpecFor(getCallHandlerAnnotation(e));
 
 		final MethodSpec callMethod = getCallMethodPartialSpec()
 				.addCode(CodeBlock
@@ -122,11 +122,11 @@ public class CompanionBuilder {
 
 		 */
 
-		final MethodSpec valueIsAvailable = getValueIsAvailableSpecFor(getValueHandlerAnnotation(e));
+		final MethodSpec valueIsAvailable = buildValueIsAvailableSpecFor(getValueHandlerAnnotation(e));
 
 		final String nonUseParamType = getTypeOfNonUseParameter(e);
 
-		final MethodSpec getValue = getGetValueSpecFor(getValueHandlerAnnotation(e));
+		final MethodSpec getValue = buildGetValueSpecFor(getValueHandlerAnnotation(e));
 
 		final MethodSpec callMethod = getCallMethodPartialSpec()
 				.addCode(CodeBlock
@@ -174,12 +174,12 @@ public class CompanionBuilder {
 
 		 */
 
-		final MethodSpec valueIsAvailable = getValueIsAvailableSpecFor(getValueHandlerAnnotation(e));
+		final MethodSpec valueIsAvailable = buildValueIsAvailableSpecFor(getValueHandlerAnnotation(e));
 
 		final String nonUseParamType = getTypeOfNonUseParameter(e);
 
-		final MethodSpec getValue = getGetValueSpecFor(getValueHandlerAnnotation(e));
-		final MethodSpec getDefault = getGetDefaultValueSpecFor(getDefaultAnnotation(e));
+		final MethodSpec getValue = buildGetValueSpecFor(getValueHandlerAnnotation(e));
+		final MethodSpec getDefault = buildGetDefaultValueSpecFor(getDefaultAnnotation(e));
 
 		final MethodSpec callMethod = getCallMethodPartialSpec()
 				.addCode(CodeBlock

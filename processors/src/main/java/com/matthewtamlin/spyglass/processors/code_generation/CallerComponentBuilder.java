@@ -168,7 +168,7 @@ public class CallerComponentBuilder {
 	 * @throws IllegalArgumentException
 	 * 		if {@code annotation} is null
 	 */
-	public static MethodSpec getShouldCallMethodSpecFor(final Annotation anno) {
+	public static MethodSpec buildShouldCallMethodSpecFor(final Annotation anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		if (!CALL_HANDLER_ANNOTATIONS.contains(anno.annotationType())) {
@@ -186,7 +186,7 @@ public class CallerComponentBuilder {
 				.build();
 	}
 
-	public static MethodSpec getValueIsAvailableSpecFor(final Annotation anno) {
+	public static MethodSpec buildValueIsAvailableSpecFor(final Annotation anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		if (!VALUE_HANDLER_ANNOTATIONS.contains(anno.annotationType())) {
@@ -204,7 +204,7 @@ public class CallerComponentBuilder {
 				.build();
 	}
 
-	public static MethodSpec getGetValueSpecFor(final Annotation anno) {
+	public static MethodSpec buildGetValueSpecFor(final Annotation anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		if (!VALUE_HANDLER_ANNOTATIONS.contains(anno.annotationType())) {
@@ -222,7 +222,7 @@ public class CallerComponentBuilder {
 				.build();
 	}
 
-	public static MethodSpec getGetDefaultValueSpecFor(final Annotation anno) {
+	public static MethodSpec buildGetDefaultValueSpecFor(final Annotation anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		if (!DEFAULT_ANNOTATIONS.contains(anno.annotationType())) {
