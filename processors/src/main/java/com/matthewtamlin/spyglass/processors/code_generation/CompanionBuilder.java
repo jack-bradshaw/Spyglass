@@ -18,7 +18,6 @@ import static com.matthewtamlin.spyglass.processors.code_generation.CallerCompon
 import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildGetValueSpecFor;
 import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildShouldCallMethodSpecFor;
 import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildValueIsAvailableSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.InvocationLiteralBuilder.getInvocationLiteral;
 import static com.matthewtamlin.spyglass.processors.util.AnnotationUtil.getCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.processors.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.processors.util.AnnotationUtil.getValueHandlerAnnotation;
@@ -89,7 +88,7 @@ public class CompanionBuilder {
 				.addCode(CodeBlock
 						.builder()
 						.addStatement("if ($N(attrs))", shouldCallMethod)
-						.addStatement("$L.$L", "target", getInvocationLiteral(e))
+						.addStatement("$L.$L", "target", InvocationLiteralBuilder.buildFor(e))
 						.endControlFlow()
 						.build())
 				.build();
@@ -133,7 +132,7 @@ public class CompanionBuilder {
 						.builder()
 						.addStatement("if ($N(attrs))", valueIsAvailable)
 						.addStatement("$T value = ($T) $N(attrs)", nonUseParamType, nonUseParamType, getValue)
-						.addStatement("$L.$L", "target", getInvocationLiteral(e, "value"))
+						.addStatement("$L.$L", "target", InvocationLiteralBuilder.buildFor(e, "value"))
 						.endControlFlow()
 						.build())
 				.build();
@@ -186,13 +185,13 @@ public class CompanionBuilder {
 						.builder()
 						.addStatement("if ($N(attrs))", valueIsAvailable)
 						.addStatement("$T value = ($T) $N(attrs)", nonUseParamType, nonUseParamType, getValue)
-						.addStatement("$L.$L", "target", getInvocationLiteral(e, "value"))
+						.addStatement("$L.$L", "target", InvocationLiteralBuilder.buildFor(e, "value"))
 						.nextControlFlow("else")
 						.addStatement("$T value = ($T) $N(attrs, context)",
 								nonUseParamType,
 								nonUseParamType,
 								getDefault)
-						.addStatement("$L.$L", "target", getInvocationLiteral(e, "value"))
+						.addStatement("$L.$L", "target", InvocationLiteralBuilder.buildFor(e, "value"))
 						.build())
 				.build();
 
