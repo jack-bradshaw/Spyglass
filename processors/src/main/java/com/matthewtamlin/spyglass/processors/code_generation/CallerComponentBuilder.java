@@ -18,7 +18,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFA
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
-public class CallerComponents {
+public class CallerComponentBuilder {
 	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
 			SHOULD_CALL_BOTH_SUPPLIERS;
 
