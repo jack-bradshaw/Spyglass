@@ -18,7 +18,7 @@ import static com.matthewtamlin.spyglass.processors.code_generation.CallerCompon
 import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildGetValueSpecFor;
 import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildShouldCallMethodSpecFor;
 import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildValueIsAvailableSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.InvocationLiteralGenerator.getInvocationLiteral;
+import static com.matthewtamlin.spyglass.processors.code_generation.InvocationLiteralBuilder.getInvocationLiteral;
 import static com.matthewtamlin.spyglass.processors.util.AnnotationUtil.getCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.processors.util.AnnotationUtil.getDefaultAnnotation;
 import static com.matthewtamlin.spyglass.processors.util.AnnotationUtil.getValueHandlerAnnotation;
