@@ -10,7 +10,7 @@ import java.util.Map;
 
 import javax.lang.model.element.ExecutableElement;
 
-public class InvocationLiteralGenerator {
+public class InvocationLiteralBuilder {
 	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, String>>
 			CODE_LITERAL_SUPPLIERS;
 
