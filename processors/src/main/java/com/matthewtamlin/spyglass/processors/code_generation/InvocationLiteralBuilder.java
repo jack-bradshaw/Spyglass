@@ -28,11 +28,11 @@ public class InvocationLiteralBuilder {
 				});
 	}
 
-	public static String getInvocationLiteral(final ExecutableElement e) {
-		return getInvocationLiteral(e, getLiteralsFromUseAnnotations(e));
+	public static String buildFor(final ExecutableElement e) {
+		return buildFor(e, getLiteralsFromUseAnnotations(e));
 	}
 
-	public static String getInvocationLiteral(
+	public static String buildFor(
 			final ExecutableElement e,
 			final String nonUseArgLiteral) {
 
@@ -45,7 +45,7 @@ public class InvocationLiteralBuilder {
 			}
 		}
 
-		return getInvocationLiteral(e, argumentLiterals);
+		return buildFor(e, argumentLiterals);
 	}
 
 	private static Map<Integer, String> getLiteralsFromUseAnnotations(final ExecutableElement e) {
@@ -62,7 +62,7 @@ public class InvocationLiteralBuilder {
 		return argumentLiterals;
 	}
 
-	private static String getInvocationLiteral(
+	private static String buildFor(
 			final ExecutableElement e,
 			final Map<Integer, String> argumentLiterals) {
 
