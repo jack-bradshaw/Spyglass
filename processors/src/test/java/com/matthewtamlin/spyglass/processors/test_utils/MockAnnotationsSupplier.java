@@ -21,7 +21,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class MockAnnotationsSupplier {
-	private static SpecificEnumHandler createMockSpecificEnumHandler(final int id, final int ordinal) {
+	public static SpecificEnumHandler createMockSpecificEnumHandler(final int id, final int ordinal) {
 		final SpecificEnumHandler anno = mock(SpecificEnumHandler.class);
 
 		doReturn(SpecificEnumHandler.class).when(anno).annotationType();
@@ -32,7 +32,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static SpecificFlagHandler createMockSpecificFlagHandler(final int id, final int handledFlags) {
+	public static SpecificFlagHandler createMockSpecificFlagHandler(final int id, final int handledFlags) {
 		final SpecificFlagHandler anno = mock(SpecificFlagHandler.class);
 
 		doReturn(SpecificFlagHandler.class).when(anno).annotationType();
@@ -42,7 +42,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static BooleanHandler createMockBooleanHandler(final int id) {
+	public static BooleanHandler createMockBooleanHandler(final int id) {
 		final BooleanHandler anno = mock(BooleanHandler.class);
 
 		doReturn(BooleanHandler.class).when(anno).annotationType();
@@ -51,7 +51,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static ColorHandler createMockColorHandler(final int id) {
+	public static ColorHandler createMockColorHandler(final int id) {
 		final ColorHandler anno = mock(ColorHandler.class);
 
 		doReturn(ColorHandler.class).when(anno).annotationType();
@@ -60,7 +60,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static ColorStateListHandler createMockColorStateListHandler(final int id) {
+	public static ColorStateListHandler createMockColorStateListHandler(final int id) {
 		final ColorStateListHandler anno = mock(ColorStateListHandler.class);
 
 		doReturn(ColorStateListHandler.class).when(anno).annotationType();
@@ -69,7 +69,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static DimensionHandler createMockDimensionHandler(final int id) {
+	public static DimensionHandler createMockDimensionHandler(final int id) {
 		final DimensionHandler anno = mock(DimensionHandler.class);
 
 		doReturn(DimensionHandler.class).when(anno).annotationType();
@@ -78,7 +78,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static DrawableHandler createMockDrawableHandler(final int id) {
+	public static DrawableHandler createMockDrawableHandler(final int id) {
 		final DrawableHandler anno = mock(DrawableHandler.class);
 
 		doReturn(DrawableHandler.class).when(anno).annotationType();
@@ -87,7 +87,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static EnumConstantHandler createMockEnumConstantHandler(
+	public static EnumConstantHandler createMockEnumConstantHandler(
 			final int id,
 			final Class<? extends Enum> enumClass) {
 		final EnumConstantHandler anno = mock(EnumConstantHandler.class);
@@ -99,7 +99,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static EnumOrdinalHandler createMockEnumOrdinalHandler(final int id) {
+	public static EnumOrdinalHandler createMockEnumOrdinalHandler(final int id) {
 		final EnumOrdinalHandler anno = mock(EnumOrdinalHandler.class);
 
 		doReturn(EnumOrdinalHandler.class).when(anno).annotationType();
@@ -108,7 +108,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static FloatHandler createMockFloatHandler(final int id) {
+	public static FloatHandler createMockFloatHandler(final int id) {
 		final FloatHandler anno = mock(FloatHandler.class);
 
 		doReturn(FloatHandler.class).when(anno).annotationType();
@@ -117,7 +117,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static FractionHandler createMockFractionHandler(
+	public static FractionHandler createMockFractionHandler(
 			final int id,
 			final int baseMultiplier,
 			final int parentMultiplier) {
@@ -132,7 +132,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static IntegerHandler createMockIntegerHandler(final int id) {
+	public static IntegerHandler createMockIntegerHandler(final int id) {
 		final IntegerHandler anno = mock(IntegerHandler.class);
 
 		doReturn(IntegerHandler.class).when(anno).annotationType();
@@ -141,7 +141,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static StringHandler createMockStringHandler(final int id) {
+	public static StringHandler createMockStringHandler(final int id) {
 		final StringHandler anno = mock(StringHandler.class);
 
 		doReturn(StringHandler.class).when(anno).annotationType();
@@ -150,7 +150,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static TextArrayHandler createMockTextArrayHandler(final int id) {
+	public static TextArrayHandler createMockTextArrayHandler(final int id) {
 		final TextArrayHandler anno = mock(TextArrayHandler.class);
 
 		doReturn(TextArrayHandler.class).when(anno).annotationType();
@@ -159,7 +159,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	private static TextHandler createMockTextHandler(final int id) {
+	public static TextHandler createMockTextHandler(final int id) {
 		final TextHandler anno = mock(TextHandler.class);
 
 		doReturn(TextHandler.class).when(anno).annotationType();
