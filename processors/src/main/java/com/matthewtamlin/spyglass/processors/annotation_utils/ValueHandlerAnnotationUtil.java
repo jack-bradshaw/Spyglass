@@ -20,6 +20,12 @@ public class ValueHandlerAnnotationUtil {
 		return null;
 	}
 
+	public static boolean isValueHandlerAnnotation(final Annotation anno) {
+		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+
+		return VALUE_HANDLER_ANNOTATIONS.contains(anno.annotationType());
+	}
+
 	private ValueHandlerAnnotationUtil() {
 		throw new RuntimeException("Utility class. Do not instantiate.");
 	}

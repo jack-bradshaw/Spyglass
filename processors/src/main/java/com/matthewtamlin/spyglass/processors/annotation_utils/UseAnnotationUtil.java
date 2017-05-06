@@ -31,6 +31,12 @@ public class UseAnnotationUtil {
 		return useAnnotationsByIndex;
 	}
 
+	public static boolean isUseAnnotation(final Annotation anno) {
+		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+
+		return USE_ANNOTATIONS.contains(anno.annotationType());
+	}
+
 	private UseAnnotationUtil() {
 		throw new RuntimeException("Utility class. Do not instantiate.");
 	}
