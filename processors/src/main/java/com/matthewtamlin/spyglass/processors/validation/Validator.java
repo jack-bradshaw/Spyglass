@@ -71,8 +71,7 @@ public class Validator {
 				final int defaultCount = countDefaultAnnotations(element);
 
 				if (handlerCount == 0 && defaultCount == 1) {
-					final String message = "Methods must not have default annotations without " +
-							"handler annotations.";
+					final String message = "Methods without handler annotations must not have default annotations.";
 					throw new ValidationException(message);
 				}
 			}
@@ -86,8 +85,9 @@ public class Validator {
 				final int defaultCount = countDefaultAnnotations(element);
 
 				if (callHandlerCount == 1 && defaultCount == 1) {
-					final String message = "Methods with handlers that pass no value must not " +
-							"have default annotations.";
+					final String message = "Methods with handlers annotations that pass no value must not have " +
+							"default annotations.";
+
 					throw new ValidationException(message);
 				}
 			}
@@ -101,8 +101,9 @@ public class Validator {
 					final int paramCount = ((ExecutableElement) element).getParameters().size();
 
 					if (paramCount < 1) {
-						final String message = "Methods with handlers that pass a value must have" +
-								" at least one parameter.";
+						final String message = "Methods with handler annotations that pass a value must have at least" +
+								" one parameter.";
+
 						throw new ValidationException(message);
 					}
 				}
@@ -135,8 +136,9 @@ public class Validator {
 							getUseAnnotations((ExecutableElement) element).values());
 
 					if (annotatedParamCount != paramCount - 1) {
-						final String message = "For methods with handlers which pass a value, " +
-								"every parameter except one must have a use annotation.";
+						final String message = "Methods with handler annotations which pass a value must have use " +
+								"annotations on every parameter except one.";
+
 						throw new ValidationException(message);
 					}
 				}
@@ -147,25 +149,30 @@ public class Validator {
 		rules.add(new Rule() {
 			@Override
 			public void checkElementComplies(final Element element) throws ValidationException {
-				if (countValueHandlerAnnotations(element) == 1) {
+				if (countCallHandlerAnnotations(element) == 1) {
 					final int paramCount = ((ExecutableElement) element).getParameters().size();
 					final int annotatedParamCount = countNonEmptySets(
 							getUseAnnotations((ExecutableElement) element).values());
 
 					if (annotatedParamCount != paramCount) {
-						final String message = "For methods with handlers which pass no " +
-								"value, every parameter must have a use annotation.";
+						final String message = "Methods with handler annotations which pass no value must have " +
+								"use annotations on every parameter.";
+
 						throw new ValidationException(message);
 					}
 				}
 			}
 		});
 
-		// Check handlers are applied to correct types
+		// TODO Check handlers are applied to correct types
 
-		// Check defaults ar applied to correct types
+		// TODO Check defaults are applied to correct types
 
-		// Check use annotations are applied to correct types
+		// TODO Check use annotations are applied to correct types
+
+		// TODO Check access modifiers
+
+		// TODO Check abstract methods
 	}
 
 	public static void validateElement(final Element element) throws ValidationException {

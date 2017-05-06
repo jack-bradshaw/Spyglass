@@ -8,7 +8,6 @@ import com.squareup.javapoet.TypeVariableName;
 import static javax.lang.model.element.Modifier.ABSTRACT;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
-//TODO make sure this class is generated
 public final class CallerDef {
 	public static final String PACKAGE = "com.matthewtamlin.spyglass.processors.code_generation";
 

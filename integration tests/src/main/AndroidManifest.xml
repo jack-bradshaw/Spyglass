@@ -1,0 +1,12 @@
+<manifest
+	package="com.matthewtamlin.spyglass.integration_tests"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<application
+		android:allowBackup="false"
+		android:icon="@mipmap/ic_launcher"
+		android:label="Spyglass IT"
+		android:supportsRtl="true"
+		android:theme="@style/AppTheme">
+	</application>
+</manifest>
