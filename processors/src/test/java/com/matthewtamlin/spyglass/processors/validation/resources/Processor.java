@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 public class Processor extends AbstractProcessor {
-	private static final String GENERIC_ERROR_MESSAGE = "Test for method %1$s failed with reason \"%2$s\"";
+	private static final String GENERIC_ERROR_MESSAGE = "Test for %1$s failed with reason \"%2$s\"";
 
 	private Messager messager;
 
