@@ -1,7 +1,5 @@
 package com.matthewtamlin.spyglass.processors.util;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
-
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.List;
@@ -17,7 +15,6 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFA
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
 
-@Tested(testMethod = "automated")
 public class AnnotationUtil {
 	public static Annotation getValueHandlerAnnotation(final Element method) {
 		checkNotNull(method, "Argument \'method \' cannot be null.");
