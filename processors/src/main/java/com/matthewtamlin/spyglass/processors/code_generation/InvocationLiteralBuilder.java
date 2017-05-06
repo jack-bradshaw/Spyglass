@@ -29,7 +29,7 @@ public class InvocationLiteralBuilder {
 	}
 
 	public static String buildFor(final ExecutableElement e) {
-		return buildFor(e, getLiteralsFromUseAnnotations(e));
+		return assembleLiteral(e, getLiteralsFromUseAnnotations(e));
 	}
 
 	public static String buildFor(
@@ -45,13 +45,10 @@ public class InvocationLiteralBuilder {
 			}
 		}
 
-		return buildFor(e, argumentLiterals);
+		return assembleLiteral(e, argumentLiterals);
 	}
 
-	private static String buildFor(
-			final ExecutableElement e,
-			final Map<Integer, String> argumentLiterals) {
-
+	private static String assembleLiteral(final ExecutableElement e, final Map<Integer, String> argumentLiterals) {
 		final StringBuilder fullInvocationLiteralBuilder = new StringBuilder();
 
 		// "someMethod"
