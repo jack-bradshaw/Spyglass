@@ -48,20 +48,6 @@ public class InvocationLiteralBuilder {
 		return buildFor(e, argumentLiterals);
 	}
 
-	private static Map<Integer, String> getLiteralsFromUseAnnotations(final ExecutableElement e) {
-		final Map<Integer, Annotation> useAnnotations = AnnotationUtil.getUseAnnotations(e);
-		final Map<Integer, String> argumentLiterals = new HashMap<>();
-
-		for (final Integer i : useAnnotations.keySet()) {
-			final Annotation a = useAnnotations.get(i);
-			final String codeLiteral = CODE_LITERAL_SUPPLIERS.get(a.annotationType()).supplyFor(a);
-
-			argumentLiterals.put(i, codeLiteral);
-		}
-
-		return argumentLiterals;
-	}
-
 	private static String buildFor(
 			final ExecutableElement e,
 			final Map<Integer, String> argumentLiterals) {
@@ -88,5 +74,19 @@ public class InvocationLiteralBuilder {
 		fullInvocationLiteralBuilder.append(")");
 
 		return fullInvocationLiteralBuilder.toString();
+	}
+
+	private static Map<Integer, String> getLiteralsFromUseAnnotations(final ExecutableElement e) {
+		final Map<Integer, Annotation> useAnnotations = AnnotationUtil.getUseAnnotations(e);
+		final Map<Integer, String> argumentLiterals = new HashMap<>();
+
+		for (final Integer i : useAnnotations.keySet()) {
+			final Annotation a = useAnnotations.get(i);
+			final String codeLiteral = CODE_LITERAL_SUPPLIERS.get(a.annotationType()).supplyFor(a);
+
+			argumentLiterals.put(i, codeLiteral);
+		}
+
+		return argumentLiterals;
 	}
 }
