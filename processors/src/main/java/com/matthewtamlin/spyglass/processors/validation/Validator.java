@@ -161,11 +161,15 @@ public class Validator {
 			}
 		});
 
-		// Check handlers are applied to correct types
+		// TODO Check handlers are applied to correct types
 
-		// Check defaults ar applied to correct types
+		// TODO Check defaults are applied to correct types
 
-		// Check use annotations are applied to correct types
+		// TODO Check use annotations are applied to correct types
+
+		// TODO Check access modifiers
+
+		// TODO Check abstract methods
 	}
 
 	public static void validateElement(final Element element) throws ValidationException {
