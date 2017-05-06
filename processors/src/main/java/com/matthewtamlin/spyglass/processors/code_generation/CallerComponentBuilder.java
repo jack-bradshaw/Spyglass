@@ -16,11 +16,12 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.CALL_HANDLER_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFAULT_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
+import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 public class CallerComponentBuilder {
 	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
-			SHOULD_CALL_BOTH_SUPPLIERS;
+			SHOULD_CALL_METHOD_BODY_SUPPLIERS;
 
 	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
 			VALUE_IS_AVAILABLE_BODY_SUPPLIERS;
@@ -32,9 +33,9 @@ public class CallerComponentBuilder {
 			GET_DEFAULT_VALUE_BODY_SUPPLIERS;
 
 	static {
-		SHOULD_CALL_BOTH_SUPPLIERS = new HashMap<>();
+		SHOULD_CALL_METHOD_BODY_SUPPLIERS = new HashMap<>();
 
-		SHOULD_CALL_BOTH_SUPPLIERS.put(
+		SHOULD_CALL_METHOD_BODY_SUPPLIERS.put(
 				SpecificEnumHandler.class,
 				new ParametrisedSupplier<Annotation, CodeBlock>() {
 					@Override
@@ -47,8 +48,7 @@ public class CallerComponentBuilder {
 								.addStatement("final int value2 = attrs.getInt($L, 2)", anno.attributeId())
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == 1 && " +
-										"value2 == 2")
+										"(value1 == 1) && (value2 == 2)")
 								.add("\n")
 								.beginControlFlow("if (defaultConsistentlyReturned)")
 								.addStatement("return false")
@@ -60,7 +60,7 @@ public class CallerComponentBuilder {
 				}
 		);
 
-		SHOULD_CALL_BOTH_SUPPLIERS.put(
+		SHOULD_CALL_METHOD_BODY_SUPPLIERS.put(
 				SpecificFlagHandler.class,
 				new ParametrisedSupplier<Annotation, CodeBlock>() {
 					@Override
@@ -175,13 +175,13 @@ public class CallerComponentBuilder {
 			throw new IllegalArgumentException("Argument \'anno\' must be a call handler annotation.");
 		}
 
-		final CodeBlock methodBody = SHOULD_CALL_BOTH_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
+		final CodeBlock methodBody = SHOULD_CALL_METHOD_BODY_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("shouldCallMethod")
 				.addModifiers(PUBLIC)
 				.returns(boolean.class)
-				.addParameter(AndroidClassDefinitions.TYPED_ARRAY, "attrs")
+				.addParameter(AndroidClassDefinitions.TYPED_ARRAY, "attrs", FINAL)
 				.addCode(methodBody)
 				.build();
 	}
