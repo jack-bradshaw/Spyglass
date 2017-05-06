@@ -178,12 +178,6 @@ public class Data {
 	private void method34(@UseNull Object o1, @UseChar('A') Object o2, @UseInt(1) Object o3) {}
 
 	@Target(isValid = false)
-	private void method35(@UseLong(1) Object o1, Object o2) {}
-
-	@Target(isValid = false)
-	private void method36(@UseBoolean(false) Object o1, @UseString("something") Object o2) {}
-
-	@Target(isValid = false)
 	@BooleanHandler(attributeId = 1)
 	private void method37(@UseInt(1) @UseBoolean(true) Object o1, Object o2) {}
 
