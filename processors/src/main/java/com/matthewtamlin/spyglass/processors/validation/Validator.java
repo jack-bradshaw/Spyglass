@@ -147,7 +147,7 @@ public class Validator {
 		rules.add(new Rule() {
 			@Override
 			public void checkElementComplies(final Element element) throws ValidationException {
-				if (countValueHandlerAnnotations(element) == 1) {
+				if (countCallHandlerAnnotations(element) == 1) {
 					final int paramCount = ((ExecutableElement) element).getParameters().size();
 					final int annotatedParamCount = countNonEmptySets(
 							getUseAnnotations((ExecutableElement) element).values());
