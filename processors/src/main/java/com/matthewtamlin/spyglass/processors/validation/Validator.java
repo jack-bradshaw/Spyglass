@@ -20,6 +20,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.CALL
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFAULT_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
+import static javax.lang.model.element.Modifier.PRIVATE;
 
 @Tested(testMethod = "automated")
 public class Validator {
@@ -163,16 +164,6 @@ public class Validator {
 				}
 			}
 		});
-
-		// TODO Check handlers are applied to correct types
-
-		// TODO Check defaults are applied to correct types
-
-		// TODO Check use annotations are applied to correct types
-
-		// TODO Check access modifiers
-
-		// TODO Check abstract methods
 	}
 
 	public static void validateElement(final Element element) throws ValidationException {
