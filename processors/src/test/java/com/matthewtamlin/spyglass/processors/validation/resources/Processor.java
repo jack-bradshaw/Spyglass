@@ -13,12 +13,9 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class Processor extends AbstractProcessor {
-	private static final String GENERIC_ERROR_MESSAGE = "Test for %1$s failed with reason \"%2$s\"";
-
 	private Messager messager;
 
 	@Override
@@ -41,27 +38,27 @@ public class Processor extends AbstractProcessor {
 	public boolean process(final Set<? extends TypeElement> set, final RoundEnvironment roundEnvironment) {
 		for (final Element e : roundEnvironment.getElementsAnnotatedWith(Target.class)) {
 			final Target targetAnnotation = e.getAnnotation(Target.class);
+			final boolean shouldPassValidation = targetAnnotation.isValid();
 
-			final boolean shouldPass = targetAnnotation.isValid();
-			final boolean doesPass = passesValidation(e);
+			try {
+				Validator.validateElement(e);
 
-			final String formattedErrorMessage = String.format(
-					GENERIC_ERROR_MESSAGE,
-					e.getSimpleName(),
-					targetAnnotation.failureMessage());
-
-			assertThat(formattedErrorMessage, doesPass, is(shouldPass));
+				if (!shouldPassValidation) {
+					messager.printMessage(
+							ERROR,
+							String.format("Element %1$s should have failed validation but passed.", e.getSimpleName()));
+				}
+			} catch (final ValidationException exception) {
+				if (shouldPassValidation) {
+					messager.printMessage(
+							ERROR,
+							String.format("Element %1$s should have passed validation but failed. Error message: %2$s",
+									e.getSimpleName(),
+									exception.getMessage()));
+				}
+			}
 		}
 
 		return false;
-	}
-
-	public boolean passesValidation(final Element element) {
-		try {
-			Validator.validateElement(element);
-			return true;
-		} catch (final ValidationException exception) {
-			return false;
-		}
 	}
 }
