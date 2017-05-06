@@ -164,6 +164,17 @@ public class Validator {
 				}
 			}
 		});
+
+		// Check correct modifiers are applied to annotation methods
+		rules.add(new Rule() {
+			@Override
+			public void checkElementComplies(final Element element) throws ValidationException {
+				if (element.getModifiers().contains(PRIVATE)) {
+					throw new ValidationException("Methods with handler annotations must have public, protected, or " +
+							"default access. Private methods are not compatible with the Spyglass Framework.");
+				}
+			}
+		});
 	}
 
 	public static void validateElement(final Element element) throws ValidationException {
