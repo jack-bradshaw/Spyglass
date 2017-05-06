@@ -26,7 +26,7 @@ public class TestValidator {
 	}
 
 	@Test
-	public void doTest() throws MalformedURLException {
+	public void testValidateElement_checkAllElementsInDataClass() throws MalformedURLException {
 		ASSERT.about(javaSource())
 				.that(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()))
 				.processedWith(new Processor())
