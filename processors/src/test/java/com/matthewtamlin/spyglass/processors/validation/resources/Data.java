@@ -179,9 +179,9 @@ public class Data {
 
 	@Target(isValid = false)
 	@BooleanHandler(attributeId = 1)
-	private void method37(@UseInt(1) @UseBoolean(true) Object o1, Object o2) {}
+	private void method35(@UseInt(1) @UseBoolean(true) Object o1, Object o2) {}
 
 	@Target(isValid = false)
 	@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
-	private void method38(@UseInt(1) @UseBoolean(true) @UseString("something") Object o1) {}
+	private void method36(@UseInt(1) @UseBoolean(true) @UseString("something") Object o1) {}
 }
