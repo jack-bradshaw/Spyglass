@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
@@ -35,6 +36,16 @@ public class UseAnnotationUtil {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		return USE_ANNOTATIONS.contains(anno.annotationType());
+	}
+
+	public static boolean hasUseAnnotation(final Element element) {
+		for (final Class<? extends Annotation> a : USE_ANNOTATIONS) {
+			if (element.getAnnotation(a) != null) {
+				return true;
+			}
+		}
+
+		return false;
 	}
 
 	private UseAnnotationUtil() {
