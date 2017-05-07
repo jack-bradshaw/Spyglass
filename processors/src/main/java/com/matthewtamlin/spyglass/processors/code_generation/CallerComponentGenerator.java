@@ -19,7 +19,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALU
 import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
-public class CallerComponentBuilder {
+public class CallerComponentGenerator {
 	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
 			SHOULD_CALL_METHOD_BODY_SUPPLIERS;
 
