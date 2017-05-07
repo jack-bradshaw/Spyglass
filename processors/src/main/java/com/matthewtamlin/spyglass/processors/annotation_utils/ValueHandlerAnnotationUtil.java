@@ -26,6 +26,16 @@ public class ValueHandlerAnnotationUtil {
 		return VALUE_HANDLER_ANNOTATIONS.contains(anno.annotationType());
 	}
 
+	public static boolean hasValueAnnotation(final Element element) {
+		for (final Class<? extends Annotation> a : VALUE_HANDLER_ANNOTATIONS) {
+			if (element.getAnnotation(a) != null) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private ValueHandlerAnnotationUtil() {
 		throw new RuntimeException("Utility class. Do not instantiate.");
 	}
