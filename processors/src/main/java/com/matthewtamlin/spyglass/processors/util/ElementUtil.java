@@ -1,10 +1,6 @@
 package com.matthewtamlin.spyglass.processors.util;
 
-import java.lang.annotation.Annotation;
-import java.util.Map;
-
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -39,18 +35,6 @@ public class ElementUtil {
 			// Keep searching up
 			return getEnclosingType(enclosingElement);
 		}
-	}
-
-	public static String getTypeOfNonUseParameter(final ExecutableElement e) {
-		final Map<Integer, Annotation> useAnnotations = AnnotationUtil.getUseAnnotations(e);
-
-		for (int i = 0; i < useAnnotations.size(); i++) {
-			if (!useAnnotations.keySet().contains(i)) {
-				return e.getParameters().get(i).asType().toString();
-			}
-		}
-
-		throw new IllegalArgumentException("All parameters of argument \'e\' have use annotations.");
 	}
 
 	public static String getPackageOfType(final TypeElement e) {
