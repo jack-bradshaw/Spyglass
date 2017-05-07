@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.test_utils;
+package com.matthewtamlin.spyglass.processors.testing_utils;
 
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
