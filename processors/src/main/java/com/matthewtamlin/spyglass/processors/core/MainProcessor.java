@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.processors.core;
 
 import com.matthewtamlin.spyglass.processors.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processors.code_generation.CompanionBuilder;
-import com.matthewtamlin.spyglass.processors.util.ElementUtil;
+import com.matthewtamlin.spyglass.processors.util.TypeUtil;
 import com.matthewtamlin.spyglass.processors.validation.ValidationException;
 import com.matthewtamlin.spyglass.processors.validation.Validator;
 import com.squareup.javapoet.JavaFile;
@@ -77,8 +77,8 @@ public class MainProcessor extends AbstractProcessor {
 		validateElements(allElements);
 
 		for (final TypeElement target : elementsByEnclosingClass.keySet()) {
-			final String targetPackage = ElementUtil.getPackageOfType(target);
-			final String targetClass = ElementUtil.getSimpleNameOfType(target);
+			final String targetPackage = TypeUtil.getPackageOfType(target);
+			final String targetClass = TypeUtil.getSimpleNameOfType(target);
 
 			final Set<ExecutableElement> targetElements = elementsByEnclosingClass.get(target);
 
