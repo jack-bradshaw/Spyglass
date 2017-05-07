@@ -1,7 +1,6 @@
-package com.matthewtamlin.spyglass.processors.validation;
+package com.matthewtamlin.spyglass.processors.validation.test_validator;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.spyglass.processors.validation.resources.Processor;
 
 import org.junit.Before;
 import org.junit.Test;
