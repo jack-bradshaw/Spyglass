@@ -6,7 +6,7 @@ import javax.lang.model.element.TypeElement;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.ElementKind.CLASS;
 
-public class ElementUtil {
+public class TypeUtil {
 	/**
 	 * Recursively searches up the element model until the enclosing class is found or the top of
 	 * the model is reached. The enclosing class may be an anonymous inner class, a nested class,
