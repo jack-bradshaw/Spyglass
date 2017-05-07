@@ -26,14 +26,14 @@ import static com.matthewtamlin.spyglass.processors.code_generation.CallerCompon
 import static com.matthewtamlin.spyglass.processors.code_generation.InvocationLiteralGenerator.buildInvocationLiteralFor;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
-public class CompanionBuilder {
+public class CompanionClassGenerator {
 	private final ClassName targetClass;
 
-	public static CompanionBuilder forTarget(final String packageName, final String className) {
+	public static CompanionClassGenerator forTarget(final String packageName, final String className) {
 		checkNotNull(packageName, "Argument \'packageName\' cannot be null.");
 		checkNotNull(packageName, "Argument \'className\' cannot be null.");
 
-		return new CompanionBuilder(ClassName.get(packageName, className));
+		return new CompanionClassGenerator(ClassName.get(packageName, className));
 	}
 
 	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
@@ -42,7 +42,7 @@ public class CompanionBuilder {
 		return null; //TODO
 	}
 
-	private CompanionBuilder(final ClassName targetClass) {
+	private CompanionClassGenerator(final ClassName targetClass) {
 		this.targetClass = checkNotNull(targetClass, "Argument \'targetClass\' cannot be null.");
 	}
 
