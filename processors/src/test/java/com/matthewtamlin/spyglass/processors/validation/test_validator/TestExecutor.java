@@ -15,7 +15,7 @@ import static com.google.common.truth.Truth.assertWithMessage;
 import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
 
 @RunWith(JUnit4.class)
-public class TestValidator {
+public class TestExecutor {
 	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors/" +
 			"validation/resources/Data.java");
 
