@@ -23,7 +23,7 @@ import static com.matthewtamlin.spyglass.processors.code_generation.CallerCompon
 import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildGetValueSpecFor;
 import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildShouldCallMethodSpecFor;
 import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentBuilder.buildValueIsAvailableSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.InvocationLiteralBuilder.buildInvocationLiteralFor;
+import static com.matthewtamlin.spyglass.processors.code_generation.InvocationLiteralGenerator.buildInvocationLiteralFor;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 public class CompanionBuilder {
