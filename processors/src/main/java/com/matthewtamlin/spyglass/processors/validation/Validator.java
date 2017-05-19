@@ -20,6 +20,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.CALL
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFAULT_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
+import static javax.lang.model.element.Modifier.PRIVATE;
 
 @Tested(testMethod = "automated")
 public class Validator {
@@ -164,15 +165,16 @@ public class Validator {
 			}
 		});
 
-		// TODO Check handlers are applied to correct types
-
-		// TODO Check defaults are applied to correct types
-
-		// TODO Check use annotations are applied to correct types
-
-		// TODO Check access modifiers
-
-		// TODO Check abstract methods
+		// Check correct modifiers are applied to annotation methods
+		rules.add(new Rule() {
+			@Override
+			public void checkElementComplies(final Element element) throws ValidationException {
+				if (element.getModifiers().contains(PRIVATE)) {
+					throw new ValidationException("Methods with handler annotations must have public, protected, or " +
+							"default access. Private methods are not compatible with the Spyglass Framework.");
+				}
+			}
+		});
 	}
 
 	public static void validateElement(final Element element) throws ValidationException {
