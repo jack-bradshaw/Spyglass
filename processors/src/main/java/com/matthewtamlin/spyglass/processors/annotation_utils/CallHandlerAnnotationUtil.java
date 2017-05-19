@@ -20,6 +20,22 @@ public class CallHandlerAnnotationUtil {
 		return null;
 	}
 
+	public static boolean isCallHandlerAnnotation(final Annotation anno) {
+		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+
+		return CALL_HANDLER_ANNOTATIONS.contains(anno.annotationType());
+	}
+
+	public static boolean hasCallHandlerAnnotation(final Element element) {
+		for (final Class<? extends Annotation> a : CALL_HANDLER_ANNOTATIONS) {
+			if (element.getAnnotation(a) != null) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private CallHandlerAnnotationUtil() {
 		throw new RuntimeException("Utility class. Do not instantiate.");
 	}

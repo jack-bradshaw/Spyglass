@@ -1,7 +1,8 @@
 package com.matthewtamlin.spyglass.processors.validation;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.spyglass.processors.validation.resources.Processor;
+import com.matthewtamlin.java_compiler_utilities.element_supplier.AnnotatedElementSupplier;
+import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,26 +11,56 @@ import org.junit.runners.JUnit4;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.Set;
 
-import static com.google.common.truth.Truth.ASSERT;
-import static com.google.common.truth.Truth.assertWithMessage;
-import static com.google.testing.compile.JavaSourceSubjectFactory.javaSource;
+import javax.lang.model.element.Element;
+import javax.tools.JavaFileObject;
+
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnit4.class)
 public class TestValidator {
 	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors/" +
-			"validation/resources/Data.java");
+			"validation/Data.java");
+
+	private Set<Element> elements;
 
 	@Before
-	public void setup() {
-		assertWithMessage("Data file does not exist.").that(DATA_FILE.exists()).isTrue();
+	public void setup() throws MalformedURLException, CompilerMissingException {
+		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
+
+		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
+		final AnnotatedElementSupplier elementSupplier = new AnnotatedElementSupplier(dataFileObject);
+
+		elements = elementSupplier.getElementsWithAnnotation(Target.class);
 	}
 
 	@Test
-	public void testValidateElement_checkAllElementsInDataClass() throws MalformedURLException {
-		ASSERT.about(javaSource())
-				.that(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()))
-				.processedWith(new Processor())
-				.compilesWithoutError();
+	public void testValidateElement_usingDataFileElements() throws CompilerMissingException {
+		for (final Element element : elements) {
+			final Target targetAnnotation = element.getAnnotation(Target.class);
+			final boolean shouldPassValidation = targetAnnotation.isValid();
+
+			try {
+				Validator.validateElement(element);
+
+				if (!shouldPassValidation) {
+					throw new RuntimeException(
+							String.format(
+									"Element %1$s should have failed validation but passed.",
+									element.getSimpleName()));
+				}
+			} catch (final ValidationException exception) {
+				if (shouldPassValidation) {
+					throw new RuntimeException(
+							String.format(
+									"Element %1$s should have passed validation but failed with error message: %2$s",
+									element.getSimpleName(),
+									exception.getMessage())
+					);
+				}
+			}
+		}
 	}
 }

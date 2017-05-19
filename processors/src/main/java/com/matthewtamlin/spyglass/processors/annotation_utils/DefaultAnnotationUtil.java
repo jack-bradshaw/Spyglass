@@ -20,6 +20,22 @@ public class DefaultAnnotationUtil {
 		return null;
 	}
 
+	public static boolean isDefaultAnnotation(final Annotation anno) {
+		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+
+		return DEFAULT_ANNOTATIONS.contains(anno.annotationType());
+	}
+
+	public static boolean hasDefaultAnnotation(final Element element) {
+		for (final Class<? extends Annotation> a : DEFAULT_ANNOTATIONS) {
+			if (element.getAnnotation(a) != null) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	private DefaultAnnotationUtil() {
 		throw new RuntimeException("Utility class. Do not instantiate.");
 	}
