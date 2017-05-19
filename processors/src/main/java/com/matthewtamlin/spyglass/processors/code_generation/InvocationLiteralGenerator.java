@@ -1,8 +1,20 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseBoolean;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseByte;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseDouble;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseFloat;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseInt;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseShort;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseString;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseSuppliedValue;
 import com.matthewtamlin.spyglass.processors.annotation_utils.UseAnnotationUtil;
 import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
+import com.matthewtamlin.spyglass.processors.supplier_instantiator.SupplierInstantiator;
+import com.squareup.javapoet.CodeBlock;
 
 import java.lang.annotation.Annotation;
 import java.util.HashMap;
@@ -26,6 +38,118 @@ public class InvocationLiteralGenerator {
 						return castAnno.value() ? "true" : "false";
 					}
 				});
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseByte.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						final UseByte castAnno = (UseByte) object;
+						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+					}
+				}
+		);
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseChar.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						final UseChar castAnno = (UseChar) object;
+						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+					}
+				}
+		);
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseDouble.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						final UseDouble castAnno = (UseDouble) object;
+						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+					}
+				}
+		);
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseFloat.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						final UseFloat castAnno = (UseFloat) object;
+						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+					}
+				}
+		);
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseInt.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						final UseInt castAnno = (UseInt) object;
+						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+					}
+				}
+		);
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseLong.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						final UseLong castAnno = (UseLong) object;
+						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+					}
+				}
+		);
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseNull.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						return "null";
+					}
+				}
+		);
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseShort.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						final UseShort castAnno = (UseShort) object;
+						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+					}
+				}
+		);
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseString.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						final UseString castAnno = (UseString) object;
+						return CodeBlock.builder().add("$S", castAnno.value()).toString();
+					}
+				}
+		);
+
+		CODE_LITERAL_SUPPLIERS.put(
+				UseSuppliedValue.class,
+				new ParametrisedSupplier<Annotation, String>() {
+					@Override
+					public String supplyFor(final Annotation object) {
+						final UseSuppliedValue castAnno = (UseSuppliedValue) object;
+						return CodeBlock
+								.builder()
+								.add("$T.instantiateSupplier($L)", SupplierInstantiator.class, castAnno.value())
+								.toString();
+					}
+				}
+		);
 	}
 
 	public static String buildInvocationLiteralFor(final ExecutableElement e) {
