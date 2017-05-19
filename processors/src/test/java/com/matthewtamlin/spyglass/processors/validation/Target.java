@@ -1,5 +1,5 @@
 package com.matthewtamlin.spyglass.processors.validation;
 
-public @interface Target {
+@interface Target {
 	boolean isValid();
 }
