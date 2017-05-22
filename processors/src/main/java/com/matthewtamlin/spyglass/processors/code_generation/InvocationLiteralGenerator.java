@@ -10,7 +10,6 @@ import com.matthewtamlin.spyglass.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseString;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseSuppliedValue;
 import com.matthewtamlin.spyglass.processors.annotation_utils.UseAnnotationUtil;
 import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
 import com.squareup.javapoet.CodeBlock;
