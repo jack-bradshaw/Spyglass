@@ -21,7 +21,7 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.Dimensio
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.FloatHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
 
-public abstract class Data {
+abstract class Data {
 	@Target(isValid = true)
 	public void method1() {}
 

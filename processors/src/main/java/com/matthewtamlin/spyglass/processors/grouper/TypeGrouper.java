@@ -1,4 +1,6 @@
-package com.matthewtamlin.spyglass.processors.core;
+package com.matthewtamlin.spyglass.processors.grouper;
+
+import com.matthewtamlin.java_utilities.testing.Tested;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -8,24 +10,29 @@ import java.util.Set;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkEachElementIsNotNull;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.ElementKind.CLASS;
 
-public class Grouper {
-	public static <T extends Element> Map<TypeElement, Set<T>> groupByEnclosingClass(final Set<T> elements) {
-		final Map<TypeElement, Set<T>> map = new HashMap<>();
+@Tested(testMethod = "automated")
+public class TypeGrouper {
+	public static <T extends Element> Map<TypeElementWrapper, Set<T>> groupByEnclosingClass(final Set<T> elements) {
+		checkNotNull(elements, "Argument \'elements\' cannot be null.");
+		checkEachElementIsNotNull(elements, "Argument \'elements\' cannot contain null.");
 
-		for (final T e : elements) {
-			final TypeElement parent = getEnclosingClass(e);
+		final Map<TypeElementWrapper, Set<T>> groups = new HashMap<>();
 
-			if (!map.containsKey(parent)) {
-				map.put(parent, new HashSet<T>());
+		for (final T element : elements) {
+			final TypeElementWrapper parentWrapper = new TypeElementWrapper(getEnclosingClass(element));
+
+			if (!groups.containsKey(parentWrapper)) {
+				groups.put(parentWrapper, new HashSet<T>());
 			}
 
-			map.get(parent).add(e);
+			groups.get(parentWrapper).add(element);
 		}
 
-		return map;
+		return groups;
 	}
 
 	/**
@@ -58,7 +65,7 @@ public class Grouper {
 		}
 	}
 
-	private Grouper() {
+	private TypeGrouper() {
 		throw new RuntimeException("Util class. Do not instantiate.");
 	}
 }

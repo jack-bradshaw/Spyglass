@@ -23,8 +23,8 @@ public final class CallerDef {
 				.addModifiers(PUBLIC, ABSTRACT)
 				.returns(void.class)
 				.addParameter(targetType, "target")
-				.addParameter(AndroidClassDefinitions.CONTEXT, "context")
-				.addParameter(AndroidClassDefinitions.TYPED_ARRAY, "attributes")
+				.addParameter(AndroidClassDefs.CONTEXT, "context")
+				.addParameter(AndroidClassDefs.TYPED_ARRAY, "attributes")
 				.build();
 
 		final TypeSpec interfaceSpec = TypeSpec
