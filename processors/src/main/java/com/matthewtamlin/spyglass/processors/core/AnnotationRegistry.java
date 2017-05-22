@@ -85,7 +85,7 @@ public class AnnotationRegistry {
 			DefaultToIntegerResource.class,
 			DefaultToNull.class,
 			DefaultToString.class,
-			DefaultToStringResource.class
+			DefaultToStringResource.class,
 			DefaultToTextArrayResource.class,
 			DefaultToTextResource.class
 	);
