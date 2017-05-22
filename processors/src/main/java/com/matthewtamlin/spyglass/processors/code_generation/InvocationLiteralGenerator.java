@@ -185,10 +185,8 @@ public class InvocationLiteralGenerator {
 	private static String combineArgLiterals(final Map<Integer, String> argumentLiterals) {
 		final StringBuilder fullInvocationLiteralBuilder = new StringBuilder();
 
-		// Start with the opening bracket: '('
 		fullInvocationLiteralBuilder.append("(");
 
-		// Add the argument literals one by one using comma separation: '(1, "something", "true", 3L, 1.4F'
 		for (int i = 0; i < argumentLiterals.size(); i++) {
 			fullInvocationLiteralBuilder.append(argumentLiterals.get(i));
 
@@ -197,7 +195,6 @@ public class InvocationLiteralGenerator {
 			}
 		}
 
-		// Add the closing bracket: '(1, "something", "true", 3L, 1.4F)'
 		fullInvocationLiteralBuilder.append(")");
 
 		return fullInvocationLiteralBuilder.toString();
