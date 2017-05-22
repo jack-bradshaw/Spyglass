@@ -13,11 +13,11 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_ANNOTATIONS;
 
 public class UseAnnotationUtil {
-	public static Map<Integer, Annotation> getUseAnnotations(final ExecutableElement method) {
-		checkNotNull(method, "Argument \'method \' cannot be null.");
+	public static Map<Integer, Annotation> getUseAnnotations(final ExecutableElement element) {
+		checkNotNull(element, "Argument \'element \' cannot be null.");
 
 		final Map<Integer, Annotation> useAnnotationsByIndex = new HashMap<>();
-		final List<? extends VariableElement> params = method.getParameters();
+		final List<? extends VariableElement> params = element.getParameters();
 
 		for (int i = 0; i < params.size(); i++) {
 			for (final Class<? extends Annotation> a : USE_ANNOTATIONS) {
