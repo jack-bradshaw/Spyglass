@@ -231,7 +231,7 @@ public class MockAnnotationsSupplier {
 		return anno;
 	}
 
-	public static DefaultToDimension defaultToDimension(final float value, final DimensionUnit unit) {
+	public static DefaultToDimension createMockDefaultToDimension(final float value, final DimensionUnit unit) {
 		final DefaultToDimension anno = mock(DefaultToDimension.class);
 
 		doReturn(DefaultToDimension.class).when(anno).annotationType();
