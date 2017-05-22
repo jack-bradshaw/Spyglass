@@ -27,6 +27,8 @@ public class DefaultAnnotationUtil {
 	}
 
 	public static boolean hasDefaultAnnotation(final Element element) {
+		checkNotNull(element, "Argument \'element \' cannot be null.");
+
 		for (final Class<? extends Annotation> a : DEFAULT_ANNOTATIONS) {
 			if (element.getAnnotation(a) != null) {
 				return true;
