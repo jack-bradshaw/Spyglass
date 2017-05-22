@@ -99,14 +99,14 @@ public class TestCallHandlerAnnotationUtil {
 
 	@Test
 	public void testGetCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() {
-		final SpecificEnumHandler anno = (SpecificEnumHandler) getCallHandlerAnnotation(withSpecificEnumHandler);
+		final Annotation anno = getCallHandlerAnnotation(withSpecificEnumHandler);
 
 		assertThat(anno, is(notNullValue()));
 	}
 
 	@Test
 	public void testGetCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() {
-		final SpecificFlagHandler anno = (SpecificFlagHandler) getCallHandlerAnnotation(withSpecificFlagHandler);
+		final Annotation anno = getCallHandlerAnnotation(withSpecificFlagHandler);
 
 		assertThat(anno, is(notNullValue()));
 	}
