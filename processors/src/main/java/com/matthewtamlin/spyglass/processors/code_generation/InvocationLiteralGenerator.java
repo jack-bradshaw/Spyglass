@@ -131,6 +131,8 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseString castAnno = (UseString) object;
+
+						// Use the String escaping tools of the JavaPoet library
 						return CodeBlock
 								.builder()
 								.add("$S", castAnno.value())
@@ -142,13 +144,9 @@ public class InvocationLiteralGenerator {
 	}
 
 	public static String buildInvocationLiteralFor(final ExecutableElement e) {
-		// A method name such as 'doSomeTask'
 		final String methodName = e.getSimpleName().toString();
-
-		// A map of argument literals by index, such as '[0: "hello", 1: 10L, 2: false, 3: 0b11]'
 		final Map<Integer, String> argLiterals = getArgLiteralsFromUseAnnotations(e);
 
-		// The actual method call literal such as 'doSomeTask("hello", 10L, false, 0b11)'
 		return methodName + combineArgLiterals(argLiterals);
 	}
 
@@ -156,13 +154,10 @@ public class InvocationLiteralGenerator {
 			final ExecutableElement e,
 			final String nonUseArgLiteral) {
 
-		// A method name such as 'doSomeTask'
 		final String methodName = e.getSimpleName().toString();
-
-		// A map of argument literals by index, such as '[0: "hello", 1: 10L, 2: false, 3: 0b11]'
 		final Map<Integer, String> argLiterals = getArgLiteralsFromUseAnnotations(e);
 
-		// Find the first index which is not mapped to a literal and map it to the nonUseArgLiteral
+		// Find the first index which is not mapped to a literal, and set it to the nonUseArgLiteral value
 		for (int i = 0; i < argLiterals.size() + 1; i++) {
 			if (!argLiterals.containsKey(i)) {
 				argLiterals.put(i, nonUseArgLiteral);
@@ -170,7 +165,6 @@ public class InvocationLiteralGenerator {
 			}
 		}
 
-		// The actual method call literal such as 'doSomeTask("hello", 10L, false, 0b11, "some non use arg")'
 		return e.getSimpleName() + combineArgLiterals(argLiterals);
 	}
 
