@@ -2,6 +2,33 @@ package com.matthewtamlin.spyglass.processors.testing_utils;
 
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBooleanResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimension;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimensionResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToEnumConstant;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFloat;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFractionResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToInteger;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToIntegerResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToNull;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStringResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
+import com.matthewtamlin.spyglass.annotations.units.DimensionUnit;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseBoolean;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseByte;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseDouble;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseFloat;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseInt;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseShort;
+import com.matthewtamlin.spyglass.annotations.use_annotations.UseString;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorStateListHandler;
@@ -164,6 +191,249 @@ public class MockAnnotationsSupplier {
 
 		doReturn(TextHandler.class).when(anno).annotationType();
 		when(anno.attributeId()).thenReturn(id);
+
+		return anno;
+	}
+
+	public static DefaultToBoolean createMockDefaultToBoolean(final boolean value) {
+		final DefaultToBoolean anno = mock(DefaultToBoolean.class);
+
+		doReturn(DefaultToBoolean.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToBooleanResource createMockDefaultToBooleanResource(final int value) {
+		final DefaultToBooleanResource anno = mock(DefaultToBooleanResource.class);
+
+		doReturn(DefaultToBooleanResource.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToColorResource createMockDefaultToColorResource(final int value) {
+		final DefaultToColorResource anno = mock(DefaultToColorResource.class);
+
+		doReturn(DefaultToColorResource.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToColorStateListResource createMockDefaultToColorStateListResource(final int value) {
+		final DefaultToColorStateListResource anno = mock(DefaultToColorStateListResource.class);
+
+		doReturn(DefaultToColorStateListResource.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToDimension defaultToDimension(final float value, final DimensionUnit unit) {
+		final DefaultToDimension anno = mock(DefaultToDimension.class);
+
+		doReturn(DefaultToDimension.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+		when(anno.unit()).thenReturn(unit);
+
+		return anno;
+	}
+
+	public static DefaultToDimensionResource createMockDefaultToDimensionResource(final int value) {
+		final DefaultToDimensionResource anno = mock(DefaultToDimensionResource.class);
+
+		doReturn(DefaultToDimensionResource.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToEnumConstant createMockDefaultToEnumConstant(
+			Class<? extends Enum> enumClass,
+			final int ordinal) {
+
+		final DefaultToEnumConstant anno = mock(DefaultToEnumConstant.class);
+
+		doReturn(DefaultToEnumConstant.class).when(anno).annotationType();
+		doReturn(enumClass).when(anno).enumClass();
+		when(anno.ordinal()).thenReturn(ordinal);
+
+		return anno;
+	}
+
+	public static DefaultToFloat createMockDefaultToFloat(final float value) {
+		final DefaultToFloat anno = mock(DefaultToFloat.class);
+
+		doReturn(DefaultToFloat.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToFractionResource createMockDefaultToFractionResource(
+			final int resId,
+			final int baseMultiplier,
+			final int parentMultiplier) {
+
+		final DefaultToFractionResource anno = mock(DefaultToFractionResource.class);
+
+		doReturn(DefaultToFractionResource.class).when(anno).annotationType();
+		when(anno.resId()).thenReturn(resId);
+		when(anno.baseMultiplier()).thenReturn(baseMultiplier);
+		when(anno.parentMultiplier()).thenReturn(parentMultiplier);
+
+		return anno;
+	}
+
+	public static DefaultToInteger createMockDefaultToInteger(final int value) {
+		final DefaultToInteger anno = mock(DefaultToInteger.class);
+
+		doReturn(DefaultToInteger.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToIntegerResource createMockDefaultToIntegerResource(final int value) {
+		final DefaultToIntegerResource anno = mock(DefaultToIntegerResource.class);
+
+		doReturn(DefaultToIntegerResource.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToNull createMockDefaultToNull() {
+		final DefaultToNull anno = mock(DefaultToNull.class);
+
+		doReturn(DefaultToNull.class).when(anno).annotationType();
+
+		return anno;
+	}
+
+	public static DefaultToString createMockDefaultToString(final String value) {
+		final DefaultToString anno = mock(DefaultToString.class);
+
+		doReturn(DefaultToString.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToStringResource createMockDefaultToStringResource(final int value) {
+		final DefaultToStringResource anno = mock(DefaultToStringResource.class);
+
+		doReturn(DefaultToStringResource.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToTextArrayResource createMockDefaultToTextArrayResource(final int value) {
+		final DefaultToTextArrayResource anno = mock(DefaultToTextArrayResource.class);
+
+		doReturn(DefaultToTextArrayResource.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToTextResource createMockDefaultToTextResource(final int value) {
+		final DefaultToTextResource anno = mock(DefaultToTextResource.class);
+
+		doReturn(DefaultToTextResource.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static UseBoolean createMockUseBoolean(final boolean value) {
+		final UseBoolean anno = mock(UseBoolean.class);
+
+		doReturn(UseBoolean.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static UseByte createMockUseByte(final byte value) {
+		final UseByte anno = mock(UseByte.class);
+
+		doReturn(UseByte.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static UseChar createMockUseChar(final char value) {
+		final UseChar anno = mock(UseChar.class);
+
+		doReturn(UseChar.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static UseDouble createMockUseDouble(final double value) {
+		final UseDouble anno = mock(UseDouble.class);
+
+		doReturn(UseDouble.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static UseFloat createMockUseFloat(final float value) {
+		final UseFloat anno = mock(UseFloat.class);
+
+		doReturn(UseFloat.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static UseInt createMockUseInt(final int value) {
+		final UseInt anno = mock(UseInt.class);
+
+		doReturn(UseInt.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static UseLong createMockUseLong(final long value) {
+		final UseLong anno = mock(UseLong.class);
+
+		doReturn(UseLong.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static UseNull createMockUseNull() {
+		final UseNull anno = mock(UseNull.class);
+
+		doReturn(UseNull.class).when(anno).annotationType();
+
+		return anno;
+	}
+
+	public static UseShort createMockUseShort(final short value) {
+		final UseShort anno = mock(UseShort.class);
+
+		doReturn(UseShort.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static UseString createMockUseString(final String value) {
+		final UseString anno = mock(UseString.class);
+
+		doReturn(UseString.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
 
 		return anno;
 	}
