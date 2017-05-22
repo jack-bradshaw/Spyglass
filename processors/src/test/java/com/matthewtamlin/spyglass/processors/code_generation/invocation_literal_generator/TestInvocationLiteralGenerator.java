@@ -24,8 +24,8 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnit4.class)
 public class TestInvocationLiteralGenerator {
-	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors/" +
-			"code_generation/invocation_literal_generator/Data.java");
+	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors" +
+			"/code_generation/invocation_literal_generator/Data.java");
 
 	private Set<Element> withPlaceholderElements;
 
