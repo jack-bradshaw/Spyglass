@@ -100,18 +100,21 @@ public class TestCallHandlerAnnotationUtil {
 	@Test
 	public void testGetCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() {
 		final SpecificEnumHandler anno = (SpecificEnumHandler) getCallHandlerAnnotation(withSpecificEnumHandler);
+
 		assertThat(anno, is(notNullValue()));
 	}
 
 	@Test
 	public void testGetCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() {
 		final SpecificFlagHandler anno = (SpecificFlagHandler) getCallHandlerAnnotation(withSpecificFlagHandler);
+
 		assertThat(anno, is(notNullValue()));
 	}
 
 	@Test
 	public void testGetCallHandlerAnnotation_noCallHandlerAnnotationPresent() {
 		final Annotation anno = getCallHandlerAnnotation(withNoCallHandler);
+
 		assertThat(anno, is(nullValue()));
 	}
 
@@ -123,216 +126,252 @@ public class TestCallHandlerAnnotationUtil {
 	@Test
 	public void testIsCallHandlerAnnotation_specificEnumHandlerAnnotationSupplied() {
 		final Annotation a = createMockSpecificEnumHandler(0, 0);
+
 		assertThat(isCallHandlerAnnotation(a), is(true));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_specificFlagHandlerAnnotationSupplied() {
 		final Annotation a = createMockSpecificFlagHandler(0, 0);
+
 		assertThat(isCallHandlerAnnotation(a), is(true));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToBooleanAnnotationSupplied() {
 		final Annotation a = createMockDefaultToBoolean(true);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToBooleanResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToBooleanResource(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToColorResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToColorResource(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToColorStateListResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToColorStateListResource(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToDimensionAnnotationSupplied() {
 		final Annotation a = createMockDefaultToDimension(0, DP);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToDimensionResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToDimensionResource(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToDrawableResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToDrawableResource(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToEnumConstantAnnotationSupplied() {
 		final Annotation a = createMockDefaultToEnumConstant(PlaceholderEnum.class, 0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToFloatAnnotationSupplied() {
 		final Annotation a = createMockDefaultToFloat(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToFractionResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToFractionResource(0, 0, 0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToIntegerAnnotationSupplied() {
 		final Annotation a = createMockDefaultToInteger(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToIntegerResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToIntegerResource(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToNullAnnotationSupplied() {
 		final Annotation a = createMockDefaultToNull();
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToStringAnnotationSupplied() {
 		final Annotation a = createMockDefaultToString("hello world");
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToStringResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToStringResource(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToTextArrayResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToTextArrayResource(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_defaultToTextResourceAnnotationSupplied() {
 		final Annotation a = createMockDefaultToTextResource(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useBooleanAnnotationSupplied() {
 		final Annotation a = createMockUseBoolean(true);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useByteAnnotationSupplied() {
 		final Annotation a = createMockUseByte((byte) 0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useCharAnnotationSupplied() {
 		final Annotation a = createMockUseChar((char) 0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useDoubleAnnotationSupplied() {
 		final Annotation a = createMockUseDouble(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useFloatAnnotationSupplied() {
 		final Annotation a = createMockUseFloat(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useIntAnnotationSupplied() {
 		final Annotation a = createMockUseInt(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useLongAnnotationSupplied() {
 		final Annotation a = createMockUseLong(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useNullAnnotationSupplied() {
 		final Annotation a = createMockUseNull();
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useShortAnnotationSupplied() {
 		final Annotation a = createMockUseShort((short) 0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_useStringAnnotationSupplied() {
 		final Annotation a = createMockUseString("hello world");
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_booleanHandlerAnnotationSupplied() {
 		final Annotation a = createMockBooleanHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_colorHandlerAnnotationSupplied() {
 		final Annotation a = createMockColorHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_colorStateListHandlerAnnotationSupplied() {
 		final Annotation a = createMockColorStateListHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_dimensionHandlerAnnotationSupplied() {
 		final Annotation a = createMockDimensionHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_drawableHandlerAnnotationSupplied() {
 		final Annotation a = createMockDrawableHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_enumConstantHandlerAnnotationSupplied() {
 		final Annotation a = createMockEnumConstantHandler(0, PlaceholderEnum.class);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_enumOrdinalHandlerAnnotationSupplied() {
 		final Annotation a = createMockEnumOrdinalHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
@@ -345,30 +384,35 @@ public class TestCallHandlerAnnotationUtil {
 	@Test
 	public void testIsCallHandlerAnnotation_fractionHandlerAnnotationSupplied() {
 		final Annotation a = createMockFractionHandler(0, 0, 0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_integerHandlerAnnotationSupplied() {
 		final Annotation a = createMockIntegerHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_stringHandlerAnnotationSupplied() {
 		final Annotation a = createMockStringHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_textArrayHandlerAnnotationSupplied() {
 		final Annotation a = createMockTextArrayHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
 	@Test
 	public void testIsCallHandlerAnnotation_textHandlerAnnotationSupplied() {
 		final Annotation a = createMockTextHandler(0);
+
 		assertThat(isCallHandlerAnnotation(a), is(false));
 	}
 
@@ -380,18 +424,21 @@ public class TestCallHandlerAnnotationUtil {
 	@Test
 	public void testHasCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() {
 		final boolean hasHandler = hasCallHandlerAnnotation(withSpecificEnumHandler);
+
 		assertThat(hasHandler, is(true));
 	}
 
 	@Test
 	public void testHasCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() {
 		final boolean hasHandler = hasCallHandlerAnnotation(withSpecificFlagHandler);
+
 		assertThat(hasHandler, is(true));
 	}
 
 	@Test
 	public void testHasCallHandlerAnnotation_noCallHandlerAnnotationPresent() {
 		final boolean hasHandler = hasCallHandlerAnnotation(withNoCallHandler);
+
 		assertThat(hasHandler, is(false));
 	}
 
