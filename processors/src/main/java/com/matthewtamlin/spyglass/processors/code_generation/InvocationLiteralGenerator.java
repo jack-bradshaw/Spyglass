@@ -45,7 +45,7 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseByte castAnno = (UseByte) object;
-						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+						return Integer.toString(castAnno.value());
 					}
 				}
 		);
@@ -56,7 +56,8 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseChar castAnno = (UseChar) object;
-						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+						final String hexValue = Integer.toHexString(castAnno.value()).toUpperCase();
+						return "\'\\u" + hexValue + "\'";
 					}
 				}
 		);
@@ -67,7 +68,7 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseDouble castAnno = (UseDouble) object;
-						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+						return Double.toString(castAnno.value());
 					}
 				}
 		);
@@ -78,7 +79,7 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseFloat castAnno = (UseFloat) object;
-						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+						return Float.toString(castAnno.value()) + "F";
 					}
 				}
 		);
@@ -89,7 +90,7 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseInt castAnno = (UseInt) object;
-						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+						return Integer.toString(castAnno.value());
 					}
 				}
 		);
@@ -100,7 +101,7 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseLong castAnno = (UseLong) object;
-						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+						return Long.toString(castAnno.value()) + "L";
 					}
 				}
 		);
@@ -121,7 +122,7 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseShort castAnno = (UseShort) object;
-						return CodeBlock.builder().add("$L", castAnno.value()).toString();
+						return Short.toString(castAnno.value());
 					}
 				}
 		);
