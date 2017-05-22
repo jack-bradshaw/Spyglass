@@ -122,7 +122,7 @@ public class MockAnnotationsSupplier {
 
 		doReturn(EnumConstantHandler.class).when(anno).annotationType();
 		when(anno.attributeId()).thenReturn(attributeId);
-		doReturn(enumClass).when(anno.enumClass());
+		doReturn(enumClass).when(anno).enumClass();
 
 		return anno;
 	}
