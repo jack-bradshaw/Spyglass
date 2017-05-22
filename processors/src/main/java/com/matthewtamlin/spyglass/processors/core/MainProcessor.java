@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.processors.core;
 
 import com.matthewtamlin.spyglass.processors.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processors.code_generation.CompanionClassGenerator;
+import com.matthewtamlin.spyglass.processors.grouper.TypeElementWrapper;
 import com.matthewtamlin.spyglass.processors.util.TypeUtil;
 import com.matthewtamlin.spyglass.processors.validation.ValidationException;
 import com.matthewtamlin.spyglass.processors.validation.Validator;
@@ -23,7 +24,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
-import static com.matthewtamlin.spyglass.processors.core.Grouper.groupByEnclosingClass;
+import static com.matthewtamlin.spyglass.processors.grouper.TypeGrouper.groupByEnclosingClass;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class MainProcessor extends AbstractProcessor {
@@ -72,13 +73,14 @@ public class MainProcessor extends AbstractProcessor {
 			final RoundEnvironment roundEnv) {
 
 		final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
-		final Map<TypeElement, Set<ExecutableElement>> elementsByEnclosingClass = groupByEnclosingClass(allElements);
+		final Map<TypeElementWrapper, Set<ExecutableElement>> elementsByEnclosingClass =
+				groupByEnclosingClass(allElements);
 
 		validateElements(allElements);
 
-		for (final TypeElement target : elementsByEnclosingClass.keySet()) {
-			final String targetPackage = TypeUtil.getPackageOfType(target);
-			final String targetClass = TypeUtil.getSimpleNameOfType(target);
+		for (final TypeElementWrapper target : elementsByEnclosingClass.keySet()) {
+			final String targetPackage = TypeUtil.getPackageOfType(target.unwrap());
+			final String targetClass = TypeUtil.getSimpleNameOfType(target.unwrap());
 
 			final Set<ExecutableElement> targetElements = elementsByEnclosingClass.get(target);
 
