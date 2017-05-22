@@ -48,149 +48,149 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 public class MockAnnotationsSupplier {
-	public static SpecificEnumHandler createMockSpecificEnumHandler(final int id, final int ordinal) {
+	public static SpecificEnumHandler createMockSpecificEnumHandler(final int attributeId, final int ordinal) {
 		final SpecificEnumHandler anno = mock(SpecificEnumHandler.class);
 
 		doReturn(SpecificEnumHandler.class).when(anno).annotationType();
-
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 		when(anno.ordinal()).thenReturn(ordinal);
 
 		return anno;
 	}
 
-	public static SpecificFlagHandler createMockSpecificFlagHandler(final int id, final int handledFlags) {
+	public static SpecificFlagHandler createMockSpecificFlagHandler(final int attributeId, final int handledFlags) {
 		final SpecificFlagHandler anno = mock(SpecificFlagHandler.class);
 
 		doReturn(SpecificFlagHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 		when(anno.handledFlags()).thenReturn(handledFlags);
 
 		return anno;
 	}
 
-	public static BooleanHandler createMockBooleanHandler(final int id) {
+	public static BooleanHandler createMockBooleanHandler(final int attributeId) {
 		final BooleanHandler anno = mock(BooleanHandler.class);
 
 		doReturn(BooleanHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
-	public static ColorHandler createMockColorHandler(final int id) {
+	public static ColorHandler createMockColorHandler(final int attributeId) {
 		final ColorHandler anno = mock(ColorHandler.class);
 
 		doReturn(ColorHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
-	public static ColorStateListHandler createMockColorStateListHandler(final int id) {
+	public static ColorStateListHandler createMockColorStateListHandler(final int attributeId) {
 		final ColorStateListHandler anno = mock(ColorStateListHandler.class);
 
 		doReturn(ColorStateListHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
-	public static DimensionHandler createMockDimensionHandler(final int id) {
+	public static DimensionHandler createMockDimensionHandler(final int attributeId) {
 		final DimensionHandler anno = mock(DimensionHandler.class);
 
 		doReturn(DimensionHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
-	public static DrawableHandler createMockDrawableHandler(final int id) {
+	public static DrawableHandler createMockDrawableHandler(final int attributeId) {
 		final DrawableHandler anno = mock(DrawableHandler.class);
 
 		doReturn(DrawableHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
 	public static EnumConstantHandler createMockEnumConstantHandler(
-			final int id,
+			final int attributeId,
 			final Class<? extends Enum> enumClass) {
+
 		final EnumConstantHandler anno = mock(EnumConstantHandler.class);
 
 		doReturn(EnumConstantHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 		doReturn(enumClass).when(anno.enumClass());
 
 		return anno;
 	}
 
-	public static EnumOrdinalHandler createMockEnumOrdinalHandler(final int id) {
+	public static EnumOrdinalHandler createMockEnumOrdinalHandler(final int attributeId) {
 		final EnumOrdinalHandler anno = mock(EnumOrdinalHandler.class);
 
 		doReturn(EnumOrdinalHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
-	public static FloatHandler createMockFloatHandler(final int id) {
+	public static FloatHandler createMockFloatHandler(final int attributeId) {
 		final FloatHandler anno = mock(FloatHandler.class);
 
 		doReturn(FloatHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
 	public static FractionHandler createMockFractionHandler(
-			final int id,
+			final int attributeId,
 			final int baseMultiplier,
 			final int parentMultiplier) {
 
 		final FractionHandler anno = mock(FractionHandler.class);
 
 		doReturn(FractionHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 		when(anno.baseMultiplier()).thenReturn(baseMultiplier);
 		when(anno.parentMultiplier()).thenReturn(parentMultiplier);
 
 		return anno;
 	}
 
-	public static IntegerHandler createMockIntegerHandler(final int id) {
+	public static IntegerHandler createMockIntegerHandler(final int attributeId) {
 		final IntegerHandler anno = mock(IntegerHandler.class);
 
 		doReturn(IntegerHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
-	public static StringHandler createMockStringHandler(final int id) {
+	public static StringHandler createMockStringHandler(final int attributeId) {
 		final StringHandler anno = mock(StringHandler.class);
 
 		doReturn(StringHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
-	public static TextArrayHandler createMockTextArrayHandler(final int id) {
+	public static TextArrayHandler createMockTextArrayHandler(final int attributeId) {
 		final TextArrayHandler anno = mock(TextArrayHandler.class);
 
 		doReturn(TextArrayHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
 
-	public static TextHandler createMockTextHandler(final int id) {
+	public static TextHandler createMockTextHandler(final int attributeId) {
 		final TextHandler anno = mock(TextHandler.class);
 
 		doReturn(TextHandler.class).when(anno).annotationType();
-		when(anno.attributeId()).thenReturn(id);
+		when(anno.attributeId()).thenReturn(attributeId);
 
 		return anno;
 	}
