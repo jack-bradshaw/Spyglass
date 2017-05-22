@@ -8,6 +8,7 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColor
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorStateListResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimension;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimensionResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDrawableResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToEnumConstant;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFloat;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFractionResource;
@@ -245,6 +246,15 @@ public class MockAnnotationsSupplier {
 		final DefaultToDimensionResource anno = mock(DefaultToDimensionResource.class);
 
 		doReturn(DefaultToDimensionResource.class).when(anno).annotationType();
+		when(anno.value()).thenReturn(value);
+
+		return anno;
+	}
+
+	public static DefaultToDrawableResource createMockDefaultToDrawableResource(final int value) {
+		final DefaultToDrawableResource anno = mock(DefaultToDrawableResource.class);
+
+		doReturn(DefaultToDrawableResource.class).when(anno).annotationType();
 		when(anno.value()).thenReturn(value);
 
 		return anno;
