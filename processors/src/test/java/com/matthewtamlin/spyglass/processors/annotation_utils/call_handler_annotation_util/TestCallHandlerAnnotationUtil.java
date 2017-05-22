@@ -66,6 +66,7 @@ import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotation
 import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(JUnit4.class)
@@ -99,23 +100,18 @@ public class TestCallHandlerAnnotationUtil {
 	@Test
 	public void testGetCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() {
 		final SpecificEnumHandler anno = (SpecificEnumHandler) getCallHandlerAnnotation(withSpecificEnumHandler);
-
-		assertThat(anno.attributeId(), is(0));
-		assertThat(anno.ordinal(), is(1));
+		assertThat(anno, is(notNullValue()));
 	}
 
 	@Test
 	public void testGetCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() {
 		final SpecificFlagHandler anno = (SpecificFlagHandler) getCallHandlerAnnotation(withSpecificFlagHandler);
-
-		assertThat(anno.attributeId(), is(0));
-		assertThat(anno.handledFlags(), is(1));
+		assertThat(anno, is(notNullValue()));
 	}
 
 	@Test
 	public void testGetCallHandlerAnnotation_noCallHandlerAnnotationPresent() {
 		final Annotation anno = getCallHandlerAnnotation(withNoCallHandler);
-
 		assertThat(anno, is(nullValue()));
 	}
 
