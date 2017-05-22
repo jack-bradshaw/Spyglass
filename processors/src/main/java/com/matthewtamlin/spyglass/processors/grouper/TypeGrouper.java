@@ -1,5 +1,7 @@
 package com.matthewtamlin.spyglass.processors.grouper;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
+
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -12,6 +14,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkEachEle
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.ElementKind.CLASS;
 
+@Tested(testMethod = "automated")
 public class TypeGrouper {
 	public static <T extends Element> Map<TypeElementWrapper, Set<T>> groupByEnclosingClass(final Set<T> elements) {
 		checkNotNull(elements, "Argument \'elements\' cannot be null.");
