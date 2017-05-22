@@ -13,7 +13,6 @@ import com.matthewtamlin.spyglass.annotations.use_annotations.UseString;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseSuppliedValue;
 import com.matthewtamlin.spyglass.processors.annotation_utils.UseAnnotationUtil;
 import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
-import com.matthewtamlin.spyglass.processors.supplier_instantiator.SupplierInstantiator;
 import com.squareup.javapoet.CodeBlock;
 
 import java.lang.annotation.Annotation;
@@ -133,7 +132,11 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseString castAnno = (UseString) object;
-						return CodeBlock.builder().add("$S", castAnno.value()).toString();
+						return CodeBlock
+								.builder()
+								.add("$S", castAnno.value())
+								.build()
+								.toString();
 					}
 				}
 		);
@@ -144,10 +147,13 @@ public class InvocationLiteralGenerator {
 					@Override
 					public String supplyFor(final Annotation object) {
 						final UseSuppliedValue castAnno = (UseSuppliedValue) object;
-						return CodeBlock
-								.builder()
-								.add("$T.instantiateSupplier($L)", SupplierInstantiator.class, castAnno.value())
-								.toString();
+
+						final String className = "com.matthewtamlin.spyglass.processors." +
+								"supplier_instantiator.SupplierInstantiator";
+						final String methodName = "instantiateSupplier";
+
+
+						return className + "." + methodName + "(" + castAnno.value() + ")";
 					}
 				}
 		);
