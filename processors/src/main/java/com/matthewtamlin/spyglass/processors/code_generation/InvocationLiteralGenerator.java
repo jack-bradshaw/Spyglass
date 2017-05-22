@@ -164,7 +164,7 @@ public class InvocationLiteralGenerator {
 		final Map<Integer, String> argLiterals = getArgLiteralsFromUseAnnotations(e);
 
 		// Find the first index which is not mapped to a literal and map it to the nonUseArgLiteral
-		for (int i = 0; i < argLiterals.size(); i++) {
+		for (int i = 0; i < argLiterals.size() + 1; i++) {
 			if (!argLiterals.containsKey(i)) {
 				argLiterals.put(i, nonUseArgLiteral);
 				break;
