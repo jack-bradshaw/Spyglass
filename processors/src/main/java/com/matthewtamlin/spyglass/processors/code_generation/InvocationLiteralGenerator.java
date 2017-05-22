@@ -22,12 +22,12 @@ import javax.lang.model.element.ExecutableElement;
 
 public class InvocationLiteralGenerator {
 	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, String>>
-			CODE_LITERAL_SUPPLIERS;
+			ARG_LITERAL_SUPPLIERS;
 
 	static {
-		CODE_LITERAL_SUPPLIERS = new HashMap<>();
+		ARG_LITERAL_SUPPLIERS = new HashMap<>();
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseBoolean.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -37,7 +37,7 @@ public class InvocationLiteralGenerator {
 					}
 				});
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseByte.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -48,7 +48,7 @@ public class InvocationLiteralGenerator {
 				}
 		);
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseChar.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -60,7 +60,7 @@ public class InvocationLiteralGenerator {
 				}
 		);
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseDouble.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -71,7 +71,7 @@ public class InvocationLiteralGenerator {
 				}
 		);
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseFloat.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -82,7 +82,7 @@ public class InvocationLiteralGenerator {
 				}
 		);
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseInt.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -93,7 +93,7 @@ public class InvocationLiteralGenerator {
 				}
 		);
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseLong.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -104,7 +104,7 @@ public class InvocationLiteralGenerator {
 				}
 		);
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseNull.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -114,7 +114,7 @@ public class InvocationLiteralGenerator {
 				}
 		);
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseShort.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -125,7 +125,7 @@ public class InvocationLiteralGenerator {
 				}
 		);
 
-		CODE_LITERAL_SUPPLIERS.put(
+		ARG_LITERAL_SUPPLIERS.put(
 				UseString.class,
 				new ParametrisedSupplier<Annotation, String>() {
 					@Override
@@ -174,10 +174,10 @@ public class InvocationLiteralGenerator {
 		final Map<Integer, Annotation> useAnnotations = UseAnnotationUtil.getUseAnnotations(e);
 
 		for (final Integer i : useAnnotations.keySet()) {
-			final Annotation a = useAnnotations.get(i);
-			final String codeLiteral = CODE_LITERAL_SUPPLIERS.get(a.annotationType()).supplyFor(a);
+			final Annotation useAnno = useAnnotations.get(i);
+			final String argLiteral = ARG_LITERAL_SUPPLIERS.get(useAnno.annotationType()).supplyFor(useAnno);
 
-			argumentLiterals.put(i, codeLiteral);
+			argumentLiterals.put(i, argLiteral);
 		}
 
 		return argumentLiterals;
