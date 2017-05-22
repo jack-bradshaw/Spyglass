@@ -11,12 +11,12 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.CALL
 
 @Tested(testMethod = "automated")
 public class CallHandlerAnnotationUtil {
-	public static Annotation getCallHandlerAnnotation(final Element method) {
-		checkNotNull(method, "Argument \'method \' cannot be null.");
+	public static Annotation getCallHandlerAnnotation(final Element element) {
+		checkNotNull(element, "Argument \'element \' cannot be null.");
 
 		for (final Class<? extends Annotation> a : CALL_HANDLER_ANNOTATIONS) {
-			if (method.getAnnotation(a) != null) {
-				return method.getAnnotation(a);
+			if (element.getAnnotation(a) != null) {
+				return element.getAnnotation(a);
 			}
 		}
 
