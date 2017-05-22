@@ -30,7 +30,6 @@ import com.matthewtamlin.spyglass.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseString;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseSuppliedValue;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorStateListHandler;
@@ -103,8 +102,7 @@ public class AnnotationRegistry {
 			UseLong.class,
 			UseNull.class,
 			UseShort.class,
-			UseString.class,
-			UseSuppliedValue.class
+			UseString.class
 	);
 
 	private AnnotationRegistry() {
