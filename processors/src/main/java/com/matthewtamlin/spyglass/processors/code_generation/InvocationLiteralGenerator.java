@@ -140,23 +140,6 @@ public class InvocationLiteralGenerator {
 					}
 				}
 		);
-
-		CODE_LITERAL_SUPPLIERS.put(
-				UseSuppliedValue.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseSuppliedValue castAnno = (UseSuppliedValue) object;
-
-						final String className = "com.matthewtamlin.spyglass.processors." +
-								"supplier_instantiator.SupplierInstantiator";
-						final String methodName = "instantiateSupplier";
-
-
-						return className + "." + methodName + "(" + castAnno.value() + ")";
-					}
-				}
-		);
 	}
 
 	public static String buildInvocationLiteralFor(final ExecutableElement e) {
