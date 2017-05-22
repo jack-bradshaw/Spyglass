@@ -23,7 +23,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 
-import static com.matthewtamlin.spyglass.processors.core.Grouper.groupByEnclosingClass;
+import static com.matthewtamlin.spyglass.processors.grouper.TypeGrouper.groupByEnclosingClass;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class MainProcessor extends AbstractProcessor {
