@@ -17,7 +17,6 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToInteg
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStringResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToSuppliedValue;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseBoolean;
@@ -86,8 +85,7 @@ public class AnnotationRegistry {
 			DefaultToIntegerResource.class,
 			DefaultToNull.class,
 			DefaultToString.class,
-			DefaultToStringResource.class,
-			DefaultToSuppliedValue.class,
+			DefaultToStringResource.class
 			DefaultToTextArrayResource.class,
 			DefaultToTextResource.class
 	);
