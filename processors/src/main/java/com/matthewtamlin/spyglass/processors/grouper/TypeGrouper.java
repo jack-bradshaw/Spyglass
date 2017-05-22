@@ -56,9 +56,11 @@ public class TypeGrouper {
 		if (enclosingElement == null) {
 			// No enclosing class exists
 			return null;
+
 		} else if (enclosingElement.getKind() == CLASS) {
 			// The enclosing class has been found
 			return (TypeElement) enclosingElement;
+
 		} else {
 			// Keep searching up
 			return getEnclosingClass(enclosingElement);
