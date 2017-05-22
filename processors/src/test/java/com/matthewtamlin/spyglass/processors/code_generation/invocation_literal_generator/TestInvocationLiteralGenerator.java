@@ -6,6 +6,8 @@ import com.matthewtamlin.java_compiler_utilities.element_supplier.IdBasedElement
 
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -20,6 +22,7 @@ import static com.matthewtamlin.spyglass.processors.code_generation.invocation_l
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
+@RunWith(JUnit4.class)
 public class TestInvocationLiteralGenerator {
 	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors/" +
 			"code_generation/invocation_literal_generator/Data.java");
