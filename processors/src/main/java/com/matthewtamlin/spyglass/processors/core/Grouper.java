@@ -8,24 +8,36 @@ import java.util.Set;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkEachElementIsNotNull;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.ElementKind.CLASS;
 
 public class Grouper {
 	public static <T extends Element> Map<TypeElement, Set<T>> groupByEnclosingClass(final Set<T> elements) {
-		final Map<TypeElement, Set<T>> map = new HashMap<>();
+		checkNotNull(elements, "Argument \'elements\' cannot be null.");
+		checkEachElementIsNotNull(elements, "Argument \'elements\' cannot contain null.");
 
-		for (final T e : elements) {
-			final TypeElement parent = getEnclosingClass(e);
+		final Map<TypeElementWrapper, Set<T>> groupsUsingWrapper = new HashMap<>();
 
-			if (!map.containsKey(parent)) {
-				map.put(parent, new HashSet<T>());
+		TypeElementWrapper first = null;
+
+		for (final T element : elements) {
+			final TypeElementWrapper parentWrapper = new TypeElementWrapper(getEnclosingClass(element));
+
+			if (!groupsUsingWrapper.containsKey(parentWrapper)) {
+				groupsUsingWrapper.put(parentWrapper, new HashSet<T>());
 			}
 
-			map.get(parent).add(e);
+			groupsUsingWrapper.get(parentWrapper).add(element);
 		}
 
-		return map;
+		final Map<TypeElement, Set<T>> groupsWithoutWrapper = new HashMap<>();
+
+		for (final TypeElementWrapper wrapper : groupsUsingWrapper.keySet()) {
+			groupsWithoutWrapper.put(wrapper.unwrap(), groupsUsingWrapper.get(wrapper));
+		}
+
+		return groupsWithoutWrapper;
 	}
 
 	/**
@@ -60,5 +72,40 @@ public class Grouper {
 
 	private Grouper() {
 		throw new RuntimeException("Util class. Do not instantiate.");
+	}
+
+	private static class TypeElementWrapper {
+		private final TypeElement element;
+
+		public TypeElementWrapper(final TypeElement element) {
+			this.element = checkNotNull(element, "Argument \'element\' cannot be null.");
+		}
+
+		public TypeElement unwrap() {
+			return element;
+		}
+
+		@Override
+		public boolean equals(final Object o) {
+			if (this == o) {
+				return true;
+			} else if (o == null) {
+				return false;
+			} else if (this.getClass() != o.getClass()) {
+				return false;
+			} else {
+				final TypeElementWrapper castInput = (TypeElementWrapper) o;
+
+				final String inputQualifiedName = castInput.element.getQualifiedName().toString();
+				final String thisQualifiedName = this.element.getQualifiedName().toString();
+
+				return inputQualifiedName.equals(thisQualifiedName);
+			}
+		}
+
+		@Override
+		public int hashCode() {
+			return element.getQualifiedName().toString().hashCode();
+		}
 	}
 }
