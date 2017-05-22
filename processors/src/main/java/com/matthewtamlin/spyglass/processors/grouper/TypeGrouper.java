@@ -13,31 +13,23 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static javax.lang.model.element.ElementKind.CLASS;
 
 public class TypeGrouper {
-	public static <T extends Element> Map<TypeElement, Set<T>> groupByEnclosingClass(final Set<T> elements) {
+	public static <T extends Element> Map<TypeElementWrapper, Set<T>> groupByEnclosingClass(final Set<T> elements) {
 		checkNotNull(elements, "Argument \'elements\' cannot be null.");
 		checkEachElementIsNotNull(elements, "Argument \'elements\' cannot contain null.");
 
-		final Map<TypeElementWrapper, Set<T>> groupsUsingWrapper = new HashMap<>();
-
-		TypeElementWrapper first = null;
+		final Map<TypeElementWrapper, Set<T>> groups = new HashMap<>();
 
 		for (final T element : elements) {
 			final TypeElementWrapper parentWrapper = new TypeElementWrapper(getEnclosingClass(element));
 
-			if (!groupsUsingWrapper.containsKey(parentWrapper)) {
-				groupsUsingWrapper.put(parentWrapper, new HashSet<T>());
+			if (!groups.containsKey(parentWrapper)) {
+				groups.put(parentWrapper, new HashSet<T>());
 			}
 
-			groupsUsingWrapper.get(parentWrapper).add(element);
+			groups.get(parentWrapper).add(element);
 		}
 
-		final Map<TypeElement, Set<T>> groupsWithoutWrapper = new HashMap<>();
-
-		for (final TypeElementWrapper wrapper : groupsUsingWrapper.keySet()) {
-			groupsWithoutWrapper.put(wrapper.unwrap(), groupsUsingWrapper.get(wrapper));
-		}
-
-		return groupsWithoutWrapper;
+		return groups;
 	}
 
 	/**
@@ -73,6 +65,4 @@ public class TypeGrouper {
 	private TypeGrouper() {
 		throw new RuntimeException("Util class. Do not instantiate.");
 	}
-
-
 }
