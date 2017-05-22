@@ -27,6 +27,8 @@ public class CallHandlerAnnotationUtil {
 	}
 
 	public static boolean hasCallHandlerAnnotation(final Element element) {
+		checkNotNull(element, "Argument \'element\' cannot be null.");
+
 		for (final Class<? extends Annotation> a : CALL_HANDLER_ANNOTATIONS) {
 			if (element.getAnnotation(a) != null) {
 				return true;
