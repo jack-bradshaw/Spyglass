@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseChar;
@@ -20,6 +21,7 @@ import java.util.Map;
 
 import javax.lang.model.element.ExecutableElement;
 
+@Tested(testMethod = "automated")
 public class InvocationLiteralGenerator {
 	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, String>>
 			ARG_LITERAL_SUPPLIERS;
