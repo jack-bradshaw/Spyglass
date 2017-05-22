@@ -169,8 +169,9 @@ public class InvocationLiteralGenerator {
 	}
 
 	private static Map<Integer, String> getArgLiteralsFromUseAnnotations(final ExecutableElement e) {
-		final Map<Integer, Annotation> useAnnotations = UseAnnotationUtil.getUseAnnotations(e);
 		final Map<Integer, String> argumentLiterals = new HashMap<>();
+
+		final Map<Integer, Annotation> useAnnotations = UseAnnotationUtil.getUseAnnotations(e);
 
 		for (final Integer i : useAnnotations.keySet()) {
 			final Annotation a = useAnnotations.get(i);
