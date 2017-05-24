@@ -15,8 +15,8 @@ public class CallHandlerAnnotationUtil {
 	public static AnnotationMirror getCallHandlerAnnotationMirror(final Element element) {
 		checkNotNull(element, "Argument \'element \' cannot be null.");
 
-		for (final Class<? extends Annotation> callHandlerClass : CALL_HANDLER_ANNOTATIONS) {
-			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, callHandlerClass);
+		for (final Class<? extends Annotation> annotationClass : CALL_HANDLER_ANNOTATIONS) {
+			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, annotationClass);
 
 			if (mirror != null) {
 				return mirror;
