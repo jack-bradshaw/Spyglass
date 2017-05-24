@@ -22,13 +22,7 @@ public class ValueHandlerAnnotationUtil {
 	}
 
 	public static boolean hasValueAnnotation(final ExecutableElement element) {
-		for (final Class<? extends Annotation> a : VALUE_HANDLER_ANNOTATIONS) {
-			if (element.getAnnotation(a) != null) {
-				return true;
-			}
-		}
-
-		return false;
+		return getValueHandlerAnnotation(element) != null;
 	}
 
 	private ValueHandlerAnnotationUtil() {
