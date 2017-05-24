@@ -50,7 +50,7 @@ public class TestCallHandlerAnnotationUtil {
 	public void testGetCallHandlerAnnotationMirror_specificEnumHandlerAnnotationPresent()
 			throws CompilerMissingException {
 
-		final ExecutableElement element = (ExecutableElement) elementSupplier.getUniqueElementWithId("specific enum");
+		final ExecutableElement element = getExecutableElementWithId("specific enum");
 
 		final AnnotationMirror mirror = getCallHandlerAnnotationMirror(element);
 
@@ -62,7 +62,7 @@ public class TestCallHandlerAnnotationUtil {
 	public void testGetCallHandlerAnnotationMirror_specificFlagHandlerAnnotationPresent()
 			throws CompilerMissingException {
 
-		final ExecutableElement element = (ExecutableElement) elementSupplier.getUniqueElementWithId("specific flag");
+		final ExecutableElement element = getExecutableElementWithId("specific flag");
 
 		final AnnotationMirror mirror = getCallHandlerAnnotationMirror(element);
 
@@ -72,8 +72,7 @@ public class TestCallHandlerAnnotationUtil {
 
 	@Test
 	public void testGetCallHandlerAnnotationMirror_noCallHandlerAnnotationPresent() throws CompilerMissingException {
-		final ExecutableElement element = (ExecutableElement) elementSupplier.
-				getUniqueElementWithId("no call handler annotation");
+		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
 
 		final AnnotationMirror mirror = getCallHandlerAnnotationMirror(element);
 
@@ -87,7 +86,7 @@ public class TestCallHandlerAnnotationUtil {
 
 	@Test
 	public void testHasCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() throws CompilerMissingException {
-		final ExecutableElement element = (ExecutableElement) elementSupplier.getUniqueElementWithId("specific enum");
+		final ExecutableElement element = getExecutableElementWithId("specific enum");
 
 		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
 
@@ -96,7 +95,7 @@ public class TestCallHandlerAnnotationUtil {
 
 	@Test
 	public void testHasCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() throws CompilerMissingException {
-		final ExecutableElement element = (ExecutableElement) elementSupplier.getUniqueElementWithId("specific flag");
+		final ExecutableElement element = getExecutableElementWithId("specific flag");
 
 		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
 
@@ -105,12 +104,19 @@ public class TestCallHandlerAnnotationUtil {
 
 	@Test
 	public void testHasCallHandlerAnnotation_noCallHandlerAnnotationPresent() throws CompilerMissingException {
-		final ExecutableElement element = (ExecutableElement) elementSupplier.
-				getUniqueElementWithId("no call handler annotation");
+		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
 
 		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
 
 		assertThat(hasAnnotation, is(false));
+	}
+
+	private ExecutableElement getExecutableElementWithId(final String id) throws CompilerMissingException {
+		try {
+			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
+		} catch (final ClassCastException e) {
+			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
+		}
 	}
 
 	private enum PlaceholderEnum {}
