@@ -13,7 +13,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFA
 @Tested(testMethod = "automated")
 public class DefaultAnnotationUtil {
 	public static AnnotationMirror getDefaultAnnotationMirror(final Element element) {
-		checkNotNull(element, "Argument \'element \' cannot be null.");
+		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		for (final Class<? extends Annotation> annotationClass : DEFAULT_ANNOTATIONS) {
 			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, annotationClass);
