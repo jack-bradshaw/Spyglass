@@ -24,12 +24,6 @@ public class UseAnnotationUtil {
 		return null;
 	}
 
-	public static boolean isUseAnnotation(final Annotation anno) {
-		checkNotNull(anno, "Argument \'anno\' cannot be null.");
-
-		return USE_ANNOTATIONS.contains(anno.annotationType());
-	}
-
 	public static boolean hasUseAnnotation(final VariableElement element) {
 		for (final Class<? extends Annotation> a : USE_ANNOTATIONS) {
 			if (element.getAnnotation(a) != null) {
