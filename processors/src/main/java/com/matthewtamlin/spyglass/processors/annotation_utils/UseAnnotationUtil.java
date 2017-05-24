@@ -38,7 +38,7 @@ public class UseAnnotationUtil {
 		return USE_ANNOTATIONS.contains(anno.annotationType());
 	}
 
-	public static boolean hasUseAnnotation(final ExecutableElement element) {
+	public static boolean hasUseAnnotation(final VariableElement element) {
 		for (final Class<? extends Annotation> a : USE_ANNOTATIONS) {
 			if (element.getAnnotation(a) != null) {
 				return true;
