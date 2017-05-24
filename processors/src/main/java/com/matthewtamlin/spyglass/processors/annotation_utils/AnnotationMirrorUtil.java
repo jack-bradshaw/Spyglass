@@ -16,6 +16,9 @@ public class AnnotationMirrorUtil {
 			final Element element,
 			final Class<? extends Annotation> annotationClass) {
 
+		checkNotNull(element, "Argument \'element\' cannot be null.");
+		checkNotNull(annotationClass, "Argument \'annotationClass\' cannot be null.");
+
 		for (final AnnotationMirror mirror : element.getAnnotationMirrors()) {
 			if (mirror.getAnnotationType().toString().equals(annotationClass.getName())) {
 				return mirror;
