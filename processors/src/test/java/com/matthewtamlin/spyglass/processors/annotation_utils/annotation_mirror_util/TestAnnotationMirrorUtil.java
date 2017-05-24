@@ -58,7 +58,7 @@ public class TestAnnotationMirrorUtil {
 	public void testGetAnnotationMirror_annotationMissing() throws CompilerMissingException {
 		final Element element = elementSupplier.getUniqueElementWithId("without annotation");
 
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, SomeAnnotation.class);
+		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, AnnotationWithValues.class);
 
 		assertThat(mirror, is(nullValue()));
 	}
@@ -67,10 +67,10 @@ public class TestAnnotationMirrorUtil {
 	public void testGetAnnotationMirror_annotationPresent() throws CompilerMissingException {
 		final Element element = elementSupplier.getUniqueElementWithId("with annotation");
 
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, SomeAnnotation.class);
+		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, AnnotationWithValues.class);
 
 		assertThat(mirror, is(notNullValue()));
-		assertThat(mirror.getAnnotationType().toString(), is(SomeAnnotation.class.getName()));
+		assertThat(mirror.getAnnotationType().toString(), is(AnnotationWithValues.class.getName()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
