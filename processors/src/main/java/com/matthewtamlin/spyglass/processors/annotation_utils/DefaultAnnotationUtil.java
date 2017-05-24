@@ -11,18 +11,6 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFA
 
 @Tested(testMethod = "automated")
 public class DefaultAnnotationUtil {
-	public static Annotation getDefaultAnnotation(final Element element) {
-		checkNotNull(element, "Argument \'element \' cannot be null.");
-
-		for (final Class<? extends Annotation> a : DEFAULT_ANNOTATIONS) {
-			if (element.getAnnotation(a) != null) {
-				return element.getAnnotation(a);
-			}
-		}
-
-		return null;
-	}
-
 	public static boolean hasDefaultAnnotation(final Element element) {
 		checkNotNull(element, "Argument \'element \' cannot be null.");
 
