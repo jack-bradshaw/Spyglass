@@ -9,6 +9,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 import java.io.File;
+import java.lang.annotation.Annotation;
 import java.net.MalformedURLException;
 
 import javax.lang.model.element.AnnotationMirror;
@@ -39,7 +40,7 @@ public class TestAnnotationMirrorUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAnnotationMirror_nullElement() {
-		AnnotationMirrorUtil.getAnnotationMirror(null, mock(Class.class));
+		AnnotationMirrorUtil.getAnnotationMirror(null, Annotation.class);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
