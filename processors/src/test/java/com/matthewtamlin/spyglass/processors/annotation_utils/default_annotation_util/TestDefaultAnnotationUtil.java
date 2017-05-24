@@ -3,6 +3,23 @@ package com.matthewtamlin.spyglass.processors.annotation_utils.default_annotatio
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
 import com.matthewtamlin.java_compiler_utilities.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBooleanResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimension;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimensionResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDrawableResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToEnumConstant;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFloat;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFractionResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToInteger;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToIntegerResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToNull;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStringResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -10,58 +27,15 @@ import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
 import java.io.File;
-import java.lang.annotation.Annotation;
 import java.net.MalformedURLException;
 
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.annotations.units.DimensionUnit.DP;
-import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.getDefaultAnnotation;
+import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.getDefaultAnnotationMirror;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
-import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.isDefaultAnnotation;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockBooleanHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockColorHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockColorStateListHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToBoolean;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToBooleanResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToColorResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToColorStateListResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToDimension;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToDimensionResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToDrawableResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToEnumConstant;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToFloat;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToFractionResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToInteger;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToIntegerResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToNull;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToString;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToStringResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToTextArrayResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDefaultToTextResource;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDimensionHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockDrawableHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockEnumConstantHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockEnumOrdinalHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockFloatHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockFractionHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockIntegerHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockSpecificEnumHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockSpecificFlagHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockStringHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockTextArrayHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockTextHandler;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseBoolean;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseByte;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseChar;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseDouble;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseFloat;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseInt;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseLong;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseNull;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseShort;
-import static com.matthewtamlin.spyglass.processors.testing_utils.MockAnnotationsSupplier.createMockUseString;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -71,6 +45,8 @@ import static org.hamcrest.Matchers.nullValue;
 public class TestDefaultAnnotationUtil {
 	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors" +
 			"/annotation_utils/default_annotation_util/Data.java");
+
+	private IdBasedElementSupplier elementSupplier;
 
 	private Element withDefaultToBoolean;
 
@@ -113,414 +89,214 @@ public class TestDefaultAnnotationUtil {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		final IdBasedElementSupplier elementSupplier = new IdBasedElementSupplier(dataFileObject);
 
-		withDefaultToBoolean = elementSupplier.getUniqueElementWithId("boolean");
-		withDefaultToBooleanResource = elementSupplier.getUniqueElementWithId("boolean resource");
-		withDefaultToColorResource = elementSupplier.getUniqueElementWithId("color resource");
-		withDefaultToColorStateListResource = elementSupplier.getUniqueElementWithId("color state list resource");
-		withDefaultToDimension = elementSupplier.getUniqueElementWithId("dimension");
-		withDefaultToDimensionResource = elementSupplier.getUniqueElementWithId("dimension resource");
-		withDefaultToDrawableResource = elementSupplier.getUniqueElementWithId("drawable resource");
-		withDefaultToEnumConstant = elementSupplier.getUniqueElementWithId("enum constant");
-		withDefaultToFloat = elementSupplier.getUniqueElementWithId("float");
-		withDefaultToFractionResource = elementSupplier.getUniqueElementWithId("fraction resource");
-		withDefaultToInteger = elementSupplier.getUniqueElementWithId("integer");
-		withDefaultToIntegerResource = elementSupplier.getUniqueElementWithId("integer resource");
-		withDefaultToNull = elementSupplier.getUniqueElementWithId("null");
-		withDefaultToString = elementSupplier.getUniqueElementWithId("string");
-		withDefaultToStringResource = elementSupplier.getUniqueElementWithId("string resource");
-		withDefaultToTextArrayResource = elementSupplier.getUniqueElementWithId("text array resource");
-		withDefaultToTextResource = elementSupplier.getUniqueElementWithId("text resource");
-		withNoDefaultAnnotation = elementSupplier.getUniqueElementWithId("no default annotation");
+		elementSupplier = new IdBasedElementSupplier(dataFileObject);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetDefaultAnnotation_nullSupplied() {
-		getDefaultAnnotation(null);
+	public void testGetDefaultAnnotationMirror_nullSupplied() {
+		getDefaultAnnotationMirror(null);
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToBooleanAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToBoolean);
+	public void testGetDefaultAnnotationMirror_defaultToBooleanAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("boolean");
 
-		assertThat(anno, is(notNullValue()));
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToBoolean.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToBooleanResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToBooleanResource);
+	public void testGetDefaultAnnotationMirror_defaultToBooleanResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("boolean resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToBooleanResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToColorResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToColorResource);
+	public void testGetDefaultAnnotationMirror_defaultToColorResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("color resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToColorResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToColorStateListResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToColorStateListResource);
+	public void testGetDefaultAnnotationMirror_defaultToColorStateListResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("color state list resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToColorStateListResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToDimensionAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToDimension);
+	public void testGetDefaultAnnotationMirror_defaultToDimensionAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("dimension");
 
-		assertThat(anno, is(notNullValue()));
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToDimension.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToDimensionResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToDimensionResource);
+	public void testGetDefaultAnnotationMirror_defaultToDimensionResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("dimension resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToDimensionResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToDrawableResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToDrawableResource);
+	public void testGetDefaultAnnotationMirror_defaultToDrawableResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("drawable resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToDrawableResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToEnumConstantAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToEnumConstant);
+	public void testGetDefaultAnnotationMirror_defaultToEnumConstantAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("enum constant");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToEnumConstant.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToFloatAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToFloat);
+	public void testGetDefaultAnnotationMirror_defaultToFloatAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("float");
 
-		assertThat(anno, is(notNullValue()));
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToFloat.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToFractionResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToFractionResource);
+	public void testGetDefaultAnnotationMirror_defaultToFractionResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("fraction resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToFractionResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToIntegerAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToInteger);
+	public void testGetDefaultAnnotationMirror_defaultToIntegerAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("integer");
 
-		assertThat(anno, is(notNullValue()));
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToInteger.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToIntegerResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToIntegerResource);
+	public void testGetDefaultAnnotationMirror_defaultToIntegerResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("integer resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToIntegerResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToNullAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToNull);
+	public void testGetDefaultAnnotationMirror_defaultToNullAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("null");
 
-		assertThat(anno, is(notNullValue()));
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToNull.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToStringAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToString);
+	public void testGetDefaultAnnotationMirror_defaultToStringAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("string");
 
-		assertThat(anno, is(notNullValue()));
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToString.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToStringResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToStringResource);
+	public void testGetDefaultAnnotationMirror_defaultToStringResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("string resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToStringResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToTextArrayResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToTextArrayResource);
+	public void testGetDefaultAnnotationMirror_defaultToTextArrayResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("text array resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToTextArrayResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_defaultToTextResourceAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withDefaultToTextResource);
+	public void testGetDefaultAnnotationMirror_defaultToTextResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(anno, is(notNullValue()));
+		final ExecutableElement element = getExecutableElementWithId("text resource");
+
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(DefaultToTextResource.class.getName()));
 	}
 
 	@Test
-	public void testGetDefaultAnnotation_noDefaultAnnotationPresent() {
-		final Annotation anno = getDefaultAnnotation(withNoDefaultAnnotation);
+	public void testGetDefaultAnnotationMirror_noDefaultAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("no default annotation");
 
-		assertThat(anno, is(nullValue()));
-	}
+		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsDefaultAnnotation_nullSupplied() {
-		isDefaultAnnotation(null);
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_specificEnumHandlerAnnotationSupplied() {
-		final Annotation a = createMockSpecificEnumHandler(0, 0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_specificFlagHandlerAnnotationSupplied() {
-		final Annotation a = createMockSpecificFlagHandler(0, 0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToBooleanAnnotationSupplied() {
-		final Annotation a = createMockDefaultToBoolean(true);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToBooleanResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToBooleanResource(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToColorResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToColorResource(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToColorStateListResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToColorStateListResource(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToDimensionAnnotationSupplied() {
-		final Annotation a = createMockDefaultToDimension(0, DP);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToDimensionResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToDimensionResource(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToDrawableResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToDrawableResource(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToEnumConstantAnnotationSupplied() {
-		final Annotation a = createMockDefaultToEnumConstant(PlaceholderEnum.class, 0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToFloatAnnotationSupplied() {
-		final Annotation a = createMockDefaultToFloat(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToFractionResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToFractionResource(0, 0, 0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToIntegerAnnotationSupplied() {
-		final Annotation a = createMockDefaultToInteger(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToIntegerResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToIntegerResource(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToNullAnnotationSupplied() {
-		final Annotation a = createMockDefaultToNull();
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToStringAnnotationSupplied() {
-		final Annotation a = createMockDefaultToString("hello world");
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToStringResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToStringResource(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToTextArrayResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToTextArrayResource(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_defaultToTextResourceAnnotationSupplied() {
-		final Annotation a = createMockDefaultToTextResource(0);
-		assertThat(isDefaultAnnotation(a), is(true));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useBooleanAnnotationSupplied() {
-		final Annotation a = createMockUseBoolean(true);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useByteAnnotationSupplied() {
-		final Annotation a = createMockUseByte((byte) 0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useCharAnnotationSupplied() {
-		final Annotation a = createMockUseChar((char) 0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useDoubleAnnotationSupplied() {
-		final Annotation a = createMockUseDouble(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useFloatAnnotationSupplied() {
-		final Annotation a = createMockUseFloat(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useIntAnnotationSupplied() {
-		final Annotation a = createMockUseInt(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useLongAnnotationSupplied() {
-		final Annotation a = createMockUseLong(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useNullAnnotationSupplied() {
-		final Annotation a = createMockUseNull();
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useShortAnnotationSupplied() {
-		final Annotation a = createMockUseShort((short) 0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_useStringAnnotationSupplied() {
-		final Annotation a = createMockUseString("hello world");
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_booleanHandlerAnnotationSupplied() {
-		final Annotation a = createMockBooleanHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_colorHandlerAnnotationSupplied() {
-		final Annotation a = createMockColorHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_colorStateListHandlerAnnotationSupplied() {
-		final Annotation a = createMockColorStateListHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_dimensionHandlerAnnotationSupplied() {
-		final Annotation a = createMockDimensionHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_drawableHandlerAnnotationSupplied() {
-		final Annotation a = createMockDrawableHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_enumConstantHandlerAnnotationSupplied() {
-		final Annotation a = createMockEnumConstantHandler(0, PlaceholderEnum.class);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_enumOrdinalHandlerAnnotationSupplied() {
-		final Annotation a = createMockEnumOrdinalHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_floatHandlerAnnotationSupplied() {
-		final Annotation a = createMockFloatHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_fractionHandlerAnnotationSupplied() {
-		final Annotation a = createMockFractionHandler(0, 0, 0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_integerHandlerAnnotationSupplied() {
-		final Annotation a = createMockIntegerHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_stringHandlerAnnotationSupplied() {
-		final Annotation a = createMockStringHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_textArrayHandlerAnnotationSupplied() {
-		final Annotation a = createMockTextArrayHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
-	}
-
-	@Test
-	public void testIsDefaultAnnotation_textHandlerAnnotationSupplied() {
-		final Annotation a = createMockTextHandler(0);
-		assertThat(isDefaultAnnotation(a), is(false));
+		assertThat(mirror, is(nullValue()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -529,131 +305,176 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToBooleanAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToBoolean);
+	public void testHasDefaultAnnotation_defaultToBooleanAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("boolean");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToBooleanResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToBooleanResource);
+	public void testHasDefaultAnnotation_defaultToBooleanResourceAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("boolean resource");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToColorResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToColorResource);
+	public void testHasDefaultAnnotation_defaultToColorResourceAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("color resource");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToColorStateListResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToColorStateListResource);
+	public void testHasDefaultAnnotation_defaultToColorStateListResourceAnnotationPresent()
+			throws CompilerMissingException {
 
-		assertThat(hasHandler, is(true));
+		final ExecutableElement element = getExecutableElementWithId("color state list resource");
+
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToDimensionAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToDimension);
+	public void testHasDefaultAnnotation_defaultToDimensionAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("dimension");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToDimensionResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToDimensionResource);
+	public void testHasDefaultAnnotation_defaultToDimensionResourceAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("dimension resource");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToDrawableResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToDrawableResource);
+	public void testHasDefaultAnnotation_defaultToDrawableResourceAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("drawable");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToEnumConstantAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToEnumConstant);
+	public void testHasDefaultAnnotation_defaultToEnumConstantAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("enum constant");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToFloatAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToFloat);
+	public void testHasDefaultAnnotation_defaultToFloatAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("float");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToFractionResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToFractionResource);
+	public void testHasDefaultAnnotation_defaultToFractionResourceAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("fraction resource");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToIntegerAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToInteger);
+	public void testHasDefaultAnnotation_defaultToIntegerAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("integer");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToIntegerResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToIntegerResource);
+	public void testHasDefaultAnnotation_defaultToIntegerResourceAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("integer resource");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToNullAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToNull);
+	public void testHasDefaultAnnotation_defaultToNullAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("null");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToStringAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToString);
+	public void testHasDefaultAnnotation_defaultToStringAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("string");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToStringResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToStringResource);
+	public void testHasDefaultAnnotation_defaultToStringResourceAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("string resource");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToTextArrayResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToTextArrayResource);
+	public void testHasDefaultAnnotation_defaultToTextArrayResourceAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("text array resource");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToTextResourceAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withDefaultToTextResource);
+	public void testHasDefaultAnnotation_defaultToTextResourceAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("text resource");
 
-		assertThat(hasHandler, is(true));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(true));
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_noDefaultAnnotationPresent() {
-		final boolean hasHandler = hasDefaultAnnotation(withNoDefaultAnnotation);
+	public void testHasDefaultAnnotation_noDefaultAnnotationPresent() throws CompilerMissingException {
+		final ExecutableElement element = getExecutableElementWithId("no default annotation");
 
-		assertThat(hasHandler, is(false));
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(false));
 	}
 
+	private ExecutableElement getExecutableElementWithId(final String id) throws CompilerMissingException {
+		try {
+			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
+		} catch (final ClassCastException e) {
+			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
+		}
+	}
 
 	private enum PlaceholderEnum {}
 }
