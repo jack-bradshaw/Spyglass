@@ -6,13 +6,14 @@ import java.lang.annotation.Annotation;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFAULT_ANNOTATIONS;
 
 @Tested(testMethod = "automated")
 public class DefaultAnnotationUtil {
-	public static AnnotationMirror getDefaultAnnotationMirror(final Element element) {
+	public static AnnotationMirror getDefaultAnnotationMirror(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		for (final Class<? extends Annotation> annotationClass : DEFAULT_ANNOTATIONS) {
@@ -26,7 +27,7 @@ public class DefaultAnnotationUtil {
 		return null;
 	}
 
-	public static boolean hasDefaultAnnotation(final Element element) {
+	public static boolean hasDefaultAnnotation(final ExecutableElement element) {
 		return getDefaultAnnotationMirror(element) != null;
 	}
 
