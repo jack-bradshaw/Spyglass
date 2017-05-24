@@ -12,19 +12,19 @@ public class Data {
 	@AnnotationWithValues
 	public String fieldWithAnnotation;
 
-	@ElementId("get annotation value ignoring defaults: no value provided")
+	@ElementId("get annotation value ignoring defaults: no value")
 	@AnnotationWithValues()
 	public Object field4;
 
-	@ElementId("get annotation value ignoring defaults: value provided")
+	@ElementId("get annotation value ignoring defaults: with value")
 	@AnnotationWithValues(value = SPECIFIED_VALUE)
 	public Object field5;
 
-	@ElementId("get annotation value with defaults: no value provided")
+	@ElementId("get annotation value with defaults: no value")
 	@AnnotationWithValues()
 	public Object field6;
 
-	@ElementId("get annotation value with defaults: value provided")
+	@ElementId("get annotation value with defaults: with value")
 	@AnnotationWithValues(value = SPECIFIED_VALUE)
 	public Object field7;
 }
