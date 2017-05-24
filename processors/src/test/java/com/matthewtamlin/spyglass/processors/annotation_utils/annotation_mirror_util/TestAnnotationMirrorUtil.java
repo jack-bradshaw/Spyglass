@@ -1,11 +1,13 @@
 package com.matthewtamlin.spyglass.processors.annotation_utils.annotation_mirror_util;
 
+import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
 import com.matthewtamlin.java_compiler_utilities.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUtil;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.File;
@@ -13,6 +15,7 @@ import java.lang.annotation.Annotation;
 import java.net.MalformedURLException;
 
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 import javax.tools.JavaFileObject;
 
@@ -24,6 +27,9 @@ import static org.mockito.Mockito.mock;
 
 @SuppressWarnings("unchecked") // Not relevant when mocking
 public class TestAnnotationMirrorUtil {
+	@Rule
+	public CompilationRule compilationRule = new CompilationRule();
+
 	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors" +
 			"/annotation_utils/annotation_mirror_util/Data.java");
 
@@ -65,5 +71,92 @@ public class TestAnnotationMirrorUtil {
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(SomeAnnotation.class.getName()));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAnnotationValueWithDefaults_nullAnnotationMirrorSupplied() {
+		AnnotationMirrorUtil.getAnnotationValueWithDefaults(null, "", compilationRule.getElements());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAnnotationValueWithDefaults_nullValueKeySupplied() {
+		AnnotationMirrorUtil.getAnnotationValueWithDefaults(mock(AnnotationMirror.class), null, compilationRule.getElements());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetAnnotationValueWithDefaults_nullElementUtilSupplied() {
+		AnnotationMirrorUtil.getAnnotationValueWithDefaults(mock(AnnotationMirror.class), "", null);
+	}
+
+	@Test
+	public void testGetAnnotationValueIgnoringDefaults_invalidKey() throws CompilerMissingException {
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, value provided");
+		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
+
+		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueIgnoringDefaults(mirror, "invalidKey");
+
+		assertThat(value, is(nullValue()));
+	}
+
+	@Test
+	public void testGetAnnotationValueIgnoreDefaults_noValueProvided() throws CompilerMissingException {
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, no value provided");
+		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
+
+		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueIgnoringDefaults(mirror, "value");
+
+		assertThat(value, is(nullValue()));
+	}
+
+	@Test
+	public void testGetAnnotationValueIgnoringDefaults_valueProvided() throws CompilerMissingException {
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, value provided");
+		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
+
+		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueIgnoringDefaults(mirror, "value");
+
+		assertThat(value, is(notNullValue()));
+		assertThat((String) value.getValue(), is("specified value"));
+	}
+
+	@Test
+	public void testGetAnnotationValueWithDefaults_invalidKey() throws CompilerMissingException {
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, value provided");
+		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
+
+		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+				mirror,
+				"invalidKey",
+				compilationRule.getElements());
+
+		assertThat(value, is(nullValue()));
+	}
+
+	@Test
+	public void testGetAnnotationValueWithDefaults_noValueProvided() throws CompilerMissingException {
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, no value provided");
+		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
+
+		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+				mirror,
+				"value",
+				compilationRule.getElements());
+
+		assertThat(value, is(notNullValue()));
+		assertThat((String) value.getValue(), is("default value"));
+	}
+
+	@Test
+	public void testGetAnnotationValueWithDefaults_valueProvided() throws CompilerMissingException {
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, value provided");
+		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
+
+		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+				mirror,
+				"value",
+				compilationRule.getElements());
+
+		assertThat(value, is(notNullValue()));
+		assertThat((String) value.getValue(), is("specified value"));
 	}
 }
