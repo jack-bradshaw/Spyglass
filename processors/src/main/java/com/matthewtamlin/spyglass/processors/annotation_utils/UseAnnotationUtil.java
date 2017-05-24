@@ -13,8 +13,8 @@ public class UseAnnotationUtil {
 	public static AnnotationMirror getUseAnnotationMirror(final VariableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
-		for (final Class<? extends Annotation> useAnnotationClass : USE_ANNOTATIONS) {
-			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, useAnnotationClass);
+		for (final Class<? extends Annotation> annotationClass : USE_ANNOTATIONS) {
+			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, annotationClass);
 
 			if (mirror != null) {
 				return mirror;
@@ -25,13 +25,7 @@ public class UseAnnotationUtil {
 	}
 
 	public static boolean hasUseAnnotation(final VariableElement element) {
-		for (final Class<? extends Annotation> a : USE_ANNOTATIONS) {
-			if (element.getAnnotation(a) != null) {
-				return true;
-			}
-		}
-
-		return false;
+		return getUseAnnotationMirror(element) != null;
 	}
 
 	private UseAnnotationUtil() {
