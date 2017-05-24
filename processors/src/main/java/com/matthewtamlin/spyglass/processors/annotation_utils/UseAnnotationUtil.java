@@ -11,7 +11,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_
 
 public class UseAnnotationUtil {
 	public static AnnotationMirror getUseAnnotationMirror(final VariableElement element) {
-		checkNotNull(element, "Argument \'element \' cannot be null.");
+		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		for (final Class<? extends Annotation> useAnnotationClass : USE_ANNOTATIONS) {
 			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, useAnnotationClass);
