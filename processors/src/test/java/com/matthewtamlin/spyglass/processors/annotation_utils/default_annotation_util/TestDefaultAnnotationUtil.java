@@ -325,7 +325,7 @@ public class TestDefaultAnnotationUtil {
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToDrawableResourceAnnotationPresent() throws CompilerMissingException {
-		final ExecutableElement element = getExecutableElementWithId("drawable");
+		final ExecutableElement element = getExecutableElementWithId("drawable resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
 
