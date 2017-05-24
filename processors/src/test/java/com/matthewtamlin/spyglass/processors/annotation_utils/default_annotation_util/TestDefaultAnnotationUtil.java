@@ -30,7 +30,6 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
@@ -47,42 +46,6 @@ public class TestDefaultAnnotationUtil {
 			"/annotation_utils/default_annotation_util/Data.java");
 
 	private IdBasedElementSupplier elementSupplier;
-
-	private Element withDefaultToBoolean;
-
-	private Element withDefaultToBooleanResource;
-
-	private Element withDefaultToColorResource;
-
-	private Element withDefaultToColorStateListResource;
-
-	private Element withDefaultToDimension;
-
-	private Element withDefaultToDimensionResource;
-
-	private Element withDefaultToDrawableResource;
-
-	private Element withDefaultToEnumConstant;
-
-	private Element withDefaultToFloat;
-
-	private Element withDefaultToFractionResource;
-
-	private Element withDefaultToInteger;
-
-	private Element withDefaultToIntegerResource;
-
-	private Element withDefaultToNull;
-
-	private Element withDefaultToString;
-
-	private Element withDefaultToStringResource;
-
-	private Element withDefaultToTextArrayResource;
-
-	private Element withDefaultToTextResource;
-
-	private Element withNoDefaultAnnotation;
 
 	@Before
 	public void setup() throws MalformedURLException, CompilerMissingException {
