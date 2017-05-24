@@ -10,11 +10,11 @@ public class Data {
 	@AnnotationWithValues
 	public String fieldWithAnnotation;
 
-	@ElementId("get annotation value, no value provided")
+	@ElementId("get annotation value ignoring defaults: no value provided")
 	@AnnotationWithValues()
 	public Object field4;
 
-	@ElementId("get annotation value, value provided")
+	@ElementId("get annotation value ignoring defaults: value provided")
 	@AnnotationWithValues(value ="specified value")
 	public Object field5;
 
