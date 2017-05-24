@@ -23,12 +23,6 @@ public class DefaultAnnotationUtil {
 		return null;
 	}
 
-	public static boolean isDefaultAnnotation(final Annotation anno) {
-		checkNotNull(anno, "Argument \'anno\' cannot be null.");
-
-		return DEFAULT_ANNOTATIONS.contains(anno.annotationType());
-	}
-
 	public static boolean hasDefaultAnnotation(final Element element) {
 		checkNotNull(element, "Argument \'element \' cannot be null.");
 
