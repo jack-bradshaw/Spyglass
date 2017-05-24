@@ -38,15 +38,15 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHand
 import static com.matthewtamlin.spyglass.annotations.units.DimensionUnit.DP;
 
 public class Data {
-	@ElementId("has specific enum handler")
+	@ElementId("specific enum")
 	@SpecificEnumHandler(attributeId = 0, ordinal = 1)
 	public void method1() {}
 
-	@ElementId("has specific flag handler")
+	@ElementId("specific flag")
 	@SpecificFlagHandler(attributeId = 0, handledFlags = 1)
 	public void method2() {}
 
-	@ElementId("has no call handler")
+	@ElementId("no call handler annotation")
 	@DefaultToBoolean(true)
 	@DefaultToBooleanResource(0)
 	@DefaultToColorResource(0)
