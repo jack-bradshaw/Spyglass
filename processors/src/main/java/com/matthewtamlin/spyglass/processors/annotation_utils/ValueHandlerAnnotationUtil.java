@@ -23,7 +23,7 @@ public class ValueHandlerAnnotationUtil {
 		return null;
 	}
 
-	public static boolean hasValueAnnotation(final ExecutableElement element) {
+	public static boolean hasValueHandlerAnnotation(final ExecutableElement element) {
 		return getValueHandlerAnnotationMirror(element) != null;
 	}
 
