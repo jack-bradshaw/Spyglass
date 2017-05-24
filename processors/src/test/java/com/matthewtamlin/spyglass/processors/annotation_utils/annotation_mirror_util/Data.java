@@ -6,25 +6,25 @@ public class Data {
 	public static final String SPECIFIED_VALUE = "specified value";
 
 	@ElementId("get annotation mirror: without annotation")
-	public String fieldWithoutAnnotation;
+	public String field1;
 
 	@ElementId("get annotation mirror: with annotation")
 	@AnnotationWithValues
-	public String fieldWithAnnotation;
+	public String field2;
 
 	@ElementId("get annotation value ignoring defaults: no value")
 	@AnnotationWithValues()
-	public Object field4;
+	public Object field3;
 
 	@ElementId("get annotation value ignoring defaults: with value")
 	@AnnotationWithValues(value = SPECIFIED_VALUE)
-	public Object field5;
+	public Object field4;
 
 	@ElementId("get annotation value with defaults: no value")
 	@AnnotationWithValues()
-	public Object field6;
+	public Object field5;
 
 	@ElementId("get annotation value with defaults: with value")
 	@AnnotationWithValues(value = SPECIFIED_VALUE)
-	public Object field7;
+	public Object field6;
 }
