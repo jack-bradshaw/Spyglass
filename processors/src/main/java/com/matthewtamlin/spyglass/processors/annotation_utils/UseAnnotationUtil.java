@@ -10,7 +10,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_ANNOTATIONS;
 
 public class UseAnnotationUtil {
-	public static AnnotationMirror getUseAnnotation(final VariableElement element) {
+	public static AnnotationMirror getUseAnnotationMirror(final VariableElement element) {
 		checkNotNull(element, "Argument \'element \' cannot be null.");
 
 		for (final Class<? extends Annotation> useAnnotationClass : USE_ANNOTATIONS) {
