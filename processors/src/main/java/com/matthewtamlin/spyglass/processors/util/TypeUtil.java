@@ -1,10 +1,6 @@
 package com.matthewtamlin.spyglass.processors.util;
 
-import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-
-import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static javax.lang.model.element.ElementKind.CLASS;
 
 public class TypeUtil {
 	public static String getPackageOfType(final TypeElement e) {
