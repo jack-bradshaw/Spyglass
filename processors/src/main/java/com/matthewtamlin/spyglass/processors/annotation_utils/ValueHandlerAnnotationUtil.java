@@ -9,7 +9,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALU
 
 public class ValueHandlerAnnotationUtil {
 	public static Annotation getValueHandlerAnnotation(final Element element) {
-		checkNotNull(element, "Argument \'element \' cannot be null.");
+		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		for (final Class<? extends Annotation> a : VALUE_HANDLER_ANNOTATIONS) {
 			if (element.getAnnotation(a) != null) {
