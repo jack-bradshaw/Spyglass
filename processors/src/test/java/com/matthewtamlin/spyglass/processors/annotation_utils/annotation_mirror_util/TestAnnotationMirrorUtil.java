@@ -50,7 +50,7 @@ public class TestAnnotationMirrorUtil {
 
 	@Test
 	public void testGetAnnotationMirror_annotationMissing() throws CompilerMissingException {
-		final Element element = elementSupplier.getUniqueElementWithId("with annotation");
+		final Element element = elementSupplier.getUniqueElementWithId("without annotation");
 
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, SomeAnnotation.class);
 
@@ -59,7 +59,7 @@ public class TestAnnotationMirrorUtil {
 
 	@Test
 	public void testGetAnnotationMirror_annotationPresent() throws CompilerMissingException {
-		final Element element = elementSupplier.getUniqueElementWithId("without annotation");
+		final Element element = elementSupplier.getUniqueElementWithId("with annotation");
 
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, SomeAnnotation.class);
 
