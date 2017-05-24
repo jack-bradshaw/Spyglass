@@ -6,13 +6,14 @@ import java.lang.annotation.Annotation;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ExecutableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.CALL_HANDLER_ANNOTATIONS;
 
 @Tested(testMethod = "automated")
 public class CallHandlerAnnotationUtil {
-	public static AnnotationMirror getCallHandlerAnnotationMirror(final Element element) {
+	public static AnnotationMirror getCallHandlerAnnotationMirror(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element \' cannot be null.");
 
 		for (final Class<? extends Annotation> annotationClass : CALL_HANDLER_ANNOTATIONS) {
@@ -26,7 +27,7 @@ public class CallHandlerAnnotationUtil {
 		return null;
 	}
 
-	public static boolean hasCallHandlerAnnotation(final Element element) {
+	public static boolean hasCallHandlerAnnotation(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		for (final Class<? extends Annotation> a : CALL_HANDLER_ANNOTATIONS) {
