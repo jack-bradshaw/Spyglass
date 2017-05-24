@@ -23,12 +23,6 @@ public class CallHandlerAnnotationUtil {
 		return null;
 	}
 
-	public static boolean isCallHandlerAnnotation(final Annotation anno) {
-		checkNotNull(anno, "Argument \'anno\' cannot be null.");
-
-		return CALL_HANDLER_ANNOTATIONS.contains(anno.annotationType());
-	}
-
 	public static boolean hasCallHandlerAnnotation(final Element element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
