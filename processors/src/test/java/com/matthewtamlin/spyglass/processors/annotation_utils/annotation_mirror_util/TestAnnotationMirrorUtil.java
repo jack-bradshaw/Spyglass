@@ -56,7 +56,7 @@ public class TestAnnotationMirrorUtil {
 
 	@Test
 	public void testGetAnnotationMirror_annotationMissing() throws CompilerMissingException {
-		final Element element = elementSupplier.getUniqueElementWithId("without annotation");
+		final Element element = elementSupplier.getUniqueElementWithId("get annotation mirror: without annotation");
 
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, AnnotationWithValues.class);
 
@@ -65,7 +65,7 @@ public class TestAnnotationMirrorUtil {
 
 	@Test
 	public void testGetAnnotationMirror_annotationPresent() throws CompilerMissingException {
-		final Element element = elementSupplier.getUniqueElementWithId("with annotation");
+		final Element element = elementSupplier.getUniqueElementWithId("get annotation mirror: with annotation");
 
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, AnnotationWithValues.class);
 
@@ -80,7 +80,9 @@ public class TestAnnotationMirrorUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAnnotationValueWithDefaults_nullValueKeySupplied() {
-		AnnotationMirrorUtil.getAnnotationValueWithDefaults(mock(AnnotationMirror.class), null, compilationRule.getElements());
+		AnnotationMirrorUtil.getAnnotationValueWithDefaults(mock(AnnotationMirror.class),
+				null,
+				compilationRule.getElements());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -90,7 +92,8 @@ public class TestAnnotationMirrorUtil {
 
 	@Test
 	public void testGetAnnotationValueIgnoringDefaults_invalidKey() throws CompilerMissingException {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, value provided");
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value ignoring defaults: with value");
+
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
 
 		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueIgnoringDefaults(mirror, "invalidKey");
@@ -100,7 +103,7 @@ public class TestAnnotationMirrorUtil {
 
 	@Test
 	public void testGetAnnotationValueIgnoreDefaults_noValueProvided() throws CompilerMissingException {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, no value provided");
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value ignoring defaults: no value");
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
 
 		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueIgnoringDefaults(mirror, "value");
@@ -110,18 +113,18 @@ public class TestAnnotationMirrorUtil {
 
 	@Test
 	public void testGetAnnotationValueIgnoringDefaults_valueProvided() throws CompilerMissingException {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, value provided");
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value ignoring defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
 
 		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueIgnoringDefaults(mirror, "value");
 
 		assertThat(value, is(notNullValue()));
-		assertThat((String) value.getValue(), is("specified value"));
+		assertThat((String) value.getValue(), is(Data.SPECIFIED_VALUE));
 	}
 
 	@Test
 	public void testGetAnnotationValueWithDefaults_invalidKey() throws CompilerMissingException {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, value provided");
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value with defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
 
 		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
@@ -134,7 +137,7 @@ public class TestAnnotationMirrorUtil {
 
 	@Test
 	public void testGetAnnotationValueWithDefaults_noValueProvided() throws CompilerMissingException {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, no value provided");
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value with defaults: no value");
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
 
 		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
@@ -143,12 +146,12 @@ public class TestAnnotationMirrorUtil {
 				compilationRule.getElements());
 
 		assertThat(value, is(notNullValue()));
-		assertThat((String) value.getValue(), is("default value"));
+		assertThat((String) value.getValue(), is(AnnotationWithValues.DEFAULT_VALUE));
 	}
 
 	@Test
 	public void testGetAnnotationValueWithDefaults_valueProvided() throws CompilerMissingException {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value, value provided");
+		final Element e = elementSupplier.getUniqueElementWithId("get annotation value with defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(e, AnnotationWithValues.class);
 
 		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
@@ -157,6 +160,6 @@ public class TestAnnotationMirrorUtil {
 				compilationRule.getElements());
 
 		assertThat(value, is(notNullValue()));
-		assertThat((String) value.getValue(), is("specified value"));
+		assertThat((String) value.getValue(), is(Data.SPECIFIED_VALUE));
 	}
 }
