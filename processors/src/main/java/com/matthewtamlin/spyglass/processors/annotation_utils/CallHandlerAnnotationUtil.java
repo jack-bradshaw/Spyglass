@@ -12,6 +12,20 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.CALL
 
 @Tested(testMethod = "automated")
 public class CallHandlerAnnotationUtil {
+	public static AnnotationMirror getCallHandlerAnnotationMirror(final Element element) {
+		checkNotNull(element, "Argument \'element \' cannot be null.");
+
+		for (final Class<? extends Annotation> callHandlerClass : CALL_HANDLER_ANNOTATIONS) {
+			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, callHandlerClass);
+
+			if (mirror != null) {
+				return mirror;
+			}
+		}
+
+		return null;
+	}
+
 	public static boolean hasCallHandlerAnnotation(final Element element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
