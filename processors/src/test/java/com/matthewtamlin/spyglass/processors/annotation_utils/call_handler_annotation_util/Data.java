@@ -52,7 +52,7 @@ public class Data {
 	@DefaultToColorStateListResource(resId = 0)
 	@DefaultToDimension(value = 0, unit = DP)
 	@DefaultToDimensionResource(resId = 0)
-	@DefaultToDrawableResource(0)
+	@DefaultToDrawableResource(resId = 0)
 	@DefaultToEnumConstant(enumClass = PlaceholderEnum.class, ordinal = 0)
 	@DefaultToFloat(0)
 	@DefaultToFractionResource(resId = 0, baseMultiplier = 0, parentMultiplier = 0)

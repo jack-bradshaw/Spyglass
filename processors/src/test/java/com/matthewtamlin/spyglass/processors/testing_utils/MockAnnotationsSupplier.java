@@ -255,7 +255,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToDrawableResource anno = mock(DefaultToDrawableResource.class);
 
 		doReturn(DefaultToDrawableResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
