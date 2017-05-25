@@ -95,7 +95,7 @@ public class Data {
 	@DefaultToColorResource(resId = 0)
 	@DefaultToColorStateListResource(resId = 0)
 	@DefaultToDimension(value = 0, unit = DP)
-	@DefaultToDimensionResource(0)
+	@DefaultToDimensionResource(resId = 0)
 	@DefaultToDrawableResource(0)
 	@DefaultToEnumConstant(enumClass = PlaceholderEnum.class, ordinal = 0)
 	@DefaultToFloat(0)
