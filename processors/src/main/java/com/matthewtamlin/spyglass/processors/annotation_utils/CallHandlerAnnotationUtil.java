@@ -5,7 +5,6 @@ import com.matthewtamlin.java_utilities.testing.Tested;
 import java.lang.annotation.Annotation;
 
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
