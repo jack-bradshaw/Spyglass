@@ -246,7 +246,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToDimensionResource anno = mock(DefaultToDimensionResource.class);
 
 		doReturn(DefaultToDimensionResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}

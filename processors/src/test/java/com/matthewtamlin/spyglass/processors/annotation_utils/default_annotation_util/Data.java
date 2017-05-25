@@ -58,7 +58,7 @@ public class Data {
 	public void method5() {}
 
 	@ElementId("dimension resource")
-	@DefaultToDimensionResource(0)
+	@DefaultToDimensionResource(resId = 0)
 	public void method6() {}
 
 	@ElementId("drawable resource")
