@@ -20,7 +20,6 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStrin
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
-import com.matthewtamlin.spyglass.annotations.units.DimensionUnit;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorStateListHandler;
@@ -48,7 +47,7 @@ public class Data {
 
 	@ElementId("no call handler annotation")
 	@DefaultToBoolean(true)
-	@DefaultToBooleanResource(0)
+	@DefaultToBooleanResource(resId = 0)
 	@DefaultToColorResource(0)
 	@DefaultToColorStateListResource(0)
 	@DefaultToDimension(value = 0, unit = DP)

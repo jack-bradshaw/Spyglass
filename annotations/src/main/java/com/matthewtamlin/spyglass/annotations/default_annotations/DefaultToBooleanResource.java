@@ -25,5 +25,5 @@ public @interface DefaultToBooleanResource {
 	/**
 	 * @return the resource ID of the default value, must resolve to a boolean resource
 	 */
-	int value();
+	int resId();
 }
