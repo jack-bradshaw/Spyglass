@@ -62,7 +62,7 @@ public class Data {
 	public void method6() {}
 
 	@ElementId("drawable resource")
-	@DefaultToDrawableResource(0)
+	@DefaultToDrawableResource(resId = 0)
 	public void method7() {}
 
 	@ElementId("enum constant")
