@@ -61,7 +61,7 @@ public class Data {
 	@DefaultToNull
 	@DefaultToString("hello world")
 	@DefaultToStringResource(resId = 0)
-	@DefaultToTextArrayResource(0)
+	@DefaultToTextArrayResource(resId = 0)
 	@DefaultToTextResource(0)
 	@BooleanHandler(attributeId = 0)
 	@ColorHandler(attributeId = 0)
