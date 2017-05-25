@@ -25,5 +25,5 @@ public @interface DefaultToColorStateListResource {
 	/**
 	 * @return the resource ID of the default value, must resolve to a color state list resource
 	 */
-	int value();
+	int resId();
 }
