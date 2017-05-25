@@ -310,7 +310,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToIntegerResource anno = mock(DefaultToIntegerResource.class);
 
 		doReturn(DefaultToIntegerResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
