@@ -3,7 +3,6 @@ package com.matthewtamlin.spyglass.processors.annotation_utils;
 import com.matthewtamlin.java_utilities.testing.Tested;
 
 import java.lang.annotation.Annotation;
-import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.VariableElement;
