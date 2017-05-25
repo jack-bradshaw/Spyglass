@@ -28,7 +28,6 @@ import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Mockito.mock;
 
 @RunWith(JUnit4.class)
-@SuppressWarnings("unchecked") // Not relevant when mocking
 public class TestAnnotationMirrorUtil {
 	@Rule
 	public CompilationRule compilationRule = new CompilationRule();
