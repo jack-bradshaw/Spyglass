@@ -91,7 +91,7 @@ public class Data {
 
 	@ElementId("no value handler annotation")
 	@DefaultToBoolean(true)
-	@DefaultToBooleanResource(0)
+	@DefaultToBooleanResource(resId = 0)
 	@DefaultToColorResource(0)
 	@DefaultToColorStateListResource(0)
 	@DefaultToDimension(value = 0, unit = DP)
