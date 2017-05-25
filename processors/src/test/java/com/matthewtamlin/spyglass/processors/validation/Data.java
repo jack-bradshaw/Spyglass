@@ -62,13 +62,13 @@ abstract class Data {
 	@Target(isValid = false)
 	@StringHandler(attributeId = 1)
 	@DefaultToString("something")
-	@DefaultToStringResource(1)
+	@DefaultToStringResource(resId = 1)
 	void method9(Object o) {}
 
 	@Target(isValid = false)
 	@StringHandler(attributeId = 1)
 	@DefaultToString("something")
-	@DefaultToStringResource(1)
+	@DefaultToStringResource(resId = 1)
 	@DefaultToBoolean(false)
 	void method10(Object o) {}
 
@@ -80,13 +80,13 @@ abstract class Data {
 	@Target(isValid = false)
 	@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 	@DefaultToString("something")
-	@DefaultToStringResource(1)
+	@DefaultToStringResource(resId = 1)
 	void method12() {}
 
 	@Target(isValid = false)
 	@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
 	@DefaultToString("something")
-	@DefaultToStringResource(1)
+	@DefaultToStringResource(resId = 1)
 	@DefaultToBoolean(false)
 	void method13() {}
 

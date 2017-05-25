@@ -94,7 +94,7 @@ public class Data {
 	public void method14() {}
 
 	@ElementId("string resource")
-	@DefaultToStringResource(0)
+	@DefaultToStringResource(resId = 0)
 	public void method15() {}
 
 	@ElementId("text array resource")

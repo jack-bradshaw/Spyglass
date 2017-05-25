@@ -104,7 +104,7 @@ public class Data {
 	@DefaultToIntegerResource(resId = 0)
 	@DefaultToNull
 	@DefaultToString("hello world")
-	@DefaultToStringResource(0)
+	@DefaultToStringResource(resId = 0)
 	@DefaultToTextArrayResource(0)
 	@DefaultToTextResource(0)
 	@SpecificEnumHandler(attributeId = 0, ordinal = 0)

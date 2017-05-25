@@ -336,7 +336,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToStringResource anno = mock(DefaultToStringResource.class);
 
 		doReturn(DefaultToStringResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
