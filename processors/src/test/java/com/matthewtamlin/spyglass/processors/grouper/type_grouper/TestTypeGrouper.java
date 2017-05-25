@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.core.grouper;
+package com.matthewtamlin.spyglass.processors.grouper.type_grouper;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
@@ -25,7 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnit4.class)
-public class TestGrouper {
+public class TestTypeGrouper {
 	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors" +
 			"/core/grouper/Data.java");
 
