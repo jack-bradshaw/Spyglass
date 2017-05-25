@@ -49,7 +49,7 @@ public class Data {
 	@DefaultToBoolean(true)
 	@DefaultToBooleanResource(resId = 0)
 	@DefaultToColorResource(resId = 0)
-	@DefaultToColorStateListResource(0)
+	@DefaultToColorStateListResource(resId = 0)
 	@DefaultToDimension(value = 0, unit = DP)
 	@DefaultToDimensionResource(0)
 	@DefaultToDrawableResource(0)

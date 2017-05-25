@@ -50,7 +50,7 @@ public class Data {
 	public void method3() {}
 
 	@ElementId("color state list resource")
-	@DefaultToColorStateListResource(0)
+	@DefaultToColorStateListResource(resId = 0)
 	public void method4() {}
 
 	@ElementId("dimension")
