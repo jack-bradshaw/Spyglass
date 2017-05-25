@@ -101,7 +101,7 @@ public class Data {
 	@DefaultToFloat(0)
 	@DefaultToFractionResource(resId = 0, baseMultiplier = 0, parentMultiplier = 0)
 	@DefaultToInteger(0)
-	@DefaultToIntegerResource(0)
+	@DefaultToIntegerResource(resId = 0)
 	@DefaultToNull
 	@DefaultToString("hello world")
 	@DefaultToStringResource(0)

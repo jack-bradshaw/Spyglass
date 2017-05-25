@@ -82,7 +82,7 @@ public class Data {
 	public void method11() {}
 
 	@ElementId("integer resource")
-	@DefaultToIntegerResource(0)
+	@DefaultToIntegerResource(resId = 0)
 	public void method12() {}
 
 	@ElementId("null")
