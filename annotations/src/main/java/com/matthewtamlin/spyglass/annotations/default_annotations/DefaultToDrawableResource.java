@@ -25,5 +25,5 @@ public @interface DefaultToDrawableResource {
 	/**
 	 * @return the resource ID of the default value, must resolve to a drawable resource
 	 */
-	int value();
+	int resId();
 }
