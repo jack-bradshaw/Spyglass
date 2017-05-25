@@ -48,7 +48,7 @@ public class Data {
 	@ElementId("no call handler annotation")
 	@DefaultToBoolean(true)
 	@DefaultToBooleanResource(resId = 0)
-	@DefaultToColorResource(0)
+	@DefaultToColorResource(resId = 0)
 	@DefaultToColorStateListResource(0)
 	@DefaultToDimension(value = 0, unit = DP)
 	@DefaultToDimensionResource(0)

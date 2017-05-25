@@ -46,7 +46,7 @@ public class Data {
 	public void method2() {}
 
 	@ElementId("color resource")
-	@DefaultToColorResource(0)
+	@DefaultToColorResource(resId = 0)
 	public void method3() {}
 
 	@ElementId("color state list resource")

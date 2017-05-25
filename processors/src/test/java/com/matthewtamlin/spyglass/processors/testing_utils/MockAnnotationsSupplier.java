@@ -218,7 +218,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToColorResource anno = mock(DefaultToColorResource.class);
 
 		doReturn(DefaultToColorResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
