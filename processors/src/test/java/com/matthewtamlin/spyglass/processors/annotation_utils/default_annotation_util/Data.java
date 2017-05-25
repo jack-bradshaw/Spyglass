@@ -102,7 +102,7 @@ public class Data {
 	public void method16() {}
 
 	@ElementId("text resource")
-	@DefaultToTextResource(0)
+	@DefaultToTextResource(resId = 0)
 	public void method17() {}
 
 	@ElementId("no default annotation")
