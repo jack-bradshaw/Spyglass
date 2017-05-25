@@ -209,7 +209,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToBooleanResource anno = mock(DefaultToBooleanResource.class);
 
 		doReturn(DefaultToBooleanResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
@@ -218,7 +218,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToColorResource anno = mock(DefaultToColorResource.class);
 
 		doReturn(DefaultToColorResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
@@ -227,7 +227,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToColorStateListResource anno = mock(DefaultToColorStateListResource.class);
 
 		doReturn(DefaultToColorStateListResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
@@ -246,7 +246,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToDimensionResource anno = mock(DefaultToDimensionResource.class);
 
 		doReturn(DefaultToDimensionResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
@@ -255,7 +255,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToDrawableResource anno = mock(DefaultToDrawableResource.class);
 
 		doReturn(DefaultToDrawableResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
@@ -310,7 +310,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToIntegerResource anno = mock(DefaultToIntegerResource.class);
 
 		doReturn(DefaultToIntegerResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
@@ -336,7 +336,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToStringResource anno = mock(DefaultToStringResource.class);
 
 		doReturn(DefaultToStringResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
@@ -345,7 +345,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToTextArrayResource anno = mock(DefaultToTextArrayResource.class);
 
 		doReturn(DefaultToTextArrayResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}
@@ -354,7 +354,7 @@ public class MockAnnotationsSupplier {
 		final DefaultToTextResource anno = mock(DefaultToTextResource.class);
 
 		doReturn(DefaultToTextResource.class).when(anno).annotationType();
-		when(anno.value()).thenReturn(value);
+		when(anno.resId()).thenReturn(value);
 
 		return anno;
 	}

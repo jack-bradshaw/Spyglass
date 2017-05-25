@@ -25,5 +25,5 @@ public @interface DefaultToTextResource {
 	/**
 	 * @return the resource ID of the default value, must resolve to a text resource
 	 */
-	int value();
+	int resId();
 }

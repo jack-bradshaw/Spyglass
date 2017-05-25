@@ -26,5 +26,5 @@ public @interface DefaultToDimensionResource {
 	/**
 	 * @return the resource ID of the default value, must resolve to a dimension resource
 	 */
-	int value();
+	int resId();
 }

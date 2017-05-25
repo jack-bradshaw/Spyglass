@@ -20,7 +20,6 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStrin
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
-import com.matthewtamlin.spyglass.annotations.units.DimensionUnit;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorStateListHandler;
@@ -38,32 +37,32 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHand
 import static com.matthewtamlin.spyglass.annotations.units.DimensionUnit.DP;
 
 public class Data {
-	@ElementId("has specific enum handler")
+	@ElementId("specific enum")
 	@SpecificEnumHandler(attributeId = 0, ordinal = 1)
 	public void method1() {}
 
-	@ElementId("has specific flag handler")
+	@ElementId("specific flag")
 	@SpecificFlagHandler(attributeId = 0, handledFlags = 1)
 	public void method2() {}
 
-	@ElementId("has no call handler")
+	@ElementId("no call handler annotation")
 	@DefaultToBoolean(true)
-	@DefaultToBooleanResource(0)
-	@DefaultToColorResource(0)
-	@DefaultToColorStateListResource(0)
+	@DefaultToBooleanResource(resId = 0)
+	@DefaultToColorResource(resId = 0)
+	@DefaultToColorStateListResource(resId = 0)
 	@DefaultToDimension(value = 0, unit = DP)
-	@DefaultToDimensionResource(0)
-	@DefaultToDrawableResource(0)
+	@DefaultToDimensionResource(resId = 0)
+	@DefaultToDrawableResource(resId = 0)
 	@DefaultToEnumConstant(enumClass = PlaceholderEnum.class, ordinal = 0)
 	@DefaultToFloat(0)
 	@DefaultToFractionResource(resId = 0, baseMultiplier = 0, parentMultiplier = 0)
 	@DefaultToInteger(0)
-	@DefaultToIntegerResource(0)
+	@DefaultToIntegerResource(resId = 0)
 	@DefaultToNull
 	@DefaultToString("hello world")
-	@DefaultToStringResource(0)
-	@DefaultToTextArrayResource(0)
-	@DefaultToTextResource(0)
+	@DefaultToStringResource(resId = 0)
+	@DefaultToTextArrayResource(resId = 0)
+	@DefaultToTextResource(resId = 0)
 	@BooleanHandler(attributeId = 0)
 	@ColorHandler(attributeId = 0)
 	@ColorStateListHandler(attributeId = 0)
