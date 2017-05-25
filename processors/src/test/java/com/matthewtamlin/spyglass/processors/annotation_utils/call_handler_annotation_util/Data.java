@@ -60,7 +60,7 @@ public class Data {
 	@DefaultToIntegerResource(resId = 0)
 	@DefaultToNull
 	@DefaultToString("hello world")
-	@DefaultToStringResource(0)
+	@DefaultToStringResource(resId = 0)
 	@DefaultToTextArrayResource(0)
 	@DefaultToTextResource(0)
 	@BooleanHandler(attributeId = 0)
