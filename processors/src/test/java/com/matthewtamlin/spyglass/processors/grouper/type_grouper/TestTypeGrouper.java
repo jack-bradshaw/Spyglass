@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.core.grouper;
+package com.matthewtamlin.spyglass.processors.grouper.type_grouper;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
