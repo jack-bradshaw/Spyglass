@@ -25,5 +25,5 @@ public @interface DefaultToTextArrayResource {
 	/**
 	 * @return the resource ID of the default value, must resolve to a text array resource
 	 */
-	int value();
+	int resId();
 }

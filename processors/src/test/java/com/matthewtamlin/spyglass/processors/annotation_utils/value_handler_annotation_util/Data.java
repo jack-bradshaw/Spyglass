@@ -105,7 +105,7 @@ public class Data {
 	@DefaultToNull
 	@DefaultToString("hello world")
 	@DefaultToStringResource(resId = 0)
-	@DefaultToTextArrayResource(0)
+	@DefaultToTextArrayResource(resId = 0)
 	@DefaultToTextResource(0)
 	@SpecificEnumHandler(attributeId = 0, ordinal = 0)
 	@SpecificFlagHandler(attributeId = 0, handledFlags = 0)
