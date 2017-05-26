@@ -191,6 +191,8 @@ public class InvocationLiteralGenerator {
 	}
 
 	public String buildInvocationLiteralFor(final ExecutableElement e) {
+		checkNotNull(e, "Argument \'e\' cannot be null.");
+
 		final String methodName = e.getSimpleName().toString();
 		final List<String> argLiterals = getArgLiteralsFromUseAnnotations(e);
 
