@@ -24,7 +24,7 @@ public class InvocationLiteralGenerator {
 	}
 
 	public String buildInvocationLiteralFor(final ExecutableElement element) {
-		checkNotNull(element, "Argument \'e\' cannot be null.");
+		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		final String methodName = element.getSimpleName().toString();
 		final List<String> argLiterals = getArgLiteralsFromUseAnnotations(element);
@@ -33,7 +33,7 @@ public class InvocationLiteralGenerator {
 	}
 
 	public String buildInvocationLiteralFor(final ExecutableElement element, final String extraArgLiteral) {
-		checkNotNull(element, "Argument \'e\' cannot be null.");
+		checkNotNull(element, "Argument \'element\' cannot be null.");
 		checkNotNull(extraArgLiteral, "Argument \'extraArgLiteral\' cannot be null.");
 
 		final String methodName = element.getSimpleName().toString();
