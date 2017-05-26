@@ -9,6 +9,8 @@ import com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUt
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.File;
 import java.lang.annotation.Annotation;
@@ -25,7 +27,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 import static org.mockito.Mockito.mock;
 
-@SuppressWarnings("unchecked") // Not relevant when mocking
+@RunWith(JUnit4.class)
 public class TestAnnotationMirrorUtil {
 	@Rule
 	public CompilationRule compilationRule = new CompilationRule();
