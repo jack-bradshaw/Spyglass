@@ -27,6 +27,8 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+
 @Tested(testMethod = "automated")
 public class InvocationLiteralGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, String>> argLiteralSuppliers = new HashMap<>();
@@ -196,6 +198,9 @@ public class InvocationLiteralGenerator {
 	}
 
 	public String buildInvocationLiteralFor(final ExecutableElement e, final String extraArgLiteral) {
+		checkNotNull(e, "Argument \'e\' cannot be null.");
+		checkNotNull(extraArgLiteral, "Argument \'extraArgLiteral\' cannot be null.");
+
 		final String methodName = e.getSimpleName().toString();
 		final List<String> argLiterals = getArgLiteralsFromUseAnnotations(e);
 
