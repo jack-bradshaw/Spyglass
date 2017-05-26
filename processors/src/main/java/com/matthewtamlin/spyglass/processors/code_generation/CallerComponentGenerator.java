@@ -27,10 +27,10 @@ public class CallerComponentGenerator {
 			VALUE_IS_AVAILABLE_BODY_SUPPLIERS;
 
 	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
-			GET_VALUE_BODY_SUPPLIERS;
+			GET_VALUE_METHOD_BODY_SUPPLIERS;
 
 	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
-			GET_DEFAULT_VALUE_BODY_SUPPLIERS;
+			GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS;
 
 	static {
 		SHOULD_CALL_METHOD_BODY_SUPPLIERS = new HashMap<>();
@@ -114,9 +114,9 @@ public class CallerComponentGenerator {
 	}
 
 	static {
-		GET_VALUE_BODY_SUPPLIERS = new HashMap<>();
+		GET_VALUE_METHOD_BODY_SUPPLIERS = new HashMap<>();
 
-		GET_VALUE_BODY_SUPPLIERS.put(
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
 				BooleanHandler.class,
 				new ParametrisedSupplier<Annotation, CodeBlock>() {
 					@Override
@@ -133,9 +133,9 @@ public class CallerComponentGenerator {
 	}
 
 	static {
-		GET_DEFAULT_VALUE_BODY_SUPPLIERS = new HashMap<>();
+		GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS = new HashMap<>();
 
-		GET_DEFAULT_VALUE_BODY_SUPPLIERS.put(
+		GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.put(
 				DefaultToBoolean.class,
 				new ParametrisedSupplier<Annotation, CodeBlock>() {
 					@Override
@@ -211,7 +211,7 @@ public class CallerComponentGenerator {
 			throw new IllegalArgumentException("Argument \'anno\' must be a value handler annotation.");
 		}
 
-		final CodeBlock methodBody = GET_VALUE_BODY_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
+		final CodeBlock methodBody = GET_VALUE_METHOD_BODY_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("getValue")
@@ -229,7 +229,7 @@ public class CallerComponentGenerator {
 			throw new IllegalArgumentException("Argument \'anno\' must be a default annotation.");
 		}
 
-		final CodeBlock methodBody = GET_DEFAULT_VALUE_BODY_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
+		final CodeBlock methodBody = GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("getDefaultValue")
