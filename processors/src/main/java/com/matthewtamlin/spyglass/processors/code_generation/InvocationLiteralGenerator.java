@@ -39,7 +39,7 @@ public class InvocationLiteralGenerator {
 		final String methodName = element.getSimpleName().toString();
 		final List<String> argLiterals = useAnnotationsToLiterals(element);
 
-		// A param should be missing a use annotation, so find the null literal and replace with the extra literal
+		// One param should be missing a use annotation, so find the null literal and replace with the extra literal
 		argLiterals.set(argLiterals.indexOf(null), extraArgLiteral);
 
 		return element.getSimpleName() + "(" + listToCommaSeparatedString(argLiterals) + ")";
