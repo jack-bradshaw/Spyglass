@@ -187,7 +187,7 @@ public class InvocationLiteralGenerator {
 	}
 
 	public InvocationLiteralGenerator(final Elements elementsUtil) {
-		this.elementsUtil = elementsUtil;
+		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
 	}
 
 	public String buildInvocationLiteralFor(final ExecutableElement e) {
