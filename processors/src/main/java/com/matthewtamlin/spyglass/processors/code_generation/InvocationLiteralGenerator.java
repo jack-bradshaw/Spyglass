@@ -23,28 +23,28 @@ public class InvocationLiteralGenerator {
 		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
 	}
 
-	public String buildInvocationLiteralFor(final ExecutableElement element) {
+	public String buildInvocationLiteralWithoutExtraArg(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		final String methodName = element.getSimpleName().toString();
-		final List<String> argLiterals = getArgLiteralsFromUseAnnotations(element);
+		final List<String> argLiterals = getLiteralsFromUseAnnotations(element);
 
 		return methodName + "(" + listToCommaSeparatedString(argLiterals) + ")";
 	}
 
-	public String buildInvocationLiteralFor(final ExecutableElement element, final String extraArgLiteral) {
+	public String buildInvocationLiteralWithExtraArg(final ExecutableElement element, final String extraArgLiteral) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 		checkNotNull(extraArgLiteral, "Argument \'extraArgLiteral\' cannot be null.");
 
 		final String methodName = element.getSimpleName().toString();
-		final List<String> argLiterals = getArgLiteralsFromUseAnnotations(element);
+		final List<String> argLiterals = getLiteralsFromUseAnnotations(element);
 
 		argLiterals.set(argLiterals.indexOf(null), extraArgLiteral);
 
 		return element.getSimpleName() + "(" + listToCommaSeparatedString(argLiterals) + ")";
 	}
 
-	private List<String> getArgLiteralsFromUseAnnotations(final ExecutableElement e) {
+	private List<String> getLiteralsFromUseAnnotations(final ExecutableElement e) {
 		final List<String> argLiterals = new ArrayList<>();
 
 		for (final VariableElement parameter : e.getParameters()) {
