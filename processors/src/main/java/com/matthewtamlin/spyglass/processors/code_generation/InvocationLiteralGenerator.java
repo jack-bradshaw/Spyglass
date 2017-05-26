@@ -1,205 +1,81 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseBoolean;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseByte;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseChar;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseDouble;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseFloat;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseInt;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseNull;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseShort;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseString;
+import com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUtil;
 import com.matthewtamlin.spyglass.processors.annotation_utils.UseAnnotationUtil;
-import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
-import com.squareup.javapoet.CodeBlock;
 
-import java.lang.annotation.Annotation;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.VariableElement;
+import javax.lang.model.util.Elements;
+
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
 public class InvocationLiteralGenerator {
-	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, String>>
-			ARG_LITERAL_SUPPLIERS;
+	private final Elements elementsUtil;
 
-	static {
-		ARG_LITERAL_SUPPLIERS = new HashMap<>();
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseBoolean.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseBoolean castAnno = (UseBoolean) object;
-						return castAnno.value() ? "true" : "false";
-					}
-				});
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseByte.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseByte castAnno = (UseByte) object;
-						return Integer.toString(castAnno.value());
-					}
-				}
-		);
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseChar.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseChar castAnno = (UseChar) object;
-						final String hexValue = Integer.toHexString(castAnno.value()).toUpperCase();
-						return "\'\\u" + hexValue + "\'";
-					}
-				}
-		);
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseDouble.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseDouble castAnno = (UseDouble) object;
-						return Double.toString(castAnno.value());
-					}
-				}
-		);
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseFloat.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseFloat castAnno = (UseFloat) object;
-						return Float.toString(castAnno.value()) + "F";
-					}
-				}
-		);
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseInt.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseInt castAnno = (UseInt) object;
-						return Integer.toString(castAnno.value());
-					}
-				}
-		);
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseLong.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseLong castAnno = (UseLong) object;
-						return Long.toString(castAnno.value()) + "L";
-					}
-				}
-		);
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseNull.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						return "null";
-					}
-				}
-		);
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseShort.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseShort castAnno = (UseShort) object;
-						return Short.toString(castAnno.value());
-					}
-				}
-		);
-
-		ARG_LITERAL_SUPPLIERS.put(
-				UseString.class,
-				new ParametrisedSupplier<Annotation, String>() {
-					@Override
-					public String supplyFor(final Annotation object) {
-						final UseString castAnno = (UseString) object;
-
-						// Use the String escaping tools of the JavaPoet library
-						return CodeBlock
-								.builder()
-								.add("$S", castAnno.value())
-								.build()
-								.toString();
-					}
-				}
-		);
+	public InvocationLiteralGenerator(final Elements elementsUtil) {
+		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
 	}
 
-	public static String buildInvocationLiteralFor(final ExecutableElement e) {
-		final String methodName = e.getSimpleName().toString();
-		final Map<Integer, String> argLiterals = getArgLiteralsFromUseAnnotations(e);
+	public String generateLiteralWithoutExtraArg(final ExecutableElement element) {
+		checkNotNull(element, "Argument \'element\' cannot be null.");
 
-		return methodName + combineArgLiterals(argLiterals);
+		final String methodName = element.getSimpleName().toString();
+		final List<String> argLiterals = useAnnotationsToLiterals(element);
+
+		return methodName + "(" + listToCommaSeparatedString(argLiterals) + ")";
 	}
 
-	public static String buildInvocationLiteralFor(
-			final ExecutableElement e,
-			final String nonUseArgLiteral) {
+	public String generateLiteralWithExtraArg(final ExecutableElement element, final String extraArgLiteral) {
+		checkNotNull(element, "Argument \'element\' cannot be null.");
+		checkNotNull(extraArgLiteral, "Argument \'extraArgLiteral\' cannot be null.");
 
-		final String methodName = e.getSimpleName().toString();
-		final Map<Integer, String> argLiterals = getArgLiteralsFromUseAnnotations(e);
+		final String methodName = element.getSimpleName().toString();
+		final List<String> argLiterals = useAnnotationsToLiterals(element);
 
-		// Find the first index which is not mapped to a literal, and set it to nonUseArgLiteral
-		for (int i = 0; i < argLiterals.size() + 1; i++) {
-			if (!argLiterals.containsKey(i)) {
-				argLiterals.put(i, nonUseArgLiteral);
-				break;
+		// One param should be missing a use annotation, so find the null literal and replace with the extra literal
+		argLiterals.set(argLiterals.indexOf(null), extraArgLiteral);
+
+		return element.getSimpleName() + "(" + listToCommaSeparatedString(argLiterals) + ")";
+	}
+
+	private List<String> useAnnotationsToLiterals(final ExecutableElement e) {
+		final List<String> argLiterals = new ArrayList<>();
+
+		for (final VariableElement parameter : e.getParameters()) {
+			final AnnotationMirror useAnnotationMirror = UseAnnotationUtil.getUseAnnotationMirror(parameter);
+			argLiterals.add(useAnnotationMirror == null ? null : annotationMirrorToLiteral(useAnnotationMirror));
+		}
+
+		return argLiterals;
+	}
+
+	private String annotationMirrorToLiteral(final AnnotationMirror mirror) {
+		if (mirror.getAnnotationType().toString().equals(UseNull.class.getName())) {
+			return "null";
+		} else {
+			// the toString method of AnnotationValue produces a source code representation
+			return AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, "value", elementsUtil).toString();
+		}
+	}
+
+	private static String listToCommaSeparatedString(final List<String> list) {
+		final StringBuilder result = new StringBuilder();
+
+		for (int i = 0; i < list.size(); i++) {
+			result.append(list.get(i));
+
+			if (i < list.size() - 1) {
+				result.append(", ");
 			}
 		}
 
-		return e.getSimpleName() + combineArgLiterals(argLiterals);
-	}
-
-	private static Map<Integer, String> getArgLiteralsFromUseAnnotations(final ExecutableElement e) {
-		final Map<Integer, String> argumentLiterals = new HashMap<>();
-
-		final Map<Integer, Annotation> useAnnotations = UseAnnotationUtil.getUseAnnotations(e);
-
-		for (final Integer i : useAnnotations.keySet()) {
-			final Annotation useAnno = useAnnotations.get(i);
-			final String argLiteral = ARG_LITERAL_SUPPLIERS.get(useAnno.annotationType()).supplyFor(useAnno);
-
-			argumentLiterals.put(i, argLiteral);
-		}
-
-		return argumentLiterals;
-	}
-
-	private static String combineArgLiterals(final Map<Integer, String> argumentLiterals) {
-		final StringBuilder fullInvocationLiteralBuilder = new StringBuilder();
-
-		fullInvocationLiteralBuilder.append("(");
-
-		for (int i = 0; i < argumentLiterals.size(); i++) {
-			fullInvocationLiteralBuilder.append(argumentLiterals.get(i));
-
-			if (i < argumentLiterals.size() - 1) {
-				fullInvocationLiteralBuilder.append(", ");
-			}
-		}
-
-		fullInvocationLiteralBuilder.append(")");
-
-		return fullInvocationLiteralBuilder.toString();
+		return result.toString();
 	}
 }
