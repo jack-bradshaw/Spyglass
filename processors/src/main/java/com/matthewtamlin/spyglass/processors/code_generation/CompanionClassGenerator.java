@@ -220,8 +220,8 @@ public class CompanionClassGenerator {
 				.returns(void.class)
 				.addModifiers(PUBLIC)
 				.addParameter(targetClass, "target")
-				.addParameter(AndroidClassDefs.CONTEXT, "context")
-				.addParameter(AndroidClassDefs.TYPED_ARRAY, "attrs");
+				.addParameter(AndroidClassNames.CONTEXT, "context")
+				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs");
 	}
 
 	private TypeName getTypeNameOfNonUseParameter(final ExecutableElement e) {
