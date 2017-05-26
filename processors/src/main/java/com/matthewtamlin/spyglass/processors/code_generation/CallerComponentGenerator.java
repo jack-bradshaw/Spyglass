@@ -181,7 +181,7 @@ public class CallerComponentGenerator {
 				.methodBuilder("shouldCallMethod")
 				.addModifiers(PUBLIC)
 				.returns(boolean.class)
-				.addParameter(AndroidClassDefs.TYPED_ARRAY, "attrs", FINAL)
+				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
 				.addCode(methodBody)
 				.build();
 	}
@@ -199,7 +199,7 @@ public class CallerComponentGenerator {
 				.methodBuilder("valueIsAvailable")
 				.addModifiers(PUBLIC)
 				.returns(boolean.class)
-				.addParameter(AndroidClassDefs.TYPED_ARRAY, "attrs")
+				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs")
 				.addCode(methodBody)
 				.build();
 	}
@@ -217,7 +217,7 @@ public class CallerComponentGenerator {
 				.methodBuilder("getValue")
 				.addModifiers(PUBLIC)
 				.returns(Object.class)
-				.addParameter(AndroidClassDefs.TYPED_ARRAY, "attrs")
+				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs")
 				.addCode(methodBody)
 				.build();
 	}
@@ -235,8 +235,8 @@ public class CallerComponentGenerator {
 				.methodBuilder("getDefaultValue")
 				.addModifiers(PUBLIC)
 				.returns(Object.class)
-				.addParameter(AndroidClassDefs.CONTEXT, "context")
-				.addParameter(AndroidClassDefs.TYPED_ARRAY, "attrs")
+				.addParameter(AndroidClassNames.CONTEXT, "context")
+				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs")
 				.addCode(methodBody)
 				.build();
 	}
