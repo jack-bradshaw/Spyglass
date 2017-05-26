@@ -15,125 +15,69 @@ import com.matthewtamlin.spyglass.annotations.use_annotations.UseString;
 public class Data {
 	public static final String PLACEHOLDER = "value";
 
-	public static final String ELEMENT_ID_WITH_PLACEHOLDER = "with placeholder";
-
-	public static final String ELEMENT_ID_WITHOUT_PLACEHOLDER = "without placeholder";
-
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(value = "method()", failureMessage = "Failed test for zero-param method.")
+	@ElementId("no use annotation without extra arg")
 	public void method() {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(" + PLACEHOLDER + ")",
-			failureMessage = "Failed test for placeholder only method.")
+	@ElementId("no use annotation with extra arg")
 	public void method(Object o) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(value = "method(true)", failureMessage = "Failed @UseBoolean test without placeholder.")
+	@ElementId("boolean without extra arg")
 	public void method(@UseBoolean(true) boolean b) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(false, " + PLACEHOLDER + ")",
-			failureMessage = "Failed @Boolean test with placeholder.")
+	@ElementId("boolean with extra arg")
 	public void method(@UseBoolean(false) boolean b, Object o) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(100)",
-			failureMessage = "Failed @UseByte test without placeholder.")
+	@ElementId("byte without extra arg")
 	public void method(@UseByte(100) byte b) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(-100, " + PLACEHOLDER + ")",
-			failureMessage = "Failed @UseByte test with placeholder.")
+	@ElementId("byte with extra arg")
 	public void method(@UseByte(-100) byte b, Object o) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(\'\\u1D11\')",
-			failureMessage = "Failed @UseChar test without placeholder.")
+	@ElementId("char without extra arg")
 	public void method(@UseChar('\u1D11') char c) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(" + PLACEHOLDER + ", \'\\uF2FF\')",
-			failureMessage = "Failed @UseChar test with placeholder.")
+	@ElementId("char with extra arg")
 	public void method(Object o, @UseChar('\uF2FF') char c) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(100.1)",
-			failureMessage = "Failed @UseDouble test without placeholder.")
+	@ElementId("double without extra arg")
 	public void method(@UseDouble(100.100) double d) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(-100.1, " + PLACEHOLDER + ")",
-			failureMessage = "Failed @UseDouble test with placeholder.")
+	@ElementId("double with extra arg")
 	public void method(@UseDouble(-100.100) double d, Object o) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(value = "method(100.1F)", failureMessage = "Failed @UseFloat test without placeholder.")
+	@ElementId("float without extra arg")
 	public void method(@UseFloat(100.100F) float f) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(-100.1F, " + PLACEHOLDER + ")",
-			failureMessage = "Failed @UseFloat test with placeholder.")
+	@ElementId("float with extra arg")
 	public void method(@UseFloat(-100.100F) float f, Object o) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(value = "method(100)", failureMessage = "Failed @UseInt test without placeholder.")
+	@ElementId("int without extra arg")
 	public void method(@UseInt(100) int i) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(-100, " + PLACEHOLDER + ")",
-			failureMessage = "Failed @UseInt test with placeholder.")
+	@ElementId("int with extra arg")
 	public void method(@UseInt(-100) int i, Object o) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(value = "method(100L)", failureMessage = "Failed @UseLong test without placeholder.")
+	@ElementId("long without extra arg")
 	public void method(@UseLong(100L) long l) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(-100L, " + PLACEHOLDER + ")",
-			failureMessage = "Failed @UseLong test with placeholder.")
+	@ElementId("long with extra arg")
 	public void method(@UseLong(-100L) long l, Object o) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(value = "method(null)", failureMessage = "Failed @UseNull test without placeholder.")
+	@ElementId("null without extra arg")
 	public void method(@UseNull Boolean b) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(null, " + PLACEHOLDER + ")",
-			failureMessage = "Failed @UseNull test with placeholder.")
+	@ElementId("null with extra arg")
 	public void method(@UseNull Boolean b, Object o) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(value = "method(100)", failureMessage = "Failed @UseShort test without placeholder.")
+	@ElementId("short without extra arg")
 	public void method(@UseShort(100) short s) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(-100, " + PLACEHOLDER + ")",
-			failureMessage = "Failed @UseShort test with placeholder.")
+	@ElementId("short with extra arg")
 	public void method(@UseShort(-100) short s, Object o) {}
 
-	@ElementId(ELEMENT_ID_WITHOUT_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(\"hello \\\" world \\\\\\\\//\\\\\\\\ !! © some text__ \\\\\")",
-			failureMessage = "Failed @UseString test without placeholder.")
-	public void method(@UseString("hello \" world \\\\//\\\\ !! © some text__ \\") String s) {}
+	@ElementId("string without extra arg")
+	public void method(@UseString("hello world \\ __ \"quote\" // ! ©  ") String s) {}
 
-	@ElementId(ELEMENT_ID_WITH_PLACEHOLDER)
-	@ExpectedResult(
-			value = "method(\"hello \\\" world \\\\\\\\//\\\\\\\\ !! © some text__ \\\\\", " + PLACEHOLDER + ")",
-			failureMessage = "Failed @UseString test with placeholder.")
-	public void method(@UseString("hello \" world \\\\//\\\\ !! © some text__ \\") String s, Object o) {}
+	@ElementId("string with extra arg")
+	public void method(@UseString("hello world \\ __ \"quote\" // ! ©  ") String s, Object o) {}
 }
