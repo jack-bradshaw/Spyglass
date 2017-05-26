@@ -23,7 +23,7 @@ public class InvocationLiteralGenerator {
 		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
 	}
 
-	public String buildLiteralWithoutExtraArg(final ExecutableElement element) {
+	public String generateLiteralWithoutExtraArg(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		final String methodName = element.getSimpleName().toString();
@@ -32,7 +32,7 @@ public class InvocationLiteralGenerator {
 		return methodName + "(" + listToCommaSeparatedString(argLiterals) + ")";
 	}
 
-	public String buildLiteralWithExtraArg(final ExecutableElement element, final String extraArgLiteral) {
+	public String generateLiteralWithExtraArg(final ExecutableElement element, final String extraArgLiteral) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 		checkNotNull(extraArgLiteral, "Argument \'extraArgLiteral\' cannot be null.");
 
