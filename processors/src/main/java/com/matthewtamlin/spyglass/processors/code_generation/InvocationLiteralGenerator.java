@@ -23,39 +23,40 @@ public class InvocationLiteralGenerator {
 		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
 	}
 
-	public String buildInvocationLiteralWithoutExtraArg(final ExecutableElement element) {
+	public String buildLiteralWithoutExtraArg(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		final String methodName = element.getSimpleName().toString();
-		final List<String> argLiterals = getLiteralsFromUseAnnotations(element);
+		final List<String> argLiterals = useAnnotationsToLiterals(element);
 
 		return methodName + "(" + listToCommaSeparatedString(argLiterals) + ")";
 	}
 
-	public String buildInvocationLiteralWithExtraArg(final ExecutableElement element, final String extraArgLiteral) {
+	public String buildLiteralWithExtraArg(final ExecutableElement element, final String extraArgLiteral) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 		checkNotNull(extraArgLiteral, "Argument \'extraArgLiteral\' cannot be null.");
 
 		final String methodName = element.getSimpleName().toString();
-		final List<String> argLiterals = getLiteralsFromUseAnnotations(element);
+		final List<String> argLiterals = useAnnotationsToLiterals(element);
 
+		// A param should be missing a use annotation, so find the null literal and replace with the extra literal
 		argLiterals.set(argLiterals.indexOf(null), extraArgLiteral);
 
 		return element.getSimpleName() + "(" + listToCommaSeparatedString(argLiterals) + ")";
 	}
 
-	private List<String> getLiteralsFromUseAnnotations(final ExecutableElement e) {
+	private List<String> useAnnotationsToLiterals(final ExecutableElement e) {
 		final List<String> argLiterals = new ArrayList<>();
 
 		for (final VariableElement parameter : e.getParameters()) {
 			final AnnotationMirror useAnnotationMirror = UseAnnotationUtil.getUseAnnotationMirror(parameter);
-			argLiterals.add(useAnnotationMirror == null ? null : getLiteralFromAnnotationMirror(useAnnotationMirror));
+			argLiterals.add(useAnnotationMirror == null ? null : annotationMirrorToLiteral(useAnnotationMirror));
 		}
 
 		return argLiterals;
 	}
 
-	private String getLiteralFromAnnotationMirror(final AnnotationMirror mirror) {
+	private String annotationMirrorToLiteral(final AnnotationMirror mirror) {
 		if (mirror.getAnnotationType().toString().equals(UseNull.class.getName())) {
 			return "null";
 		} else {
