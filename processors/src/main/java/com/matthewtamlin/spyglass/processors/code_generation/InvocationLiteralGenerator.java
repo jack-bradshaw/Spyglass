@@ -49,13 +49,7 @@ public class InvocationLiteralGenerator {
 
 		for (final VariableElement parameter : e.getParameters()) {
 			final AnnotationMirror useAnnotationMirror = UseAnnotationUtil.getUseAnnotationMirror(parameter);
-
-			if (useAnnotationMirror == null) {
-				argLiterals.add(null);
-
-			} else {
-				argLiterals.add(getLiteralFromAnnotationMirror(useAnnotationMirror));
-			}
+			argLiterals.add(useAnnotationMirror == null ? null : getLiteralFromAnnotationMirror(useAnnotationMirror));
 		}
 
 		return argLiterals;
