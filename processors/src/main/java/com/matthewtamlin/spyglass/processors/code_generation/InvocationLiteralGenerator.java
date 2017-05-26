@@ -23,25 +23,25 @@ public class InvocationLiteralGenerator {
 		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
 	}
 
-	public String buildInvocationLiteralFor(final ExecutableElement e) {
-		checkNotNull(e, "Argument \'e\' cannot be null.");
+	public String buildInvocationLiteralFor(final ExecutableElement element) {
+		checkNotNull(element, "Argument \'e\' cannot be null.");
 
-		final String methodName = e.getSimpleName().toString();
-		final List<String> argLiterals = getArgLiteralsFromUseAnnotations(e);
+		final String methodName = element.getSimpleName().toString();
+		final List<String> argLiterals = getArgLiteralsFromUseAnnotations(element);
 
 		return methodName + "(" + listToCommaSeparatedString(argLiterals) + ")";
 	}
 
-	public String buildInvocationLiteralFor(final ExecutableElement e, final String extraArgLiteral) {
-		checkNotNull(e, "Argument \'e\' cannot be null.");
+	public String buildInvocationLiteralFor(final ExecutableElement element, final String extraArgLiteral) {
+		checkNotNull(element, "Argument \'e\' cannot be null.");
 		checkNotNull(extraArgLiteral, "Argument \'extraArgLiteral\' cannot be null.");
 
-		final String methodName = e.getSimpleName().toString();
-		final List<String> argLiterals = getArgLiteralsFromUseAnnotations(e);
+		final String methodName = element.getSimpleName().toString();
+		final List<String> argLiterals = getArgLiteralsFromUseAnnotations(element);
 
 		argLiterals.set(argLiterals.indexOf(null), extraArgLiteral);
 
-		return e.getSimpleName() + "(" + listToCommaSeparatedString(argLiterals) + ")";
+		return element.getSimpleName() + "(" + listToCommaSeparatedString(argLiterals) + ")";
 	}
 
 	private List<String> getArgLiteralsFromUseAnnotations(final ExecutableElement e) {
