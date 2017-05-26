@@ -17,7 +17,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @Tested(testMethod = "automated")
 public class InvocationLiteralGenerator {
-	private Elements elementsUtil;
+	private final Elements elementsUtil;
 
 	public InvocationLiteralGenerator(final Elements elementsUtil) {
 		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
