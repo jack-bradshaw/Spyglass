@@ -43,7 +43,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testValidateElement_withPlaceholder() throws CompilerMissingException {
+	public void testBuildInvocationLiteralFor_withPlaceholder() throws CompilerMissingException {
 		for (final Element element : withPlaceholderElements) {
 			final ExpectedResult expectedResultAnnotation = element.getAnnotation(ExpectedResult.class);
 
@@ -56,7 +56,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testValidateElement_withoutPlaceholder() throws CompilerMissingException {
+	public void testBuildInvocationLiteralFor_withoutPlaceholder() throws CompilerMissingException {
 		for (final Element element : withoutPlaceholderElements) {
 			final ExpectedResult expectedResultAnnotation = element.getAnnotation(ExpectedResult.class);
 
