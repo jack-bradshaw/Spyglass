@@ -24,6 +24,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.FINAL;
@@ -41,6 +42,8 @@ public class CallerComponentGenerator {
 
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS;
+
+	private final Elements elementsUtil;
 
 	{
 		SHOULD_CALL_METHOD_BODY_SUPPLIERS = new HashMap<>();
@@ -568,6 +571,10 @@ public class CallerComponentGenerator {
 					}
 				}
 		);
+	}
+
+	public CallerComponentGenerator(final Elements elementsUtil) {
+		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
 	}
 
 	/**
