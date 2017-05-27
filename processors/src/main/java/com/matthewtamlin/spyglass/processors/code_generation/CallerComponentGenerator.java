@@ -591,7 +591,7 @@ public class CallerComponentGenerator {
 	 * @throws IllegalArgumentException
 	 * 		if {@code annotation} is null
 	 */
-	public static MethodSpec buildShouldCallMethodSpecFor(final AnnotationMirror anno) {
+	public static MethodSpec generateShouldCallMethodSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
@@ -612,7 +612,7 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	public static MethodSpec buildValueIsAvailableSpecFor(final AnnotationMirror anno) {
+	public static MethodSpec generateValueIsAvailableSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
@@ -632,7 +632,7 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	public static MethodSpec buildGetValueSpecFor(final AnnotationMirror anno) {
+	public static MethodSpec generateGetValueSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
@@ -652,7 +652,7 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	public static MethodSpec buildGetDefaultValueSpecFor(final AnnotationMirror anno) {
+	public static MethodSpec generateGetDefaultValueSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
