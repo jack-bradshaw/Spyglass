@@ -38,13 +38,13 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 public class CallerComponentGenerator {
 	private static final TypeName ENUM_UTIL_TYPE_NAME = ClassName.get(EnumUtil.class);
 
-	private static final String SHOULD_CALL_METHOD_METHOD_NAME = "shouldCallMethod";
+	public static final String SHOULD_CALL_METHOD_METHOD_NAME = "shouldCallMethod";
 
-	private static final String VALUE_IS_AVAILABLE_METHOD_NAME = "valueIsAvailable";
+	public static final String VALUE_IS_AVAILABLE_METHOD_NAME = "valueIsAvailable";
 
-	private static final String GET_VALUE_METHOD_NAME = "getValue";
+	public static final String GET_VALUE_METHOD_NAME = "getValue";
 
-	private static final String GET_DEFAULT_VALUE_METHOD_NAME = "getDefaultValue";
+	public static final String GET_DEFAULT_VALUE_METHOD_NAME = "getDefaultValue";
 
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			SHOULD_CALL_METHOD_BODY_SUPPLIERS;
