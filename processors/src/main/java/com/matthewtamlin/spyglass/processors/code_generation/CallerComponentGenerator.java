@@ -16,7 +16,6 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.IntegerH
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextArrayHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHandler;
-import com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUtil;
 import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processors.util.EnumUtil;
 import com.squareup.javapoet.ClassName;
@@ -32,6 +31,7 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+import static com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUtil.getAnnotationValueWithDefaults;
 import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
@@ -68,8 +68,6 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int ordinal = getValueFromAnnotationMirror(object, "ordinal");
-
 						return CodeBlock
 								.builder()
 								.addStatement("final int value1 = attrs.getInt($L, 1)", getAttributeId(object))
@@ -81,7 +79,7 @@ public class CallerComponentGenerator {
 								.beginControlFlow("if (defaultConsistentlyReturned)")
 								.addStatement("return false")
 								.nextControlFlow("else")
-								.addStatement("return value1 == $L", ordinal)
+								.addStatement("return value1 == $L", getValueLiteral(object, "ordinal"))
 								.endControlFlow()
 								.build();
 					}
@@ -93,8 +91,6 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int handledFlags = getValueFromAnnotationMirror(object, "handledFlags");
-
 						return CodeBlock
 								.builder()
 								.addStatement("final int value1 = attrs.getInt($L, 1)", getAttributeId(object))
@@ -106,7 +102,7 @@ public class CallerComponentGenerator {
 								.beginControlFlow("if (defaultConsistentlyReturned)")
 								.addStatement("return false")
 								.nextControlFlow("else")
-								.addStatement("return (value1 & $L) > 0", handledFlags)
+								.addStatement("return (value1 & $L) > 0", getValueLiteral(object, "handledFlags"))
 								.endControlFlow()
 								.build();
 					}
@@ -124,8 +120,10 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final boolean value1 = attrs.getBoolean($L, false)", getAttributeId(object))
-								.addStatement("final boolean value2 = attrs.getBoolean($L, true)", getAttributeId(object))
+								.addStatement("final boolean value1 = attrs.getBoolean($L, false)",
+										getAttributeId(object))
+								.addStatement("final boolean value2 = attrs.getBoolean($L, true)",
+										getAttributeId(object))
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == false && value2 == true")
@@ -349,8 +347,8 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						return CodeBlock.
-								builder()
+						return CodeBlock
+								.builder()
 								.add("return attrs.getBoolean($L, false)", getAttributeId(object))
 								.build();
 					}
@@ -446,7 +444,8 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getFloat($L, Float.NEGATIVE_INFINITY)", getAttributeId(object))
+								.addStatement("return attrs.getFloat($L, Float.NEGATIVE_INFINITY)",
+										getAttributeId(object))
 								.build();
 					}
 				}
@@ -457,16 +456,13 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int baseMultiplier = getValueFromAnnotationMirror(object, "baseMultiplier");
-						final int parentMultiplier = getValueFromAnnotationMirror(object, "parentMultiplier");
-
 						return CodeBlock
 								.builder()
 								.addStatement(
 										"return attrs.getFraction($L, $L, $L, Float.NEGATIVE_INFINITY)",
 										getAttributeId(object),
-										baseMultiplier,
-										parentMultiplier)
+										getValueLiteral(object, "baseMultiplier"),
+										getValueLiteral(object, "parentMultiplier"))
 								.build();
 					}
 				}
@@ -648,7 +644,7 @@ public class CallerComponentGenerator {
 
 	@SuppressWarnings("unchecked") // Unchecked exceptions are managed externally
 	private <T> T getValueFromAnnotationMirror(final AnnotationMirror mirror, final String key) {
-		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, key, elementsUtil);
+		final AnnotationValue value = getAnnotationValueWithDefaults(mirror, key, elementsUtil);
 
 		if (value == null) {
 			return null;
@@ -658,9 +654,18 @@ public class CallerComponentGenerator {
 	}
 
 	private String getAttributeId(final AnnotationMirror mirror) {
-		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+		final AnnotationValue value = getAnnotationValueWithDefaults(
 				mirror,
 				"attributeId",
+				elementsUtil);
+
+		return value.toString();
+	}
+
+	private String getValueLiteral(final AnnotationMirror mirror, final String key) {
+		final AnnotationValue value = getAnnotationValueWithDefaults(
+				mirror,
+				key,
 				elementsUtil);
 
 		return value.toString();
