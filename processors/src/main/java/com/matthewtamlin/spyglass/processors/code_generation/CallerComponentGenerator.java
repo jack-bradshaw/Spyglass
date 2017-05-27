@@ -591,14 +591,17 @@ public class CallerComponentGenerator {
 	 * @throws IllegalArgumentException
 	 * 		if {@code annotation} is null
 	 */
-	public static MethodSpec buildShouldCallMethodSpecFor(final Annotation anno) {
+	public static MethodSpec buildShouldCallMethodSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
-		if (!CALL_HANDLER_ANNOTATIONS.contains(anno.annotationType())) {
-			throw new IllegalArgumentException("Argument \'anno\' must be a call handler annotation.");
+		final String annotationTypeName = anno.getAnnotationType().toString();
+
+		if (!SHOULD_CALL_METHOD_BODY_SUPPLIERS.containsKey(annotationTypeName)) {
+			throw new IllegalArgumentException("Argument \'anno\' must be a mirror of a call handler annotation.");
 		}
 
-		final CodeBlock methodBody = SHOULD_CALL_METHOD_BODY_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
+
+		final CodeBlock methodBody = SHOULD_CALL_METHOD_BODY_SUPPLIERS.get(annotationTypeName).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("shouldCallMethod")
@@ -609,14 +612,16 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	public static MethodSpec buildValueIsAvailableSpecFor(final Annotation anno) {
+	public static MethodSpec buildValueIsAvailableSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
-		if (!VALUE_HANDLER_ANNOTATIONS.contains(anno.annotationType())) {
-			throw new IllegalArgumentException("Argument \'anno\' must be a value handler annotation.");
+		final String annotationTypeName = anno.getAnnotationType().toString();
+
+		if (!VALUE_IS_AVAILABLE_BODY_SUPPLIERS.containsKey(annotationTypeName)) {
+			throw new IllegalArgumentException("Argument \'anno\' must be a mirror of a value handler annotation.");
 		}
 
-		final CodeBlock methodBody = VALUE_IS_AVAILABLE_BODY_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
+		final CodeBlock methodBody = VALUE_IS_AVAILABLE_BODY_SUPPLIERS.get(annotationTypeName).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("valueIsAvailable")
@@ -627,14 +632,16 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	public static MethodSpec buildGetValueSpecFor(final Annotation anno) {
+	public static MethodSpec buildGetValueSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
-		if (!VALUE_HANDLER_ANNOTATIONS.contains(anno.annotationType())) {
-			throw new IllegalArgumentException("Argument \'anno\' must be a value handler annotation.");
+		final String annotationTypeName = anno.getAnnotationType().toString();
+
+		if (!GET_VALUE_METHOD_BODY_SUPPLIERS.containsKey(annotationTypeName)) {
+			throw new IllegalArgumentException("Argument \'anno\' must be a mirror of a value handler annotation.");
 		}
 
-		final CodeBlock methodBody = GET_VALUE_METHOD_BODY_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
+		final CodeBlock methodBody = GET_VALUE_METHOD_BODY_SUPPLIERS.get(annotationTypeName).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("getValue")
@@ -645,14 +652,16 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	public static MethodSpec buildGetDefaultValueSpecFor(final Annotation anno) {
+	public static MethodSpec buildGetDefaultValueSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
-		if (!DEFAULT_ANNOTATIONS.contains(anno.annotationType())) {
+		final String annotationTypeName = anno.getAnnotationType().toString();
+
+		if (!GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.containsKey(annotationTypeName)) {
 			throw new IllegalArgumentException("Argument \'anno\' must be a default annotation.");
 		}
 
-		final CodeBlock methodBody = GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.get(anno.annotationType()).supplyFor(anno);
+		final CodeBlock methodBody = GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.get(annotationTypeName).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("getDefaultValue")
