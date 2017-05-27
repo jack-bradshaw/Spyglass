@@ -205,8 +205,8 @@ public class CallerComponentGenerator {
 
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = array.getInt($L, 1);", anno.attributeId())
-								.addStatement("final int value2 = array.getInt($L, 2);", anno.attributeId())
+								.addStatement("final int value1 = array.getInt($L, 1)", anno.attributeId())
+								.addStatement("final int value2 = array.getInt($L, 2)", anno.attributeId())
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == 1 && value2 == 2")
@@ -226,8 +226,8 @@ public class CallerComponentGenerator {
 
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = array.getInt($L, 1);", anno.attributeId())
-								.addStatement("final int value2 = array.getInt($L, 2);", anno.attributeId())
+								.addStatement("final int value1 = array.getInt($L, 1)", anno.attributeId())
+								.addStatement("final int value2 = array.getInt($L, 2)", anno.attributeId())
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == 1 && value2 == 2")
