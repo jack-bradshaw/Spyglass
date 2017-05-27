@@ -68,13 +68,12 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
 						final int ordinal = getValueFromAnnotationMirror(object, "ordinal");
 
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = attrs.getInt($L, 1)", attributeId)
-								.addStatement("final int value2 = attrs.getInt($L, 2)", attributeId)
+								.addStatement("final int value1 = attrs.getInt($L, 1)", getAttributeId(object))
+								.addStatement("final int value2 = attrs.getInt($L, 2)", getAttributeId(object))
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"(value1 == 1) && (value2 == 2)")
@@ -94,13 +93,12 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
 						final int handledFlags = getValueFromAnnotationMirror(object, "handledFlags");
 
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = attrs.getInt($L, 1)", attributeId)
-								.addStatement("final int value2 = attrs.getInt($L, 2)", attributeId)
+								.addStatement("final int value1 = attrs.getInt($L, 1)", getAttributeId(object))
+								.addStatement("final int value2 = attrs.getInt($L, 2)", getAttributeId(object))
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == 1 && value2 == 2")
@@ -124,12 +122,10 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("final boolean value1 = attrs.getBoolean($L, false)", attributeId)
-								.addStatement("final boolean value2 = attrs.getBoolean($L, true)", attributeId)
+								.addStatement("final boolean value1 = attrs.getBoolean($L, false)", getAttributeId(object))
+								.addStatement("final boolean value2 = attrs.getBoolean($L, true)", getAttributeId(object))
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == false && value2 == true")
@@ -145,12 +141,10 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = attrs.getColor($L, 1)", attributeId)
-								.addStatement("final int value2 = attrs.getColor($L, 2)", attributeId)
+								.addStatement("final int value1 = attrs.getColor($L, 1)", getAttributeId(object))
+								.addStatement("final int value2 = attrs.getColor($L, 2)", getAttributeId(object))
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == 1 && value2 == 2")
@@ -166,11 +160,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getColorStateList($L) != null", attributeId)
+								.addStatement("return attrs.getColorStateList($L) != null", getAttributeId(object))
 								.build();
 					}
 				}
@@ -181,14 +173,12 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
 								.addStatement("final float value1 = attrs.getDimension($L, Float.NEGATIVE_INFINITY)",
-										attributeId)
+										getAttributeId(object))
 								.addStatement("final float value2 = attrs.getDimension($L, Float.POSITIVE_INFINITY)",
-										attributeId)
+										getAttributeId(object))
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == Float.NEGATIVE_INFINITY && value2 == Float.POSITIVE_INFINITY")
@@ -204,11 +194,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getDrawable($L) != null", attributeId)
+								.addStatement("return attrs.getDrawable($L) != null", getAttributeId(object))
 								.build();
 					}
 				}
@@ -219,12 +207,10 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = array.getInt($L, 1)", attributeId)
-								.addStatement("final int value2 = array.getInt($L, 2)", attributeId)
+								.addStatement("final int value1 = array.getInt($L, 1)", getAttributeId(object))
+								.addStatement("final int value2 = array.getInt($L, 2)", getAttributeId(object))
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == 1 && value2 == 2")
@@ -240,12 +226,10 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = array.getInt($L, 1)", attributeId)
-								.addStatement("final int value2 = array.getInt($L, 2)", attributeId)
+								.addStatement("final int value1 = array.getInt($L, 1)", getAttributeId(object))
+								.addStatement("final int value2 = array.getInt($L, 2)", getAttributeId(object))
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == 1 && value2 == 2")
@@ -261,14 +245,12 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
 								.addStatement("final float value1 = attrs.getFloat($L, Float.NEGATIVE_INFINITY)",
-										attributeId)
+										getAttributeId(object))
 								.addStatement("final float value2 = attrs.getFloat($L, Float.POSITIVE_INFINITY)",
-										attributeId)
+										getAttributeId(object))
 								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == Float.NEGATIVE_INFINITY && value2 == Float.POSITIVE_INFINITY")
@@ -284,14 +266,12 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
 								.addStatement("final float value1 = attrs.getFraction(" +
-										"$L, 1, 1, Float.NEGATIVE_INFINITY)", attributeId)
+										"$L, 1, 1, Float.NEGATIVE_INFINITY)", getAttributeId(object))
 								.addStatement("final float value2 = attrs.getFraction(" +
-										"$L, 1, 1, Float.POSITIVE_INFINITY)", attributeId)
+										"$L, 1, 1, Float.POSITIVE_INFINITY)", getAttributeId(object))
 								.addStatement("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == Float.NEGATIVE_INFINITY && value2 == Float.POSITIVE_INFINITY")
@@ -307,12 +287,10 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = attrs.getInt($L, 1)", attributeId)
-								.addStatement("final int value2 = attrs.getInt($L, 2)", attributeId)
+								.addStatement("final int value1 = attrs.getInt($L, 1)", getAttributeId(object))
+								.addStatement("final int value2 = attrs.getInt($L, 2)", getAttributeId(object))
 								.addStatement("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == 1 && value2 == 2")
@@ -328,11 +306,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.hasValue($L)", attributeId)
+								.addStatement("return attrs.hasValue($L)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -343,11 +319,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getTextArray($L) != null", attributeId)
+								.addStatement("return attrs.getTextArray($L) != null", getAttributeId(object))
 								.build();
 					}
 				}
@@ -358,11 +332,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getText($L) != null", attributeId)
+								.addStatement("return attrs.getText($L) != null", getAttributeId(object))
 								.build();
 					}
 				}
@@ -377,11 +349,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock.
 								builder()
-								.add("return attrs.getBoolean($L, false)", attributeId)
+								.add("return attrs.getBoolean($L, false)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -392,11 +362,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getColor($L, 1)", attributeId)
+								.addStatement("return attrs.getColor($L, 1)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -407,11 +375,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getColorStateList($L)", attributeId)
+								.addStatement("return attrs.getColorStateList($L)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -422,12 +388,10 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
 								.addStatement("return attrs.getDimension($L, Float.NEGATIVE_INFINITY)",
-										attributeId)
+										getAttributeId(object))
 								.build();
 					}
 				}
@@ -438,11 +402,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getDrawable($L)", attributeId)
+								.addStatement("return attrs.getDrawable($L)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -453,12 +415,11 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
 						final Class<? extends Enum> enumClass = getValueFromAnnotationMirror(object, "enumClass");
 
 						return CodeBlock
 								.builder()
-								.addStatement("final int ordinal = attrs.getInt($L, 0)", attributeId)
+								.addStatement("final int ordinal = attrs.getInt($L, 0)", getAttributeId(object))
 								.addStatement("return $T.getEnumConstant($L, ordinal)", ENUM_UTIL_TYPE_NAME, enumClass)
 								.build();
 					}
@@ -470,11 +431,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return array.getInt($L, 1)", attributeId)
+								.addStatement("return array.getInt($L, 1)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -485,11 +444,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getFloat($L, Float.NEGATIVE_INFINITY)", attributeId)
+								.addStatement("return attrs.getFloat($L, Float.NEGATIVE_INFINITY)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -500,7 +457,6 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
 						final int baseMultiplier = getValueFromAnnotationMirror(object, "baseMultiplier");
 						final int parentMultiplier = getValueFromAnnotationMirror(object, "parentMultiplier");
 
@@ -508,7 +464,7 @@ public class CallerComponentGenerator {
 								.builder()
 								.addStatement(
 										"return attrs.getFraction($L, $L, $L, Float.NEGATIVE_INFINITY)",
-										attributeId,
+										getAttributeId(object),
 										baseMultiplier,
 										parentMultiplier)
 								.build();
@@ -521,11 +477,11 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
+						final int getAttributeId(object) = getValueFromAnnotationMirror(object, "getAttributeId(object)");
 
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getInt($L, 1)", attributeId)
+								.addStatement("return attrs.getInt($L, 1)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -536,11 +492,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getString($L)", attributeId)
+								.addStatement("return attrs.getString($L)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -551,11 +505,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getTextArray($L)", attributeId)
+								.addStatement("return attrs.getTextArray($L)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -566,11 +518,9 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int attributeId = getValueFromAnnotationMirror(object, "attributeId");
-
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getText($L)", attributeId)
+								.addStatement("return attrs.getText($L)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -707,5 +657,14 @@ public class CallerComponentGenerator {
 		}
 
 		return (T) value.getValue();
+	}
+
+	private String getAttributeId(final AnnotationMirror mirror) {
+		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+				mirror,
+				"attributeId",
+				elementsUtil);
+
+		return value.toString();
 	}
 }
