@@ -477,8 +477,6 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int getAttributeId(object) = getValueFromAnnotationMirror(object, "getAttributeId(object)");
-
 						return CodeBlock
 								.builder()
 								.addStatement("return attrs.getInt($L, 1)", getAttributeId(object))
