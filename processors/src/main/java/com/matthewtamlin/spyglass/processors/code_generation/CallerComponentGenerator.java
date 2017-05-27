@@ -30,19 +30,19 @@ import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 public class CallerComponentGenerator {
-	private static final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
+	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			SHOULD_CALL_METHOD_BODY_SUPPLIERS;
 
-	private static final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
+	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			VALUE_IS_AVAILABLE_BODY_SUPPLIERS;
 
-	private static final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
+	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			GET_VALUE_METHOD_BODY_SUPPLIERS;
 
-	private static final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
+	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS;
 
-	static {
+	{
 		SHOULD_CALL_METHOD_BODY_SUPPLIERS = new HashMap<>();
 
 		SHOULD_CALL_METHOD_BODY_SUPPLIERS.put(
@@ -96,7 +96,7 @@ public class CallerComponentGenerator {
 		);
 	}
 
-	static {
+	{
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS = new HashMap<>();
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
@@ -349,7 +349,7 @@ public class CallerComponentGenerator {
 		);
 	}
 
-	static {
+	{
 		GET_VALUE_METHOD_BODY_SUPPLIERS = new HashMap<>();
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
@@ -551,7 +551,7 @@ public class CallerComponentGenerator {
 		);
 	}
 
-	static {
+	{
 		GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS = new HashMap<>();
 
 		GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.put(
@@ -587,7 +587,7 @@ public class CallerComponentGenerator {
 	 * @throws IllegalArgumentException
 	 * 		if {@code annotation} is null
 	 */
-	public static MethodSpec generateShouldCallMethodSpecFor(final AnnotationMirror anno) {
+	public MethodSpec generateShouldCallMethodSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
@@ -608,7 +608,7 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	public static MethodSpec generateValueIsAvailableSpecFor(final AnnotationMirror anno) {
+	public MethodSpec generateValueIsAvailableSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
@@ -628,7 +628,7 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	public static MethodSpec generateGetValueSpecFor(final AnnotationMirror anno) {
+	public MethodSpec generateGetValueSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
@@ -648,7 +648,7 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	public static MethodSpec generateGetDefaultValueSpecFor(final AnnotationMirror anno) {
+	public MethodSpec generateGetDefaultValueSpecFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
