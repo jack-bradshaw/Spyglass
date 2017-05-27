@@ -368,6 +368,189 @@ public class CallerComponentGenerator {
 					}
 				}
 		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				ColorHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final ColorHandler anno = (ColorHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return attrs.getColor($L, 1)", anno.attributeId())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				ColorStateListHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final ColorStateListHandler anno = (ColorStateListHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return attrs.getColorStateList($L)", anno.attributeId())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				DimensionHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final DimensionHandler anno = (DimensionHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return attrs.getDimension($L, Float.NEGATIVE_INFINITY)",
+										anno.attributeId())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				DrawableHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final DrawableHandler anno = (DrawableHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return attrs.getDrawable($L)", anno.attributeId())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				EnumConstantHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final EnumConstantHandler anno = (EnumConstantHandler) object;
+
+						//TODO
+						return null;
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				EnumOrdinalHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final EnumOrdinalHandler anno = (EnumOrdinalHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return array.getInt($L, 1)", anno.attributeId())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				FloatHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final FloatHandler anno = (FloatHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return attrs.getFloat($L, Float.NEGATIVE_INFINITY)", anno.attributeId())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				FractionHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final FractionHandler anno = (FractionHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"return attrs.getFraction($L, $L, $L, Float.NEGATIVE_INFINITY)",
+										anno.attributeId(),
+										anno.baseMultiplier(),
+										anno.parentMultiplier())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				IntegerHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final IntegerHandler anno = (IntegerHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return attrs.getInt($L, 1)", anno.attributeId())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				StringHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final StringHandler anno = (StringHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return attrs.getString($L)", anno.attributeId())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				TextArrayHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final TextArrayHandler anno = (TextArrayHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return attrs.getTextArray($L)", anno.attributeId())
+								.build();
+					}
+				}
+		);
+
+		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+				TextHandler.class,
+				new ParametrisedSupplier<Annotation, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final Annotation object) {
+						final TextHandler anno = (TextHandler) object;
+
+						return CodeBlock
+								.builder()
+								.addStatement("return attrs.getText($L)", anno.attributeId())
+								.build();
+					}
+				}
+		);
 	}
 
 	static {
