@@ -24,6 +24,8 @@ import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.lang.model.element.AnnotationMirror;
+
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.CALL_HANDLER_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFAULT_ANNOTATIONS;
@@ -32,26 +34,26 @@ import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 public class CallerComponentGenerator {
-	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
+	private static final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			SHOULD_CALL_METHOD_BODY_SUPPLIERS;
 
-	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
+	private static final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			VALUE_IS_AVAILABLE_BODY_SUPPLIERS;
 
-	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
+	private static final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			GET_VALUE_METHOD_BODY_SUPPLIERS;
 
-	private static final Map<Class<? extends Annotation>, ParametrisedSupplier<Annotation, CodeBlock>>
+	private static final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS;
 
 	static {
 		SHOULD_CALL_METHOD_BODY_SUPPLIERS = new HashMap<>();
 
 		SHOULD_CALL_METHOD_BODY_SUPPLIERS.put(
-				SpecificEnumHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				SpecificEnumHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final SpecificEnumHandler anno = (SpecificEnumHandler) object;
 
 						return CodeBlock
@@ -73,10 +75,10 @@ public class CallerComponentGenerator {
 		);
 
 		SHOULD_CALL_METHOD_BODY_SUPPLIERS.put(
-				SpecificFlagHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				SpecificFlagHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final SpecificFlagHandler anno = (SpecificFlagHandler) object;
 
 						return CodeBlock
@@ -102,10 +104,10 @@ public class CallerComponentGenerator {
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS = new HashMap<>();
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				BooleanHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				BooleanHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final BooleanHandler anno = (BooleanHandler) object;
 
 						return CodeBlock
@@ -123,10 +125,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				ColorHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				ColorHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final ColorHandler anno = (ColorHandler) object;
 
 						return CodeBlock
@@ -144,10 +146,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				ColorStateListHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				ColorStateListHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final ColorStateListHandler anno = (ColorStateListHandler) object;
 
 						return CodeBlock
@@ -159,10 +161,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				DimensionHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				DimensionHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final DimensionHandler anno = (DimensionHandler) object;
 
 						return CodeBlock
@@ -182,10 +184,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				DrawableHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				DrawableHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final DrawableHandler anno = (DrawableHandler) object;
 
 						return CodeBlock
@@ -197,10 +199,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				EnumConstantHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				EnumConstantHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final EnumConstantHandler anno = (EnumConstantHandler) object;
 
 						return CodeBlock
@@ -218,10 +220,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				EnumOrdinalHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				EnumOrdinalHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final EnumOrdinalHandler anno = (EnumOrdinalHandler) object;
 
 						return CodeBlock
@@ -239,10 +241,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				FloatHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				FloatHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final FloatHandler anno = (FloatHandler) object;
 
 						return CodeBlock
@@ -262,10 +264,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				FractionHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				FractionHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final FractionHandler anno = (FractionHandler) object;
 
 						return CodeBlock
@@ -285,10 +287,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				IntegerHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				IntegerHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final IntegerHandler anno = (IntegerHandler) object;
 
 						return CodeBlock
@@ -306,10 +308,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				StringHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				StringHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final StringHandler anno = (StringHandler) object;
 
 						return CodeBlock
@@ -321,10 +323,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				TextArrayHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				TextArrayHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final TextArrayHandler anno = (TextArrayHandler) object;
 
 						return CodeBlock
@@ -336,10 +338,10 @@ public class CallerComponentGenerator {
 		);
 
 		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
-				TextHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				TextHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final TextHandler anno = (TextHandler) object;
 
 						return CodeBlock
@@ -355,10 +357,10 @@ public class CallerComponentGenerator {
 		GET_VALUE_METHOD_BODY_SUPPLIERS = new HashMap<>();
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				BooleanHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				BooleanHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final BooleanHandler anno = (BooleanHandler) object;
 
 						return CodeBlock.
@@ -370,10 +372,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				ColorHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				ColorHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final ColorHandler anno = (ColorHandler) object;
 
 						return CodeBlock
@@ -385,10 +387,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				ColorStateListHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				ColorStateListHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final ColorStateListHandler anno = (ColorStateListHandler) object;
 
 						return CodeBlock
@@ -400,10 +402,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				DimensionHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				DimensionHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final DimensionHandler anno = (DimensionHandler) object;
 
 						return CodeBlock
@@ -416,10 +418,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				DrawableHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				DrawableHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final DrawableHandler anno = (DrawableHandler) object;
 
 						return CodeBlock
@@ -431,10 +433,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				EnumConstantHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				EnumConstantHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final EnumConstantHandler anno = (EnumConstantHandler) object;
 
 						//TODO
@@ -444,10 +446,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				EnumOrdinalHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				EnumOrdinalHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final EnumOrdinalHandler anno = (EnumOrdinalHandler) object;
 
 						return CodeBlock
@@ -459,10 +461,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				FloatHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				FloatHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final FloatHandler anno = (FloatHandler) object;
 
 						return CodeBlock
@@ -474,10 +476,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				FractionHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				FractionHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final FractionHandler anno = (FractionHandler) object;
 
 						return CodeBlock
@@ -493,10 +495,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				IntegerHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				IntegerHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final IntegerHandler anno = (IntegerHandler) object;
 
 						return CodeBlock
@@ -508,10 +510,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				StringHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				StringHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final StringHandler anno = (StringHandler) object;
 
 						return CodeBlock
@@ -523,10 +525,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				TextArrayHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				TextArrayHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final TextArrayHandler anno = (TextArrayHandler) object;
 
 						return CodeBlock
@@ -538,10 +540,10 @@ public class CallerComponentGenerator {
 		);
 
 		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
-				TextHandler.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				TextHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final TextHandler anno = (TextHandler) object;
 
 						return CodeBlock
@@ -557,10 +559,10 @@ public class CallerComponentGenerator {
 		GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS = new HashMap<>();
 
 		GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.put(
-				DefaultToBoolean.class,
-				new ParametrisedSupplier<Annotation, CodeBlock>() {
+				DefaultToBoolean.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
-					public CodeBlock supplyFor(final Annotation object) {
+					public CodeBlock supplyFor(final AnnotationMirror object) {
 						final DefaultToBoolean anno = (DefaultToBoolean) object;
 
 						return CodeBlock
