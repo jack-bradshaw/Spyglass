@@ -47,23 +47,23 @@ public class CallerComponentGenerator {
 	private static final TypeName ENUM_UTIL_TYPE_NAME = ClassName.get(EnumUtil.class);
 
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
-			SHOULD_CALL_METHOD_BODY_SUPPLIERS;
+			shouldCallMethodMethodBodySuppliers;
 
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
-			VALUE_IS_AVAILABLE_BODY_SUPPLIERS;
+			valueIsAvailableBodySuppliers;
 
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
-			GET_VALUE_METHOD_BODY_SUPPLIERS;
+			getValueMethodBodySuppliers;
 
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
-			GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS;
+			getDefaultValueMethodBodySuppliers;
 
 	private final Elements elementsUtil;
 
 	{
-		SHOULD_CALL_METHOD_BODY_SUPPLIERS = new HashMap<>();
+		shouldCallMethodMethodBodySuppliers = new HashMap<>();
 
-		SHOULD_CALL_METHOD_BODY_SUPPLIERS.put(
+		shouldCallMethodMethodBodySuppliers.put(
 				SpecificEnumHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -89,7 +89,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		SHOULD_CALL_METHOD_BODY_SUPPLIERS.put(
+		shouldCallMethodMethodBodySuppliers.put(
 				SpecificFlagHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -117,9 +117,9 @@ public class CallerComponentGenerator {
 	}
 
 	{
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS = new HashMap<>();
+		valueIsAvailableBodySuppliers = new HashMap<>();
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				BooleanHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -140,7 +140,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				ColorHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -161,7 +161,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				ColorStateListHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -176,7 +176,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				DimensionHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -199,7 +199,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				DrawableHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -214,7 +214,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				EnumConstantHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -235,7 +235,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				EnumOrdinalHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -256,7 +256,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				FloatHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -279,7 +279,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				FractionHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -302,7 +302,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				IntegerHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -323,7 +323,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				StringHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -338,7 +338,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				TextArrayHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -353,7 +353,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		VALUE_IS_AVAILABLE_BODY_SUPPLIERS.put(
+		valueIsAvailableBodySuppliers.put(
 				TextHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -370,9 +370,9 @@ public class CallerComponentGenerator {
 	}
 
 	{
-		GET_VALUE_METHOD_BODY_SUPPLIERS = new HashMap<>();
+		getValueMethodBodySuppliers = new HashMap<>();
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				BooleanHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -387,7 +387,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				ColorHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -402,7 +402,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				ColorStateListHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -417,7 +417,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				DimensionHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -433,7 +433,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				DrawableHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -448,7 +448,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				EnumConstantHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -465,7 +465,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				EnumOrdinalHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -480,7 +480,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				FloatHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -495,7 +495,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				FractionHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -516,7 +516,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				IntegerHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -531,7 +531,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				StringHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -546,7 +546,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				TextArrayHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -561,7 +561,7 @@ public class CallerComponentGenerator {
 				}
 		);
 
-		GET_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getValueMethodBodySuppliers.put(
 				TextHandler.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -578,9 +578,9 @@ public class CallerComponentGenerator {
 	}
 
 	{
-		GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS = new HashMap<>();
+		getDefaultValueMethodBodySuppliers = new HashMap<>();
 
-		GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.put(
+		getDefaultValueMethodBodySuppliers.put(
 				DefaultToBoolean.class.getName(),
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
@@ -622,12 +622,12 @@ public class CallerComponentGenerator {
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
 
-		if (!SHOULD_CALL_METHOD_BODY_SUPPLIERS.containsKey(annotationTypeName)) {
+		if (!shouldCallMethodMethodBodySuppliers.containsKey(annotationTypeName)) {
 			throw new IllegalArgumentException("Argument \'anno\' must be a mirror of a call handler annotation.");
 		}
 
 
-		final CodeBlock methodBody = SHOULD_CALL_METHOD_BODY_SUPPLIERS.get(annotationTypeName).supplyFor(anno);
+		final CodeBlock methodBody = shouldCallMethodMethodBodySuppliers.get(annotationTypeName).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("shouldCallMethod")
@@ -643,11 +643,11 @@ public class CallerComponentGenerator {
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
 
-		if (!VALUE_IS_AVAILABLE_BODY_SUPPLIERS.containsKey(annotationTypeName)) {
+		if (!valueIsAvailableBodySuppliers.containsKey(annotationTypeName)) {
 			throw new IllegalArgumentException("Argument \'anno\' must be a mirror of a value handler annotation.");
 		}
 
-		final CodeBlock methodBody = VALUE_IS_AVAILABLE_BODY_SUPPLIERS.get(annotationTypeName).supplyFor(anno);
+		final CodeBlock methodBody = valueIsAvailableBodySuppliers.get(annotationTypeName).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("valueIsAvailable")
@@ -663,11 +663,11 @@ public class CallerComponentGenerator {
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
 
-		if (!GET_VALUE_METHOD_BODY_SUPPLIERS.containsKey(annotationTypeName)) {
+		if (!getValueMethodBodySuppliers.containsKey(annotationTypeName)) {
 			throw new IllegalArgumentException("Argument \'anno\' must be a mirror of a value handler annotation.");
 		}
 
-		final CodeBlock methodBody = GET_VALUE_METHOD_BODY_SUPPLIERS.get(annotationTypeName).supplyFor(anno);
+		final CodeBlock methodBody = getValueMethodBodySuppliers.get(annotationTypeName).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("getValue")
@@ -683,11 +683,11 @@ public class CallerComponentGenerator {
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
 
-		if (!GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.containsKey(annotationTypeName)) {
+		if (!getDefaultValueMethodBodySuppliers.containsKey(annotationTypeName)) {
 			throw new IllegalArgumentException("Argument \'anno\' must be a default annotation.");
 		}
 
-		final CodeBlock methodBody = GET_DEFAULT_VALUE_METHOD_BODY_SUPPLIERS.get(annotationTypeName).supplyFor(anno);
+		final CodeBlock methodBody = getDefaultValueMethodBodySuppliers.get(annotationTypeName).supplyFor(anno);
 
 		return MethodSpec
 				.methodBuilder("getDefaultValue")
