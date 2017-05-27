@@ -626,7 +626,6 @@ public class CallerComponentGenerator {
 			throw new IllegalArgumentException("Argument \'anno\' must be a mirror of a call handler annotation.");
 		}
 
-
 		final CodeBlock methodBody = shouldCallMethodMethodBodySuppliers.get(annotationTypeName).supplyFor(anno);
 
 		return MethodSpec
