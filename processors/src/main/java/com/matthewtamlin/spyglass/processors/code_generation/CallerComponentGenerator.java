@@ -28,6 +28,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -690,8 +691,14 @@ public class CallerComponentGenerator {
 				.build();
 	}
 
-	@SuppressWarnings("unchecked") // Managed externally and by tests
+	@SuppressWarnings("unchecked") // Unchecked exceptions are managed externally
 	private <T> T getValueFromAnnotationMirror(final AnnotationMirror mirror, final String key) {
-		return (T) AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, key, elementsUtil);
+		final AnnotationValue value = AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, key, elementsUtil);
+
+		if (value == null) {
+			return null;
+		}
+
+		return (T) value.getValue();
 	}
 }
