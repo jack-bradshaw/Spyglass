@@ -414,7 +414,7 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						//TODO need to do something here
+						final String enumClass = getValueLiteral(object, "enumClass");
 
 						return CodeBlock
 								.builder()
