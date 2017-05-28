@@ -644,12 +644,7 @@ public class CallerComponentGenerator {
 	}
 
 	private String getAttributeId(final AnnotationMirror mirror) {
-		final AnnotationValue value = getAnnotationValueWithDefaults(
-				mirror,
-				"attributeId",
-				elementsUtil);
-
-		return value.toString();
+		return getValueLiteral(mirror, "attributeId");
 	}
 
 	private String getValueLiteral(final AnnotationMirror mirror, final String key) {
