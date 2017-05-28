@@ -17,6 +17,7 @@ import javax.lang.model.element.VariableElement;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
+import static com.matthewtamlin.spyglass.processors.annotation_utils.UseAnnotationUtil.hasUseAnnotation;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil.hasValueHandlerAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
@@ -213,7 +214,7 @@ public class CompanionClassGenerator {
 
 	private TypeName getTypeNameOfNonUseParameter(final ExecutableElement e) {
 		for (final VariableElement parameter : e.getParameters()) {
-			if (!UseAnnotationUtil.hasUseAnnotation(parameter)) {
+			if (!hasUseAnnotation(parameter)) {
 				return ClassName.get(parameter.asType());
 			}
 		}
