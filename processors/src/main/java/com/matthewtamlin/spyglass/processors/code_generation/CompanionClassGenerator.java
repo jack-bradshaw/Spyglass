@@ -42,12 +42,12 @@ public class CompanionClassGenerator {
 
 	private TypeSpec generateCallerSpec(final ExecutableElement method) {
 		if (hasCallHandlerAnnotation(method)) {
-			return buildCallerForCallHandlerCase(method);
+			return generateCallerForCallHandlerCase(method);
 
 		} else if (hasValueHandlerAnnotation(method)) {
 			return hasDefaultAnnotation(method) ?
-					buildCallerForValueHandlerWithDefaultCase(method) :
-					builderCallerForValueHandlerWithoutDefaultCase(method);
+					generateCallerForValueHandlerWithDefaultCase(method) :
+					generateCallerForValueHandlerWithoutDefaultCase(method);
 
 		} else {
 			throw new IllegalArgumentException("Argument \'method\' has neither a value handler annotation nor a call" +
@@ -55,7 +55,7 @@ public class CompanionClassGenerator {
 		}
 	}
 
-	private TypeSpec buildCallerForCallHandlerCase(final ExecutableElement e) {
+	private TypeSpec generateCallerForCallHandlerCase(final ExecutableElement e) {
 		/* General anonymous caller structure
 
 		new Caller {
@@ -88,7 +88,7 @@ public class CompanionClassGenerator {
 				.build();
 	}
 
-	private TypeSpec builderCallerForValueHandlerWithoutDefaultCase(final ExecutableElement e) {
+	private TypeSpec generateCallerForValueHandlerWithoutDefaultCase(final ExecutableElement e) {
 		/* General caller structure without default
 
 		new Caller {
@@ -133,7 +133,7 @@ public class CompanionClassGenerator {
 				.build();
 	}
 
-	private TypeSpec buildCallerForValueHandlerWithDefaultCase(final ExecutableElement e) {
+	private TypeSpec generateCallerForValueHandlerWithDefaultCase(final ExecutableElement e) {
 		/* General caller structure with default
 
 		new Caller {
