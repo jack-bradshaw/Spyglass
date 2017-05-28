@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processors.util;
 
+import static com.matthewtamlin.java_utilities.checkers.IntChecker.checkGreaterThanOrEqualTo;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class EnumUtil {
@@ -14,5 +15,17 @@ public class EnumUtil {
 		}
 
 		return constants[ordinal];
+	}
+
+	public static Enum<?> getEnumConstant(final String className, final int ordinal) {
+		checkNotNull(className, "Argument \'className' cannot be null.");
+		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \' ordinal cannot be less than 0.");
+
+		try {
+			final Class enumClazz = Class.forName(className);
+			return getEnumConstant(enumClazz, ordinal);
+		} catch (final ClassNotFoundException e) {
+			throw new RuntimeException("Could not find class " + className, e);
+		}
 	}
 }
