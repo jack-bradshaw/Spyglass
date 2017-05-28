@@ -6,6 +6,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 public class EnumUtil {
 	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal) {
 		checkNotNull(clazz, "Argument \'clazz\' cannot be null.");
+		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \' ordinal cannot be less than 0.");
 
 		final T[] constants = clazz.getEnumConstants();
 
