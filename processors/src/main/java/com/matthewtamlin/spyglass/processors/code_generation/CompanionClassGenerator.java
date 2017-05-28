@@ -26,6 +26,19 @@ public class CompanionClassGenerator {
 
 	private final Elements elementUtil;
 
+	private CompanionClassGenerator(final Builder builder) {
+		checkNotNull(builder, "Argument \'builder\' cannot be null.");
+
+		this.targetClass = checkNotNull(builder.targetClass, "Builder target class cannot be null at instantiation.");
+		this.elementUtil = checkNotNull(builder.elementUtil, "Builder element util cannot be null at instantiation.");
+	}
+
+	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
+		final Set<TypeSpec> callerSpecs = generateCallerSpecs(methods);
+
+		return null; //TODO
+	}
+
 	public static Builder builder() {
 		return new Builder();
 	}
@@ -50,19 +63,6 @@ public class CompanionClassGenerator {
 		public CompanionClassGenerator build() {
 			return new CompanionClassGenerator(this);
 		}
-	}
-
-	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
-		final Set<TypeSpec> callerSpecs = generateCallerSpecs(methods);
-
-		return null; //TODO
-	}
-
-	private CompanionClassGenerator(final Builder builder) {
-		checkNotNull(builder, "Argument \'builder\' cannot be null.");
-
-		this.targetClass = checkNotNull(builder.targetClass, "Builder target class cannot be null at instantiation.");
-		this.elementUtil = checkNotNull(builder.elementUtil, "Builder element util cannot be null at instantiation.");
 	}
 
 	private TypeSpec generateCallerSpec(final ExecutableElement method) {
