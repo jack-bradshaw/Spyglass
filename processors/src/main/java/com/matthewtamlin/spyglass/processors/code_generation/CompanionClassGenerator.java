@@ -1,6 +1,5 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
-import com.matthewtamlin.spyglass.processors.annotation_utils.UseAnnotationUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
@@ -13,6 +12,7 @@ import java.util.Set;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
@@ -24,11 +24,32 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 public class CompanionClassGenerator {
 	private final ClassName targetClass;
 
-	public static CompanionClassGenerator forTarget(final String packageName, final String className) {
-		checkNotNull(packageName, "Argument \'packageName\' cannot be null.");
-		checkNotNull(packageName, "Argument \'className\' cannot be null.");
+	private final Elements elementUtil;
 
-		return new CompanionClassGenerator(ClassName.get(packageName, className));
+	public static Builder builder() {
+		return new Builder();
+	}
+
+	public static class Builder {
+		private ClassName targetClass;
+
+		private Elements elementUtil;
+
+		private Builder() {}
+
+		public Builder withTargetClass(final String packageName, final String simpleClassName) {
+			targetClass = ClassName.get(packageName, simpleClassName);
+			return this;
+		}
+
+		public Builder withElementUtil(final Elements elementUtil) {
+			this.elementUtil = elementUtil;
+			return this;
+		}
+
+		public CompanionClassGenerator build() {
+			return new CompanionClassGenerator(this);
+		}
 	}
 
 	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
@@ -37,8 +58,11 @@ public class CompanionClassGenerator {
 		return null; //TODO
 	}
 
-	private CompanionClassGenerator(final ClassName targetClass) {
-		this.targetClass = checkNotNull(targetClass, "Argument \'targetClass\' cannot be null.");
+	private CompanionClassGenerator(final Builder builder) {
+		checkNotNull(builder, "Argument \'builder\' cannot be null.");
+
+		this.targetClass = checkNotNull(builder.targetClass, "Builder target class cannot be null at instantiation.");
+		this.elementUtil = checkNotNull(builder.elementUtil, "Builder element util cannot be null at instantiation.");
 	}
 
 	private TypeSpec generateCallerSpec(final ExecutableElement method) {
