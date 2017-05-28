@@ -16,6 +16,7 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.IntegerH
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextArrayHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHandler;
+import com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUtil;
 import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processors.util.EnumUtil;
 import com.squareup.javapoet.ClassName;
@@ -413,7 +414,7 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final Class<? extends Enum> enumClass = getValueFromAnnotationMirror(object, "enumClass");
+						//TODO need to do something here
 
 						return CodeBlock
 								.builder()
@@ -640,17 +641,6 @@ public class CallerComponentGenerator {
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs")
 				.addCode(methodBody)
 				.build();
-	}
-
-	@SuppressWarnings("unchecked") // Unchecked exceptions are managed externally
-	private <T> T getValueFromAnnotationMirror(final AnnotationMirror mirror, final String key) {
-		final AnnotationValue value = getAnnotationValueWithDefaults(mirror, key, elementsUtil);
-
-		if (value == null) {
-			return null;
-		}
-
-		return (T) value.getValue();
 	}
 
 	private String getAttributeId(final AnnotationMirror mirror) {
