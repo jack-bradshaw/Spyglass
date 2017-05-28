@@ -9,21 +9,15 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil.getCallHandlerAnnotation;
-import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.getDefaultAnnotation;
-import static com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil.getValueHandlerAnnotation;
-import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentGenerator.buildGetDefaultValueSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentGenerator.buildGetValueSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentGenerator.buildShouldCallMethodSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.CallerComponentGenerator.buildValueIsAvailableSpecFor;
-import static com.matthewtamlin.spyglass.processors.code_generation.InvocationLiteralGenerator.buildInvocationLiteralFor;
+import static com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
+import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
+import static com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil.hasValueHandlerAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 public class CompanionClassGenerator {
@@ -46,26 +40,19 @@ public class CompanionClassGenerator {
 		this.targetClass = checkNotNull(targetClass, "Argument \'targetClass\' cannot be null.");
 	}
 
-	private Set<TypeSpec> generateCallerSpecs(final Set<ExecutableElement> methods) {
-		final Set<TypeSpec> callerSpecs = new HashSet<>();
+	private TypeSpec generateCallerSpec(final ExecutableElement method) {
+		if (hasCallHandlerAnnotation(method)) {
+			return buildCallerForCallHandlerCase(method);
 
-		for (final ExecutableElement e : methods) {
-			if (getCallHandlerAnnotation(e) != null) {
-				callerSpecs.add(buildCallerForCallHandlerCase(e));
+		} else if (hasValueHandlerAnnotation(method)) {
+			return hasDefaultAnnotation(method) ?
+					buildCallerForValueHandlerWithDefaultCase(method) :
+					builderCallerForValueHandlerWithoutDefaultCase(method);
 
-			} else if (getValueHandlerAnnotation(e) != null) {
-				callerSpecs.add(
-						getDefaultAnnotation(e) != null ?
-								buildCallerForValueHandlerWithDefaultCase(e) :
-								builderCallerForValueHandlerWithoutDefaultCase(e)
-				);
-			} else {
-				throw new IllegalArgumentException("Argument \'e\' has neither a value handler " +
-						"annotation nor a call handler annotation.");
-			}
+		} else {
+			throw new IllegalArgumentException("Argument \'method\' has neither a value handler annotation nor a call" +
+					" handler annotation.");
 		}
-
-		return callerSpecs;
 	}
 
 	private TypeSpec buildCallerForCallHandlerCase(final ExecutableElement e) {
