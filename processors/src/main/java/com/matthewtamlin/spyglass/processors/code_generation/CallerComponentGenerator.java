@@ -530,7 +530,7 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final int value = getValueFromAnnotationMirror(object, "value");
+						final String value = getValueLiteral(object, "value");
 
 						return CodeBlock
 								.builder()
