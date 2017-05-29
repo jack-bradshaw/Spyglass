@@ -23,7 +23,7 @@ public class EnumUtil {
 	}
 
 	public static Enum<?> getEnumConstant(final String className, final int ordinal) throws ClassNotFoundException {
-		checkNotNull(className, "Argument \'className' cannot be null.");
+		checkNotNull(className, "Argument \'className\' cannot be null.");
 		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \'ordinal\' cannot be less than 0.");
 
 		final Class enumClazz = Class.forName(className);
