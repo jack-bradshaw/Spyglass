@@ -29,4 +29,30 @@ public class EnumUtil {
 			throw new RuntimeException("Could not find class " + className, e);
 		}
 	}
+
+	public static <T extends Enum<?>> T getEnumConstant(final String fullyQualifiedName) {
+		checkNotNull(fullyQualifiedName, "Argument \'fullyQualifiedName\' cannot be null.");
+
+		final String enumClassName = fullyQualifiedName.substring(0, fullyQualifiedName.lastIndexOf("."));
+		final String enumConstantName = fullyQualifiedName.substring(fullyQualifiedName.lastIndexOf(".") + 1);
+
+		try {
+			final Class<? extends Enum<?>> enumClass = (Class) Class.forName(enumClassName);
+			final Enum<?>[] enumConstants = enumClass.getEnumConstants();
+
+			for (final Enum<?> enumConstant : enumConstants) {
+				if (enumConstant.name().equals(enumConstantName)) {
+					return (T) enumConstant;
+				}
+			}
+
+			throw new RuntimeException(String.format(
+					"Could not find constant %1$s in enum class %2$s.",
+					enumConstantName,
+					enumClassName));
+
+		} catch (final ClassNotFoundException e) {
+			throw new RuntimeException("Could not find class " + enumClassName, e);
+		}
+	}
 }
