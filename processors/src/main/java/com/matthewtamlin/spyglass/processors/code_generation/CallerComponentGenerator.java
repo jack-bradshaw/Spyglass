@@ -139,13 +139,11 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final boolean value1 = attrs.getBoolean($L, false)",
-										getAttributeId(object))
-								.addStatement("final boolean value2 = attrs.getBoolean($L, true)",
-										getAttributeId(object))
-								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == false && value2 == true")
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getBoolean($1L, false) == false && \n" +
+												"attrs.getBoolean($1L, true) == true",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
@@ -160,11 +158,11 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = attrs.getColor($L, 1)", getAttributeId(object))
-								.addStatement("final int value2 = attrs.getColor($L, 2)", getAttributeId(object))
-								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == 1 && value2 == 2")
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getColor($1L, 1) == 1 && \n" +
+												"attrs.getColor($1L, 2) == 2",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
@@ -179,7 +177,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getColorStateList($L) != null", getAttributeId(object))
+								.addStatement(
+										"return attrs.getColorStateList($L) != null",
+										getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -192,13 +192,14 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final float value1 = attrs.getDimension($L, Float.NEGATIVE_INFINITY)",
-										getAttributeId(object))
-								.addStatement("final float value2 = attrs.getDimension($L, Float.POSITIVE_INFINITY)",
-										getAttributeId(object))
+								.addStatement("final float negInf = Float.NEGATIVE_INFINITY")
+								.addStatement("final float posInf = Float.POSITIVE_INFINITY")
 								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == Float.NEGATIVE_INFINITY && value2 == Float.POSITIVE_INFINITY")
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getDimension($1L, negInf) == negInf && \n" +
+												"attrs.getDimension($1L, posInf) == posInf",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
@@ -213,7 +214,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getDrawable($L) != null", getAttributeId(object))
+								.addStatement(
+										"return attrs.getDrawable($L) != null",
+										getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -226,11 +229,11 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = array.getInt($L, 1)", getAttributeId(object))
-								.addStatement("final int value2 = array.getInt($L, 2)", getAttributeId(object))
-								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == 1 && value2 == 2")
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"array.getInt($1L, 1) == 1 && \n" +
+												"array.getInt($1L, 2) == 2",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
@@ -245,11 +248,11 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = array.getInt($L, 1)", getAttributeId(object))
-								.addStatement("final int value2 = array.getInt($L, 2)", getAttributeId(object))
-								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == 1 && value2 == 2")
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"array.getInt($1L, 1) == 1 && \n" +
+												"array.getInt($1L, 2) == 2",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
@@ -264,13 +267,14 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final float value1 = attrs.getFloat($L, Float.NEGATIVE_INFINITY)",
-										getAttributeId(object))
-								.addStatement("final float value2 = attrs.getFloat($L, Float.POSITIVE_INFINITY)",
-										getAttributeId(object))
+								.addStatement("final float negInf = Float.NEGATIVE_INFINITY")
+								.addStatement("final float posInf = Float.POSITIVE_INFINITY")
 								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == Float.NEGATIVE_INFINITY && value2 == Float.POSITIVE_INFINITY")
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getFloat($1L, negInf) == negInf && \n" +
+												"attrs.getFloat($1L, posInf) == posInf",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
@@ -285,13 +289,14 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final float value1 = attrs.getFraction(" +
-										"$L, 1, 1, Float.NEGATIVE_INFINITY)", getAttributeId(object))
-								.addStatement("final float value2 = attrs.getFraction(" +
-										"$L, 1, 1, Float.POSITIVE_INFINITY)", getAttributeId(object))
+								.addStatement("final float negInf = Float.NEGATIVE_INFINITY")
+								.addStatement("final float posInf = Float.POSITIVE_INFINITY")
 								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == Float.NEGATIVE_INFINITY && value2 == Float.POSITIVE_INFINITY")
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getFraction($1L, 1, 1, negInf) == negInf && \n" +
+												"attrs.getFraction($1L, 1, 1, posInf) == posInf",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
@@ -306,11 +311,11 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = attrs.getInt($L, 1)", getAttributeId(object))
-								.addStatement("final int value2 = attrs.getInt($L, 2)", getAttributeId(object))
-								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == 1 && value2 == 2")
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getInt($1L, 1) == 1 && \n" +
+												"attrs.getInt($1L, 2) == 2",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
@@ -325,7 +330,7 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.hasValue($L)", getAttributeId(object))
+								.addStatement("return attrs.hasValue($L)", getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -338,7 +343,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getTextArray($L) != null", getAttributeId(object))
+								.addStatement(
+										"return attrs.getTextArray($L) != null",
+										getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -351,7 +358,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getText($L) != null", getAttributeId(object))
+								.addStatement(
+										"return attrs.getText($L) != null",
+										getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
