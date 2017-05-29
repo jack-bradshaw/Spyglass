@@ -3,6 +3,23 @@ package com.matthewtamlin.spyglass.processors.code_generation;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBooleanResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimension;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimensionResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDrawableResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToEnumConstant;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFloat;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFractionResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToInteger;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToIntegerResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToNull;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStringResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
+import com.matthewtamlin.spyglass.annotations.units.DimensionUnit;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorStateListHandler;
@@ -16,7 +33,6 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.IntegerH
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextArrayHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHandler;
-import com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUtil;
 import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processors.util.EnumUtil;
 import com.squareup.javapoet.ClassName;
@@ -350,7 +366,7 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.add("return attrs.getBoolean($L, false)", getAttributeId(object))
+								.addStatement("return attrs.getBoolean($L, false)", getAttributeId(object))
 								.build();
 					}
 				}
@@ -530,11 +546,260 @@ public class CallerComponentGenerator {
 				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
 					@Override
 					public CodeBlock supplyFor(final AnnotationMirror object) {
-						final String value = getValueLiteral(object, "value");
-
 						return CodeBlock
 								.builder()
-								.add("return $L", value)
+								.addStatement(
+										"return $L",
+										getValueLiteral(object, "value"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToBooleanResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"return context.getResources().getBoolean($L)",
+										getValueLiteral(object, "resId"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToColorResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"return $T.getColor(context, $L)",
+										getValueLiteral(object, "resId"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToColorStateListResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"return $T.getColorStateList(context, $L)",
+										getValueLiteral(object, "resId"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToDimension.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						try {
+							final String rawDimensionValue = getValueLiteral(object, "value");
+
+							final String unitLiteral = getValueLiteral(object, "unit");
+							final DimensionUnit unit = (DimensionUnit) EnumUtil.getEnumConstant(unitLiteral);
+
+							return CodeBlock
+									.builder()
+									.addStatement(
+											"$T metrics = context.getResources().getDisplayMetrics()",
+											AndroidClassNames.DISPLAY_METRICS)
+									.addStatement(
+											"return $T.applyDimension($T.$L, $L, metrics)",
+											AndroidClassNames.TYPED_VALUE,
+											AndroidClassNames.TYPED_VALUE,
+											getComplexUnitLiteral(unit),
+											rawDimensionValue)
+									.build();
+
+						} catch (final ClassNotFoundException e) {
+							throw new RuntimeException("DimensionUnit class not found. This should never happen.");
+						}
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToDimensionResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"context.getResources().getDimension($L",
+										getValueLiteral(object, "resId"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToDrawableResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"return $T.getDrawable(context, $L)",
+										AndroidClassNames.CONTEXT_COMPAT,
+										getValueLiteral(object, "resId"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToEnumConstant.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"return $T.getEnumConstant($L, $L)",
+										ENUM_UTIL_TYPE_NAME,
+										getValueLiteral(object, "enumClass"),
+										getValueLiteral(object, "ordinal"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToFloat.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement("return $L", getValueLiteral(object, "value"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToFractionResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"context.getResources().getFraction($L, $L, $L)",
+										getValueLiteral(object, "resId"),
+										getValueLiteral(object, "baseMultiplier"),
+										getValueLiteral(object, "parentMultiplier"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToInteger.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement("return $L", getValueLiteral(object, "value"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToIntegerResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement("context.getResources().getInteger($L)", getValueLiteral(object, "resId"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToNull.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement("return null")
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToString.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.add("return $L", getValueLiteral(object, "value"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToStringResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"return context.getResources().getString($L)",
+										getValueLiteral(object, "resId"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToTextArrayResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"context.getResources().getTextArray($L)",
+										getValueLiteral(object, "resId"))
+								.build();
+					}
+				}
+		);
+
+		getDefaultValueMethodBodySuppliers.put(
+				DefaultToTextResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement("context.getResources().getText($L)", getValueLiteral(object, "resId"))
 								.build();
 					}
 				}
@@ -654,5 +919,18 @@ public class CallerComponentGenerator {
 				elementsUtil);
 
 		return value.toString();
+	}
+
+	private String getComplexUnitLiteral(final DimensionUnit unit) {
+		switch (unit) {
+			case PX: {return "COMPLEX_UNIT_PX";}
+			case DP: {return "COMPLEX_UNIT_DIP";}
+			case PT: {return "COMPLEX_UNIT_PT";}
+			case IN: {return "COMPLEX_UNIT_IN";}
+			case SP: {return "COMPLEX_UNIT_SP";}
+			case MM: {return "COMPLEX_UNIT_MM";}
+		}
+
+		throw new RuntimeException("Should never get here.");
 	}
 }
