@@ -4,6 +4,10 @@ import static com.matthewtamlin.java_utilities.checkers.IntChecker.checkGreaterT
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class EnumUtil {
+	private static final String CLASS_NOT_FOUND_MESSAGE = "Could not find class \'%1$s\'.";
+
+	private static final String CONSTANT_NOT_FOUND_MESSAGE = "Could not find constant \'%1$s\' in enum \'%2$s\'.";
+
 	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal) {
 		checkNotNull(clazz, "Argument \'clazz\' cannot be null.");
 		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \'ordinal\' cannot be less than 0.");
@@ -26,7 +30,7 @@ public class EnumUtil {
 			final Class enumClazz = Class.forName(className);
 			return getEnumConstant(enumClazz, ordinal);
 		} catch (final ClassNotFoundException e) {
-			throw new RuntimeException("Could not find class " + className, e);
+			throw new RuntimeException(String.format(CLASS_NOT_FOUND_MESSAGE, className), e);
 		}
 	}
 
@@ -46,13 +50,10 @@ public class EnumUtil {
 				}
 			}
 
-			throw new RuntimeException(String.format(
-					"Could not find constant %1$s in enum class %2$s.",
-					enumConstantName,
-					enumClassName));
+			throw new RuntimeException(String.format(CONSTANT_NOT_FOUND_MESSAGE, enumConstantName, enumClassName));
 
 		} catch (final ClassNotFoundException e) {
-			throw new RuntimeException("Could not find class " + enumClassName, e);
+			throw new RuntimeException(String.format(CLASS_NOT_FOUND_MESSAGE, enumClassName), e);
 		}
 	}
 }
