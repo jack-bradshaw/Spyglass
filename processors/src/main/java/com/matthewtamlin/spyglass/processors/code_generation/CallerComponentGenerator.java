@@ -287,10 +287,10 @@ public class CallerComponentGenerator {
 										"$L, 1, 1, Float.NEGATIVE_INFINITY)", getAttributeId(object))
 								.addStatement("final float value2 = attrs.getFraction(" +
 										"$L, 1, 1, Float.POSITIVE_INFINITY)", getAttributeId(object))
-								.addStatement("\n")
+								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == Float.NEGATIVE_INFINITY && value2 == Float.POSITIVE_INFINITY")
-								.addStatement("\n")
+								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
 					}
@@ -306,10 +306,10 @@ public class CallerComponentGenerator {
 								.builder()
 								.addStatement("final int value1 = attrs.getInt($L, 1)", getAttributeId(object))
 								.addStatement("final int value2 = attrs.getInt($L, 2)", getAttributeId(object))
-								.addStatement("\n")
+								.add("\n")
 								.addStatement("final boolean defaultConsistentlyReturned = " +
 										"value1 == 1 && value2 == 2")
-								.addStatement("\n")
+								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
 								.build();
 					}
@@ -756,7 +756,7 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.add("return $L", getValueLiteral(object, "value"))
+								.addStatement("return $L", getValueLiteral(object, "value"))
 								.build();
 					}
 				}
