@@ -642,8 +642,7 @@ public class CallerComponentGenerator {
 											"$T metrics = context.getResources().getDisplayMetrics()",
 											AndroidClassNames.DISPLAY_METRICS)
 									.addStatement(
-											"return $T.applyDimension($T.$L, $L, metrics)",
-											AndroidClassNames.TYPED_VALUE,
+											"return $1T.applyDimension($1T.$2L, $3L, metrics)",
 											AndroidClassNames.TYPED_VALUE,
 											getComplexUnitLiteral(unit),
 											rawDimensionValue)
