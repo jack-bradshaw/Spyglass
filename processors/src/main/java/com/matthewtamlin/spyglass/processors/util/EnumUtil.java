@@ -22,38 +22,46 @@ public class EnumUtil {
 		return constants[ordinal];
 	}
 
-	public static Enum<?> getEnumConstant(final String className, final int ordinal) {
+	public static Enum<?> getEnumConstant(final String className, final int ordinal) throws ClassNotFoundException {
 		checkNotNull(className, "Argument \'className' cannot be null.");
 		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \'ordinal\' cannot be less than 0.");
 
-		try {
-			final Class enumClazz = Class.forName(className);
-			return getEnumConstant(enumClazz, ordinal);
-		} catch (final ClassNotFoundException e) {
-			throw new RuntimeException(String.format(CLASS_NOT_FOUND_MESSAGE, className), e);
-		}
+		final Class enumClazz = Class.forName(className);
+		return getEnumConstant(enumClazz, ordinal);
 	}
 
-	public static <T extends Enum<?>> T getEnumConstant(final String fullyQualifiedName) {
+	public static Enum<?> getEnumConstant(final String fullyQualifiedName) throws ClassNotFoundException {
 		checkNotNull(fullyQualifiedName, "Argument \'fullyQualifiedName\' cannot be null.");
 
 		final String enumClassName = fullyQualifiedName.substring(0, fullyQualifiedName.lastIndexOf("."));
 		final String enumConstantName = fullyQualifiedName.substring(fullyQualifiedName.lastIndexOf(".") + 1);
 
-		try {
-			final Class<? extends Enum<?>> enumClass = (Class) Class.forName(enumClassName);
-			final Enum<?>[] enumConstants = enumClass.getEnumConstants();
+		final Class<? extends Enum<?>> enumClass = getEnumClass(enumClassName);
+		final Enum<?>[] enumConstants = enumClass.getEnumConstants();
 
-			for (final Enum<?> enumConstant : enumConstants) {
-				if (enumConstant.name().equals(enumConstantName)) {
-					return (T) enumConstant;
-				}
+		for (final Enum<?> enumConstant : enumConstants) {
+			if (enumConstant.name().equals(enumConstantName)) {
+				return enumConstant;
 			}
+		}
 
-			throw new RuntimeException(String.format(CONSTANT_NOT_FOUND_MESSAGE, enumConstantName, enumClassName));
+		throw new RuntimeException(String.format(
+				"Could not find constant \'%1$s\' in enum \'%2$s\'.",
+				enumConstantName,
+				enumClassName));
+	}
 
-		} catch (final ClassNotFoundException e) {
-			throw new RuntimeException(String.format(CLASS_NOT_FOUND_MESSAGE, enumClassName), e);
+	@SuppressWarnings("unchecked") // Managed internally by null constants check
+	public static Class<? extends Enum<?>> getEnumClass(final String fullyQualifiedClassName)
+			throws ClassNotFoundException {
+
+		final Class enumClass = (Class) Class.forName(fullyQualifiedClassName);
+
+		// Enum constants will be null if class is not an enum
+		if (enumClass.getEnumConstants() == null) {
+			throw new IllegalArgumentException("Argument \'fullyQualifiedClassName\' must refer to an enum type.");
+		} else {
+			return enumClass;
 		}
 	}
 }
