@@ -55,6 +55,8 @@ public class EnumUtil {
 	public static Class<? extends Enum<?>> getEnumClass(final String fullyQualifiedClassName)
 			throws ClassNotFoundException {
 
+		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
+
 		final Class enumClass = (Class) Class.forName(fullyQualifiedClassName);
 
 		// Enum constants will be null if class is not an enum
