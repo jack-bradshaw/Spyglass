@@ -30,8 +30,8 @@ public class EnumUtil {
 		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
 		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \'ordinal\' cannot be less than 0.");
 
-		final Class enumClazz = Class.forName(fullyQualifiedClassName);
-		return getEnumConstant(enumClazz, ordinal);
+		final Class enumClass = getEnumClass(fullyQualifiedClassName);
+		return getEnumConstant(enumClass, ordinal);
 	}
 
 	public static Enum<?> getEnumConstant(final String fullyQualifiedConstantName) throws ClassNotFoundException {
