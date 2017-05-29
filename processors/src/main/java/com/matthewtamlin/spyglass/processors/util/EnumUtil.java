@@ -24,11 +24,13 @@ public class EnumUtil {
 		return constants[ordinal];
 	}
 
-	public static Enum<?> getEnumConstant(final String className, final int ordinal) throws ClassNotFoundException {
-		checkNotNull(className, "Argument \'className\' cannot be null.");
+	public static Enum<?> getEnumConstant(final String fullyQualifiedClassName, final int ordinal)
+			throws ClassNotFoundException {
+
+		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
 		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \'ordinal\' cannot be less than 0.");
 
-		final Class enumClazz = Class.forName(className);
+		final Class enumClazz = Class.forName(fullyQualifiedClassName);
 		return getEnumConstant(enumClazz, ordinal);
 	}
 
