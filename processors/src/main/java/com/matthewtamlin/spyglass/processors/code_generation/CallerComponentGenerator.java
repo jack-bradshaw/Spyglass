@@ -377,7 +377,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getBoolean($L, false)", getAttributeId(object))
+								.addStatement(
+										"return attrs.getBoolean($L, false)",
+										getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -390,7 +392,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getColor($L, 1)", getAttributeId(object))
+								.addStatement(
+										"return attrs.getColor($L, 1)",
+										getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -403,7 +407,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getColorStateList($L)", getAttributeId(object))
+								.addStatement(
+										"return attrs.getColorStateList($L)",
+										getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -416,8 +422,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getDimension($L, Float.NEGATIVE_INFINITY)",
-										getAttributeId(object))
+								.addStatement(
+										"return attrs.getDimension($L, Float.NEGATIVE_INFINITY)",
+										getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -430,7 +437,7 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getDrawable($L)", getAttributeId(object))
+								.addStatement("return attrs.getDrawable($L)", getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -445,8 +452,13 @@ public class CallerComponentGenerator {
 
 						return CodeBlock
 								.builder()
-								.addStatement("final int ordinal = attrs.getInt($L, 0)", getAttributeId(object))
-								.addStatement("return $T.getEnumConstant($L, ordinal)", ENUM_UTIL_TYPE_NAME, enumClass)
+								.addStatement(
+										"final int ordinal = attrs.getInt($L, 0)",
+										getValueLiteral(object, "attributeId"))
+								.addStatement(
+										"return $T.getEnumConstant($L, ordinal)",
+										ENUM_UTIL_TYPE_NAME,
+										enumClass)
 								.build();
 					}
 				}
@@ -459,7 +471,7 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return array.getInt($L, 1)", getAttributeId(object))
+								.addStatement("return array.getInt($L, 1)", getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -472,8 +484,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getFloat($L, Float.NEGATIVE_INFINITY)",
-										getAttributeId(object))
+								.addStatement(
+										"return attrs.getFloat($L, Float.NEGATIVE_INFINITY)",
+										getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -488,7 +501,7 @@ public class CallerComponentGenerator {
 								.builder()
 								.addStatement(
 										"return attrs.getFraction($L, $L, $L, Float.NEGATIVE_INFINITY)",
-										getAttributeId(object),
+										getValueLiteral(object, "attributeId"),
 										getValueLiteral(object, "baseMultiplier"),
 										getValueLiteral(object, "parentMultiplier"))
 								.build();
@@ -503,7 +516,7 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getInt($L, 1)", getAttributeId(object))
+								.addStatement("return attrs.getInt($L, 1)", getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -516,7 +529,7 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getString($L)", getAttributeId(object))
+								.addStatement("return attrs.getString($L)", getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -529,7 +542,7 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getTextArray($L)", getAttributeId(object))
+								.addStatement("return attrs.getTextArray($L)", getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
@@ -542,7 +555,7 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("return attrs.getText($L)", getAttributeId(object))
+								.addStatement("return attrs.getText($L)", getValueLiteral(object, "attributeId"))
 								.build();
 					}
 				}
