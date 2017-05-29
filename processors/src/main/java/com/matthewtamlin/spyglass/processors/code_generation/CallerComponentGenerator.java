@@ -663,7 +663,7 @@ public class CallerComponentGenerator {
 						return CodeBlock
 								.builder()
 								.addStatement(
-										"context.getResources().getDimension($L",
+										"context.getResources().getDimension($L)",
 										getValueLiteral(object, "resId"))
 								.build();
 					}
