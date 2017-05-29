@@ -87,17 +87,18 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = attrs.getInt($L, 1)", getAttributeId(object))
-								.addStatement("final int value2 = attrs.getInt($L, 2)", getAttributeId(object))
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getInt($1L, 1) == 1 && \n" +
+												"attrs.getInt($1L, 2) == 2",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"(value1 == 1) && (value2 == 2)")
-								.add("\n")
-								.beginControlFlow("if (defaultConsistentlyReturned)")
-								.addStatement("return false")
-								.nextControlFlow("else")
-								.addStatement("return value1 == $L", getValueLiteral(object, "ordinal"))
-								.endControlFlow()
+								.addStatement(
+										"return defaultConsistentlyReturned ? \n" +
+												"false :\n" +
+												"attrs.getInt($L, 0) == $L",
+										getValueLiteral(object, "attributeId"),
+										getValueLiteral(object, "ordinal"))
 								.build();
 					}
 				}
@@ -110,17 +111,18 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("final int value1 = attrs.getInt($L, 1)", getAttributeId(object))
-								.addStatement("final int value2 = attrs.getInt($L, 2)", getAttributeId(object))
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getInt($1L, 1) == 1 && \n" +
+												"attrs.getInt($1L, 2) == 2",
+										getValueLiteral(object, "attributeId"))
 								.add("\n")
-								.addStatement("final boolean defaultConsistentlyReturned = " +
-										"value1 == 1 && value2 == 2")
-								.add("\n")
-								.beginControlFlow("if (defaultConsistentlyReturned)")
-								.addStatement("return false")
-								.nextControlFlow("else")
-								.addStatement("return (value1 & $L) > 0", getValueLiteral(object, "handledFlags"))
-								.endControlFlow()
+								.addStatement(
+										"return defaultConsistentlyReturned ? \n" +
+												"false :\n" +
+												"(attrs.getInt($L, 0) & $L) > 0",
+										getValueLiteral(object, "attributeId"),
+										getValueLiteral(object, "handledFlags"))
 								.build();
 					}
 				}
