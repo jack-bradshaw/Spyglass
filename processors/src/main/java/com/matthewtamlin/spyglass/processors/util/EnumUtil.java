@@ -32,28 +32,26 @@ public class EnumUtil {
 		return getEnumConstant(enumClazz, ordinal);
 	}
 
-	public static Enum<?> getEnumConstant(final String fullyQualifiedName) throws ClassNotFoundException {
-		checkNotNull(fullyQualifiedName, "Argument \'fullyQualifiedName\' cannot be null.");
+	public static Enum<?> getEnumConstant(final String fullyQualifiedConstantName) throws ClassNotFoundException {
+		checkNotNull(fullyQualifiedConstantName, "Argument \'fullyQualifiedConstantName\' cannot be null.");
 
-		final String enumClassName = fullyQualifiedName.substring(0, fullyQualifiedName.lastIndexOf("."));
-		final String enumConstantName = fullyQualifiedName.substring(fullyQualifiedName.lastIndexOf(".") + 1);
+		final int lastDotIndex = fullyQualifiedConstantName.lastIndexOf(".");
+		final String className = fullyQualifiedConstantName.substring(0, lastDotIndex);
+		final String constantName = fullyQualifiedConstantName.substring(lastDotIndex + 1);
 
-		final Class<? extends Enum<?>> enumClass = getEnumClass(enumClassName);
-		final Enum<?>[] enumConstants = enumClass.getEnumConstants();
-
-		for (final Enum<?> enumConstant : enumConstants) {
-			if (enumConstant.name().equals(enumConstantName)) {
+		for (final Enum<?> enumConstant : getEnumClass(className).getEnumConstants()) {
+			if (enumConstant.name().equals(constantName)) {
 				return enumConstant;
 			}
 		}
 
 		throw new RuntimeException(String.format(
 				"Could not find constant \'%1$s\' in enum \'%2$s\'.",
-				enumConstantName,
-				enumClassName));
+				constantName,
+				className));
 	}
 
-	@SuppressWarnings("unchecked") // Managed internally by null constants check
+	@SuppressWarnings("unchecked") // Managed internally by check for null constants
 	public static Class<? extends Enum<?>> getEnumClass(final String fullyQualifiedClassName)
 			throws ClassNotFoundException {
 
