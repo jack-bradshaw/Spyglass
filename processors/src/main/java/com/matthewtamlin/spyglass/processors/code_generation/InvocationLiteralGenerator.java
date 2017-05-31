@@ -17,10 +17,10 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @Tested(testMethod = "automated")
 public class InvocationLiteralGenerator {
-	private final Elements elementsUtil;
+	private final Elements elementUtil;
 
-	public InvocationLiteralGenerator(final Elements elementsUtil) {
-		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
+	public InvocationLiteralGenerator(final Elements elementUtil) {
+		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
 	}
 
 	public String generateLiteralWithoutExtraArg(final ExecutableElement element) {
@@ -61,7 +61,7 @@ public class InvocationLiteralGenerator {
 			return "null";
 		} else {
 			// the toString method of AnnotationValue produces a source code representation
-			return AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, "value", elementsUtil).toString();
+			return AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, "value", elementUtil).toString();
 		}
 	}
 
