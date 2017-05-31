@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.processors.code_generation.invocation_literal_generator;
 
-import com.matthewtamlin.java_compiler_utilities.element_supplier.ElementId;
+import com.matthewtamlin.avatar.element_supplier.ElementId;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseChar;
