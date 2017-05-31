@@ -2,7 +2,6 @@ package com.matthewtamlin.spyglass.processors.code_generation.invocation_literal
 
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processors.code_generation.InvocationLiteralGenerator;
 
@@ -36,7 +35,7 @@ public class TestInvocationLiteralGenerator {
 	private InvocationLiteralGenerator generator;
 
 	@Before
-	public void setup() throws MalformedURLException, CompilerMissingException {
+	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
@@ -56,12 +55,12 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGenerateLiteralWithExtraArg_nullExtraArgLiteral() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_nullExtraArgLiteral() {
 		generator.generateLiteralWithExtraArg(mock(ExecutableElement.class), null);
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithNoUseAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithNoUseAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("no use annotation with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -70,7 +69,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseBooleanAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseBooleanAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("boolean with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -79,7 +78,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseByteAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseByteAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("byte with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -92,7 +91,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseCharAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseCharAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("char with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -107,7 +106,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseDoubleAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseDoubleAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("double with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -116,7 +115,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseFloatAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseFloatAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("float with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -125,7 +124,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseIntAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseIntAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("int with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -134,7 +133,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseLongAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseLongAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("long with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -143,7 +142,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseNullAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseNullAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("null with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -152,7 +151,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseStringAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseStringAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("string with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -161,7 +160,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithExtraArg_methodWithUseShortAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithExtraArg_methodWithUseShortAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("short with extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
@@ -175,7 +174,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithNoUseAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithNoUseAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("no use annotation without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -184,7 +183,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseBooleanAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseBooleanAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("boolean without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -193,7 +192,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseByteAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseByteAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("byte without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -202,7 +201,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseCharAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseCharAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("char without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -217,7 +216,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseDoubleAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseDoubleAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("double without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -226,7 +225,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseFloatAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseFloatAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("float without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -235,7 +234,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseIntAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseIntAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("int without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -244,7 +243,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseLongAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseLongAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("long without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -253,7 +252,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseNullAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseNullAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("null without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -262,7 +261,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseShortAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseShortAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("short without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -271,7 +270,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test
-	public void testGenerateLiteralWithoutExtraArg_methodWithUseStringAnnotation() throws CompilerMissingException {
+	public void testGenerateLiteralWithoutExtraArg_methodWithUseStringAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("string without extra arg");
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
@@ -279,7 +278,7 @@ public class TestInvocationLiteralGenerator {
 		assertThat(invocationLiteral, is("method(\"hello world \\\\ __ \\\"quote\\\" // ! \\u00a9  \")"));
 	}
 
-	private ExecutableElement getExecutableElementWithId(final String id) throws CompilerMissingException {
+	private ExecutableElement getExecutableElementWithId(final String id) {
 		try {
 			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
 		} catch (final ClassCastException e) {

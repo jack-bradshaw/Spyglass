@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processors.annotation_utils.value_handler_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorHandler;
@@ -44,7 +43,7 @@ public class TestValueHandlerAnnotationUtil {
 	private IdBasedElementSupplier elementSupplier;
 
 	@Before
-	public void setup() throws MalformedURLException, CompilerMissingException {
+	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
@@ -58,7 +57,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_booleanHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_booleanHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -68,7 +67,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_colorHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_colorHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -78,9 +77,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_colorStateListHandlerAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetValueHandlerAnnotationMirror_colorStateListHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color state list");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -90,9 +87,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_dimensionHandlerAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetValueHandlerAnnotationMirror_dimensionHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -102,7 +97,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_drawableHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_drawableHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("drawable");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -112,8 +107,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_enumConstantHandlerAnnotationPresent()
-			throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_enumConstantHandlerAnnotationPresent() {
 
 		final ExecutableElement element = getExecutableElementWithId("enum constant");
 
@@ -124,8 +118,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_enumOrdinalHandlerAnnotationPresent()
-			throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_enumOrdinalHandlerAnnotationPresent() {
 
 		final ExecutableElement element = getExecutableElementWithId("enum ordinal");
 
@@ -136,7 +129,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_floatHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_floatHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("float");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -146,7 +139,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_fractionHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_fractionHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("fraction");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -156,7 +149,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_integerHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_integerHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -166,7 +159,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_stringHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_stringHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -176,8 +169,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_textArrayHandlerAnnotationPresent()
-			throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_textArrayHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text array");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -187,7 +179,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_textHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_textHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -197,7 +189,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_noValueHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotationMirror_noValueHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no value handler annotation");
 
 		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
@@ -211,7 +203,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testHasValueHandlerAnnotation_booleanHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testHasValueHandlerAnnotation_booleanHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -220,7 +212,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testHasValueHandlerAnnotation_colorHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testHasValueHandlerAnnotation_colorHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -229,7 +221,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_colorStateListHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_colorStateListHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color state list");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -238,7 +230,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_dimensionHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_dimensionHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -247,7 +239,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_drawableHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_drawableHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("drawable");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -256,7 +248,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_enumConstantHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_enumConstantHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("enum constant");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -265,7 +257,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_enumOrdinalHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_enumOrdinalHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("enum ordinal");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -274,7 +266,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_floatHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_floatHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("float");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -283,7 +275,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_fractionHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_fractionHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("fraction");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -292,7 +284,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_integerHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_integerHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -301,7 +293,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_stringHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_stringHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -310,7 +302,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_textArrayHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_textArrayHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text array");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -319,7 +311,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_textHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_textHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -328,7 +320,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_noValueHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetValueHandlerAnnotation_noValueHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no value handler annotation");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
@@ -336,7 +328,7 @@ public class TestValueHandlerAnnotationUtil {
 		assertThat(hasAnnotation, is(false));
 	}
 
-	private ExecutableElement getExecutableElementWithId(final String id) throws CompilerMissingException {
+	private ExecutableElement getExecutableElementWithId(final String id) {
 		try {
 			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
 		} catch (final ClassCastException e) {

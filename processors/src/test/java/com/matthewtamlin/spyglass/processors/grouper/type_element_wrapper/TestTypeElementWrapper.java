@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processors.grouper.type_element_wrapper;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processors.grouper.TypeElementWrapper;
 
@@ -30,7 +29,7 @@ public class TestTypeElementWrapper {
 	private TypeElement class2;
 
 	@Before
-	public void setup() throws MalformedURLException, CompilerMissingException {
+	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());

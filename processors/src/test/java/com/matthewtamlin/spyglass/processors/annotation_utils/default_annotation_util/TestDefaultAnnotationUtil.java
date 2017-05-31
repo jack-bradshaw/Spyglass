@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processors.annotation_utils.default_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBooleanResource;
@@ -48,7 +47,7 @@ public class TestDefaultAnnotationUtil {
 	private IdBasedElementSupplier elementSupplier;
 
 	@Before
-	public void setup() throws MalformedURLException, CompilerMissingException {
+	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
@@ -62,7 +61,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToBooleanAnnotationPresent() throws CompilerMissingException {
+	public void testGetDefaultAnnotationMirror_defaultToBooleanAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -72,9 +71,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToBooleanResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToBooleanResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -84,9 +81,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToColorResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToColorResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -96,9 +91,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToColorStateListResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToColorStateListResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color state list resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -108,7 +101,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToDimensionAnnotationPresent() throws CompilerMissingException {
+	public void testGetDefaultAnnotationMirror_defaultToDimensionAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -118,9 +111,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToDimensionResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToDimensionResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -130,9 +121,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToDrawableResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToDrawableResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("drawable resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -142,9 +131,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToEnumConstantAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToEnumConstantAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("enum constant");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -154,7 +141,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToFloatAnnotationPresent() throws CompilerMissingException {
+	public void testGetDefaultAnnotationMirror_defaultToFloatAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("float");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -164,9 +151,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToFractionResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToFractionResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("fraction resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -176,7 +161,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToIntegerAnnotationPresent() throws CompilerMissingException {
+	public void testGetDefaultAnnotationMirror_defaultToIntegerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -186,9 +171,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToIntegerResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToIntegerResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -198,7 +181,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToNullAnnotationPresent() throws CompilerMissingException {
+	public void testGetDefaultAnnotationMirror_defaultToNullAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("null");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -208,7 +191,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToStringAnnotationPresent() throws CompilerMissingException {
+	public void testGetDefaultAnnotationMirror_defaultToStringAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -218,9 +201,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToStringResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToStringResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -230,9 +211,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToTextArrayResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToTextArrayResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text array resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -242,9 +221,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToTextResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetDefaultAnnotationMirror_defaultToTextResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text resource");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -254,7 +231,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_noDefaultAnnotationPresent() throws CompilerMissingException {
+	public void testGetDefaultAnnotationMirror_noDefaultAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no default annotation");
 
 		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
@@ -268,7 +245,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToBooleanAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToBooleanAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -277,7 +254,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToBooleanResourceAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToBooleanResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -286,7 +263,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToColorResourceAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToColorResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -295,9 +272,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToColorStateListResourceAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testHasDefaultAnnotation_defaultToColorStateListResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color state list resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -306,7 +281,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToDimensionAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToDimensionAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -315,7 +290,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToDimensionResourceAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToDimensionResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -324,7 +299,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToDrawableResourceAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToDrawableResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("drawable resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -333,7 +308,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToEnumConstantAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToEnumConstantAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("enum constant");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -342,7 +317,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToFloatAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToFloatAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("float");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -351,7 +326,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToFractionResourceAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToFractionResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("fraction resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -360,7 +335,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToIntegerAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToIntegerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -369,7 +344,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToIntegerResourceAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToIntegerResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -378,7 +353,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToNullAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToNullAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("null");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -387,7 +362,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToStringAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToStringAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -396,7 +371,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToStringResourceAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToStringResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -405,7 +380,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToTextArrayResourceAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToTextArrayResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text array resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -414,7 +389,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToTextResourceAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_defaultToTextResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text resource");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -423,7 +398,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_noDefaultAnnotationPresent() throws CompilerMissingException {
+	public void testHasDefaultAnnotation_noDefaultAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no default annotation");
 
 		final boolean hasAnnotation = hasDefaultAnnotation(element);
@@ -431,7 +406,7 @@ public class TestDefaultAnnotationUtil {
 		assertThat(hasAnnotation, is(false));
 	}
 
-	private ExecutableElement getExecutableElementWithId(final String id) throws CompilerMissingException {
+	private ExecutableElement getExecutableElementWithId(final String id) {
 		try {
 			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
 		} catch (final ClassCastException e) {

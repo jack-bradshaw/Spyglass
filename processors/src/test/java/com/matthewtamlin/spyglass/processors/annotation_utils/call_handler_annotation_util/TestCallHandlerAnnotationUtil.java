@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processors.annotation_utils.call_handler_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
@@ -33,7 +32,7 @@ public class TestCallHandlerAnnotationUtil {
 	private IdBasedElementSupplier elementSupplier;
 
 	@Before
-	public void setup() throws MalformedURLException, CompilerMissingException {
+	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
@@ -47,9 +46,7 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetCallHandlerAnnotationMirror_specificEnumHandlerAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetCallHandlerAnnotationMirror_specificEnumHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific enum");
 
 		final AnnotationMirror mirror = getCallHandlerAnnotationMirror(element);
@@ -59,9 +56,7 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetCallHandlerAnnotationMirror_specificFlagHandlerAnnotationPresent()
-			throws CompilerMissingException {
-
+	public void testGetCallHandlerAnnotationMirror_specificFlagHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific flag");
 
 		final AnnotationMirror mirror = getCallHandlerAnnotationMirror(element);
@@ -71,7 +66,7 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetCallHandlerAnnotationMirror_noCallHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testGetCallHandlerAnnotationMirror_noCallHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
 
 		final AnnotationMirror mirror = getCallHandlerAnnotationMirror(element);
@@ -85,7 +80,7 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testHasCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testHasCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific enum");
 
 		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
@@ -94,7 +89,7 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testHasCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testHasCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific flag");
 
 		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
@@ -103,7 +98,7 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testHasCallHandlerAnnotation_noCallHandlerAnnotationPresent() throws CompilerMissingException {
+	public void testHasCallHandlerAnnotation_noCallHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
 
 		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
@@ -111,7 +106,7 @@ public class TestCallHandlerAnnotationUtil {
 		assertThat(hasAnnotation, is(false));
 	}
 
-	private ExecutableElement getExecutableElementWithId(final String id) throws CompilerMissingException {
+	private ExecutableElement getExecutableElementWithId(final String id) {
 		try {
 			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
 		} catch (final ClassCastException e) {
