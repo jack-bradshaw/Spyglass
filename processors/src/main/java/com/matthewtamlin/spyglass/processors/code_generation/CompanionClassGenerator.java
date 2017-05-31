@@ -216,16 +216,13 @@ public class CompanionClassGenerator {
 				.addCode(CodeBlock
 						.builder()
 						.addStatement(
-								"$T value = $N(attrs) ? ($T) $N(attrs) : ($T) $N(context, attrs)",
+								"$1T value = $2N(attrs) ? ($1T) $3N(attrs) : ($1T) $4N(context, attrs)",
 								nonUseParamType,
 								valueIsAvailable,
-								nonUseParamType,
 								getValue,
-								nonUseParamType,
 								getDefault)
 						.addStatement(
-								"$L.$L",
-								"target",
+								"target.$L",
 								invocationLiteralGenerator.generateLiteralWithExtraArg(e, "value"))
 						.build())
 				.build();
