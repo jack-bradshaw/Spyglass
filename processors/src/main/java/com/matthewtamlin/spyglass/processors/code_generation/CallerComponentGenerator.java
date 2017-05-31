@@ -119,7 +119,7 @@ public class CallerComponentGenerator {
 								.add("\n")
 								.addStatement(
 										"return defaultConsistentlyReturned ? \n" +
-												"false :\n" +
+												"false : \n" +
 												"(attrs.getInt($L, 0) & $L) > 0",
 										getLiteralFromAnnotation(object, "attributeId"),
 										getLiteralFromAnnotation(object, "handledFlags"))
@@ -767,7 +767,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("context.getResources().getInteger($L)", getLiteralFromAnnotation(object, "resId"))
+								.addStatement(
+										"context.getResources().getInteger($L)",
+										getLiteralFromAnnotation(object, "resId"))
 								.build();
 					}
 				}
@@ -836,7 +838,9 @@ public class CallerComponentGenerator {
 					public CodeBlock supplyFor(final AnnotationMirror object) {
 						return CodeBlock
 								.builder()
-								.addStatement("context.getResources().getText($L)", getLiteralFromAnnotation(object, "resId"))
+								.addStatement(
+										"context.getResources().getText($L)",
+										getLiteralFromAnnotation(object, "resId"))
 								.build();
 					}
 				}
