@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.processors.validation;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.AnnotatedElementSupplier;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
+import com.matthewtamlin.avatar.element_supplier.AnnotatedElementSupplier;
+import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
 
 import org.junit.Before;
 import org.junit.Test;

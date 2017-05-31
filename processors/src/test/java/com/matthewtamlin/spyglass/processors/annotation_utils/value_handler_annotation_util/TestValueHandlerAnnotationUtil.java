@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.processors.annotation_utils.value_handler_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
+import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorStateListHandler;
