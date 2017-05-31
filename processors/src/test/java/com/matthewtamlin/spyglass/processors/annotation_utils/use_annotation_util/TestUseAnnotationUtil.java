@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processors.annotation_utils.use_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseByte;
@@ -41,7 +40,7 @@ public class TestUseAnnotationUtil {
 	private IdBasedElementSupplier elementSupplier;
 
 	@Before
-	public void setup() throws MalformedURLException, CompilerMissingException {
+	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
@@ -55,7 +54,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useBooleanAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useBooleanAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("boolean");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -65,7 +64,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useByteAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useByteAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("byte");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -75,7 +74,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useCharAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useCharAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("char");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -85,7 +84,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useDoubleAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useDoubleAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("double");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -95,7 +94,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useFloatAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useFloatAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("float");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -105,7 +104,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useIntAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useIntAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("int");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -115,7 +114,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useLongAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useLongAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("long");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -125,7 +124,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useNullAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useNullAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("null");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -135,7 +134,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useShortAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useShortAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("short");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -145,7 +144,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useStringAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_useStringAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("string");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -155,7 +154,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_noUseAnnotationPresent() throws CompilerMissingException {
+	public void testGetUseAnnotationMirror_noUseAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("no use annotation");
 
 		final AnnotationMirror mirror = getUseAnnotationMirror(element);
@@ -169,7 +168,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useBooleanAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useBooleanAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("boolean");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -178,7 +177,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useByteAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useByteAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("byte");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -187,7 +186,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useCharAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useCharAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("char");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -196,7 +195,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useDoubleAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useDoubleAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("double");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -205,7 +204,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useFloatAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useFloatAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("float");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -214,7 +213,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useIntAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useIntAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("int");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -223,7 +222,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useLongAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useLongAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("long");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -232,7 +231,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useNullAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useNullAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("null");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -241,7 +240,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useShortAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useShortAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("short");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -250,7 +249,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_useStringAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_useStringAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("string");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -259,7 +258,7 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test
-	public void testHasUseAnnotation_noUseAnnotationPresent() throws CompilerMissingException {
+	public void testHasUseAnnotation_noUseAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("no use annotation");
 
 		final boolean hasAnnotation = hasUseAnnotation(element);
@@ -267,7 +266,7 @@ public class TestUseAnnotationUtil {
 		assertThat(hasAnnotation, is(false));
 	}
 
-	private VariableElement getVariableElementWithId(final String id) throws CompilerMissingException {
+	private VariableElement getVariableElementWithId(final String id) {
 		try {
 			return (VariableElement) elementSupplier.getUniqueElementWithId(id);
 		} catch (final ClassCastException e) {

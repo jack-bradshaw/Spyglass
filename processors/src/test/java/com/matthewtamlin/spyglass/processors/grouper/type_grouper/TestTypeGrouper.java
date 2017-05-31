@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processors.grouper.type_grouper;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processors.grouper.TypeElementWrapper;
 
@@ -48,7 +47,7 @@ public class TestTypeGrouper {
 	private Set<Element> veryNestedClassChildren;
 
 	@Before
-	public void setup() throws MalformedURLException, CompilerMissingException {
+	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
@@ -91,7 +90,7 @@ public class TestTypeGrouper {
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_primaryClassComponents() throws CompilerMissingException {
+	public void testGroupByEnclosingClass_primaryClassComponents() {
 		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(primaryClassChildren);
 
 		assertThat("There should only be one group.", groupedByClass.size(), is(1));
@@ -103,7 +102,7 @@ public class TestTypeGrouper {
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_secondaryClassComponents() throws CompilerMissingException {
+	public void testGroupByEnclosingClass_secondaryClassComponents() {
 		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(secondaryClassChildren);
 
 		assertThat("There should only be one group.", groupedByClass.size(), is(1));
@@ -115,7 +114,7 @@ public class TestTypeGrouper {
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_innerClassComponents() throws CompilerMissingException {
+	public void testGroupByEnclosingClass_innerClassComponents() {
 		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(innerClassChildren);
 
 		assertThat("There should only be one group.", groupedByClass.size(), is(1));
@@ -127,7 +126,7 @@ public class TestTypeGrouper {
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_veryNestedClassComponents() throws CompilerMissingException {
+	public void testGroupByEnclosingClass_veryNestedClassComponents() {
 		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(veryNestedClassChildren);
 
 		assertThat("There should only be one group.", groupedByClass.size(), is(1));
@@ -139,7 +138,7 @@ public class TestTypeGrouper {
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_allComponents() throws CompilerMissingException {
+	public void testGroupByEnclosingClass_allComponents() {
 		final Set<Element> allChildren = new HashSet<>();
 		allChildren.addAll(primaryClassChildren);
 		allChildren.addAll(secondaryClassChildren);
