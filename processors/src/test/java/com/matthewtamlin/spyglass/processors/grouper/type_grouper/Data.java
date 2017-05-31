@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.processors.core.grouper;
 
-import com.matthewtamlin.java_compiler_utilities.element_supplier.ElementId;
+import com.matthewtamlin.avatar.element_supplier.ElementId;
 
 @ElementId("primary class")
 public class Data {
