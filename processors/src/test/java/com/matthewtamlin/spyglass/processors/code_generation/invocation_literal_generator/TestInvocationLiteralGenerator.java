@@ -46,7 +46,7 @@ public class TestInvocationLiteralGenerator {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructor_nullElementsUtil() {
+	public void testConstructor_nullElementUtil() {
 		new InvocationLiteralGenerator(null);
 	}
 
