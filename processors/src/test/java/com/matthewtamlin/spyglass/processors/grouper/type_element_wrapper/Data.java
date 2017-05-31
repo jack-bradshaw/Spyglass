@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.processors.grouper.type_element_wrapper;
 
-import com.matthewtamlin.java_compiler_utilities.element_supplier.ElementId;
+import com.matthewtamlin.avatar.element_supplier.ElementId;
 
 public class Data {
 	@ElementId("class 1")

@@ -1,8 +1,7 @@
 package com.matthewtamlin.spyglass.processors.validation;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.AnnotatedElementSupplier;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
+import com.matthewtamlin.avatar.element_supplier.AnnotatedElementSupplier;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +26,7 @@ public class TestValidator {
 	private Set<Element> elements;
 
 	@Before
-	public void setup() throws MalformedURLException, CompilerMissingException {
+	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
@@ -37,7 +36,7 @@ public class TestValidator {
 	}
 
 	@Test
-	public void testValidateElement_usingDataFileElements() throws CompilerMissingException {
+	public void testValidateElement_usingDataFileElements() {
 		for (final Element element : elements) {
 			final Target targetAnnotation = element.getAnnotation(Target.class);
 			final boolean shouldPassValidation = targetAnnotation.isValid();
