@@ -75,7 +75,7 @@ public class CallerComponentGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
 			getDefaultValueMethodBodySuppliers;
 
-	private final Elements elementsUtil;
+	private final Elements elementUtil;
 
 	{
 		shouldCallMethodMethodBodySuppliers = new HashMap<>();
@@ -847,8 +847,8 @@ public class CallerComponentGenerator {
 		);
 	}
 
-	public CallerComponentGenerator(final Elements elementsUtil) {
-		this.elementsUtil = checkNotNull(elementsUtil, "Argument \'elementsUtil\' cannot be null.");
+	public CallerComponentGenerator(final Elements elementUtil) {
+		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
 	}
 
 	/**
@@ -950,7 +950,7 @@ public class CallerComponentGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		final AnnotationValue value = getAnnotationValueWithDefaults(mirror, key, elementsUtil);
+		final AnnotationValue value = getAnnotationValueWithDefaults(mirror, key, elementUtil);
 
 		return value.toString();
 	}
