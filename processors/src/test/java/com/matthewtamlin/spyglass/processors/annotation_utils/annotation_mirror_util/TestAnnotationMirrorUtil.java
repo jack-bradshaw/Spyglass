@@ -2,8 +2,8 @@ package com.matthewtamlin.spyglass.processors.annotation_utils.annotation_mirror
 
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
+import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUtil;
 
 import org.junit.Before;

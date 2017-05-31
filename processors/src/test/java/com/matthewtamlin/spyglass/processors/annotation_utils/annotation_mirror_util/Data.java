@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.processors.annotation_utils.annotation_mirror_util;
 
-import com.matthewtamlin.java_compiler_utilities.element_supplier.ElementId;
+import com.matthewtamlin.avatar.element_supplier.ElementId;
 
 public class Data {
 	public static final String SPECIFIED_VALUE = "specified value";

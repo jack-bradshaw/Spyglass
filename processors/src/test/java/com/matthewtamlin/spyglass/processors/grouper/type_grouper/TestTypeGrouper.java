@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.processors.grouper.type_grouper;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
+import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processors.grouper.TypeElementWrapper;
 
 import org.junit.Before;

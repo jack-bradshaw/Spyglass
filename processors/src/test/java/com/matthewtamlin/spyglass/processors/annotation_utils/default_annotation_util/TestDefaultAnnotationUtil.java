@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.processors.annotation_utils.default_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.CompilerMissingException;
-import com.matthewtamlin.java_compiler_utilities.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.element_supplier.CompilerMissingException;
+import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorResource;
