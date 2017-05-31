@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.processors.annotation_utils.value_handler_annotation_util;
 
-import com.matthewtamlin.java_compiler_utilities.element_supplier.ElementId;
+import com.matthewtamlin.avatar.element_supplier.ElementId;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
