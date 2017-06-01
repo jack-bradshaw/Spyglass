@@ -15,7 +15,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @Tested(testMethod = "automated")
 public class TypeGrouper {
-	public static <T extends Element> Map<TypeElementWrapper, Set<T>> groupByEnclosingClass(final Set<T> elements) {
+	public static <T extends Element> Map<TypeElementWrapper, Set<T>> groupByEnclosingType(final Set<T> elements) {
 		checkNotNull(elements, "Argument \'elements\' cannot be null.");
 		checkEachElementIsNotNull(elements, "Argument \'elements\' cannot contain null.");
 
