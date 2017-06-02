@@ -25,7 +25,7 @@ public class TypeUtil {
 		final Element enclosingElement = element.getEnclosingElement();
 
 		if (enclosingElement == null) {
-			// No enclosing class exists
+			// The input is a top level element
 			return null;
 
 		} else if (enclosingElement.getKind() == ElementKind.CLASS) {
