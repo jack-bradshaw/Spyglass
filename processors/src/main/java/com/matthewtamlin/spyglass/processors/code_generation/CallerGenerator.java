@@ -40,27 +40,6 @@ public class CallerGenerator {
 		invocationLiteralGenerator = new InvocationLiteralGenerator(elementUtil);
 	}
 
-	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
-		checkNotNull(methods, "Argument \'methods\' cannot be null.");
-		checkEachElementIsNotNull(methods, "Argument \'methods\' cannot contain null elements.");
-
-		if (methods.isEmpty()) {
-			throw new IllegalArgumentException("Argument \'methods\' cannot be empty.");
-		}
-
-		if (TypeGrouper.groupByEnclosingType(methods).size() != 1) {
-			throw new IllegalArgumentException("All elements in argument \'methods\' must belong to the same class.");
-		}
-
-		final Set<TypeSpec> callers = new HashSet<>();
-
-		for (final ExecutableElement method : methods) {
-			callers.add(generateCallerSpec(method));
-		}
-
-		return null;
-	}
-
 	private TypeSpec generateCallerSpec(final ExecutableElement method) {
 		if (hasCallHandlerAnnotation(method)) {
 			return generateCallerForCallHandlerCase(method);
