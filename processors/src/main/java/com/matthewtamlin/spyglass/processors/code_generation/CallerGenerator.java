@@ -69,7 +69,7 @@ public class CallerGenerator {
 		 * 	}
 		 */
 
-		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingClass(e).asType());
 		final AnnotationMirror callHandlerAnno = CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror(e);
 
 		final MethodSpec shouldCallMethod = callerComponentGenerator.generateShouldCallMethodSpecFor(callHandlerAnno);
@@ -114,7 +114,7 @@ public class CallerGenerator {
 		 * }
 		 */
 
-		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingClass(e).asType());
 		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
 		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 
@@ -169,7 +169,7 @@ public class CallerGenerator {
 		 *	}
 		 */
 
-		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingClass(e).asType());
 		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
 		final AnnotationMirror valueHandler = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 

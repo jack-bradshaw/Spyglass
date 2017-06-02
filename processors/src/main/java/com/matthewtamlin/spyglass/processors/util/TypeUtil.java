@@ -19,7 +19,7 @@ public class TypeUtil {
 	 * @throws IllegalArgumentException
 	 * 		if {@code element} is null
 	 */
-	public static TypeElement getEnclosingType(final Element element) {
+	public static TypeElement getEnclosingClass(final Element element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		final Element enclosingElement = element.getEnclosingElement();
@@ -34,7 +34,7 @@ public class TypeUtil {
 
 		} else {
 			// Keep searching up the model tree
-			return getEnclosingType(enclosingElement);
+			return getEnclosingClass(enclosingElement);
 		}
 	}
 }

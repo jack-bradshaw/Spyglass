@@ -22,7 +22,7 @@ public class TypeGrouper {
 		final Map<TypeElementWrapper, Set<T>> groups = new HashMap<>();
 
 		for (final T element : elements) {
-			final TypeElementWrapper parentWrapper = new TypeElementWrapper(TypeUtil.getEnclosingType(element));
+			final TypeElementWrapper parentWrapper = new TypeElementWrapper(TypeUtil.getEnclosingClass(element));
 
 			if (!groups.containsKey(parentWrapper)) {
 				groups.put(parentWrapper, new HashSet<T>());
