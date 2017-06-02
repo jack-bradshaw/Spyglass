@@ -36,7 +36,7 @@ import static javax.tools.Diagnostic.Kind.ERROR;
 public class MainProcessor extends AbstractProcessor {
 	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
 
-	private static final Set<Element> PROCESSED_CLASSES = new HashSet<>();
+	private final Set<Element> processedClasses = new HashSet<>();
 
 	private Messager messager;
 
