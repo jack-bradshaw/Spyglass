@@ -40,7 +40,7 @@ public class CallerGenerator {
 		invocationLiteralGenerator = new InvocationLiteralGenerator(elementUtil);
 	}
 
-	public TypeSpec generateCallerSpec(final ExecutableElement method) {
+	public TypeSpec generateCaller(final ExecutableElement method) {
 		if (hasCallHandlerAnnotation(method)) {
 			return generateCallerForCallHandlerCase(method);
 
