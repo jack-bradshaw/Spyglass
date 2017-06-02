@@ -192,4 +192,24 @@ abstract class Data {
 	@Target(isValid = true)
 	@StringHandler(attributeId = 1)
 	abstract void method38(Object o2);
+
+	public class NonStaticInnerClass {
+		@Target(isValid = false)
+		@BooleanHandler(attributeId = 1)
+		public void method39(Object o1) {}
+
+		@Target(isValid = false)
+		@StringHandler(attributeId = 1)
+		public void method40(Object o1) {}
+	}
+
+	public static class StaticInnerClass {
+		@Target(isValid = true)
+		@BooleanHandler(attributeId = 1)
+		public void method41(Object o1) {}
+
+		@Target(isValid = true)
+		@StringHandler(attributeId = 1)
+		public void method42(Object o1) {}
+	}
 }
