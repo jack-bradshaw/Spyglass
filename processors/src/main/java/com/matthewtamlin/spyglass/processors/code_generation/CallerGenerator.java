@@ -28,12 +28,12 @@ import static com.matthewtamlin.spyglass.processors.annotation_utils.UseAnnotati
 import static com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil.hasValueHandlerAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
-public class CompanionClassGenerator {
+public class CallerGenerator {
 	private final CallerComponentGenerator callerComponentGenerator;
 
 	private final InvocationLiteralGenerator invocationLiteralGenerator;
 
-	public CompanionClassGenerator(final Elements elementUtil) {
+	public CallerGenerator(final Elements elementUtil) {
 		checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
 
 		callerComponentGenerator = new CallerComponentGenerator(elementUtil);
