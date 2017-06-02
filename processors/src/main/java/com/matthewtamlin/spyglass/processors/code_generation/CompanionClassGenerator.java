@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.processors.code_generation;
 
 import com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil;
+import com.matthewtamlin.spyglass.processors.grouper.TypeGrouper;
 import com.matthewtamlin.spyglass.processors.util.TypeUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
@@ -11,6 +12,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
@@ -18,6 +20,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkEachElementIsNotNull;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
@@ -38,6 +41,23 @@ public class CompanionClassGenerator {
 	}
 
 	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
+		checkNotNull(methods, "Argument \'methods\' cannot be null.");
+		checkEachElementIsNotNull(methods, "Argument \'methods\' cannot contain null elements.");
+
+		if (methods.isEmpty()) {
+			throw new IllegalArgumentException("Argument \'methods\' cannot be empty.");
+		}
+
+		if (TypeGrouper.groupByEnclosingType(methods).size() != 1) {
+			throw new IllegalArgumentException("All elements in argument \'methods\' must belong to the same class.");
+		}
+
+		final Set<TypeSpec> callers = new HashSet<>();
+
+		for (final ExecutableElement method : methods) {
+			callers.add(generateCallerSpec(method));
+		}
+
 		return null;
 	}
 
