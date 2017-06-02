@@ -41,6 +41,8 @@ public class CallerGenerator {
 	}
 
 	public TypeSpec generateCaller(final ExecutableElement method) {
+		checkNotNull(method, "Argument \'method\' cannot be null.");
+
 		if (hasCallHandlerAnnotation(method)) {
 			return generateCallerForCallHandlerCase(method);
 
