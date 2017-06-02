@@ -55,17 +55,13 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 public class CallerComponentGenerator {
 	private static final TypeName ENUM_UTIL_TYPE_NAME = ClassName.get(EnumUtil.class);
 
-	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
-			shouldCallMethodMethodBodySuppliers;
+	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> shouldCallMethodMethodBodySuppliers;
 
-	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
-			valueIsAvailableBodySuppliers;
+	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> valueIsAvailableBodySuppliers;
 
-	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
-			getValueMethodBodySuppliers;
+	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> getValueMethodBodySuppliers;
 
-	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>
-			getDefaultValueMethodBodySuppliers;
+	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> getDefaultValueMethodBodySuppliers;
 
 	private final Elements elementUtil;
 
