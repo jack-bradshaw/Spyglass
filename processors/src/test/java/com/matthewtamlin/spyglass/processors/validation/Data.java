@@ -192,4 +192,44 @@ abstract class Data {
 	@Target(isValid = true)
 	@StringHandler(attributeId = 1)
 	abstract void method38(Object o2);
+
+	public class NonStaticInnerClass {
+		@Target(isValid = false)
+		@BooleanHandler(attributeId = 1)
+		public void method39(Object o1) {}
+	}
+
+	public static class StaticInnerClass {
+		@Target(isValid = true)
+		@BooleanHandler(attributeId = 1)
+		public void method41(Object o1) {}
+
+		public class NonStaticClassWithinStaticClass {
+			@Target(isValid = false)
+			@BooleanHandler(attributeId = 1)
+			public void method43(Object o1) {}
+
+			public void methodContainingAnonymousClass() {
+				new Object() {
+					@Target(isValid = false)
+					@StringHandler(attributeId = 1)
+					public void method45(Object o1) {}
+				};
+			}
+
+			public void methodContainingLocalClass() {
+				class LocalClass {
+					@Target(isValid = false)
+					@StringHandler(attributeId = 1)
+					public void method46(Object o1) {}
+				}
+			}
+		}
+
+		public static class StaticClassWithinStaticClass {
+			@Target(isValid = true)
+			@BooleanHandler(attributeId = 1)
+			public void method47(Object o1) {}
+		}
+	}
 }
