@@ -2,6 +2,8 @@ package com.matthewtamlin.spyglass.processors.code_generation;
 
 import com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil;
+import com.matthewtamlin.spyglass.processors.grouper.TypeGrouper;
+import com.matthewtamlin.spyglass.processors.util.TypeUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
@@ -10,6 +12,7 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
@@ -17,6 +20,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkEachElementIsNotNull;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
@@ -25,51 +29,36 @@ import static com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandle
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 public class CompanionClassGenerator {
-	private final ClassName targetClass;
-
 	private final CallerComponentGenerator callerComponentGenerator;
 
 	private final InvocationLiteralGenerator invocationLiteralGenerator;
 
-	private CompanionClassGenerator(final Builder builder) {
-		checkNotNull(builder, "Argument \'builder\' cannot be null.");
-		checkNotNull(builder.targetClass, "Builder target class cannot be null at instantiation.");
-		checkNotNull(builder.elementUtil, "Builder element util cannot be null at instantiation.");
+	public CompanionClassGenerator(final Elements elementUtil) {
+		checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
 
-		this.targetClass = builder.targetClass;
-
-		callerComponentGenerator = new CallerComponentGenerator(builder.elementUtil);
-		invocationLiteralGenerator = new InvocationLiteralGenerator(builder.elementUtil);
+		callerComponentGenerator = new CallerComponentGenerator(elementUtil);
+		invocationLiteralGenerator = new InvocationLiteralGenerator(elementUtil);
 	}
 
 	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
-		return null; //TODO
-	}
+		checkNotNull(methods, "Argument \'methods\' cannot be null.");
+		checkEachElementIsNotNull(methods, "Argument \'methods\' cannot contain null elements.");
 
-	public static Builder builder() {
-		return new Builder();
-	}
-
-	public static class Builder {
-		private ClassName targetClass;
-
-		private Elements elementUtil;
-
-		private Builder() {}
-
-		public Builder withTargetClass(final String packageName, final String simpleClassName) {
-			targetClass = ClassName.get(packageName, simpleClassName);
-			return this;
+		if (methods.isEmpty()) {
+			throw new IllegalArgumentException("Argument \'methods\' cannot be empty.");
 		}
 
-		public Builder withElementUtil(final Elements elementUtil) {
-			this.elementUtil = elementUtil;
-			return this;
+		if (TypeGrouper.groupByEnclosingType(methods).size() != 1) {
+			throw new IllegalArgumentException("All elements in argument \'methods\' must belong to the same class.");
 		}
 
-		public CompanionClassGenerator build() {
-			return new CompanionClassGenerator(this);
+		final Set<TypeSpec> callers = new HashSet<>();
+
+		for (final ExecutableElement method : methods) {
+			callers.add(generateCallerSpec(method));
 		}
+
+		return null;
 	}
 
 	private TypeSpec generateCallerSpec(final ExecutableElement method) {
@@ -105,11 +94,12 @@ public class CompanionClassGenerator {
 		 * 	}
 		 */
 
-		final AnnotationMirror callHandler = CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror(e);
+		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final AnnotationMirror callHandlerAnno = CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror(e);
 
-		final MethodSpec shouldCallMethod = callerComponentGenerator.generateShouldCallMethodSpecFor(callHandler);
+		final MethodSpec shouldCallMethod = callerComponentGenerator.generateShouldCallMethodSpecFor(callHandlerAnno);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec()
+		final MethodSpec callMethod = getEmptyCallMethodSpec(targetType)
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", shouldCallMethod)
@@ -118,7 +108,7 @@ public class CompanionClassGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec()
+		return getEmptyAnonymousCallerSpec(targetType)
 				.addMethod(callMethod)
 				.addMethod(shouldCallMethod)
 				.build();
@@ -149,14 +139,14 @@ public class CompanionClassGenerator {
 		 * }
 		 */
 
-		final AnnotationMirror valueHandler = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
-
-		final MethodSpec valueIsAvailable = callerComponentGenerator.generateValueIsAvailableSpecFor(valueHandler);
-		final MethodSpec getValue = callerComponentGenerator.generateGetValueSpecFor(valueHandler);
-
+		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
 		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
+		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec()
+		final MethodSpec valueIsAvailable = callerComponentGenerator.generateValueIsAvailableSpecFor(valueHandlerAnno);
+		final MethodSpec getValue = callerComponentGenerator.generateGetValueSpecFor(valueHandlerAnno);
+
+		final MethodSpec callMethod = getEmptyCallMethodSpec(targetType)
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
@@ -169,7 +159,7 @@ public class CompanionClassGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec()
+		return getEmptyAnonymousCallerSpec(targetType)
 				.addMethod(callMethod)
 				.addMethod(valueIsAvailable)
 				.addMethod(getValue)
@@ -204,15 +194,15 @@ public class CompanionClassGenerator {
 		 *	}
 		 */
 
+		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
 		final AnnotationMirror valueHandler = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 
 		final MethodSpec valueIsAvailable = callerComponentGenerator.generateValueIsAvailableSpecFor(valueHandler);
 		final MethodSpec getValue = callerComponentGenerator.generateGetValueSpecFor(valueHandler);
 		final MethodSpec getDefault = callerComponentGenerator.generateGetDefaultValueSpecFor(valueHandler);
 
-		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
-
-		final MethodSpec callMethod = getEmptyCallMethodSpec()
+		final MethodSpec callMethod = getEmptyCallMethodSpec(targetType)
 				.addCode(CodeBlock
 						.builder()
 						.addStatement(
@@ -227,7 +217,7 @@ public class CompanionClassGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec()
+		return getEmptyAnonymousCallerSpec(targetType)
 				.addMethod(callMethod)
 				.addMethod(valueIsAvailable)
 				.addMethod(getValue)
@@ -235,21 +225,21 @@ public class CompanionClassGenerator {
 				.build();
 	}
 
-	private TypeSpec.Builder getEmptyAnonymousCallerSpec() {
+	private TypeSpec.Builder getEmptyAnonymousCallerSpec(final TypeName targetType) {
 		final ClassName genericCaller = ClassName.get(CallerDef.PACKAGE, CallerDef.INTERFACE_NAME);
-		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetClass);
+		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
 
 		return TypeSpec
 				.anonymousClassBuilder("")
 				.addSuperinterface(specificCaller);
 	}
 
-	private MethodSpec.Builder getEmptyCallMethodSpec() {
+	private MethodSpec.Builder getEmptyCallMethodSpec(final TypeName targetType) {
 		return MethodSpec
 				.methodBuilder(CallerDef.METHOD_NAME)
 				.returns(void.class)
 				.addModifiers(PUBLIC)
-				.addParameter(targetClass, "target")
+				.addParameter(targetType, "target")
 				.addParameter(AndroidClassNames.CONTEXT, "context")
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs");
 	}

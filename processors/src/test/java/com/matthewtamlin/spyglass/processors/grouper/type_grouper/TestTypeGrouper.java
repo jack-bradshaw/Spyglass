@@ -19,7 +19,7 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.processors.grouper.TypeGrouper.groupByEnclosingClass;
+import static com.matthewtamlin.spyglass.processors.grouper.TypeGrouper.groupByEnclosingType;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -77,21 +77,21 @@ public class TestTypeGrouper {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGroupByEnclosingClass_nullSupplied() {
-		groupByEnclosingClass(null);
+	public void testGroupByEnclosingType_nullSupplied() {
+		groupByEnclosingType(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGroupByEnclosingClass_collectionContainsNull() {
+	public void testGroupByEnclosingType_collectionContainsNull() {
 		final Set<Element> set = new HashSet<>();
 		set.add(null);
 
-		groupByEnclosingClass(set);
+		groupByEnclosingType(set);
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_primaryClassComponents() {
-		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(primaryClassChildren);
+	public void testGroupByEnclosingType_primaryClassComponents() {
+		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingType(primaryClassChildren);
 
 		assertThat("There should only be one group.", groupedByClass.size(), is(1));
 
@@ -102,8 +102,8 @@ public class TestTypeGrouper {
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_secondaryClassComponents() {
-		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(secondaryClassChildren);
+	public void testGroupByEnclosingType_secondaryClassComponents() {
+		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingType(secondaryClassChildren);
 
 		assertThat("There should only be one group.", groupedByClass.size(), is(1));
 
@@ -114,8 +114,8 @@ public class TestTypeGrouper {
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_innerClassComponents() {
-		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(innerClassChildren);
+	public void testGroupByEnclosingType_innerClassComponents() {
+		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingType(innerClassChildren);
 
 		assertThat("There should only be one group.", groupedByClass.size(), is(1));
 
@@ -126,8 +126,8 @@ public class TestTypeGrouper {
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_veryNestedClassComponents() {
-		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(veryNestedClassChildren);
+	public void testGroupByEnclosingType_veryNestedClassComponents() {
+		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingType(veryNestedClassChildren);
 
 		assertThat("There should only be one group.", groupedByClass.size(), is(1));
 
@@ -138,14 +138,14 @@ public class TestTypeGrouper {
 	}
 
 	@Test
-	public void testGroupByEnclosingClass_allComponents() {
+	public void testGroupByEnclosingType_allComponents() {
 		final Set<Element> allChildren = new HashSet<>();
 		allChildren.addAll(primaryClassChildren);
 		allChildren.addAll(secondaryClassChildren);
 		allChildren.addAll(innerClassChildren);
 		allChildren.addAll(veryNestedClassChildren);
 
-		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(allChildren);
+		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingType(allChildren);
 
 		assertThat("There should only be four groups.", groupedByClass.size(), is(4));
 
