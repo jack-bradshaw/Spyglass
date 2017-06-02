@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.processors.code_generation;
 
 import com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil;
+import com.matthewtamlin.spyglass.processors.util.TypeUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
@@ -36,18 +37,18 @@ public class CompanionClassGenerator {
 		invocationLiteralGenerator = new InvocationLiteralGenerator(elementUtil);
 	}
 
-	public JavaFile generateCompanionFromElements(final ClassName target, final Set<ExecutableElement> methods) {
+	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
 		return null;
 	}
 
-	private TypeSpec generateCallerSpec(final ClassName target, final ExecutableElement method) {
+	private TypeSpec generateCallerSpec(final ExecutableElement method) {
 		if (hasCallHandlerAnnotation(method)) {
-			return generateCallerForCallHandlerCase(target, method);
+			return generateCallerForCallHandlerCase(method);
 
 		} else if (hasValueHandlerAnnotation(method)) {
 			return hasDefaultAnnotation(method) ?
-					generateCallerForValueHandlerWithDefaultCase(target, method) :
-					generateCallerForValueHandlerWithoutDefaultCase(target, method);
+					generateCallerForValueHandlerWithDefaultCase(method) :
+					generateCallerForValueHandlerWithoutDefaultCase(method);
 
 		} else {
 			throw new IllegalArgumentException("Argument \'method\' has neither a value handler annotation nor a call" +
@@ -55,7 +56,7 @@ public class CompanionClassGenerator {
 		}
 	}
 
-	private TypeSpec generateCallerForCallHandlerCase(final ClassName target, final ExecutableElement e) {
+	private TypeSpec generateCallerForCallHandlerCase(final ExecutableElement e) {
 		/* General structure
 		 *
 		 * 	new Caller {
@@ -73,11 +74,12 @@ public class CompanionClassGenerator {
 		 * 	}
 		 */
 
-		final AnnotationMirror callHandler = CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror(e);
+		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final AnnotationMirror callHandlerAnno = CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror(e);
 
-		final MethodSpec shouldCallMethod = callerComponentGenerator.generateShouldCallMethodSpecFor(callHandler);
+		final MethodSpec shouldCallMethod = callerComponentGenerator.generateShouldCallMethodSpecFor(callHandlerAnno);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec(target)
+		final MethodSpec callMethod = getEmptyCallMethodSpec(targetType)
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", shouldCallMethod)
@@ -86,16 +88,13 @@ public class CompanionClassGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec(target)
+		return getEmptyAnonymousCallerSpec(targetType)
 				.addMethod(callMethod)
 				.addMethod(shouldCallMethod)
 				.build();
 	}
 
-	private TypeSpec generateCallerForValueHandlerWithoutDefaultCase(
-			final ClassName target,
-			final ExecutableElement e) {
-
+	private TypeSpec generateCallerForValueHandlerWithoutDefaultCase(final ExecutableElement e) {
 		/* General structure
 		 *
 		 * 	new Caller {
@@ -120,14 +119,14 @@ public class CompanionClassGenerator {
 		 * }
 		 */
 
-		final AnnotationMirror valueHandler = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
-
-		final MethodSpec valueIsAvailable = callerComponentGenerator.generateValueIsAvailableSpecFor(valueHandler);
-		final MethodSpec getValue = callerComponentGenerator.generateGetValueSpecFor(valueHandler);
-
+		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
 		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
+		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec(target)
+		final MethodSpec valueIsAvailable = callerComponentGenerator.generateValueIsAvailableSpecFor(valueHandlerAnno);
+		final MethodSpec getValue = callerComponentGenerator.generateGetValueSpecFor(valueHandlerAnno);
+
+		final MethodSpec callMethod = getEmptyCallMethodSpec(targetType)
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
@@ -140,14 +139,14 @@ public class CompanionClassGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec(target)
+		return getEmptyAnonymousCallerSpec(targetType)
 				.addMethod(callMethod)
 				.addMethod(valueIsAvailable)
 				.addMethod(getValue)
 				.build();
 	}
 
-	private TypeSpec generateCallerForValueHandlerWithDefaultCase(final ClassName target, final ExecutableElement e) {
+	private TypeSpec generateCallerForValueHandlerWithDefaultCase(final ExecutableElement e) {
 		/* General structure
 		 *
 		 * 	new Caller {
@@ -175,15 +174,15 @@ public class CompanionClassGenerator {
 		 *	}
 		 */
 
+		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
 		final AnnotationMirror valueHandler = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 
 		final MethodSpec valueIsAvailable = callerComponentGenerator.generateValueIsAvailableSpecFor(valueHandler);
 		final MethodSpec getValue = callerComponentGenerator.generateGetValueSpecFor(valueHandler);
 		final MethodSpec getDefault = callerComponentGenerator.generateGetDefaultValueSpecFor(valueHandler);
 
-		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
-
-		final MethodSpec callMethod = getEmptyCallMethodSpec(target)
+		final MethodSpec callMethod = getEmptyCallMethodSpec(targetType)
 				.addCode(CodeBlock
 						.builder()
 						.addStatement(
@@ -198,7 +197,7 @@ public class CompanionClassGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec(target)
+		return getEmptyAnonymousCallerSpec(targetType)
 				.addMethod(callMethod)
 				.addMethod(valueIsAvailable)
 				.addMethod(getValue)
@@ -206,21 +205,21 @@ public class CompanionClassGenerator {
 				.build();
 	}
 
-	private TypeSpec.Builder getEmptyAnonymousCallerSpec(final ClassName target) {
+	private TypeSpec.Builder getEmptyAnonymousCallerSpec(final TypeName targetType) {
 		final ClassName genericCaller = ClassName.get(CallerDef.PACKAGE, CallerDef.INTERFACE_NAME);
-		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, target);
+		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
 
 		return TypeSpec
 				.anonymousClassBuilder("")
 				.addSuperinterface(specificCaller);
 	}
 
-	private MethodSpec.Builder getEmptyCallMethodSpec(final ClassName targetClass) {
+	private MethodSpec.Builder getEmptyCallMethodSpec(final TypeName targetType) {
 		return MethodSpec
 				.methodBuilder(CallerDef.METHOD_NAME)
 				.returns(void.class)
 				.addModifiers(PUBLIC)
-				.addParameter(targetClass, "target")
+				.addParameter(targetType, "target")
 				.addParameter(AndroidClassNames.CONTEXT, "context")
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs");
 	}
