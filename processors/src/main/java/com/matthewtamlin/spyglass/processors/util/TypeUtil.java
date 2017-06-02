@@ -8,8 +8,8 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 public class TypeUtil {
 	/**
-	 * Finds the enclosing type of the supplied element. The enclosing type may be an anonymous inner class, a nested
-	 * class, or a top level class. If the element has no enclosing type then null is returned.
+	 * Finds the enclosing class of the supplied element. The enclosing class may be an anonymous inner class, a nested
+	 * class, a top level class, or a local class. If the element has no enclosing class then null is returned.
 	 *
 	 * @param element
 	 * 		the element to find the enclosing type of, not null
