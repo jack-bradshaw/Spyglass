@@ -25,61 +25,29 @@ import static com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandle
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 public class CompanionClassGenerator {
-	private final ClassName targetClass;
-
 	private final CallerComponentGenerator callerComponentGenerator;
 
 	private final InvocationLiteralGenerator invocationLiteralGenerator;
 
-	private CompanionClassGenerator(final Builder builder) {
-		checkNotNull(builder, "Argument \'builder\' cannot be null.");
-		checkNotNull(builder.targetClass, "Builder target class cannot be null at instantiation.");
-		checkNotNull(builder.elementUtil, "Builder element util cannot be null at instantiation.");
+	public CompanionClassGenerator(final Elements elementUtil) {
+		checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
 
-		this.targetClass = builder.targetClass;
-
-		callerComponentGenerator = new CallerComponentGenerator(builder.elementUtil);
-		invocationLiteralGenerator = new InvocationLiteralGenerator(builder.elementUtil);
+		callerComponentGenerator = new CallerComponentGenerator(elementUtil);
+		invocationLiteralGenerator = new InvocationLiteralGenerator(elementUtil);
 	}
 
-	public JavaFile generateCompanionFromElements(final Set<ExecutableElement> methods) {
-		return null; //TODO
+	public JavaFile generateCompanionFromElements(final ClassName target, final Set<ExecutableElement> methods) {
+		return null;
 	}
 
-	public static Builder builder() {
-		return new Builder();
-	}
-
-	public static class Builder {
-		private ClassName targetClass;
-
-		private Elements elementUtil;
-
-		private Builder() {}
-
-		public Builder withTargetClass(final String packageName, final String simpleClassName) {
-			targetClass = ClassName.get(packageName, simpleClassName);
-			return this;
-		}
-
-		public Builder withElementUtil(final Elements elementUtil) {
-			this.elementUtil = elementUtil;
-			return this;
-		}
-
-		public CompanionClassGenerator build() {
-			return new CompanionClassGenerator(this);
-		}
-	}
-
-	private TypeSpec generateCallerSpec(final ExecutableElement method) {
+	private TypeSpec generateCallerSpec(final ClassName target, final ExecutableElement method) {
 		if (hasCallHandlerAnnotation(method)) {
-			return generateCallerForCallHandlerCase(method);
+			return generateCallerForCallHandlerCase(target, method);
 
 		} else if (hasValueHandlerAnnotation(method)) {
 			return hasDefaultAnnotation(method) ?
-					generateCallerForValueHandlerWithDefaultCase(method) :
-					generateCallerForValueHandlerWithoutDefaultCase(method);
+					generateCallerForValueHandlerWithDefaultCase(target, method) :
+					generateCallerForValueHandlerWithoutDefaultCase(target, method);
 
 		} else {
 			throw new IllegalArgumentException("Argument \'method\' has neither a value handler annotation nor a call" +
@@ -87,7 +55,7 @@ public class CompanionClassGenerator {
 		}
 	}
 
-	private TypeSpec generateCallerForCallHandlerCase(final ExecutableElement e) {
+	private TypeSpec generateCallerForCallHandlerCase(final ClassName target, final ExecutableElement e) {
 		/* General structure
 		 *
 		 * 	new Caller {
@@ -109,7 +77,7 @@ public class CompanionClassGenerator {
 
 		final MethodSpec shouldCallMethod = callerComponentGenerator.generateShouldCallMethodSpecFor(callHandler);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec()
+		final MethodSpec callMethod = getEmptyCallMethodSpec(target)
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", shouldCallMethod)
@@ -118,13 +86,16 @@ public class CompanionClassGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec()
+		return getEmptyAnonymousCallerSpec(target)
 				.addMethod(callMethod)
 				.addMethod(shouldCallMethod)
 				.build();
 	}
 
-	private TypeSpec generateCallerForValueHandlerWithoutDefaultCase(final ExecutableElement e) {
+	private TypeSpec generateCallerForValueHandlerWithoutDefaultCase(
+			final ClassName target,
+			final ExecutableElement e) {
+
 		/* General structure
 		 *
 		 * 	new Caller {
@@ -156,7 +127,7 @@ public class CompanionClassGenerator {
 
 		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec()
+		final MethodSpec callMethod = getEmptyCallMethodSpec(target)
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
@@ -169,14 +140,14 @@ public class CompanionClassGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec()
+		return getEmptyAnonymousCallerSpec(target)
 				.addMethod(callMethod)
 				.addMethod(valueIsAvailable)
 				.addMethod(getValue)
 				.build();
 	}
 
-	private TypeSpec generateCallerForValueHandlerWithDefaultCase(final ExecutableElement e) {
+	private TypeSpec generateCallerForValueHandlerWithDefaultCase(final ClassName target, final ExecutableElement e) {
 		/* General structure
 		 *
 		 * 	new Caller {
@@ -212,7 +183,7 @@ public class CompanionClassGenerator {
 
 		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec()
+		final MethodSpec callMethod = getEmptyCallMethodSpec(target)
 				.addCode(CodeBlock
 						.builder()
 						.addStatement(
@@ -227,7 +198,7 @@ public class CompanionClassGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec()
+		return getEmptyAnonymousCallerSpec(target)
 				.addMethod(callMethod)
 				.addMethod(valueIsAvailable)
 				.addMethod(getValue)
@@ -235,16 +206,16 @@ public class CompanionClassGenerator {
 				.build();
 	}
 
-	private TypeSpec.Builder getEmptyAnonymousCallerSpec() {
+	private TypeSpec.Builder getEmptyAnonymousCallerSpec(final ClassName target) {
 		final ClassName genericCaller = ClassName.get(CallerDef.PACKAGE, CallerDef.INTERFACE_NAME);
-		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetClass);
+		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, target);
 
 		return TypeSpec
 				.anonymousClassBuilder("")
 				.addSuperinterface(specificCaller);
 	}
 
-	private MethodSpec.Builder getEmptyCallMethodSpec() {
+	private MethodSpec.Builder getEmptyCallMethodSpec(final ClassName targetClass) {
 		return MethodSpec
 				.methodBuilder(CallerDef.METHOD_NAME)
 				.returns(void.class)
