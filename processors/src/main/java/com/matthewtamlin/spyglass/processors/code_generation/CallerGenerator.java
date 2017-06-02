@@ -2,25 +2,19 @@ package com.matthewtamlin.spyglass.processors.code_generation;
 
 import com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil;
-import com.matthewtamlin.spyglass.processors.grouper.TypeGrouper;
 import com.matthewtamlin.spyglass.processors.util.TypeUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
-import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-
-import java.util.HashSet;
-import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
 
-import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkEachElementIsNotNull;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
@@ -44,12 +38,12 @@ public class CallerGenerator {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		if (hasCallHandlerAnnotation(method)) {
-			return generateCallerForCallHandlerCase(method);
+			return generateCallHandlerCaller(method);
 
 		} else if (hasValueHandlerAnnotation(method)) {
 			return hasDefaultAnnotation(method) ?
-					generateCallerForValueHandlerWithDefaultCase(method) :
-					generateCallerForValueHandlerWithoutDefaultCase(method);
+					generateValueHandlerCallerWithDefault(method) :
+					generateValueHandlerCallerWithoutDefault(method);
 
 		} else {
 			throw new IllegalArgumentException("Argument \'method\' has neither a value handler annotation nor a call" +
@@ -57,7 +51,7 @@ public class CallerGenerator {
 		}
 	}
 
-	private TypeSpec generateCallerForCallHandlerCase(final ExecutableElement e) {
+	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
 		/* General structure
 		 *
 		 * 	new Caller {
@@ -80,7 +74,7 @@ public class CallerGenerator {
 
 		final MethodSpec shouldCallMethod = callerComponentGenerator.generateShouldCallMethodSpecFor(callHandlerAnno);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec(targetType)
+		final MethodSpec callMethod = getEmptyCallMethod(targetType)
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", shouldCallMethod)
@@ -89,13 +83,13 @@ public class CallerGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec(targetType)
+		return getEmptyAnonymousCaller(targetType)
 				.addMethod(callMethod)
 				.addMethod(shouldCallMethod)
 				.build();
 	}
 
-	private TypeSpec generateCallerForValueHandlerWithoutDefaultCase(final ExecutableElement e) {
+	private TypeSpec generateValueHandlerCallerWithoutDefault(final ExecutableElement e) {
 		/* General structure
 		 *
 		 * 	new Caller {
@@ -127,7 +121,7 @@ public class CallerGenerator {
 		final MethodSpec valueIsAvailable = callerComponentGenerator.generateValueIsAvailableSpecFor(valueHandlerAnno);
 		final MethodSpec getValue = callerComponentGenerator.generateGetValueSpecFor(valueHandlerAnno);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec(targetType)
+		final MethodSpec callMethod = getEmptyCallMethod(targetType)
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
@@ -140,14 +134,14 @@ public class CallerGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec(targetType)
+		return getEmptyAnonymousCaller(targetType)
 				.addMethod(callMethod)
 				.addMethod(valueIsAvailable)
 				.addMethod(getValue)
 				.build();
 	}
 
-	private TypeSpec generateCallerForValueHandlerWithDefaultCase(final ExecutableElement e) {
+	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
 		/* General structure
 		 *
 		 * 	new Caller {
@@ -183,7 +177,7 @@ public class CallerGenerator {
 		final MethodSpec getValue = callerComponentGenerator.generateGetValueSpecFor(valueHandler);
 		final MethodSpec getDefault = callerComponentGenerator.generateGetDefaultValueSpecFor(valueHandler);
 
-		final MethodSpec callMethod = getEmptyCallMethodSpec(targetType)
+		final MethodSpec callMethod = getEmptyCallMethod(targetType)
 				.addCode(CodeBlock
 						.builder()
 						.addStatement(
@@ -198,7 +192,7 @@ public class CallerGenerator {
 						.build())
 				.build();
 
-		return getEmptyAnonymousCallerSpec(targetType)
+		return getEmptyAnonymousCaller(targetType)
 				.addMethod(callMethod)
 				.addMethod(valueIsAvailable)
 				.addMethod(getValue)
@@ -206,7 +200,7 @@ public class CallerGenerator {
 				.build();
 	}
 
-	private TypeSpec.Builder getEmptyAnonymousCallerSpec(final TypeName targetType) {
+	private TypeSpec.Builder getEmptyAnonymousCaller(final TypeName targetType) {
 		final ClassName genericCaller = ClassName.get(CallerDef.PACKAGE, CallerDef.INTERFACE_NAME);
 		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
 
@@ -215,7 +209,7 @@ public class CallerGenerator {
 				.addSuperinterface(specificCaller);
 	}
 
-	private MethodSpec.Builder getEmptyCallMethodSpec(final TypeName targetType) {
+	private MethodSpec.Builder getEmptyCallMethod(final TypeName targetType) {
 		return MethodSpec
 				.methodBuilder(CallerDef.METHOD_NAME)
 				.returns(void.class)
