@@ -34,6 +34,8 @@ import static com.matthewtamlin.spyglass.processors.grouper.TypeGrouper.groupByE
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class MainProcessor extends AbstractProcessor {
+	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
+
 	private static final Set<Element> PROCESSED_CLASSES = new HashSet<>();
 
 	private Messager messager;
@@ -42,7 +44,6 @@ public class MainProcessor extends AbstractProcessor {
 
 	private CallerGenerator callerGenerator;
 
-	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
 
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
