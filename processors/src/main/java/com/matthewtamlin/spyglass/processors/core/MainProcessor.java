@@ -36,8 +36,6 @@ import static javax.tools.Diagnostic.Kind.ERROR;
 public class MainProcessor extends AbstractProcessor {
 	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
 
-	private final Set<Element> processedClasses = new HashSet<>();
-
 	private Messager messager;
 
 	private Filer filer;
