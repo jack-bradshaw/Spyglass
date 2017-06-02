@@ -62,7 +62,7 @@ public class MainProcessor extends AbstractProcessor {
 		messager = processingEnvironment.getMessager();
 		filer = processingEnvironment.getFiler();
 
-		createRequiredFiles();
+		createFile(CallerDef.getJavaFile(), "Could not create Caller class file.");
 	}
 
 	@Override
@@ -83,14 +83,6 @@ public class MainProcessor extends AbstractProcessor {
 		createCompanions(allElements);
 
 		return false;
-	}
-
-	private void createRequiredFiles() {
-		try {
-			CallerDef.getJavaFile().writeTo(filer);
-		} catch (final IOException e) {
-			messager.printMessage(ERROR, "Unable to create required Spyglass framework file.");
-		}
 	}
 
 	private Set<ExecutableElement> findSupportedElements(final RoundEnvironment roundEnv) {
