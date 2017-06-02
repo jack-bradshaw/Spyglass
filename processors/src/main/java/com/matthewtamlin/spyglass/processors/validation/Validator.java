@@ -14,6 +14,8 @@ import java.util.Set;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.NestingKind;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.CALL_HANDLER_ANNOTATIONS;
@@ -21,6 +23,7 @@ import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.DEFA
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.USE_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processors.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
 import static javax.lang.model.element.Modifier.PRIVATE;
+import static javax.lang.model.element.Modifier.STATIC;
 
 @Tested(testMethod = "automated")
 public class Validator {
@@ -172,6 +175,42 @@ public class Validator {
 				if (element.getModifiers().contains(PRIVATE)) {
 					throw new ValidationException("Methods with handler annotations must have public, protected, or " +
 							"default access. Private methods are not compatible with the Spyglass Framework.");
+				}
+			}
+		});
+
+		// Check for methods which are members of non-static inner classes (recursively)
+		rules.add(new Rule() {
+			@Override
+			public void checkElementComplies(final Element element) throws ValidationException {
+				if (!checkParentsRecursively(element)) {
+					throw new ValidationException("Methods with handler annotations must be accessible from static " +
+							"context.");
+				}
+			}
+
+			private boolean checkParentsRecursively(final Element element) {
+				final TypeElement parent = (TypeElement) element.getEnclosingElement();
+
+				if (parent == null) {
+					// Input was a top level class
+					return true;
+
+				} else if (parent.getNestingKind() == NestingKind.TOP_LEVEL) {
+					return true;
+
+				} else if (parent.getNestingKind() == NestingKind.MEMBER) {
+					// The enclosing element must be static, and its parents must also be valid
+					return parent.getModifiers().contains(STATIC);
+
+				} else if (parent.getNestingKind() == NestingKind.LOCAL) {
+					return false;
+
+				} else if (parent.getNestingKind() == NestingKind.ANONYMOUS) {
+					return false;
+
+				} else {
+					throw new RuntimeException("This should never happen.");
 				}
 			}
 		});
