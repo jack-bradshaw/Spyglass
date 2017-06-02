@@ -1,12 +1,17 @@
 package com.matthewtamlin.spyglass.processors.core;
 
+import com.matthewtamlin.spyglass.processors.code_generation.AndroidClassNames;
 import com.matthewtamlin.spyglass.processors.code_generation.CallerDef;
-import com.matthewtamlin.spyglass.processors.code_generation.CompanionClassGenerator;
+import com.matthewtamlin.spyglass.processors.code_generation.CallerGenerator;
 import com.matthewtamlin.spyglass.processors.grouper.TypeElementWrapper;
 import com.matthewtamlin.spyglass.processors.util.TypeUtil;
 import com.matthewtamlin.spyglass.processors.validation.ValidationException;
 import com.matthewtamlin.spyglass.processors.validation.Validator;
+import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -22,19 +27,21 @@ import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 
-import static com.matthewtamlin.spyglass.processors.grouper.TypeGrouper.groupByEnclosingClass;
+import static com.matthewtamlin.spyglass.processors.grouper.TypeGrouper.groupByEnclosingType;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class MainProcessor extends AbstractProcessor {
-	private static final Set<Element> PROCESSED_CLASSES = new HashSet<>();
+	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
 
 	private Messager messager;
 
 	private Filer filer;
 
-	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
+	private CallerGenerator callerGenerator;
+
 
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
@@ -50,10 +57,11 @@ public class MainProcessor extends AbstractProcessor {
 	public synchronized void init(final ProcessingEnvironment processingEnvironment) {
 		super.init(processingEnvironment);
 
+		callerGenerator = new CallerGenerator(processingEnvironment.getElementUtils());
 		messager = processingEnvironment.getMessager();
 		filer = processingEnvironment.getFiler();
 
-		createRequiredFiles();
+		createFile(CallerDef.getJavaFile(), "Could not create Caller class file.");
 	}
 
 	@Override
@@ -68,42 +76,12 @@ public class MainProcessor extends AbstractProcessor {
 	}
 
 	@Override
-	public boolean process(
-			final Set<? extends TypeElement> annotations,
-			final RoundEnvironment roundEnv) {
-
+	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
-		final Map<TypeElementWrapper, Set<ExecutableElement>> elementsByEnclosingClass =
-				groupByEnclosingClass(allElements);
-
 		validateElements(allElements);
-
-		for (final TypeElementWrapper target : elementsByEnclosingClass.keySet()) {
-			final String targetPackage = TypeUtil.getPackageOfType(target.unwrap());
-			final String targetClass = TypeUtil.getSimpleNameOfType(target.unwrap());
-
-			final Set<ExecutableElement> targetElements = elementsByEnclosingClass.get(target);
-
-			final JavaFile companionForTarget = CompanionClassGenerator
-					.forTarget(targetPackage, targetClass)
-					.generateCompanionFromElements(targetElements);
-
-			try {
-				companionForTarget.writeTo(filer);
-			} catch (IOException e) {
-				messager.printMessage(ERROR, "Unable to create Spyglass source file.");
-			}
-		}
+		createCompanions(allElements);
 
 		return false;
-	}
-
-	private void createRequiredFiles() {
-		try {
-			CallerDef.getJavaFile().writeTo(filer);
-		} catch (final IOException e) {
-			messager.printMessage(ERROR, "Unable to create required Spyglass framework file.");
-		}
 	}
 
 	private Set<ExecutableElement> findSupportedElements(final RoundEnvironment roundEnv) {
@@ -111,7 +89,7 @@ public class MainProcessor extends AbstractProcessor {
 
 		for (final Class<? extends Annotation> annoType : SUPPORTED_ANNOTATIONS) {
 			for (final Element foundElement : roundEnv.getElementsAnnotatedWith(annoType)) {
-				// Based on design of processor, all elements should be executable elements
+				// All elements should be executable elements
 				supportedElements.add((ExecutableElement) foundElement);
 			}
 		}
@@ -130,6 +108,55 @@ public class MainProcessor extends AbstractProcessor {
 			} catch (final Exception e2) {
 				messager.printMessage(ERROR, "Spyglass validation failure.", element);
 			}
+		}
+	}
+
+	private void createCompanions(final Set<ExecutableElement> elements) {
+		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = groupByEnclosingType(elements);
+
+		for (final TypeElementWrapper targetClass : sortedElements.keySet()) {
+			final CodeBlock.Builder activateCallersBodyBuilder = CodeBlock.builder();
+
+			for (final ExecutableElement method : sortedElements.get(targetClass)) {
+				final TypeSpec anonymousCaller = callerGenerator.generateCaller(method);
+
+				//TODO need to make sure this actually generates an anonymous class as expected
+				activateCallersBodyBuilder.addStatement("new $L.callMethod(target, context, attrs)", anonymousCaller);
+				activateCallersBodyBuilder.add("\n");
+			}
+
+			final MethodSpec activateCallersMethod = MethodSpec
+					.methodBuilder("activateCallers")
+					.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+					.returns(void.class)
+					.addParameter(TypeName.get(targetClass.unwrap().asType()), "target")
+					.addParameter(AndroidClassNames.CONTEXT, "context")
+					.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs")
+					.addCode(activateCallersBodyBuilder.build())
+					.build();
+
+			final TypeSpec companionClass = TypeSpec
+					.classBuilder(targetClass.unwrap().getSimpleName() + "_SpyglassCompanion")
+					.addMethod(activateCallersMethod)
+					.build();
+
+			final JavaFile companionFile = JavaFile
+					.builder(TypeUtil.getPackageOfType(targetClass.unwrap()), companionClass)
+					.indent("\t")
+					.addFileComment("Generated by the Spyglass framework. Do not modify!")
+					.build();
+
+			createFile(
+					companionFile,
+					"Could not create companion file for class " + targetClass.unwrap().getSimpleName() + ".");
+		}
+	}
+
+	private void createFile(final JavaFile file, final String errorMessage) {
+		try {
+			file.writeTo(filer);
+		} catch (final IOException e) {
+			messager.printMessage(ERROR, errorMessage);
 		}
 	}
 }
