@@ -24,10 +24,7 @@ public class Data {
 			@ElementId("very nested class")
 			public static class NestedClass {
 				@ElementId("very nested class method")
-				public void innerInnerInnerMethod() {
-					@ElementId("element inside method")
-					String s;
-				}
+				public void innerInnerInnerMethod() {}
 
 				@ElementId("very nested class field")
 				public int innerField;
