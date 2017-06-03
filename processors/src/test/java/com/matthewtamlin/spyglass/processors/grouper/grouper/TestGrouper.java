@@ -29,8 +29,6 @@ public class TestGrouper {
 	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors/" +
 			"grouper/grouper/Data.java");
 
-	private IdBasedElementSupplier elementSupplier;
-
 	private TypeElement primaryClass;
 
 	private TypeElement secondaryClass;
