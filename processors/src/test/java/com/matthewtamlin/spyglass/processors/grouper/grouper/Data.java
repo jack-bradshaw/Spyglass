@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.grouper.type_grouper;
+package com.matthewtamlin.spyglass.processors.grouper.grouper;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
 
