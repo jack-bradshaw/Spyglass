@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.processors.grouper.type_grouper;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processors.grouper.TypeElementWrapper;
+import com.matthewtamlin.spyglass.processors.util.SetUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -87,6 +88,13 @@ public class TestTypeGrouper {
 		set.add(null);
 
 		groupByEnclosingType(set);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGroupByEnclosingType_elementNotDirectChildOfTypeElement() {
+		final Element element = elementSupplier.getUniqueElementWithId("element within method");
+
+		groupByEnclosingType(SetUtil.immutableSetOf(element));
 	}
 
 	@Test
