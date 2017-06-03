@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processors.grouper;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processors.util.TypeUtil;
 
 import java.util.HashMap;
 import java.util.HashSet;
