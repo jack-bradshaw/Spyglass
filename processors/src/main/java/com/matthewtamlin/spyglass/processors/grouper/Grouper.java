@@ -14,7 +14,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkEachEle
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class TypeGrouper {
+public class Grouper {
 	public static <T extends Element> Map<TypeElementWrapper, Set<T>> groupByEnclosingType(final Set<T> elements) {
 		checkNotNull(elements, "Argument \'elements\' cannot be null.");
 		checkEachElementIsNotNull(elements, "Argument \'elements\' cannot contain null.");
@@ -41,7 +41,7 @@ public class TypeGrouper {
 		return groups;
 	}
 
-	private TypeGrouper() {
+	private Grouper() {
 		throw new RuntimeException("Util class. Do not instantiate.");
 	}
 }

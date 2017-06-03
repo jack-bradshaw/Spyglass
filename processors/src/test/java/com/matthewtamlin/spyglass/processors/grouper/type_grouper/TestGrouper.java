@@ -20,12 +20,12 @@ import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.processors.grouper.TypeGrouper.groupByEnclosingType;
+import static com.matthewtamlin.spyglass.processors.grouper.Grouper.groupByEnclosingType;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnit4.class)
-public class TestTypeGrouper {
+public class TestGrouper {
 	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors" +
 			"/core/grouper/Data.java");
 
