@@ -90,13 +90,6 @@ public class TestGrouper {
 		groupByEnclosingClass(set);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testGroupByEnclosingClass_elementNotDirectChildOfTypeElement() {
-		final Element element = elementSupplier.getUniqueElementWithId("element within method");
-
-		groupByEnclosingClass(SetUtil.immutableSetOf(element));
-	}
-
 	@Test
 	public void testGroupByEnclosingClass_primaryClassComponents() {
 		final Map<TypeElementWrapper, Set<Element>> groupedByClass = groupByEnclosingClass(primaryClassChildren);
