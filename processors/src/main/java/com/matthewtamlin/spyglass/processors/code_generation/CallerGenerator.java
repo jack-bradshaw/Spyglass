@@ -117,7 +117,7 @@ public class CallerGenerator {
 
 		final TypeName targetType = getNameOfTargetClass(e);
 
-		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
+		final TypeName nonUseParamType = getNameOfNonUseParameter(e);
 		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 
 		final MethodSpec valueIsAvailable = callerComponentGenerator.generateValueIsAvailableSpecFor(valueHandlerAnno);
@@ -173,7 +173,7 @@ public class CallerGenerator {
 
 		final TypeName targetType = getNameOfTargetClass(e);
 
-		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
+		final TypeName nonUseParamType = getNameOfNonUseParameter(e);
 		final AnnotationMirror valueHandler = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 
 		final MethodSpec valueIsAvailable = callerComponentGenerator.generateValueIsAvailableSpecFor(valueHandler);
@@ -222,7 +222,7 @@ public class CallerGenerator {
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs");
 	}
 
-	private TypeName getTypeNameOfNonUseParameter(final ExecutableElement e) {
+	private TypeName getNameOfNonUseParameter(final ExecutableElement e) {
 		for (final VariableElement parameter : e.getParameters()) {
 			if (!hasUseAnnotation(parameter)) {
 				return ClassName.get(parameter.asType());
