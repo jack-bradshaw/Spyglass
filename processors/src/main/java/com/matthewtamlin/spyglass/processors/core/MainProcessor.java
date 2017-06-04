@@ -43,7 +43,7 @@ public class MainProcessor extends AbstractProcessor {
 	private Elements elementUtil;
 
 	private CallerGenerator callerGenerator;
-	
+
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
 
@@ -118,14 +118,14 @@ public class MainProcessor extends AbstractProcessor {
 		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = groupByEnclosingClass(elements);
 
 		for (final TypeElementWrapper targetClass : sortedElements.keySet()) {
-			final CodeBlock.Builder activateCallersBodyBuilder = CodeBlock.builder();
+			final CodeBlock.Builder activateCallersMethodBodyBuilder = CodeBlock.builder();
 
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
 				final TypeSpec anonymousCaller = callerGenerator.generateCaller(method);
 
 				//TODO need to make sure this actually generates an anonymous class as expected
-				activateCallersBodyBuilder.addStatement("new $L.callMethod(target, context, attrs)", anonymousCaller);
-				activateCallersBodyBuilder.add("\n");
+				activateCallersMethodBodyBuilder.addStatement("new $L.callMethod(target, context, attrs)", anonymousCaller);
+				activateCallersMethodBodyBuilder.add("\n");
 			}
 
 			final MethodSpec activateCallersMethod = MethodSpec
@@ -135,7 +135,7 @@ public class MainProcessor extends AbstractProcessor {
 					.addParameter(TypeName.get(targetClass.unwrap().asType()), "target")
 					.addParameter(AndroidClassNames.CONTEXT, "context")
 					.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs")
-					.addCode(activateCallersBodyBuilder.build())
+					.addCode(activateCallersMethodBodyBuilder.build())
 					.build();
 
 			final TypeSpec companionClass = TypeSpec
