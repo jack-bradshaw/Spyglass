@@ -1,8 +1,11 @@
 package com.matthewtamlin.spyglass.processors.util;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
+
 import static com.matthewtamlin.java_utilities.checkers.IntChecker.checkGreaterThanOrEqualTo;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+@Tested(testMethod = "automated")
 public class EnumUtil {
 	private static final String CLASS_NOT_FOUND_MESSAGE = "Could not find class \'%1$s\'.";
 
