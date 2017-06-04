@@ -13,8 +13,8 @@ import static org.hamcrest.Matchers.is;
 @RunWith(JUnit4.class)
 public class TestSetUtil {
 	@Test
-	public void testImmutableSetOf_checkSetContainsExpectedValues() {
-		final Set<Object> set = SetUtil.<Object>immutableSetOf(null, null, "hello", "world", "world", "world", 1);
+	public void testUnmodifiableSetOf_checkSetContainsExpectedValues() {
+		final Set<Object> set = SetUtil.<Object>unmodifiableSetOf(null, null, "hello", "world", "world", "world", 1);
 
 		assertThat(set, hasSize(4));
 		assertThat(set.contains(null), is(true));
@@ -24,8 +24,8 @@ public class TestSetUtil {
 	}
 
 	@Test(expected = UnsupportedOperationException.class)
-	public void testImmutableSetOf_checkImmutability() {
-		final Set<Object> set = SetUtil.immutableSetOf();
+	public void testUnmodifiableSetOf_checkSetCannotBeModified() {
+		final Set<Object> set = SetUtil.unmodifiableSetOf();
 
 		set.add(new Object());
 	}

@@ -9,7 +9,7 @@ import java.util.Set;
 @Tested(testMethod = "automated")
 public class SetUtil {
 	@SafeVarargs
-	public static <T> Set<T> immutableSetOf(T... objects) {
+	public static <T> Set<T> unmodifiableSetOf(T... objects) {
 		final Set<T> set = new HashSet<>();
 
 		Collections.addAll(set, objects);

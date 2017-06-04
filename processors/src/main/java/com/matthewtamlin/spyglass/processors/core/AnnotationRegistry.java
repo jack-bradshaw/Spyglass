@@ -46,15 +46,15 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHand
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
-import static com.matthewtamlin.spyglass.processors.util.SetUtil.immutableSetOf;
+import static com.matthewtamlin.spyglass.processors.util.SetUtil.unmodifiableSetOf;
 
 public class AnnotationRegistry {
-	public static final Set<Class<? extends Annotation>> CALL_HANDLER_ANNOTATIONS = immutableSetOf(
+	public static final Set<Class<? extends Annotation>> CALL_HANDLER_ANNOTATIONS = unmodifiableSetOf(
 			SpecificEnumHandler.class,
 			SpecificFlagHandler.class
 	);
 
-	public static final Set<Class<? extends Annotation>> VALUE_HANDLER_ANNOTATIONS = immutableSetOf(
+	public static final Set<Class<? extends Annotation>> VALUE_HANDLER_ANNOTATIONS = unmodifiableSetOf(
 			BooleanHandler.class,
 			ColorHandler.class,
 			ColorStateListHandler.class,
@@ -70,7 +70,7 @@ public class AnnotationRegistry {
 			TextHandler.class
 	);
 
-	public static final Set<Class<? extends Annotation>> DEFAULT_ANNOTATIONS = immutableSetOf(
+	public static final Set<Class<? extends Annotation>> DEFAULT_ANNOTATIONS = unmodifiableSetOf(
 			DefaultToBoolean.class,
 			DefaultToBooleanResource.class,
 			DefaultToColorResource.class,
@@ -90,7 +90,7 @@ public class AnnotationRegistry {
 			DefaultToTextResource.class
 	);
 
-	public static final Set<Class<? extends Annotation>> USE_ANNOTATIONS = immutableSetOf(
+	public static final Set<Class<? extends Annotation>> USE_ANNOTATIONS = unmodifiableSetOf(
 			UseBoolean.class,
 			UseByte.class,
 			UseChar.class,
