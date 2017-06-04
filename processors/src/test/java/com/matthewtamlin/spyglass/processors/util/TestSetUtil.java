@@ -22,4 +22,11 @@ public class TestSetUtil {
 		assertThat(set.contains("world"), is(true));
 		assertThat(set.contains(1), is(true));
 	}
+
+	@Test(expected = UnsupportedOperationException.class)
+	public void testImmutableSetOf_checkImmutability() {
+		final Set<Object> set = SetUtil.immutableSetOf();
+
+		set.add(new Object());
+	}
 }
