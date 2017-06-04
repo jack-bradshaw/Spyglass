@@ -2,7 +2,6 @@ package com.matthewtamlin.spyglass.processors.code_generation;
 
 import com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil;
-import com.matthewtamlin.spyglass.processors.util.TypeUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -12,6 +11,7 @@ import com.squareup.javapoet.TypeSpec;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.util.Elements;
 
@@ -69,7 +69,8 @@ public class CallerGenerator {
 		 * 	}
 		 */
 
-		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final TypeName targetType = getNameOfTargetClass(e);
+
 		final AnnotationMirror callHandlerAnno = CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror(e);
 
 		final MethodSpec shouldCallMethod = callerComponentGenerator.generateShouldCallMethodSpecFor(callHandlerAnno);
@@ -114,7 +115,8 @@ public class CallerGenerator {
 		 * }
 		 */
 
-		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final TypeName targetType = getNameOfTargetClass(e);
+
 		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
 		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 
@@ -169,7 +171,8 @@ public class CallerGenerator {
 		 *	}
 		 */
 
-		final TypeName targetType = TypeName.get(TypeUtil.getEnclosingType(e).asType());
+		final TypeName targetType = getNameOfTargetClass(e);
+
 		final TypeName nonUseParamType = getTypeNameOfNonUseParameter(e);
 		final AnnotationMirror valueHandler = ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror(e);
 
@@ -227,5 +230,10 @@ public class CallerGenerator {
 		}
 
 		throw new RuntimeException("No non-use argument found.");
+	}
+
+	private TypeName getNameOfTargetClass(final ExecutableElement method) {
+		final TypeElement enclosingType = (TypeElement) method.getEnclosingElement();
+		return TypeName.get(enclosingType.asType());
 	}
 }
