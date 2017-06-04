@@ -43,8 +43,7 @@ public class MainProcessor extends AbstractProcessor {
 	private Elements elementUtil;
 
 	private CallerGenerator callerGenerator;
-
-
+	
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
 
