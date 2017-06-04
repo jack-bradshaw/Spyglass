@@ -30,7 +30,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
-import static com.matthewtamlin.spyglass.processors.grouper.TypeGrouper.groupByEnclosingType;
+import static com.matthewtamlin.spyglass.processors.grouper.Grouper.groupByEnclosingClass;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class MainProcessor extends AbstractProcessor {
@@ -116,7 +116,7 @@ public class MainProcessor extends AbstractProcessor {
 	}
 
 	private void createCompanions(final Set<ExecutableElement> elements) {
-		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = groupByEnclosingType(elements);
+		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = groupByEnclosingClass(elements);
 
 		for (final TypeElementWrapper targetClass : sortedElements.keySet()) {
 			final CodeBlock.Builder activateCallersBodyBuilder = CodeBlock.builder();
