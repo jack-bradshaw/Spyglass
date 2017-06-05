@@ -270,7 +270,7 @@ public class ShouldDoInvocationMethodGenerator {
 		final String annotationTypeName = anno.getAnnotationType().toString();
 
 		return MethodSpec
-				.methodBuilder("shouldCallMethod")
+				.methodBuilder("shouldDoInvocation")
 				.addModifiers(PUBLIC)
 				.returns(boolean.class)
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
