@@ -100,10 +100,10 @@ public class ShouldDoInvocationMethodGenerator {
 	 * 	dynamic implementation here
 	 * }}</pre>
 	 * <p>
-	 * The body of the method is dynamically generated based on the supplied annotation. The method queries the
-	 * supplied typed array to determine if the attribute attribute defined by the annotation is available in the array.
-	 * If the attribute is available, then the method returns true. Otherwise, it returns false. What exactly it
-	 * means for the attribute to be present is determined by the specific implementation.
+	 * The body of the method is dynamically generated based on the supplied annotation. In general terms, the method
+	 * queries the supplied typed array to determine if a specific value is available. The method returns true if the
+	 * value is available, and false otherwise. What exactly it means for a value to be available and which value is
+	 * of interest is defined by each specific implementation.
 	 *
 	 * @param anno
 	 * 		the annotation to use when generating the method body, not null
