@@ -1,0 +1,23 @@
+apply plugin: 'com.android.application'
+
+android {
+	compileSdkVersion 25
+	buildToolsVersion "25.0.2"
+
+	defaultConfig {
+		applicationId "com.matthewtamlin.processor_android_tests"
+
+		versionCode 1
+		versionName "1.0"
+
+		minSdkVersion 14
+		targetSdkVersion 25
+
+		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+	}
+}
+
+dependencies {
+	compile project(':processor')
+	compile 'com.android.support:appcompat-v7:25.2.0'
+}
