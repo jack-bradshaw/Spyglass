@@ -340,7 +340,7 @@ public class GetDefaultMethodGenerator {
 		final String annotationType = anno.getAnnotationType().toString();
 
 		return MethodSpec
-				.methodBuilder("getDefaultValue")
+				.methodBuilder("getDefault")
 				.addModifiers(PUBLIC)
 				.returns(Object.class)
 				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
