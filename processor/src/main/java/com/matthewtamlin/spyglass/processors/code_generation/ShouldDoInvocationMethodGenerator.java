@@ -246,6 +246,24 @@ public class ShouldDoInvocationMethodGenerator {
 		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
 	}
 
+	/**
+	 * Creates a method spec equivalent to the following:
+	 * <pre>{@code
+	 * public boolean shouldDoInvocation(final TypedArray attrs) {
+	 * 	dynamic implementation here
+	 * }}</pre>
+	 * <p>
+	 * The body of the method is dynamically generated based on the supplied annotation. The body will query the
+	 * supplied typed array to determine if the attribute value defined by the annotation is available in the array.
+	 *
+	 * @param anno
+	 * 		the annotation to use when generating the method body, not null
+	 *
+	 * @return the method spec, not null
+	 *
+	 * @throws IllegalArgumentException
+	 * 		if {@code anno} is null
+	 */
 	public MethodSpec getMethod(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
