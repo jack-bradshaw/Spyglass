@@ -284,10 +284,10 @@ public class ValueIsAvailableMethodGenerator {
 	 * 	dynamic implementation here
 	 * }}</pre>
 	 * <p>
-	 * The body of the method is dynamically generated based on the supplied annotation. Generally speaking, the
-	 * method queries the supplied typed array to determine if any value is available for a specific attribute. The
-	 * method returns true if a value is available, and false otherwise. What exactly it means for a value to be
-	 * available is defined by each specific implementation.
+	 * The body of the method is dynamically generated based on the supplied annotation. In general terms, the method
+	 * queries the supplied typed array to determine if there is a value is available for some attribute. The method
+	 * returns true if a value is available, and false otherwise. What exactly it means for a value to be available
+	 * and which value is of interest is defined by each specific implementation.
 	 *
 	 * @param anno
 	 * 		the annotation to use when generating the method body, not null
