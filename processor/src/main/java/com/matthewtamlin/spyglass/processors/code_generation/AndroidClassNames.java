@@ -12,4 +12,8 @@ public class AndroidClassNames {
 	public static final ClassName DISPLAY_METRICS = ClassName.get("android.util", "DisplayMetrics");
 
 	public static final ClassName TYPED_VALUE = ClassName.get("android.util", "TypedValue");
+
+	private AndroidClassNames() {
+		throw new RuntimeException("Constants class. Do not instantiate.");
+	}
 }
