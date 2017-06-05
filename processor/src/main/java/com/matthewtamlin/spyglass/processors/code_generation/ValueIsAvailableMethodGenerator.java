@@ -277,6 +277,26 @@ public class ValueIsAvailableMethodGenerator {
 		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
 	}
 
+	/**
+	 * Creates a method spec equivalent to the following:
+	 * <pre>{@code
+	 * public boolean valueIsAvailable(final TypedArray attrs) {
+	 * 	dynamic implementation here
+	 * }}</pre>
+	 * <p>
+	 * The body of the method is dynamically generated based on the supplied annotation. Generally speaking, the
+	 * method queries the supplied typed array to determine if any value is available for a specific attribute. The
+	 * method returns true if a value is available, and false otherwise. What exactly it means for a value to be
+	 * available is defined by each specific implementation.
+	 *
+	 * @param anno
+	 * 		the annotation to use when generating the method body, not null
+	 *
+	 * @return the method spec, not null
+	 *
+	 * @throws IllegalArgumentException
+	 * 		if {@code anno} is null
+	 */
 	public MethodSpec getMethod(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 
