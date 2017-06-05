@@ -81,7 +81,7 @@ public class SpecificValueIsAvailableMethodGenerator {
 	/**
 	 * Creates a method spec equivalent to the following:
 	 * <pre>{@code
-	 * public boolean shouldDoInvocation(final TypedArray attrs) {
+	 * public boolean specificValueIsAvailable(final TypedArray attrs) {
 	 * 	dynamic implementation here
 	 * }}</pre>
 	 * <p>
@@ -104,7 +104,7 @@ public class SpecificValueIsAvailableMethodGenerator {
 		final String annotationTypeName = anno.getAnnotationType().toString();
 
 		return MethodSpec
-				.methodBuilder("shouldDoInvocation")
+				.methodBuilder("specificValueIsAvailable")
 				.addModifiers(PUBLIC)
 				.returns(boolean.class)
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
