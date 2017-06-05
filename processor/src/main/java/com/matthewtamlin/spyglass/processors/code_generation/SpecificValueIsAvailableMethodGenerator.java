@@ -17,7 +17,7 @@ import static com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationM
 import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
-public class ShouldDoInvocationMethodGenerator {
+public class SpecificValueIsAvailableMethodGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> methodBodySuppliers;
 
 	private final Elements elementUtil;
@@ -74,7 +74,7 @@ public class ShouldDoInvocationMethodGenerator {
 		);
 	}
 
-	public ShouldDoInvocationMethodGenerator(final Elements elementUtil) {
+	public SpecificValueIsAvailableMethodGenerator(final Elements elementUtil) {
 		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
 	}
 
