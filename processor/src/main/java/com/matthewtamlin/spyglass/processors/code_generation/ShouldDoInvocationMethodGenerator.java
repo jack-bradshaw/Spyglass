@@ -1,8 +1,25 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
+import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorStateListHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.DrawableHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.EnumOrdinalHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.FloatHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.IntegerHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextArrayHandler;
+import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHandler;
 import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
+import com.matthewtamlin.spyglass.processors.util.EnumUtil;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -23,7 +40,53 @@ public class ShouldDoInvocationMethodGenerator {
 	{
 		methodBodySuppliers = new HashMap<>();
 
-		
+		methodBodySuppliers.put(
+				SpecificEnumHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getInt($1L, 1) == 1 && \n" +
+												"attrs.getInt($1L, 2) == 2",
+										getLiteralFromAnnotation(object, "attributeId"))
+								.add("\n")
+								.addStatement(
+										"return defaultConsistentlyReturned ? \n" +
+												"false :\n" +
+												"attrs.getInt($L, 0) == $L",
+										getLiteralFromAnnotation(object, "attributeId"),
+										getLiteralFromAnnotation(object, "ordinal"))
+								.build();
+					}
+				}
+		);
+
+		methodBodySuppliers.put(
+				SpecificFlagHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"attrs.getInt($1L, 1) == 1 && \n" +
+												"attrs.getInt($1L, 2) == 2",
+										getLiteralFromAnnotation(object, "attributeId"))
+								.add("\n")
+								.addStatement(
+										"return defaultConsistentlyReturned ? \n" +
+												"false : \n" +
+												"(attrs.getInt($L, 0) & $L) > 0",
+										getLiteralFromAnnotation(object, "attributeId"),
+										getLiteralFromAnnotation(object, "handledFlags"))
+								.build();
+					}
+				}
+		);
 	}
 
 	public ShouldDoInvocationMethodGenerator(final Elements elementUtil) {
