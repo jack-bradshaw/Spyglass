@@ -16,6 +16,7 @@ import javax.lang.model.util.Elements;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
+import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.getDefaultAnnotationMirror;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.UseAnnotationUtil.hasUseAnnotation;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror;
@@ -171,7 +172,9 @@ public class CallerGenerator {
 		final AnnotationMirror valueHandler = getValueHandlerAnnotationMirror(e);
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandler);
-		final MethodSpec getDefault = getDefaultMethodGenerator.getMethod(valueHandler);
+
+		final AnnotationMirror defaultAnno = getDefaultAnnotationMirror(e);
+		final MethodSpec getDefault = getDefaultMethodGenerator.getMethod(defaultAnno);
 
 		final MethodSpec callMethod = getEmptyCallMethod(getNameOfTargetClass(e))
 				.addCode(CodeBlock
