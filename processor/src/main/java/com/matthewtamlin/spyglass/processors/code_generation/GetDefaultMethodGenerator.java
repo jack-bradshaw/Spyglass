@@ -18,12 +18,14 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStrin
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.annotations.units.DimensionUnit;
+import com.matthewtamlin.spyglass.processors.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processors.util.EnumUtil;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
+import java.lang.annotation.Annotation;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -336,6 +338,7 @@ public class GetDefaultMethodGenerator {
 	 */
 	public MethodSpec getMethod(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+		checkIsDefaultAnnotation(anno, "Argument \'anno\' must be a mirror of a default annotation.");
 
 		final String annotationType = anno.getAnnotationType().toString();
 
@@ -364,5 +367,17 @@ public class GetDefaultMethodGenerator {
 		}
 
 		throw new RuntimeException("Should never get here.");
+	}
+
+	private void checkIsDefaultAnnotation(final AnnotationMirror anno, final String exceptionMessage) {
+		try {
+			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
+
+			if (!AnnotationRegistry.DEFAULT_ANNOTATIONS.contains(annotationClass)) {
+				throw new IllegalArgumentException(exceptionMessage);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
