@@ -13,6 +13,7 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.IntegerH
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextArrayHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHandler;
+import com.matthewtamlin.spyglass.processors.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processors.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processors.util.EnumUtil;
 import com.squareup.javapoet.CodeBlock;
@@ -267,6 +268,7 @@ public class GetValueMethodGenerator {
 	 */
 	public MethodSpec getMethod(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+		checkIsValueHandlerAnnotation(anno, "Argument \'anno\' must be a mirror of a value handler annotation.");
 
 		final String annotationType = anno.getAnnotationType().toString();
 
@@ -281,5 +283,17 @@ public class GetValueMethodGenerator {
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
 		return getAnnotationValueWithDefaults(mirror, key, elementUtil).toString();
+	}
+
+	private void checkIsValueHandlerAnnotation(final AnnotationMirror anno, final String exceptionMessage) {
+		try {
+			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
+
+			if (!AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS.contains(annotationClass)) {
+				throw new IllegalArgumentException(exceptionMessage);
+			}
+		} catch (ClassNotFoundException e) {
+			throw new RuntimeException(e);
+		}
 	}
 }
