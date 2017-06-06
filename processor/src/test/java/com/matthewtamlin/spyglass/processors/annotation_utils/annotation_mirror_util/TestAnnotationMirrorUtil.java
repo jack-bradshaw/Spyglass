@@ -31,7 +31,7 @@ public class TestAnnotationMirrorUtil {
 	@Rule
 	public CompilationRule compilationRule = new CompilationRule();
 
-	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors" +
+	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processors" +
 			"/annotation_utils/annotation_mirror_util/Data.java");
 
 	private IdBasedElementSupplier elementSupplier;
