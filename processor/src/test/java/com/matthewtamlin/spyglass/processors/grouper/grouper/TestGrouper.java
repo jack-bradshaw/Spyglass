@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnit4.class)
 public class TestGrouper {
-	private static final File DATA_FILE = new File("processors/src/test/java/com/matthewtamlin/spyglass/processors/" +
+	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processors/" +
 			"grouper/grouper/Data.java");
 
 	private TypeElement primaryClass;
