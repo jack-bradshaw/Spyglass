@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.processors.core.AnnotationRegistry;
@@ -18,6 +19,7 @@ import static com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationM
 import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
+@Tested(testMethod = "automated")
 public class SpecificValueIsAvailableMethodGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> methodBodySuppliers;
 

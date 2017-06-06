@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorResource;
@@ -37,6 +38,7 @@ import static com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationM
 import static javax.lang.model.element.Modifier.FINAL;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
+@Tested(testMethod = "automated")
 public class GetDefaultMethodGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> methodBodySuppliers;
 
