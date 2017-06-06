@@ -61,7 +61,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructor_nullSupplied() {
-		new GetValueMethodGenerator(null);
+		new ValueIsAvailableMethodGenerator(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
