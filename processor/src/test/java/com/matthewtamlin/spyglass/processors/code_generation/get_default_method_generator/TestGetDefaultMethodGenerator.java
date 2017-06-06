@@ -75,7 +75,7 @@ public class TestGetDefaultMethodGenerator {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetMethod_nonDefaultAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("no default");
+		final Element element = elementSupplier.getUniqueElementWithId("no default annotation");
 		final AnnotationMirror mirror = getAnnotationMirror(element, BooleanHandler.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
