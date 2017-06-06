@@ -18,13 +18,12 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStrin
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
-import com.matthewtamlin.spyglass.annotations.units.DimensionUnit;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
 
 import static com.matthewtamlin.spyglass.annotations.units.DimensionUnit.DP;
 
 public class Data {
-	@ElementId("no default")
+	@ElementId("no default annotation")
 	@BooleanHandler(attributeId = 1)
 	public void noDefaultAnnotation() {}
 
