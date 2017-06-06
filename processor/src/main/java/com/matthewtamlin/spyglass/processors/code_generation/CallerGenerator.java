@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -23,6 +24,7 @@ import static com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandle
 import static com.matthewtamlin.spyglass.processors.annotation_utils.ValueHandlerAnnotationUtil.hasValueHandlerAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
+@Tested(testMethod = "automated")
 public class CallerGenerator {
 	private GetDefaultMethodGenerator getDefaultMethodGenerator;
 
