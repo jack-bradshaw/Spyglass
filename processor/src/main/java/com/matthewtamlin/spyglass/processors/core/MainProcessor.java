@@ -105,10 +105,10 @@ public class MainProcessor extends AbstractProcessor {
 			try {
 				Validator.validateElement(element);
 
-			} catch (final ValidationException e1) {
-				messager.printMessage(ERROR, e1.getMessage(), element);
+			} catch (final ValidationException validationException) {
+				messager.printMessage(ERROR, validationException.getMessage(), element);
 
-			} catch (final Exception e2) {
+			} catch (final Exception exception) {
 				messager.printMessage(ERROR, "Spyglass validation failure.", element);
 			}
 		}
@@ -118,28 +118,28 @@ public class MainProcessor extends AbstractProcessor {
 		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = groupByEnclosingClass(elements);
 
 		for (final TypeElementWrapper targetClass : sortedElements.keySet()) {
-			final CodeBlock.Builder activateCallersMethodBodyBuilder = CodeBlock.builder();
+			final CodeBlock.Builder methodBody = CodeBlock.builder();
 
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
 				final TypeSpec anonymousCaller = callerGenerator.generateCaller(method);
 
-				activateCallersMethodBodyBuilder.addStatement("new $L.callMethod(target, context, attrs)", anonymousCaller);
-				activateCallersMethodBodyBuilder.add("\n");
+				methodBody.addStatement("$L.call(target, context, attrs)", anonymousCaller);
+				methodBody.add("\n");
 			}
 
-			final MethodSpec activateCallersMethod = MethodSpec
+			final MethodSpec activateCallers = MethodSpec
 					.methodBuilder("activateCallers")
 					.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
 					.returns(void.class)
 					.addParameter(TypeName.get(targetClass.unwrap().asType()), "target")
 					.addParameter(AndroidClassNames.CONTEXT, "context")
 					.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs")
-					.addCode(activateCallersMethodBodyBuilder.build())
+					.addCode(methodBody.build())
 					.build();
 
 			final TypeSpec companionClass = TypeSpec
 					.classBuilder(targetClass.unwrap().getSimpleName() + "_SpyglassCompanion")
-					.addMethod(activateCallersMethod)
+					.addMethod(activateCallers)
 					.build();
 
 			final JavaFile companionFile = JavaFile
