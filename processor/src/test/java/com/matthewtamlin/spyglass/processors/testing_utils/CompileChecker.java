@@ -74,4 +74,4 @@ public class CompileChecker {
 			return false;
 		}
 	}
-} 	
+}
