@@ -1,1 +1,1 @@
-include ':library', ':library tests', ':annotations', ':processor', ':integration tests', ':processor android tests'
+include ':library', ':library tests', ':annotations', ':processor', ':integration tests', ':processor android tests', ':consumer'
