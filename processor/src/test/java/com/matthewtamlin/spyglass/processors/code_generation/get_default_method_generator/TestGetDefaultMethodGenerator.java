@@ -21,9 +21,14 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStrin
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.processors.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processors.code_generation.GetDefaultMethodGenerator;
+import com.matthewtamlin.spyglass.processors.testing_utils.CompileChecker;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -31,6 +36,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -39,6 +46,8 @@ import javax.lang.model.element.Modifier;
 import static com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUtil.getAnnotationMirror;
 import static com.matthewtamlin.spyglass.processors.code_generation.AndroidClassNames.CONTEXT;
 import static com.matthewtamlin.spyglass.processors.code_generation.AndroidClassNames.TYPED_ARRAY;
+import static com.matthewtamlin.spyglass.processors.testing_utils.CompileChecker.checkCompiles;
+import static com.squareup.javapoet.JavaFile.builder;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -90,6 +99,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -101,6 +111,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -112,6 +123,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -123,6 +135,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -134,6 +147,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -145,6 +159,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -156,6 +171,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -167,6 +183,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -178,6 +195,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -189,6 +207,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -200,6 +219,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -211,6 +231,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -222,6 +243,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -233,6 +255,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -244,6 +267,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -255,6 +279,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -266,6 +291,7 @@ public class TestGetDefaultMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	private void checkMethodSignature(final MethodSpec generatedMethod) {
@@ -274,5 +300,19 @@ public class TestGetDefaultMethodGenerator {
 		assertThat(generatedMethod.parameters, hasSize(2));
 		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) CONTEXT));
 		assertThat(generatedMethod.parameters.get(1).type, is((TypeName) TYPED_ARRAY));
+	}
+
+	private void checkCompiles(final MethodSpec methodSpec) {
+		// Create a type to contain the method
+		final TypeSpec wrapperTypeSpec = TypeSpec
+				.classBuilder("Wrapper")
+				.addMethod(methodSpec)
+				.build();
+
+		final JavaFile wrapperJavaFile = JavaFile
+				.builder("", wrapperTypeSpec)
+				.build();
+
+		CompileChecker.checkCompiles(wrapperJavaFile);
 	}
 }
