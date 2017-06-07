@@ -18,8 +18,11 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHa
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextArrayHandler;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHandler;
 import com.matthewtamlin.spyglass.processors.code_generation.GetValueMethodGenerator;
+import com.matthewtamlin.spyglass.processors.testing_utils.CompileChecker;
+import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
+import com.squareup.javapoet.TypeSpec;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -34,6 +37,7 @@ import javax.lang.model.element.Modifier;
 
 import static com.matthewtamlin.spyglass.processors.annotation_utils.AnnotationMirrorUtil.getAnnotationMirror;
 import static com.matthewtamlin.spyglass.processors.code_generation.AndroidClassNames.TYPED_ARRAY;
+import static com.matthewtamlin.spyglass.processors.testing_utils.CompileChecker.checkCompiles;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -85,6 +89,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -96,6 +101,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -107,6 +113,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -118,6 +125,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -129,6 +137,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -140,6 +149,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -151,6 +161,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -162,6 +173,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -173,6 +185,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -184,6 +197,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -195,6 +209,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -206,6 +221,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	@Test
@@ -217,6 +233,7 @@ public class TestGetValueMethodGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
 	}
 
 	private void checkMethodSignature(final MethodSpec generatedMethod) {
@@ -224,5 +241,19 @@ public class TestGetValueMethodGenerator {
 		assertThat(generatedMethod.returnType, is((TypeName) TypeName.OBJECT));
 		assertThat(generatedMethod.parameters, hasSize(1));
 		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) TYPED_ARRAY));
+	}
+
+	private void checkCompiles(final MethodSpec methodSpec) {
+		// Create a type to contain the method
+		final TypeSpec wrapperTypeSpec = TypeSpec
+				.classBuilder("Wrapper")
+				.addMethod(methodSpec)
+				.build();
+
+		final JavaFile wrapperJavaFile = JavaFile
+				.builder("", wrapperTypeSpec)
+				.build();
+
+		CompileChecker.checkCompiles(wrapperJavaFile);
 	}
 }
