@@ -123,7 +123,6 @@ public class MainProcessor extends AbstractProcessor {
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
 				final TypeSpec anonymousCaller = callerGenerator.generateCaller(method);
 
-				//TODO need to make sure this actually generates an anonymous class as expected
 				activateCallersMethodBodyBuilder.addStatement("new $L.callMethod(target, context, attrs)", anonymousCaller);
 				activateCallersMethodBodyBuilder.add("\n");
 			}
