@@ -123,7 +123,7 @@ public class MainProcessor extends AbstractProcessor {
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
 				final TypeSpec anonymousCaller = callerGenerator.generateCaller(method);
 
-				methodBody.addStatement("new $L.callMethod(target, context, attrs)", anonymousCaller);
+				methodBody.addStatement("$L.call(target, context, attrs)", anonymousCaller);
 				methodBody.add("\n");
 			}
 
