@@ -13,7 +13,7 @@ public final class CallerDef {
 
 	public static final String INTERFACE_NAME = "Caller";
 
-	public static final String METHOD_NAME = "callMethod";
+	public static final String METHOD_NAME = "call";
 
 	public static JavaFile getJavaFile() {
 		final TypeVariableName targetType = TypeVariableName.get("T");
