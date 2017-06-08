@@ -92,7 +92,7 @@ public class Spyglass {
 			throw new RuntimeException(e);
 
 		} catch (final InvocationTargetException e) {
-			throw new RuntimeException("A method invoked by Spyglass threw an exception.",	e);
+			throw new RuntimeException("A method invoked by Spyglass threw an exception.", e);
 
 		} catch (final IllegalAccessException e) {
 			throw new RuntimeException("Spyglass was not able to access a method.", e);
