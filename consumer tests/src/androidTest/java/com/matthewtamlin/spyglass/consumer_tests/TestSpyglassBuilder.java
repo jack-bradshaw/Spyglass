@@ -35,22 +35,24 @@ public class TestSpyglassBuilder {
 
 	@Test
 	public void testBuild_targetWithCompanionSupplied() {
-		final View targetView = new ViewWithCompanion(InstrumentationRegistry.getContext());
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new ViewWithCompanion(context);
 
 		Spyglass.builder()
 				.withTarget(targetView)
-				.withContext(InstrumentationRegistry.getContext())
+				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
 	}
 
 	@Test(expected = MissingCompanionClassException.class)
 	public void testBuild_targetWithoutCompanionSupplied() {
-		final View targetView = new ViewWithoutCompanion(InstrumentationRegistry.getContext());
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new ViewWithoutCompanion(context);
 
 		Spyglass.builder()
 				.withTarget(targetView)
-				.withContext(InstrumentationRegistry.getContext())
+				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
 	}
