@@ -6,6 +6,6 @@
 		android:allowBackup="false"
 		android:label="Spyglass IT"
 		android:supportsRtl="true"
-		android:theme="@style/AppTheme">
+		android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 	</application>
 </manifest>
