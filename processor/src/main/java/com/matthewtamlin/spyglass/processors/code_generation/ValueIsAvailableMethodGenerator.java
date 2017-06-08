@@ -138,8 +138,8 @@ public class ValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"array.getInt($1L, 1) == 1 && \n" +
-												"array.getInt($1L, 2) == 2",
+												"attrs.getInt($1L, 1) == 1 && \n" +
+												"attrs.getInt($1L, 2) == 2",
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
@@ -157,8 +157,8 @@ public class ValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"array.getInt($1L, 1) == 1 && \n" +
-												"array.getInt($1L, 2) == 2",
+												"attrs.getInt($1L, 1) == 1 && \n" +
+												"attrs.getInt($1L, 2) == 2",
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
