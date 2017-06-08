@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processors.code_generation.caller_def;
+package com.matthewtamlin.spyglass.processors.code_generation;
 
 import com.matthewtamlin.spyglass.processors.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processors.testing_utils.CompileChecker;
