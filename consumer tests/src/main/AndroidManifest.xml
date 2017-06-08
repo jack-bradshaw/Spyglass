@@ -1,0 +1,11 @@
+<manifest
+	package="com.matthewtamlin.spyglass.consumer_tests"
+	xmlns:android="http://schemas.android.com/apk/res/android">
+
+	<application
+		android:allowBackup="false"
+		android:label="Spyglass Integration Tests"
+		android:supportsRtl="true"
+		android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+	</application>
+</manifest>
