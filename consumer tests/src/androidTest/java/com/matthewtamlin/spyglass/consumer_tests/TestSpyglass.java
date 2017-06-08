@@ -12,6 +12,8 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.Matchers.is;
 import static org.mockito.Mockito.mock;
 
 @RunWith(AndroidJUnit4.class)
@@ -36,7 +38,7 @@ public class TestSpyglass {
 	@Test
 	public void testInstantiateUsingBuilder_targetWithCompanionSupplied() {
 		final Context context = InstrumentationRegistry.getContext();
-		final View targetView = new ViewWithCompanion(context);
+		final View targetView = new HasNormalCompanion(context);
 
 		Spyglass.builder()
 				.withTarget(targetView)
