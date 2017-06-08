@@ -1,9 +1,12 @@
 package com.matthewtamlin.spyglass.consumer_tests;
 
 import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
 import com.matthewtamlin.spyglass.consumer.InvalidBuilderStateException;
+import com.matthewtamlin.spyglass.consumer.MissingCompanionClassException;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 
 import org.junit.Test;
@@ -26,6 +29,28 @@ public class TestSpyglassBuilder {
 		Spyglass.builder()
 				.withTarget(null)
 				.withContext(mock(Context.class))
+				.withStyleableResource(new int[0])
+				.build();
+	}
+
+	@Test
+	public void testBuild_targetWithCompanionSupplied() {
+		final View targetView = new ViewWithCompanion(InstrumentationRegistry.getContext());
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withContext(InstrumentationRegistry.getContext())
+				.withStyleableResource(new int[0])
+				.build();
+	}
+
+	@Test(expected = MissingCompanionClassException.class)
+	public void testBuild_targetWithoutCompanionSupplied() {
+		final View targetView = new ViewWithoutCompanion(InstrumentationRegistry.getContext());
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withContext(InstrumentationRegistry.getContext())
 				.withStyleableResource(new int[0])
 				.build();
 	}
@@ -61,15 +86,6 @@ public class TestSpyglassBuilder {
 				.withTarget(mock(View.class))
 				.withContext(mock(Context.class))
 				.withStyleableResource(null)
-				.build();
-	}
-
-	@Test
-	public void testBuild_allMandatoryValuesSupplied() {
-		Spyglass.builder()
-				.withTarget(mock(View.class))
-				.withContext(InstrumtationRegistry())
-				.withStyleableResource(new int[0])
 				.build();
 	}
 }
