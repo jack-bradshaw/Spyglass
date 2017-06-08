@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processors.code_generation;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeSpec;
@@ -8,6 +9,7 @@ import com.squareup.javapoet.TypeVariableName;
 import static javax.lang.model.element.Modifier.ABSTRACT;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
+@Tested(testMethod = "automated")
 public final class CallerDef {
 	public static final String PACKAGE = "com.matthewtamlin.spyglass.processors.code_generation";
 
