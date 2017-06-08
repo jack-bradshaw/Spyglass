@@ -10,7 +10,6 @@ dependencies {
 
 	testCompile files('lib/android.jar')
 	testCompile files('lib/android-support-v4.jar')
-	//testCompile project(':mock android dependencies')
 	testCompile 'com.google.testing.compile:compile-testing:0.8'
 	testCompile 'com.matthew-tamlin:avatar:1.0.1'
 	testCompile 'junit:junit:4.12'
