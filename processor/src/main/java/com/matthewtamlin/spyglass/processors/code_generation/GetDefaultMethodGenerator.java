@@ -144,7 +144,7 @@ public class GetDefaultMethodGenerator {
 						return CodeBlock
 								.builder()
 								.addStatement(
-										"context.getResources().getDimension($L)",
+										"return context.getResources().getDimension($L)",
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 					}
@@ -291,7 +291,7 @@ public class GetDefaultMethodGenerator {
 						return CodeBlock
 								.builder()
 								.addStatement(
-										"context.getResources().getTextArray($L)",
+										"return context.getResources().getTextArray($L)",
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 					}
@@ -306,7 +306,7 @@ public class GetDefaultMethodGenerator {
 						return CodeBlock
 								.builder()
 								.addStatement(
-										"context.getResources().getText($L)",
+										"return context.getResources().getText($L)",
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 					}
