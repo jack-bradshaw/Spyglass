@@ -4,9 +4,8 @@
 
 	<application
 		android:allowBackup="false"
-		android:icon="@mipmap/ic_launcher"
-		android:label="Spyglass IT"
+		android:label="Spyglass Integration Tests	"
 		android:supportsRtl="true"
-		android:theme="@style/AppTheme">
+		android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 	</application>
 </manifest>
