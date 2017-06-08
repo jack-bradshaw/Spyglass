@@ -26,6 +26,9 @@ public class Spyglass {
 					"- Was the Spyglass annotation processor enabled at compile time?\n" +
 					"- Were the generated files deleted manually or by a trimming tool?";
 
+	/**
+	 * The target to pass data to via reflective method calls.
+	 */
 	private View target;
 
 	/**
@@ -38,6 +41,9 @@ public class Spyglass {
 	 */
 	private TypedArray attrSource;
 
+	/**
+	 * Class containing the logic for invoking methods in the target class.
+	 */
 	private Class<?> companionClass;
 
 	/**
