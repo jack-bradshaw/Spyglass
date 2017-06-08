@@ -145,7 +145,7 @@ public class GetValueMethodGenerator {
 						return CodeBlock
 								.builder()
 								.addStatement(
-										"return array.getInt($L, 1)",
+										"return attrs.getInt($L, 1)",
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 					}
