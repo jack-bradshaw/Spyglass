@@ -3,7 +3,12 @@ package com.matthewtamlin.spyglass.processors.code_generation.caller_generator;
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.spyglass.processors.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processors.code_generation.CallerGenerator;
+import com.matthewtamlin.spyglass.processors.testing_utils.CompileChecker;
+import com.squareup.javapoet.FieldSpec;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import org.junit.Before;
@@ -12,6 +17,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.lang.model.element.ExecutableElement;
 
@@ -61,6 +68,7 @@ public class TestCallerGenerator {
 		final TypeSpec result = callerGenerator.generateCaller(element);
 
 		assertThat(result, is(notNullValue()));
+		checkCompiles(result);
 	}
 
 	@Test
@@ -70,15 +78,17 @@ public class TestCallerGenerator {
 		final TypeSpec result = callerGenerator.generateCaller(element);
 
 		assertThat(result, is(notNullValue()));
+		checkCompiles(result);
 	}
 
 	@Test
-	public void testGenerateCaller_elementWithValueHandlerAndDefault() {
+	public void testGenerateCaller_elementWithValueHandlerAndDefault() throws MalformedURLException {
 		final ExecutableElement element = getExecutableElementWithId("value handler with default");
 
 		final TypeSpec result = callerGenerator.generateCaller(element);
 
 		assertThat(result, is(notNullValue()));
+		checkCompiles(result);
 	}
 
 	private ExecutableElement getExecutableElementWithId(final String id) {
@@ -87,5 +97,27 @@ public class TestCallerGenerator {
 		} catch (final ClassCastException e) {
 			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
 		}
+	}
+
+	private void checkCompiles(final TypeSpec anonymousTypeSpec) {
+		// Anonymous class cannot be top level class, so nest the anonymous class as a field
+		final TypeSpec wrapperTypeSpec = TypeSpec
+				.classBuilder("Wrapper")
+				.addField(FieldSpec
+						.builder(TypeName.OBJECT, "o")
+						.initializer("$L", anonymousTypeSpec)
+						.build())
+				.build();
+
+		final JavaFile wrapperJavaFile = JavaFile
+				.builder("", wrapperTypeSpec)
+				.build();
+
+		final Set<JavaFile> filesToCompile = new HashSet<>();
+
+		filesToCompile.add(wrapperJavaFile);
+		filesToCompile.add(CallerDef.getJavaFile());
+
+		CompileChecker.checkCompiles(filesToCompile);
 	}
 }
