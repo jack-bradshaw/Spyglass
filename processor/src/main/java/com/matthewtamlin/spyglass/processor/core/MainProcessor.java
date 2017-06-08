@@ -34,6 +34,8 @@ import static com.matthewtamlin.spyglass.processor.grouper.Grouper.groupByEnclos
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class MainProcessor extends AbstractProcessor {
+	private static final String COMPANION_CLASS_NAME_SUFFIX = "_SpyglassCompanion";
+
 	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
 
 	private Messager messager;
@@ -138,7 +140,7 @@ public class MainProcessor extends AbstractProcessor {
 					.build();
 
 			final TypeSpec companionClass = TypeSpec
-					.classBuilder(targetClass.unwrap().getSimpleName() + "_SpyglassCompanion")
+					.classBuilder(targetClass.unwrap().getSimpleName() + COMPANION_CLASS_NAME_SUFFIX)
 					.addMethod(activateCallers)
 					.build();
 
