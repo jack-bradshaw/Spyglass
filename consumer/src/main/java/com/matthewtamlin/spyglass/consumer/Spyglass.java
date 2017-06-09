@@ -286,18 +286,17 @@ public class Spyglass {
 		 * 		if no styleable resource has been set
 		 */
 		public Spyglass build() {
-			checkNotNull(target, new InvalidBuilderStateException("Unable to build a Spyglass " +
-					"without a target. Call method withTarget(View) before calling build()."));
+			checkNotNull(target, new InvalidBuilderStateException("Unable to build a Spyglass without a target. Call " +
+					"method withTarget(View) before calling build()."));
 
 			checkNotNull(targetClass, new InvalidBuilderStateException("Unable to build a Spyglass without a target " +
 					"class. Use method withTarget(View, Class) before calling build()."));
 
-			checkNotNull(context, new InvalidBuilderStateException("Unable to build a Spyglass " +
-					"without a context. Call method withContext(Context) before calling build()."));
+			checkNotNull(context, new InvalidBuilderStateException("Unable to build a Spyglass without a context. " +
+					"Call method withContext(Context) before calling build()."));
 
-			checkNotNull(styleableRes, new InvalidBuilderStateException("Unable to build a " +
-					"Spyglass without a styleable resource. Call method withStyleableRes(int[]) " +
-					"before calling build()."));
+			checkNotNull(styleableRes, new InvalidBuilderStateException("Unable to build a Spyglass without a " +
+					"styleable resource. Call method withStyleableRes(int[]) before calling build()."));
 
 			return new Spyglass(this);
 		}
