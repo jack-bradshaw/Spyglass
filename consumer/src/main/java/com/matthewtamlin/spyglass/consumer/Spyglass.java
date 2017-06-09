@@ -20,13 +20,6 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
  */
 @Tested(testMethod = "automated")
 public class Spyglass {
-	private static final String MISSING_COMPANION_MESSAGE =
-			"No companion class was found for class \'%1$s\'.\n" +
-					"Check the following:\n" +
-					"- Does the class have any Spyglass handler annotations?\n" +
-					"- Was the Spyglass annotation processor enabled at compile time?\n" +
-					"- Were the generated files deleted manually or by a trimming tool?";
-
 	/**
 	 * The target to pass data to via reflective method calls.
 	 */
@@ -68,8 +61,18 @@ public class Spyglass {
 			companionClass = Class.forName(companionClassName);
 
 		} catch (final ClassNotFoundException e) {
-			final String targetClassName = target.getClass().getCanonicalName();
-			throw new MissingCompanionClassException(String.format(MISSING_COMPANION_MESSAGE, targetClassName));
+			final String unformattedExceptionMessage =
+					"No companion class was found for class \'%1$s\'.\n" +
+							"Check the following:\n" +
+							"- Does the class have any Spyglass handler annotations?\n" +
+							"- Was the Spyglass annotation processor enabled at compile time?\n" +
+							"- Were the generated files deleted manually or by a trimming tool?";
+
+			final String formattedExceptionMessage = String.format(
+					unformattedExceptionMessage,
+					target.getClass().getCanonicalName());
+
+			throw new MissingCompanionClassException(formattedExceptionMessage);
 		}
 	}
 
