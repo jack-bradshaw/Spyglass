@@ -57,9 +57,10 @@ public class Spyglass {
 				builder.defStyleAttr,
 				builder.defStyleRes);
 
+		final String targetClassName = builder.targetClass.getCanonicalName();
+
 		try {
-			final String companionClassName = target.getClass().getCanonicalName() + "_SpyglassCompanion";
-			companionClass = Class.forName(companionClassName);
+			companionClass = Class.forName(targetClassName + "_SpyglassCompanion");
 
 		} catch (final ClassNotFoundException e) {
 			final String unformattedExceptionMessage =
@@ -69,11 +70,7 @@ public class Spyglass {
 							"- Was the Spyglass annotation processor enabled at compile time?\n" +
 							"- Were the generated files deleted manually or by a trimming tool?";
 
-			final String formattedExceptionMessage = String.format(
-					unformattedExceptionMessage,
-					target.getClass().getCanonicalName());
-
-			throw new MissingCompanionClassException(formattedExceptionMessage);
+			throw new MissingCompanionClassException(String.format(unformattedExceptionMessage, targetClassName));
 		}
 	}
 
