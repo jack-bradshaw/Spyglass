@@ -20,13 +20,6 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
  */
 @Tested(testMethod = "automated")
 public class Spyglass {
-	private static final String MISSING_COMPANION_MESSAGE =
-			"No companion class was found for class \'%1$s\'.\n" +
-					"Check the following:\n" +
-					"- Does the class have any Spyglass handler annotations?\n" +
-					"- Was the Spyglass annotation processor enabled at compile time?\n" +
-					"- Were the generated files deleted manually or by a trimming tool?";
-
 	/**
 	 * The target to pass data to via reflective method calls.
 	 */
@@ -68,8 +61,18 @@ public class Spyglass {
 			companionClass = Class.forName(companionClassName);
 
 		} catch (final ClassNotFoundException e) {
-			final String targetClassName = target.getClass().getCanonicalName();
-			throw new MissingCompanionClassException(String.format(MISSING_COMPANION_MESSAGE, targetClassName));
+			final String unformattedExceptionMessage =
+					"No companion class was found for class \'%1$s\'.\n" +
+							"Check the following:\n" +
+							"- Does the class have any Spyglass handler annotations?\n" +
+							"- Was the Spyglass annotation processor enabled at compile time?\n" +
+							"- Were the generated files deleted manually or by a trimming tool?";
+
+			final String formattedExceptionMessage = String.format(
+					unformattedExceptionMessage,
+					target.getClass().getCanonicalName());
+
+			throw new MissingCompanionClassException(formattedExceptionMessage);
 		}
 	}
 
@@ -80,6 +83,8 @@ public class Spyglass {
 	 *
 	 * @throws IllegalThreadException
 	 * 		if this method is called on a non-UI thread
+	 * @throws SpyglassInvocationException
+	 * 		if a target method throws an exception when invoked, with the cause set to the thrown exception
 	 */
 	public void passDataToMethods() {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
@@ -96,13 +101,15 @@ public class Spyglass {
 			activateCallers.invoke(null, target, context, attrSource);
 
 		} catch (final NoSuchMethodException e) {
-			throw new RuntimeException("Spyglass could not find a required method in a companion class.", e);
+			throw new InvalidSpyglassCompanionException(
+					"Spyglass found an invalid companion class. Were the generated files modified?", e);
 
 		} catch (final InvocationTargetException e) {
-			throw new RuntimeException("A method in the target class threw an exception when invoked by Spyglass.", e);
+			throw new SpyglassInvocationException(
+					"Spyglass encountered an exception when invoking a method in a target class.", e);
 
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException("Spyglass was not able to access a required method in the target class.", e);
+			throw new RuntimeException("Spyglass cannot access a method in the target class.", e);
 		}
 	}
 
