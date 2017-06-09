@@ -78,9 +78,8 @@ public class Spyglass {
 	}
 
 	/**
-	 * Passes data to the target view using its method annotations. Methods are validated prior to
-	 * use, to ensure that annotations have been applied correctly. This method will fail if
-	 * called on a non-UI thread.
+	 * Passes data to the target view using its method annotations. Methods are validated prior to use, to ensure
+	 * that annotations have been applied correctly. This method will fail if called on a non-UI thread.
 	 *
 	 * @throws IllegalThreadException
 	 * 		if this method is called on a non-UI thread
@@ -122,60 +121,57 @@ public class Spyglass {
 	}
 
 	/**
-	 * Builds new instances of the {@link Spyglass} tool. Attempting to call {@link #build()} without
-	 * first setting the target, context and styleable-resource properties will result in an exception being
-	 * thrown.
+	 * Builds new instances of the {@link Spyglass} tool. Attempting to call {@link #build()} without first setting
+	 * the target, context and styleable-resource properties will result in an exception being thrown.
 	 */
 	public static class Builder {
 		/**
-		 * The target to pass data to. This property is mandatory and must be non-null prior to
-		 * calling {@link #build()}.
+		 * The target to pass data to. This property is mandatory and must be non-null prior to calling
+		 * {@link #build()}.
 		 */
 		private View target;
 
 		private Class<?> targetClass;
 
 		/**
-		 * The context to use when accessing system resources. This property is mandatory and
-		 * must be non-null prior to calling {@link #build()}.
+		 * The context to use when accessing system resources. This property is mandatory and must be non-null prior
+		 * to calling {@link #build()}.
 		 */
 		private Context context;
 
 		/**
-		 * The styleable resource to use when interpreting data. This property is mandatory and
-		 * must be non-null prior to calling {@link #build()}.
+		 * The styleable resource to use when interpreting data. This property is mandatory and must be non-null
+		 * prior to calling {@link #build()}.
 		 */
 		private int styleableRes[];
 
 		/**
-		 * The attribute set to source data from. This property is optional and does not need to be
-		 * changed prior to calling {@link #build()}.
+		 * The attribute set to source data from. This property is optional and does not need to be changed prior to
+		 * calling {@link #build()}.
 		 */
 		private AttributeSet attributeSet;
 
 		/**
-		 * An attribute in the current theme which references the style to source defaults from.
-		 * This property is optional and does not need to be changed prior to calling
-		 * {@link #build()}.
+		 * An attribute in the current theme which references the style to source defaults from. This property is
+		 * optional and does not need to be changed prior to calling {@link #build()}.
 		 */
 		private int defStyleAttr;
 
 		/**
-		 * The resource ID of the style to source defaults from. This property is optional and
-		 * does not need to be changed prior to calling {@link #build()}.
+		 * The resource ID of the style to source defaults from. This property is optional and does not need to be
+		 * changed prior to calling {@link #build()}.
 		 */
 		private int defStyleRes;
 
 		/**
-		 * Constructs a new builder without setting any values. The new builder cannot be used to
-		 * create a spyglass without setting the mandatory properties first.
+		 * Constructs a new builder without setting any values. The new builder cannot be used to create a spyglass
+		 * without setting the mandatory properties first.
 		 */
 		private Builder() {}
 
 		/**
-		 * Sets the target to pass data to. If this method is called more than once, only the
-		 * most recent values are used. This method must be called with non-null values prior to
-		 * calling {@link #build()}.
+		 * Sets the target to pass data to. If this method is called more than once, only the most recent values are
+		 * used. This method must be called with non-null values prior to calling {@link #build()}.
 		 *
 		 * @param view
 		 * 		the target to pass data to
@@ -192,9 +188,9 @@ public class Spyglass {
 		}
 
 		/**
-		 * Sets the context to use when accessing system resources. If this method is called more
-		 * than once, only the most recent value is used. This method must be called with a
-		 * non-null value prior to calling {@link #build()}.
+		 * Sets the context to use when accessing system resources. If this method is called more than once, only the
+		 * most recent value is used. This method must be called with a non-null value prior to calling {@link
+		 * #build()}.
 		 *
 		 * @param context
 		 * 		the context to use when accessing system resources
@@ -207,10 +203,10 @@ public class Spyglass {
 		}
 
 		/**
-		 * Sets the styleable resource to use when interpreting attribute data. The behaviour of the
-		 * spyglass is undefined if the styleable resource is not applicable to the target
-		 * view. If this method is called more than once, only the most recent value is used.
-		 * This method must be called with a non-null value prior to calling {@link #build()}.
+		 * Sets the styleable resource to use when interpreting attribute data. The behaviour of the spyglass is
+		 * undefined if the styleable resource is not applicable to the target view. If this method is called more than
+		 * once, only the most recent value is used. This method must be called with a non-null value prior to calling
+		 * {@link #build()}.
 		 *
 		 * @param styleableRes
 		 * 		the styleable resource to use when interpreting attribute data
@@ -223,9 +219,9 @@ public class Spyglass {
 		}
 
 		/**
-		 * Sets the attribute set to source data from. If this method is called more than once,
-		 * only the most recent value is used. An attribute set is not mandatory, and
-		 * {@link #build()} can safely be called without ever calling this method.
+		 * Sets the attribute set to source data from. If this method is called more than once, only the most recent
+		 * value is used. An attribute set is not mandatory, and {@link #build()} can safely be called without ever
+		 * calling this method.
 		 *
 		 * @param attributeSet
 		 * 		the attribute set to source data from, may be null
@@ -238,11 +234,10 @@ public class Spyglass {
 		}
 
 		/**
-		 * Sets the style to source defaults from if the attribute set is missing data. The data
-		 * in the attribute set takes precedence, so the data in the default style is only used if
-		 * the attribute set is missing data for a particular attribute. If this method is called
-		 * more than once, only the most recent value is used. This value is not mandatory, and
-		 * {@link #build()} can safely be called without ever calling this method.
+		 * Sets the style to source defaults from if the attribute set is missing data. The data in the attribute set
+		 * takes precedence, so the data in the default style is only used if the attribute set is missing data for a
+		 * particular attribute. If this method is called more than once, only the most recent value is used. This value
+		 * is not mandatory, and {@link #build()} can safely be called without ever calling this method.
 		 *
 		 * @param defStyleAttr
 		 * 		an attribute in the current theme which references the default style, 0 to use no default style
@@ -255,11 +250,10 @@ public class Spyglass {
 		}
 
 		/**
-		 * Sets the style to source defaults from if the attribute set is missing data. The data
-		 * in the attribute set takes precedence, so the data in the default style is only used if
-		 * the attribute set is missing data for a particular attribute. If this method is called
-		 * more than once, only the most recent value is used. This value is not mandatory, and
-		 * {@link #build()} can safely be called without ever calling this method.
+		 * Sets the style to source defaults from if the attribute set is missing data. The data in the attribute set
+		 * takes precedence, so the data in the default style is only used if the attribute set is missing data for a
+		 * particular attribute. If this method is called more than once, only the most recent value is used. This
+		 * value is not mandatory, and {@link #build()} can safely be called without ever calling this method.
 		 *
 		 * @param defStyleRes
 		 * 		the resource ID of the default style, 0 to use no default style
@@ -272,9 +266,8 @@ public class Spyglass {
 		}
 
 		/**
-		 * Constructs a new spyglass using this builder. Attempting to call this method without
-		 * first setting the target, the context and the styleable resource will result in an
-		 * exception being thrown.
+		 * Constructs a new spyglass using this builder. Attempting to call this method without first setting the
+		 * target, the context and the styleable resource will result in an exception being thrown.
 		 *
 		 * @return the new spyglass
 		 *
