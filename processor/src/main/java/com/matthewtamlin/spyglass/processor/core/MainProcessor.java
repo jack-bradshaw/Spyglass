@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processor.core;
 
+import com.google.auto.service.AutoService;
 import com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
@@ -23,6 +24,7 @@ import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
@@ -33,6 +35,7 @@ import javax.lang.model.util.Elements;
 import static com.matthewtamlin.spyglass.processor.grouper.Grouper.groupByEnclosingClass;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
+@AutoService(Processor.class)
 public class MainProcessor extends AbstractProcessor {
 	private static final String COMPANION_CLASS_NAME_SUFFIX = "_SpyglassCompanion";
 
