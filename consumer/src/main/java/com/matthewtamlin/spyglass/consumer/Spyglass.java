@@ -9,6 +9,7 @@ import android.view.View;
 import com.matthewtamlin.java_utilities.testing.Tested;
 
 import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
@@ -86,7 +87,14 @@ public class Spyglass {
 		}
 
 		try {
-			companionClass.getMethod("activateCallers").invoke(null, target, context, attrSource);
+			final Method activateCallers = companionClass.getMethod(
+					"activateCallers",
+					target.getClass(),
+					Context.class,
+					TypedArray.class);
+
+			activateCallers.invoke(null, target, context, attrSource);
+
 		} catch (final NoSuchMethodException e) {
 			// This should never happen
 			throw new RuntimeException(e);
