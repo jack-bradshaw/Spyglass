@@ -5,12 +5,11 @@ android {
 	buildToolsVersion "25.0.2"
 
 	defaultConfig {
-		minSdkVersion 14
+		minSdkVersion 1
 		targetSdkVersion 25
 	}
 }
 
 dependencies {
 	compile project(":annotations")
-	compile 'com.android.support:appcompat-v7:25.3.1'
 }
