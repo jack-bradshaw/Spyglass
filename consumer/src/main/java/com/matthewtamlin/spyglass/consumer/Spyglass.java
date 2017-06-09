@@ -25,6 +25,7 @@ public class Spyglass {
 	 */
 	private final View target;
 
+
 	/**
 	 * A context which provides access to system resources.
 	 */
@@ -132,6 +133,8 @@ public class Spyglass {
 		 */
 		private View target;
 
+		private Class<?> targetClass;
+
 		/**
 		 * The context to use when accessing system resources. This property is mandatory and
 		 * must be non-null prior to calling {@link #build()}.
@@ -171,16 +174,20 @@ public class Spyglass {
 
 		/**
 		 * Sets the target to pass data to. If this method is called more than once, only the
-		 * most recent value is used. This method must be called with a non-null value prior to
+		 * most recent values are used. This method must be called with non-null values prior to
 		 * calling {@link #build()}.
 		 *
 		 * @param view
 		 * 		the target to pass data to
+		 * @param targetClass
+		 * 		the class of the target
 		 *
 		 * @return this builder
 		 */
-		public Builder withTarget(final View view) {
+		public <T extends View> Builder withTarget(final T view, final Class<T> targetClass) {
 			this.target = view;
+			this.targetClass = targetClass;
+
 			return this;
 		}
 
@@ -281,6 +288,9 @@ public class Spyglass {
 		public Spyglass build() {
 			checkNotNull(target, new InvalidBuilderStateException("Unable to build a Spyglass " +
 					"without a target. Call method withTarget(View) before calling build()."));
+
+			checkNotNull(targetClass, new InvalidBuilderStateException("Unable to build a Spyglass without a target " +
+					"class. Use method withTarget(View, Class) before calling build()."));
 
 			checkNotNull(context, new InvalidBuilderStateException("Unable to build a Spyglass " +
 					"without a context. Call method withContext(Context) before calling build()."));
