@@ -24,7 +24,7 @@ import static org.mockito.Mockito.mock;
 
 @RunWith(JUnit4.class)
 public class TestInvocationLiteralGenerator {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processors" +
+	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
 			"/code_generation/invocation_literal_generator/Data.java");
 
 	@Rule
