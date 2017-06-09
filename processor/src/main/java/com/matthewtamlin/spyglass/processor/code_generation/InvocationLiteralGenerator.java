@@ -26,17 +26,15 @@ public class InvocationLiteralGenerator {
 	public String generateLiteralWithoutExtraArg(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
-		final String methodName = element.getSimpleName().toString();
 		final List<String> argLiterals = useAnnotationsToLiterals(element);
 
-		return methodName + "(" + listToCommaSeparatedString(argLiterals) + ")";
+		return element.getSimpleName() + "(" + listToCommaSeparatedString(argLiterals) + ")";
 	}
 
 	public String generateLiteralWithExtraArg(final ExecutableElement element, final String extraArgLiteral) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 		checkNotNull(extraArgLiteral, "Argument \'extraArgLiteral\' cannot be null.");
 
-		final String methodName = element.getSimpleName().toString();
 		final List<String> argLiterals = useAnnotationsToLiterals(element);
 
 		// One param should be missing a use annotation, so find the null literal and replace with the extra literal
