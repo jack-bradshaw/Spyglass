@@ -7,5 +7,7 @@
 		android:label="Spyglass Integration Tests"
 		android:supportsRtl="true"
 		android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+
+		<activity android:name=".EmptyActivity"/>
 	</application>
 </manifest>
