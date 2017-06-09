@@ -126,7 +126,7 @@ public class TestSpyglass {
 				.withStyleableResource(new int[0])
 				.build();
 
-		spyglass.passDataToMethods();
+		callPassDataToMethodsSynchronously(spyglass);
 	}
 
 	@Test(expected = InvocationTargetException.class)
@@ -141,7 +141,7 @@ public class TestSpyglass {
 				.withStyleableResource(new int[0])
 				.build();
 
-		spyglass.passDataToMethods();
+		callPassDataToMethodsSynchronously(spyglass);
 	}
 
 	@Test
