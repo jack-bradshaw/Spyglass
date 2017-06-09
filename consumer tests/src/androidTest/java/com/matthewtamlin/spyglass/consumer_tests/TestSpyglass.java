@@ -47,7 +47,7 @@ public class TestSpyglass {
 	@Test
 	public void testInstantiateUsingBuilder_targetWithCompanionSupplied() {
 		final Context context = InstrumentationRegistry.getContext();
-		final View targetView = new HasNormalCompanion(context);
+		final View targetView = new ViewWithNormalCompanion(context);
 
 		Spyglass.builder()
 				.withTarget(targetView)
