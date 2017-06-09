@@ -26,15 +26,15 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
 public class CallerGenerator {
-	private GetDefaultMethodGenerator getDefaultMethodGenerator;
+	private final GetDefaultMethodGenerator getDefaultMethodGenerator;
 
-	private GetValueMethodGenerator getValueMethodGenerator;
+	private final GetValueMethodGenerator getValueMethodGenerator;
 
-	private ValueIsAvailableMethodGenerator valueIsAvailableMethodGenerator;
+	private final ValueIsAvailableMethodGenerator valueIsAvailableMethodGenerator;
 
-	private SpecificValueIsAvailableMethodGenerator specificValueIsAvailableMethodGenerator;
+	private final SpecificValueIsAvailableMethodGenerator specificValueIsAvailableMethodGenerator;
 
-	private InvocationLiteralGenerator invocationLiteralGenerator;
+	private final InvocationLiteralGenerator invocationLiteralGenerator;
 
 	public CallerGenerator(final Elements elementUtil) {
 		checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");

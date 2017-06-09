@@ -37,7 +37,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 			"code_generation/specific_value_is_available_method_generator/Data.java");
 
 	@Rule
-	public CompilationRule compilationRule = new CompilationRule();
+	public final CompilationRule compilationRule = new CompilationRule();
 
 	private IdBasedElementSupplier elementSupplier;
 

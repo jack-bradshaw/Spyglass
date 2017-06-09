@@ -25,7 +25,7 @@ import static org.mockito.Mockito.mock;
 @RunWith(AndroidJUnit4.class)
 public class TestSpyglass {
 	@Rule
-	public ActivityTestRule<EmptyActivity> activityRule = new ActivityTestRule<>(EmptyActivity.class);
+	public final ActivityTestRule<EmptyActivity> activityRule = new ActivityTestRule<>(EmptyActivity.class);
 
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiateUsingBuilder_noTargetEverSupplied() {
