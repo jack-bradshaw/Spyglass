@@ -117,7 +117,7 @@ public class TestSpyglass {
 		spyglass.passDataToMethods();
 	}
 
-	@Test(expected = NoSuchMethodException.class)
+	@Test(expected = RuntimeException.class)
 	public void testPassDataToMethods_usingViewWithIncompleteCompanion() {
 		final Context context = InstrumentationRegistry.getContext();
 		final View targetView = new ViewWithIncompleteCompanion(context);
@@ -132,7 +132,7 @@ public class TestSpyglass {
 		callPassDataToMethodsSynchronously(spyglass);
 	}
 
-	@Test(expected = InvocationTargetException.class)
+	@Test(expected = RuntimeException.class)
 	public void testPassDataToMethods_usingViewWithExceptionThrowingCompanion() {
 		final Context context = InstrumentationRegistry.getContext();
 		final View targetView = new ViewWithExceptionThrowingCompanion(context);
