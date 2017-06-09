@@ -76,7 +76,7 @@ public class TestValueIsAvailableMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("no value handler");
 		final AnnotationMirror mirror = getAnnotationMirror(element, DefaultToBoolean.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		generator.getMethod(mirror);
 	}
 
 	@Test
