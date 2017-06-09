@@ -104,10 +104,13 @@ public class TestSpyglass {
 
 	@Test(expected = IllegalThreadException.class)
 	public void testPassDataToMethods_calledOnNonUiThread() {
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new ViewWithNormalCompanion(context);
+
 		final Spyglass spyglass = Spyglass
 				.builder()
-				.withTarget(mock(View.class))
-				.withContext(InstrumentationRegistry.getContext())
+				.withTarget(targetView)
+				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
 
