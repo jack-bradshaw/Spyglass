@@ -11,10 +11,9 @@ android {
 		targetSdkVersion 25
 
 		testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
 	}
 }
 
 dependencies {
-	compile 'com.android.support:appcompat-v7:25.2.0'
+	compile 'com.android.support:appcompat-v7:25.3.1'
 }
