@@ -42,7 +42,6 @@ import javax.lang.model.element.Modifier;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil.getAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames.CONTEXT;
 import static com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames.TYPED_ARRAY;
-import static com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker.checkCompiles;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -53,7 +52,7 @@ public class TestGetDefaultMethodGenerator {
 			"code_generation/get_default_method_generator/Data.java");
 
 	@Rule
-	public CompilationRule compilationRule = new CompilationRule();
+	public final CompilationRule compilationRule = new CompilationRule();
 
 	private IdBasedElementSupplier elementSupplier;
 
@@ -82,7 +81,7 @@ public class TestGetDefaultMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("no default annotation");
 		final AnnotationMirror mirror = getAnnotationMirror(element, BooleanHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		generator.getMethod(mirror);
 	}
 
 	@Test

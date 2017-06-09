@@ -58,7 +58,7 @@ public class TestCallerGenerator {
 	public void testGenerateCaller_elementWithNoHandlerAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("no handler");
 
-		final TypeSpec result = callerGenerator.generateCaller(element);
+		callerGenerator.generateCaller(element);
 	}
 
 	@Test

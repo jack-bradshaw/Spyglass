@@ -26,7 +26,6 @@ import javax.lang.model.element.Modifier;
 
 import static com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil.getAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames.TYPED_ARRAY;
-import static com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker.checkCompiles;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -37,7 +36,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 			"code_generation/specific_value_is_available_method_generator/Data.java");
 
 	@Rule
-	public CompilationRule compilationRule = new CompilationRule();
+	public final CompilationRule compilationRule = new CompilationRule();
 
 	private IdBasedElementSupplier elementSupplier;
 
@@ -66,7 +65,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("no call handler");
 		final AnnotationMirror mirror = getAnnotationMirror(element, DefaultToBoolean.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		generator.getMethod(mirror);
 	}
 
 	@Test

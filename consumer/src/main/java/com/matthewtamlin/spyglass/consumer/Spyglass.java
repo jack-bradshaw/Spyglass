@@ -23,17 +23,17 @@ public class Spyglass {
 	/**
 	 * The target to pass data to via reflective method calls.
 	 */
-	private View target;
+	private final View target;
 
 	/**
 	 * A context which provides access to system resources.
 	 */
-	private Context context;
+	private final Context context;
 
 	/**
 	 * Supplies the data to pass to the target.
 	 */
-	private TypedArray attrSource;
+	private final TypedArray attrSource;
 
 	/**
 	 * Class containing the logic for invoking methods in the target class.
