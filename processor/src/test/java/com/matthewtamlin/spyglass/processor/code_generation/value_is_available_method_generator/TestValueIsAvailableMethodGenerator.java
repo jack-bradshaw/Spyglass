@@ -37,7 +37,6 @@ import javax.lang.model.element.Modifier;
 
 import static com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil.getAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames.TYPED_ARRAY;
-import static com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker.checkCompiles;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
