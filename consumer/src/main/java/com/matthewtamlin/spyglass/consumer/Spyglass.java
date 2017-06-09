@@ -109,7 +109,7 @@ public class Spyglass {
 					"Spyglass encountered an exception when invoking a method in a target class.", e);
 
 		} catch (final IllegalAccessException e) {
-			throw new InvalidSpyglassCompanionException("Spyglass cannot access a method in the target class.", e);
+			throw new RuntimeException("Spyglass cannot access a method in the target class.", e);
 		}
 	}
 
