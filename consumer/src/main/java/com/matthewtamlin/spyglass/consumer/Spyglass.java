@@ -83,6 +83,8 @@ public class Spyglass {
 	 *
 	 * @throws IllegalThreadException
 	 * 		if this method is called on a non-UI thread
+	 * @throws SpyglassInvocationException
+	 * 		if a target method throws an exception when invoked, with the cause set to the thrown exception
 	 */
 	public void passDataToMethods() {
 		if (Looper.myLooper() != Looper.getMainLooper()) {
