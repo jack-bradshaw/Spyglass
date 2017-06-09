@@ -8,14 +8,14 @@ import android.view.View;
 
 import com.matthewtamlin.spyglass.consumer.IllegalThreadException;
 import com.matthewtamlin.spyglass.consumer.InvalidBuilderStateException;
+import com.matthewtamlin.spyglass.consumer.InvalidSpyglassCompanionException;
 import com.matthewtamlin.spyglass.consumer.MissingCompanionClassException;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
+import com.matthewtamlin.spyglass.consumer.SpyglassInvocationException;
 
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-
-import java.lang.reflect.InvocationTargetException;
 
 import static android.support.test.InstrumentationRegistry.getInstrumentation;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -117,7 +117,7 @@ public class TestSpyglass {
 		spyglass.passDataToMethods();
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = InvalidSpyglassCompanionException.class)
 	public void testPassDataToMethods_usingViewWithIncompleteCompanion() {
 		final Context context = InstrumentationRegistry.getContext();
 		final View targetView = new ViewWithIncompleteCompanion(context);
@@ -132,7 +132,7 @@ public class TestSpyglass {
 		callPassDataToMethodsSynchronously(spyglass);
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test(expected = SpyglassInvocationException.class)
 	public void testPassDataToMethods_usingViewWithExceptionThrowingCompanion() {
 		final Context context = InstrumentationRegistry.getContext();
 		final View targetView = new ViewWithExceptionThrowingCompanion(context);
