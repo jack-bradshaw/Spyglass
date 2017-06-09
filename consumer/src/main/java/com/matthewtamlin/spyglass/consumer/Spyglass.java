@@ -96,14 +96,13 @@ public class Spyglass {
 			activateCallers.invoke(null, target, context, attrSource);
 
 		} catch (final NoSuchMethodException e) {
-			// This should never happen
-			throw new RuntimeException(e);
+			throw new RuntimeException("Spyglass could not find a required method in a companion class.", e);
 
 		} catch (final InvocationTargetException e) {
-			throw new RuntimeException("A method invoked by Spyglass threw an exception.", e);
+			throw new RuntimeException("A method in the target class threw an exception when invoked by Spyglass.", e);
 
 		} catch (final IllegalAccessException e) {
-			throw new RuntimeException("Spyglass was not able to access a method.", e);
+			throw new RuntimeException("Spyglass was not able to access a required method in the target class.", e);
 		}
 	}
 
