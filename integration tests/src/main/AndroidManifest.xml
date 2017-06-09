@@ -4,7 +4,7 @@
 
 	<application
 		android:allowBackup="false"
-		android:label="Spyglass Integration Tests	"
+		android:label="Spyglass Integration Tests"
 		android:supportsRtl="true"
 		android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 	</application>
