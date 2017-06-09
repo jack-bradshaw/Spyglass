@@ -48,7 +48,7 @@ public class TestGetValueMethodGenerator {
 			"code_generation/get_value_method_generator/Data.java");
 
 	@Rule
-	public CompilationRule compilationRule = new CompilationRule();
+	public final CompilationRule compilationRule = new CompilationRule();
 
 	private IdBasedElementSupplier elementSupplier;
 
