@@ -81,7 +81,7 @@ public class TestGetDefaultMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("no default annotation");
 		final AnnotationMirror mirror = getAnnotationMirror(element, BooleanHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		generator.getMethod(mirror);
 	}
 
 	@Test
