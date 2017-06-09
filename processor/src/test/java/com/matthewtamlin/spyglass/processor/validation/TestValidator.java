@@ -20,7 +20,7 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnit4.class)
 public class TestValidator {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processors/" +
+	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
 			"validation/Data.java");
 
 	private Set<Element> elements;
