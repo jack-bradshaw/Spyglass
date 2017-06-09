@@ -29,7 +29,7 @@ import static org.mockito.Mockito.mock;
 @RunWith(JUnit4.class)
 public class TestAnnotationMirrorUtil {
 	@Rule
-	public CompilationRule compilationRule = new CompilationRule();
+	public final CompilationRule compilationRule = new CompilationRule();
 
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
 			"/annotation_utils/annotation_mirror_util/Data.java");
