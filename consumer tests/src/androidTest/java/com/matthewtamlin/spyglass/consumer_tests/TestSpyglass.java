@@ -100,6 +100,64 @@ public class TestSpyglass {
 				.build();
 	}
 
+	@Test(expected = InvalidBuilderStateException.class)
+	public void testInstantiateUsingBuilder_noAnnotationSourceEverSupplied() {
+		Spyglass.builder()
+				.withTarget(mock(View.class))
+				.withContext(mock(Context.class))
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
+	@Test(expected = InvalidBuilderStateException.class)
+	public void testInstantiateUsingBuilder_nullAnnotationSourceSupplied() {
+		Spyglass.builder()
+				.withTarget(mock(View.class))
+				.withAnnotationSource(null)
+				.withContext(mock(Context.class))
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
+	@Test(expected = InvalidBuilderStateException.class)
+	public void testInstantiateUsingBuilder_annotationSourceIsNotSuperclassOfTarget() {
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new ViewWithNormalCompanion(context);
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withAnnotationSource(ViewWithoutCompanion.class)
+				.withContext(context)
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
+	@Test
+	public void testInstantiateUsingBuilder_annotationSourceIsSuperclassOfTarget() {
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new ViewWithNormalCompanion(context);
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withAnnotationSource(View.class)
+				.withContext(context)
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
+	@Test
+	public void testInstantiateUsingBuilder_annotationSourceIsExactClassOfTarget() {
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new ViewWithNormalCompanion(context);
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withAnnotationSource(ViewWithNormalCompanion.class)
+				.withContext(context)
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
 	@Test(expected = IllegalThreadException.class)
 	public void testPassDataToMethods_calledOnNonUiThread() {
 		final Context context = InstrumentationRegistry.getContext();
