@@ -47,7 +47,7 @@ public class TestSpyglass {
 	}
 
 	@Test(expected = MissingCompanionClassException.class)
-	public void testInstantiateUsingBuilder_targetWithoutCompanionSupplied() {
+	public void testInstantiateUsingBuilder_targetWithNoCompanionSupplied() {
 		final Context context = InstrumentationRegistry.getContext();
 		final View targetView = new ViewWithoutCompanion(context);
 
