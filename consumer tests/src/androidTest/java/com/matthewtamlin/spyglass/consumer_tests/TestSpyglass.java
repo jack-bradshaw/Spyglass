@@ -46,19 +46,6 @@ public class TestSpyglass {
 				.build();
 	}
 
-	@Test(expected = MissingCompanionClassException.class)
-	public void testInstantiateUsingBuilder_targetWithNoCompanionSupplied() {
-		final Context context = InstrumentationRegistry.getContext();
-		final View targetView = new ViewWithoutCompanion(context);
-
-		Spyglass.builder()
-				.withTarget(targetView)
-				.withAnnotationSource(ViewWithoutCompanion.class)
-				.withContext(context)
-				.withStyleableResource(new int[0])
-				.build();
-	}
-
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiateUsingBuilder_noContextEverSupplied() {
 		Spyglass.builder()
