@@ -26,6 +26,11 @@ public class Spyglass {
 	private final View target;
 
 	/**
+	 * The class containing the annotations used as the basis for the Spyglass companion class.
+	 */
+	private final Class<? extends View> annotationSource;
+
+	/**
 	 * A context which provides access to system resources.
 	 */
 	private final Context context;
@@ -48,6 +53,7 @@ public class Spyglass {
 	 */
 	private Spyglass(final Builder builder) {
 		this.target = builder.target;
+		this.annotationSource = builder.annotationSource;
 		this.context = builder.context;
 
 		this.attrSource = context.obtainStyledAttributes(
@@ -83,7 +89,7 @@ public class Spyglass {
 		try {
 			final Method activateCallers = companionClass.getMethod(
 					"activateCallers",
-					target.getClass(),
+					annotationSource,
 					Context.class,
 					TypedArray.class);
 
