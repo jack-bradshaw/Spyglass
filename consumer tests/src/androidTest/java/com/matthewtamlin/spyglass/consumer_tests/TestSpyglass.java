@@ -9,7 +9,6 @@ import android.view.View;
 import com.matthewtamlin.spyglass.consumer.IllegalThreadException;
 import com.matthewtamlin.spyglass.consumer.InvalidBuilderStateException;
 import com.matthewtamlin.spyglass.consumer.InvalidSpyglassCompanionException;
-import com.matthewtamlin.spyglass.consumer.MissingCompanionClassException;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.consumer.SpyglassInvocationException;
 
@@ -30,6 +29,7 @@ public class TestSpyglass {
 	@Test(expected = InvalidBuilderStateException.class)
 	public void testInstantiateUsingBuilder_noTargetEverSupplied() {
 		Spyglass.builder()
+				.withAnnotationSource(View.class)
 				.withContext(mock(Context.class))
 				.withStyleableResource(new int[0])
 				.build();
@@ -39,30 +39,33 @@ public class TestSpyglass {
 	public void testInstantiateUsingBuilder_nullTargetSupplied() {
 		Spyglass.builder()
 				.withTarget(null)
+				.withAnnotationSource(View.class)
 				.withContext(mock(Context.class))
 				.withStyleableResource(new int[0])
 				.build();
 	}
 
-	@Test
-	public void testInstantiateUsingBuilder_targetWithCompanionSupplied() {
-		final Context context = InstrumentationRegistry.getContext();
-		final View targetView = new ViewWithNormalCompanion(context);
-
-		Spyglass.builder()
-				.withTarget(targetView)
-				.withContext(context)
-				.withStyleableResource(new int[0])
-				.build();
-	}
-
-	@Test(expected = MissingCompanionClassException.class)
-	public void testInstantiateUsingBuilder_targetWithoutCompanionSupplied() {
+	@Test(expected = InvalidBuilderStateException.class)
+	public void testInstantiateUsingBuilder_targetHasNoCompanionClass() {
 		final Context context = InstrumentationRegistry.getContext();
 		final View targetView = new ViewWithoutCompanion(context);
 
 		Spyglass.builder()
 				.withTarget(targetView)
+				.withAnnotationSource(ViewWithoutCompanion.class)
+				.withContext(context)
+				.withStyleableResource(new int[0])
+				.build();
+	}
+
+	@Test
+	public void testInstantiateUsingBuilder_targetHasNormalCompanionClass() {
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new ViewWithNormalCompanion(context);
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withAnnotationSource(ViewWithNormalCompanion.class)
 				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
@@ -72,6 +75,8 @@ public class TestSpyglass {
 	public void testInstantiateUsingBuilder_noContextEverSupplied() {
 		Spyglass.builder()
 				.withTarget(mock(View.class))
+				.withAnnotationSource(View.class)
+				.withAnnotationSource(View.class)
 				.withStyleableResource(new int[0])
 				.build();
 	}
@@ -80,6 +85,8 @@ public class TestSpyglass {
 	public void testInstantiateUsingBuilder_nullContextSupplied() {
 		Spyglass.builder()
 				.withTarget(mock(View.class))
+				.withAnnotationSource(View.class)
+				.withAnnotationSource(View.class)
 				.withContext(null)
 				.withStyleableResource(new int[0])
 				.build();
@@ -89,6 +96,8 @@ public class TestSpyglass {
 	public void testInstantiateUsingBuilder_noStyleableResourceEverSupplied() {
 		Spyglass.builder()
 				.withTarget(mock(View.class))
+				.withAnnotationSource(View.class)
+				.withAnnotationSource(View.class)
 				.withContext(mock(Context.class))
 				.build();
 	}
@@ -97,8 +106,67 @@ public class TestSpyglass {
 	public void testInstantiateUsingBuilder_nullStyleableResourceSupplied() {
 		Spyglass.builder()
 				.withTarget(mock(View.class))
+				.withAnnotationSource(View.class)
 				.withContext(mock(Context.class))
 				.withStyleableResource(null)
+				.build();
+	}
+
+	@Test(expected = InvalidBuilderStateException.class)
+	public void testInstantiateUsingBuilder_noAnnotationSourceEverSupplied() {
+		Spyglass.builder()
+				.withTarget(mock(View.class))
+				.withContext(mock(Context.class))
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
+	@Test(expected = InvalidBuilderStateException.class)
+	public void testInstantiateUsingBuilder_nullAnnotationSourceSupplied() {
+		Spyglass.builder()
+				.withTarget(mock(View.class))
+				.withAnnotationSource(null)
+				.withContext(mock(Context.class))
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
+	@Test(expected = InvalidBuilderStateException.class)
+	public void testInstantiateUsingBuilder_annotationSourceIsNotSuperclassOfTarget() {
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new ViewWithNormalCompanion(context);
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withAnnotationSource(ViewWithoutCompanion.class)
+				.withContext(context)
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
+	@Test
+	public void testInstantiateUsingBuilder_annotationSourceIsSuperclassOfTarget() {
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new SubclassOfViewWithNormalCompanion(context);
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withAnnotationSource(ViewWithNormalCompanion.class)
+				.withContext(context)
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
+	@Test
+	public void testInstantiateUsingBuilder_annotationSourceIsExactClassOfTarget() {
+		final Context context = InstrumentationRegistry.getContext();
+		final View targetView = new ViewWithNormalCompanion(context);
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withAnnotationSource(ViewWithNormalCompanion.class)
+				.withContext(context)
+				.withStyleableResource(new int[]{})
 				.build();
 	}
 
@@ -110,6 +178,7 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass
 				.builder()
 				.withTarget(targetView)
+				.withAnnotationSource(ViewWithNormalCompanion.class)
 				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
@@ -125,6 +194,7 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass
 				.builder()
 				.withTarget(targetView)
+				.withAnnotationSource(ViewWithIncompleteCompanion.class)
 				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
@@ -140,6 +210,7 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass
 				.builder()
 				.withTarget(targetView)
+				.withAnnotationSource(ViewWithExceptionThrowingCompanion.class)
 				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
@@ -155,6 +226,7 @@ public class TestSpyglass {
 		final Spyglass spyglass = Spyglass
 				.builder()
 				.withTarget(targetView)
+				.withAnnotationSource(ViewWithNormalCompanion.class)
 				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
