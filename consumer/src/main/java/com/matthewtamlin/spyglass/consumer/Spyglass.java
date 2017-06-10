@@ -128,8 +128,6 @@ public class Spyglass {
 		 */
 		private View target;
 
-		private Class<?> targetClass;
-
 		/**
 		 * The context to use when accessing system resources. This property is mandatory and must be non-null prior
 		 * to calling {@link #build()}.
@@ -172,14 +170,11 @@ public class Spyglass {
 		 *
 		 * @param view
 		 * 		the target to pass data to
-		 * @param targetClass
-		 * 		the class of the target
 		 *
 		 * @return this builder
 		 */
-		public <T extends View> Builder withTarget(final T view, final Class<T> targetClass) {
+		public <T extends View> Builder withTarget(final T view) {
 			this.target = view;
-			this.targetClass = targetClass;
 
 			return this;
 		}
