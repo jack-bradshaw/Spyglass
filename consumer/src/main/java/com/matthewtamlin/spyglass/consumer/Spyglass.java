@@ -289,9 +289,13 @@ public class Spyglass {
 		 * @throws InvalidBuilderStateException
 		 * 		if no target has been set
 		 * @throws InvalidBuilderStateException
+		 * 		if no annotation source has been set
+		 * @throws InvalidBuilderStateException
 		 * 		if no context has been set
 		 * @throws InvalidBuilderStateException
 		 * 		if no styleable resource has been set
+		 * @throws InvalidBuilderStateException
+		 * 		if the target is not an instance of the annotation source
 		 */
 		public Spyglass build() {
 			checkNotNull(target, new InvalidBuilderStateException("Unable to build a Spyglass without a target. Call " +
@@ -305,6 +309,11 @@ public class Spyglass {
 
 			checkNotNull(styleableRes, new InvalidBuilderStateException("Unable to build a Spyglass without a " +
 					"styleable resource. Call method withStyleableRes(int[]) before calling build()."));
+
+			if (!annotationSource.isAssignableFrom(target.getClass())) {
+				throw new InvalidBuilderStateException(
+						"Unable to build a Spyglass. The target must be an instance of the annotation source.");
+			}
 
 			return new Spyglass(this);
 		}
