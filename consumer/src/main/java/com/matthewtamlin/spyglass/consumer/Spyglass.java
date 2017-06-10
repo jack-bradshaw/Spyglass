@@ -119,7 +119,8 @@ public class Spyglass {
 
 	/**
 	 * Builds new instances of the {@link Spyglass} tool. Attempting to call {@link #build()} without first setting
-	 * the target, context and styleable-resource properties will result in an exception being thrown.
+	 * the target, annotation source, context and styleable-resource properties will result in an exception being
+	 * thrown. An exception will also be thrown if the target is not an instance of the annotation source class.
 	 */
 	public static class Builder {
 		/**
