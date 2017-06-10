@@ -129,6 +129,12 @@ public class Spyglass {
 		private View target;
 
 		/**
+		 * The class to look for annotations in. This property is mandatory and must be non-null prior to calling
+		 * {@link #build()}. The target must be an instance of this class.
+		 */
+		private Class<? extends View> annotationSource;
+
+		/**
 		 * The context to use when accessing system resources. This property is mandatory and must be non-null prior
 		 * to calling {@link #build()}.
 		 */
@@ -176,6 +182,23 @@ public class Spyglass {
 		public <T extends View> Builder withTarget(final T view) {
 			this.target = view;
 
+			return this;
+		}
+
+		/**
+		 * Sets the class to use as the annotation source. Do not pass the runtime class of the target to this method,
+		 * instead pass a static class reference. This is important because the Spyglass framework uses this class to
+		 * lookup compiled data at runtime. If this method is called more than once, only the most recent value is
+		 * used. This method must be called with a non-null value prior to calling {@link #build()}, and the target
+		 * supplied to {@link #withTarget(View)} must be an instance of the annotation source class.
+		 *
+		 * @param annotationSource
+		 * 		the class containing the annotations to use
+		 *
+		 * @return this builder
+		 */
+		public Builder withAnnotationSource(final Class<? extends View> annotationSource) {
+			this.annotationSource = annotationSource;
 			return this;
 		}
 
@@ -274,8 +297,8 @@ public class Spyglass {
 			checkNotNull(target, new InvalidBuilderStateException("Unable to build a Spyglass without a target. Call " +
 					"method withTarget(View) before calling build()."));
 
-			checkNotNull(targetClass, new InvalidBuilderStateException("Unable to build a Spyglass without a target " +
-					"class. Use method withTarget(View, Class) before calling build()."));
+			checkNotNull(annotationSource, new InvalidBuilderStateException("Unable to build a Spyglass without an " +
+					"annotation source. Use method withAnnotationSource(Class) before calling build()."));
 
 			checkNotNull(context, new InvalidBuilderStateException("Unable to build a Spyglass without a context. " +
 					"Call method withContext(Context) before calling build()."));
