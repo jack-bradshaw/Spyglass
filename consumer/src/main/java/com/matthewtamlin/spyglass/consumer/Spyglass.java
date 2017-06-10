@@ -296,7 +296,7 @@ public class Spyglass {
 		 * @throws InvalidBuilderStateException
 		 * 		if no styleable resource has been set
 		 * @throws InvalidBuilderStateException
-		 * 		if the target is not an instance of the annotation source
+		 * 		if the target is not an instance of the annotation source source
 		 */
 		public Spyglass build() {
 			checkNotNull(target, new InvalidBuilderStateException("Unable to build a Spyglass without a target. Call " +
