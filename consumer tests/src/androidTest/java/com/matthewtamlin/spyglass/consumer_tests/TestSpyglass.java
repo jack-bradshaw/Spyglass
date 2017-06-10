@@ -147,11 +147,11 @@ public class TestSpyglass {
 	@Test
 	public void testInstantiateUsingBuilder_annotationSourceIsSuperclassOfTarget() {
 		final Context context = InstrumentationRegistry.getContext();
-		final View targetView = new ViewWithNormalCompanion(context);
+		final View targetView = new SubclassOfViewWithNormalCompanion(context);
 
 		Spyglass.builder()
 				.withTarget(targetView)
-				.withAnnotationSource(View.class)
+				.withAnnotationSource(ViewWithNormalCompanion.class)
 				.withContext(context)
 				.withStyleableResource(new int[]{})
 				.build();
