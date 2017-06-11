@@ -7,7 +7,6 @@ import com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour.S
 import com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour.Superclass;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.SynchronousUiThreadExecutor;
 
-import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -15,6 +14,7 @@ import org.junit.runner.RunWith;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.notNullValue;
 
 @RunWith(AndroidJUnit4.class)
 public class TestInheritanceBehaviour {
@@ -35,10 +35,10 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
-				assertThat("Spyglass didn't pass a value.", s.valueHasBeenReceived(), is(true));
+				assertThat("Spyglass didn't pass a value.", s.getSuperclassInvocationRecord(), is(notNullValue()));
 				assertThat("Spyglass passed the wrong value.",
-						s.getReceivedValue(),
-						Matchers.is(Superclass.EXPECTED_VALUE));
+						s.getSuperclassInvocationRecord().get(0),
+						is((Object) Superclass.EXPECTED_VALUE));
 			}
 		});
 	}
