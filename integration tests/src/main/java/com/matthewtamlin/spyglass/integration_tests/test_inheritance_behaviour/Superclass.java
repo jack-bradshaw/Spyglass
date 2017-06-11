@@ -49,11 +49,11 @@ public class Superclass extends View {
 		this.invocationArgs = invocationArgs;
 	}
 
-	public Map<Integer, Object> getSubclassActualInvocationArgs() {
+	public Map<Integer, Object> getSuperclassActualInvocationArgs() {
 		return invocationArgs;
 	}
 
-	public Map<Integer, Object> getSubclassExpectedInvocationArgs() {
+	public Map<Integer, Object> getSuperclassExpectedInvocationArgs() {
 		final Map<Integer, Object> expectedArgs = new HashMap<>();
 
 		expectedArgs.put(0, "superclass default value");
