@@ -4,7 +4,6 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour.Subclass;
-import com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour.Superclass;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.SynchronousUiThreadExecutor;
 
 import org.junit.Before;
@@ -12,9 +11,11 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Map;
+
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(AndroidJUnit4.class)
 public class TestInheritanceBehaviour {
@@ -35,10 +36,11 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
-				assertThat("Spyglass didn't pass a value.", s.getSuperclassInvocationRecord(), is(notNullValue()));
-				assertThat("Spyglass passed the wrong value.",
-						s.getSuperclassInvocationRecord().get(0),
-						is((Object) Superclass.DEFAULT_VALUE));
+				final Map<Integer, Object> expectedInvocationArgs = s.getSuperclassExpectedInvocationArgs();
+
+				assertThat("Spyglass didn't pass a value.",
+						s.getSuperclassActualInvocationArgs(),
+						is(expectedInvocationArgs == null ? nullValue() : expectedInvocationArgs));
 			}
 		});
 	}
@@ -50,10 +52,11 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
-				assertThat("Spyglass didn't pass a value.", s.getSubclassInvocationRecord(), is(notNullValue()));
-				assertThat("Spyglass passed the wrong value.",
-						s.getSubclassInvocationRecord().get(0),
-						is((Object) Subclass.DEFAULT_VALUE));
+				final Map<Integer, Object> expectedInvocationArgs = s.getSubclassExpectedInvocationArgs();
+
+				assertThat("Spyglass didn't pass a value.",
+						s.getSubclassActualInvocationArgs(),
+						is(expectedInvocationArgs == null ? nullValue() : expectedInvocationArgs));
 			}
 		});
 	}
