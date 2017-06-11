@@ -1,11 +1,14 @@
-package com.matthewtamlin.spyglass.integration_tests.subclass_tests;
+package com.matthewtamlin.spyglass.integration_tests;
 
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.integration_tests.EmptyActivity;
+import com.matthewtamlin.spyglass.integration_tests.subclass_tests.Subclass;
+import com.matthewtamlin.spyglass.integration_tests.subclass_tests.Superclass;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.SynchronousUiThreadExecutor;
 
+import org.hamcrest.Matchers;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -34,7 +37,7 @@ public class TestCases {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
 				assertThat("Spyglass didn't pass a value.", s.valueHasBeenReceived(), is(true));
-				assertThat("Spyglass passed the wrong value.", s.getReceivedValue(), is(Superclass.EXPECTED_VALUE));
+				assertThat("Spyglass passed the wrong value.", s.getReceivedValue(), Matchers.is(Superclass.EXPECTED_VALUE));
 			}
 		});
 	}
