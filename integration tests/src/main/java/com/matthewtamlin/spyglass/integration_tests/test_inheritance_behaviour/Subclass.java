@@ -14,9 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Subclass extends Superclass {
-	public static final String DEFAULT_VALUE = "subclass value";
-
-	private Map<Integer, Object> invocationRecord = null;
+	private Map<Integer, Object> invocationArgs = null;
 
 	public Subclass(final Context context) {
 		super(context);
@@ -41,17 +39,25 @@ public class Subclass extends Superclass {
 	}
 
 	@StringHandler(attributeId = R.styleable.Subclass_SubclassTestAttr)
-	@DefaultToString(DEFAULT_VALUE)
+	@DefaultToString("subclass default value")
 	public void subclassHandlerMethod(final String s) {
 		final Map<Integer, Object> invocationRecord = new HashMap<>();
 
 		invocationRecord.put(0, s);
 
-		this.invocationRecord = invocationRecord;
+		this.invocationArgs = invocationRecord;
 	}
 
-	public Map<Integer, Object> getSubclassInvocationRecord() {
-		return invocationRecord;
+	public Map<Integer, Object> getSubclassActualInvocationArgs() {
+		return invocationArgs;
+	}
+
+	public Map<Integer, Object> getSubclassExpectedInvocationArgs() {
+		final Map<Integer, Object> expectedArgs = new HashMap<>();
+
+		expectedArgs.put(0, "subclass default value");
+
+		return expectedArgs;
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
