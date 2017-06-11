@@ -41,7 +41,7 @@ public class Superclass extends View {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.Superclass_TestAttr)
+	@StringHandler(attributeId = R.styleable.Superclass_SuperclassTestAttr)
 	@DefaultToString(DEFAULT_VALUE)
 	public void superclassHandlerMethod(final String s) {
 		final Map<Integer, Object> invocationRecord = new HashMap<>();

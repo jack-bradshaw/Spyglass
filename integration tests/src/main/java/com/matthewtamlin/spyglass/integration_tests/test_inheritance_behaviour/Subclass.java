@@ -40,7 +40,7 @@ public class Subclass extends Superclass {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.Subclass_TestAttr)
+	@StringHandler(attributeId = R.styleable.Subclass_SubclassTestAttr)
 	@DefaultToString(DEFAULT_VALUE)
 	public void subclassHandlerMethod(final String s) {
 		final Map<Integer, Object> invocationRecord = new HashMap<>();
