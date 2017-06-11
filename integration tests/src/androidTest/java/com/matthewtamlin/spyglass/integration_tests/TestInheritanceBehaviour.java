@@ -4,6 +4,7 @@ import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour.Subclass;
+import com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour.Superclass;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.SynchronousUiThreadExecutor;
 
 import org.junit.Before;
@@ -27,6 +28,22 @@ public class TestInheritanceBehaviour {
 	@Before
 	public void setup() {
 		executor = new SynchronousUiThreadExecutor(activityRule.getActivity());
+	}
+
+	@Test
+	public void testSuperclassInstantiationTriggersSuperclassSpyglass() {
+		executor.execute(new Runnable() {
+			@Override
+			public void run() {
+				final Superclass s = new Superclass(activityRule.getActivity());
+
+				final Map<Integer, Object> expectedInvocationArgs = s.getSuperclassExpectedInvocationArgs();
+
+				assertThat("Spyglass didn't pass a value.",
+						s.getSuperclassActualInvocationArgs(),
+						is(expectedInvocationArgs == null ? nullValue() : expectedInvocationArgs));
+			}
+		});
 	}
 
 	@Test
