@@ -11,12 +11,13 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHa
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 
+import java.util.HashMap;
+import java.util.Map;
+
 public class Superclass extends View {
 	public static final String EXPECTED_VALUE = "hello world!";
 
-	private boolean valueHasBeenReceived = false;
-
-	private String receivedValue;
+	private Map<Integer, Object> invocationRecord = null;
 
 	public Superclass(final Context context) {
 		super(context);
@@ -43,20 +44,15 @@ public class Superclass extends View {
 	@StringHandler(attributeId = R.styleable.Superclass_TestAttr)
 	@DefaultToString(EXPECTED_VALUE)
 	public void handlerMethod(final String s) {
-		valueHasBeenReceived = true;
-		receivedValue = s;
+		final Map<Integer, Object> invocationRecord = new HashMap<>();
+
+		invocationRecord.put(0, s);
+
+		this.invocationRecord = invocationRecord;
 	}
 
-	public boolean valueHasBeenReceived() {
-		return valueHasBeenReceived;
-	}
-
-	public String getReceivedValue() {
-		if (!valueHasBeenReceived) {
-			throw new RuntimeException("No value has been received.");
-		}
-
-		return receivedValue;
+	public Map<Integer, Object> getSuperclassInvocationRecord() {
+		return invocationRecord;
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
