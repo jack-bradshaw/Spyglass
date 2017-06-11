@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Superclass extends View {
-	public static final String EXPECTED_VALUE = "hello world!";
+	public static final String DEFAULT_VALUE = "hello world!";
 
 	private Map<Integer, Object> invocationRecord = null;
 
@@ -42,7 +42,7 @@ public class Superclass extends View {
 	}
 
 	@StringHandler(attributeId = R.styleable.Superclass_TestAttr)
-	@DefaultToString(EXPECTED_VALUE)
+	@DefaultToString(DEFAULT_VALUE)
 	public void handlerMethod(final String s) {
 		final Map<Integer, Object> invocationRecord = new HashMap<>();
 

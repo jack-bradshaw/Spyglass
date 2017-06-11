@@ -38,7 +38,7 @@ public class TestInheritanceBehaviour {
 				assertThat("Spyglass didn't pass a value.", s.getSuperclassInvocationRecord(), is(notNullValue()));
 				assertThat("Spyglass passed the wrong value.",
 						s.getSuperclassInvocationRecord().get(0),
-						is((Object) Superclass.EXPECTED_VALUE));
+						is((Object) Superclass.DEFAULT_VALUE));
 			}
 		});
 	}
