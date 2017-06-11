@@ -42,4 +42,19 @@ public class TestInheritanceBehaviour {
 			}
 		});
 	}
+
+	@Test
+	public void testSubclassInstantiationTriggersSubclassSpyglass() {
+		executor.execute(new Runnable() {
+			@Override
+			public void run() {
+				final Subclass s = new Subclass(activityRule.getActivity());
+
+				assertThat("Spyglass didn't pass a value.", s.getSubclassInvocationRecord(), is(notNullValue()));
+				assertThat("Spyglass passed the wrong value.",
+						s.getSubclassInvocationRecord().get(0),
+						is((Object) Subclass.DEFAULT_VALUE));
+			}
+		});
+	}
 }
