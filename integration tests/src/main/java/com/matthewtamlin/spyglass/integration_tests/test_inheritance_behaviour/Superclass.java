@@ -15,7 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Superclass extends View {
-	public static final String DEFAULT_VALUE = "hello world!";
+	public static final String DEFAULT_VALUE = "superclass value";
 
 	private Map<Integer, Object> invocationRecord = null;
 
