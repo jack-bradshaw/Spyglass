@@ -3,4 +3,8 @@
 	<declare-styleable name="Superclass">
 		<attr name="TestAttr" format="string"/>
 	</declare-styleable>
+
+	<declare-styleable name="Subclass">
+		<attr name="TestAttr" format="string"/>
+	</declare-styleable>
 </resources>
