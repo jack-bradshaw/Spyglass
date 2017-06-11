@@ -3,8 +3,8 @@ package com.matthewtamlin.spyglass.integration_tests;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.integration_tests.subclass_tests.Subclass;
-import com.matthewtamlin.spyglass.integration_tests.subclass_tests.Superclass;
+import com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour.Subclass;
+import com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour.Superclass;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.SynchronousUiThreadExecutor;
 
 import org.hamcrest.Matchers;

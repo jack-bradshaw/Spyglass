@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.subclass_tests;
+package com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour;
 
 import android.annotation.TargetApi;
 import android.content.Context;
