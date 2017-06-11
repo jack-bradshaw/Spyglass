@@ -43,7 +43,7 @@ public class Superclass extends View {
 
 	@StringHandler(attributeId = R.styleable.Superclass_TestAttr)
 	@DefaultToString(DEFAULT_VALUE)
-	public void handlerMethod(final String s) {
+	public void superclassHandlerMethod(final String s) {
 		final Map<Integer, Object> invocationRecord = new HashMap<>();
 
 		invocationRecord.put(0, s);
