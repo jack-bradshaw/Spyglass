@@ -15,9 +15,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Superclass extends View {
-	public static final String DEFAULT_VALUE = "superclass value";
-
-	private Map<Integer, Object> invocationRecord = null;
+	private Map<Integer, Object> invocationArgs = null;
 
 	public Superclass(final Context context) {
 		super(context);
@@ -42,17 +40,25 @@ public class Superclass extends View {
 	}
 
 	@StringHandler(attributeId = R.styleable.Superclass_SuperclassTestAttr)
-	@DefaultToString(DEFAULT_VALUE)
+	@DefaultToString("superclass default value")
 	public void superclassHandlerMethod(final String s) {
-		final Map<Integer, Object> invocationRecord = new HashMap<>();
+		final Map<Integer, Object> invocationArgs = new HashMap<>();
 
-		invocationRecord.put(0, s);
+		invocationArgs.put(0, s);
 
-		this.invocationRecord = invocationRecord;
+		this.invocationArgs = invocationArgs;
 	}
 
-	public Map<Integer, Object> getSuperclassInvocationRecord() {
-		return invocationRecord;
+	public Map<Integer, Object> getSubclassActualInvocationArgs() {
+		return invocationArgs;
+	}
+
+	public Map<Integer, Object> getSubclassExpectedInvocationArgs() {
+		final Map<Integer, Object> expectedArgs = new HashMap<>();
+
+		expectedArgs.put(0, "superclass default value");
+
+		return expectedArgs;
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
