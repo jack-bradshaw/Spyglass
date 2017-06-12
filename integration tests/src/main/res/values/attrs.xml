@@ -1,6 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<declare-styleable name="Superclass">
-		<attr name="TestAttr" format="string"/>
+		<attr name="SuperclassTestAttr" format="string"/>
+	</declare-styleable>
+
+	<declare-styleable name="Subclass">
+		<attr name="SubclassTestAttr" format="string"/>
+	</declare-styleable>
+
+	<declare-styleable name="UseAnnotationIntegrationTestTarget">
+		<attr name="TestAttr3" format="string"/>
 	</declare-styleable>
 </resources>

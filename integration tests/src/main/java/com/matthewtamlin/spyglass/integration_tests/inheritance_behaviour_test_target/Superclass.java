@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.subclass_tests;
+package com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_test_target;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -11,12 +11,11 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHa
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Superclass extends View {
-	public static final String EXPECTED_VALUE = "hello world!";
-
-	private boolean valueHasBeenReceived = false;
-
-	private String receivedValue;
+	private List<Object> invocationArgs = null;
 
 	public Superclass(final Context context) {
 		super(context);
@@ -40,23 +39,26 @@ public class Superclass extends View {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.Superclass_TestAttr)
-	@DefaultToString(EXPECTED_VALUE)
-	public void handlerMethod(final String s) {
-		valueHasBeenReceived = true;
-		receivedValue = s;
+	@StringHandler(attributeId = R.styleable.Superclass_SuperclassTestAttr)
+	@DefaultToString("superclass default value")
+	public void superclassHandlerMethod(final String s) {
+		final List<Object> invocationArgs = new ArrayList<>();
+
+		invocationArgs.add(s);
+
+		this.invocationArgs = invocationArgs;
 	}
 
-	public boolean valueHasBeenReceived() {
-		return valueHasBeenReceived;
+	public List<Object> getSuperclassActualInvocationArgs() {
+		return invocationArgs;
 	}
 
-	public String getReceivedValue() {
-		if (!valueHasBeenReceived) {
-			throw new RuntimeException("No value has been received.");
-		}
+	public List<Object> getSuperclassExpectedInvocationArgs() {
+		final List<Object> expectedArgs = new ArrayList<>();
 
-		return receivedValue;
+		expectedArgs.add("superclass default value");
+
+		return expectedArgs;
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
