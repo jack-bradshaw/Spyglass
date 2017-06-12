@@ -165,7 +165,7 @@ public class TestInvocationLiteralGenerator {
 
 		final String invocationLiteral = generator.generateLiteralWithExtraArg(element, "value");
 
-		assertThat(invocationLiteral, is("method(-100, value)"));
+		assertThat(invocationLiteral, is("method((short)-100, value)"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -266,7 +266,7 @@ public class TestInvocationLiteralGenerator {
 
 		final String invocationLiteral = generator.generateLiteralWithoutExtraArg(element);
 
-		assertThat(invocationLiteral, is("method(100)"));
+		assertThat(invocationLiteral, is("method((short)100)"));
 	}
 
 	@Test
