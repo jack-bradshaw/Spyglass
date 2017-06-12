@@ -34,7 +34,7 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Superclass s = new Superclass(activityRule.getActivity());
 
-				assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs());
+				assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs()));
 			}
 		});
 	}
@@ -46,7 +46,7 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
-				assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs());
+				assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs()));
 			}
 		});
 	}
@@ -58,7 +58,7 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
-				assertThat(s.getSubclassActualInvocationArgs(), is(s.getSubclassExpectedInvocationArgs());
+				assertThat(s.getSubclassActualInvocationArgs(), is(s.getSubclassExpectedInvocationArgs()));
 			}
 		});
 	}
