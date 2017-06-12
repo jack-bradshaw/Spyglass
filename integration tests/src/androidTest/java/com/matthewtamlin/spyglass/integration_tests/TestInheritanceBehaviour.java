@@ -12,11 +12,8 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(AndroidJUnit4.class)
 public class TestInheritanceBehaviour {
@@ -37,11 +34,9 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Superclass s = new Superclass(activityRule.getActivity());
 
-				final List<Object> expectedInvocationArgs = s.getSuperclassExpectedInvocationArgs();
-
 				assertThat("Spyglass didn't pass a value.",
 						s.getSuperclassActualInvocationArgs(),
-						is(expectedInvocationArgs == null ? nullValue() : expectedInvocationArgs));
+						is(s.getSuperclassExpectedInvocationArgs());
 			}
 		});
 	}
@@ -53,11 +48,9 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
-				final List<Object> expectedInvocationArgs = s.getSuperclassExpectedInvocationArgs();
-
 				assertThat("Spyglass didn't pass a value.",
 						s.getSuperclassActualInvocationArgs(),
-						is(expectedInvocationArgs == null ? nullValue() : expectedInvocationArgs));
+						is(s.getSuperclassExpectedInvocationArgs());
 			}
 		});
 	}
@@ -68,12 +61,10 @@ public class TestInheritanceBehaviour {
 			@Override
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
-
-				final List<Object> expectedInvocationArgs = s.getSubclassExpectedInvocationArgs();
-
+ 
 				assertThat("Spyglass didn't pass a value.",
 						s.getSubclassActualInvocationArgs(),
-						is(expectedInvocationArgs == null ? nullValue() : expectedInvocationArgs));
+						is(s.getSubclassExpectedInvocationArgs());
 			}
 		});
 	}
