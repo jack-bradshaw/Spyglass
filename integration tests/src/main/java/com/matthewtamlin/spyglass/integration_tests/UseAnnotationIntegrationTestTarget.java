@@ -94,14 +94,14 @@ public class UseAnnotationIntegrationTestTarget extends View {
 
 		expectedArgs.add("default value");
 		expectedArgs.add(true);
-		expectedArgs.add(30);
+		expectedArgs.add((byte) 30);
 		expectedArgs.add('\u1003');
 		expectedArgs.add(10.5);
 		expectedArgs.add(40.8F);
 		expectedArgs.add(9);
 		expectedArgs.add(123456789123456789L);
 		expectedArgs.add(null);
-		expectedArgs.add(2);
+		expectedArgs.add((short) 2);
 		expectedArgs.add("used string");
 
 		return expectedArgs;
