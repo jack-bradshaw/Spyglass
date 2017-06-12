@@ -15,7 +15,7 @@ android {
 }
 
 dependencies {
-	annotationProcessor project(":processor")
+	annotationProcessor project(":processor activated")
 
 	compile project(':consumer')
 	compile 'com.android.support:appcompat-v7:25.3.1'
