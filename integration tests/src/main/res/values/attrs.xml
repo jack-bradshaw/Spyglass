@@ -7,4 +7,8 @@
 	<declare-styleable name="Subclass">
 		<attr name="SubclassTestAttr" format="string"/>
 	</declare-styleable>
+
+	<declare-styleable name="UseAnnotationIntegrationTestTarget">
+		<attr name="TestAttr3" format="string"/>
+	</declare-styleable>
 </resources>
