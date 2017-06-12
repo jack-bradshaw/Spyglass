@@ -11,11 +11,11 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHa
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Superclass extends View {
-	private Map<Integer, Object> invocationArgs = null;
+	private List<Object> invocationArgs = null;
 
 	public Superclass(final Context context) {
 		super(context);
@@ -42,21 +42,21 @@ public class Superclass extends View {
 	@StringHandler(attributeId = R.styleable.Superclass_SuperclassTestAttr)
 	@DefaultToString("superclass default value")
 	public void superclassHandlerMethod(final String s) {
-		final Map<Integer, Object> invocationArgs = new HashMap<>();
+		final List<Object> invocationArgs = new ArrayList<>();
 
-		invocationArgs.put(0, s);
+		invocationArgs.add(s);
 
 		this.invocationArgs = invocationArgs;
 	}
 
-	public Map<Integer, Object> getSuperclassActualInvocationArgs() {
+	public List<Object> getSuperclassActualInvocationArgs() {
 		return invocationArgs;
 	}
 
-	public Map<Integer, Object> getSuperclassExpectedInvocationArgs() {
-		final Map<Integer, Object> expectedArgs = new HashMap<>();
+	public List<Object> getSuperclassExpectedInvocationArgs() {
+		final List<Object> expectedArgs = new ArrayList<>();
 
-		expectedArgs.put(0, "superclass default value");
+		expectedArgs.add("superclass default value");
 
 		return expectedArgs;
 	}
