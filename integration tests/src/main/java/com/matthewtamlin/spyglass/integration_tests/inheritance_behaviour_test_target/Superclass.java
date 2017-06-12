@@ -1,9 +1,10 @@
-package com.matthewtamlin.spyglass.integration_tests.test_inheritance_behaviour;
+package com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_test_target;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
+import android.view.View;
 
 import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
@@ -13,49 +14,49 @@ import com.matthewtamlin.spyglass.integration_tests.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Subclass extends Superclass {
+public class Superclass extends View {
 	private List<Object> invocationArgs = null;
 
-	public Subclass(final Context context) {
+	public Superclass(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public Subclass(final Context context, final AttributeSet attrs) {
+	public Superclass(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public Subclass(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public Superclass(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
 
-	@RequiresApi(21)
 	@TargetApi(21)
-	public Subclass(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+	@RequiresApi(21)
+	public Superclass(final Context context, final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		super(context, attrs, defStyleAttr, defStyleRes);
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.Subclass_SubclassTestAttr)
-	@DefaultToString("subclass default value")
-	public void subclassHandlerMethod(final String s) {
-		final List<Object> invocationRecord = new ArrayList<>();
+	@StringHandler(attributeId = R.styleable.Superclass_SuperclassTestAttr)
+	@DefaultToString("superclass default value")
+	public void superclassHandlerMethod(final String s) {
+		final List<Object> invocationArgs = new ArrayList<>();
 
-		invocationRecord.add(s);
+		invocationArgs.add(s);
 
-		this.invocationArgs = invocationRecord;
+		this.invocationArgs = invocationArgs;
 	}
 
-	public List<Object> getSubclassActualInvocationArgs() {
+	public List<Object> getSuperclassActualInvocationArgs() {
 		return invocationArgs;
 	}
 
-	public List<Object> getSubclassExpectedInvocationArgs() {
+	public List<Object> getSuperclassExpectedInvocationArgs() {
 		final List<Object> expectedArgs = new ArrayList<>();
 
-		expectedArgs.add("subclass default value");
+		expectedArgs.add("superclass default value");
 
 		return expectedArgs;
 	}
@@ -63,12 +64,12 @@ public class Subclass extends Superclass {
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(Subclass.class)
+				.withAnnotationSource(Superclass.class)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.Subclass)
+				.withStyleableResource(R.styleable.Superclass)
 				.build()
 				.passDataToMethods();
 	}
