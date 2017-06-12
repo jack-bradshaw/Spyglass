@@ -34,9 +34,7 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Superclass s = new Superclass(activityRule.getActivity());
 
-				assertThat("Spyglass didn't pass a value.",
-						s.getSuperclassActualInvocationArgs(),
-						is(s.getSuperclassExpectedInvocationArgs());
+				assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs());
 			}
 		});
 	}
@@ -48,9 +46,7 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
-				assertThat("Spyglass didn't pass a value.",
-						s.getSuperclassActualInvocationArgs(),
-						is(s.getSuperclassExpectedInvocationArgs());
+				assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs());
 			}
 		});
 	}
@@ -61,10 +57,8 @@ public class TestInheritanceBehaviour {
 			@Override
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
- 
-				assertThat("Spyglass didn't pass a value.",
-						s.getSubclassActualInvocationArgs(),
-						is(s.getSubclassExpectedInvocationArgs());
+
+				assertThat(s.getSubclassActualInvocationArgs(), is(s.getSubclassExpectedInvocationArgs());
 			}
 		});
 	}
