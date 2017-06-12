@@ -38,7 +38,7 @@ public class Subclass extends Superclass {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.Subclass_SubclassTestAttr)
+	@StringHandler(attributeId = R.styleable.Subclass_TestAttr2)
 	@DefaultToString("subclass default value")
 	public void subclassHandlerMethod(final String s) {
 		final List<Object> invocationRecord = new ArrayList<>();

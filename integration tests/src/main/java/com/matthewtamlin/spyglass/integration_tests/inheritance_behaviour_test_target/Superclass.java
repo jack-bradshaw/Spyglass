@@ -39,7 +39,7 @@ public class Superclass extends View {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.Superclass_SuperclassTestAttr)
+	@StringHandler(attributeId = R.styleable.Superclass_TestAttr1)
 	@DefaultToString("superclass default value")
 	public void superclassHandlerMethod(final String s) {
 		final List<Object> invocationArgs = new ArrayList<>();
