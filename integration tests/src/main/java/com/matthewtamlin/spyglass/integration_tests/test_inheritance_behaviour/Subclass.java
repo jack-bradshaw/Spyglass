@@ -10,11 +10,11 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHa
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Subclass extends Superclass {
-	private Map<Integer, Object> invocationArgs = null;
+	private List<Object> invocationArgs = null;
 
 	public Subclass(final Context context) {
 		super(context);
@@ -41,21 +41,21 @@ public class Subclass extends Superclass {
 	@StringHandler(attributeId = R.styleable.Subclass_SubclassTestAttr)
 	@DefaultToString("subclass default value")
 	public void subclassHandlerMethod(final String s) {
-		final Map<Integer, Object> invocationRecord = new HashMap<>();
+		final List<Object> invocationRecord = new ArrayList<>();
 
-		invocationRecord.put(0, s);
+		invocationRecord.add(s);
 
 		this.invocationArgs = invocationRecord;
 	}
 
-	public Map<Integer, Object> getSubclassActualInvocationArgs() {
+	public List<Object> getSubclassActualInvocationArgs() {
 		return invocationArgs;
 	}
 
-	public Map<Integer, Object> getSubclassExpectedInvocationArgs() {
-		final Map<Integer, Object> expectedArgs = new HashMap<>();
+	public List<Object> getSubclassExpectedInvocationArgs() {
+		final List<Object> expectedArgs = new ArrayList<>();
 
-		expectedArgs.put(0, "subclass default value");
+		expectedArgs.add("subclass default value");
 
 		return expectedArgs;
 	}

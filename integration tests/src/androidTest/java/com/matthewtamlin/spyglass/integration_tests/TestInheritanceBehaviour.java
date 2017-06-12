@@ -12,7 +12,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.Map;
+import java.util.List;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -37,7 +37,7 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Superclass s = new Superclass(activityRule.getActivity());
 
-				final Map<Integer, Object> expectedInvocationArgs = s.getSuperclassExpectedInvocationArgs();
+				final List<Object> expectedInvocationArgs = s.getSuperclassExpectedInvocationArgs();
 
 				assertThat("Spyglass didn't pass a value.",
 						s.getSuperclassActualInvocationArgs(),
@@ -53,7 +53,7 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
-				final Map<Integer, Object> expectedInvocationArgs = s.getSuperclassExpectedInvocationArgs();
+				final List<Object> expectedInvocationArgs = s.getSuperclassExpectedInvocationArgs();
 
 				assertThat("Spyglass didn't pass a value.",
 						s.getSuperclassActualInvocationArgs(),
@@ -69,7 +69,7 @@ public class TestInheritanceBehaviour {
 			public void run() {
 				final Subclass s = new Subclass(activityRule.getActivity());
 
-				final Map<Integer, Object> expectedInvocationArgs = s.getSubclassExpectedInvocationArgs();
+				final List<Object> expectedInvocationArgs = s.getSubclassExpectedInvocationArgs();
 
 				assertThat("Spyglass didn't pass a value.",
 						s.getSubclassActualInvocationArgs(),
