@@ -11,4 +11,11 @@
 	<declare-styleable name="UseAnnotationIntegrationTestTarget">
 		<attr name="TestAttr3" format="string"/>
 	</declare-styleable>
+
+	<declare-styleable name="SpecificEnumHandlerTestTarget">
+		<attr name="TestAttr4" format="enum">
+			<enum name="value0" value="0"/>
+			<enum name="value1" value="1"/>
+		</attr>
+	</declare-styleable>
 </resources>
