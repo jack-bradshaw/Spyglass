@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	<declare-styleable name="Superclass">
-		<attr name="SuperclassTestAttr" format="string"/>
+		<attr name="TestAttr1" format="string"/>
 	</declare-styleable>
 
 	<declare-styleable name="Subclass">
-		<attr name="SubclassTestAttr" format="string"/>
+		<attr name="TestAttr2" format="string"/>
 	</declare-styleable>
 
 	<declare-styleable name="UseAnnotationIntegrationTestTarget">
 		<attr name="TestAttr3" format="string"/>
+	</declare-styleable>
+
+	<declare-styleable name="SpecificEnumHandlerTestTarget">
+		<attr name="TestAttr4" format="enum">
+			<enum name="value0" value="0"/>
+			<enum name="value1" value="1"/>
+		</attr>
 	</declare-styleable>
 </resources>
