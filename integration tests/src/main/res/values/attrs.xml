@@ -18,4 +18,11 @@
 			<enum name="value1" value="1"/>
 		</attr>
 	</declare-styleable>
+
+	<declare-styleable name="SpecificFlagHandlerTestTarget">
+		<attr name="testAttr5">
+			<flag name="value1" value="1"/>
+			<flag name="value2" value="2"/>
+		</attr>
+	</declare-styleable>
 </resources>
