@@ -76,7 +76,7 @@ public class ReceivedValue<T> {
 		if (exists()) {
 			return value == null ? "Returned value of: null" : "Returned value of: " + value;
 		} else {
-			return "No returned value.";
+			return "No returned value";
 		}
 	}
 }
