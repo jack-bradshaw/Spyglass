@@ -19,6 +19,7 @@ dependencies {
 
 	compile project(':consumer')
 	compile 'com.android.support:appcompat-v7:25.3.1'
+	compile 'org.apache.commons:commons-lang3:3.5'
 
 	androidTestCompile 'com.android.support:appcompat-v7:25.3.1'
 	androidTestCompile 'com.android.support.test.espresso:espresso-core:2.2.2'
