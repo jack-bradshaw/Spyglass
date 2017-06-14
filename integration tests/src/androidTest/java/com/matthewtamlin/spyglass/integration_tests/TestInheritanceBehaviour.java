@@ -1,13 +1,14 @@
 package com.matthewtamlin.spyglass.integration_tests;
 
-import android.support.test.rule.ActivityTestRule;
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.annotation.UiThreadTest;
+import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_test_target.Subclass;
 import com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_test_target.Superclass;
-import com.matthewtamlin.spyglass.integration_tests.testing_utilities.SynchronousUiThreadExecutor;
 
-import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,48 +19,35 @@ import static org.hamcrest.Matchers.is;
 @RunWith(AndroidJUnit4.class)
 public class TestInheritanceBehaviour {
 	@Rule
-	public final ActivityTestRule<EmptyActivity> activityRule = new ActivityTestRule<>(EmptyActivity.class);
+	public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 
-	private SynchronousUiThreadExecutor executor;
+	private Context context;
 
-	@Before
 	public void setup() {
-		executor = new SynchronousUiThreadExecutor(activityRule.getActivity());
+		context = InstrumentationRegistry.getTargetContext();
 	}
 
 	@Test
+	@UiThreadTest
 	public void testSuperclassInstantiationTriggersSuperclassSpyglass() {
-		executor.execute(new Runnable() {
-			@Override
-			public void run() {
-				final Superclass s = new Superclass(activityRule.getActivity());
+		final Superclass s = new Superclass(context);
 
-				assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs()));
-			}
-		});
+		assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs()));
 	}
 
 	@Test
+	@UiThreadTest
 	public void testSubclassInstantiationTriggersSuperclassSpyglass() {
-		executor.execute(new Runnable() {
-			@Override
-			public void run() {
-				final Subclass s = new Subclass(activityRule.getActivity());
+		final Subclass s = new Subclass(context);
 
-				assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs()));
-			}
-		});
+		assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs()));
 	}
 
 	@Test
+	@UiThreadTest
 	public void testSubclassInstantiationTriggersSubclassSpyglass() {
-		executor.execute(new Runnable() {
-			@Override
-			public void run() {
-				final Subclass s = new Subclass(activityRule.getActivity());
+		final Subclass s = new Subclass(context);
 
-				assertThat(s.getSubclassActualInvocationArgs(), is(s.getSubclassExpectedInvocationArgs()));
-			}
-		});
+		assertThat(s.getSubclassActualInvocationArgs(), is(s.getSubclassExpectedInvocationArgs()));
 	}
 }
