@@ -40,7 +40,7 @@ public class ReceivedValue<T> {
 
 	@Override
 	public int hashCode() {
-		final HashCodeBuilder builder = new HashCodeBuilder(87, 13);
+		final HashCodeBuilder builder = new HashCodeBuilder(83, 13);
 
 		builder.append(exists);
 		builder.append(value);
