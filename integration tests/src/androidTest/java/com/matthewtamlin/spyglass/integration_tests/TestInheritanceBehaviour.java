@@ -9,6 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 import com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_test_target.Subclass;
 import com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_test_target.Superclass;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,7 @@ public class TestInheritanceBehaviour {
 
 	private Context context;
 
+	@Before
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
 	}

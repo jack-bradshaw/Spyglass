@@ -9,6 +9,7 @@ import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier;
 
+import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -23,6 +24,7 @@ public class TestSpecificEnumHandler {
 
 	private Context context;
 
+	@Before
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
 	}
