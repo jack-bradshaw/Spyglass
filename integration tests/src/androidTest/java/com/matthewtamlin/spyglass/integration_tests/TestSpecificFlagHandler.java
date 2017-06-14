@@ -18,7 +18,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
-public class TestSpecificEnumHandler {
+public class TestSpecificFlagHandler {
 	@Rule
 	public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 
@@ -31,24 +31,36 @@ public class TestSpecificEnumHandler {
 
 	@Test
 	@UiThreadTest
-	public void testSpyglassCallsMethod_attributePresentAndCorrectOrdinal() {
+	public void testSpyglassCallsMethod_attributePresentWithMatchingFlagOnly() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(
 				context,
-				R.xml.specific_enum_handler_with_attr_correct_ordinal);
+				R.xml.specific_flag_handler_with_flag_1);
 
-		final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context, attrs);
+		final SpecificFlagHandlerTestTarget target = new SpecificFlagHandlerTestTarget(context, attrs);
 
 		assertThat(target.wasHandlerCalled(), is(true));
 	}
 
 	@Test
 	@UiThreadTest
-	public void testSpyglassNeverCallsMethod_attributePresentButIncorrectOrdinal() {
+	public void testSpyglassCallsMethod_attributePresentWithMatchingFlagAndOthers() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(
 				context,
-				R.xml.specific_enum_handler_with_attr_incorrect_ordinal);
+				R.xml.specific_flag_handler_with_both_flags);
 
-		final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context, attrs);
+		final SpecificFlagHandlerTestTarget target = new SpecificFlagHandlerTestTarget(context, attrs);
+
+		assertThat(target.wasHandlerCalled(), is(true));
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassNeverCallsMethod_attributePresentWithoutMatchingFlag() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(
+				context,
+				R.xml.specific_flag_handler_with_flag_2);
+
+		final SpecificFlagHandlerTestTarget target = new SpecificFlagHandlerTestTarget(context, attrs);
 
 		assertThat(target.wasHandlerCalled(), is(false));
 	}
@@ -60,7 +72,7 @@ public class TestSpecificEnumHandler {
 				context,
 				R.xml.specific_enum_handler_without_attr);
 
-		final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context, attrs);
+		final SpecificFlagHandlerTestTarget target = new SpecificFlagHandlerTestTarget(context, attrs);
 
 		assertThat(target.wasHandlerCalled(), is(false));
 	}
@@ -68,7 +80,7 @@ public class TestSpecificEnumHandler {
 	@Test
 	@UiThreadTest
 	public void testSpyglassNeverCallsMethod_noAttributesSupplied() {
-		final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context);
+		final SpecificFlagHandlerTestTarget target = new SpecificFlagHandlerTestTarget(context);
 
 		assertThat(target.wasHandlerCalled(), is(false));
 	}
