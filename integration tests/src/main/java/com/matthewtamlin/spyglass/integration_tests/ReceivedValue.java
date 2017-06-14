@@ -70,4 +70,13 @@ public class ReceivedValue<T> {
 			return builder.isEquals();
 		}
 	}
+
+	@Override
+	public String toString() {
+		if (exists()) {
+			return value == null ? "Returned value of: null" : "Returned value of: " + value;
+		} else {
+			return "No returned value.";
+		}
+	}
 }
