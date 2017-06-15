@@ -10,12 +10,17 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStrin
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
+import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.icu.lang.UCharacter.DecompositionType.SUPER;
+
 public class Superclass extends View {
-	private List<Object> invocationArgs = null;
+	public static final String EXPECTED_VALUE = "superclass expected value";
+
+	private ReceivedValue<String> receivedValue = ReceivedValue.none();
 
 	public Superclass(final Context context) {
 		super(context);
@@ -40,25 +45,13 @@ public class Superclass extends View {
 	}
 
 	@StringHandler(attributeId = R.styleable.Superclass_TestAttr1)
-	@DefaultToString("superclass default value")
+	@DefaultToString(EXPECTED_VALUE)
 	public void superclassHandlerMethod(final String s) {
-		final List<Object> invocationArgs = new ArrayList<>();
-
-		invocationArgs.add(s);
-
-		this.invocationArgs = invocationArgs;
+		receivedValue = ReceivedValue.of(s);
 	}
 
-	public List<Object> getSuperclassActualInvocationArgs() {
-		return invocationArgs;
-	}
-
-	public List<Object> getSuperclassExpectedInvocationArgs() {
-		final List<Object> expectedArgs = new ArrayList<>();
-
-		expectedArgs.add("superclass default value");
-
-		return expectedArgs;
+	public ReceivedValue<String> getSuperclassReceivedValue() {
+		return receivedValue;
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
