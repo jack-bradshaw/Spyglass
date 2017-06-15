@@ -12,11 +12,6 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
-import java.util.ArrayList;
-import java.util.List;
-
-import static android.icu.lang.UCharacter.DecompositionType.SUPER;
-
 public class Superclass extends View {
 	public static final String EXPECTED_VALUE = "superclass expected value";
 
