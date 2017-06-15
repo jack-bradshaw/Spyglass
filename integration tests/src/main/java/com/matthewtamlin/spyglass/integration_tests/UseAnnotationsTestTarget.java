@@ -53,7 +53,7 @@ public class UseAnnotationsTestTarget extends View {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.UseAnnotationsTestTarget_TestAttr3)
+	@StringHandler(attributeId = R.styleable.UseAnnotationsTestTarget_useAnnotationsAttr)
 	@DefaultToString("default value")
 	public void handlerMethod(
 			final String arg0,

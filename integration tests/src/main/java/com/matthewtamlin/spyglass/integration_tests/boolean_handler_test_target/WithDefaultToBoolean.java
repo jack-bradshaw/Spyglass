@@ -43,7 +43,7 @@ public class WithDefaultToBoolean extends BooleanHandlerTestTarget {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@BooleanHandler(attributeId = R.styleable.BooleanHandlerTestTarget_testAttr6)
+	@BooleanHandler(attributeId = R.styleable.BooleanHandlerTestTarget_booleanHandlerAttr)
 	@DefaultToBoolean(DEFAULT_VALUE)
 	public void handlerMethod(final boolean b) {
 		receivedValue = ReceivedValue.of(b);

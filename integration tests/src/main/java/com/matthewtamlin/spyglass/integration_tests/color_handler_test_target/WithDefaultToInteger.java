@@ -43,7 +43,7 @@ public class WithDefaultToInteger extends ColorHandlerTestTarget {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@ColorHandler(attributeId = R.styleable.ColorHandlerTestTarget_testAttr7)
+	@ColorHandler(attributeId = R.styleable.ColorHandlerTestTarget_colorHandlerAttr)
 	@DefaultToInteger(DEFAULT_VALUE)
 	public void handlerMethod(final int i) {
 		receivedValue = ReceivedValue.of(i);
