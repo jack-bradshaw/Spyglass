@@ -31,7 +31,7 @@ public class TestSpecificEnumHandler {
 
 	@Test
 	@UiThreadTest
-	public void testSpyglassCallsMethod_attributePresentAndCorrectOrdinal() {
+	public void testSpyglassCallsMethod_attributePresent_matchesSpecificOrdinal() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(
 				context,
 				R.xml.specific_enum_handler_with_attr_equals_value0);
@@ -43,7 +43,7 @@ public class TestSpecificEnumHandler {
 
 	@Test
 	@UiThreadTest
-	public void testSpyglassNeverCallsMethod_attributePresentButIncorrectOrdinal() {
+	public void testSpyglassNeverCallsMethod_attributePresent_doesNotMatchSpecificOrdinal() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(
 				context,
 				R.xml.specific_enum_handler_with_attr_equals_value1);
