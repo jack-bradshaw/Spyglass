@@ -11,10 +11,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.List;
-
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.nullValue;
 import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
@@ -34,10 +31,6 @@ public class TestUseAnnotationIntegration {
 	public void testUseAnnotationsPassCorrectValues() {
 		final UseAnnotationIntegrationTestTarget target = new UseAnnotationIntegrationTestTarget(context);
 
-		final List<Object> expectedInvocationArgs = target.getExpectedInvocationArgs();
-
-		assertThat(
-				target.getActualInvocationArgs(),
-				is(expectedInvocationArgs == null ? nullValue() : expectedInvocationArgs));
+		assertThat(target.getReceivedValue(), is(target.getUseAnnotationValues()));
 	}
 }
