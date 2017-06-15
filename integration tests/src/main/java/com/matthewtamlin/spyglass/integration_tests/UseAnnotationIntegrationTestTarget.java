@@ -24,7 +24,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class UseAnnotationIntegrationTestTarget extends View {
-	private List<Object> invocationArgs = null;
+	private ReceivedValue<List<Object>> receivedValue = ReceivedValue.none();
 
 	public UseAnnotationIntegrationTestTarget(final Context context) {
 		super(context);
@@ -82,14 +82,14 @@ public class UseAnnotationIntegrationTestTarget extends View {
 		invocationArgs.add(arg9);
 		invocationArgs.add(arg10);
 
-		this.invocationArgs = invocationArgs;
+		receivedValue = ReceivedValue.of(invocationArgs);
 	}
 
-	public List<Object> getActualInvocationArgs() {
-		return invocationArgs;
+	public ReceivedValue<List<Object>> getReceivedValue() {
+		return receivedValue;
 	}
 
-	public List<Object> getExpectedInvocationArgs() {
+	public ReceivedValue<List<Object>> getUseAnnotationValues() {
 		final List<Object> expectedArgs = new ArrayList<>();
 
 		expectedArgs.add("default value");
@@ -104,7 +104,7 @@ public class UseAnnotationIntegrationTestTarget extends View {
 		expectedArgs.add((short) 2);
 		expectedArgs.add("used string");
 
-		return expectedArgs;
+		return ReceivedValue.of(expectedArgs);
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
