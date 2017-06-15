@@ -25,4 +25,8 @@
 			<flag name="value2" value="2"/>
 		</attr>
 	</declare-styleable>
+
+	<declare-styleable name="BooleanHandlerTestTarget">
+		<attr name="testAttr6" format="boolean"/>
+	</declare-styleable>
 </resources>

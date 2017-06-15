@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.matthewtamlin.spyglass.integration_test.boolean_handler_test_target.BooleanHandlerTestTarget
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	app:testAttr6="false"/>
