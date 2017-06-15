@@ -40,7 +40,7 @@ public class WithNoDefault extends ColorHandlerTestTarget {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@ColorHandler(attributeId = R.styleable.ColorHandlerTestTarget_testAttr7)
+	@ColorHandler(attributeId = R.styleable.ColorHandlerTestTarget_colorHandlerAttr)
 	public void handlerMethod(final int i) {
 		receivedValue = ReceivedValue.of(i);
 	}

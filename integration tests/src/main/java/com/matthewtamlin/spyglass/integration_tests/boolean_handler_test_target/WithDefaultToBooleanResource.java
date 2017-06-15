@@ -41,7 +41,7 @@ public class WithDefaultToBooleanResource extends BooleanHandlerTestTarget {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@BooleanHandler(attributeId = R.styleable.BooleanHandlerTestTarget_testAttr6)
+	@BooleanHandler(attributeId = R.styleable.BooleanHandlerTestTarget_booleanHandlerAttr)
 	@DefaultToBooleanResource(resId = R.bool.BooleanForTesting)
 	public void handlerMethod(final boolean b) {
 		receivedValue = ReceivedValue.of(b);
