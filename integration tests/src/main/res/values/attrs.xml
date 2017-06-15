@@ -33,4 +33,8 @@
 	<declare-styleable name="ColorHandlerTestTarget">
 		<attr name="colorHandlerAttr" format="color"/>
 	</declare-styleable>
+	
+	<declare-styleable name="ColorStateListHandlerTestTarget">
+		<attr name="colorStateListAttr" format="color"/>
+	</declare-styleable>
 </resources>
