@@ -34,7 +34,7 @@ public class TestInheritanceBehaviour {
 	public void testSuperclassInstantiationTriggersSuperclassSpyglass() {
 		final Superclass s = new Superclass(context);
 
-		assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs()));
+		assertThat(s.getSuperclassReceivedValue(), is(ReceivedValue.of(Superclass.EXPECTED_VALUE)));
 	}
 
 	@Test
@@ -42,7 +42,7 @@ public class TestInheritanceBehaviour {
 	public void testSubclassInstantiationTriggersSuperclassSpyglass() {
 		final Subclass s = new Subclass(context);
 
-		assertThat(s.getSuperclassActualInvocationArgs(), is(s.getSuperclassExpectedInvocationArgs()));
+		assertThat(s.getSuperclassReceivedValue(), is(ReceivedValue.of(Superclass.EXPECTED_VALUE)));
 	}
 
 	@Test
@@ -50,6 +50,6 @@ public class TestInheritanceBehaviour {
 	public void testSubclassInstantiationTriggersSubclassSpyglass() {
 		final Subclass s = new Subclass(context);
 
-		assertThat(s.getSubclassActualInvocationArgs(), is(s.getSubclassExpectedInvocationArgs()));
+		assertThat(s.getSubclassReceivedValue(), is(ReceivedValue.of(Subclass.EXPECTED_VALUE)));
 	}
 }
