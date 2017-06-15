@@ -29,4 +29,8 @@
 	<declare-styleable name="BooleanHandlerTestTarget">
 		<attr name="testAttr6" format="boolean"/>
 	</declare-styleable>
+
+	<declare-styleable name="ColorHandlerTestTarget">
+		<attr name="testAttr7" format="color"/>
+	</declare-styleable>
 </resources>
