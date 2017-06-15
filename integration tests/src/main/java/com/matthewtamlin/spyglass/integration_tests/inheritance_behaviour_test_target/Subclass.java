@@ -11,9 +11,6 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Subclass extends Superclass {
 	public static final String EXPECTED_VALUE = "subclass expected value";
 
