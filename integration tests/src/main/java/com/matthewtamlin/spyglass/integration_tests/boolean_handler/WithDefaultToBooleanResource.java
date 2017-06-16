@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.boolean_handler_test_target;
+package com.matthewtamlin.spyglass.integration_tests.boolean_handler;
 
 import android.annotation.TargetApi;
 import android.content.Context;
