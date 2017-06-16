@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.ColorHandlerTestTarget
+<com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase
 	app:colorHandlerAttr="#FF0000"
 	xmlns:app="http://schemas.android.com/apk/res-auto"/>

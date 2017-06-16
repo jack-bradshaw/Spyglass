@@ -26,16 +26,16 @@
 		</attr>
 	</declare-styleable>
 
-	<declare-styleable name="BooleanHandlerTestTarget">
+	<declare-styleable name="BooleanHandlerTestTargetBase">
 		<attr name="booleanHandlerAttr" format="boolean"/>
 	</declare-styleable>
 
-	<declare-styleable name="ColorHandlerTestTarget">
+	<declare-styleable name="ColorHandlerTestTargetBase">
 		<attr name="colorHandlerAttr" format="color"/>
 	</declare-styleable>
 	
-	<declare-styleable name="ColorStateListHandlerTestTarget">
-		<attr name="colorStateListAttr" format="color"/>
+	<declare-styleable name="ColorStateListHandlerTestTargetBase">
+		<attr name="colorStateListHandlerAttr" format="color"/>
 	</declare-styleable>
 	
 	<declare-styleable name="DimensionHandlerTestTargetBase">
