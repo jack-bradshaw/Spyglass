@@ -11,8 +11,6 @@ import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
 public class WithNoDefault extends BooleanHandlerTestTargetBase {
-	private ReceivedValue<Boolean> receivedValue = ReceivedValue.none();
-
 	public WithNoDefault(final Context context) {
 		super(context);
 		init(null, 0, 0);
@@ -45,12 +43,7 @@ public class WithNoDefault extends BooleanHandlerTestTargetBase {
 
 	@BooleanHandler(attributeId = R.styleable.BooleanHandlerTestTargetBase_booleanHandlerAttr)
 	public void handlerMethod(final boolean b) {
-		receivedValue = ReceivedValue.of(b);
-	}
-
-	@Override
-	public ReceivedValue<Boolean> getReceivedValue() {
-		return receivedValue;
+		setReceivedValue(ReceivedValue.of(b));
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {

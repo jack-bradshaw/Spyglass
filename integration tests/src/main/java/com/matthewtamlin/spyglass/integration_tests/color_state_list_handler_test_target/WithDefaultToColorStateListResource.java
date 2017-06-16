@@ -13,8 +13,6 @@ import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
 public class WithDefaultToColorStateListResource extends ColorStateListHandlerTestTargetBase {
-	private ReceivedValue<ColorStateList> receivedValue = ReceivedValue.none();
-
 	public WithDefaultToColorStateListResource(final Context context) {
 		super(context);
 		init(null, 0, 0);
@@ -49,12 +47,7 @@ public class WithDefaultToColorStateListResource extends ColorStateListHandlerTe
 	@ColorStateListHandler(attributeId = R.styleable.ColorStateListHandlerTestTargetBase_colorStateListAttr)
 	@DefaultToColorStateListResource(resId = R.color.default_color_state_list_for_testing)
 	public void handlerMethod(final ColorStateList csl) {
-		receivedValue = ReceivedValue.of(csl);
-	}
-
-	@Override
-	public ReceivedValue<ColorStateList> getReceivedValue() {
-		return receivedValue;
+		setReceivedValue(ReceivedValue.of(csl));
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {

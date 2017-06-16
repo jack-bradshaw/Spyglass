@@ -9,6 +9,8 @@ import android.view.View;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
 public abstract class ColorHandlerTestTargetBase extends View {
+	private ReceivedValue<Integer> receivedValue;
+
 	public ColorHandlerTestTargetBase(final Context context) {
 		super(context);
 	}
@@ -32,5 +34,11 @@ public abstract class ColorHandlerTestTargetBase extends View {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	public abstract ReceivedValue<Integer> getReceivedValue();
+	public ReceivedValue<Integer> getReceivedValue() {
+		return receivedValue;
+	}
+
+	protected void setReceivedValue(final ReceivedValue<Integer> receivedValue) {
+		this.receivedValue = receivedValue;
+	}
 }

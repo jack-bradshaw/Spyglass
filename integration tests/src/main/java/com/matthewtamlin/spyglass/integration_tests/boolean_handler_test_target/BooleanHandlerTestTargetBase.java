@@ -9,6 +9,8 @@ import android.view.View;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
 public abstract class BooleanHandlerTestTargetBase extends View {
+	private ReceivedValue<Boolean> receivedValue;
+
 	public BooleanHandlerTestTargetBase(final Context context) {
 		super(context);
 	}
@@ -32,5 +34,11 @@ public abstract class BooleanHandlerTestTargetBase extends View {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	public abstract ReceivedValue<Boolean> getReceivedValue();
+	public ReceivedValue<Boolean> getReceivedValue() {
+		return receivedValue;
+	}
+
+	protected void setReceivedValue(final ReceivedValue<Boolean> receivedValue) {
+		this.receivedValue = receivedValue;
+	}
 }
