@@ -122,11 +122,18 @@ public class MainProcessor extends AbstractProcessor {
 		for (final TypeElementWrapper targetClass : sortedElements.keySet()) {
 			final CodeBlock.Builder methodBody = CodeBlock.builder();
 
+			boolean firstLoop = true;
+
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
 				final TypeSpec anonymousCaller = callerGenerator.generateCaller(method);
 
+				if (firstLoop) {
+					firstLoop = false;
+				} else {
+					methodBody.add("\n");
+				}
+
 				methodBody.addStatement("$L.call(target, context, attrs)", anonymousCaller);
-				methodBody.add("\n");
 			}
 
 			final MethodSpec activateCallers = MethodSpec
