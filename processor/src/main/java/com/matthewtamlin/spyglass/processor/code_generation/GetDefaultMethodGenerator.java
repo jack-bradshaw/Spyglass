@@ -39,85 +39,105 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
 public class GetDefaultMethodGenerator {
-	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> methodBodySuppliers;
+	private final Map<String, ParametrisedSupplier<AnnotationMirror, MethodSpec>> methodSpecSuppliers;
 
 	private final Elements elementUtil;
 
 	{
-		methodBodySuppliers = new HashMap<>();
+		methodSpecSuppliers = new HashMap<>();
 
-		methodBodySuppliers.put(
+		methodSpecSuppliers.put(
 				DefaultToBoolean.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement("return $L", getLiteralFromAnnotation(anno, "value"))
+								.build();
+						
+						return getBaseMethodSpec()
+								.returns(boolean.class)
+								.addCode(body)
 								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
+		methodSpecSuppliers.put(
 				DefaultToBooleanResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return context.getResources().getBoolean($L)",
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
+
+						return getBaseMethodSpec()
+								.returns(boolean.class)
+								.addCode(body)
+								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
+		methodSpecSuppliers.put(
 				DefaultToColorResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return $T.getColor(context, $L)",
 										AndroidClassNames.CONTEXT_COMPAT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
+
+						return getBaseMethodSpec()
+								.returns(int.class)
+								.addCode(body)
+								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
+		methodSpecSuppliers.put(
 				DefaultToColorStateListResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return $T.getColorStateList(context, $L)",
 										AndroidClassNames.CONTEXT_COMPAT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
+
+						return getBaseMethodSpec()
+								.returns(AndroidClassNames.COLOR_STATE_LIST)
+								.addCode(body)
+								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
+		methodSpecSuppliers.put(
 				DefaultToDimension.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
 						try {
 							final String rawDimensionValue = getLiteralFromAnnotation(anno, "value");
 
 							final String unitLiteral = getLiteralFromAnnotation(anno, "unit");
 							final DimensionUnit unit = (DimensionUnit) EnumUtil.getEnumConstant(unitLiteral);
 
-							return CodeBlock
+							final CodeBlock body = CodeBlock
 									.builder()
 									.addStatement(
 											"$T metrics = context.getResources().getDisplayMetrics()",
@@ -129,6 +149,11 @@ public class GetDefaultMethodGenerator {
 											rawDimensionValue)
 									.build();
 
+							return getBaseMethodSpec()
+									.returns(float.class)
+									.addCode(body)
+									.build();
+
 						} catch (final ClassNotFoundException e) {
 							throw new RuntimeException("DimensionUnit class not found. This should never happen.");
 						}
@@ -136,43 +161,53 @@ public class GetDefaultMethodGenerator {
 				}
 		);
 
-		methodBodySuppliers.put(
+		methodSpecSuppliers.put(
 				DefaultToDimensionResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return context.getResources().getDimension($L)",
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
+
+						return getBaseMethodSpec()
+								.returns(float.class)
+								.addCode(body)
+								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
+		methodSpecSuppliers.put(
 				DefaultToDrawableResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return $T.getDrawable(context, $L)",
 										AndroidClassNames.CONTEXT_COMPAT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
+
+						return getBaseMethodSpec()
+								.returns(AndroidClassNames.DRAWABLE)
+								.addCode(body)
+								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
+		methodSpecSuppliers.put(
 				DefaultToEnumConstant.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return $T.getEnumConstant($L, $L)",
@@ -180,29 +215,39 @@ public class GetDefaultMethodGenerator {
 										getLiteralFromAnnotation(anno, "enumClass"),
 										getLiteralFromAnnotation(anno, "ordinal"))
 								.build();
-					}
-				}
-		);
 
-		methodBodySuppliers.put(
-				DefaultToFloat.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
-								.builder()
-								.addStatement("return $L", getLiteralFromAnnotation(anno, "value"))
+						return getBaseMethodSpec()
+								.returns(Object.class)
+								.addCode(body)
 								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
-				DefaultToFractionResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+		methodSpecSuppliers.put(
+				DefaultToFloat.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
+								.builder()
+								.addStatement("return $L", getLiteralFromAnnotation(anno, "value"))
+								.build();
+
+						return getBaseMethodSpec()
+								.returns(float.class)
+								.addCode(body)
+								.build();
+					}
+				}
+		);
+
+		methodSpecSuppliers.put(
+				DefaultToFractionResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
+					@Override
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return context.getResources().getFraction($L, $L, $L)",
@@ -210,104 +255,144 @@ public class GetDefaultMethodGenerator {
 										getLiteralFromAnnotation(anno, "baseMultiplier"),
 										getLiteralFromAnnotation(anno, "parentMultiplier"))
 								.build();
-					}
-				}
-		);
 
-		methodBodySuppliers.put(
-				DefaultToInteger.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
-								.builder()
-								.addStatement("return $L", getLiteralFromAnnotation(anno, "value"))
+						return getBaseMethodSpec()
+								.returns(float.class)
+								.addCode(body)
 								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
-				DefaultToIntegerResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+		methodSpecSuppliers.put(
+				DefaultToInteger.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
+								.builder()
+								.addStatement("return $L", getLiteralFromAnnotation(anno, "value"))
+								.build();
+
+						return getBaseMethodSpec()
+								.returns(int.class)
+								.addCode(body)
+								.build();
+					}
+				}
+		);
+
+		methodSpecSuppliers.put(
+				DefaultToIntegerResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
+					@Override
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return context.getResources().getInteger($L)",
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
+
+						return getBaseMethodSpec()
+								.returns(int.class)
+								.addCode(body)
+								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
+		methodSpecSuppliers.put(
 				DefaultToNull.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement("return null")
 								.build();
-					}
-				}
-		);
 
-		methodBodySuppliers.put(
-				DefaultToString.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
-								.builder()
-								.addStatement("return $L", getLiteralFromAnnotation(anno, "value"))
+						return getBaseMethodSpec()
+								.returns(Object.class)
+								.addCode(body)
 								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
-				DefaultToStringResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+		methodSpecSuppliers.put(
+				DefaultToString.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
+								.builder()
+								.addStatement("return $L", getLiteralFromAnnotation(anno, "value"))
+								.build();
+
+						return getBaseMethodSpec()
+								.returns(String.class)
+								.addCode(body)
+								.build();
+					}
+				}
+		);
+
+		methodSpecSuppliers.put(
+				DefaultToStringResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
+					@Override
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return context.getResources().getString($L)",
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
-					}
-				}
-		);
 
-		methodBodySuppliers.put(
-				DefaultToTextArrayResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
-								.builder()
-								.addStatement(
-										"return context.getResources().getTextArray($L)",
-										getLiteralFromAnnotation(anno, "resId"))
+						return getBaseMethodSpec()
+								.returns(String.class)
+								.addCode(body)
 								.build();
 					}
 				}
 		);
 
-		methodBodySuppliers.put(
-				DefaultToTextResource.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+		methodSpecSuppliers.put(
+				DefaultToTextArrayResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
+								.builder()
+								.addStatement(
+										"return context.getResources().getTextArray($L)",
+										getLiteralFromAnnotation(anno, "resId"))
+								.build();
+
+						return getBaseMethodSpec()
+								.returns(CharSequence[].class)
+								.addCode(body)
+								.build();
+					}
+				}
+		);
+
+		methodSpecSuppliers.put(
+				DefaultToTextResource.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
+					@Override
+					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
 										"return context.getResources().getText($L)",
 										getLiteralFromAnnotation(anno, "resId"))
+								.build();
+
+						return getBaseMethodSpec()
+								.returns(CharSequence.class)
+								.addCode(body)
 								.build();
 					}
 				}
@@ -342,15 +427,7 @@ public class GetDefaultMethodGenerator {
 		checkIsDefaultAnnotation(anno, "Argument \'anno\' must be a mirror of a default annotation.");
 
 		final String annotationType = anno.getAnnotationType().toString();
-
-		return MethodSpec
-				.methodBuilder("getDefault")
-				.addModifiers(PUBLIC)
-				.returns(Object.class)
-				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
-				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
-				.addCode(methodBodySuppliers.get(annotationType).supplyFor(anno))
-				.build();
+		return methodSpecSuppliers.get(annotationType).supplyFor(anno);
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
@@ -380,5 +457,13 @@ public class GetDefaultMethodGenerator {
 		} catch (ClassNotFoundException e) {
 			throw new RuntimeException(e);
 		}
+	}
+	
+	private MethodSpec.Builder getBaseMethodSpec() {
+		return MethodSpec
+				.methodBuilder("getDefault")
+				.addModifiers(PUBLIC)
+				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
+				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL);
 	}
 }
