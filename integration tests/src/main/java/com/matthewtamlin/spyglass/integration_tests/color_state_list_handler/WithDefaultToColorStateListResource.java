@@ -44,7 +44,7 @@ public class WithDefaultToColorStateListResource extends ColorStateListHandlerTe
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@ColorStateListHandler(attributeId = R.styleable.ColorStateListHandlerTestTargetBase_colorStateListAttr)
+	@ColorStateListHandler(attributeId = R.styleable.ColorStateListHandlerTestTargetBase_colorStateListHandlerAttr)
 	@DefaultToColorStateListResource(resId = R.color.default_color_state_list_for_testing)
 	public void handlerMethod(final ColorStateList csl) {
 		setReceivedValue(ReceivedValue.of(csl));

@@ -39,7 +39,7 @@ public class WithNoDefault extends ColorStateListHandlerTestTargetBase {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@ColorStateListHandler(attributeId = R.styleable.ColorStateListHandlerTestTargetBase_colorStateListAttr)
+	@ColorStateListHandler(attributeId = R.styleable.ColorStateListHandlerTestTargetBase_colorStateListHandlerAttr)
 	public void handlerMethod(final ColorStateList csl) {
 		setReceivedValue(ReceivedValue.of(csl));
 	}
