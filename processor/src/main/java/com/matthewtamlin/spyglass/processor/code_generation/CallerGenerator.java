@@ -223,7 +223,13 @@ public class CallerGenerator {
 	private TypeName getNameOfNonUseParameter(final ExecutableElement e) {
 		for (final VariableElement parameter : e.getParameters()) {
 			if (!hasUseAnnotation(parameter)) {
-				return ClassName.get(parameter.asType());
+				final TypeName className = ClassName.get(parameter.asType());
+
+				if (className.isBoxedPrimitive()) {
+					return className.unbox();
+				} else {
+					return className;
+				}
 			}
 		}
 
