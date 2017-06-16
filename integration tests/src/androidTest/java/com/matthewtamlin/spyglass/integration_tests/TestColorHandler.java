@@ -8,11 +8,11 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.ColorHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithDefaultToColorResource;
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithDefaultToInteger;
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithDefaultToIntegerResource;
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToColorResource;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToInteger;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToIntegerResource;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithNoDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier;
 
