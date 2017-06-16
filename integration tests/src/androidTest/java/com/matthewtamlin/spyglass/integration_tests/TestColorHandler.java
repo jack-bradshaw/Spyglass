@@ -8,11 +8,12 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.ColorHandlerTestTarget;
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithDefaultToColorResource;
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithDefaultToInteger;
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithDefaultToIntegerResource;
-import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToColorResource;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToInteger;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToIntegerResource;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier;
 
 import org.junit.Before;
@@ -38,7 +39,7 @@ public class TestColorHandler {
 	public void testSpyglassPassesCorrectData_attributePresent_attributeEqualsRed() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.color_handler_with_attr_equals_red);
 
-		final ColorHandlerTestTarget target = new WithNoDefault(context, attrs);
+		final ColorHandlerTestTargetBase target = new WithNoDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(Color.RED)));
 	}
@@ -48,7 +49,7 @@ public class TestColorHandler {
 	public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.color_handler_without_attr);
 
-		final ColorHandlerTestTarget target = new WithNoDefault(context, attrs);
+		final ColorHandlerTestTargetBase target = new WithNoDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>none()));
 	}
@@ -58,7 +59,7 @@ public class TestColorHandler {
 	public void testSpyglassPassesCorrectData_attributeMissing_defaultToColorResourcePresent() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.color_handler_without_attr);
 
-		final ColorHandlerTestTarget target = new WithDefaultToColorResource(context, attrs);
+		final ColorHandlerTestTargetBase target = new WithDefaultToColorResource(context, attrs);
 
 		final int expectedValue = ContextCompat.getColor(context, R.color.ColorForTesting);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
@@ -69,7 +70,7 @@ public class TestColorHandler {
 	public void testSpyglassPassesCorrectData_attributeMissing_defaultToIntegerPresent() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.color_handler_without_attr);
 
-		final ColorHandlerTestTarget target = new WithDefaultToInteger(context, attrs);
+		final ColorHandlerTestTargetBase target = new WithDefaultToInteger(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(WithDefaultToInteger.DEFAULT_VALUE)));
 	}
@@ -79,7 +80,7 @@ public class TestColorHandler {
 	public void testSpyglassPassesCorrectData_attributeMissing_defaultToIntegerResourcePresent() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.color_handler_without_attr);
 
-		final ColorHandlerTestTarget target = new WithDefaultToIntegerResource(context, attrs);
+		final ColorHandlerTestTargetBase target = new WithDefaultToIntegerResource(context, attrs);
 
 		final int expectedValue = context.getResources().getInteger(R.integer.IntegerForTesting);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
@@ -88,7 +89,7 @@ public class TestColorHandler {
 	@Test
 	@UiThreadTest
 	public void testSpyglassPassesCorrectData_noAttributesSupplied_defaultToIntegerPresent() {
-		final ColorHandlerTestTarget target = new WithDefaultToInteger(context);
+		final ColorHandlerTestTargetBase target = new WithDefaultToInteger(context);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(WithDefaultToInteger.DEFAULT_VALUE)));
 	}
@@ -96,7 +97,7 @@ public class TestColorHandler {
 	@Test
 	@UiThreadTest
 	public void testSpyglassNeverCallsMethod_noAttributesSupplied_noDefaultPresent() {
-		final ColorHandlerTestTarget target = new WithNoDefault(context);
+		final ColorHandlerTestTargetBase target = new WithNoDefault(context);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>none()));
 	}

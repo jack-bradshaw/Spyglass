@@ -6,6 +6,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_test_target.Subclass;
 import com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_test_target.Superclass;
 

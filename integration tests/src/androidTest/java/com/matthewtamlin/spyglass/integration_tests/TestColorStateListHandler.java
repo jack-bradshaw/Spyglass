@@ -9,9 +9,10 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.ColorStateListHandlerTestTarget;
-import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.WithDefaultToColorStateListResource;
-import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.ColorStateListHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.WithDefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -39,7 +40,7 @@ public class TestColorStateListHandler {
 	public void testSpyglassPassesCorrectData_attributePresent() {
 		final AttributeSet attrs = fromXml(context, R.xml.color_state_list_handler_with_attr_equals_main_csl);
 
-		final ColorStateListHandlerTestTarget target = new WithNoDefault(context, attrs);
+		final ColorStateListHandlerTestTargetBase target = new WithNoDefault(context, attrs);
 
 		final ColorStateList expectedValue = ContextCompat.getColorStateList(
 				context,
@@ -53,7 +54,7 @@ public class TestColorStateListHandler {
 	public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
 		final AttributeSet attrs = fromXml(context, R.xml.color_state_list_handler_without_attr);
 
-		final ColorStateListHandlerTestTarget target = new WithNoDefault(context, attrs);
+		final ColorStateListHandlerTestTargetBase target = new WithNoDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<ColorStateList>none()));
 	}
@@ -63,7 +64,7 @@ public class TestColorStateListHandler {
 	public void testSpyglassPassesCorrectData_attributeMissing_defaultToColorStateListPresent() {
 		final AttributeSet attrs = fromXml(context, R.xml.color_state_list_handler_without_attr);
 
-		final ColorStateListHandlerTestTarget target = new WithDefaultToColorStateListResource(context, attrs);
+		final ColorStateListHandlerTestTargetBase target = new WithDefaultToColorStateListResource(context, attrs);
 
 		final ColorStateList expectedValue = ContextCompat.getColorStateList(
 				context,
@@ -75,7 +76,7 @@ public class TestColorStateListHandler {
 	@Test
 	@UiThreadTest
 	public void testSpyglassPassesDataCorrectly_noAttributesSupplied_defaultToColorStateListPresent() {
-		final ColorStateListHandlerTestTarget target = new WithDefaultToColorStateListResource(context);
+		final ColorStateListHandlerTestTargetBase target = new WithDefaultToColorStateListResource(context);
 
 		final ColorStateList expectedValue = ContextCompat.getColorStateList(
 				context,
@@ -87,7 +88,7 @@ public class TestColorStateListHandler {
 	@Test
 	@UiThreadTest
 	public void testSpyglassPassesDataCorrectly_noAttributesSupplied_noDefaultPresent() {
-		final ColorStateListHandlerTestTarget target = new WithNoDefault(context);
+		final ColorStateListHandlerTestTargetBase target = new WithNoDefault(context);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<ColorStateList>none()));
 	}
