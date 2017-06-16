@@ -13,6 +13,10 @@ public class AndroidClassNames {
 
 	public static final ClassName TYPED_VALUE = ClassName.get("android.util", "TypedValue");
 
+	public static final ClassName COLOR_STATE_LIST = ClassName.get("android.content.res", "ColorStateList");
+
+	public static final ClassName DRAWABLE = ClassName.get("android.graphics.drawable", "Drawable");
+
 	private AndroidClassNames() {
 		throw new RuntimeException("Constants class. Do not instantiate.");
 	}
