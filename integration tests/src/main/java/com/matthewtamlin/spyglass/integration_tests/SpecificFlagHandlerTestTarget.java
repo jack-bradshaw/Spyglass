@@ -39,7 +39,7 @@ public class SpecificFlagHandlerTestTarget extends View {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@SpecificFlagHandler(attributeId = R.styleable.SpecificFlagHandlerTestTarget_testAttr5, handledFlags = 1)
+	@SpecificFlagHandler(attributeId = R.styleable.SpecificFlagHandlerTestTarget_specificFlagHandlerAttr, handledFlags = 1)
 	public void handlerMethod() {
 		handlerCalled = true;
 	}

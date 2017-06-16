@@ -31,10 +31,10 @@ public class TestSpecificFlagHandler {
 
 	@Test
 	@UiThreadTest
-	public void testSpyglassCallsMethod_attributePresentWithMatchingFlagOnly() {
+	public void testSpyglassCallsMethod_attributePresent_matchesSpecificFlagOnly() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(
 				context,
-				R.xml.specific_flag_handler_with_flag_1);
+				R.xml.specific_flag_handler_with_attr_equals_flag_1);
 
 		final SpecificFlagHandlerTestTarget target = new SpecificFlagHandlerTestTarget(context, attrs);
 
@@ -43,10 +43,10 @@ public class TestSpecificFlagHandler {
 
 	@Test
 	@UiThreadTest
-	public void testSpyglassCallsMethod_attributePresentWithMatchingFlagAndOthers() {
+	public void testSpyglassCallsMethod_attributePresent_matchesSpecificFlagAndOthers() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(
 				context,
-				R.xml.specific_flag_handler_with_both_flags);
+				R.xml.specific_flag_handler_with_attr_equals_both_flags);
 
 		final SpecificFlagHandlerTestTarget target = new SpecificFlagHandlerTestTarget(context, attrs);
 
@@ -55,10 +55,10 @@ public class TestSpecificFlagHandler {
 
 	@Test
 	@UiThreadTest
-	public void testSpyglassNeverCallsMethod_attributePresentWithoutMatchingFlag() {
+	public void testSpyglassNeverCallsMethod_attributePresent_doesNotMatchSpecificFlag() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(
 				context,
-				R.xml.specific_flag_handler_with_flag_2);
+				R.xml.specific_flag_handler_with_attr_equals_flag_2);
 
 		final SpecificFlagHandlerTestTarget target = new SpecificFlagHandlerTestTarget(context, attrs);
 

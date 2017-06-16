@@ -23,27 +23,27 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UseAnnotationIntegrationTestTarget extends View {
-	private List<Object> invocationArgs = null;
+public class UseAnnotationsTestTarget extends View {
+	private ReceivedValue<List<Object>> receivedValue = ReceivedValue.none();
 
-	public UseAnnotationIntegrationTestTarget(final Context context) {
+	public UseAnnotationsTestTarget(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public UseAnnotationIntegrationTestTarget(final Context context, final AttributeSet attrs) {
+	public UseAnnotationsTestTarget(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public UseAnnotationIntegrationTestTarget(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public UseAnnotationsTestTarget(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public UseAnnotationIntegrationTestTarget(
+	public UseAnnotationsTestTarget(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -53,7 +53,7 @@ public class UseAnnotationIntegrationTestTarget extends View {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.UseAnnotationIntegrationTestTarget_TestAttr3)
+	@StringHandler(attributeId = R.styleable.UseAnnotationsTestTarget_useAnnotationsAttr)
 	@DefaultToString("default value")
 	public void handlerMethod(
 			final String arg0,
@@ -82,14 +82,14 @@ public class UseAnnotationIntegrationTestTarget extends View {
 		invocationArgs.add(arg9);
 		invocationArgs.add(arg10);
 
-		this.invocationArgs = invocationArgs;
+		receivedValue = ReceivedValue.of(invocationArgs);
 	}
 
-	public List<Object> getActualInvocationArgs() {
-		return invocationArgs;
+	public ReceivedValue<List<Object>> getReceivedValue() {
+		return receivedValue;
 	}
 
-	public List<Object> getExpectedInvocationArgs() {
+	public ReceivedValue<List<Object>> getUseAnnotationValues() {
 		final List<Object> expectedArgs = new ArrayList<>();
 
 		expectedArgs.add("default value");
@@ -104,18 +104,18 @@ public class UseAnnotationIntegrationTestTarget extends View {
 		expectedArgs.add((short) 2);
 		expectedArgs.add("used string");
 
-		return expectedArgs;
+		return ReceivedValue.of(expectedArgs);
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(UseAnnotationIntegrationTestTarget.class)
+				.withAnnotationSource(UseAnnotationsTestTarget.class)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.UseAnnotationIntegrationTestTarget)
+				.withStyleableResource(R.styleable.UseAnnotationsTestTarget)
 				.build()
 				.passDataToMethods();
 	}
