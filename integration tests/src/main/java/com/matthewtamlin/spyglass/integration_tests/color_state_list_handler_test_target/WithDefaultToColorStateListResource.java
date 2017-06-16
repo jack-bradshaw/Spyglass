@@ -12,7 +12,7 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
-public class WithDefaultToColorStateListResource extends ColorStateListHandlerTestTarget {
+public class WithDefaultToColorStateListResource extends ColorStateListHandlerTestTargetBase {
 	private ReceivedValue<ColorStateList> receivedValue = ReceivedValue.none();
 
 	public WithDefaultToColorStateListResource(final Context context) {
@@ -46,7 +46,7 @@ public class WithDefaultToColorStateListResource extends ColorStateListHandlerTe
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@ColorStateListHandler(attributeId = R.styleable.ColorStateListHandlerTestTarget_colorStateListAttr)
+	@ColorStateListHandler(attributeId = R.styleable.ColorStateListHandlerTestTargetBase_colorStateListAttr)
 	@DefaultToColorStateListResource(resId = R.color.default_color_state_list_for_testing)
 	public void handlerMethod(final ColorStateList csl) {
 		receivedValue = ReceivedValue.of(csl);
@@ -65,7 +65,7 @@ public class WithDefaultToColorStateListResource extends ColorStateListHandlerTe
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.ColorStateListHandlerTestTarget)
+				.withStyleableResource(R.styleable.ColorStateListHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

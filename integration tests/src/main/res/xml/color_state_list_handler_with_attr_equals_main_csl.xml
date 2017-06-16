@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.ColorStateListHandlerTestTarget
+<com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.ColorStateListHandlerTestTargetBase
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	app:colorStateListAttr="@color/main_color_state_list_for_testing"/>
