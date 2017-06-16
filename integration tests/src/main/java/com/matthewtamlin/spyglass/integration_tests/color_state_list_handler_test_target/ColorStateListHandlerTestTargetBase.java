@@ -9,22 +9,22 @@ import android.view.View;
 
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
-public abstract class ColorStateListHandlerTestTarget extends View {
-	public ColorStateListHandlerTestTarget(final Context context) {
+public abstract class ColorStateListHandlerTestTargetBase extends View {
+	public ColorStateListHandlerTestTargetBase(final Context context) {
 		super(context);
 	}
 
-	public ColorStateListHandlerTestTarget(final Context context, final AttributeSet attrs) {
+	public ColorStateListHandlerTestTargetBase(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public ColorStateListHandlerTestTarget(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public ColorStateListHandlerTestTargetBase(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public ColorStateListHandlerTestTarget(
+	public ColorStateListHandlerTestTargetBase(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
