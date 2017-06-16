@@ -9,7 +9,7 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStrin
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class Subclass extends Superclass {
 	public static final String EXPECTED_VALUE = "subclass expected value";

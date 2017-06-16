@@ -6,7 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public abstract class BooleanHandlerTestTargetBase extends View {
 	private ReceivedValue<Boolean> receivedValue;

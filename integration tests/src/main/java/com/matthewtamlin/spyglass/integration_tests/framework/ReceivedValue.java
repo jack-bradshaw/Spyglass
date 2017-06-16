@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests;
+package com.matthewtamlin.spyglass.integration_tests.framework;
 
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;

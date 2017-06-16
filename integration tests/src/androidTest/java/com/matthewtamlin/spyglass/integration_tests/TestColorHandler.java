@@ -13,6 +13,7 @@ import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.Wi
 import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithDefaultToInteger;
 import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithDefaultToIntegerResource;
 import com.matthewtamlin.spyglass.integration_tests.color_handler_test_target.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier;
 
 import org.junit.Before;

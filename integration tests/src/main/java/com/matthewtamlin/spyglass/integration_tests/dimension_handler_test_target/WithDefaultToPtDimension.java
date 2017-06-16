@@ -10,7 +10,7 @@ import com.matthewtamlin.spyglass.annotations.units.DimensionUnit;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class WithDefaultToPtDimension extends DimensionHandlerTestTargetBase {
 	public static final int DEFAULT_VALUE_PT = 38;

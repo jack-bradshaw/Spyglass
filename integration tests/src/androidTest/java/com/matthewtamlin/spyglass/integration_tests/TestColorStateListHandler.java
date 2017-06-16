@@ -12,6 +12,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.ColorStateListHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.WithDefaultToColorStateListResource;
 import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
 import org.junit.Rule;
