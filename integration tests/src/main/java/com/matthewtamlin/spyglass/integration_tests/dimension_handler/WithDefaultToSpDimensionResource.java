@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.dimension_handler_test_target;
+package com.matthewtamlin.spyglass.integration_tests.dimension_handler;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -11,25 +11,25 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
-public class WithDefaultToPxDimensionResource extends DimensionHandlerTestTargetBase {
-	public WithDefaultToPxDimensionResource(final Context context) {
+public class WithDefaultToSpDimensionResource extends DimensionHandlerTestTargetBase {
+	public WithDefaultToSpDimensionResource(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public WithDefaultToPxDimensionResource(final Context context, final AttributeSet attrs) {
+	public WithDefaultToSpDimensionResource(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public WithDefaultToPxDimensionResource(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public WithDefaultToSpDimensionResource(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public WithDefaultToPxDimensionResource(
+	public WithDefaultToSpDimensionResource(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -40,7 +40,7 @@ public class WithDefaultToPxDimensionResource extends DimensionHandlerTestTarget
 	}
 
 	@DimensionHandler(attributeId = R.styleable.DimensionHandlerTestTargetBase_dimensionHandlerAttr)
-	@DefaultToDimensionResource(resId = R.dimen.DimensionForTestingPx)
+	@DefaultToDimensionResource(resId = R.dimen.DimensionForTestingSp)
 	public void handlerMethod(final int i) {
 		setReceivedValue(ReceivedValue.of(i));
 	}
@@ -48,7 +48,7 @@ public class WithDefaultToPxDimensionResource extends DimensionHandlerTestTarget
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToPxDimensionResource.class)
+				.withAnnotationSource(WithDefaultToSpDimensionResource.class)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)

@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.dimension_handler_test_target;
+package com.matthewtamlin.spyglass.integration_tests.dimension_handler;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -12,27 +12,27 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
-public class WithDefaultToDpDimension extends DimensionHandlerTestTargetBase {
-	public static final int DEFAULT_VALUE_DP = 90;
+public class WithDefaultToPtDimension extends DimensionHandlerTestTargetBase {
+	public static final int DEFAULT_VALUE_PT = 38;
 
-	public WithDefaultToDpDimension(final Context context) {
+	public WithDefaultToPtDimension(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public WithDefaultToDpDimension(final Context context, final AttributeSet attrs) {
+	public WithDefaultToPtDimension(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public WithDefaultToDpDimension(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public WithDefaultToPtDimension(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public WithDefaultToDpDimension(
+	public WithDefaultToPtDimension(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -43,7 +43,7 @@ public class WithDefaultToDpDimension extends DimensionHandlerTestTargetBase {
 	}
 
 	@DimensionHandler(attributeId = R.styleable.DimensionHandlerTestTargetBase_dimensionHandlerAttr)
-	@DefaultToDimension(value = DEFAULT_VALUE_DP, unit = DimensionUnit.DP)
+	@DefaultToDimension(value = DEFAULT_VALUE_PT, unit = DimensionUnit.PT)
 	public void handlerMethod(final int i) {
 		setReceivedValue(ReceivedValue.of(i));
 	}
@@ -51,7 +51,7 @@ public class WithDefaultToDpDimension extends DimensionHandlerTestTargetBase {
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToDpDimension.class)
+				.withAnnotationSource(WithDefaultToPtDimension.class)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
