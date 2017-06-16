@@ -19,6 +19,7 @@ import com.matthewtamlin.spyglass.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.annotations.use_annotations.UseString;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import java.util.ArrayList;
 import java.util.List;

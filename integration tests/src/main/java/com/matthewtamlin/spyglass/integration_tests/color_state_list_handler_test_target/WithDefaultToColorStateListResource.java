@@ -10,7 +10,7 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColor
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorStateListHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class WithDefaultToColorStateListResource extends ColorStateListHandlerTestTargetBase {
 	public WithDefaultToColorStateListResource(final Context context) {

@@ -21,6 +21,7 @@ import com.matthewtamlin.spyglass.integration_tests.dimension_handler_test_targe
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler_test_target.WithDefaultToSpDimension;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler_test_target.WithDefaultToSpDimensionResource;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler_test_target.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
 import org.junit.Rule;

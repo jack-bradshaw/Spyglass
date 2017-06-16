@@ -9,8 +9,7 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimen
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler_test_target.DimensionHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class WithDefaultToPxDimensionResource extends DimensionHandlerTestTargetBase {
 	public WithDefaultToPxDimensionResource(final Context context) {

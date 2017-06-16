@@ -9,7 +9,7 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToInteg
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class WithDefaultToIntegerResource extends DimensionHandlerTestTargetBase {
 	public WithDefaultToIntegerResource(final Context context) {

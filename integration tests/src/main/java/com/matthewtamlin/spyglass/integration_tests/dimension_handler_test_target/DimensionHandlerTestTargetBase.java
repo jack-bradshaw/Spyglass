@@ -6,7 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class DimensionHandlerTestTargetBase extends View {
 	private ReceivedValue<Integer> receivedValue = ReceivedValue.none();
