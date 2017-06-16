@@ -14,8 +14,6 @@ import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 public class WithDefaultToInteger extends ColorHandlerTestTargetBase {
 	public static final int DEFAULT_VALUE = 142970;
 
-	private ReceivedValue<Integer> receivedValue = ReceivedValue.none();
-
 	public WithDefaultToInteger(final Context context) {
 		super(context);
 		init(null, 0, 0);
@@ -46,12 +44,7 @@ public class WithDefaultToInteger extends ColorHandlerTestTargetBase {
 	@ColorHandler(attributeId = R.styleable.ColorHandlerTestTargetBase_colorHandlerAttr)
 	@DefaultToInteger(DEFAULT_VALUE)
 	public void handlerMethod(final int i) {
-		receivedValue = ReceivedValue.of(i);
-	}
-
-	@Override
-	public ReceivedValue<Integer> getReceivedValue() {
-		return receivedValue;
+		setReceivedValue(ReceivedValue.of(i));
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {

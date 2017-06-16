@@ -12,8 +12,6 @@ import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
 public class WithDefaultToIntegerResource extends ColorHandlerTestTargetBase {
-	private ReceivedValue<Integer> receivedValue = ReceivedValue.none();
-
 	public WithDefaultToIntegerResource(final Context context) {
 		super(context);
 		init(null, 0, 0);
@@ -44,12 +42,7 @@ public class WithDefaultToIntegerResource extends ColorHandlerTestTargetBase {
 	@ColorHandler(attributeId = R.styleable.ColorHandlerTestTargetBase_colorHandlerAttr)
 	@DefaultToIntegerResource(resId = R.integer.IntegerForTesting)
 	public void handlerMethod(final int i) {
-		receivedValue = ReceivedValue.of(i);
-	}
-
-	@Override
-	public ReceivedValue<Integer> getReceivedValue() {
-		return receivedValue;
+		setReceivedValue(ReceivedValue.of(i));
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {

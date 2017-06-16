@@ -10,6 +10,8 @@ import android.view.View;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
 public abstract class ColorStateListHandlerTestTargetBase extends View {
+	private ReceivedValue<ColorStateList> receivedValue;
+
 	public ColorStateListHandlerTestTargetBase(final Context context) {
 		super(context);
 	}
@@ -18,7 +20,8 @@ public abstract class ColorStateListHandlerTestTargetBase extends View {
 		super(context, attrs);
 	}
 
-	public ColorStateListHandlerTestTargetBase(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public ColorStateListHandlerTestTargetBase(final Context context, final AttributeSet attrs,
+			final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
@@ -33,5 +36,11 @@ public abstract class ColorStateListHandlerTestTargetBase extends View {
 		super(context, attrs, defStyleAttr, defStyleRes);
 	}
 
-	public abstract ReceivedValue<ColorStateList> getReceivedValue();
+	public ReceivedValue<ColorStateList> getReceivedValue() {
+		return receivedValue;
+	}
+
+	protected void setReceivedValue(final ReceivedValue<ColorStateList> receivedValue) {
+		this.receivedValue = receivedValue;
+	}
 }
