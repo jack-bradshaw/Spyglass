@@ -11,7 +11,7 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
-public class WithDefaultToColorResource extends ColorHandlerTestTarget {
+public class WithDefaultToColorResource extends ColorHandlerTestTargetBase {
 	private ReceivedValue<Integer> receivedValue = ReceivedValue.none();
 
 	public WithDefaultToColorResource(final Context context) {
@@ -41,7 +41,7 @@ public class WithDefaultToColorResource extends ColorHandlerTestTarget {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@ColorHandler(attributeId = R.styleable.ColorHandlerTestTarget_colorHandlerAttr)
+	@ColorHandler(attributeId = R.styleable.ColorHandlerTestTargetBase_colorHandlerAttr)
 	@DefaultToColorResource(resId = R.color.ColorForTesting)
 	public void handlerMethod(final int i) {
 		receivedValue = ReceivedValue.of(i);
@@ -60,7 +60,7 @@ public class WithDefaultToColorResource extends ColorHandlerTestTarget {
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.ColorHandlerTestTarget)
+				.withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

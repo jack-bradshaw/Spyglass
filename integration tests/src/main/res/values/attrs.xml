@@ -30,7 +30,7 @@
 		<attr name="booleanHandlerAttr" format="boolean"/>
 	</declare-styleable>
 
-	<declare-styleable name="ColorHandlerTestTarget">
+	<declare-styleable name="ColorHandlerTestTargetBase">
 		<attr name="colorHandlerAttr" format="color"/>
 	</declare-styleable>
 	
