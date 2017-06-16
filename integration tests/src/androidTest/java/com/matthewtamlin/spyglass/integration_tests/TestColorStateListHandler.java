@@ -9,9 +9,9 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.ColorStateListHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.WithDefaultToColorStateListResource;
-import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler_test_target.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.ColorStateListHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.WithDefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.WithNoDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
