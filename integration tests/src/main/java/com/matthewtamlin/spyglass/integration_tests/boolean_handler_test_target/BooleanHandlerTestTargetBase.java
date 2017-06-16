@@ -8,22 +8,22 @@ import android.view.View;
 
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
-public abstract class BooleanHandlerTestTarget extends View {
-	public BooleanHandlerTestTarget(final Context context) {
+public abstract class BooleanHandlerTestTargetBase extends View {
+	public BooleanHandlerTestTargetBase(final Context context) {
 		super(context);
 	}
 
-	public BooleanHandlerTestTarget(final Context context, final AttributeSet attrs) {
+	public BooleanHandlerTestTargetBase(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 	}
 
-	public BooleanHandlerTestTarget(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public BooleanHandlerTestTargetBase(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 	}
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public BooleanHandlerTestTarget(
+	public BooleanHandlerTestTargetBase(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,

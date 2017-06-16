@@ -6,7 +6,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.integration_tests.boolean_handler_test_target.BooleanHandlerTestTarget;
+import com.matthewtamlin.spyglass.integration_tests.boolean_handler_test_target.BooleanHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler_test_target.WithDefaultToBoolean;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler_test_target.WithDefaultToBooleanResource;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler_test_target.WithNoDefault;
@@ -35,7 +35,7 @@ public class TestBooleanHandler {
 	public void testSpyglassCallsMethod_attributePresent_attributeEqualsTrue() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.boolean_handler_with_attr_equals_true);
 
-		final BooleanHandlerTestTarget target = new WithNoDefault(context, attrs);
+		final BooleanHandlerTestTargetBase target = new WithNoDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(true)));
 	}
@@ -45,7 +45,7 @@ public class TestBooleanHandler {
 	public void testSpyglassCallsMethod_attributePresent_attributeEqualsFalse() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.boolean_handler_with_attr_equals_false);
 
-		final BooleanHandlerTestTarget target = new WithNoDefault(context, attrs);
+		final BooleanHandlerTestTargetBase target = new WithNoDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(false)));
 	}
@@ -55,7 +55,7 @@ public class TestBooleanHandler {
 	public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.boolean_handler_without_attr);
 
-		final BooleanHandlerTestTarget target = new WithNoDefault(context, attrs);
+		final BooleanHandlerTestTargetBase target = new WithNoDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<Boolean>none()));
 	}
@@ -65,7 +65,7 @@ public class TestBooleanHandler {
 	public void testSpyglassCallsMethod_attributeMissing_defaultToBooleanPresent() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.boolean_handler_without_attr);
 
-		final BooleanHandlerTestTarget target = new WithDefaultToBoolean(context, attrs);
+		final BooleanHandlerTestTargetBase target = new WithDefaultToBoolean(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(WithDefaultToBoolean.DEFAULT_VALUE)));
 	}
@@ -75,7 +75,7 @@ public class TestBooleanHandler {
 	public void testSpyglassCallsMethod_attributeMissing_defaultToBooleanResourcePresent() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.boolean_handler_without_attr);
 
-		final BooleanHandlerTestTarget target = new WithDefaultToBooleanResource(context, attrs);
+		final BooleanHandlerTestTargetBase target = new WithDefaultToBooleanResource(context, attrs);
 
 		final boolean defaultValue = context.getResources().getBoolean(R.bool.BooleanForTesting);
 
