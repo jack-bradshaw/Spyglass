@@ -1,35 +1,35 @@
-package com.matthewtamlin.spyglass.integration_tests.dimension_handler_test_target;
+package com.matthewtamlin.spyglass.integration_tests.dimension_handler;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToIntegerResource;
+import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimensionResource;
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
-public class WithDefaultToIntegerResource extends DimensionHandlerTestTargetBase {
-	public WithDefaultToIntegerResource(final Context context) {
+public class WithDefaultToPtDimensionResource extends DimensionHandlerTestTargetBase {
+	public WithDefaultToPtDimensionResource(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public WithDefaultToIntegerResource(final Context context, final AttributeSet attrs) {
+	public WithDefaultToPtDimensionResource(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public WithDefaultToIntegerResource(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public WithDefaultToPtDimensionResource(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public WithDefaultToIntegerResource(
+	public WithDefaultToPtDimensionResource(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -40,7 +40,7 @@ public class WithDefaultToIntegerResource extends DimensionHandlerTestTargetBase
 	}
 
 	@DimensionHandler(attributeId = R.styleable.DimensionHandlerTestTargetBase_dimensionHandlerAttr)
-	@DefaultToIntegerResource(resId = R.integer.IntegerForTesting)
+	@DefaultToDimensionResource(resId = R.dimen.DimensionForTestingPt)
 	public void handlerMethod(final int i) {
 		setReceivedValue(ReceivedValue.of(i));
 	}
@@ -48,7 +48,7 @@ public class WithDefaultToIntegerResource extends DimensionHandlerTestTargetBase
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToIntegerResource.class)
+				.withAnnotationSource(WithDefaultToPtDimensionResource.class)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
