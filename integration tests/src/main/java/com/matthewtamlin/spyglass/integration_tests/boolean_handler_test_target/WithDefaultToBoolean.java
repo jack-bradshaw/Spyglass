@@ -11,7 +11,7 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
-public class WithDefaultToBoolean extends BooleanHandlerTestTarget {
+public class WithDefaultToBoolean extends BooleanHandlerTestTargetBase {
 	public static final boolean DEFAULT_VALUE = true;
 
 	private ReceivedValue<Boolean> receivedValue = ReceivedValue.none();
@@ -43,7 +43,7 @@ public class WithDefaultToBoolean extends BooleanHandlerTestTarget {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@BooleanHandler(attributeId = R.styleable.BooleanHandlerTestTarget_booleanHandlerAttr)
+	@BooleanHandler(attributeId = R.styleable.BooleanHandlerTestTargetBase_booleanHandlerAttr)
 	@DefaultToBoolean(DEFAULT_VALUE)
 	public void handlerMethod(final boolean b) {
 		receivedValue = ReceivedValue.of(b);
@@ -57,7 +57,7 @@ public class WithDefaultToBoolean extends BooleanHandlerTestTarget {
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.BooleanHandlerTestTarget)
+				.withStyleableResource(R.styleable.BooleanHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

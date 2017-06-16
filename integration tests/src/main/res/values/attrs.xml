@@ -26,7 +26,7 @@
 		</attr>
 	</declare-styleable>
 
-	<declare-styleable name="BooleanHandlerTestTarget">
+	<declare-styleable name="BooleanHandlerTestTargetBase">
 		<attr name="booleanHandlerAttr" format="boolean"/>
 	</declare-styleable>
 
