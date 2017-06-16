@@ -29,37 +29,31 @@ public class TestColorStateListHandler {
 
 	private Context context;
 
-	private ColorStateList mainColorStateList;
-
-	private ColorStateList defaultColorStateList;
-
-	private AttributeSet attributePresent;
-
-	private AttributeSet attributeMissing;
-
 	@Before
 	public void setup() {
 		context = InstrumentationRegistry.getTargetContext();
-
-		mainColorStateList = ContextCompat.getColorStateList(context, R.color.main_color_state_list_for_testing);
-		defaultColorStateList = ContextCompat.getColorStateList(context, R.color.default_color_state_list_for_testing);
-
-		attributePresent = fromXml(context, R.xml.color_state_list_handler_with_attr_equals_main_csl);
-		attributeMissing = fromXml(context, R.xml.color_state_list_handler_without_attr);
 	}
 
 	@Test
 	@UiThreadTest
 	public void testSpyglassPassesCorrectData_attributePresent() {
-		final ColorStateListHandlerTestTarget target = new WithNoDefault(context, attributePresent);
+		final AttributeSet attrs = fromXml(context, R.xml.color_state_list_handler_with_attr_equals_main_csl);
 
-		assertThat(target.getReceivedValue(), is(ReceivedValue.of(mainColorStateList)));
+		final ColorStateListHandlerTestTarget target = new WithNoDefault(context, attrs);
+
+		final ColorStateList expectedValue = ContextCompat.getColorStateList(
+				context,
+				R.color.main_color_state_list_for_testing);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
 	}
 
 	@Test
 	@UiThreadTest
 	public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
-		final ColorStateListHandlerTestTarget target = new WithNoDefault(context, attributeMissing);
+		final AttributeSet attrs = fromXml(context, R.xml.color_state_list_handler_without_attr);
+
+		final ColorStateListHandlerTestTarget target = new WithNoDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<ColorStateList>none()));
 	}
@@ -67,11 +61,15 @@ public class TestColorStateListHandler {
 	@Test
 	@UiThreadTest
 	public void testSpyglassPassesCorrectData_attributeMissing_defaultToColorStateListPresent() {
-		final ColorStateListHandlerTestTarget target = new WithDefaultToColorStateListResource(
-				context,
-				attributeMissing);
+		final AttributeSet attrs = fromXml(context, R.xml.color_state_list_handler_without_attr);
 
-		assertThat(target.getReceivedValue(), is(ReceivedValue.of(defaultColorStateList)));
+		final ColorStateListHandlerTestTarget target = new WithDefaultToColorStateListResource(context, attrs);
+
+		final ColorStateList expectedValue = ContextCompat.getColorStateList(
+				context,
+				R.color.default_color_state_list_for_testing);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
 	}
 
 	@Test
@@ -79,7 +77,11 @@ public class TestColorStateListHandler {
 	public void testSpyglassPassesDataCorrectly_noAttributesSupplied_defaultToColorStateListPresent() {
 		final ColorStateListHandlerTestTarget target = new WithDefaultToColorStateListResource(context);
 
-		assertThat(target.getReceivedValue(), is(ReceivedValue.of(defaultColorStateList)));
+		final ColorStateList expectedValue = ContextCompat.getColorStateList(
+				context,
+				R.color.default_color_state_list_for_testing);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
 	}
 
 	@Test
