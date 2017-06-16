@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<dimen name="DimensionForTestingDp">10dp</dimen>
+	<dimen name="DimensionForTestingIn">10in</dimen>
+	<dimen name="DimensionForTestingMm">10mm</dimen>
+	<dimen name="DimensionForTestingPt">10pt</dimen>
+	<dimen name="DimensionForTestingPx">10px</dimen>
+	<dimen name="DimensionForTestingSp">10sp</dimen>
+</resources>
