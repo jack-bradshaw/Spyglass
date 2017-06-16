@@ -167,7 +167,7 @@ public class TestDimensionHandler {
 
 		final DimensionHandlerTestTargetBase target = new WithDefaultToPxDimension(context, attrs);
 
-		final int expectedValue = (int) DimensionHelper.dpToPx(context, WithDefaultToPxDimension.DEFAULT_VALUE_PX);
+		final int expectedValue = WithDefaultToPxDimension.DEFAULT_VALUE_PX;
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
 	}
 
