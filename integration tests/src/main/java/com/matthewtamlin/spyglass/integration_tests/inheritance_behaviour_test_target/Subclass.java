@@ -9,12 +9,12 @@ import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStrin
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.matthewtamlin.spyglass.integration_tests.ReceivedValue;
 
 public class Subclass extends Superclass {
-	private List<Object> invocationArgs = null;
+	public static final String EXPECTED_VALUE = "subclass expected value";
+
+	private ReceivedValue<String> receivedValue = ReceivedValue.none();
 
 	public Subclass(final Context context) {
 		super(context);
@@ -38,26 +38,14 @@ public class Subclass extends Superclass {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.Subclass_TestAttr2)
-	@DefaultToString("subclass default value")
+	@StringHandler(attributeId = R.styleable.Subclass_subclassAttr)
+	@DefaultToString(EXPECTED_VALUE)
 	public void subclassHandlerMethod(final String s) {
-		final List<Object> invocationRecord = new ArrayList<>();
-
-		invocationRecord.add(s);
-
-		this.invocationArgs = invocationRecord;
+		receivedValue = ReceivedValue.of(s);
 	}
 
-	public List<Object> getSubclassActualInvocationArgs() {
-		return invocationArgs;
-	}
-
-	public List<Object> getSubclassExpectedInvocationArgs() {
-		final List<Object> expectedArgs = new ArrayList<>();
-
-		expectedArgs.add("subclass default value");
-
-		return expectedArgs;
+	public ReceivedValue<String> getSubclassReceivedValue() {
+		return receivedValue;
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {

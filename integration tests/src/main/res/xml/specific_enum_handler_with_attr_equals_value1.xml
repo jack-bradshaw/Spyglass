@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
 <com.matthewtamlin.spyglass.integration_tests.SpecificEnumHandlerTestTarget
 	xmlns:app="http://schemas.android.com/apk/res-auto"
-	app:TestAttr4="value0"/>
+	app:specificEnumHandlerAttr="value1"/>
