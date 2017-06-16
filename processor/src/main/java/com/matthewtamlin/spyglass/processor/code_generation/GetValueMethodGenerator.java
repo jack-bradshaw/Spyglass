@@ -345,7 +345,7 @@ public class GetValueMethodGenerator {
 		}
 	}
 
-	public MethodSpec.Builder getBaseMethodSpec() {
+	private MethodSpec.Builder getBaseMethodSpec() {
 		return MethodSpec
 				.methodBuilder("getValue")
 				.addModifiers(PUBLIC)
