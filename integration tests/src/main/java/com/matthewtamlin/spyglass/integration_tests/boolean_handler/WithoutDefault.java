@@ -10,18 +10,18 @@ import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
-public class WithNoDefault extends BooleanHandlerTestTargetBase {
-	public WithNoDefault(final Context context) {
+public class WithoutDefault extends BooleanHandlerTestTargetBase {
+	public WithoutDefault(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public WithNoDefault(final Context context, final AttributeSet attrs) {
+	public WithoutDefault(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public WithNoDefault(
+	public WithoutDefault(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr) {
@@ -31,7 +31,7 @@ public class WithNoDefault extends BooleanHandlerTestTargetBase {
 
 	@RequiresApi(21)
 	@TargetApi(21)
-	public WithNoDefault(
+	public WithoutDefault(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -49,7 +49,7 @@ public class WithNoDefault extends BooleanHandlerTestTargetBase {
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithNoDefault.class)
+				.withAnnotationSource(WithoutDefault.class)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
