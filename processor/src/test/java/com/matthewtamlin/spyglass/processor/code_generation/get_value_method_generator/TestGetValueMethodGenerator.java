@@ -1,5 +1,8 @@
 package com.matthewtamlin.spyglass.processor.code_generation.get_value_method_generator;
 
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
+
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
@@ -19,6 +22,7 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextArra
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHandler;
 import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -87,7 +91,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.BOOLEAN);
 		checkCompiles(generatedMethod);
 	}
 
@@ -99,7 +103,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.INT);
 		checkCompiles(generatedMethod);
 	}
 
@@ -111,7 +115,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, ClassName.get(ColorStateList.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -123,7 +127,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.FLOAT);
 		checkCompiles(generatedMethod);
 	}
 
@@ -135,7 +139,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, ClassName.get(Drawable.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -147,7 +151,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.OBJECT);
 		checkCompiles(generatedMethod);
 	}
 
@@ -159,7 +163,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.INT);
 		checkCompiles(generatedMethod);
 	}
 
@@ -171,7 +175,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.FLOAT);
 		checkCompiles(generatedMethod);
 	}
 
@@ -183,7 +187,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.FLOAT);
 		checkCompiles(generatedMethod);
 	}
 
@@ -195,7 +199,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.INT);
 		checkCompiles(generatedMethod);
 	}
 
@@ -207,7 +211,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, ClassName.get(String.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -219,7 +223,7 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.get(CharSequence[].class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -231,13 +235,13 @@ public class TestGetValueMethodGenerator {
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		checkMethodSignature(generatedMethod, TypeName.get(CharSequence.class));
 		checkCompiles(generatedMethod);
 	}
 
-	private void checkMethodSignature(final MethodSpec generatedMethod) {
+	private void checkMethodSignature(final MethodSpec generatedMethod, final TypeName returnType) {
 		assertThat(generatedMethod.hasModifier(Modifier.PUBLIC), is(true));
-		assertThat(generatedMethod.returnType, is((TypeName) TypeName.OBJECT));
+		assertThat(generatedMethod.returnType, is(returnType));
 		assertThat(generatedMethod.parameters, hasSize(1));
 		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) TYPED_ARRAY));
 	}
