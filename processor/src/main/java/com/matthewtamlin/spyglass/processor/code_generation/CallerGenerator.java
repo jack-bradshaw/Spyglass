@@ -126,12 +126,20 @@ public class CallerGenerator {
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
-						.addStatement("$1T value = ($1T) $2N(attrs)", getNameOfNonUseParameter(e), getValue)
+						.beginControlFlow(
+								"if ((Object) $N(attrs) instanceof $T)",
+								getValue,
+								boxIfNecessary(getNameOfNonUseParameter(e)))
+						.addStatement("final $1T value = ($1T) $2N(attrs)", getNameOfNonUseParameter(e), getValue)
 						.addStatement(
 								"$L.$L",
 								"target",
 								invocationLiteralGenerator.generateLiteralWithExtraArg(e, "value"))
+						.nextControlFlow("else")
+						.addStatement("throw new $T()", ClassName.get(RuntimeException.class))
 						.endControlFlow()
+						.endControlFlow()
+
 						.build())
 				.build();
 
@@ -181,15 +189,30 @@ public class CallerGenerator {
 		final MethodSpec callMethod = getEmptyCallMethod(getNameOfTargetClass(e))
 				.addCode(CodeBlock
 						.builder()
-						.addStatement(
-								"$1T value = $2N(attrs) ? ($1T) $3N(attrs) : ($1T) $4N(context, attrs)",
-								getNameOfNonUseParameter(e),
-								valueIsAvailable,
+						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
+						.beginControlFlow(
+								"if ((Object) $N(attrs) instanceof $T)",
 								getValue,
-								getDefault)
+								boxIfNecessary(getNameOfNonUseParameter(e)))
+						.addStatement("final $1T value = ($1T) $2N(attrs)", getNameOfNonUseParameter(e), getValue)
+						.addStatement("target.$L", invocationLiteralGenerator.generateLiteralWithExtraArg(e, "value"))
+						.nextControlFlow("else")
+						.addStatement("throw new $T()", ClassName.get(RuntimeException.class))
+						.endControlFlow()
+						.nextControlFlow("else")
+						.beginControlFlow(
+								"if ((Object) $N(context, attrs) instanceof $T)",
+								getDefault,
+								boxIfNecessary(getNameOfNonUseParameter(e)))
 						.addStatement(
-								"target.$L",
-								invocationLiteralGenerator.generateLiteralWithExtraArg(e, "value"))
+								"final $1T value = ($1T) $2N(context, attrs)",
+								getNameOfNonUseParameter(e),
+								getDefault)
+						.addStatement("target.$L", invocationLiteralGenerator.generateLiteralWithExtraArg(e, "value"))
+						.nextControlFlow("else")
+						.addStatement("throw new $T()", ClassName.get(RuntimeException.class))
+						.endControlFlow()
+						.endControlFlow()
 						.build())
 				.build();
 
@@ -239,5 +262,13 @@ public class CallerGenerator {
 	private TypeName getNameOfTargetClass(final ExecutableElement method) {
 		final TypeElement enclosingType = (TypeElement) method.getEnclosingElement();
 		return TypeName.get(enclosingType.asType());
+	}
+
+	private TypeName boxIfNecessary(final TypeName typeName) {
+		if (typeName.isPrimitive()) {
+			return typeName.box();
+		} else {
+			return typeName;
+		}
 	}
 }
