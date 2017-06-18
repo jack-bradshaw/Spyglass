@@ -85,7 +85,7 @@ public class CallerGenerator {
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", specificValueIsAvailable)
-						.addStatement("$L.$L", "target", invocationLiteralGenerator.generateLiteralWithoutExtraArg(e))
+						.addStatement("target.$L", invocationLiteralGenerator.generateLiteralWithoutExtraArg(e))
 						.endControlFlow()
 						.build())
 				.build();
@@ -128,8 +128,7 @@ public class CallerGenerator {
 						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
 						.addStatement("$1T value = ($1T) $2N(attrs)", getNameOfNonUseParameter(e), getValue)
 						.addStatement(
-								"$L.$L",
-								"target",
+								"target.$L",
 								invocationLiteralGenerator.generateLiteralWithExtraArg(e, "value"))
 						.endControlFlow()
 						.build())
@@ -182,7 +181,7 @@ public class CallerGenerator {
 				.addCode(CodeBlock
 						.builder()
 						.addStatement(
-								"$1T value = $2N(attrs) ? ($1T) $3N(attrs) : ($1T) $4N(context, attrs)",
+								"$1T value = ($1T) ($2N(attrs) ? $3N(attrs) : $4N(context, attrs))",
 								getNameOfNonUseParameter(e),
 								valueIsAvailable,
 								getValue,
