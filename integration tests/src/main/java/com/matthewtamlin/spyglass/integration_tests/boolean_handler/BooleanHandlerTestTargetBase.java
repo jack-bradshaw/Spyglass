@@ -9,7 +9,7 @@ import android.view.View;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public abstract class BooleanHandlerTestTargetBase extends View {
-	private ReceivedValue<Boolean> receivedValue;
+	private ReceivedValue<Boolean> receivedValue = ReceivedValue.none();
 
 	public BooleanHandlerTestTargetBase(final Context context) {
 		super(context);
