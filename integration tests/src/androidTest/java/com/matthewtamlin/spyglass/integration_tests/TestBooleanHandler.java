@@ -9,7 +9,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler.BooleanHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithDefaultToBoolean;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithDefaultToBooleanResource;
-import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier;
 
@@ -36,7 +36,7 @@ public class TestBooleanHandler {
 	public void testSpyglassCallsMethod_attributePresent_attributeEqualsTrue() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.boolean_handler_with_attr_equals_true);
 
-		final BooleanHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final BooleanHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(true)));
 	}
@@ -46,7 +46,7 @@ public class TestBooleanHandler {
 	public void testSpyglassCallsMethod_attributePresent_attributeEqualsFalse() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.boolean_handler_with_attr_equals_false);
 
-		final BooleanHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final BooleanHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(false)));
 	}
@@ -56,7 +56,7 @@ public class TestBooleanHandler {
 	public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.boolean_handler_without_attr);
 
-		final BooleanHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final BooleanHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<Boolean>none()));
 	}
