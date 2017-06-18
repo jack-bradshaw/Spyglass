@@ -10,7 +10,7 @@ import android.view.View;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public abstract class ColorStateListHandlerTestTargetBase extends View {
-	private ReceivedValue<ColorStateList> receivedValue;
+	private ReceivedValue<ColorStateList> receivedValue = ReceivedValue.none();
 
 	public ColorStateListHandlerTestTargetBase(final Context context) {
 		super(context);
