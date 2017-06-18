@@ -20,7 +20,7 @@ import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaul
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToPxDimensionResource;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToSpDimension;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToSpDimensionResource;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
@@ -47,7 +47,7 @@ public class TestDimensionHandler {
 	public void testSpyglassPassesCorrectData_attributePresent_attributeEquals10dp() {
 		final AttributeSet attrs = fromXml(context, R.xml.dimension_handler_with_attr_equals_10dp);
 
-		final DimensionHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final DimensionHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		final int expectedValue = (int) DimensionHelper.dpToPx(context, 10);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
@@ -58,7 +58,7 @@ public class TestDimensionHandler {
 	public void testSpyglassPassesCorrectData_attributePresent_attributeEquals10in() {
 		final AttributeSet attrs = fromXml(context, R.xml.dimension_handler_with_attr_equals_10in);
 
-		final DimensionHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final DimensionHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		final int expectedValue = (int) DimensionHelper.inToPx(context, 10);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
@@ -69,7 +69,7 @@ public class TestDimensionHandler {
 	public void testSpyglassPassesCorrectData_attributePresent_attributeEquals10mm() {
 		final AttributeSet attrs = fromXml(context, R.xml.dimension_handler_with_attr_equals_10mm);
 
-		final DimensionHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final DimensionHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		final int expectedValue = (int) DimensionHelper.mmToPx(context, 10);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
@@ -80,7 +80,7 @@ public class TestDimensionHandler {
 	public void testSpyglassPassesCorrectData_attributePresent_attributeEquals10pt() {
 		final AttributeSet attrs = fromXml(context, R.xml.dimension_handler_with_attr_equals_10pt);
 
-		final DimensionHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final DimensionHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		final int expectedValue = (int) DimensionHelper.ptToPx(context, 10);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
@@ -91,7 +91,7 @@ public class TestDimensionHandler {
 	public void testSpyglassPassesCorrectData_attributePresent_attributeEquals10px() {
 		final AttributeSet attrs = fromXml(context, R.xml.dimension_handler_with_attr_equals_10px);
 
-		final DimensionHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final DimensionHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(10)));
 	}
@@ -101,7 +101,7 @@ public class TestDimensionHandler {
 	public void testSpyglassPassesCorrectData_attributePresent_attributeEquals10sp() {
 		final AttributeSet attrs = fromXml(context, R.xml.dimension_handler_with_attr_equals_10sp);
 
-		final DimensionHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final DimensionHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		final int expectedValue = (int) DimensionHelper.spToPx(context, 10);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
@@ -112,7 +112,7 @@ public class TestDimensionHandler {
 	public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
 		final AttributeSet attrs = fromXml(context, R.xml.dimension_handler_without_attr);
 
-		final DimensionHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final DimensionHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>none()));
 	}
