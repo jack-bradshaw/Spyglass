@@ -41,4 +41,8 @@
 	<declare-styleable name="DimensionHandlerTestTargetBase">
 		<attr name="dimensionHandlerAttr" format="dimension"/>
 	</declare-styleable>
+
+	<declare-styleable name="DrawableHandlerTestTargetBase">
+		<attr name="drawableHandlerAttr" format="reference"/>
+	</declare-styleable>
 </resources>
