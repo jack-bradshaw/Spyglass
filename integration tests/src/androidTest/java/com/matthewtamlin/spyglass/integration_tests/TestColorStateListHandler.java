@@ -11,7 +11,7 @@ import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.ColorStateListHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.WithDefaultToColorStateListResource;
-import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
@@ -40,7 +40,7 @@ public class TestColorStateListHandler {
 	public void testSpyglassPassesCorrectData_attributePresent() {
 		final AttributeSet attrs = fromXml(context, R.xml.color_state_list_handler_with_attr_equals_main_csl);
 
-		final ColorStateListHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final ColorStateListHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		final ColorStateList expectedValue = ContextCompat.getColorStateList(
 				context,
@@ -54,7 +54,7 @@ public class TestColorStateListHandler {
 	public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
 		final AttributeSet attrs = fromXml(context, R.xml.color_state_list_handler_without_attr);
 
-		final ColorStateListHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final ColorStateListHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<ColorStateList>none()));
 	}
@@ -88,7 +88,7 @@ public class TestColorStateListHandler {
 	@Test
 	@UiThreadTest
 	public void testSpyglassPassesDataCorrectly_noAttributesSupplied_noDefaultPresent() {
-		final ColorStateListHandlerTestTargetBase target = new WithNoDefault(context);
+		final ColorStateListHandlerTestTargetBase target = new WithoutDefault(context);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<ColorStateList>none()));
 	}
