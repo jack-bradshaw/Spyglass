@@ -12,7 +12,7 @@ import com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTe
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToColorResource;
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToInteger;
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToIntegerResource;
-import com.matthewtamlin.spyglass.integration_tests.color_handler.WithNoDefault;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier;
 
@@ -39,7 +39,7 @@ public class TestColorHandler {
 	public void testSpyglassPassesCorrectData_attributePresent_attributeEqualsRed() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.color_handler_with_attr_equals_red);
 
-		final ColorHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final ColorHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(Color.RED)));
 	}
@@ -49,7 +49,7 @@ public class TestColorHandler {
 	public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
 		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.color_handler_without_attr);
 
-		final ColorHandlerTestTargetBase target = new WithNoDefault(context, attrs);
+		final ColorHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>none()));
 	}
@@ -97,7 +97,7 @@ public class TestColorHandler {
 	@Test
 	@UiThreadTest
 	public void testSpyglassNeverCallsMethod_noAttributesSupplied_noDefaultPresent() {
-		final ColorHandlerTestTargetBase target = new WithNoDefault(context);
+		final ColorHandlerTestTargetBase target = new WithoutDefault(context);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>none()));
 	}
