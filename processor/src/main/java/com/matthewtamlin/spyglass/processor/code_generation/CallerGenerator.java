@@ -132,8 +132,7 @@ public class CallerGenerator {
 								boxIfNecessary(getNameOfNonUseParameter(e)))
 						.addStatement("final $1T value = ($1T) $2N(attrs)", getNameOfNonUseParameter(e), getValue)
 						.addStatement(
-								"$L.$L",
-								"target",
+								"target.$L",
 								invocationLiteralGenerator.generateLiteralWithExtraArg(e, "value"))
 						.nextControlFlow("else")
 						.addStatement("throw new $T()", ClassName.get(RuntimeException.class))
