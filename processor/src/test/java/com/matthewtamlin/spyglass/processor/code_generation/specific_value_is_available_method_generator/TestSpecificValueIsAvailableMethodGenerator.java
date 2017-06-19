@@ -3,9 +3,9 @@ package com.matthewtamlin.spyglass.processor.code_generation.specific_value_is_a
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
-import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.processor.code_generation.SpecificValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker;
 import com.squareup.javapoet.JavaFile;
