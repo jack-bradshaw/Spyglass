@@ -6,7 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumsForTesting.Fruit;
+import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class EnumConstantHandlerTestTargetBase extends View {

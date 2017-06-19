@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.common.enum_util.EnumInstantiationException;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumConstantHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumsForTesting.Fruit;
+import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithDefaultToEnumConstantOfInvalidFruit;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithDefaultToEnumConstantOfWatermelon;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithoutDefault;

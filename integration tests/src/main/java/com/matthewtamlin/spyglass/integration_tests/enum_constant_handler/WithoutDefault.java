@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumsForTesting.Fruit;
+import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class WithoutDefault extends EnumConstantHandlerTestTargetBase {
