@@ -104,4 +104,25 @@ public class TestEnumUtil {
 	public void testGetEnumConstant_fullyQualifiedConstantNameVariant_validConstant() {
 		EnumUtil.getEnumConstant(Vehicle.class.getCanonicalName() + ".BUS");
 	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testGetEnumClass_classIsNull() {
+		EnumUtil.getEnumClass(null);
+	}
+
+	@Test(expected = EnumInstantiationException.class)
+	public void testGetEnumClass_classDoesNotExist() {
+		EnumUtil.getEnumClass("not.a.class");
+	}
+
+	@Test(expected = EnumInstantiationException.class)
+	public void testGetEnumClass_classIsNotAnEnum() {
+		EnumUtil.getEnumClass(String.class.getCanonicalName());
+	}
+
+	public void testGetEnumClass_classIsValid() {
+		final Class<? extends Enum<?>> enumClass = EnumUtil.getEnumClass(Vehicle.class.getCanonicalName());
+
+		assertThat(enumClass.getCanonicalName(), is(Vehicle.class.getCanonicalName()));
+	}
 }
