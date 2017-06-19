@@ -7,7 +7,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 @Tested(testMethod = "automated")
 public class EnumUtil {
 	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal)
-			throws EnumInstantiationException{
+			throws EnumInstantiationException {
 
 		checkNotNull(clazz, "Argument \'clazz\' cannot be null.");
 
@@ -32,7 +32,7 @@ public class EnumUtil {
 	}
 
 	public static Enum<?> getEnumConstant(final String fullyQualifiedClassName, final int ordinal)
-			throws EnumInstantiationException{
+			throws EnumInstantiationException {
 
 		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
 
@@ -75,7 +75,7 @@ public class EnumUtil {
 
 	private static Class<?> getClassAndWrapNotFoundException(final String fullyQualifiedClassName)
 			throws EnumInstantiationException {
-		
+
 		try {
 			return Class.forName(fullyQualifiedClassName);
 		} catch (final ClassNotFoundException e) {
