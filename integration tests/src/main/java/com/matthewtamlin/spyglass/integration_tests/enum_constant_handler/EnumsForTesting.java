@@ -8,10 +8,4 @@ public class EnumsForTesting {
 		BANANA,
 		WATERMELON
 	}
-
-	public enum Language {
-		JAVA,
-		C,
-		PYTHON
-	}
 }
