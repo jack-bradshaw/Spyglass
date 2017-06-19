@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.common;
 
+import com.matthewtamlin.spyglass.common.enum_util.EnumInstantiationException;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 
 import org.junit.Test;
@@ -16,14 +17,14 @@ public class TestEnumUtil {
 		EnumUtil.getEnumConstant((Class) null, 0);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_classAndOrdinalVariant_negativeOrdinal() {
 		final Class<? extends Enum<?>> enumClass = Vehicle.class;
 
 		EnumUtil.getEnumConstant(enumClass, -1);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_classAndOrdinalVariant_excessiveOrdinal() {
 		final Class<? extends Enum<?>> enumClass = Vehicle.class;
 
@@ -44,22 +45,22 @@ public class TestEnumUtil {
 		EnumUtil.getEnumConstant((String) null, 0);
 	}
 
-	@Test(expected = ClassNotFoundException.class)
+	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_classnameAndOrdinalVariant_classDoesNotExist() throws ClassNotFoundException {
 		EnumUtil.getEnumConstant("not.a.class", 0);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_classnameAndOrdinalVariant_classIsNotAnEnum() throws ClassNotFoundException {
 		EnumUtil.getEnumConstant(Object.class.getCanonicalName(), 0);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_classnameAndOrdinalVariant_negativeOrdinal() throws ClassNotFoundException {
 		EnumUtil.getEnumConstant(Vehicle.class.getCanonicalName(), -1);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
+	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_classnameAndOrdinalVariant_excessiveOrdinal() throws ClassNotFoundException {
 		EnumUtil.getEnumConstant(Vehicle.class.getCanonicalName(), Vehicle.values().length);
 	}
@@ -74,14 +75,14 @@ public class TestEnumUtil {
 		EnumUtil.getEnumConstant(null);
 	}
 
-	@Test(expected = ClassNotFoundException.class)
+	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_fullyQualifiedConstantNameVariant_classDoesNotExist()
 			throws ClassNotFoundException {
 
 		EnumUtil.getEnumConstant("not.a.class");
 	}
 
-	@Test(expected = ClassNotFoundException.class)
+	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_fullyQualifiedConstantNameVariant_classIsNotAnEnum() throws ClassNotFoundException {
 		EnumUtil.getEnumConstant(String.class.getCanonicalName());
 	}
