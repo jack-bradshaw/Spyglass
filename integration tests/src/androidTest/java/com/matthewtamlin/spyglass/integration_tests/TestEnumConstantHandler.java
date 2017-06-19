@@ -73,7 +73,7 @@ public class TestEnumConstantHandler {
 
 	@Test(expected = EnumInstantiationException.class)
 	@UiThreadTest
-	public void testSpyglassThrowsException_attributeMissing_defaultToEnumConstantPresent_defaultToInvalidFruit() {
+	public void testSpyglassFails_attributeMissing_defaultToEnumConstantPresent_defaultToInvalidFruit() {
 		final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_without_attr);
 
 		final EnumConstantHandlerTestTargetBase target = new WithDefaultToEnumConstantOfInvalidFruit(context, attrs);
