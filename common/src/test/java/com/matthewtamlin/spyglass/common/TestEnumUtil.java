@@ -19,7 +19,7 @@ public class TestEnumUtil {
 	}
 
 	@Test(expected = EnumInstantiationException.class)
-	public void testGetEnumConstant_classAndOrdinalVariant_negativeOrdinal() {
+	public void testGetEnumConstant_classAndOrdinalVariant_ordinalIsNegative() {
 		EnumUtil.getEnumConstant(Vehicle.class, -1);
 	}
 
@@ -34,7 +34,7 @@ public class TestEnumUtil {
 	}
 
 	@Test(expected = EnumInstantiationException.class)
-	public void testGetEnumConstant_classAndOrdinalVariant_excessiveOrdinal() {
+	public void testGetEnumConstant_classAndOrdinalVariant_ordinalExceedsMax() {
 		EnumUtil.getEnumConstant(Vehicle.class, Vehicle.values().length);
 	}
 
@@ -61,7 +61,7 @@ public class TestEnumUtil {
 	}
 
 	@Test(expected = EnumInstantiationException.class)
-	public void testGetEnumConstant_classnameAndOrdinalVariant_negativeOrdinal() {
+	public void testGetEnumConstant_classnameAndOrdinalVariant_ordinalIsNegative() {
 		EnumUtil.getEnumConstant(Vehicle.class.getCanonicalName(), -1);
 	}
 
@@ -76,7 +76,7 @@ public class TestEnumUtil {
 	}
 
 	@Test(expected = EnumInstantiationException.class)
-	public void testGetEnumConstant_classnameAndOrdinalVariant_excessiveOrdinal() {
+	public void testGetEnumConstant_classnameAndOrdinalVariant_ordinalExceedsMax() {
 		EnumUtil.getEnumConstant(Vehicle.class.getCanonicalName(), Vehicle.values().length);
 	}
 
