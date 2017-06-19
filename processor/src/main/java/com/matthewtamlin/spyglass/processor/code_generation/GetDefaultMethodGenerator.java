@@ -131,10 +131,8 @@ public class GetDefaultMethodGenerator {
 				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
-						final String rawDimensionValue = getLiteralFromAnnotation(anno, "value");
-
 						final String unitLiteral = getLiteralFromAnnotation(anno, "unit");
-						final DimensionUnit unit = (DimensionUnit) EnumUtil.getEnumConstant(unitLiteral);
+						final DimensionUnit unitEnum = (DimensionUnit) EnumUtil.getEnumConstant(unitLiteral);
 
 						final CodeBlock body = CodeBlock
 								.builder()
@@ -144,8 +142,8 @@ public class GetDefaultMethodGenerator {
 								.addStatement(
 										"return $1T.applyDimension($1T.$2L, $3L, metrics)",
 										AndroidClassNames.TYPED_VALUE,
-										getComplexUnitLiteral(unit),
-										rawDimensionValue)
+										getComplexUnitLiteral(unitEnum),
+										getLiteralFromAnnotation(anno, "value"))
 								.build();
 
 						return getBaseMethodSpec()
