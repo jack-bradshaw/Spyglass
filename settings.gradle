@@ -1,1 +1,1 @@
-include ':annotations', ':processor', ':integration tests', ':consumer', ':consumer tests', ':processor activated', ':common'
+include ':processor', ':integration tests', ':consumer', ':consumer tests', ':processor activated', ':common'
