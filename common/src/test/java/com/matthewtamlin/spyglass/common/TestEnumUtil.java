@@ -25,12 +25,18 @@ public class TestEnumUtil {
 
 	@Test
 	public void testGetEnumConstant_classAndOrdinalVariant_ordinalIsZero() {
-		EnumUtil.getEnumConstant(Vehicle.class, 0);
+		final Vehicle result = EnumUtil.getEnumConstant(Vehicle.class, 0);
+
+		assertThat(result, is(Vehicle.values()[0]));
 	}
 
 	@Test
 	public void testGetEnumConstant_classAndOrdinalVariant_ordinalIsMax() {
-		EnumUtil.getEnumConstant(Vehicle.class, Vehicle.values().length - 1);
+		final int max = Vehicle.values().length - 1;
+
+		final Vehicle result = EnumUtil.getEnumConstant(Vehicle.class, max);
+
+		assertThat(result, is(Vehicle.values()[max]));
 	}
 
 	@Test(expected = EnumInstantiationException.class)
@@ -67,12 +73,18 @@ public class TestEnumUtil {
 
 	@Test
 	public void testGetEnumConstant_classnameAndOrdinalVariant_ordinalIsZero() {
-		EnumUtil.getEnumConstant(Vehicle.class.getCanonicalName(), 0);
+		final Object result = EnumUtil.getEnumConstant(Vehicle.class.getCanonicalName(), 0);
+
+		assertThat(result, is((Object) Vehicle.values()[0]));
 	}
 
 	@Test
 	public void testGetEnumConstant_classnameAndOrdinalVariant_ordinalIsMax() {
-		EnumUtil.getEnumConstant(Vehicle.class.getCanonicalName(), Vehicle.values().length - 1);
+		final int maxOrdinal = Vehicle.values().length - 1;
+		
+		final Object result = EnumUtil.getEnumConstant(Vehicle.class.getCanonicalName(), maxOrdinal);
+
+		assertThat(result, is((Object) Vehicle.values()[maxOrdinal]));
 	}
 
 	@Test(expected = EnumInstantiationException.class)
