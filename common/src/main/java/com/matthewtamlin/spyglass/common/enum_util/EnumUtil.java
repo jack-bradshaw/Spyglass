@@ -61,10 +61,7 @@ public class EnumUtil {
 		final Class<?> enumClass = getClassAndWrapNotFoundException(fullyQualifiedClassName);
 
 		if (enumClass.getEnumConstants() == null) {
-			throw new EnumInstantiationException(String.format(
-					"Class \'%1$s\' is not an enum.",
-					fullyQualifiedClassName));
-		
+			throw new EnumInstantiationException("Class \'%" + fullyQualifiedClassName + "\' is not an enum.");
 		}
 
 		return (Class) enumClass;
