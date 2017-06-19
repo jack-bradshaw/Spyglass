@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.util;
+package com.matthewtamlin.spyglass.common;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
