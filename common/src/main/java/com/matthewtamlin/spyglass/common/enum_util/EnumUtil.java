@@ -2,7 +2,6 @@ package com.matthewtamlin.spyglass.common.enum_util;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
-import static com.matthewtamlin.java_utilities.checkers.IntChecker.checkGreaterThanOrEqualTo;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
