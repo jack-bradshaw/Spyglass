@@ -19,9 +19,9 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.common.annotations.units.DimensionUnit;
+import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
-import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -55,7 +55,7 @@ public class GetDefaultMethodGenerator {
 								.builder()
 								.addStatement("return $L", getLiteralFromAnnotation(anno, "value"))
 								.build();
-						
+
 						return getBaseMethodSpec()
 								.returns(boolean.class)
 								.addCode(body)
@@ -131,32 +131,25 @@ public class GetDefaultMethodGenerator {
 				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
-						try {
-							final String rawDimensionValue = getLiteralFromAnnotation(anno, "value");
+						final String unitLiteral = getLiteralFromAnnotation(anno, "unit");
+						final DimensionUnit unitEnum = (DimensionUnit) EnumUtil.getEnumConstant(unitLiteral);
 
-							final String unitLiteral = getLiteralFromAnnotation(anno, "unit");
-							final DimensionUnit unit = (DimensionUnit) EnumUtil.getEnumConstant(unitLiteral);
+						final CodeBlock body = CodeBlock
+								.builder()
+								.addStatement(
+										"$T metrics = context.getResources().getDisplayMetrics()",
+										AndroidClassNames.DISPLAY_METRICS)
+								.addStatement(
+										"return $1T.applyDimension($1T.$2L, $3L, metrics)",
+										AndroidClassNames.TYPED_VALUE,
+										getComplexUnitLiteral(unitEnum),
+										getLiteralFromAnnotation(anno, "value"))
+								.build();
 
-							final CodeBlock body = CodeBlock
-									.builder()
-									.addStatement(
-											"$T metrics = context.getResources().getDisplayMetrics()",
-											AndroidClassNames.DISPLAY_METRICS)
-									.addStatement(
-											"return $1T.applyDimension($1T.$2L, $3L, metrics)",
-											AndroidClassNames.TYPED_VALUE,
-											getComplexUnitLiteral(unit),
-											rawDimensionValue)
-									.build();
-
-							return getBaseMethodSpec()
-									.returns(float.class)
-									.addCode(body)
-									.build();
-
-						} catch (final ClassNotFoundException e) {
-							throw new RuntimeException("DimensionUnit class not found. This should never happen.");
-						}
+						return getBaseMethodSpec()
+								.returns(float.class)
+								.addCode(body)
+								.build();
 					}
 				}
 		);
@@ -458,7 +451,7 @@ public class GetDefaultMethodGenerator {
 			throw new RuntimeException(e);
 		}
 	}
-	
+
 	private MethodSpec.Builder getBaseMethodSpec() {
 		return MethodSpec
 				.methodBuilder("getDefault")
