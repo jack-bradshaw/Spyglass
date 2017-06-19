@@ -33,16 +33,27 @@
 	<declare-styleable name="ColorHandlerTestTargetBase">
 		<attr name="colorHandlerAttr" format="color"/>
 	</declare-styleable>
-	
+
 	<declare-styleable name="ColorStateListHandlerTestTargetBase">
 		<attr name="colorStateListHandlerAttr" format="color"/>
 	</declare-styleable>
-	
+
 	<declare-styleable name="DimensionHandlerTestTargetBase">
 		<attr name="dimensionHandlerAttr" format="dimension"/>
 	</declare-styleable>
 
 	<declare-styleable name="DrawableHandlerTestTargetBase">
 		<attr name="drawableHandlerAttr" format="reference"/>
+	</declare-styleable>
+
+	<declare-styleable name="EnumConstantHandlerTestTargetBase">
+		<attr name="fruit" format="enum">
+			<enum name="apple" value="0"/>
+			<enum name="pear" value="1"/>
+			<enum name="orange" value="2"/>
+			<enum name="banana" value="3"/>
+			<enum name="watermelon" value="4"/>
+			<enum name="invalid_fruit" value="5"/>
+		</attr>
 	</declare-styleable>
 </resources>
