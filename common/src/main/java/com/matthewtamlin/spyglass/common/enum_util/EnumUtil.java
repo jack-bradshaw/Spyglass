@@ -60,12 +60,14 @@ public class EnumUtil {
 
 		final Class<?> enumClass = getClassAndWrapNotFoundException(fullyQualifiedClassName);
 
-		// Enum constants will be null if class is not an enum
 		if (enumClass.getEnumConstants() == null) {
-			throw new EnumInstantiationException("Class \'" + fullyQualifiedClassName + "\' is not an enum.");
-		} else {
-			return (Class) enumClass;
+			throw new EnumInstantiationException(String.format(
+					"Class \'%1$s\' is not an enum.",
+					fullyQualifiedClassName));
+		
 		}
+
+		return (Class) enumClass;
 	}
 
 	private static Class<?> getClassAndWrapNotFoundException(final String fullyQualifiedClassName) {
