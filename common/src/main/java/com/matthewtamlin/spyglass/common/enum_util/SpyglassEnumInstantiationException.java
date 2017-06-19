@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.common;
+package com.matthewtamlin.spyglass.common.enum_util;
 
 public class SpyglassEnumInstantiationException extends RuntimeException {
 	public SpyglassEnumInstantiationException() {
