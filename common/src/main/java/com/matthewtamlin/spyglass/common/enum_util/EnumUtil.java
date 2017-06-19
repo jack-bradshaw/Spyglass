@@ -2,42 +2,40 @@ package com.matthewtamlin.spyglass.common.enum_util;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
-import static com.matthewtamlin.java_utilities.checkers.IntChecker.checkGreaterThanOrEqualTo;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
 public class EnumUtil {
-	private static final String CLASS_NOT_FOUND_MESSAGE = "Could not find class \'%1$s\'.";
-
-	private static final String CONSTANT_NOT_FOUND_MESSAGE = "Could not find constant \'%1$s\' in enum \'%2$s\'.";
-
 	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal) {
 		checkNotNull(clazz, "Argument \'clazz\' cannot be null.");
-		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \'ordinal\' cannot be less than 0.");
 
 		final T[] constants = clazz.getEnumConstants();
 
-		if (ordinal < 0 || ordinal > constants.length - 1) {
-			throw new IllegalArgumentException(String.format(
-					"Ordinal must be between 0 and %1$s for enum class %2$s.",
-					constants.length - 1,
-					clazz));
+		if (ordinal < 0) {
+			throw new EnumInstantiationException(String.format(
+					"Ordinal must be greater than 0 for enum \'%1$s\'. Found %2$s.",
+					clazz,
+					ordinal));
+		}
+
+		if (ordinal > constants.length - 1) {
+			throw new EnumInstantiationException(String.format(
+					"Ordinal must be less than %1$s for enum \'%2$s\'. Found %3$s.",
+					constants.length,
+					clazz,
+					ordinal));
 		}
 
 		return constants[ordinal];
 	}
 
-	public static Enum<?> getEnumConstant(final String fullyQualifiedClassName, final int ordinal)
-			throws ClassNotFoundException {
-
+	public static Enum<?> getEnumConstant(final String fullyQualifiedClassName, final int ordinal) {
 		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
-		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \'ordinal\' cannot be less than 0.");
 
-		final Class enumClass = getEnumClass(fullyQualifiedClassName);
-		return getEnumConstant(enumClass, ordinal);
+		return getEnumConstant(getEnumClass(fullyQualifiedClassName), ordinal);
 	}
 
-	public static Enum<?> getEnumConstant(final String fullyQualifiedConstantName) throws ClassNotFoundException {
+	public static Enum<?> getEnumConstant(final String fullyQualifiedConstantName) {
 		checkNotNull(fullyQualifiedConstantName, "Argument \'fullyQualifiedConstantName\' cannot be null.");
 
 		final int lastDotIndex = fullyQualifiedConstantName.lastIndexOf(".");
@@ -50,25 +48,30 @@ public class EnumUtil {
 			}
 		}
 
-		throw new RuntimeException(String.format(
+		throw new EnumInstantiationException(String.format(
 				"Could not find constant \'%1$s\' in enum \'%2$s\'.",
 				constantName,
 				className));
 	}
 
 	@SuppressWarnings("unchecked") // Managed internally by check for null constants
-	public static Class<? extends Enum<?>> getEnumClass(final String fullyQualifiedClassName)
-			throws ClassNotFoundException {
-
+	public static Class<? extends Enum<?>> getEnumClass(final String fullyQualifiedClassName) {
 		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
 
-		final Class enumClass = (Class) Class.forName(fullyQualifiedClassName);
+		final Class<?> enumClass = getClassAndWrapNotFoundException(fullyQualifiedClassName);
 
-		// Enum constants will be null if class is not an enum
 		if (enumClass.getEnumConstants() == null) {
-			throw new IllegalArgumentException("Argument \'fullyQualifiedClassName\' must refer to an enum type.");
-		} else {
-			return enumClass;
+			throw new EnumInstantiationException("Class \'%" + fullyQualifiedClassName + "\' is not an enum.");
+		}
+
+		return (Class) enumClass;
+	}
+
+	private static Class<?> getClassAndWrapNotFoundException(final String fullyQualifiedClassName) {
+		try {
+			return Class.forName(fullyQualifiedClassName);
+		} catch (final ClassNotFoundException e) {
+			throw new EnumInstantiationException("Class \'" + fullyQualifiedClassName + "\' could not be found.", e);
 		}
 	}
 }
