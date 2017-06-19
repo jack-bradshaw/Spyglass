@@ -34,8 +34,7 @@ public class EnumUtil {
 	public static Enum<?> getEnumConstant(final String fullyQualifiedClassName, final int ordinal) {
 		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
 
-		final Class enumClass = getEnumClass(fullyQualifiedClassName);
-		return getEnumConstant(enumClass, ordinal);
+		return getEnumConstant(getEnumClass(fullyQualifiedClassName), ordinal);
 	}
 
 	public static Enum<?> getEnumConstant(final String fullyQualifiedConstantName) {
