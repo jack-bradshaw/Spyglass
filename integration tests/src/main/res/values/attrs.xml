@@ -56,4 +56,12 @@
 			<enum name="invalid_fruit" value="5"/>
 		</attr>
 	</declare-styleable>
+
+	<declare-styleable name="EnumOrdinalHandlerTestTargetBase">
+		<attr name="language" format="enum">
+			<enum name="java" value="0"/>
+			<enum name="c" value="1"/>
+			<enum name="python" value="2"/>
+		</attr>
+	</declare-styleable>
 </resources>
