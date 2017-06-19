@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.common;
 import com.matthewtamlin.spyglass.common.enum_util.EnumInstantiationException;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -19,23 +20,17 @@ public class TestEnumUtil {
 
 	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_classAndOrdinalVariant_negativeOrdinal() {
-		final Class<? extends Enum<?>> enumClass = Vehicle.class;
-
-		EnumUtil.getEnumConstant(enumClass, -1);
+		EnumUtil.getEnumConstant(Vehicle.class, -1);
 	}
 
 	@Test(expected = EnumInstantiationException.class)
 	public void testGetEnumConstant_classAndOrdinalVariant_excessiveOrdinal() {
-		final Class<? extends Enum<?>> enumClass = Vehicle.class;
-
-		EnumUtil.getEnumConstant(enumClass, Vehicle.values().length);
+		EnumUtil.getEnumConstant(Vehicle.class, Vehicle.values().length);
 	}
 
 	@Test
 	public void testGetEnumConstant_classAndOrdinalVariant_validClassAndOrdinal() {
-		final Class<? extends Enum<?>> enumClass = Vehicle.class;
-
-		final Vehicle v = (Vehicle) EnumUtil.getEnumConstant(enumClass, 0);
+		final Vehicle v = EnumUtil.getEnumConstant(Vehicle.class, 0);
 
 		assertThat(v, is(Vehicle.values()[0]));
 	}
