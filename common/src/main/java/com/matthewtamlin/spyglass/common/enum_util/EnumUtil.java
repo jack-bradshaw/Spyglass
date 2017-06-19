@@ -12,20 +12,18 @@ public class EnumUtil {
 		final T[] constants = clazz.getEnumConstants();
 
 		if (ordinal < 0) {
-			throw new EnumInstantiationException(
-					String.format(
-							"Ordinal must be greater than 0 for enum \'%1$s\'. Found %2$s.",
-							clazz,
-							ordinal));
+			throw new EnumInstantiationException(String.format(
+					"Ordinal must be greater than 0 for enum \'%1$s\'. Found %2$s.",
+					clazz,
+					ordinal));
 		}
 
 		if (ordinal > constants.length - 1) {
-			throw new EnumInstantiationException(
-					String.format(
-							"Ordinal must be less than %1$s for enum \'%2$s\'. Found %3$s.",
-							constants.length,
-							clazz,
-							ordinal));
+			throw new EnumInstantiationException(String.format(
+					"Ordinal must be less than %1$s for enum \'%2$s\'. Found %3$s.",
+					constants.length,
+					clazz,
+					ordinal));
 		}
 
 		return constants[ordinal];
