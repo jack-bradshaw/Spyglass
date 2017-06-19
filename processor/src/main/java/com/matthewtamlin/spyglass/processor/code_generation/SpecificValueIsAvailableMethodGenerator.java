@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.squareup.javapoet.CodeBlock;
