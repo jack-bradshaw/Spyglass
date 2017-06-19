@@ -16,8 +16,7 @@ import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextArra
 import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHandler;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
-import com.matthewtamlin.spyglass.processor.util.EnumUtil;
-import com.squareup.javapoet.ClassName;
+import com.matthewtamlin.spyglass.common.EnumUtil;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;

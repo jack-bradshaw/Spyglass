@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.util;
+package com.matthewtamlin.spyglass.common;
 
 public enum Vehicle {
 	CAR,

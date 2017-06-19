@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.util;
+package com.matthewtamlin.spyglass.common;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
