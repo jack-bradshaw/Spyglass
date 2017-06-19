@@ -7,10 +7,6 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @Tested(testMethod = "automated")
 public class EnumUtil {
-	private static final String CLASS_NOT_FOUND_MESSAGE = "Could not find class \'%1$s\'.";
-
-	private static final String CONSTANT_NOT_FOUND_MESSAGE = "Could not find constant \'%1$s\' in enum \'%2$s\'.";
-
 	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal) {
 		checkNotNull(clazz, "Argument \'clazz\' cannot be null.");
 
