@@ -13,31 +13,29 @@ public class EnumUtil {
 
 	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal) {
 		checkNotNull(clazz, "Argument \'clazz\' cannot be null.");
-		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \'ordinal\' cannot be less than 0.");
 
 		final T[] constants = clazz.getEnumConstants();
 
 		if (ordinal < 0 || ordinal > constants.length - 1) {
-			throw new IllegalArgumentException(String.format(
-					"Ordinal must be between 0 and %1$s for enum class %2$s.",
-					constants.length - 1,
-					clazz));
+			throw new EnumInstantiationException(
+					String.format(
+							"Ordinal must be between 0 and %1$s for enum \'%2$s\'. Requested ordinal was: %3$s.",
+							constants.length - 1,
+							clazz,
+							ordinal));
 		}
 
 		return constants[ordinal];
 	}
 
-	public static Enum<?> getEnumConstant(final String fullyQualifiedClassName, final int ordinal)
-			throws ClassNotFoundException {
-
+	public static Enum<?> getEnumConstant(final String fullyQualifiedClassName, final int ordinal) {
 		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
-		checkGreaterThanOrEqualTo(ordinal, 0, "Argument \'ordinal\' cannot be less than 0.");
 
 		final Class enumClass = getEnumClass(fullyQualifiedClassName);
 		return getEnumConstant(enumClass, ordinal);
 	}
 
-	public static Enum<?> getEnumConstant(final String fullyQualifiedConstantName) throws ClassNotFoundException {
+	public static Enum<?> getEnumConstant(final String fullyQualifiedConstantName) {
 		checkNotNull(fullyQualifiedConstantName, "Argument \'fullyQualifiedConstantName\' cannot be null.");
 
 		final int lastDotIndex = fullyQualifiedConstantName.lastIndexOf(".");
@@ -50,25 +48,31 @@ public class EnumUtil {
 			}
 		}
 
-		throw new RuntimeException(String.format(
+		throw new EnumInstantiationException(String.format(
 				"Could not find constant \'%1$s\' in enum \'%2$s\'.",
 				constantName,
 				className));
 	}
 
 	@SuppressWarnings("unchecked") // Managed internally by check for null constants
-	public static Class<? extends Enum<?>> getEnumClass(final String fullyQualifiedClassName)
-			throws ClassNotFoundException {
-
+	public static Class<? extends Enum<?>> getEnumClass(final String fullyQualifiedClassName) {
 		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
 
-		final Class enumClass = (Class) Class.forName(fullyQualifiedClassName);
+		final Class<?> enumClass = getClassAndWrapNotFoundException(fullyQualifiedClassName);
 
 		// Enum constants will be null if class is not an enum
 		if (enumClass.getEnumConstants() == null) {
-			throw new IllegalArgumentException("Argument \'fullyQualifiedClassName\' must refer to an enum type.");
+			throw new EnumInstantiationException("Class \'" + fullyQualifiedClassName + "\' is not an enum.");
 		} else {
-			return enumClass;
+			return (Class) enumClass;
+		}
+	}
+
+	private static Class<?> getClassAndWrapNotFoundException(final String fullyQualifiedClassName) {
+		try {
+			return Class.forName(fullyQualifiedClassName);
+		} catch (final ClassNotFoundException e) {
+			throw new EnumInstantiationException("Class \'" + fullyQualifiedClassName + "\' could not be found.", e);
 		}
 	}
 }
