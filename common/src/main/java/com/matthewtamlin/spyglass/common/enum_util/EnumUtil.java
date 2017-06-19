@@ -6,7 +6,9 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @Tested(testMethod = "automated")
 public class EnumUtil {
-	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal) {
+	public static <T extends Enum<?>> T getEnumConstant(final Class<T> clazz, final int ordinal)
+			throws EnumInstantiationException{
+
 		checkNotNull(clazz, "Argument \'clazz\' cannot be null.");
 
 		final T[] constants = clazz.getEnumConstants();
@@ -29,13 +31,15 @@ public class EnumUtil {
 		return constants[ordinal];
 	}
 
-	public static Enum<?> getEnumConstant(final String fullyQualifiedClassName, final int ordinal) {
+	public static Enum<?> getEnumConstant(final String fullyQualifiedClassName, final int ordinal)
+			throws EnumInstantiationException{
+
 		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
 
 		return getEnumConstant(getEnumClass(fullyQualifiedClassName), ordinal);
 	}
 
-	public static Enum<?> getEnumConstant(final String fullyQualifiedConstantName) {
+	public static Enum<?> getEnumConstant(final String fullyQualifiedConstantName) throws EnumInstantiationException {
 		checkNotNull(fullyQualifiedConstantName, "Argument \'fullyQualifiedConstantName\' cannot be null.");
 
 		final int lastDotIndex = fullyQualifiedConstantName.lastIndexOf(".");
@@ -55,7 +59,9 @@ public class EnumUtil {
 	}
 
 	@SuppressWarnings("unchecked") // Managed internally by check for null constants
-	public static Class<? extends Enum<?>> getEnumClass(final String fullyQualifiedClassName) {
+	public static Class<? extends Enum<?>> getEnumClass(final String fullyQualifiedClassName)
+			throws EnumInstantiationException {
+
 		checkNotNull(fullyQualifiedClassName, "Argument \'fullyQualifiedClassName\' cannot be null.");
 
 		final Class<?> enumClass = getClassAndWrapNotFoundException(fullyQualifiedClassName);
@@ -67,7 +73,9 @@ public class EnumUtil {
 		return (Class) enumClass;
 	}
 
-	private static Class<?> getClassAndWrapNotFoundException(final String fullyQualifiedClassName) {
+	private static Class<?> getClassAndWrapNotFoundException(final String fullyQualifiedClassName)
+			throws EnumInstantiationException {
+		
 		try {
 			return Class.forName(fullyQualifiedClassName);
 		} catch (final ClassNotFoundException e) {
