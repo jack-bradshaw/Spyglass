@@ -2,19 +2,19 @@ package com.matthewtamlin.spyglass.processor.annotation_utils.value_handler_anno
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.ColorStateListHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.DimensionHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.DrawableHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.EnumConstantHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.EnumOrdinalHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.FloatHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.FractionHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.IntegerHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextArrayHandler;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.TextHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorStateListHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.DrawableHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.EnumOrdinalHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FloatHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextHandler;
 
 import org.junit.Before;
 import org.junit.Test;

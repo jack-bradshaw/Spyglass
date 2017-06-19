@@ -1,26 +1,26 @@
 package com.matthewtamlin.spyglass.processor.code_generation.get_default_method_generator;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBooleanResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToColorStateListResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimension;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDimensionResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToDrawableResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToEnumConstant;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFloat;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToFractionResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToInteger;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToIntegerResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToNull;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToStringResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextArrayResource;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToTextResource;
-import com.matthewtamlin.spyglass.annotations.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBooleanResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToColorResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToDimension;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToDimensionResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToDrawableResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToEnumConstant;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToFloat;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToFractionResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToInteger;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToIntegerResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToNull;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToStringResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
 
-import static com.matthewtamlin.spyglass.annotations.units.DimensionUnit.DP;
+import static com.matthewtamlin.spyglass.common.annotations.units.DimensionUnit.DP;
 
 public class Data {
 	@ElementId("no default annotation")

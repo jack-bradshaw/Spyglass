@@ -2,8 +2,8 @@ package com.matthewtamlin.spyglass.processor.annotation_utils.call_handler_annot
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
-import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
 
 import org.junit.Before;
 import org.junit.Test;
