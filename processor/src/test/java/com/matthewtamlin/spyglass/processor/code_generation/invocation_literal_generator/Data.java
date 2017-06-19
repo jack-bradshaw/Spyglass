@@ -1,16 +1,16 @@
 package com.matthewtamlin.spyglass.processor.code_generation.invocation_literal_generator;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseBoolean;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseByte;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseChar;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseDouble;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseFloat;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseInt;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseLong;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseNull;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseShort;
-import com.matthewtamlin.spyglass.annotations.use_annotations.UseString;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseBoolean;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseByte;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseDouble;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseFloat;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseInt;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
 
 public class Data {
 	public static final String PLACEHOLDER = "value";

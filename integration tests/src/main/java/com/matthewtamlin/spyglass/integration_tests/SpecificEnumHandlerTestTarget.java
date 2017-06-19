@@ -6,7 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 
 public class SpecificEnumHandlerTestTarget extends View {

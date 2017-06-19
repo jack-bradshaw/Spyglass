@@ -1,9 +1,9 @@
 package com.matthewtamlin.spyglass.processor.code_generation.specific_value_is_available_method_generator;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
-import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
 
 public class Data {
 	@ElementId("no call handler")
