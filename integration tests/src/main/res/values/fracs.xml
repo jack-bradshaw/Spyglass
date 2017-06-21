@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<fraction name="base_fraction_for_testing" type="fraction">5%</fraction>
+	<fraction name="parent_fraction_for_testing" type="fraction">1000%p</fraction>
+</resources>
