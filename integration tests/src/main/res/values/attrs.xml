@@ -64,4 +64,8 @@
 			<enum name="python" value="2"/>
 		</attr>
 	</declare-styleable>
+
+	<declare-styleable name="FloatHandlerTestTargetBase">
+		<attr name="floatHandlerAttr" format="float"/>
+	</declare-styleable>
 </resources>
