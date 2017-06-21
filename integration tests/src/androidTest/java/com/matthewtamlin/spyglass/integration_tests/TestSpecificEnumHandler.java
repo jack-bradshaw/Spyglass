@@ -7,7 +7,7 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 
 import org.junit.Before;
 import org.junit.Rule;

@@ -12,7 +12,7 @@ import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithDefaultT
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithDefaultToBooleanResource;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 
 import org.junit.Before;
 import org.junit.Rule;
