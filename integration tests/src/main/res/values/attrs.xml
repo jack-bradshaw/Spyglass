@@ -68,4 +68,8 @@
 	<declare-styleable name="FloatHandlerTestTargetBase">
 		<attr name="floatHandlerAttr" format="float"/>
 	</declare-styleable>
+
+	<declare-styleable name="FractionHandlerTestTargetBase">
+		<attr name="fractionHandlerAttr" format="fraction"/>
+	</declare-styleable>
 </resources>
