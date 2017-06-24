@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
+import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
@@ -14,15 +15,17 @@ import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToI
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToIntegerResource;
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
+@RunWith(AndroidJUnit4.class)
 public class TestColorHandler {
 	@Rule
 	public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();

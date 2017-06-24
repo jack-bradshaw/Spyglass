@@ -64,4 +64,20 @@
 			<enum name="python" value="2"/>
 		</attr>
 	</declare-styleable>
+
+	<declare-styleable name="FloatHandlerTestTargetBase">
+		<attr name="floatHandlerAttr" format="float"/>
+	</declare-styleable>
+
+	<declare-styleable name="FractionHandlerTestTargetBase">
+		<attr name="fractionHandlerAttr" format="fraction"/>
+	</declare-styleable>
+	
+	<declare-styleable name="IntegerHandlerTestTargetBase">
+		<attr name="integerHandlerAttr" format="integer"/>
+	</declare-styleable>
+
+	<declare-styleable name="StringHandlerTestTargetBase">
+		<attr name="stringHandlerAttr" format="string"/>
+	</declare-styleable>
 </resources>

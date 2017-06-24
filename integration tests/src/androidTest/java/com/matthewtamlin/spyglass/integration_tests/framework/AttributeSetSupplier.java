@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.testing_utilities;
+package com.matthewtamlin.spyglass.integration_tests.framework;
 
 import android.content.Context;
 import android.util.AttributeSet;
