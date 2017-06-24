@@ -20,7 +20,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.integration_tests.testing_utilities.AttributeSetSupplier.fromXml;
+import static com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier.fromXml;
 
 @RunWith(AndroidJUnit4.class)
 public class TestDrawableHandler {
