@@ -76,4 +76,8 @@
 	<declare-styleable name="IntegerHandlerTestTargetBase">
 		<attr name="integerHandlerAttr" format="integer"/>
 	</declare-styleable>
+
+	<declare-styleable name="StringHandlerTestTargetBase">
+		<attr name="stringHandlerAttr" format="string"/>
+	</declare-styleable>
 </resources>
