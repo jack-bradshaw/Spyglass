@@ -72,4 +72,8 @@
 	<declare-styleable name="FractionHandlerTestTargetBase">
 		<attr name="fractionHandlerAttr" format="fraction"/>
 	</declare-styleable>
+	
+	<declare-styleable name="IntegerHandlerTestTargetBase">
+		<attr name="integerHandlerAttr" format="integer"/>
+	</declare-styleable>
 </resources>
