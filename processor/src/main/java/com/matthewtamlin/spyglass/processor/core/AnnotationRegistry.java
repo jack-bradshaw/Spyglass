@@ -41,7 +41,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextHandler;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;
@@ -66,8 +65,7 @@ public class AnnotationRegistry {
 			FractionHandler.class,
 			IntegerHandler.class,
 			StringHandler.class,
-			TextArrayHandler.class,
-			TextHandler.class
+			TextArrayHandler.class
 	);
 
 	public static final Set<Class<? extends Annotation>> DEFAULT_ANNOTATIONS = unmodifiableSetOf(

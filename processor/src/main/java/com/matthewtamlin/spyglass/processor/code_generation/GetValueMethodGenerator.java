@@ -13,7 +13,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextHandler;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
@@ -272,25 +271,6 @@ public class GetValueMethodGenerator {
 
 						return getBaseMethodSpec()
 								.returns(CharSequence[].class)
-								.addCode(body).build();
-					}
-				}
-		);
-
-		methodSpecSuppliers.put(
-				TextHandler.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
-					@Override
-					public MethodSpec supplyFor(final AnnotationMirror anno) {
-						final CodeBlock body = CodeBlock
-								.builder()
-								.addStatement(
-										"return attrs.getText($L)",
-										getLiteralFromAnnotation(anno, "attributeId"))
-								.build();
-
-						return getBaseMethodSpec()
-								.returns(CharSequence.class)
 								.addCode(body).build();
 					}
 				}
