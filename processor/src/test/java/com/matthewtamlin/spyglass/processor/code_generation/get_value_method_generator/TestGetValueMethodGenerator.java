@@ -213,18 +213,6 @@ public class TestGetValueMethodGenerator {
 		checkCompiles(generatedMethod);
 	}
 
-	@Test
-	public void testGetMethod_textHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("text");
-		final AnnotationMirror mirror = getAnnotationMirror(element, TextHandler.class);
-
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
-
-		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.get(CharSequence.class));
-		checkCompiles(generatedMethod);
-	}
-
 	private void checkMethodSignature(final MethodSpec generatedMethod, final TypeName returnType) {
 		assertThat(generatedMethod.hasModifier(Modifier.PUBLIC), is(true));
 		assertThat(generatedMethod.returnType, is(returnType));
