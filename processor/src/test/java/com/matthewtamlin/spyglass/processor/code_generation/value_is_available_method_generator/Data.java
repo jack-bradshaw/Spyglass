@@ -13,8 +13,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextHandler;
 
 public class Data {
 	@ElementId("no value handler")
@@ -66,11 +64,9 @@ public class Data {
 	public void withString() {}
 
 	@ElementId("text array")
-	@TextArrayHandler(attributeId = 1)
 	public void withTextArray() {}
 
 	@ElementId("text")
-	@TextHandler(attributeId = 1)
 	public void withText() {}
 
 	public enum PlaceholderEnum {}

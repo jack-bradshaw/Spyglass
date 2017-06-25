@@ -31,8 +31,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextHandler;
 
 import static com.matthewtamlin.spyglass.common.annotations.units.DimensionUnit.DP;
 
@@ -82,11 +80,9 @@ public class Data {
 	public void method11() {}
 
 	@ElementId("text array")
-	@TextArrayHandler(attributeId = 0)
 	public void method12() {}
 
 	@ElementId("text")
-	@TextHandler(attributeId = 0)
 	public void method13() {}
 
 	@ElementId("no value handler annotation")
