@@ -56,11 +56,11 @@ public class WithDefaultToEnumConstantOfWatermelon extends EnumConstantHandlerTe
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToEnumConstantOfWatermelon.class)
+				.withStyleableResource(R.styleable.EnumConstantHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.EnumConstantHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

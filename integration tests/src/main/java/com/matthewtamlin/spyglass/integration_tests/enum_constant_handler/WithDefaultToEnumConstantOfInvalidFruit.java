@@ -56,11 +56,11 @@ public class WithDefaultToEnumConstantOfInvalidFruit extends EnumConstantHandler
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToEnumConstantOfInvalidFruit.class)
+				.withStyleableResource(R.styleable.EnumConstantHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.EnumConstantHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

@@ -51,11 +51,11 @@ public class WithDefaultToBoolean extends BooleanHandlerTestTargetBase {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToBoolean.class)
+				.withStyleableResource(R.styleable.BooleanHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.BooleanHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

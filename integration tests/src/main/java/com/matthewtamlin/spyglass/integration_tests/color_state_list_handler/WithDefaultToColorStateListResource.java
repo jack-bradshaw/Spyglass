@@ -54,11 +54,11 @@ public class WithDefaultToColorStateListResource extends ColorStateListHandlerTe
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToColorStateListResource.class)
+				.withStyleableResource(R.styleable.ColorStateListHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.ColorStateListHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}
