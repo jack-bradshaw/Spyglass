@@ -51,11 +51,11 @@ public class WithDefaultToFractionUsingBaseFractionAndBaseMultiplier extends Flo
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToFractionUsingBaseFractionAndBaseMultiplier.class)
+				.withStyleableResource(R.styleable.FloatHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.FloatHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

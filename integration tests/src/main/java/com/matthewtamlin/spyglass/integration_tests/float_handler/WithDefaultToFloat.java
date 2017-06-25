@@ -51,11 +51,11 @@ public class WithDefaultToFloat extends FloatHandlerTestTargetBase {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToFloat.class)
+				.withStyleableResource(R.styleable.FloatHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.FloatHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

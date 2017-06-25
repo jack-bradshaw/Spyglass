@@ -53,11 +53,11 @@ public class WithDefaultToIntegerResource extends EnumOrdinalHandlerTestTargetBa
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToIntegerResource.class)
+				.withStyleableResource(R.styleable.EnumOrdinalHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.EnumOrdinalHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

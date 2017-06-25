@@ -52,11 +52,11 @@ public class WithDefaultToSpDimension extends DimensionHandlerTestTargetBase {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToSpDimension.class)
+				.withStyleableResource(R.styleable.DimensionHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.DimensionHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

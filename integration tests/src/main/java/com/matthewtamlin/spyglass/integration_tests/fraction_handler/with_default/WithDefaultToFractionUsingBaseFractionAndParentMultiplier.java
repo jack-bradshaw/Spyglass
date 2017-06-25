@@ -56,11 +56,11 @@ public class WithDefaultToFractionUsingBaseFractionAndParentMultiplier extends F
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToFractionUsingBaseFractionAndParentMultiplier.class)
+				.withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

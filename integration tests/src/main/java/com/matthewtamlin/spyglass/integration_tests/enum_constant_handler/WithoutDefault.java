@@ -50,11 +50,11 @@ public class WithoutDefault extends EnumConstantHandlerTestTargetBase {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithoutDefault.class)
+				.withStyleableResource(R.styleable.EnumConstantHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.EnumConstantHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}
