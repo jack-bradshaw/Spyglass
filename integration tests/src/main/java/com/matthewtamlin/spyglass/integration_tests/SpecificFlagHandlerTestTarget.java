@@ -52,11 +52,11 @@ public class SpecificFlagHandlerTestTarget extends View {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(SpecificFlagHandlerTestTarget.class)
+				.withStyleableResource(R.styleable.SpecificFlagHandlerTestTarget)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.SpecificFlagHandlerTestTarget)
 				.build()
 				.passDataToMethods();
 	}

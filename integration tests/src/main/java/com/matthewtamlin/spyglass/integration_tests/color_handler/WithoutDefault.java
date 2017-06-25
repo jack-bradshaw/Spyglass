@@ -47,11 +47,11 @@ public class WithoutDefault extends ColorHandlerTestTargetBase {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithoutDefault.class)
+				.withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

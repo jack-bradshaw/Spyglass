@@ -53,11 +53,11 @@ public class Superclass extends View {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(Superclass.class)
+				.withStyleableResource(R.styleable.Superclass)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.Superclass)
 				.build()
 				.passDataToMethods();
 	}

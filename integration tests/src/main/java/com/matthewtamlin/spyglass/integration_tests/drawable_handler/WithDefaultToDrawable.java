@@ -50,11 +50,11 @@ public class WithDefaultToDrawable extends DrawableHandlerTestTargetBase{
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToDrawable.class)
+				.withStyleableResource(R.styleable.DrawableHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.DrawableHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

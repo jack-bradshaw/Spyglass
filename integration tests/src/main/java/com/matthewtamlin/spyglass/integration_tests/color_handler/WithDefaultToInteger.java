@@ -51,11 +51,11 @@ public class WithDefaultToInteger extends ColorHandlerTestTargetBase {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToInteger.class)
+				.withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

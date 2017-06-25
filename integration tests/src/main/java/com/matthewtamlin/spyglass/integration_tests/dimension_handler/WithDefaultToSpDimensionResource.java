@@ -49,11 +49,11 @@ public class WithDefaultToSpDimensionResource extends DimensionHandlerTestTarget
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithDefaultToSpDimensionResource.class)
+				.withStyleableResource(R.styleable.DimensionHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.DimensionHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

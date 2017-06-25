@@ -52,11 +52,11 @@ public class HandlerUsingNoMultiplier extends FractionHandlerTestTargetBase {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(HandlerUsingNoMultiplier.class)
+				.withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}
