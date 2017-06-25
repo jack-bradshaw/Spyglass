@@ -52,11 +52,11 @@ public class WithoutDefault extends EnumOrdinalHandlerTestTargetBase {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(WithoutDefault.class)
+				.withStyleableResource(R.styleable.EnumOrdinalHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.EnumOrdinalHandlerTestTargetBase)
 				.build()
 				.passDataToMethods();
 	}

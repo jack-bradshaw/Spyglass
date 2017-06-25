@@ -52,11 +52,11 @@ public class SpecificEnumHandlerTestTarget extends View {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(SpecificEnumHandlerTestTarget.class)
+				.withStyleableResource(R.styleable.SpecificEnumHandlerTestTarget)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.SpecificEnumHandlerTestTarget)
 				.build()
 				.passDataToMethods();
 	}

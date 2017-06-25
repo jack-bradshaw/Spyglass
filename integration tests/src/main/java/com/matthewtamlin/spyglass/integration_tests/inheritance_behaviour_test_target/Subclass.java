@@ -52,11 +52,11 @@ public class Subclass extends Superclass {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(Subclass.class)
+				.withStyleableResource(R.styleable.Subclass)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.Subclass)
 				.build()
 				.passDataToMethods();
 	}

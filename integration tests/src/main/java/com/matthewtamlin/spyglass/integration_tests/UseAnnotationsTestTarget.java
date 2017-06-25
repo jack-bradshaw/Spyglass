@@ -112,11 +112,11 @@ public class UseAnnotationsTestTarget extends View {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(UseAnnotationsTestTarget.class)
+				.withStyleableResource(R.styleable.UseAnnotationsTestTarget)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
 				.withDefStyleRes(defStyleRes)
-				.withStyleableResource(R.styleable.UseAnnotationsTestTarget)
 				.build()
 				.passDataToMethods();
 	}
