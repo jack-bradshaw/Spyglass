@@ -31,8 +31,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextHandler;
 
 import static com.matthewtamlin.spyglass.common.annotations.units.DimensionUnit.DP;
 
@@ -74,8 +72,6 @@ public class Data {
 	@FractionHandler(attributeId = 0)
 	@IntegerHandler(attributeId = 0)
 	@StringHandler(attributeId = 0)
-	@TextArrayHandler(attributeId = 0)
-	@TextHandler(attributeId = 0)
 	public void method3() {}
 
 	private enum PlaceholderEnum {}

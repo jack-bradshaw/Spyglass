@@ -18,8 +18,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextHandler;
 import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker;
 import com.squareup.javapoet.ClassName;
