@@ -167,16 +167,6 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_textArrayHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text array");
-
-		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
-
-		assertThat(mirror, is(notNullValue()));
-		assertThat(mirror.getAnnotationType().toString(), is(TextArrayHandler.class.getName()));
-	}
-
-	@Test
 	public void testGetValueHandlerAnnotationMirror_noValueHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no value handler annotation");
 
@@ -283,15 +273,6 @@ public class TestValueHandlerAnnotationUtil {
 	@Test
 	public void testGetValueHandlerAnnotation_stringHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
-	}
-
-	@Test
-	public void testGetValueHandlerAnnotation_textArrayHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text array");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
 

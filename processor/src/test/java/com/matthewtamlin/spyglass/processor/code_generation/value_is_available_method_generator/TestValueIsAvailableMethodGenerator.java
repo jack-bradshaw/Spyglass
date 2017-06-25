@@ -15,7 +15,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
 import com.matthewtamlin.spyglass.processor.code_generation.ValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker;
 import com.squareup.javapoet.JavaFile;
@@ -202,18 +201,6 @@ public class TestValueIsAvailableMethodGenerator {
 	public void testGetMethod_stringHandlerAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("string");
 		final AnnotationMirror mirror = getAnnotationMirror(element, StringHandler.class);
-
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
-
-		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
-		checkCompiles(generatedMethod);
-	}
-
-	@Test
-	public void testGetMethod_textArrayHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("text array");
-		final AnnotationMirror mirror = getAnnotationMirror(element, TextArrayHandler.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
