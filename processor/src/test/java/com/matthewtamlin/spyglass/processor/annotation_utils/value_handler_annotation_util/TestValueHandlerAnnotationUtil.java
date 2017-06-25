@@ -13,8 +13,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextHandler;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -169,26 +167,6 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_textArrayHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text array");
-
-		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
-
-		assertThat(mirror, is(notNullValue()));
-		assertThat(mirror.getAnnotationType().toString(), is(TextArrayHandler.class.getName()));
-	}
-
-	@Test
-	public void testGetValueHandlerAnnotationMirror_textHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text");
-
-		final AnnotationMirror mirror = getValueHandlerAnnotationMirror(element);
-
-		assertThat(mirror, is(notNullValue()));
-		assertThat(mirror.getAnnotationType().toString(), is(TextHandler.class.getName()));
-	}
-
-	@Test
 	public void testGetValueHandlerAnnotationMirror_noValueHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no value handler annotation");
 
@@ -295,24 +273,6 @@ public class TestValueHandlerAnnotationUtil {
 	@Test
 	public void testGetValueHandlerAnnotation_stringHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
-	}
-
-	@Test
-	public void testGetValueHandlerAnnotation_textArrayHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text array");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
-	}
-
-	@Test
-	public void testGetValueHandlerAnnotation_textHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text");
 
 		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
 

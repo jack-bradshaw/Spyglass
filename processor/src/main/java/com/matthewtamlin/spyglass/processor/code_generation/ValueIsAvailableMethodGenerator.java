@@ -12,8 +12,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextArrayHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.TextHandler;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.squareup.javapoet.CodeBlock;
@@ -239,36 +237,6 @@ public class ValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"return attrs.hasValue($L)",
-										getLiteralFromAnnotation(anno, "attributeId"))
-								.build();
-					}
-				}
-		);
-
-		methodBodySuppliers.put(
-				TextArrayHandler.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
-								.builder()
-								.addStatement(
-										"return attrs.getTextArray($L) != null",
-										getLiteralFromAnnotation(anno, "attributeId"))
-								.build();
-					}
-				}
-		);
-
-		methodBodySuppliers.put(
-				TextHandler.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-					@Override
-					public CodeBlock supplyFor(final AnnotationMirror anno) {
-						return CodeBlock
-								.builder()
-								.addStatement(
-										"return attrs.getText($L) != null",
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 					}
