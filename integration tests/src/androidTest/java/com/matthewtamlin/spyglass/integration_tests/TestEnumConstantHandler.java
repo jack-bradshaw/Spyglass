@@ -8,6 +8,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.common.enum_util.EnumInstantiationException;
+import com.matthewtamlin.spyglass.consumer.SpyglassInvocationException;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumConstantHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithDefaultToEnumConstantOfInvalidFruit;
@@ -46,7 +47,7 @@ public class TestEnumConstantHandler {
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(Fruit.PEAR)));
 	}
 
-	@Test(expected = EnumInstantiationException.class)
+	@Test(expected = SpyglassInvocationException.class)
 	@UiThreadTest
 	public void testSpyglassFails_attributePresent_attributeEqualsInvalidFruit() {
 		final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_with_attr_equals_invalid_fruit);
@@ -74,7 +75,7 @@ public class TestEnumConstantHandler {
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(Fruit.WATERMELON)));
 	}
 
-	@Test(expected = EnumInstantiationException.class)
+	@Test(expected = SpyglassInvocationException.class)
 	@UiThreadTest
 	public void testSpyglassFails_attributeMissing_defaultToEnumConstantPresent_defaultToInvalidFruit() {
 		final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_without_attr);
