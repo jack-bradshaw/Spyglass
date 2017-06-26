@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToFractionResource;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FloatHandler;
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.FractionHandlerTestTargetBase;
@@ -46,7 +47,7 @@ public class WithDefaultToFractionUsingBaseFractionAndParentMultiplier extends F
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@FloatHandler(attributeId = R.styleable.FloatHandlerTestTargetBase_floatHandlerAttr)
+	@FractionHandler(attributeId = R.styleable.FloatHandlerTestTargetBase_floatHandlerAttr)
 	@DefaultToFractionResource(resId = R.fraction.base_fraction_for_testing, parentMultiplier = MULTIPLIER)
 	public void handlerMethod(final float f) {
 		setReceivedValue(ReceivedValue.of(f));
