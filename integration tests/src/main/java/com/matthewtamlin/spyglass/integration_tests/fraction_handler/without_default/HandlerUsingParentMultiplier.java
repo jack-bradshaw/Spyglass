@@ -44,7 +44,6 @@ public class HandlerUsingParentMultiplier extends FractionHandlerTestTargetBase 
 	}
 
 	@FractionHandler(attributeId = R.styleable.FloatHandlerTestTargetBase_floatHandlerAttr)
-	@DefaultToFractionResource(resId = R.fraction.base_fraction_for_testing, parentMultiplier = MULTIPLIER)
 	public void handlerMethod(final float f) {
 		setReceivedValue(ReceivedValue.of(f));
 	}
