@@ -13,9 +13,10 @@ import com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTe
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToColorResource;
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToInteger;
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToIntegerResource;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithoutDefault;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -103,5 +104,15 @@ public class TestColorHandler {
 		final ColorHandlerTestTargetBase target = new WithoutDefault(context);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>none()));
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.color_handler_without_attr);
+
+		final ColorHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>of(null)));
 	}
 }

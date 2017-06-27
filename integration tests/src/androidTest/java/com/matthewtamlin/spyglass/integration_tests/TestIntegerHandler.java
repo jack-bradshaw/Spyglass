@@ -12,6 +12,7 @@ import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.integer_handler.IntegerHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.integer_handler.WithDefaultToInteger;
 import com.matthewtamlin.spyglass.integration_tests.integer_handler.WithDefaultToIntegerResource;
+import com.matthewtamlin.spyglass.integration_tests.integer_handler.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.integer_handler.WithoutDefault;
 
 import org.junit.Before;
@@ -73,5 +74,15 @@ public class TestIntegerHandler {
 
 		final int expectedValue = context.getResources().getInteger(R.integer.IntegerForTesting);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.integer_handler_withoutt_attr);
+
+		final IntegerHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>of(null)));
 	}
 }
