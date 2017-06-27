@@ -8,10 +8,11 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-
 import com.matthewtamlin.spyglass.integration_tests.drawable_handler.DrawableHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.drawable_handler.WithDefaultToDrawable;
+import com.matthewtamlin.spyglass.integration_tests.drawable_handler.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.drawable_handler.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
@@ -21,6 +22,8 @@ import org.junit.runner.RunWith;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier.fromXml;
+import static org.hamcrest.MatcherAssert.assertThat;
+import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
 public class TestDrawableHandler {
@@ -82,5 +85,15 @@ public class TestDrawableHandler {
 		} else {
 			return arg1.get().getConstantState().equals(arg2.get().getConstantState());
 		}
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.drawable_handler_without_attr);
+
+		final DrawableHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<Drawable>of(null)));
 	}
 }

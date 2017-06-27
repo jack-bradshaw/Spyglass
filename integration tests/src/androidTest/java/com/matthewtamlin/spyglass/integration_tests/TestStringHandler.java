@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.string_handler.StringHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.string_handler.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.string_handler.WithDefaultToString;
 import com.matthewtamlin.spyglass.integration_tests.string_handler.WithDefaultToStringResource;
 import com.matthewtamlin.spyglass.integration_tests.string_handler.WithoutDefault;
@@ -73,5 +74,15 @@ public class TestStringHandler {
 
 		final String expectedValue = context.getResources().getString(R.string.stringForTesting);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.string_handler_without_attr);
+
+		final StringHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<String>of(null)));
 	}
 }

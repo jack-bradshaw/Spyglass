@@ -7,10 +7,13 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
+import com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.EnumOrdinalHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.WithDefaultToInteger;
 import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.WithDefaultToIntegerResource;
+import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
@@ -73,5 +76,15 @@ public class TestEnumOrdinalHandler {
 
 		final int expectedValue = context.getResources().getInteger(R.integer.IntegerForTesting);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.enum_ordinal_handler_without_attr);
+
+		final EnumOrdinalHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>of(null)));
 	}
 }

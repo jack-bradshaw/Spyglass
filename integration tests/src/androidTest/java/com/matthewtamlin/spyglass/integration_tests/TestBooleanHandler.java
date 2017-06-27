@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler.BooleanHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithDefaultToBoolean;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithDefaultToBooleanResource;
+import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.boolean_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
@@ -19,6 +20,7 @@ import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import static android.R.attr.defaultValue;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
@@ -84,5 +86,15 @@ public class TestBooleanHandler {
 		final boolean defaultValue = context.getResources().getBoolean(R.bool.BooleanForTesting);
 
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(defaultValue)));
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.boolean_handler_without_attr);
+
+		final BooleanHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<Boolean>of(null)));
 	}
 }
