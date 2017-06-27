@@ -7,6 +7,7 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
+import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FloatHandler;
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.FractionHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.with_default.WithDefaultToFractionUsingBaseFractionAndBaseMultiplier;
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.with_default.WithDefaultToFractionUsingBaseFractionAndNoMultiplier;
@@ -14,9 +15,11 @@ import com.matthewtamlin.spyglass.integration_tests.fraction_handler.with_defaul
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.with_default.WithDefaultToFractionUsingParentFractionAndBaseMultiplier;
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.with_default.WithDefaultToFractionUsingParentFractionAndNoMultiplier;
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.with_default.WithDefaultToFractionUsingParentFractionAndParentMultiplier;
+import com.matthewtamlin.spyglass.integration_tests.fraction_handler.with_default.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.without_default.HandlerUsingBaseMultiplier;
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.without_default.HandlerUsingNoMultiplier;
 import com.matthewtamlin.spyglass.integration_tests.fraction_handler.without_default.HandlerUsingParentMultiplier;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
@@ -190,6 +193,16 @@ public class TestFractionHandler {
 
 		final float expectedValue = getParentFractionMultipliedBy(1);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.fraction_handler_without_attr);
+
+		final FractionHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<Float>of(null)));
 	}
 
 	private float getBaseFractionMultipliedBy(final int i) {

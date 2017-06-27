@@ -15,6 +15,7 @@ import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaul
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToInDimensionResource;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToMmDimension;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToMmDimensionResource;
+import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToPtDimension;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToPtDimensionResource;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToPxDimension;
@@ -22,6 +23,7 @@ import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaul
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToSpDimension;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToSpDimensionResource;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
@@ -250,5 +252,15 @@ public class TestDimensionHandler {
 
 		final int expectedValue = (int) context.getResources().getDimension(R.dimen.DimensionForTestingSp);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.dimension_handler_without_attr);
+
+		final DimensionHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>of(null)));
 	}
 }

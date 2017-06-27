@@ -9,11 +9,14 @@ import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.common.enum_util.EnumInstantiationException;
 import com.matthewtamlin.spyglass.consumer.SpyglassInvocationException;
+import com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumConstantHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithDefaultToEnumConstantOfInvalidFruit;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithDefaultToEnumConstantOfWatermelon;
+import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
@@ -81,5 +84,17 @@ public class TestEnumConstantHandler {
 		final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_without_attr);
 
 		final EnumConstantHandlerTestTargetBase target = new WithDefaultToEnumConstantOfInvalidFruit(context, attrs);
+	}
+
+
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.enum_constant_handler_without_attr);
+
+		final EnumConstantHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<Fruit>of(null)));
 	}
 }
