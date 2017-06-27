@@ -14,7 +14,9 @@ import com.matthewtamlin.spyglass.integration_tests.float_handler.WithDefaultToF
 import com.matthewtamlin.spyglass.integration_tests.float_handler.WithDefaultToFractionUsingParentFractionAndBaseMultiplier;
 import com.matthewtamlin.spyglass.integration_tests.float_handler.WithDefaultToFractionUsingParentFractionAndNoMultiplier;
 import com.matthewtamlin.spyglass.integration_tests.float_handler.WithDefaultToFractionUsingParentFractionAndParentMultiplier;
+import com.matthewtamlin.spyglass.integration_tests.float_handler.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.float_handler.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
@@ -136,6 +138,16 @@ public class TestFloatHandler {
 
 		final float expectedValue = getParentFractionMultipliedBy(1);
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
+	}
+
+	@Test
+	@UiThreadTest
+	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.float_handler_without_attr);
+
+		final FloatHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+
+		assertThat(target.getReceivedValue(), is(ReceivedValue.<Float>of(null)));
 	}
 
 	private float getBaseFractionMultipliedBy(final int i) {
