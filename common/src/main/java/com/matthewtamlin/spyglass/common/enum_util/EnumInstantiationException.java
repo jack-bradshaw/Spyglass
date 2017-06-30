@@ -1,6 +1,8 @@
 package com.matthewtamlin.spyglass.common.enum_util;
 
-public class EnumInstantiationException extends RuntimeException {
+import com.matthewtamlin.spyglass.common.exception.InternalSpyglassException;
+
+public class EnumInstantiationException extends InternalSpyglassException {
 	public EnumInstantiationException() {
 		super();
 	}
