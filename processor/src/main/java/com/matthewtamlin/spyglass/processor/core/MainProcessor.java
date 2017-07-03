@@ -60,7 +60,9 @@ public class MainProcessor extends AbstractProcessor {
 	public synchronized void init(final ProcessingEnvironment processingEnvironment) {
 		super.init(processingEnvironment);
 
-		callerGenerator = new CallerGenerator(processingEnvironment.getElementUtils());
+		callerGenerator = new CallerGenerator(
+				processingEnvironment.getElementUtils(),
+				processingEnvironment.getTypeUtils());
 
 		messager = processingEnvironment.getMessager();
 		filer = processingEnvironment.getFiler();
