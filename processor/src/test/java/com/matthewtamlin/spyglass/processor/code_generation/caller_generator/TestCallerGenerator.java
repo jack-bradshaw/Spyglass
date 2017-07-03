@@ -41,7 +41,7 @@ public class TestCallerGenerator {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 		elementSupplier = new IdBasedElementSupplier(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()));
 
-		callerGenerator = new CallerGenerator(compilationRule.getElements());
+		callerGenerator = new CallerGenerator(compilationRule.getElements(), compilationRule.getTypes());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
