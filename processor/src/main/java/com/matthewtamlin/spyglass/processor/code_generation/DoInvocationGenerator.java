@@ -90,24 +90,24 @@ public class DoInvocationGenerator {
 	}
 
 	private CodeBlock getInvocationLineWithoutRecipient(final ExecutableElement method) {
-		final List<CodeBlock> args = getArgumentsFromUseAnnotations(method);
-		return convertCodeBlocksToMethodCall(method, args);
+		final List<CodeBlock> args = getArgumentsForMethod(method);
+		return convertArgumentsToMethodCall(method, args);
 	}
 
 	private CodeBlock getInvocationLineWithRecipient(final ExecutableElement method, final CodeBlock recipientCode) {
-		final List<CodeBlock> args = getArgumentsFromUseAnnotations(method);
+		final List<CodeBlock> args = getArgumentsForMethod(method);
 		args.set(args.indexOf(null), recipientCode);
 
-		return convertCodeBlocksToMethodCall(method, args);
+		return convertArgumentsToMethodCall(method, args);
 	}
 
-	private List<CodeBlock> getArgumentsFromUseAnnotations(final ExecutableElement method) {
+	private List<CodeBlock> getArgumentsForMethod(final ExecutableElement method) {
 		final List<CodeBlock> codeBlocks = new ArrayList<>();
 
 		for (final VariableElement parameter : method.getParameters()) {
 			if (UseAnnotationUtil.hasUseAnnotation(parameter)) {
 				final AnnotationMirror useAnnotationMirror = UseAnnotationUtil.getUseAnnotationMirror(parameter);
-				codeBlocks.add(convertUseAnnotationToCode(useAnnotationMirror));
+				codeBlocks.add(getArgumentForUseAnnotation(useAnnotationMirror));
 			} else {
 				codeBlocks.add(null);
 			}
@@ -116,7 +116,7 @@ public class DoInvocationGenerator {
 		return codeBlocks;
 	}
 
-	private CodeBlock convertUseAnnotationToCode(final AnnotationMirror useAnnotationMirror) {
+	private CodeBlock getArgumentForUseAnnotation(final AnnotationMirror useAnnotationMirror) {
 		final String useAnnotationName = useAnnotationMirror.getAnnotationType().toString();
 
 		if (useAnnotationName.equals(UseShort.class.getName())) {
@@ -140,7 +140,7 @@ public class DoInvocationGenerator {
 		}
 	}
 
-	private CodeBlock convertCodeBlocksToMethodCall(final ExecutableElement method, final List<CodeBlock> args) {
+	private CodeBlock convertArgumentsToMethodCall(final ExecutableElement method, final List<CodeBlock> args) {
 		final CodeBlock.Builder invocationLine = CodeBlock
 				.builder()
 				.add("target.$L(", method.getSimpleName());
