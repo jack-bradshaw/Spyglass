@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.drawable_handler;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.drawable_handler_combinations;
 
 import android.annotation.TargetApi;
 import android.content.Context;
