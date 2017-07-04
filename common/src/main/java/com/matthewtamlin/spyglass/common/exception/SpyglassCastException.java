@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.common.exception;
 
-public class SpyglassCastException extends InternalSpyglassException {
+public class SpyglassCastException extends SpyglassRuntimeException {
 	public SpyglassCastException() {
 		super();
 	}
