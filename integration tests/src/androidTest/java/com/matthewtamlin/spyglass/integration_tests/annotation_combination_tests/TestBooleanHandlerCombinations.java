@@ -25,7 +25,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
-public class TestBooleanHandler {
+public class TestBooleanHandlerCombinations {
 	@Rule
 	public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 

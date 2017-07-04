@@ -20,7 +20,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
-public class TestSpecificEnumHandler {
+public class TestSpecificEnumHandlerCombinations {
 	@Rule
 	public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 
