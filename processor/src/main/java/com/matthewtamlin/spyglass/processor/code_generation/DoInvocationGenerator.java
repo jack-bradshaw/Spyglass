@@ -35,6 +35,8 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static javax.lang.model.element.Modifier.FINAL;
 
 public class DoInvocationGenerator {
+	private static final String ASSIGNABLE_FROM_VALUE_SNIPPET = "$T.class.isAssignableFrom(value.getClass())";
+
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, String>> useAnnoValueSuppliers;
 
 	private final Elements elementUtil;
@@ -233,18 +235,18 @@ public class DoInvocationGenerator {
 		}
 
 		if (isNumber(recipientType) || isCharacter(recipientType)) {
-			final String valueAssignableFrom = "value.getClass().isAssignableFrom($T.class)";
-
 			codeBlockBuilder.nextControlFlow(
-					"else if (" + valueAssignableFrom + " || " + valueAssignableFrom + ")",
+					"else if (" + ASSIGNABLE_FROM_VALUE_SNIPPET + " || " + ASSIGNABLE_FROM_VALUE_SNIPPET + ")",
 					Number.class,
 					Character.class);
 
 			codeBlockBuilder.add(getInvocationLine(method, getNumberConversionCode(recipientType)));
-		} else {
-			codeBlockBuilder
-					.nextControlFlow("else if (value.getClass().isAssignableFrom($T.class))", recipientType);
 
+		} else if (isPrimitive(recipientType)) {
+			codeBlockBuilder.nextControlFlow("else if (" + ASSIGNABLE_FROM_VALUE_SNIPPET + ")", box(recipientType));
+			codeBlockBuilder.add(getInvocationLine(method, CodeBlock.of("($T) value", recipientType)));
+		} else {
+			codeBlockBuilder.nextControlFlow("else if (" + ASSIGNABLE_FROM_VALUE_SNIPPET + ")", recipientType);
 			codeBlockBuilder.add(getInvocationLine(method, CodeBlock.of("($T) value", recipientType)));
 		}
 
@@ -363,6 +365,31 @@ public class DoInvocationGenerator {
 
 		} else {
 			throw new IllegalArgumentException("Argument \'recipientTypeMirror\' is not a number.");
+		}
+	}
+
+	private TypeMirror box(final TypeMirror typeMirror) {
+		final String typeMirrorString = typeMirror.toString();
+
+		switch (typeMirrorString) {
+			case "byte":
+				return elementUtil.getTypeElement(Byte.class.getCanonicalName()).asType();
+			case "char":
+				return elementUtil.getTypeElement(Character.class.getCanonicalName()).asType();
+			case "short":
+				return elementUtil.getTypeElement(Short.class.getCanonicalName()).asType();
+			case "int":
+				return elementUtil.getTypeElement(Integer.class.getCanonicalName()).asType();
+			case "long":
+				return elementUtil.getTypeElement(Long.class.getCanonicalName()).asType();
+			case "float":
+				return elementUtil.getTypeElement(Float.class.getCanonicalName()).asType();
+			case "double":
+				return elementUtil.getTypeElement(Double.class.getCanonicalName()).asType();
+			case "boolean":
+				return elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
+			default:
+				throw new IllegalArgumentException("Argument \'recipientTypeMirror\' is not a number.");
 		}
 	}
 }
