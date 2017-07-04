@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_flag_handler_combinations;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
+import com.matthewtamlin.spyglass.integration_tests.R;
 
 public class SpecificFlagHandlerTestTarget extends View {
 	private boolean handlerCalled = false;

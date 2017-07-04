@@ -8,7 +8,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.SpecificFlagHandlerTestTarget;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_flag_handler_combinations.SpecificFlagHandlerTestTarget;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 
 import org.junit.Before;
