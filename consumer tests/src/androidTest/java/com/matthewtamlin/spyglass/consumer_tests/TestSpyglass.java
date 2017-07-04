@@ -219,7 +219,7 @@ public class TestSpyglass {
 
 	@Test(expected = SpyglassInvocationException.class)
 	@UiThreadTest
-	public void testPassDataToMethods_usingViewWithExceptionThrowingCompanion() {
+	public void testPassDataToMethods_usingViewWithExceptionThrowingCompanion_notInternalException() {
 		final View targetView = new ViewWithExceptionThrowingCompanion(context);
 
 		final Spyglass spyglass = Spyglass
