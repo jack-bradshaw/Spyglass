@@ -22,11 +22,9 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil.getUseAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil.hasUseAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
