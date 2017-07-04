@@ -11,6 +11,9 @@ import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
@@ -53,7 +56,7 @@ public class DoInvocationGenerator {
 				.methodBuilder("doInvocation")
 				.returns(TypeName.VOID)
 				.addParameter(targetTypeName, "target", FINAL)
-				.addCode(getInvocationLine(method, null))
+				.addCode(getInvocationLineWithoutRecipient(method))
 				.build();
 	}
 
@@ -83,7 +86,7 @@ public class DoInvocationGenerator {
 		if (isPrimitive(recipientType)) {
 			codeBlock.add(getCannotPassNullExceptionFor(method));
 		} else {
-			codeBlock.add(getInvocationLine(method, CodeBlock.of("($T) null", recipientType)));
+			codeBlock.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) null", recipientType)));
 		}
 	}
 
@@ -92,15 +95,15 @@ public class DoInvocationGenerator {
 
 		if (isNumber(recipientType) || isCharacter(recipientType)) {
 			block.nextControlFlow("else if (" + CAN_ASSIGN + " || " + CAN_ASSIGN + ")", Number.class, Character.class);
-			block.add(getInvocationLine(method, getNumberConversionCode(recipientType)));
+			block.add(getInvocationLineWithRecipient(method, getNumberConversionCode(recipientType)));
 
 		} else if (isPrimitive(recipientType)) {
 			block.nextControlFlow("else if (" + CAN_ASSIGN + ")", boxPrimitive(recipientType));
-			block.add(getInvocationLine(method, CodeBlock.of("($T) value", recipientType)));
+			block.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) value", recipientType)));
 
 		} else {
 			block.nextControlFlow("else if (" + CAN_ASSIGN + ")", recipientType);
-			block.add(getInvocationLine(method, CodeBlock.of("($T) value", recipientType)));
+			block.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) value", recipientType)));
 		}
 	}
 
@@ -111,23 +114,64 @@ public class DoInvocationGenerator {
 				.endControlFlow();
 	}
 
-	private CodeBlock getInvocationLine(final ExecutableElement method, final CodeBlock nonUseArgValue) {
+	private CodeBlock getInvocationLineWithRecipient(final ExecutableElement method, final CodeBlock recipientCode) {
+		final List<CodeBlock> args = getArgumentsFromUseAnnotations(method);
+		args.set(args.indexOf(null), recipientCode);
+
+		return convertCodeBlocksToMethodCall(method, args);
+	}
+
+	private CodeBlock getInvocationLineWithoutRecipient(final ExecutableElement method) {
+		final List<CodeBlock> args = getArgumentsFromUseAnnotations(method);
+		return convertCodeBlocksToMethodCall(method, args);
+	}
+
+	private List<CodeBlock> getArgumentsFromUseAnnotations(final ExecutableElement method) {
+		final List<CodeBlock> codeBlocks = new ArrayList<>();
+
+		for (final VariableElement parameter : method.getParameters()) {
+			if (UseAnnotationUtil.hasUseAnnotation(parameter)) {
+				final AnnotationMirror useAnnotationMirror = UseAnnotationUtil.getUseAnnotationMirror(parameter);
+				codeBlocks.add(convertUseAnnotationToCode(useAnnotationMirror));
+			} else {
+				codeBlocks.add(null);
+			}
+		}
+
+		return codeBlocks;
+	}
+
+	private CodeBlock convertUseAnnotationToCode(final AnnotationMirror useAnnotationMirror) {
+		final String useAnnotationName = useAnnotationMirror.getAnnotationType().toString();
+
+		if (useAnnotationName.equals(UseShort.class.getName())) {
+			final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+					useAnnotationMirror,
+					"value",
+					elementUtil);
+
+			return CodeBlock.of("(short)" + rawValue.toString());
+
+		} else if (useAnnotationName.equals(UseNull.class.getName())) {
+			return CodeBlock.of("null");
+
+		} else {
+			final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+					useAnnotationMirror,
+					"value",
+					elementUtil);
+
+			return CodeBlock.of(rawValue.toString());
+		}
+	}
+
+	private CodeBlock convertCodeBlocksToMethodCall(final ExecutableElement method, final List<CodeBlock> args) {
 		final CodeBlock.Builder invocationLine = CodeBlock
 				.builder()
 				.add("target.$L(", method.getSimpleName());
 
-		for (int i = 0; i < method.getParameters().size(); i++) {
-			final VariableElement parameter = method.getParameters().get(i);
-
-			if (UseAnnotationUtil.hasUseAnnotation(parameter)) {
-				invocationLine.add(getUseAnnotationCode(parameter));
-
-			} else if (nonUseArgValue == null) {
-				throw new RuntimeException("A non-use arg is required for value handler cases.");
-
-			} else {
-				invocationLine.add(nonUseArgValue);
-			}
+		for (int i = 0; i < args.size(); i++) {
+			invocationLine.add(args.get(i));
 
 			if (i < method.getParameters().size() - 1) {
 				invocationLine.add(", ");
@@ -231,31 +275,6 @@ public class DoInvocationGenerator {
 				return elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
 			default:
 				throw new IllegalArgumentException("Argument \'typeMirror\' must be primitive.");
-		}
-	}
-
-	private CodeBlock getUseAnnotationCode(final VariableElement parameter) {
-		final AnnotationMirror useAnnotationMirror = UseAnnotationUtil.getUseAnnotationMirror(parameter);
-		final String useAnnotationName = useAnnotationMirror.getAnnotationType().toString();
-
-		if (useAnnotationName.equals(UseShort.class.getName())) {
-			final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-					useAnnotationMirror,
-					"value",
-					elementUtil);
-
-			return CodeBlock.of("(short)" + rawValue.toString());
-
-		} else if (useAnnotationName.equals(UseNull.class.getName())) {
-			return CodeBlock.of("null");
-
-		} else {
-			final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-					useAnnotationMirror,
-					"value",
-					elementUtil);
-
-			return CodeBlock.of(rawValue.toString());
 		}
 	}
 
