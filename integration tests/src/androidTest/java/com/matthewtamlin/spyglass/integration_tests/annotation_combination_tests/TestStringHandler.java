@@ -8,13 +8,13 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.integration_tests.R;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.string_handler.StringHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.string_handler.WithDefaultToNull;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.string_handler.WithDefaultToString;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.string_handler.WithDefaultToStringResource;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.string_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.integration_tests.string_handler.StringHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.string_handler.WithDefaultToNull;
-import com.matthewtamlin.spyglass.integration_tests.string_handler.WithDefaultToString;
-import com.matthewtamlin.spyglass.integration_tests.string_handler.WithDefaultToStringResource;
-import com.matthewtamlin.spyglass.integration_tests.string_handler.WithoutDefault;
 
 import org.junit.Before;
 import org.junit.Rule;

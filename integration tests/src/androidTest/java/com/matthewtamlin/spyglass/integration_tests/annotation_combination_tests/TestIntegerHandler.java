@@ -10,11 +10,11 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.integration_tests.integer_handler.IntegerHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.integer_handler.WithDefaultToInteger;
-import com.matthewtamlin.spyglass.integration_tests.integer_handler.WithDefaultToIntegerResource;
-import com.matthewtamlin.spyglass.integration_tests.integer_handler.WithDefaultToNull;
-import com.matthewtamlin.spyglass.integration_tests.integer_handler.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler.IntegerHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler.WithDefaultToInteger;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler.WithDefaultToIntegerResource;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler.WithDefaultToNull;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler.WithoutDefault;
 
 import org.junit.Before;
 import org.junit.Rule;

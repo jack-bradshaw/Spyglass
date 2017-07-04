@@ -5,13 +5,13 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToFractionResource;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FloatHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.fraction_handler.FractionHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler.FractionHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+
+import static com.matthewtamlin.spyglass.integration_tests.R.styleable.FractionHandlerTestTargetBase;
 
 public class HandlerUsingNoMultiplier extends FractionHandlerTestTargetBase {
 	public static final int MULTIPLIER = 93;
@@ -52,7 +52,7 @@ public class HandlerUsingNoMultiplier extends FractionHandlerTestTargetBase {
 		Spyglass.builder()
 				.withTarget(this)
 				.withAnnotationSource(HandlerUsingNoMultiplier.class)
-				.withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
+				.withStyleableResource(FractionHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)

@@ -8,12 +8,11 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.EnumOrdinalHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.WithDefaultToInteger;
-import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.WithDefaultToIntegerResource;
-import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.WithDefaultToNull;
-import com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler.EnumOrdinalHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler.WithDefaultToInteger;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler.WithDefaultToIntegerResource;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler.WithDefaultToNull;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 

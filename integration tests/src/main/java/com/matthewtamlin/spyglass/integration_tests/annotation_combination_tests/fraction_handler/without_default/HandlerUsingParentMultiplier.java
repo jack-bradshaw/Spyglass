@@ -8,7 +8,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.fraction_handler.FractionHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler.FractionHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class HandlerUsingParentMultiplier extends FractionHandlerTestTargetBase {
