@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -78,7 +79,7 @@ public class Spyglass {
 	 *
 	 * @throws IllegalThreadException
 	 * 		if this method is called on a non-UI thread
-	 * @throws SpyglassInvocationException
+	 * @throws TargetException
 	 * 		if a target method throws an exception when invoked, with the cause set to the thrown exception
 	 */
 	public void passDataToMethods() {
@@ -97,11 +98,14 @@ public class Spyglass {
 
 		} catch (final NoSuchMethodException e) {
 			throw new InvalidSpyglassCompanionException(
-					"Spyglass found an invalid companion class. Were the generated files modified?", e);
+					"Invalid Spyglass companion class found. Have the generated files modified?", e);
 
 		} catch (final InvocationTargetException e) {
-			throw new SpyglassInvocationException(
-					"Spyglass encountered an exception when invoking a method in a target class.", e);
+			if (e.getCause() instanceof SpyglassRuntimeException) {
+				throw (SpyglassRuntimeException) e.getCause();
+			} else {
+				throw new TargetException("A method in the target class throw an exception when invoked.", e);
+			}
 
 		} catch (final IllegalAccessException e) {
 			throw new RuntimeException("Spyglass cannot access a method in the target class.", e);
