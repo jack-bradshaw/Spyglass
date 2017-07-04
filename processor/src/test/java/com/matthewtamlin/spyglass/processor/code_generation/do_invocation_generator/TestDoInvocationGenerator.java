@@ -4,7 +4,7 @@ import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processor.code_generation.DoInvocationGenerator;
-import com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker;
+import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;

@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.testing_utils;
+package com.matthewtamlin.spyglass.processor.framework;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.squareup.javapoet.JavaFile;
