@@ -11,7 +11,7 @@ import com.matthewtamlin.spyglass.consumer.IllegalThreadException;
 import com.matthewtamlin.spyglass.consumer.InvalidBuilderStateException;
 import com.matthewtamlin.spyglass.consumer.InvalidSpyglassCompanionException;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
-import com.matthewtamlin.spyglass.consumer.SpyglassInvocationException;
+import com.matthewtamlin.spyglass.consumer.SpyglassTargetException;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -217,7 +217,7 @@ public class TestSpyglass {
 		spyglass.passDataToMethods();
 	}
 
-	@Test(expected = SpyglassInvocationException.class)
+	@Test(expected = SpyglassTargetException.class)
 	@UiThreadTest
 	public void testPassDataToMethods_usingViewWithExceptionThrowingCompanion_notInternalException() {
 		final View targetView = new ViewWithExceptionThrowingCompanion(context);
