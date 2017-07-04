@@ -1,27 +1,15 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseBoolean;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseByte;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseChar;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseDouble;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseFloat;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseInt;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
 import com.matthewtamlin.spyglass.common.exception.SpyglassCastException;
 import com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil;
-import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
@@ -37,150 +25,9 @@ import static javax.lang.model.element.Modifier.FINAL;
 public class DoInvocationGenerator {
 	private static final String ASSIGNABLE_FROM_VALUE_SNIPPET = "$T.class.isAssignableFrom(value.getClass())";
 
-	private final Map<String, ParametrisedSupplier<AnnotationMirror, String>> useAnnoValueSuppliers;
-
 	private final Elements elementUtil;
 
 	private final Types typeUtil;
-
-	{
-		useAnnoValueSuppliers = new HashMap<>();
-
-		useAnnoValueSuppliers.put(
-				UseBoolean.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-								object,
-								"value",
-								elementUtil);
-
-						return rawValue.toString();
-					}
-				});
-
-		useAnnoValueSuppliers.put(
-				UseByte.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-								object,
-								"value",
-								elementUtil);
-
-						return rawValue.toString();
-					}
-				});
-
-		useAnnoValueSuppliers.put(
-				UseChar.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-								object,
-								"value",
-								elementUtil);
-
-						return rawValue.toString();
-					}
-				});
-
-		useAnnoValueSuppliers.put(
-				UseDouble.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-								object,
-								"value",
-								elementUtil);
-
-						return rawValue.toString();
-					}
-				});
-
-		useAnnoValueSuppliers.put(
-				UseFloat.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-								object,
-								"value",
-								elementUtil);
-
-						return rawValue.toString();
-					}
-				});
-
-		useAnnoValueSuppliers.put(
-				UseInt.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-								object,
-								"value",
-								elementUtil);
-
-						return rawValue.toString();
-					}
-				});
-
-		useAnnoValueSuppliers.put(
-				UseLong.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-								object,
-								"value",
-								elementUtil);
-
-						return rawValue.toString();
-					}
-				});
-
-		useAnnoValueSuppliers.put(
-				UseNull.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						return "null";
-					}
-				});
-
-		useAnnoValueSuppliers.put(
-				UseShort.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-								object,
-								"value",
-								elementUtil);
-
-						return "(short)" + rawValue.toString();
-					}
-				});
-
-		useAnnoValueSuppliers.put(
-				UseString.class.getName(),
-				new ParametrisedSupplier<AnnotationMirror, String>() {
-					@Override
-					public String supplyFor(final AnnotationMirror object) {
-						final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
-								object,
-								"value",
-								elementUtil);
-
-						return rawValue.toString();
-					}
-				});
-	}
 
 	public DoInvocationGenerator(final Elements elementUtil, final Types typeUtil) {
 		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
@@ -274,10 +121,7 @@ public class DoInvocationGenerator {
 			final VariableElement parameter = method.getParameters().get(i);
 
 			if (UseAnnotationUtil.hasUseAnnotation(parameter)) {
-				final AnnotationMirror useAnnotationMirror = UseAnnotationUtil.getUseAnnotationMirror(parameter);
-				final String useAnnotationType = useAnnotationMirror.getAnnotationType().toString();
-
-				invocationLine.add(useAnnoValueSuppliers.get(useAnnotationType).supplyFor(useAnnotationMirror));
+				invocationLine.add(getUseAnnotationCode(parameter));
 
 			} else if (nonUseArgValue == null) {
 				throw new RuntimeException("A non-use arg is required for value handler cases.");
@@ -390,6 +234,31 @@ public class DoInvocationGenerator {
 				return elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
 			default:
 				throw new IllegalArgumentException("Argument \'recipientTypeMirror\' is not a number.");
+		}
+	}
+
+	private CodeBlock getUseAnnotationCode(final VariableElement parameter) {
+		final AnnotationMirror useAnnotationMirror = UseAnnotationUtil.getUseAnnotationMirror(parameter);
+		final String useAnnotationName = useAnnotationMirror.getAnnotationType().toString();
+
+		if (useAnnotationName.equals(UseShort.class.getName())) {
+			final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+					useAnnotationMirror,
+					"value",
+					elementUtil);
+
+			return CodeBlock.of("(short)" + rawValue.toString());
+
+		} else if (useAnnotationName.equals(UseNull.class.getName())) {
+			return CodeBlock.of("null");
+
+		} else {
+			final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+					useAnnotationMirror,
+					"value",
+					elementUtil);
+
+			return CodeBlock.of(rawValue.toString());
 		}
 	}
 }
