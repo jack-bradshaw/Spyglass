@@ -14,6 +14,8 @@ import com.squareup.javapoet.TypeSpec;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.JUnit4;
 
 import java.io.File;
 import java.net.MalformedURLException;
@@ -46,9 +48,10 @@ import static org.mockito.Mockito.mock;
  * -- With recipient and one other arg
  * -- With recipient and multiple other args
  */
+@RunWith(JUnit4.class)
 public class TestDoInvocationGenerator {
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
-			"do_invocation_generator/Data.java");
+			"code_generation/do_invocation_generator/Data.java");
 
 	@Rule
 	public final CompilationRule compilationRule = new CompilationRule();
@@ -80,73 +83,80 @@ public class TestDoInvocationGenerator {
 		generator.getMethod(null);
 	}
 
-	public void testGetMethod_elementHasCallHandler_noArgs() {
-		final ExecutableElement element = getExecutableElementWithId("call handler, no args");
+	@Test
+	public void testGetMethod_callHandler_noArgs() {
+		doTestForCallHandlerElementWithId("call handler, no args");
+	}
+
+	@Test
+	public void testGetMethod_callHandler_oneArg() {
+		doTestForCallHandlerElementWithId("call handler, one arg");
+	}
+
+	@Test
+	public void testGetMethod_callHandler_multipleArgs() {
+		doTestForCallHandlerElementWithId("call handler, multiple args");
+	}
+
+	@Test
+	public void testGetMethod_valueHandler_primitiveNumberArg() {
+		doTestForValueHandlerElementWithId("value handler, primitive number arg");
+	}
+
+	@Test
+	public void testGetMethod_valueHandler_primitiveNonNumberArg() {
+		doTestForValueHandlerElementWithId("value handler, primitive non-number arg");
+	}
+
+	@Test
+	public void testGetMethod_valueHandler_primitiveCharArg() {
+		doTestForValueHandlerElementWithId("value handler, primitive char arg");
+	}
+
+	@Test
+	public void testGetMethod_valueHandler_objectNumberArg() {
+		doTestForValueHandlerElementWithId("value handler, object number arg");
+	}
+
+	@Test
+	public void testGetMethod_valueHandler_objectNonNumberArg() {
+		doTestForValueHandlerElementWithId("value handler, object non-number arg");
+	}
+
+	@Test
+	public void testGetMethod_valueHandler_objectCharacterArg() {
+		doTestForValueHandlerElementWithId("value handler, object character arg");
+	}
+
+	@Test
+	public void testGetMethod_valueHandler_multipleArgs() {
+		doTestForValueHandlerElementWithId("value handler, multiple args");
+	}
+
+	private void doTestForCallHandlerElementWithId(final String id) {
+		final ExecutableElement element = getExecutableElementWithId(id);
 
 		final MethodSpec generatedMethod = generator.getMethod(element);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
+		assertThat(generatedMethod.returnType, is(TypeName.VOID));
+		assertThat(generatedMethod.parameters, hasSize(1));
+		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) ClassName.get(Data.class)));
+
 		checkCompiles(generatedMethod);
 	}
 
-	public void testGetMethod_elementHasCallHandler_oneArg() {
-		final ExecutableElement element = getExecutableElementWithId("call handler, one arg");
+	private void doTestForValueHandlerElementWithId(final String id) {
+		final ExecutableElement element = getExecutableElementWithId(id);
 
 		final MethodSpec generatedMethod = generator.getMethod(element);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
-		checkCompiles(generatedMethod);
-	}
+		assertThat(generatedMethod.returnType, is(TypeName.VOID));
+		assertThat(generatedMethod.parameters, hasSize(2));
+		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) ClassName.get(Data.class)));
+		assertThat(generatedMethod.parameters.get(1).type, is((TypeName) TypeName.OBJECT));
 
-	public void testGetMethod_elementHasCallHandler_multipleArgs() {
-		final ExecutableElement element = getExecutableElementWithId("call handler, multiple args");
-
-		final MethodSpec generatedMethod = generator.getMethod(element);
-
-		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
-		checkCompiles(generatedMethod);
-	}
-
-	public void testGetMethod_elementHasValueHandler_oneArg() {
-		final ExecutableElement element = getExecutableElementWithId("value handler, one arg");
-
-		final MethodSpec generatedMethod = generator.getMethod(element);
-
-		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
-		checkCompiles(generatedMethod);
-	}
-
-	public void testGetMethod_elementHsaValueHandler_twoArgs_firstHasUseAnnotation() {
-		final ExecutableElement element = getExecutableElementWithId("value handler, one arg, first has use");
-
-		final MethodSpec generatedMethod = generator.getMethod(element);
-
-		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
-		checkCompiles(generatedMethod);
-	}
-
-	public void testGetMethod_elementHsaValueHandler_twoArgs_secondHasUseAnnotation() {
-		final ExecutableElement element = getExecutableElementWithId("value handler, one arg, second has use");
-
-		final MethodSpec generatedMethod = generator.getMethod(element);
-
-		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
-		checkCompiles(generatedMethod);
-	}
-
-	public void testGetMethod_elementHasValueHandler_multipleArgs() {
-		final ExecutableElement element = getExecutableElementWithId("call handler, multiple args");
-
-		final MethodSpec generatedMethod = generator.getMethod(element);
-
-		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
 
@@ -156,14 +166,6 @@ public class TestDoInvocationGenerator {
 		} catch (final ClassCastException e) {
 			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
 		}
-	}
-
-	private void checkMethodSignature(final MethodSpec generatedMethod) {
-		assertThat(generatedMethod.returnType, is(TypeName.VOID));
-
-		assertThat(generatedMethod.parameters, hasSize(2));
-		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) ClassName.get(Data.class)));
-		assertThat(generatedMethod.parameters.get(1).type, is((TypeName) ClassName.OBJECT));
 	}
 
 	private void checkCompiles(final MethodSpec methodSpec) {
