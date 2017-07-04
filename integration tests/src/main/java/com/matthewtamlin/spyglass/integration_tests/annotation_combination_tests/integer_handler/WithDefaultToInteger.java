@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.integer_handler;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler;
 
 import android.annotation.TargetApi;
 import android.content.Context;
