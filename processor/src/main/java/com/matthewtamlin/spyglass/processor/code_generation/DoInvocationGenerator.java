@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
-import com.matthewtamlin.spyglass.common.exception.SpyglassCastException;
+import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
 import com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil;
@@ -73,7 +73,7 @@ public class DoInvocationGenerator {
 		if (isPrimitive(recipientType)) {
 			codeBlockBuilder.addStatement(
 					"throw new $T(\"Spyglass cannot pass null to method $L in class $L.\")",
-					SpyglassCastException.class,
+					SpyglassRuntimeException.class,
 					method.getSimpleName(),
 					method.getEnclosingElement().getSimpleName());
 		} else {
@@ -101,7 +101,7 @@ public class DoInvocationGenerator {
 				.nextControlFlow("else")
 				.addStatement(
 						"throw new $T(\"Spyglass cannot pass data of type $L to method $L in class $L.\")",
-						SpyglassCastException.class,
+						SpyglassRuntimeException.class,
 						recipientType.toString(),
 						method.getSimpleName(),
 						method.getEnclosingElement().getSimpleName())

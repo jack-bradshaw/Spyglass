@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.common.annotations.default_annotations;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.common.annotations.units.DimensionUnit;
+import com.matthewtamlin.spyglass.common.units.DimensionUnit;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

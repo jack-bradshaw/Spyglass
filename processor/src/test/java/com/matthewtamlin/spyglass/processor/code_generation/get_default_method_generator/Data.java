@@ -20,7 +20,7 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
 
-import static com.matthewtamlin.spyglass.common.annotations.units.DimensionUnit.DP;
+import static com.matthewtamlin.spyglass.common.units.DimensionUnit.DP;
 
 public class Data {
 	@ElementId("no default annotation")
