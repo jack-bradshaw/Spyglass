@@ -1,1 +1,6 @@
-include ':processor', ':integration tests', ':consumer', ':consumer tests', ':processor activated', ':common'
+include ':common'
+include ':consumer'
+include ':consumer tests'
+include ':integration tests'
+include ':processor'
+include ':processor activated'
