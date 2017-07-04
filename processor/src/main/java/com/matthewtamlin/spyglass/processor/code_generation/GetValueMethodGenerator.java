@@ -307,7 +307,6 @@ public class GetValueMethodGenerator {
 	private MethodSpec.Builder getBaseMethodSpec() {
 		return MethodSpec
 				.methodBuilder("getValue")
-				.addModifiers(PUBLIC)
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL);
 	}
 }
