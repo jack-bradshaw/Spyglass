@@ -7,7 +7,7 @@ import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
 
 public class ViewWithCompanionThrowsSpyglassRuntimeException_SpyglassCompanion {
 	public static void activateCallers(
-			final ViewWithCompanionThrowsTargetException target,
+			final ViewWithCompanionThrowsSpyglassRuntimeException	 target,
 			final Context context,
 			final TypedArray attrs) {
 
