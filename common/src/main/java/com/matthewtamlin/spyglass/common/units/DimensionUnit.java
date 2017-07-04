@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.common.annotations.units;
+package com.matthewtamlin.spyglass.common.units;
 
 /**
  * A unit of measurement which can quantify a screen dimensions.
