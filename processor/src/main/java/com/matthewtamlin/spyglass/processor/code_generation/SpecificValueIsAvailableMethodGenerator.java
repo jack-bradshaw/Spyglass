@@ -109,7 +109,6 @@ public class SpecificValueIsAvailableMethodGenerator {
 
 		return MethodSpec
 				.methodBuilder("specificValueIsAvailable")
-				.addModifiers(PUBLIC)
 				.returns(boolean.class)
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
 				.addCode(methodBodySuppliers.get(annotationTypeName).supplyFor(anno))

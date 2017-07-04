@@ -210,7 +210,6 @@ public class TestValueIsAvailableMethodGenerator {
 	}
 
 	private void checkMethodSignature(final MethodSpec generatedMethod) {
-		assertThat(generatedMethod.hasModifier(Modifier.PUBLIC), is(true));
 		assertThat(generatedMethod.returnType, is(TypeName.BOOLEAN));
 		assertThat(generatedMethod.parameters, hasSize(1));
 		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) TYPED_ARRAY));
