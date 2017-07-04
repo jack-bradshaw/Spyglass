@@ -32,7 +32,7 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
 
-import static com.matthewtamlin.spyglass.common.annotations.units.DimensionUnit.DP;
+import static com.matthewtamlin.spyglass.common.units.DimensionUnit.DP;
 
 public class Data {
 	@ElementId("specific enum")

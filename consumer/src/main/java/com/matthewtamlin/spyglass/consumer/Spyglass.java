@@ -98,14 +98,13 @@ public class Spyglass {
 
 		} catch (final NoSuchMethodException e) {
 			throw new InvalidSpyglassCompanionException(
-					"Spyglass found an invalid companion class. Were the generated files modified?", e);
+					"Invalid Spyglass companion class found. Have the generated files modified?", e);
 
 		} catch (final InvocationTargetException e) {
 			if (e.getCause() instanceof SpyglassRuntimeException) {
 				throw (SpyglassRuntimeException) e.getCause();
 			} else {
-				throw new TargetException(
-						"Spyglass encountered an exception when invoking a method in a target class.", e);
+				throw new TargetException("A method in the target class throw an exception when invoked.", e);
 			}
 
 		} catch (final IllegalAccessException e) {
