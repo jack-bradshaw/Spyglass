@@ -79,7 +79,7 @@ public class Spyglass {
 	 *
 	 * @throws IllegalThreadException
 	 * 		if this method is called on a non-UI thread
-	 * @throws SpyglassTargetException
+	 * @throws TargetException
 	 * 		if a target method throws an exception when invoked, with the cause set to the thrown exception
 	 */
 	public void passDataToMethods() {
@@ -104,7 +104,7 @@ public class Spyglass {
 			if (e.getCause() instanceof SpyglassRuntimeException) {
 				throw (SpyglassRuntimeException) e.getCause();
 			} else {
-				throw new SpyglassTargetException(
+				throw new TargetException(
 						"Spyglass encountered an exception when invoking a method in a target class.", e);
 			}
 
