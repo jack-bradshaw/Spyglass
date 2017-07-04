@@ -21,10 +21,13 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.mockito.Mockito.mock;
 
 public class TestCallerGenerator {
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
@@ -41,12 +44,17 @@ public class TestCallerGenerator {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 		elementSupplier = new IdBasedElementSupplier(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()));
 
-		callerGenerator = new CallerGenerator(compilationRule.getElements());
+		callerGenerator = new CallerGenerator(compilationRule.getElements(), compilationRule.getTypes());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructor_nullSupplied() {
-		new CallerGenerator(null);
+	public void testConstructor_nullElementUtilSupplied() {
+		new CallerGenerator(null, mock(Types.class));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testConstructor_nullTypeUtilSupplied() {
+		new CallerGenerator(mock(Elements.class), null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
