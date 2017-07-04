@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_state_list_handler;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_state_list_handler_combinations;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -6,35 +6,32 @@ import android.content.res.ColorStateList;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorStateListHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
+import com.matthewtamlin.spyglass.integration_tests.boolean_handler.BooleanHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
-public class WithDefaultToColorStateListResource extends ColorStateListHandlerTestTargetBase {
-	public WithDefaultToColorStateListResource(final Context context) {
+public class WithDefaultToNull extends ColorStateListHandlerTestTargetBase {
+	public WithDefaultToNull(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public WithDefaultToColorStateListResource(final Context context, final AttributeSet attrs) {
+	public WithDefaultToNull(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public WithDefaultToColorStateListResource(
-			final Context context,
-			final AttributeSet attrs,
-			final int defStyleAttr) {
-
+	public WithDefaultToNull(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public WithDefaultToColorStateListResource(
+	public WithDefaultToNull(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -45,7 +42,7 @@ public class WithDefaultToColorStateListResource extends ColorStateListHandlerTe
 	}
 
 	@ColorStateListHandler(attributeId = R.styleable.ColorStateListHandlerTestTargetBase_colorStateListHandlerAttr)
-	@DefaultToColorStateListResource(resId = R.color.default_color_state_list_for_testing)
+	@DefaultToNull
 	public void handlerMethod(final ColorStateList csl) {
 		setReceivedValue(ReceivedValue.of(csl));
 	}
@@ -53,7 +50,7 @@ public class WithDefaultToColorStateListResource extends ColorStateListHandlerTe
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToColorStateListResource.class)
+				.withAnnotationSource(WithDefaultToNull.class)
 				.withStyleableResource(R.styleable.ColorStateListHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
