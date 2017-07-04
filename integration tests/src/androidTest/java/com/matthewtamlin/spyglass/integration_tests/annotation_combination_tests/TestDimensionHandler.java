@@ -9,22 +9,21 @@ import android.util.AttributeSet;
 
 import com.matthewtamlin.android_utilities.library.helpers.DimensionHelper;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.DimensionHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToDpDimension;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToDpDimensionResource;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToInDimension;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToInDimensionResource;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToMmDimension;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToMmDimensionResource;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToNull;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToPtDimension;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToPtDimensionResource;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToPxDimension;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToPxDimensionResource;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToSpDimension;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToSpDimensionResource;
-import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithoutDefault;
-import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.DimensionHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToDpDimension;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToDpDimensionResource;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToInDimension;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToInDimensionResource;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToMmDimension;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToMmDimensionResource;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToNull;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToPtDimension;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToPtDimensionResource;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToPxDimension;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToPxDimensionResource;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToSpDimension;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithDefaultToSpDimensionResource;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
@@ -258,7 +257,7 @@ public class TestDimensionHandler {
 	@Test
 	@UiThreadTest
 	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
-		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.dimension_handler_without_attr);
+		final AttributeSet attrs = fromXml(context, R.xml.dimension_handler_without_attr);
 
 		final DimensionHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
 

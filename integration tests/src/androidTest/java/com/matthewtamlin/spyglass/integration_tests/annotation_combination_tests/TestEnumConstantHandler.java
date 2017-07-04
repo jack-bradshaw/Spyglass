@@ -7,16 +7,14 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.common.enum_util.EnumInstantiationException;
 import com.matthewtamlin.spyglass.consumer.SpyglassInvocationException;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumConstantHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumForTesting.Fruit;
-import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithDefaultToEnumConstantOfInvalidFruit;
-import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithDefaultToEnumConstantOfWatermelon;
-import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithDefaultToNull;
-import com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler.EnumConstantHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler.EnumForTesting.Fruit;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler.WithDefaultToEnumConstantOfInvalidFruit;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler.WithDefaultToEnumConstantOfWatermelon;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler.WithDefaultToNull;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
@@ -86,7 +84,6 @@ public class TestEnumConstantHandler {
 
 		final EnumConstantHandlerTestTargetBase target = new WithDefaultToEnumConstantOfInvalidFruit(context, attrs);
 	}
-
 
 
 	@Test
