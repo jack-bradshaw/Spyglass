@@ -1,38 +1,35 @@
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler_combinations;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToDimension;
-import com.matthewtamlin.spyglass.common.annotations.units.DimensionUnit;
+import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToDimensionResource;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
-public class WithDefaultToMmDimension extends DimensionHandlerTestTargetBase {
-	public static final int DEFAULT_VALUE_MM = 110;
-
-	public WithDefaultToMmDimension(final Context context) {
+public class WithDefaultToDpDimensionResource extends DimensionHandlerTestTargetBase {
+	public WithDefaultToDpDimensionResource(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public WithDefaultToMmDimension(final Context context, final AttributeSet attrs) {
+	public WithDefaultToDpDimensionResource(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public WithDefaultToMmDimension(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public WithDefaultToDpDimensionResource(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public WithDefaultToMmDimension(
+	public WithDefaultToDpDimensionResource(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -43,7 +40,7 @@ public class WithDefaultToMmDimension extends DimensionHandlerTestTargetBase {
 	}
 
 	@DimensionHandler(attributeId = R.styleable.DimensionHandlerTestTargetBase_dimensionHandlerAttr)
-	@DefaultToDimension(value = DEFAULT_VALUE_MM, unit = DimensionUnit.MM)
+	@DefaultToDimensionResource(resId = R.dimen.DimensionForTestingDp)
 	public void handlerMethod(final int i) {
 		setReceivedValue(ReceivedValue.of(i));
 	}
@@ -51,7 +48,7 @@ public class WithDefaultToMmDimension extends DimensionHandlerTestTargetBase {
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToMmDimension.class)
+				.withAnnotationSource(WithDefaultToDpDimensionResource.class)
 				.withStyleableResource(R.styleable.DimensionHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
