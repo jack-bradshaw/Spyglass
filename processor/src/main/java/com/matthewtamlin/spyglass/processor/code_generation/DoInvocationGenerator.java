@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
-import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
+import com.matthewtamlin.spyglass.common.required_at_runtime.exception.SpyglassRuntimeException;
 import com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil;
