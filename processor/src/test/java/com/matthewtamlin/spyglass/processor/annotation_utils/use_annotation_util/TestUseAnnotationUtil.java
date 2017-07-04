@@ -22,9 +22,11 @@ import java.io.File;
 import java.net.MalformedURLException;
 
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.tools.JavaFileObject;
 
+import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil.getUseAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil.hasUseAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -169,101 +171,57 @@ public class TestUseAnnotationUtil {
 
 	@Test
 	public void testHasUseAnnotation_useBooleanAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("boolean");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("boolean", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_useByteAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("byte");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("byte", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_useCharAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("char");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("char", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_useDoubleAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("double");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("double", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_useFloatAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("float");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("float", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_useIntAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("int");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("int", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_useLongAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("long");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("long", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_useNullAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("null");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("null", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_useShortAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("short");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("short", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_useStringAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("string");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("string", true);
 	}
 
 	@Test
 	public void testHasUseAnnotation_noUseAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("no use annotation");
-
-		final boolean hasAnnotation = hasUseAnnotation(element);
-
-		assertThat(hasAnnotation, is(false));
+		doHasAnnotationTestForElementWithId("no use annotation", false);
 	}
 
 	private VariableElement getVariableElementWithId(final String id) {
@@ -272,6 +230,14 @@ public class TestUseAnnotationUtil {
 		} catch (final ClassCastException e) {
 			throw new RuntimeException("Found element with ID " + id + ", but it wasn't a VariableElement.");
 		}
+	}
+
+	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
+		final VariableElement element = getVariableElementWithId(id);
+
+		final boolean hasAnnotation = hasUseAnnotation(element);
+
+		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
 
 	private enum PlaceholderEnum {}
