@@ -14,7 +14,7 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.I
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
-import com.matthewtamlin.spyglass.common.required_at_runtime.enum_util.EnumUtil;
+import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
