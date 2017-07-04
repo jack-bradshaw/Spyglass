@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.color_state_list_handler;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_state_list_handler;
 
 import android.annotation.TargetApi;
 import android.content.Context;

@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.dimension_handler;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.dimension_handler;
 
 import android.annotation.TargetApi;
 import android.content.Context;
