@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
+package com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_test_target;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
