@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
@@ -26,6 +27,7 @@ import javax.lang.model.util.Types;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.FINAL;
 
+@Tested(testMethod = "automated")
 public class DoInvocationGenerator {
 	private static final String CAN_ASSIGN = "$T.class.isAssignableFrom(value.getClass())";
 
