@@ -164,7 +164,7 @@ public class DoInvocationGenerator {
 		codeBlock.beginControlFlow("if (value == null)");
 
 		if (typeMirrorHelper.isPrimitive(recipientType)) {
-			codeBlock.add(getCannotPassNullExceptionFor(method));
+			codeBlock.add(getCannotPassNullExceptionCodeFor(method));
 		} else {
 			codeBlock.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) null", recipientType)));
 		}
@@ -190,18 +190,18 @@ public class DoInvocationGenerator {
 	private void addElseComponent(final CodeBlock.Builder codeBlock, final ExecutableElement method) {
 		codeBlock
 				.nextControlFlow("else")
-				.add(getCannotPassTypeExceptionFor(method))
+				.add(getCannotPassTypeExceptionCodeFor(method))
 				.endControlFlow();
 	}
 
-	private CodeBlock getCannotPassNullExceptionFor(final ExecutableElement method) {
+	private CodeBlock getCannotPassNullExceptionCodeFor(final ExecutableElement method) {
 		return CodeBlock.of("throw new $T(\"Spyglass cannot pass null to method $L in class $L.\");",
 				SpyglassRuntimeException.class,
 				method.getSimpleName(),
 				method.getEnclosingElement().getSimpleName());
 	}
 
-	private CodeBlock getCannotPassTypeExceptionFor(final ExecutableElement method) {
+	private CodeBlock getCannotPassTypeExceptionCodeFor(final ExecutableElement method) {
 		return CodeBlock.of(
 				"throw new $T(\"Spyglass cannot pass the specified data type to method $L in class $L.\");",
 				SpyglassRuntimeException.class,
