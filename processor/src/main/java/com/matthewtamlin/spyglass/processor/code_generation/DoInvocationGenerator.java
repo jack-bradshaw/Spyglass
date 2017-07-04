@@ -7,6 +7,7 @@ import com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUti
 import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil;
+import com.matthewtamlin.spyglass.processor.util.TypeMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -32,9 +33,13 @@ public class DoInvocationGenerator {
 
 	private final Types typeUtil;
 
+	private TypeMirrorHelper typeMirrorHelper;
+
 	public DoInvocationGenerator(final Elements elementUtil, final Types typeUtil) {
 		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
 		this.typeUtil = checkNotNull(typeUtil, "Argument \'typeUtil\' cannot be null.");
+
+		this.typeMirrorHelper = new TypeMirrorHelper(elementUtil, typeUtil);
 	}
 
 	public MethodSpec getMethod(final ExecutableElement method) {
@@ -50,19 +55,15 @@ public class DoInvocationGenerator {
 	}
 
 	private MethodSpec getMethodForCallHandlerCase(final ExecutableElement method) {
-		final TypeName targetTypeName = TypeName.get(method.getEnclosingElement().asType());
-
 		return MethodSpec
 				.methodBuilder("doInvocation")
 				.returns(TypeName.VOID)
-				.addParameter(targetTypeName, "target", FINAL)
+				.addParameter(TypeName.get(method.getEnclosingElement().asType()), "target", FINAL)
 				.addCode(getInvocationLineWithoutRecipient(method))
 				.build();
 	}
 
 	private MethodSpec getMethodForValueHandlerCase(final ExecutableElement method) {
-		final TypeMirror recipientType = getRecipientType(method);
-
 		final CodeBlock.Builder block = CodeBlock.builder();
 
 		addNullCheckComponent(block, method);
@@ -78,51 +79,25 @@ public class DoInvocationGenerator {
 				.build();
 	}
 
-	private void addNullCheckComponent(final CodeBlock.Builder codeBlock, final ExecutableElement method) {
-		final TypeMirror recipientType = getRecipientType(method);
-
-		codeBlock.beginControlFlow("if (value == null)");
-
-		if (isPrimitive(recipientType)) {
-			codeBlock.add(getCannotPassNullExceptionFor(method));
-		} else {
-			codeBlock.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) null", recipientType)));
+	private TypeMirror getRecipientType(final ExecutableElement method) {
+		for (final VariableElement parameter : method.getParameters()) {
+			if (!UseAnnotationUtil.hasUseAnnotation(parameter)) {
+				return parameter.asType();
+			}
 		}
+
+		return null;
 	}
 
-	private void addConversionCheckComponent(final CodeBlock.Builder block, final ExecutableElement method) {
-		final TypeMirror recipientType = getRecipientType(method);
-
-		if (isNumber(recipientType) || isCharacter(recipientType)) {
-			block.nextControlFlow("else if (" + CAN_ASSIGN + " || " + CAN_ASSIGN + ")", Number.class, Character.class);
-			block.add(getInvocationLineWithRecipient(method, getNumberConversionCode(recipientType)));
-
-		} else if (isPrimitive(recipientType)) {
-			block.nextControlFlow("else if (" + CAN_ASSIGN + ")", boxPrimitive(recipientType));
-			block.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) value", recipientType)));
-
-		} else {
-			block.nextControlFlow("else if (" + CAN_ASSIGN + ")", recipientType);
-			block.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) value", recipientType)));
-		}
-	}
-
-	private void addElseComponent(final CodeBlock.Builder codeBlock, final ExecutableElement method) {
-		codeBlock
-				.nextControlFlow("else")
-				.add(getCannotPassTypeExceptionFor(method))
-				.endControlFlow();
+	private CodeBlock getInvocationLineWithoutRecipient(final ExecutableElement method) {
+		final List<CodeBlock> args = getArgumentsFromUseAnnotations(method);
+		return convertCodeBlocksToMethodCall(method, args);
 	}
 
 	private CodeBlock getInvocationLineWithRecipient(final ExecutableElement method, final CodeBlock recipientCode) {
 		final List<CodeBlock> args = getArgumentsFromUseAnnotations(method);
 		args.set(args.indexOf(null), recipientCode);
 
-		return convertCodeBlocksToMethodCall(method, args);
-	}
-
-	private CodeBlock getInvocationLineWithoutRecipient(final ExecutableElement method) {
-		final List<CodeBlock> args = getArgumentsFromUseAnnotations(method);
 		return convertCodeBlocksToMethodCall(method, args);
 	}
 
@@ -183,47 +158,55 @@ public class DoInvocationGenerator {
 		return invocationLine.build();
 	}
 
-	private TypeMirror getRecipientType(final ExecutableElement method) {
-		for (final VariableElement parameter : method.getParameters()) {
-			if (!UseAnnotationUtil.hasUseAnnotation(parameter)) {
-				return parameter.asType();
-			}
+	private void addNullCheckComponent(final CodeBlock.Builder codeBlock, final ExecutableElement method) {
+		final TypeMirror recipientType = getRecipientType(method);
+
+		codeBlock.beginControlFlow("if (value == null)");
+
+		if (typeMirrorHelper.isPrimitive(recipientType)) {
+			codeBlock.add(getCannotPassNullExceptionFor(method));
+		} else {
+			codeBlock.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) null", recipientType)));
 		}
-
-		return null;
 	}
 
-	private boolean isPrimitive(final TypeMirror typeMirror) {
-		final String typeMirrorString = typeMirror.toString();
+	private void addConversionCheckComponent(final CodeBlock.Builder block, final ExecutableElement method) {
+		final TypeMirror recipientType = getRecipientType(method);
 
-		return typeMirrorString.equals("byte") ||
-				typeMirrorString.equals("char") ||
-				typeMirrorString.equals("short") ||
-				typeMirrorString.equals("int") ||
-				typeMirrorString.equals("long") ||
-				typeMirrorString.equals("double") ||
-				typeMirrorString.equals("float") ||
-				typeMirrorString.equals("boolean");
+		if (typeMirrorHelper.isNumber(recipientType) || typeMirrorHelper.isCharacter(recipientType)) {
+			block.nextControlFlow("else if (" + CAN_ASSIGN + " || " + CAN_ASSIGN + ")", Number.class, Character.class);
+			block.add(getInvocationLineWithRecipient(method, getNumberConversionCode(recipientType)));
+
+		} else if (typeMirrorHelper.isPrimitive(recipientType)) {
+			block.nextControlFlow("else if (" + CAN_ASSIGN + ")", typeMirrorHelper.boxPrimitive(recipientType));
+			block.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) value", recipientType)));
+
+		} else {
+			block.nextControlFlow("else if (" + CAN_ASSIGN + ")", recipientType);
+			block.add(getInvocationLineWithRecipient(method, CodeBlock.of("($T) value", recipientType)));
+		}
 	}
 
-	private boolean isNumber(final TypeMirror typeMirror) {
-		final String typeMirrorString = typeMirror.toString();
-
-		final TypeMirror numberType = elementUtil.getTypeElement(Number.class.getCanonicalName()).asType();
-
-		return typeUtil.isAssignable(typeMirror, numberType) ||
-				typeMirrorString.equals("byte") ||
-				typeMirrorString.equals("char") ||
-				typeMirrorString.equals("short") ||
-				typeMirrorString.equals("int") ||
-				typeMirrorString.equals("long") ||
-				typeMirrorString.equals("double") ||
-				typeMirrorString.equals("float");
+	private void addElseComponent(final CodeBlock.Builder codeBlock, final ExecutableElement method) {
+		codeBlock
+				.nextControlFlow("else")
+				.add(getCannotPassTypeExceptionFor(method))
+				.endControlFlow();
 	}
 
-	private boolean isCharacter(final TypeMirror typeMirror) {
-		final TypeMirror characterType = elementUtil.getTypeElement(Character.class.getCanonicalName()).asType();
-		return typeUtil.isAssignable(typeMirror, characterType);
+	private CodeBlock getCannotPassNullExceptionFor(final ExecutableElement method) {
+		return CodeBlock.of("throw new $T(\"Spyglass cannot pass null to method $L in class $L.\");",
+				SpyglassRuntimeException.class,
+				method.getSimpleName(),
+				method.getEnclosingElement().getSimpleName());
+	}
+
+	private CodeBlock getCannotPassTypeExceptionFor(final ExecutableElement method) {
+		return CodeBlock.of(
+				"throw new $T(\"Spyglass cannot pass the specified data type to method $L in class $L.\");",
+				SpyglassRuntimeException.class,
+				method.getSimpleName(),
+				method.getEnclosingElement().getSimpleName());
 	}
 
 	private CodeBlock getNumberConversionCode(final TypeMirror targetTypeMirror) {
@@ -253,43 +236,5 @@ public class DoInvocationGenerator {
 		} else {
 			throw new IllegalArgumentException("Argument \'recipientTypeMirror\' is not a number.");
 		}
-	}
-
-	private TypeMirror boxPrimitive(final TypeMirror typeMirror) {
-		switch (typeMirror.toString()) {
-			case "byte":
-				return elementUtil.getTypeElement(Byte.class.getCanonicalName()).asType();
-			case "char":
-				return elementUtil.getTypeElement(Character.class.getCanonicalName()).asType();
-			case "short":
-				return elementUtil.getTypeElement(Short.class.getCanonicalName()).asType();
-			case "int":
-				return elementUtil.getTypeElement(Integer.class.getCanonicalName()).asType();
-			case "long":
-				return elementUtil.getTypeElement(Long.class.getCanonicalName()).asType();
-			case "float":
-				return elementUtil.getTypeElement(Float.class.getCanonicalName()).asType();
-			case "double":
-				return elementUtil.getTypeElement(Double.class.getCanonicalName()).asType();
-			case "boolean":
-				return elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
-			default:
-				throw new IllegalArgumentException("Argument \'typeMirror\' must be primitive.");
-		}
-	}
-
-	private CodeBlock getCannotPassNullExceptionFor(final ExecutableElement method) {
-		return CodeBlock.of("throw new $T(\"Spyglass cannot pass null to method $L in class $L.\");",
-				SpyglassRuntimeException.class,
-				method.getSimpleName(),
-				method.getEnclosingElement().getSimpleName());
-	}
-
-	private CodeBlock getCannotPassTypeExceptionFor(final ExecutableElement method) {
-		return CodeBlock.of(
-				"throw new $T(\"Spyglass cannot pass the specified data type to method $L in class $L.\");",
-				SpyglassRuntimeException.class,
-				method.getSimpleName(),
-				method.getEnclosingElement().getSimpleName());
 	}
 }
