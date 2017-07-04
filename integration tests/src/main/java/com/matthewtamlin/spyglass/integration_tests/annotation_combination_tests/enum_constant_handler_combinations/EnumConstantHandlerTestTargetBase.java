@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -6,7 +6,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler.EnumForTesting.Fruit;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 public class EnumConstantHandlerTestTargetBase extends View {
