@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
@@ -8,6 +8,8 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
+
+import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.drawable_handler.DrawableHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.drawable_handler.WithDefaultToDrawable;
 import com.matthewtamlin.spyglass.integration_tests.drawable_handler.WithDefaultToNull;

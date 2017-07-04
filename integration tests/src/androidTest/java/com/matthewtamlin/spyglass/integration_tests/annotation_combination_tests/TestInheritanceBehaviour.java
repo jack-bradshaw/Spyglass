@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

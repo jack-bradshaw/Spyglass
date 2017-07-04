@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -7,6 +7,7 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
+import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.float_handler.FloatHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.float_handler.WithDefaultToFractionUsingBaseFractionAndBaseMultiplier;
 import com.matthewtamlin.spyglass.integration_tests.float_handler.WithDefaultToFractionUsingBaseFractionAndNoMultiplier;

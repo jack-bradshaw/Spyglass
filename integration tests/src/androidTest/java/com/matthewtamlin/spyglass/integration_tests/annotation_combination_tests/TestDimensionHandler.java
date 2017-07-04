@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -8,6 +8,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
 import com.matthewtamlin.android_utilities.library.helpers.DimensionHelper;
+import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.DimensionHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToDpDimension;
 import com.matthewtamlin.spyglass.integration_tests.dimension_handler.WithDefaultToDpDimensionResource;

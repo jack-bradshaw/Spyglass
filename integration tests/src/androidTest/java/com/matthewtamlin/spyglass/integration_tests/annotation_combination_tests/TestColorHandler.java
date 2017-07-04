@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,6 +9,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 
+import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToColorResource;
 import com.matthewtamlin.spyglass.integration_tests.color_handler.WithDefaultToInteger;
