@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.common.exception.InternalSpyglassException;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -100,9 +101,12 @@ public class Spyglass {
 					"Spyglass found an invalid companion class. Were the generated files modified?", e);
 
 		} catch (final InvocationTargetException e) {
-			throw new SpyglassInvocationException(
-					"Spyglass encountered an exception when invoking a method in a target class.", e);
-
+			if (e.getCause() instanceof InternalSpyglassException) {
+				throw (InternalSpyglassException) e.getCause();
+			} else {
+				throw new SpyglassInvocationException(
+						"Spyglass encountered an exception when invoking a method in a target class.", e);
+			}
 		} catch (final IllegalAccessException e) {
 			throw new RuntimeException("Spyglass cannot access a method in the target class.", e);
 		}
