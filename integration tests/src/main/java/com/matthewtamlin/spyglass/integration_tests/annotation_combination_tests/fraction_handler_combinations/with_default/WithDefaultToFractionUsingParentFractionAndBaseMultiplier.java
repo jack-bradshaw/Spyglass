@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler.with_default;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations.with_default;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -9,23 +9,23 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler.FractionHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations.FractionHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
-public class WithDefaultToFractionUsingBaseFractionAndNoMultiplier extends FractionHandlerTestTargetBase {
-	public static final int MULTIPLIER = 93;
+public class WithDefaultToFractionUsingParentFractionAndBaseMultiplier extends FractionHandlerTestTargetBase {
+	public static final int MULTIPLIER = 50;
 
-	public WithDefaultToFractionUsingBaseFractionAndNoMultiplier(final Context context) {
+	public WithDefaultToFractionUsingParentFractionAndBaseMultiplier(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public WithDefaultToFractionUsingBaseFractionAndNoMultiplier(final Context context, final AttributeSet attrs) {
+	public WithDefaultToFractionUsingParentFractionAndBaseMultiplier(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public WithDefaultToFractionUsingBaseFractionAndNoMultiplier(
+	public WithDefaultToFractionUsingParentFractionAndBaseMultiplier(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr) {
@@ -36,7 +36,7 @@ public class WithDefaultToFractionUsingBaseFractionAndNoMultiplier extends Fract
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public WithDefaultToFractionUsingBaseFractionAndNoMultiplier(
+	public WithDefaultToFractionUsingParentFractionAndBaseMultiplier(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -47,7 +47,7 @@ public class WithDefaultToFractionUsingBaseFractionAndNoMultiplier extends Fract
 	}
 
 	@FractionHandler(attributeId = R.styleable.FloatHandlerTestTargetBase_floatHandlerAttr)
-	@DefaultToFractionResource(resId = R.fraction.base_fraction_for_testing)
+	@DefaultToFractionResource(resId = R.fraction.parent_fraction_for_testing, baseMultiplier = MULTIPLIER)
 	public void handlerMethod(final float f) {
 		setReceivedValue(ReceivedValue.of(f));
 	}
@@ -55,7 +55,7 @@ public class WithDefaultToFractionUsingBaseFractionAndNoMultiplier extends Fract
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToFractionUsingBaseFractionAndNoMultiplier.class)
+				.withAnnotationSource(WithDefaultToFractionUsingParentFractionAndBaseMultiplier.class)
 				.withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
