@@ -8,7 +8,7 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.SpecificEnumHandlerTestTarget;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_enum_handler_combinations.SpecificEnumHandlerTestTarget;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 
 import org.junit.Before;
