@@ -9,22 +9,22 @@ public class Data {
 	public String field1;
 
 	@ElementId("get annotation mirror: with annotation")
-	@AnnotationWithValues
+	@SomeAnnotationWithValue
 	public String field2;
 
 	@ElementId("get annotation value ignoring defaults: no value")
-	@AnnotationWithValues()
+	@SomeAnnotationWithValue()
 	public Object field3;
 
 	@ElementId("get annotation value ignoring defaults: with value")
-	@AnnotationWithValues(value = SPECIFIED_VALUE)
+	@SomeAnnotationWithValue(value = SPECIFIED_VALUE)
 	public Object field4;
 
 	@ElementId("get annotation value with defaults: no value")
-	@AnnotationWithValues()
+	@SomeAnnotationWithValue()
 	public Object field5;
 
 	@ElementId("get annotation value with defaults: with value")
-	@AnnotationWithValues(value = SPECIFIED_VALUE)
+	@SomeAnnotationWithValue(value = SPECIFIED_VALUE)
 	public Object field6;
 }

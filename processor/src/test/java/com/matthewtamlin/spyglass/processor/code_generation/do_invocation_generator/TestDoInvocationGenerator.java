@@ -4,7 +4,7 @@ import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processor.code_generation.DoInvocationGenerator;
-import com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker;
+import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -85,55 +85,55 @@ public class TestDoInvocationGenerator {
 
 	@Test
 	public void testGetMethod_callHandler_noArgs() {
-		doCallHandlerTestForElementWithId("call handler, no args");
+		doTestForCallHandlerElementWithId("call handler, no args");
 	}
 
 	@Test
 	public void testGetMethod_callHandler_oneArg() {
-		doCallHandlerTestForElementWithId("call handler, one arg");
+		doTestForCallHandlerElementWithId("call handler, one arg");
 	}
 
 	@Test
 	public void testGetMethod_callHandler_multipleArgs() {
-		doCallHandlerTestForElementWithId("call handler, multiple args");
+		doTestForCallHandlerElementWithId("call handler, multiple args");
 	}
 
 	@Test
 	public void testGetMethod_valueHandler_primitiveNumberArg() {
-		doValueHandlerTestForElementWithId("value handler, primitive number arg");
+		doTestForValueHandlerElementWithId("value handler, primitive number arg");
 	}
 
 	@Test
 	public void testGetMethod_valueHandler_primitiveNonNumberArg() {
-		doValueHandlerTestForElementWithId("value handler, primitive non-number arg");
+		doTestForValueHandlerElementWithId("value handler, primitive non-number arg");
 	}
 
 	@Test
 	public void testGetMethod_valueHandler_primitiveCharArg() {
-		doValueHandlerTestForElementWithId("value handler, primitive char arg");
+		doTestForValueHandlerElementWithId("value handler, primitive char arg");
 	}
 
 	@Test
 	public void testGetMethod_valueHandler_objectNumberArg() {
-		doValueHandlerTestForElementWithId("value handler, object number arg");
+		doTestForValueHandlerElementWithId("value handler, object number arg");
 	}
 
 	@Test
 	public void testGetMethod_valueHandler_objectNonNumberArg() {
-		doValueHandlerTestForElementWithId("value handler, object non-number arg");
+		doTestForValueHandlerElementWithId("value handler, object non-number arg");
 	}
 
 	@Test
 	public void testGetMethod_valueHandler_objectCharacterArg() {
-		doValueHandlerTestForElementWithId("value handler, object character arg");
+		doTestForValueHandlerElementWithId("value handler, object character arg");
 	}
 
 	@Test
 	public void testGetMethod_valueHandler_multipleArgs() {
-		doValueHandlerTestForElementWithId("value handler, multiple args");
+		doTestForValueHandlerElementWithId("value handler, multiple args");
 	}
 
-	private void doCallHandlerTestForElementWithId(final String id) {
+	private void doTestForCallHandlerElementWithId(final String id) {
 		final ExecutableElement element = getExecutableElementWithId(id);
 
 		final MethodSpec generatedMethod = generator.getMethod(element);
@@ -146,7 +146,7 @@ public class TestDoInvocationGenerator {
 		checkCompiles(generatedMethod);
 	}
 
-	private void doValueHandlerTestForElementWithId(final String id) {
+	private void doTestForValueHandlerElementWithId(final String id) {
 		final ExecutableElement element = getExecutableElementWithId(id);
 
 		final MethodSpec generatedMethod = generator.getMethod(element);

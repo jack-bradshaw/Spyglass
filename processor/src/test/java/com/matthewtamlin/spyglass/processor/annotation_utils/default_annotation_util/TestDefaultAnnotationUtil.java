@@ -246,164 +246,92 @@ public class TestDefaultAnnotationUtil {
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToBooleanAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("boolean");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("boolean", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToBooleanResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("boolean resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("boolean resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToColorResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("color resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("color resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToColorStateListResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("color state list resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("color state list resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToDimensionAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("dimension");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("dimension", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToDimensionResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("dimension resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("dimension resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToDrawableResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("drawable resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("drawable resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToEnumConstantAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("enum constant");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("enum constant", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToFloatAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("float");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("float", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToFractionResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("fraction resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("fraction resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToIntegerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("integer");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("integer", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToIntegerResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("integer resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("integer resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToNullAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("null");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("null", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToStringAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("string");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("string", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToStringResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("string resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("string resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToTextArrayResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text array resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("text array resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_defaultToTextResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text resource");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("text resource", true);
 	}
 
 	@Test
 	public void testHasDefaultAnnotation_noDefaultAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("no default annotation");
-
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
-
-		assertThat(hasAnnotation, is(false));
+		doHasAnnotationTestForElementWithId("no default annotation", false);
 	}
 
 	private ExecutableElement getExecutableElementWithId(final String id) {
@@ -412,6 +340,14 @@ public class TestDefaultAnnotationUtil {
 		} catch (final ClassCastException e) {
 			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
 		}
+	}
+
+	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
+		final ExecutableElement element = getExecutableElementWithId(id);
+
+		final boolean hasAnnotation = hasDefaultAnnotation(element);
+
+		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
 
 	private enum PlaceholderEnum {}
