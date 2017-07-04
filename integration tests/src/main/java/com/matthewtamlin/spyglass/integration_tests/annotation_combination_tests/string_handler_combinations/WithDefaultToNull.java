@@ -10,7 +10,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.S
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.integration_tests.integer_handler.IntegerHandlerTestTargetBase;
 
 public class WithDefaultToNull extends StringHandlerTestTargetBase {
 	public WithDefaultToNull(final Context context) {
