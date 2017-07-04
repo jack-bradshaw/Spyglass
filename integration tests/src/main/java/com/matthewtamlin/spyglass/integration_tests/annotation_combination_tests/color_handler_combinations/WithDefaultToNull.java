@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_handler;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_handler_combinations;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -6,7 +6,6 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToNull;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
