@@ -23,7 +23,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static javax.lang.model.element.Modifier.FINAL;
 
 public class DoInvocationGenerator {
-	private static final String ASSIGNABLE_FROM_VALUE_SNIPPET = "$T.class.isAssignableFrom(value.getClass())";
+	private static final String CAN_ASSIGN = "$T.class.isAssignableFrom(value.getClass())";
 
 	private final Elements elementUtil;
 
@@ -60,54 +60,55 @@ public class DoInvocationGenerator {
 	private MethodSpec getMethodForValueHandlerCase(final ExecutableElement method) {
 		final TypeMirror recipientType = getRecipientType(method);
 
-		final CodeBlock.Builder codeBlockBuilder = CodeBlock.builder();
+		final CodeBlock.Builder block = CodeBlock.builder();
 
-		codeBlockBuilder.beginControlFlow("if (value == null)");
-
-		if (isPrimitive(recipientType)) {
-			codeBlockBuilder.addStatement(
-					"throw new $T(\"Spyglass cannot pass null to method $L in class $L.\")",
-					SpyglassRuntimeException.class,
-					method.getSimpleName(),
-					method.getEnclosingElement().getSimpleName());
-		} else {
-			final CodeBlock nonUseArg = CodeBlock.of("($T) null", recipientType);
-			codeBlockBuilder.add(getInvocationLine(method, nonUseArg));
-		}
-
-		if (isNumber(recipientType) || isCharacter(recipientType)) {
-			codeBlockBuilder.nextControlFlow(
-					"else if (" + ASSIGNABLE_FROM_VALUE_SNIPPET + " || " + ASSIGNABLE_FROM_VALUE_SNIPPET + ")",
-					Number.class,
-					Character.class);
-
-			codeBlockBuilder.add(getInvocationLine(method, getNumberConversionCode(recipientType)));
-
-		} else if (isPrimitive(recipientType)) {
-			codeBlockBuilder.nextControlFlow("else if (" + ASSIGNABLE_FROM_VALUE_SNIPPET + ")", box(recipientType));
-			codeBlockBuilder.add(getInvocationLine(method, CodeBlock.of("($T) value", recipientType)));
-		} else {
-			codeBlockBuilder.nextControlFlow("else if (" + ASSIGNABLE_FROM_VALUE_SNIPPET + ")", recipientType);
-			codeBlockBuilder.add(getInvocationLine(method, CodeBlock.of("($T) value", recipientType)));
-		}
-
-		codeBlockBuilder
-				.nextControlFlow("else")
-				.addStatement(
-						"throw new $T(\"Spyglass cannot pass data of type $L to method $L in class $L.\")",
-						SpyglassRuntimeException.class,
-						recipientType.toString(),
-						method.getSimpleName(),
-						method.getEnclosingElement().getSimpleName())
-				.endControlFlow();
+		addNullCheckComponent(block, method);
+		addConversionCheckComponent(block, method);
+		addElseComponent(block, method);
 
 		return MethodSpec
 				.methodBuilder("doInvocation")
 				.returns(TypeName.VOID)
 				.addParameter(TypeName.get(method.getEnclosingElement().asType()), "target", FINAL)
 				.addParameter(TypeName.OBJECT, "value", FINAL)
-				.addCode(codeBlockBuilder.build())
+				.addCode(block.build())
 				.build();
+	}
+
+	private void addNullCheckComponent(final CodeBlock.Builder codeBlock, final ExecutableElement method) {
+		final TypeMirror recipientType = getRecipientType(method);
+
+		codeBlock.beginControlFlow("if (value == null)");
+
+		if (isPrimitive(recipientType)) {
+			codeBlock.add(getCannotPassNullExceptionFor(method));
+		} else {
+			codeBlock.add(getInvocationLine(method, CodeBlock.of("($T) null", recipientType)));
+		}
+	}
+
+	private void addConversionCheckComponent(final CodeBlock.Builder block, final ExecutableElement method) {
+		final TypeMirror recipientType = getRecipientType(method);
+
+		if (isNumber(recipientType) || isCharacter(recipientType)) {
+			block.nextControlFlow("else if (" + CAN_ASSIGN + " || " + CAN_ASSIGN + ")", Number.class, Character.class);
+			block.add(getInvocationLine(method, getNumberConversionCode(recipientType)));
+
+		} else if (isPrimitive(recipientType)) {
+			block.nextControlFlow("else if (" + CAN_ASSIGN + ")", boxPrimitive(recipientType));
+			block.add(getInvocationLine(method, CodeBlock.of("($T) value", recipientType)));
+
+		} else {
+			block.nextControlFlow("else if (" + CAN_ASSIGN + ")", recipientType);
+			block.add(getInvocationLine(method, CodeBlock.of("($T) value", recipientType)));
+		}
+	}
+
+	private void addElseComponent(final CodeBlock.Builder codeBlock, final ExecutableElement method) {
+		codeBlock
+				.nextControlFlow("else")
+				.add(getCannotPassTypeExceptionFor(method))
+				.endControlFlow();
 	}
 
 	private CodeBlock getInvocationLine(final ExecutableElement method, final CodeBlock nonUseArgValue) {
@@ -210,10 +211,8 @@ public class DoInvocationGenerator {
 		}
 	}
 
-	private TypeMirror box(final TypeMirror typeMirror) {
-		final String typeMirrorString = typeMirror.toString();
-
-		switch (typeMirrorString) {
+	private TypeMirror boxPrimitive(final TypeMirror typeMirror) {
+		switch (typeMirror.toString()) {
 			case "byte":
 				return elementUtil.getTypeElement(Byte.class.getCanonicalName()).asType();
 			case "char":
@@ -231,7 +230,7 @@ public class DoInvocationGenerator {
 			case "boolean":
 				return elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
 			default:
-				throw new IllegalArgumentException("Argument \'recipientTypeMirror\' is not a number.");
+				throw new IllegalArgumentException("Argument \'typeMirror\' must be primitive.");
 		}
 	}
 
@@ -258,5 +257,20 @@ public class DoInvocationGenerator {
 
 			return CodeBlock.of(rawValue.toString());
 		}
+	}
+
+	private CodeBlock getCannotPassNullExceptionFor(final ExecutableElement method) {
+		return CodeBlock.of("throw new $T(\"Spyglass cannot pass null to method $L in class $L.\");",
+				SpyglassRuntimeException.class,
+				method.getSimpleName(),
+				method.getEnclosingElement().getSimpleName());
+	}
+
+	private CodeBlock getCannotPassTypeExceptionFor(final ExecutableElement method) {
+		return CodeBlock.of(
+				"throw new $T(\"Spyglass cannot pass the specified data type to method $L in class $L.\");",
+				SpyglassRuntimeException.class,
+				method.getSimpleName(),
+				method.getEnclosingElement().getSimpleName());
 	}
 }
