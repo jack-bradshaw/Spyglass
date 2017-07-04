@@ -220,12 +220,12 @@ public class TestSpyglass {
 	@Test(expected = TargetException.class)
 	@UiThreadTest
 	public void testPassDataToMethods_usingViewWithExceptionThrowingCompanion_notInternalException() {
-		final View targetView = new ViewWithTargetExceptionThrowingCompanion(context);
+		final View targetView = new ViewWithCompanionThrowsTargetException(context);
 
 		final Spyglass spyglass = Spyglass
 				.builder()
 				.withTarget(targetView)
-				.withAnnotationSource(ViewWithTargetExceptionThrowingCompanion.class)
+				.withAnnotationSource(ViewWithCompanionThrowsTargetException.class)
 				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();

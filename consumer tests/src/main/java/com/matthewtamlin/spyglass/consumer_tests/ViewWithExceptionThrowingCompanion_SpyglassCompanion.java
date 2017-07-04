@@ -5,7 +5,7 @@ import android.content.res.TypedArray;
 
 public class ViewWithExceptionThrowingCompanion_SpyglassCompanion {
 	public static void activateCallers(
-			final ViewWithTargetExceptionThrowingCompanion target,
+			final ViewWithCompanionThrowsTargetException target,
 			final Context context,
 			final TypedArray attrs) {
 
