@@ -81,29 +81,17 @@ public class TestCallHandlerAnnotationUtil {
 
 	@Test
 	public void testHasCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("specific enum");
-
-		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("specific enum", true);
 	}
 
 	@Test
 	public void testHasCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("specific flag");
-
-		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("specific flag", true);
 	}
 
 	@Test
 	public void testHasCallHandlerAnnotation_noCallHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
-
-		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(false));
+		doHasAnnotationTestForElementWithId("no call handler annotation", false);
 	}
 
 	private ExecutableElement getExecutableElementWithId(final String id) {
@@ -112,6 +100,14 @@ public class TestCallHandlerAnnotationUtil {
 		} catch (final ClassCastException e) {
 			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
 		}
+	}
+
+	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
+		final ExecutableElement element = getExecutableElementWithId(id);
+
+		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
+
+		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
 
 	private enum PlaceholderEnum {}
