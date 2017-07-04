@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
-import com.matthewtamlin.spyglass.processor.testing_utils.CompileChecker;
+import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

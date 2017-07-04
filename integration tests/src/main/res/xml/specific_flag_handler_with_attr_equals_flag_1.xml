@@ -1,4 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.matthewtamlin.spyglass.integration_tests.SpecificFlagHandlerTestTarget
+<com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_flag_handler_combinations.SpecificFlagHandlerTestTarget
 	xmlns:app="http://schemas.android.com/apk/res-auto"
 	app:specificFlagHandlerAttr="value1"/>

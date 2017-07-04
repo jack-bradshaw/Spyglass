@@ -182,110 +182,62 @@ public class TestValueHandlerAnnotationUtil {
 
 	@Test
 	public void testHasValueHandlerAnnotation_booleanHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("boolean");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("boolean", true);
 	}
 
 	@Test
 	public void testHasValueHandlerAnnotation_colorHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("color");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("color", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_colorStateListHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("color state list");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("color state list", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_dimensionHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("dimension");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("dimension", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_drawableHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("drawable");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("drawable", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_enumConstantHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("enum constant");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("enum constant", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_enumOrdinalHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("enum ordinal");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("enum ordinal", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_floatHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("float");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("float", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_fractionHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("fraction");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("fraction", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_integerHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("integer");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("integer", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_stringHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("string");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(true));
+		doHasAnnotationTestForElementWithId("string", true);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotation_noValueHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("no value handler annotation");
-
-		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
-
-		assertThat(hasAnnotation, is(false));
+		doHasAnnotationTestForElementWithId("no value handler annotation", false);
 	}
 
 	private ExecutableElement getExecutableElementWithId(final String id) {
@@ -294,6 +246,14 @@ public class TestValueHandlerAnnotationUtil {
 		} catch (final ClassCastException e) {
 			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
 		}
+	}
+
+	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
+		final ExecutableElement element = getExecutableElementWithId(id);
+
+		final boolean hasAnnotation = hasValueHandlerAnnotation(element);
+
+		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
 
 	private enum PlaceholderEnum {}
