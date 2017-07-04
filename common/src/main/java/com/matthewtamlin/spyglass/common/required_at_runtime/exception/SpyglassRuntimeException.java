@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.common.exception;
+package com.matthewtamlin.spyglass.common.required_at_runtime.exception;
 
 public class SpyglassRuntimeException extends RuntimeException {
 	public SpyglassRuntimeException() {

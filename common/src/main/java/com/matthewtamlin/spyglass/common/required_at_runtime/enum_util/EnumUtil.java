@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.common.enum_util;
+package com.matthewtamlin.spyglass.common.required_at_runtime.enum_util;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
