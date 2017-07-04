@@ -58,12 +58,6 @@ public class DoInvocationGenerator {
 	}
 
 	private MethodSpec getMethodForValueHandlerCase(final ExecutableElement method) {
-		final MethodSpec.Builder methodSpecBuilder = MethodSpec
-				.methodBuilder("doInvocation")
-				.returns(TypeName.VOID)
-				.addParameter(TypeName.get(method.getEnclosingElement().asType()), "target", FINAL)
-				.addParameter(TypeName.OBJECT, "value", FINAL);
-
 		final TypeMirror recipientType = getRecipientType(method);
 
 		final CodeBlock.Builder codeBlockBuilder = CodeBlock.builder();
@@ -107,9 +101,13 @@ public class DoInvocationGenerator {
 						method.getEnclosingElement().getSimpleName())
 				.endControlFlow();
 
-		methodSpecBuilder.addCode(codeBlockBuilder.build());
-
-		return methodSpecBuilder.build();
+		return MethodSpec
+				.methodBuilder("doInvocation")
+				.returns(TypeName.VOID)
+				.addParameter(TypeName.get(method.getEnclosingElement().asType()), "target", FINAL)
+				.addParameter(TypeName.OBJECT, "value", FINAL)
+				.addCode(codeBlockBuilder.build())
+				.build();
 	}
 
 	private CodeBlock getInvocationLine(final ExecutableElement method, final CodeBlock nonUseArgValue) {
