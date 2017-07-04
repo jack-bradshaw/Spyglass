@@ -7,6 +7,7 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
+import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
 import com.matthewtamlin.spyglass.consumer.IllegalThreadException;
 import com.matthewtamlin.spyglass.consumer.InvalidBuilderStateException;
 import com.matthewtamlin.spyglass.consumer.InvalidSpyglassCompanionException;
@@ -226,6 +227,22 @@ public class TestSpyglass {
 				.builder()
 				.withTarget(targetView)
 				.withAnnotationSource(ViewWithCompanionThrowsTargetException.class)
+				.withContext(context)
+				.withStyleableResource(new int[0])
+				.build();
+
+		spyglass.passDataToMethods();
+	}
+
+	@Test(expected = SpyglassRuntimeException.class)
+	@UiThreadTest
+	public void testPassDataToMethods_usingViewWithCompanionThrowsSpyglassRuntimeException() {
+		final View targetView = new ViewWithCompanionThrowsSpyglassRuntimeException(context);
+
+		final Spyglass spyglass = Spyglass
+				.builder()
+				.withTarget(targetView)
+				.withAnnotationSource(ViewWithCompanionThrowsSpyglassRuntimeException.class)
 				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();
