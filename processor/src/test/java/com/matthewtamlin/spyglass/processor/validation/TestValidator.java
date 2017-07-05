@@ -44,6 +44,11 @@ public class TestValidator {
 		validator = new Validator(new TypeMirrorHelper(compilationRule.getElements(), compilationRule.getTypes()));
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testConstructor_nullTypeMirrorHelper() {
+		new Validator(null);
+	}
+
 	@Test
 	public void testValidateElement_usingDataFileElements() {
 		for (final Element element : elements) {
