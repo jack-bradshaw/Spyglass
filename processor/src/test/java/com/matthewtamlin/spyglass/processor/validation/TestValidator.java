@@ -3,7 +3,7 @@ package com.matthewtamlin.spyglass.processor.validation;
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.AnnotatedElementSupplier;
-import com.matthewtamlin.spyglass.processor.util.TypeMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 
 import org.junit.Before;
 import org.junit.Rule;

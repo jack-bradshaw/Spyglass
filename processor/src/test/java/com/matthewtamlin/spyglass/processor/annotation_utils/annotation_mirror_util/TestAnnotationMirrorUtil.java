@@ -3,7 +3,7 @@ package com.matthewtamlin.spyglass.processor.annotation_utils.annotation_mirror_
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
-import com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
 
 import org.junit.Before;
 import org.junit.Rule;
