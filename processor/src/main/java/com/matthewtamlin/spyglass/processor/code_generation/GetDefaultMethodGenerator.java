@@ -443,7 +443,7 @@ public class GetDefaultMethodGenerator {
 		try {
 			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
 
-			if (!DefaultAnnoUtil.getDefaultAnnotationClasses().contains(annotationClass)) {
+			if (!DefaultAnnoUtil.getClasses().contains(annotationClass)) {
 				throw new IllegalArgumentException(exceptionMessage);
 			}
 		} catch (ClassNotFoundException e) {

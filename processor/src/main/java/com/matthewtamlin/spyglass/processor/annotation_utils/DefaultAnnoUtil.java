@@ -31,10 +31,10 @@ import static com.matthewtamlin.spyglass.processor.util.SetUtil.unmodifiableSetO
 
 @Tested(testMethod = "automated")
 public class DefaultAnnoUtil {
-	public static AnnotationMirror getDefaultAnnotationMirror(final ExecutableElement element) {
+	public static AnnotationMirror getMirror(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
-		for (final Class<? extends Annotation> annotationClass : getDefaultAnnotationClasses()) {
+		for (final Class<? extends Annotation> annotationClass : getClasses()) {
 			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, annotationClass);
 
 			if (mirror != null) {
@@ -45,11 +45,11 @@ public class DefaultAnnoUtil {
 		return null;
 	}
 
-	public static boolean hasDefaultAnnotation(final ExecutableElement element) {
-		return getDefaultAnnotationMirror(element) != null;
+	public static boolean hasAnnotation(final ExecutableElement element) {
+		return getMirror(element) != null;
 	}
 
-	public static Set<Class<? extends Annotation>> getDefaultAnnotationClasses() {
+	public static Set<Class<? extends Annotation>> getClasses() {
 		return unmodifiableSetOf(
 				DefaultToBoolean.class,
 				DefaultToBooleanResource.class,

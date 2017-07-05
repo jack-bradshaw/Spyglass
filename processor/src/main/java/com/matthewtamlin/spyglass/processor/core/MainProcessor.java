@@ -58,7 +58,7 @@ public class MainProcessor extends AbstractProcessor {
 
 		intermediateSet.addAll(CallHandlerAnnoUtil.getClasses());
 		intermediateSet.addAll(ValueHandlerAnnoUtil.getValueHandlerAnnotationClasses());
-		intermediateSet.addAll(DefaultAnnoUtil.getDefaultAnnotationClasses());
+		intermediateSet.addAll(DefaultAnnoUtil.getClasses());
 
 		SUPPORTED_ANNOTATIONS = Collections.unmodifiableSet(intermediateSet);
 	}
