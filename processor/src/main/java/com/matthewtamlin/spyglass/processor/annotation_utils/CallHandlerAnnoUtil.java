@@ -15,7 +15,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static com.matthewtamlin.spyglass.processor.util.SetUtil.unmodifiableSetOf;
 
 @Tested(testMethod = "automated")
-public class CallHandlerAnnotationUtil {
+public class CallHandlerAnnoUtil {
 	public static AnnotationMirror getCallHandlerAnnotationMirror(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
@@ -40,7 +40,7 @@ public class CallHandlerAnnotationUtil {
 				SpecificFlagHandler.class);
 	}
 
-	private CallHandlerAnnotationUtil() {
+	private CallHandlerAnnoUtil() {
 		throw new RuntimeException("Utility class. Do not instantiate.");
 	}
 }

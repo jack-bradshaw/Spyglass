@@ -20,7 +20,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.getCallHandlerAnnotationClasses;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getCallHandlerAnnotationClasses;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnotationUtil.getDefaultAnnotationClasses;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil.getUseAnnotationClasses;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil.getValueHandlerAnnotationClasses;

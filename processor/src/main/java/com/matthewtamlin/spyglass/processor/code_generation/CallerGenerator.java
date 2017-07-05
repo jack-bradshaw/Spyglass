@@ -16,8 +16,8 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getCallHandlerAnnotationMirror;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.hasCallHandlerAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnotationUtil.getDefaultAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil.hasUseAnnotation;
