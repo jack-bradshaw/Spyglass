@@ -47,7 +47,7 @@ public class DoInvocationGenerator {
 	public MethodSpec getMethod(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		if (CallHandlerAnnoUtil.hasCallHandlerAnnotation(method)) {
+		if (CallHandlerAnnoUtil.hasAnnotation(method)) {
 			return getMethodForCallHandlerCase(method);
 		} else if (ValueHandlerAnnoUtil.hasValueHandlerAnnotation(method)) {
 			return getMethodForValueHandlerCase(method);

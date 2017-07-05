@@ -56,7 +56,7 @@ public class MainProcessor extends AbstractProcessor {
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
 
-		intermediateSet.addAll(CallHandlerAnnoUtil.getCallHandlerAnnotationClasses());
+		intermediateSet.addAll(CallHandlerAnnoUtil.getClasses());
 		intermediateSet.addAll(ValueHandlerAnnoUtil.getValueHandlerAnnotationClasses());
 		intermediateSet.addAll(DefaultAnnoUtil.getDefaultAnnotationClasses());
 

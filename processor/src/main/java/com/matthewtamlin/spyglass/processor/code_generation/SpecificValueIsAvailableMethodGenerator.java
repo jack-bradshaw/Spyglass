@@ -122,7 +122,7 @@ public class SpecificValueIsAvailableMethodGenerator {
 		try {
 			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
 
-			if (!CallHandlerAnnoUtil.getCallHandlerAnnotationClasses().contains(annotationClass)) {
+			if (!CallHandlerAnnoUtil.getClasses().contains(annotationClass)) {
 				throw new IllegalArgumentException(exceptionMessage);
 			}
 		} catch (ClassNotFoundException e) {

@@ -20,7 +20,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getCallHandlerAnnotationClasses;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getClasses;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.getDefaultAnnotationClasses;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.getUseAnnotationClasses;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getValueHandlerAnnotationClasses;
@@ -229,7 +229,7 @@ public class Validator {
 	private static int countCallHandlerAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : getCallHandlerAnnotationClasses()) {
+		for (final Class<? extends Annotation> annotation : getClasses()) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
