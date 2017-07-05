@@ -31,7 +31,7 @@ import static com.matthewtamlin.spyglass.processor.util.SetUtil.unmodifiableSetO
 
 @Tested(testMethod = "automated")
 public class DefaultAnnoUtil {
-	public static AnnotationMirror getMirror(final ExecutableElement element) {
+	public static AnnotationMirror getAnnotation(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		for (final Class<? extends Annotation> annotationClass : getClasses()) {
@@ -46,7 +46,7 @@ public class DefaultAnnoUtil {
 	}
 
 	public static boolean hasAnnotation(final ExecutableElement element) {
-		return getMirror(element) != null;
+		return getAnnotation(element) != null;
 	}
 
 	public static Set<Class<? extends Annotation>> getClasses() {
