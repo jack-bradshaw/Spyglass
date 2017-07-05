@@ -295,7 +295,7 @@ public class GetValueMethodGenerator {
 		try {
 			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
 
-			if (!ValueHandlerAnnoUtil.getValueHandlerAnnotationClasses().contains(annotationClass)) {
+			if (!ValueHandlerAnnoUtil.getClasses().contains(annotationClass)) {
 				throw new IllegalArgumentException(exceptionMessage);
 			}
 		} catch (ClassNotFoundException e) {

@@ -2,6 +2,7 @@ package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -18,8 +19,8 @@ import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.hasAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getValueHandlerAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.hasValueHandlerAnnotation;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getAnnotation;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.hasAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
@@ -51,7 +52,7 @@ public class CallerGenerator {
 		if (hasAnnotation(method)) {
 			return generateCallHandlerCaller(method);
 
-		} else if (hasValueHandlerAnnotation(method)) {
+		} else if (ValueHandlerAnnoUtil.hasAnnotation(method)) {
 			return DefaultAnnoUtil.hasAnnotation(method) ?
 					generateValueHandlerCallerWithDefault(method) :
 					generateValueHandlerCallerWithoutDefault(method);
@@ -63,7 +64,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
-		final AnnotationMirror callHandlerAnno = getMirror(e);
+		final AnnotationMirror callHandlerAnno = getAnnotation(e);
 
 		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.getMethod(callHandlerAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
@@ -85,7 +86,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateValueHandlerCallerWithoutDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandlerAnno = getValueHandlerAnnotationMirror(e);
+		final AnnotationMirror valueHandlerAnno = getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandlerAnno);
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandlerAnno);
@@ -110,7 +111,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandler = getValueHandlerAnnotationMirror(e);
+		final AnnotationMirror valueHandler = getAnnotation(e);
 		final AnnotationMirror defaultAnno = DefaultAnnoUtil.getMirror(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);

@@ -25,10 +25,10 @@ import static com.matthewtamlin.spyglass.processor.util.SetUtil.unmodifiableSetO
 
 @Tested(testMethod = "automated")
 public class ValueHandlerAnnoUtil {
-	public static AnnotationMirror getValueHandlerAnnotationMirror(final ExecutableElement element) {
+	public static AnnotationMirror getAnnotation(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
-		for (final Class<? extends Annotation> annotationClass : getValueHandlerAnnotationClasses()) {
+		for (final Class<? extends Annotation> annotationClass : getClasses()) {
 			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, annotationClass);
 
 			if (mirror != null) {
@@ -39,11 +39,11 @@ public class ValueHandlerAnnoUtil {
 		return null;
 	}
 
-	public static boolean hasValueHandlerAnnotation(final ExecutableElement element) {
-		return getValueHandlerAnnotationMirror(element) != null;
+	public static boolean hasAnnotation(final ExecutableElement element) {
+		return getAnnotation(element) != null;
 	}
 
-	public static Set<Class<? extends Annotation>> getValueHandlerAnnotationClasses() {
+	public static Set<Class<? extends Annotation>> getClasses() {
 		return unmodifiableSetOf(
 				BooleanHandler.class,
 				ColorHandler.class,
