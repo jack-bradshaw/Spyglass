@@ -49,12 +49,12 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetValueHandlerAnnotationMirror_nullSupplied() {
+	public void testGetAnnotation_nullSupplied() {
 		ValueHandlerAnnoUtil.getAnnotation(null);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_booleanHandlerAnnotationPresent() {
+	public void testGetAnnotation_booleanHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -64,7 +64,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_colorHandlerAnnotationPresent() {
+	public void testGetAnnotation_colorHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -74,7 +74,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_colorStateListHandlerAnnotationPresent() {
+	public void testGetAnnotation_colorStateListHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color state list");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -84,7 +84,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_dimensionHandlerAnnotationPresent() {
+	public void testGetAnnotation_dimensionHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -94,7 +94,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_drawableHandlerAnnotationPresent() {
+	public void testGetAnnotation_drawableHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("drawable");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -104,7 +104,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_enumConstantHandlerAnnotationPresent() {
+	public void testGetAnnotation_enumConstantHandlerAnnotationPresent() {
 
 		final ExecutableElement element = getExecutableElementWithId("enum constant");
 
@@ -115,7 +115,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_enumOrdinalHandlerAnnotationPresent() {
+	public void testGetAnnotation_enumOrdinalHandlerAnnotationPresent() {
 
 		final ExecutableElement element = getExecutableElementWithId("enum ordinal");
 
@@ -126,7 +126,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_floatHandlerAnnotationPresent() {
+	public void testGetAnnotation_floatHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("float");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -136,7 +136,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_fractionHandlerAnnotationPresent() {
+	public void testGetAnnotation_fractionHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("fraction");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -146,7 +146,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_integerHandlerAnnotationPresent() {
+	public void testGetAnnotation_integerHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -156,7 +156,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_stringHandlerAnnotationPresent() {
+	public void testGetAnnotation_stringHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -166,7 +166,7 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotationMirror_noValueHandlerAnnotationPresent() {
+	public void testGetAnnotation_noValueHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no value handler annotation");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
@@ -175,67 +175,67 @@ public class TestValueHandlerAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testHasValueHandlerAnnotation_nullSupplied() {
+	public void testHasAnnotation_nullSupplied() {
 		ValueHandlerAnnoUtil.hasAnnotation(null);
 	}
 
 	@Test
-	public void testHasValueHandlerAnnotation_booleanHandlerAnnotationPresent() {
+	public void testHasAnnotation_booleanHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("boolean", true);
 	}
 
 	@Test
-	public void testHasValueHandlerAnnotation_colorHandlerAnnotationPresent() {
+	public void testHasAnnotation_colorHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("color", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_colorStateListHandlerAnnotationPresent() {
+	public void testHasAnnotation_colorStateListHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("color state list", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_dimensionHandlerAnnotationPresent() {
+	public void testHasAnnotation_dimensionHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("dimension", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_drawableHandlerAnnotationPresent() {
+	public void testHasAnnotation_drawableHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("drawable", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_enumConstantHandlerAnnotationPresent() {
+	public void testHasAnnotation_enumConstantHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("enum constant", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_enumOrdinalHandlerAnnotationPresent() {
+	public void testHasAnnotation_enumOrdinalHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("enum ordinal", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_floatHandlerAnnotationPresent() {
+	public void testHasAnnotation_floatHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("float", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_fractionHandlerAnnotationPresent() {
+	public void testHasAnnotation_fractionHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("fraction", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_integerHandlerAnnotationPresent() {
+	public void testHasAnnotation_integerHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("integer", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_stringHandlerAnnotationPresent() {
+	public void testHasAnnotation_stringHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("string", true);
 	}
 
 	@Test
-	public void testGetValueHandlerAnnotation_noValueHandlerAnnotationPresent() {
+	public void testHasAnnotation_noValueHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("no value handler annotation", false);
 	}
 
