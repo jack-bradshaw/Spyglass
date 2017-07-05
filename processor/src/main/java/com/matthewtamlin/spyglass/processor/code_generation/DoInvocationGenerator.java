@@ -7,7 +7,7 @@ import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
 import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
 import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -49,7 +49,7 @@ public class DoInvocationGenerator {
 
 		if (CallHandlerAnnoUtil.hasCallHandlerAnnotation(method)) {
 			return getMethodForCallHandlerCase(method);
-		} else if (ValueHandlerAnnotationUtil.hasValueHandlerAnnotation(method)) {
+		} else if (ValueHandlerAnnoUtil.hasValueHandlerAnnotation(method)) {
 			return getMethodForValueHandlerCase(method);
 		} else {
 			throw new IllegalArgumentException("Argument \'element\' must have a handler annotation.");

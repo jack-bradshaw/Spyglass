@@ -26,8 +26,8 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil.hasValueHandlerAnnotation;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getValueHandlerAnnotationMirror;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.hasValueHandlerAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;

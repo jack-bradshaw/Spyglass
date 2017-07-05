@@ -21,8 +21,8 @@ import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerA
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.getDefaultAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.hasDefaultAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.hasUseAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil.hasValueHandlerAnnotation;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getValueHandlerAnnotationMirror;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.hasValueHandlerAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
