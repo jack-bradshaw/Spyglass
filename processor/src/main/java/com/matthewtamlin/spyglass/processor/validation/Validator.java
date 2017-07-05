@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.util.TypeMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
