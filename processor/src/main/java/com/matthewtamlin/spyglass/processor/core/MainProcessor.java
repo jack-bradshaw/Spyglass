@@ -4,6 +4,7 @@ import com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
+import com.matthewtamlin.spyglass.processor.util.TypeMirrorHelper;
 import com.matthewtamlin.spyglass.processor.validation.ValidationException;
 import com.matthewtamlin.spyglass.processor.validation.Validator;
 import com.squareup.javapoet.CodeBlock;
@@ -29,6 +30,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.spyglass.processor.grouper.Grouper.groupByEnclosingClass;
 import static javax.tools.Diagnostic.Kind.ERROR;
@@ -43,6 +45,8 @@ public class MainProcessor extends AbstractProcessor {
 	private Filer filer;
 
 	private Elements elementUtil;
+
+	private Types typeUtil;
 
 	private CallerGenerator callerGenerator;
 
@@ -67,6 +71,7 @@ public class MainProcessor extends AbstractProcessor {
 		messager = processingEnvironment.getMessager();
 		filer = processingEnvironment.getFiler();
 		elementUtil = processingEnvironment.getElementUtils();
+		typeUtil = processingEnvironment.getTypeUtils();
 
 		createFile(CallerDef.getJavaFile(), "Could not create Caller class file.");
 	}
@@ -107,7 +112,10 @@ public class MainProcessor extends AbstractProcessor {
 	private void validateElements(final Set<? extends Element> elements) {
 		for (final Element element : elements) {
 			try {
-				Validator.validateElement(element);
+				final TypeMirrorHelper typeMirrorHelper = new TypeMirrorHelper(elementUtil, typeUtil);
+				final Validator validator = new Validator(typeMirrorHelper);
+				
+				validator.validateElement(element);
 
 			} catch (final ValidationException validationException) {
 				messager.printMessage(ERROR, validationException.getMessage(), element);
