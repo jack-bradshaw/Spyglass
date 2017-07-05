@@ -4,11 +4,11 @@ import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
-import com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil;
-import com.matthewtamlin.spyglass.processor.util.TypeMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -47,9 +47,9 @@ public class DoInvocationGenerator {
 	public MethodSpec getMethod(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		if (CallHandlerAnnotationUtil.hasCallHandlerAnnotation(method)) {
+		if (CallHandlerAnnoUtil.hasAnnotation(method)) {
 			return getMethodForCallHandlerCase(method);
-		} else if (ValueHandlerAnnotationUtil.hasValueHandlerAnnotation(method)) {
+		} else if (ValueHandlerAnnoUtil.hasAnnotation(method)) {
 			return getMethodForValueHandlerCase(method);
 		} else {
 			throw new IllegalArgumentException("Argument \'element\' must have a handler annotation.");
@@ -83,7 +83,7 @@ public class DoInvocationGenerator {
 
 	private TypeMirror getRecipientType(final ExecutableElement method) {
 		for (final VariableElement parameter : method.getParameters()) {
-			if (!UseAnnotationUtil.hasUseAnnotation(parameter)) {
+			if (!UseAnnoUtil.hasAnnotation(parameter)) {
 				return parameter.asType();
 			}
 		}
@@ -107,8 +107,8 @@ public class DoInvocationGenerator {
 		final List<CodeBlock> codeBlocks = new ArrayList<>();
 
 		for (final VariableElement parameter : method.getParameters()) {
-			if (UseAnnotationUtil.hasUseAnnotation(parameter)) {
-				final AnnotationMirror useAnnotationMirror = UseAnnotationUtil.getUseAnnotationMirror(parameter);
+			if (UseAnnoUtil.hasAnnotation(parameter)) {
+				final AnnotationMirror useAnnotationMirror = UseAnnoUtil.getAnnotation(parameter);
 				codeBlocks.add(getArgumentForUseAnnotation(useAnnotationMirror));
 			} else {
 				codeBlocks.add(null);
