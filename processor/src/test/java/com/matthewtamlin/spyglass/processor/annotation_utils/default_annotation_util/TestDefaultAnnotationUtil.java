@@ -55,12 +55,12 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetDefaultAnnotationMirror_nullSupplied() {
+	public void testGetAnnotation_nullSupplied() {
 		DefaultAnnoUtil.getAnnotation(null);
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToBooleanAnnotationPresent() {
+	public void testGetAnnotation_defaultToBooleanAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -70,7 +70,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToBooleanResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToBooleanResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -80,7 +80,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToColorResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToColorResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -90,7 +90,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToColorStateListResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToColorStateListResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color state list resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -100,7 +100,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToDimensionAnnotationPresent() {
+	public void testGetAnnotation_defaultToDimensionAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -110,7 +110,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToDimensionResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToDimensionResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -120,7 +120,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToDrawableResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToDrawableResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("drawable resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -130,7 +130,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToEnumConstantAnnotationPresent() {
+	public void testGetAnnotation_defaultToEnumConstantAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("enum constant");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -140,7 +140,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToFloatAnnotationPresent() {
+	public void testGetAnnotation_defaultToFloatAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("float");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -150,7 +150,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToFractionResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToFractionResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("fraction resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -160,7 +160,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToIntegerAnnotationPresent() {
+	public void testGetAnnotation_defaultToIntegerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -170,7 +170,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToIntegerResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToIntegerResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -180,7 +180,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToNullAnnotationPresent() {
+	public void testGetAnnotation_defaultToNullAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("null");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -190,7 +190,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToStringAnnotationPresent() {
+	public void testGetAnnotation_defaultToStringAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -200,7 +200,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToStringResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToStringResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -210,7 +210,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToTextArrayResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToTextArrayResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text array resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -220,7 +220,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_defaultToTextResourceAnnotationPresent() {
+	public void testGetAnnotation_defaultToTextResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text resource");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -230,7 +230,7 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test
-	public void testGetDefaultAnnotationMirror_noDefaultAnnotationPresent() {
+	public void testGetAnnotation_noDefaultAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no default annotation");
 
 		final AnnotationMirror mirror = DefaultAnnoUtil.getAnnotation(element);
@@ -239,97 +239,97 @@ public class TestDefaultAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testHasDefaultAnnotation_nullSupplied() {
+	public void testHasAnnotation_nullSupplied() {
 		DefaultAnnoUtil.hasAnnotation(null);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToBooleanAnnotationPresent() {
+	public void testHasAnnotation_defaultToBooleanAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("boolean", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToBooleanResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToBooleanResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("boolean resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToColorResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToColorResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("color resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToColorStateListResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToColorStateListResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("color state list resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToDimensionAnnotationPresent() {
+	public void testHasAnnotation_defaultToDimensionAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("dimension", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToDimensionResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToDimensionResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("dimension resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToDrawableResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToDrawableResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("drawable resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToEnumConstantAnnotationPresent() {
+	public void testHasAnnotation_defaultToEnumConstantAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("enum constant", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToFloatAnnotationPresent() {
+	public void testHasAnnotation_defaultToFloatAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("float", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToFractionResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToFractionResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("fraction resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToIntegerAnnotationPresent() {
+	public void testHasAnnotation_defaultToIntegerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("integer", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToIntegerResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToIntegerResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("integer resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToNullAnnotationPresent() {
+	public void testHasAnnotation_defaultToNullAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("null", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToStringAnnotationPresent() {
+	public void testHasAnnotation_defaultToStringAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("string", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToStringResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToStringResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("string resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToTextArrayResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToTextArrayResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("text array resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_defaultToTextResourceAnnotationPresent() {
+	public void testHasAnnotation_defaultToTextResourceAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("text resource", true);
 	}
 
 	@Test
-	public void testHasDefaultAnnotation_noDefaultAnnotationPresent() {
+	public void testHasAnnotation_noDefaultAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("no default annotation", false);
 	}
 

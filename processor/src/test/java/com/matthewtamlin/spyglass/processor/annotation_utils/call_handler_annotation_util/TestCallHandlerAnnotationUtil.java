@@ -40,12 +40,12 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetCallHandlerAnnotationMirror_nullSupplied() {
+	public void testGetAnnotation_nullSupplied() {
 		CallHandlerAnnoUtil.getAnnotation(null);
 	}
 
 	@Test
-	public void testGetCallHandlerAnnotationMirror_specificEnumHandlerAnnotationPresent() {
+	public void testGetAnnotation_specificEnumHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific enum");
 
 		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
@@ -55,7 +55,7 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetCallHandlerAnnotationMirror_specificFlagHandlerAnnotationPresent() {
+	public void testGetAnnotation_specificFlagHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific flag");
 
 		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
@@ -65,7 +65,7 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test
-	public void testGetCallHandlerAnnotationMirror_noCallHandlerAnnotationPresent() {
+	public void testGetAnnotation_noCallHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
 
 		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
@@ -74,22 +74,22 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testHasCallHandlerAnnotation_nullSupplied() {
+	public void testHasAnnotation_nullSupplied() {
 		CallHandlerAnnoUtil.hasAnnotation(null);
 	}
 
 	@Test
-	public void testHasCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() {
+	public void testHasAnnotation_specificEnumHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("specific enum", true);
 	}
 
 	@Test
-	public void testHasCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() {
+	public void testHasAnnotation_specificFlagHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("specific flag", true);
 	}
 
 	@Test
-	public void testHasCallHandlerAnnotation_noCallHandlerAnnotationPresent() {
+	public void testHasAnnotation_noCallHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("no call handler annotation", false);
 	}
 
