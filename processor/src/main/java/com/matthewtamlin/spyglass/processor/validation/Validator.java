@@ -26,6 +26,10 @@ import javax.lang.model.element.VariableElement;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.STATIC;
+import static javax.lang.model.element.NestingKind.ANONYMOUS;
+import static javax.lang.model.element.NestingKind.LOCAL;
+import static javax.lang.model.element.NestingKind.MEMBER;
+import static javax.lang.model.element.NestingKind.TOP_LEVEL;
 
 @Tested(testMethod = "automated")
 public class Validator {
@@ -191,24 +195,18 @@ public class Validator {
 				final TypeElement parent = (TypeElement) element.getEnclosingElement();
 
 				if (parent == null) {
-					// Input was a top level class
 					return true;
+				}
 
-				} else if (parent.getNestingKind() == NestingKind.TOP_LEVEL) {
-					return true;
-
-				} else if (parent.getNestingKind() == NestingKind.MEMBER) {
-					// The enclosing element must be static, and its parents must also be valid
-					return parent.getModifiers().contains(STATIC);
-
-				} else if (parent.getNestingKind() == NestingKind.LOCAL) {
-					return false;
-
-				} else if (parent.getNestingKind() == NestingKind.ANONYMOUS) {
-					return false;
-
-				} else {
-					throw new RuntimeException("This should never happen.");
+				switch (parent.getNestingKind()) {
+					case TOP_LEVEL:
+						return true;
+					case MEMBER:
+						return parent.getModifiers().contains(STATIC);
+					case LOCAL:
+						return false;
+					case ANONYMOUS:
+						return false;
 				}
 			}
 		});
