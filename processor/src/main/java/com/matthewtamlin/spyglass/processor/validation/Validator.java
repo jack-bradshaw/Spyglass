@@ -20,10 +20,10 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.core.AnnotationRegistry.CALL_HANDLER_ANNOTATIONS;
-import static com.matthewtamlin.spyglass.processor.core.AnnotationRegistry.DEFAULT_ANNOTATIONS;
-import static com.matthewtamlin.spyglass.processor.core.AnnotationRegistry.USE_ANNOTATIONS;
-import static com.matthewtamlin.spyglass.processor.core.AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.getCallHandlerAnnotationClasses;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnotationUtil.getDefaultAnnotationClasses;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil.getUseAnnotationClasses;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil.getValueHandlerAnnotationClasses;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.STATIC;
 
@@ -229,7 +229,7 @@ public class Validator {
 	private static int countCallHandlerAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : CALL_HANDLER_ANNOTATIONS) {
+		for (final Class<? extends Annotation> annotation : getCallHandlerAnnotationClasses()) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -241,7 +241,7 @@ public class Validator {
 	private static int countValueHandlerAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : VALUE_HANDLER_ANNOTATIONS) {
+		for (final Class<? extends Annotation> annotation : getValueHandlerAnnotationClasses()) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -257,7 +257,7 @@ public class Validator {
 	private static int countDefaultAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : DEFAULT_ANNOTATIONS) {
+		for (final Class<? extends Annotation> annotation : getDefaultAnnotationClasses()) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -276,7 +276,7 @@ public class Validator {
 		for (int i = 0; i < params.size(); i++) {
 			useAnnotations.put(i, new HashSet<Annotation>());
 
-			for (final Class<? extends Annotation> annotation : USE_ANNOTATIONS) {
+			for (final Class<? extends Annotation> annotation : getUseAnnotationClasses()) {
 				final Annotation foundAnnotation = params.get(i).getAnnotation(annotation);
 
 				if (foundAnnotation != null) {
