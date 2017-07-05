@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.annotation_info.ValueHandlerAnnoInfo;
+import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
 
 import java.lang.annotation.Annotation;
@@ -16,7 +16,7 @@ public class ValueHandlerAnnoRetriever {
 	public static AnnotationMirror getAnnotation(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
-		for (final Class<? extends Annotation> annotationClass : ValueHandlerAnnoInfo.ALL_ANNOS) {
+		for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.VALUE_HANDLER_ANNOS) {
 			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, annotationClass);
 
 			if (mirror != null) {

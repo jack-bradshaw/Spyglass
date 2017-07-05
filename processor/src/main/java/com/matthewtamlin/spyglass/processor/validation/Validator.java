@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+<<<<<<< Updated upstream
 import com.matthewtamlin.spyglass.processor.annotation_info.CallHandlerAnnoInfo;
 import com.matthewtamlin.spyglass.processor.annotation_info.DefaultAnnoInfo;
 import com.matthewtamlin.spyglass.processor.annotation_info.UseAnnoInfo;
@@ -9,7 +10,15 @@ import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnn
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+=======
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
+>>>>>>> Stashed changes
 import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
+import com.squareup.javapoet.TypeName;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -20,6 +29,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -210,6 +220,62 @@ public class Validator {
 				}
 
 				throw new RuntimeException("Should never get here.");
+			}
+		});
+
+		// Check that use annotation value can be passed to method
+		rules.add(new Rule() {
+			@Override
+			public void checkElement(final Element element) throws ValidationException {
+				for (final VariableElement parameter : ((ExecutableElement) element).getParameters()) {
+					if (UseAnnoUtil.hasAnnotation(parameter)) {
+						checkParameter(parameter);
+					}
+				}
+			}
+
+			private void checkParameter(final VariableElement parameter) {
+				final AnnotationMirror useAnnotationMirror = UseAnnoUtil.getAnnotation(parameter);
+				final TypeName
+
+				if (useAnnotationName.equals(UseNull.class.getName())) {
+					checkNullCase(parameter);
+				} else if (useAnnotationName.equals())
+			}
+
+			private void checkNullCase(final VariableElement element) {
+
+			}
+
+			private void checkNumberCase(final VariableElement element) {
+
+			}
+
+			private void checkCharacterCase(final VariableElement element) {
+
+			}
+
+			private void checkOtherCase(final VariableElement element) {
+
+			}
+		});
+
+		// For case where use annotation defines null, check that parameter can accept null
+		rules.add(new Rule() {
+			@Override
+			public void checkElement(final Element element) throws ValidationException {
+				// four cases. value type is:
+				//		null
+				//		number
+				//		character
+				//		other
+
+				// if value type is null
+				//		check that recipient is not primitive
+				// else if value type is number or character
+				//		check that number or character is assignable to boxed recipient
+				// else
+				//		check that value type is assignable to recipient
 			}
 		});
 	}

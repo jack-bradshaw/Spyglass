@@ -1,8 +1,5 @@
 package com.matthewtamlin.spyglass.processor.core;
 
-import com.matthewtamlin.spyglass.processor.annotation_info.CallHandlerAnnoInfo;
-import com.matthewtamlin.spyglass.processor.annotation_info.DefaultAnnoInfo;
-import com.matthewtamlin.spyglass.processor.annotation_info.ValueHandlerAnnoInfo;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
@@ -59,9 +56,9 @@ public class MainProcessor extends AbstractProcessor {
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
 
-		intermediateSet.addAll(CallHandlerAnnoInfo.ALL_ANNOS);
-		intermediateSet.addAll(ValueHandlerAnnoInfo.ALL_ANNOS);
-		intermediateSet.addAll(DefaultAnnoInfo.ALL_ANNOS);
+		intermediateSet.addAll(AnnotationRegistry.CALL_HANDLER_ANNOS);
+		intermediateSet.addAll(AnnotationRegistry.VALUE_HANDLER_ANNOS);
+		intermediateSet.addAll(AnnotationRegistry.DEFAULT_ANNOS);
 
 		SUPPORTED_ANNOTATIONS = Collections.unmodifiableSet(intermediateSet);
 	}
