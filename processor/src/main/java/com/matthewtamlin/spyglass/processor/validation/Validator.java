@@ -1,6 +1,10 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.processor.annotation_info.CallHandlerAnnoInfo;
+import com.matthewtamlin.spyglass.processor.annotation_info.DefaultAnnoInfo;
+import com.matthewtamlin.spyglass.processor.annotation_info.UseAnnoInfo;
+import com.matthewtamlin.spyglass.processor.annotation_info.ValueHandlerAnnoInfo;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
@@ -225,7 +229,7 @@ public class Validator {
 	private static int countCallHandlerAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : CallHandlerAnnoRetriever.getClasses()) {
+		for (final Class<? extends Annotation> annotation : CallHandlerAnnoInfo.ALL_ANNOS) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -237,7 +241,7 @@ public class Validator {
 	private static int countValueHandlerAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : ValueHandlerAnnoRetriever.getClasses()) {
+		for (final Class<? extends Annotation> annotation : ValueHandlerAnnoInfo.ALL_ANNOS) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -253,7 +257,7 @@ public class Validator {
 	private static int countDefaultAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : DefaultAnnoRetriever.getClasses()) {
+		for (final Class<? extends Annotation> annotation : DefaultAnnoInfo.ALL_ANNOS) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -272,7 +276,7 @@ public class Validator {
 		for (int i = 0; i < params.size(); i++) {
 			useAnnotations.put(i, new HashSet<Annotation>());
 
-			for (final Class<? extends Annotation> annotation : UseAnnoRetriever.getClasses()) {
+			for (final Class<? extends Annotation> annotation : UseAnnoInfo.ALL_ANNOS) {
 				final Annotation foundAnnotation = params.get(i).getAnnotation(annotation);
 
 				if (foundAnnotation != null) {
