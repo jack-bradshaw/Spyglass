@@ -5,6 +5,7 @@ import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.Sp
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
@@ -15,7 +16,6 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil.getAnnotationValueWithDefaults;
 import static javax.lang.model.element.Modifier.FINAL;
 
 @Tested(testMethod = "automated")
@@ -115,7 +115,7 @@ public class SpecificValueIsAvailableMethodGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		return getAnnotationValueWithDefaults(mirror, key, elementUtil).toString();
+		return AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, key, elementUtil).toString();
 	}
 
 	private void checkIsValueHandlerAnnotation(final AnnotationMirror anno, final String exceptionMessage) {

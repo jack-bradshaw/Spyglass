@@ -6,6 +6,7 @@ import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUti
 import com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
+import com.matthewtamlin.spyglass.processor.grouper.Grouper;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
 import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 import com.matthewtamlin.spyglass.processor.validation.ValidationException;
@@ -35,7 +36,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
-import static com.matthewtamlin.spyglass.processor.grouper.Grouper.groupByEnclosingClass;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class MainProcessor extends AbstractProcessor {
@@ -130,7 +130,7 @@ public class MainProcessor extends AbstractProcessor {
 	}
 
 	private void createCompanions(final Set<ExecutableElement> elements) {
-		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = groupByEnclosingClass(elements);
+		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = Grouper.groupByEnclosingClass(elements);
 
 		for (final TypeElementWrapper targetClass : sortedElements.keySet()) {
 			final CodeBlock.Builder methodBody = CodeBlock.builder();

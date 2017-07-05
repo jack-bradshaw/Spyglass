@@ -18,7 +18,6 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -42,14 +41,14 @@ public class TestCallHandlerAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetCallHandlerAnnotationMirror_nullSupplied() {
-		getAnnotation(null);
+		CallHandlerAnnoUtil.getAnnotation(null);
 	}
 
 	@Test
 	public void testGetCallHandlerAnnotationMirror_specificEnumHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific enum");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(SpecificEnumHandler.class.getName()));
@@ -59,7 +58,7 @@ public class TestCallHandlerAnnotationUtil {
 	public void testGetCallHandlerAnnotationMirror_specificFlagHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific flag");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(SpecificFlagHandler.class.getName()));
@@ -69,7 +68,7 @@ public class TestCallHandlerAnnotationUtil {
 	public void testGetCallHandlerAnnotationMirror_noCallHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(nullValue()));
 	}
