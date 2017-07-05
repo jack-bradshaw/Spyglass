@@ -1,9 +1,12 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
+import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.AnnotatedElementSupplier;
+import com.matthewtamlin.spyglass.processor.util.TypeMirrorHelper;
 
 import org.junit.Before;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -20,10 +23,15 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnit4.class)
 public class TestValidator {
+	@Rule
+	public final CompilationRule compilationRule = new CompilationRule();
+
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
 			"validation/Data.java");
 
 	private Set<Element> elements;
+
+	private Validator validator;
 
 	@Before
 	public void setup() throws MalformedURLException {
@@ -33,6 +41,7 @@ public class TestValidator {
 		final AnnotatedElementSupplier elementSupplier = new AnnotatedElementSupplier(dataFileObject);
 
 		elements = elementSupplier.getElementsWithAnnotation(Target.class);
+		validator = new Validator(new TypeMirrorHelper(compilationRule.getElements(), compilationRule.getTypes()));
 	}
 
 	@Test
@@ -42,7 +51,7 @@ public class TestValidator {
 			final boolean shouldPassValidation = targetAnnotation.isValid();
 
 			try {
-				Validator.validateElement(element);
+				validator.validateElement(element);
 
 				if (!shouldPassValidation) {
 					throw new RuntimeException(
