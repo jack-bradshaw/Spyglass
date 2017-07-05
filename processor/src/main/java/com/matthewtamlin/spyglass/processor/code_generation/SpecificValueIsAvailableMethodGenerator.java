@@ -3,8 +3,7 @@ package com.matthewtamlin.spyglass.processor.code_generation;
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.processor.annotation_info.CallHandlerAnnoInfo;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
 import com.squareup.javapoet.CodeBlock;
@@ -123,7 +122,7 @@ public class SpecificValueIsAvailableMethodGenerator {
 		try {
 			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
 
-			if (!CallHandlerAnnoInfo.ALL_ANNOS.contains(annotationClass)) {
+			if (!AnnotationRegistry.CALL_HANDLER_ANNOS.contains(annotationClass)) {
 				throw new IllegalArgumentException(exceptionMessage);
 			}
 		} catch (ClassNotFoundException e) {
