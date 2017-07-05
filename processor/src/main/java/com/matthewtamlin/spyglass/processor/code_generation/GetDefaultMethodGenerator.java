@@ -18,10 +18,11 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
-import com.matthewtamlin.spyglass.common.units.DimensionUnit;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
-import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
+import com.matthewtamlin.spyglass.common.units.DimensionUnit;
+import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -33,7 +34,6 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil.getAnnotationValueWithDefaults;
 import static javax.lang.model.element.Modifier.FINAL;
 
 @Tested(testMethod = "automated")
@@ -423,7 +423,7 @@ public class GetDefaultMethodGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		return getAnnotationValueWithDefaults(mirror, key, elementUtil).toString();
+		return AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, key, elementUtil).toString();
 	}
 
 	private String getComplexUnitLiteral(final DimensionUnit unit) {
@@ -443,7 +443,7 @@ public class GetDefaultMethodGenerator {
 		try {
 			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
 
-			if (!AnnotationRegistry.DEFAULT_ANNOTATIONS.contains(annotationClass)) {
+			if (!DefaultAnnoUtil.getClasses().contains(annotationClass)) {
 				throw new IllegalArgumentException(exceptionMessage);
 			}
 		} catch (ClassNotFoundException e) {

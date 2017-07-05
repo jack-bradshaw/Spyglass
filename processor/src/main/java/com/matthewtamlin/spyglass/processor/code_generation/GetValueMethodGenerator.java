@@ -12,9 +12,10 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
+import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -26,7 +27,6 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil.getAnnotationValueWithDefaults;
 import static javax.lang.model.element.Modifier.FINAL;
 
 @Tested(testMethod = "automated")
@@ -288,14 +288,14 @@ public class GetValueMethodGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		return getAnnotationValueWithDefaults(mirror, key, elementUtil).toString();
+		return AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, key, elementUtil).toString();
 	}
 
 	private void checkIsValueHandlerAnnotation(final AnnotationMirror anno, final String exceptionMessage) {
 		try {
 			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
 
-			if (!AnnotationRegistry.VALUE_HANDLER_ANNOTATIONS.contains(annotationClass)) {
+			if (!ValueHandlerAnnoUtil.getClasses().contains(annotationClass)) {
 				throw new IllegalArgumentException(exceptionMessage);
 			}
 		} catch (ClassNotFoundException e) {

@@ -4,6 +4,7 @@ import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,8 +18,6 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -42,14 +41,14 @@ public class TestCallHandlerAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetCallHandlerAnnotationMirror_nullSupplied() {
-		getCallHandlerAnnotationMirror(null);
+		CallHandlerAnnoUtil.getAnnotation(null);
 	}
 
 	@Test
 	public void testGetCallHandlerAnnotationMirror_specificEnumHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific enum");
 
-		final AnnotationMirror mirror = getCallHandlerAnnotationMirror(element);
+		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(SpecificEnumHandler.class.getName()));
@@ -59,7 +58,7 @@ public class TestCallHandlerAnnotationUtil {
 	public void testGetCallHandlerAnnotationMirror_specificFlagHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific flag");
 
-		final AnnotationMirror mirror = getCallHandlerAnnotationMirror(element);
+		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(SpecificFlagHandler.class.getName()));
@@ -69,14 +68,14 @@ public class TestCallHandlerAnnotationUtil {
 	public void testGetCallHandlerAnnotationMirror_noCallHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
 
-		final AnnotationMirror mirror = getCallHandlerAnnotationMirror(element);
+		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(nullValue()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testHasCallHandlerAnnotation_nullSupplied() {
-		hasCallHandlerAnnotation(null);
+		CallHandlerAnnoUtil.hasAnnotation(null);
 	}
 
 	@Test
@@ -105,7 +104,7 @@ public class TestCallHandlerAnnotationUtil {
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
 		final ExecutableElement element = getExecutableElementWithId(id);
 
-		final boolean hasAnnotation = hasCallHandlerAnnotation(element);
+		final boolean hasAnnotation = CallHandlerAnnoUtil.hasAnnotation(element);
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
