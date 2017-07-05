@@ -108,7 +108,7 @@ public class DoInvocationGenerator {
 
 		for (final VariableElement parameter : method.getParameters()) {
 			if (UseAnnoUtil.hasAnnotation(parameter)) {
-				final AnnotationMirror useAnnotationMirror = UseAnnoUtil.getMirror(parameter);
+				final AnnotationMirror useAnnotationMirror = UseAnnoUtil.getAnnotation(parameter);
 				codeBlocks.add(getArgumentForUseAnnotation(useAnnotationMirror));
 			} else {
 				codeBlocks.add(null);
