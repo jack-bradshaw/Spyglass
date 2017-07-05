@@ -4,7 +4,7 @@ import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
-import com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil;
