@@ -83,7 +83,7 @@ public class DoInvocationGenerator {
 
 	private TypeMirror getRecipientType(final ExecutableElement method) {
 		for (final VariableElement parameter : method.getParameters()) {
-			if (!UseAnnoUtil.hasUseAnnotation(parameter)) {
+			if (!UseAnnoUtil.hasAnnotation(parameter)) {
 				return parameter.asType();
 			}
 		}
@@ -107,8 +107,8 @@ public class DoInvocationGenerator {
 		final List<CodeBlock> codeBlocks = new ArrayList<>();
 
 		for (final VariableElement parameter : method.getParameters()) {
-			if (UseAnnoUtil.hasUseAnnotation(parameter)) {
-				final AnnotationMirror useAnnotationMirror = UseAnnoUtil.getUseAnnotationMirror(parameter);
+			if (UseAnnoUtil.hasAnnotation(parameter)) {
+				final AnnotationMirror useAnnotationMirror = UseAnnoUtil.getMirror(parameter);
 				codeBlocks.add(getArgumentForUseAnnotation(useAnnotationMirror));
 			} else {
 				codeBlocks.add(null);

@@ -24,10 +24,10 @@ import static com.matthewtamlin.spyglass.processor.util.SetUtil.unmodifiableSetO
 
 @Tested(testMethod = "automated")
 public class UseAnnoUtil {
-	public static AnnotationMirror getUseAnnotationMirror(final VariableElement element) {
+	public static AnnotationMirror getMirror(final VariableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
-		for (final Class<? extends Annotation> annotationClass : getUseAnnotationClasses()) {
+		for (final Class<? extends Annotation> annotationClass : getClasses()) {
 			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, annotationClass);
 
 			if (mirror != null) {
@@ -38,11 +38,11 @@ public class UseAnnoUtil {
 		return null;
 	}
 
-	public static boolean hasUseAnnotation(final VariableElement element) {
-		return getUseAnnotationMirror(element) != null;
+	public static boolean hasAnnotation(final VariableElement element) {
+		return getMirror(element) != null;
 	}
 
-	public static Set<Class<? extends Annotation>> getUseAnnotationClasses() {
+	public static Set<Class<? extends Annotation>> getClasses() {
 		return unmodifiableSetOf(
 				UseBoolean.class,
 				UseByte.class,

@@ -17,7 +17,7 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.hasUseAnnotation;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.hasAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getValueHandlerAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.hasValueHandlerAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
@@ -160,7 +160,7 @@ public class CallerGenerator {
 
 	private TypeName getNameOfNonUseParameter(final ExecutableElement e) {
 		for (final VariableElement parameter : e.getParameters()) {
-			if (!hasUseAnnotation(parameter)) {
+			if (!hasAnnotation(parameter)) {
 				final TypeName className = ClassName.get(parameter.asType());
 
 				if (className.isBoxedPrimitive()) {
