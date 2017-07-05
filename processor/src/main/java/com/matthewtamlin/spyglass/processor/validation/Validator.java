@@ -208,6 +208,8 @@ public class Validator {
 					case ANONYMOUS:
 						return false;
 				}
+
+				throw new RuntimeException("Should never get here.");
 			}
 		});
 	}
