@@ -1,6 +1,10 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -16,13 +20,6 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnotationUtil.getDefaultAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnotationUtil.hasDefaultAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil.hasUseAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil.getValueHandlerAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil.hasValueHandlerAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
@@ -51,11 +48,11 @@ public class CallerGenerator {
 	public TypeSpec generateCaller(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		if (hasCallHandlerAnnotation(method)) {
+		if (CallHandlerAnnoUtil.hasAnnotation(method)) {
 			return generateCallHandlerCaller(method);
 
-		} else if (hasValueHandlerAnnotation(method)) {
-			return hasDefaultAnnotation(method) ?
+		} else if (ValueHandlerAnnoUtil.hasAnnotation(method)) {
+			return DefaultAnnoUtil.hasAnnotation(method) ?
 					generateValueHandlerCallerWithDefault(method) :
 					generateValueHandlerCallerWithoutDefault(method);
 
@@ -66,7 +63,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
-		final AnnotationMirror callHandlerAnno = getCallHandlerAnnotationMirror(e);
+		final AnnotationMirror callHandlerAnno = CallHandlerAnnoUtil.getAnnotation(e);
 
 		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.getMethod(callHandlerAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
@@ -88,7 +85,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateValueHandlerCallerWithoutDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandlerAnno = getValueHandlerAnnotationMirror(e);
+		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoUtil.getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandlerAnno);
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandlerAnno);
@@ -113,8 +110,8 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandler = getValueHandlerAnnotationMirror(e);
-		final AnnotationMirror defaultAnno = getDefaultAnnotationMirror(e);
+		final AnnotationMirror valueHandler = ValueHandlerAnnoUtil.getAnnotation(e);
+		final AnnotationMirror defaultAnno = DefaultAnnoUtil.getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandler);
@@ -163,7 +160,7 @@ public class CallerGenerator {
 
 	private TypeName getNameOfNonUseParameter(final ExecutableElement e) {
 		for (final VariableElement parameter : e.getParameters()) {
-			if (!hasUseAnnotation(parameter)) {
+			if (!UseAnnoUtil.hasAnnotation(parameter)) {
 				final TypeName className = ClassName.get(parameter.asType());
 
 				if (className.isBoxedPrimitive()) {

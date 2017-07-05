@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils;
+package com.matthewtamlin.spyglass.processor.mirror_utils;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
