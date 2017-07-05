@@ -22,7 +22,7 @@ import javax.lang.model.element.VariableElement;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getCallHandlerAnnotationClasses;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.getDefaultAnnotationClasses;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil.getUseAnnotationClasses;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.getUseAnnotationClasses;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil.getValueHandlerAnnotationClasses;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.STATIC;

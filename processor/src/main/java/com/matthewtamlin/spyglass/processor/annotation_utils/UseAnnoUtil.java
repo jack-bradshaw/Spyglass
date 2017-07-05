@@ -23,7 +23,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static com.matthewtamlin.spyglass.processor.util.SetUtil.unmodifiableSetOf;
 
 @Tested(testMethod = "automated")
-public class UseAnnotationUtil {
+public class UseAnnoUtil {
 	public static AnnotationMirror getUseAnnotationMirror(final VariableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
@@ -56,7 +56,7 @@ public class UseAnnotationUtil {
 				UseString.class);
 	}
 
-	private UseAnnotationUtil() {
+	private UseAnnoUtil() {
 		throw new RuntimeException("Utility class. Do not instantiate.");
 	}
 }
