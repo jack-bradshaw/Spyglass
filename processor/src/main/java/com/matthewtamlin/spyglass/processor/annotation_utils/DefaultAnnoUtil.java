@@ -30,7 +30,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static com.matthewtamlin.spyglass.processor.util.SetUtil.unmodifiableSetOf;
 
 @Tested(testMethod = "automated")
-public class DefaultAnnotationUtil {
+public class DefaultAnnoUtil {
 	public static AnnotationMirror getDefaultAnnotationMirror(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
@@ -70,7 +70,7 @@ public class DefaultAnnotationUtil {
 				DefaultToTextResource.class);
 	}
 
-	private DefaultAnnotationUtil() {
+	private DefaultAnnoUtil() {
 		throw new RuntimeException("Utility class. Do not instantiate.");
 	}
 }

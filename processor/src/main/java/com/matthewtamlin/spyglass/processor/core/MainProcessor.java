@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.processor.core;
 
 import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnotationUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
@@ -58,7 +58,7 @@ public class MainProcessor extends AbstractProcessor {
 
 		intermediateSet.addAll(CallHandlerAnnoUtil.getCallHandlerAnnotationClasses());
 		intermediateSet.addAll(ValueHandlerAnnotationUtil.getValueHandlerAnnotationClasses());
-		intermediateSet.addAll(DefaultAnnotationUtil.getDefaultAnnotationClasses());
+		intermediateSet.addAll(DefaultAnnoUtil.getDefaultAnnotationClasses());
 
 		SUPPORTED_ANNOTATIONS = Collections.unmodifiableSet(intermediateSet);
 	}
