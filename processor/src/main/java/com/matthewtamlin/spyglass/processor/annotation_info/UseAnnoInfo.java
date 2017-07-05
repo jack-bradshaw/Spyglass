@@ -55,7 +55,7 @@ public class UseAnnoInfo {
 		definedTypes.put(UseString.class.getName(), getTypeMirrorFor(String.class.getCanonicalName()));
 	}
 
-	public TypeMirror getDefinedTypeFor(final AnnotationMirror useAnnotation) {
+	public TypeMirror getTypeSuppliedBy(final AnnotationMirror useAnnotation) {
 		final String key = useAnnotation.getAnnotationType().toString();
 
 		if (definedTypes.containsKey(key)) {
