@@ -26,7 +26,7 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.AnnotationMirrorUtil.getAnnotationValueWithDefaults;
+import static com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil.getAnnotationValueWithDefaults;
 import static javax.lang.model.element.Modifier.FINAL;
 
 @Tested(testMethod = "automated")
