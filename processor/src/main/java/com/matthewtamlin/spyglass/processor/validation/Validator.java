@@ -26,6 +26,10 @@ import javax.lang.model.element.VariableElement;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.STATIC;
+import static javax.lang.model.element.NestingKind.ANONYMOUS;
+import static javax.lang.model.element.NestingKind.LOCAL;
+import static javax.lang.model.element.NestingKind.MEMBER;
+import static javax.lang.model.element.NestingKind.TOP_LEVEL;
 
 @Tested(testMethod = "automated")
 public class Validator {
@@ -35,7 +39,7 @@ public class Validator {
 		// Check element is a method
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				if (element.getKind() != ElementKind.METHOD) {
 					final String message = "Spyglass annotations must only be applied to methods.";
 					throw new ValidationException(message);
@@ -46,7 +50,7 @@ public class Validator {
 		// Check for multiple handler annotations
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				if (countCombinedHandlerAnnotations(element) > 1) {
 					final String message = "Methods must not have multiple handler annotations.";
 					throw new ValidationException(message);
@@ -57,7 +61,7 @@ public class Validator {
 		// Check for multiple default annotations
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				if (countDefaultAnnotations(element) > 1) {
 					final String message = "Methods must not have multiple default annotations.";
 					throw new ValidationException(message);
@@ -68,7 +72,7 @@ public class Validator {
 		// Check for a default annotation without a handler annotation
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				final int handlerCount = countCombinedHandlerAnnotations(element);
 				final int defaultCount = countDefaultAnnotations(element);
 
@@ -82,7 +86,7 @@ public class Validator {
 		// Check for call handlers with defaults
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				final int callHandlerCount = countCallHandlerAnnotations(element);
 				final int defaultCount = countDefaultAnnotations(element);
 
@@ -98,7 +102,7 @@ public class Validator {
 		// Check parameter count exceeds 1 minimum for value handlers
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				if (countValueHandlerAnnotations(element) == 1) {
 					final int paramCount = ((ExecutableElement) element).getParameters().size();
 
@@ -115,7 +119,7 @@ public class Validator {
 		// Check for parameters with multiple use annotations
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(
 						(ExecutableElement) element);
 
@@ -131,7 +135,7 @@ public class Validator {
 		// Check correct number of parameters have use annotations (value handlers case)
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				if (countValueHandlerAnnotations(element) == 1) {
 					final int paramCount = ((ExecutableElement) element).getParameters().size();
 					final int annotatedParamCount = countNonEmptySets(
@@ -150,7 +154,7 @@ public class Validator {
 		// Check correct number of parameters have use annotations (call handlers case)
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				if (countCallHandlerAnnotations(element) == 1) {
 					final int paramCount = ((ExecutableElement) element).getParameters().size();
 					final int annotatedParamCount = countNonEmptySets(
@@ -169,7 +173,7 @@ public class Validator {
 		// Check correct modifiers are applied to annotation methods
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				if (element.getModifiers().contains(PRIVATE)) {
 					throw new ValidationException("Methods with handler annotations must have public, protected, or " +
 							"default access. Private methods are not compatible with the Spyglass Framework.");
@@ -180,36 +184,33 @@ public class Validator {
 		// Check for methods which are members of non-static inner classes (recursively)
 		rules.add(new Rule() {
 			@Override
-			public void checkElementComplies(final Element element) throws ValidationException {
+			public void checkElement(final Element element) throws ValidationException {
 				if (!checkParentsRecursively(element)) {
 					throw new ValidationException("Methods with handler annotations must be accessible from static " +
 							"context.");
 				}
 			}
 
+			//TODO need to look into making this method better
 			private boolean checkParentsRecursively(final Element element) {
 				final TypeElement parent = (TypeElement) element.getEnclosingElement();
 
 				if (parent == null) {
-					// Input was a top level class
 					return true;
-
-				} else if (parent.getNestingKind() == NestingKind.TOP_LEVEL) {
-					return true;
-
-				} else if (parent.getNestingKind() == NestingKind.MEMBER) {
-					// The enclosing element must be static, and its parents must also be valid
-					return parent.getModifiers().contains(STATIC);
-
-				} else if (parent.getNestingKind() == NestingKind.LOCAL) {
-					return false;
-
-				} else if (parent.getNestingKind() == NestingKind.ANONYMOUS) {
-					return false;
-
-				} else {
-					throw new RuntimeException("This should never happen.");
 				}
+
+				switch (parent.getNestingKind()) {
+					case TOP_LEVEL:
+						return true;
+					case MEMBER:
+						return parent.getModifiers().contains(STATIC);
+					case LOCAL:
+						return false;
+					case ANONYMOUS:
+						return false;
+				}
+
+				throw new RuntimeException("Should never get here.");
 			}
 		});
 	}
@@ -222,7 +223,7 @@ public class Validator {
 
 	public void validateElement(final Element element) throws ValidationException {
 		for (final Rule rule : rules) {
-			rule.checkElementComplies(element);
+			rule.checkElement(element);
 		}
 	}
 
@@ -301,7 +302,7 @@ public class Validator {
 	}
 
 	private interface Rule {
-		public void checkElementComplies(Element element) throws ValidationException;
+		public void checkElement(Element element) throws ValidationException;
 	}
 
 	private Validator() {
