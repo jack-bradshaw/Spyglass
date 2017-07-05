@@ -112,7 +112,7 @@ public class CallerGenerator {
 
 	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
 		final AnnotationMirror valueHandler = getAnnotation(e);
-		final AnnotationMirror defaultAnno = DefaultAnnoUtil.getMirror(e);
+		final AnnotationMirror defaultAnno = DefaultAnnoUtil.getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandler);
