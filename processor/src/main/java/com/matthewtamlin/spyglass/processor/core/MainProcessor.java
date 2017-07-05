@@ -114,7 +114,7 @@ public class MainProcessor extends AbstractProcessor {
 			try {
 				final TypeMirrorHelper typeMirrorHelper = new TypeMirrorHelper(elementUtil, typeUtil);
 				final Validator validator = new Validator(typeMirrorHelper);
-				
+
 				validator.validateElement(element);
 
 			} catch (final ValidationException validationException) {
