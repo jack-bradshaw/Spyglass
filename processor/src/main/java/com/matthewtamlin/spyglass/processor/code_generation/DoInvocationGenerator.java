@@ -5,7 +5,7 @@ import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
 import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnotationUtil;
 import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
@@ -47,7 +47,7 @@ public class DoInvocationGenerator {
 	public MethodSpec getMethod(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		if (CallHandlerAnnotationUtil.hasCallHandlerAnnotation(method)) {
+		if (CallHandlerAnnoUtil.hasCallHandlerAnnotation(method)) {
 			return getMethodForCallHandlerCase(method);
 		} else if (ValueHandlerAnnotationUtil.hasValueHandlerAnnotation(method)) {
 			return getMethodForValueHandlerCase(method);

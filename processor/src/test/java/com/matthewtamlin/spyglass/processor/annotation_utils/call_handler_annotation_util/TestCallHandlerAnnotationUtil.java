@@ -17,8 +17,8 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.getCallHandlerAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnotationUtil.hasCallHandlerAnnotation;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getCallHandlerAnnotationMirror;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.hasCallHandlerAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
