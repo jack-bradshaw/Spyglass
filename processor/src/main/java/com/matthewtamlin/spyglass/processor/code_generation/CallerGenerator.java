@@ -20,7 +20,6 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
@@ -86,7 +85,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateValueHandlerCallerWithoutDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandlerAnno = getAnnotation(e);
+		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoUtil.getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandlerAnno);
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandlerAnno);
@@ -111,7 +110,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandler = getAnnotation(e);
+		final AnnotationMirror valueHandler = ValueHandlerAnnoUtil.getAnnotation(e);
 		final AnnotationMirror defaultAnno = DefaultAnnoUtil.getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);

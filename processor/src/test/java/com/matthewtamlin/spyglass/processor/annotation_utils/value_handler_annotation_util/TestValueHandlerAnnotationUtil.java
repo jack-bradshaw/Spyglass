@@ -27,7 +27,6 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -51,14 +50,14 @@ public class TestValueHandlerAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetValueHandlerAnnotationMirror_nullSupplied() {
-		getAnnotation(null);
+		ValueHandlerAnnoUtil.getAnnotation(null);
 	}
 
 	@Test
 	public void testGetValueHandlerAnnotationMirror_booleanHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(BooleanHandler.class.getName()));
@@ -68,7 +67,7 @@ public class TestValueHandlerAnnotationUtil {
 	public void testGetValueHandlerAnnotationMirror_colorHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(ColorHandler.class.getName()));
@@ -78,7 +77,7 @@ public class TestValueHandlerAnnotationUtil {
 	public void testGetValueHandlerAnnotationMirror_colorStateListHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color state list");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(ColorStateListHandler.class.getName()));
@@ -88,7 +87,7 @@ public class TestValueHandlerAnnotationUtil {
 	public void testGetValueHandlerAnnotationMirror_dimensionHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DimensionHandler.class.getName()));
@@ -98,7 +97,7 @@ public class TestValueHandlerAnnotationUtil {
 	public void testGetValueHandlerAnnotationMirror_drawableHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("drawable");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DrawableHandler.class.getName()));
@@ -109,7 +108,7 @@ public class TestValueHandlerAnnotationUtil {
 
 		final ExecutableElement element = getExecutableElementWithId("enum constant");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(EnumConstantHandler.class.getName()));
@@ -120,7 +119,7 @@ public class TestValueHandlerAnnotationUtil {
 
 		final ExecutableElement element = getExecutableElementWithId("enum ordinal");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(EnumOrdinalHandler.class.getName()));
@@ -130,7 +129,7 @@ public class TestValueHandlerAnnotationUtil {
 	public void testGetValueHandlerAnnotationMirror_floatHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("float");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(FloatHandler.class.getName()));
@@ -140,7 +139,7 @@ public class TestValueHandlerAnnotationUtil {
 	public void testGetValueHandlerAnnotationMirror_fractionHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("fraction");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(FractionHandler.class.getName()));
@@ -150,7 +149,7 @@ public class TestValueHandlerAnnotationUtil {
 	public void testGetValueHandlerAnnotationMirror_integerHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(IntegerHandler.class.getName()));
@@ -160,7 +159,7 @@ public class TestValueHandlerAnnotationUtil {
 	public void testGetValueHandlerAnnotationMirror_stringHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(StringHandler.class.getName()));
@@ -170,7 +169,7 @@ public class TestValueHandlerAnnotationUtil {
 	public void testGetValueHandlerAnnotationMirror_noValueHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no value handler annotation");
 
-		final AnnotationMirror mirror = getAnnotation(element);
+		final AnnotationMirror mirror = ValueHandlerAnnoUtil.getAnnotation(element);
 
 		assertThat(mirror, is(nullValue()));
 	}
