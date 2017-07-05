@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils.annotation_mirror_util;
+package com.matthewtamlin.spyglass.processor.mirror_utils.annotation_mirror_util;
 
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
