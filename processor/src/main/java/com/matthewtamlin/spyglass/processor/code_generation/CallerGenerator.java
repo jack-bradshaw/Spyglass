@@ -16,8 +16,8 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getCallHandlerAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.hasCallHandlerAnnotation;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getMirror;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.hasAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.getDefaultAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.hasDefaultAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.hasUseAnnotation;
@@ -51,7 +51,7 @@ public class CallerGenerator {
 	public TypeSpec generateCaller(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		if (hasCallHandlerAnnotation(method)) {
+		if (hasAnnotation(method)) {
 			return generateCallHandlerCaller(method);
 
 		} else if (hasValueHandlerAnnotation(method)) {
@@ -66,7 +66,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
-		final AnnotationMirror callHandlerAnno = getCallHandlerAnnotationMirror(e);
+		final AnnotationMirror callHandlerAnno = getMirror(e);
 
 		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.getMethod(callHandlerAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);

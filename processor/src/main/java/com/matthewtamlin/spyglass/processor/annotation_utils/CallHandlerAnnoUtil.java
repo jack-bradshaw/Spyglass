@@ -16,10 +16,10 @@ import static com.matthewtamlin.spyglass.processor.util.SetUtil.unmodifiableSetO
 
 @Tested(testMethod = "automated")
 public class CallHandlerAnnoUtil {
-	public static AnnotationMirror getCallHandlerAnnotationMirror(final ExecutableElement element) {
+	public static AnnotationMirror getMirror(final ExecutableElement element) {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
-		for (final Class<? extends Annotation> annotationClass : getCallHandlerAnnotationClasses()) {
+		for (final Class<? extends Annotation> annotationClass : getClasses()) {
 			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, annotationClass);
 
 			if (mirror != null) {
@@ -30,11 +30,11 @@ public class CallHandlerAnnoUtil {
 		return null;
 	}
 
-	public static boolean hasCallHandlerAnnotation(final ExecutableElement element) {
-		return getCallHandlerAnnotationMirror(element) != null;
+	public static boolean hasAnnotation(final ExecutableElement element) {
+		return getMirror(element) != null;
 	}
 
-	public static Set<Class<? extends Annotation>> getCallHandlerAnnotationClasses() {
+	public static Set<Class<? extends Annotation>> getClasses() {
 		return unmodifiableSetOf(
 				SpecificEnumHandler.class,
 				SpecificFlagHandler.class);
