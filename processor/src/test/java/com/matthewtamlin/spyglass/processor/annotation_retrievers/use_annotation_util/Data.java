@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils.use_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.use_annotation_util;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseBoolean;

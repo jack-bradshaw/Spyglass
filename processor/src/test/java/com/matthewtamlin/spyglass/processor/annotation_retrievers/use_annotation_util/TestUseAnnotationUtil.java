@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils.use_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.use_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
@@ -12,7 +12,7 @@ import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
-import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoUtil;
 
 import org.junit.Before;
 import org.junit.Test;
