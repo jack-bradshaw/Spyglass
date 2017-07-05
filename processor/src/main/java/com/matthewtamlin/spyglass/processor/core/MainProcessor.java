@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.processor.core;
 
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoUtil;
 import com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;

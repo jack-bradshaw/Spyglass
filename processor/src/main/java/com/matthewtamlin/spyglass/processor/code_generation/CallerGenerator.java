@@ -1,10 +1,10 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;

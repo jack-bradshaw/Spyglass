@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils.value_handler_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.value_handler_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
@@ -13,7 +13,7 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoUtil;
 
 import org.junit.Before;
 import org.junit.Test;

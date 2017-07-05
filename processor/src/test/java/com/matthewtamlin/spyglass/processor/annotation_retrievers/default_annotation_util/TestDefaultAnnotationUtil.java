@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils.default_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.default_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
@@ -19,7 +19,7 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
-import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoUtil;
 
 import org.junit.Before;
 import org.junit.Test;

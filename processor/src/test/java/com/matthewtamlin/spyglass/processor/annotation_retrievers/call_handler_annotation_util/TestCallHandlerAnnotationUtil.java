@@ -1,10 +1,10 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils.call_handler_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.call_handler_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoUtil;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -20,7 +20,7 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.matthewtamlin.spyglass.common.units.DimensionUnit;
-import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoUtil;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
 import com.squareup.javapoet.CodeBlock;

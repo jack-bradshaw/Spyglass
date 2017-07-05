@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils.default_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.value_handler_annotation_util;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
@@ -36,88 +36,76 @@ import static com.matthewtamlin.spyglass.common.units.DimensionUnit.DP;
 
 public class Data {
 	@ElementId("boolean")
-	@DefaultToBoolean(true)
+	@BooleanHandler(attributeId = 0)
 	public void method1() {}
 
-	@ElementId("boolean resource")
-	@DefaultToBooleanResource(resId = 0)
+	@ElementId("color")
+	@ColorHandler(attributeId = 0)
 	public void method2() {}
 
-	@ElementId("color resource")
-	@DefaultToColorResource(resId = 0)
+	@ElementId("color state list")
+	@ColorStateListHandler(attributeId = 0)
 	public void method3() {}
 
-	@ElementId("color state list resource")
-	@DefaultToColorStateListResource(resId = 0)
+	@ElementId("dimension")
+	@DimensionHandler(attributeId = 0)
 	public void method4() {}
 
-	@ElementId("dimension")
-	@DefaultToDimension(value = 0, unit = DP)
+	@ElementId("drawable")
+	@DrawableHandler(attributeId = 0)
 	public void method5() {}
 
-	@ElementId("dimension resource")
-	@DefaultToDimensionResource(resId = 0)
+	@ElementId("enum constant")
+	@EnumConstantHandler(attributeId = 0, enumClass = PlaceholderEnum.class)
 	public void method6() {}
 
-	@ElementId("drawable resource")
-	@DefaultToDrawableResource(resId = 0)
+	@ElementId("enum ordinal")
+	@EnumOrdinalHandler(attributeId = 0)
 	public void method7() {}
 
-	@ElementId("enum constant")
-	@DefaultToEnumConstant(enumClass = PlaceholderEnum.class, ordinal = 0)
+	@ElementId("float")
+	@FloatHandler(attributeId = 0)
 	public void method8() {}
 
-	@ElementId("float")
-	@DefaultToFloat(0)
+	@ElementId("fraction")
+	@FractionHandler(attributeId = 0)
 	public void method9() {}
 
-	@ElementId("fraction resource")
-	@DefaultToFractionResource(resId = 0, baseMultiplier = 0, parentMultiplier = 0)
+	@ElementId("integer")
+	@IntegerHandler(attributeId = 0)
 	public void method10() {}
 
-	@ElementId("integer")
-	@DefaultToInteger(0)
+	@ElementId("string")
+	@StringHandler(attributeId = 0)
 	public void method11() {}
 
-	@ElementId("integer resource")
-	@DefaultToIntegerResource(resId = 0)
+	@ElementId("text array")
 	public void method12() {}
 
-	@ElementId("null")
-	@DefaultToNull()
+	@ElementId("text")
 	public void method13() {}
 
-	@ElementId("string")
+	@ElementId("no value handler annotation")
+	@DefaultToBoolean(true)
+	@DefaultToBooleanResource(resId = 0)
+	@DefaultToColorResource(resId = 0)
+	@DefaultToColorStateListResource(resId = 0)
+	@DefaultToDimension(value = 0, unit = DP)
+	@DefaultToDimensionResource(resId = 0)
+	@DefaultToDrawableResource(resId = 0)
+	@DefaultToEnumConstant(enumClass = PlaceholderEnum.class, ordinal = 0)
+	@DefaultToFloat(0)
+	@DefaultToFractionResource(resId = 0, baseMultiplier = 0, parentMultiplier = 0)
+	@DefaultToInteger(0)
+	@DefaultToIntegerResource(resId = 0)
+	@DefaultToNull
 	@DefaultToString("hello world")
-	public void method14() {}
-
-	@ElementId("string resource")
 	@DefaultToStringResource(resId = 0)
-	public void method15() {}
-
-	@ElementId("text array resource")
 	@DefaultToTextArrayResource(resId = 0)
-	public void method16() {}
-
-	@ElementId("text resource")
 	@DefaultToTextResource(resId = 0)
-	public void method17() {}
-
-	@ElementId("no default annotation")
-	@BooleanHandler(attributeId = 0)
-	@ColorHandler(attributeId = 0)
-	@ColorStateListHandler(attributeId = 0)
-	@DimensionHandler(attributeId = 0)
-	@DrawableHandler(attributeId = 0)
-	@EnumConstantHandler(attributeId = 0, enumClass = PlaceholderEnum.class)
-	@EnumOrdinalHandler(attributeId = 0)
-	@FloatHandler(attributeId = 0)
-	@FractionHandler(attributeId = 0)
-	@IntegerHandler(attributeId = 0)
-	@StringHandler(attributeId = 0)
 	@SpecificEnumHandler(attributeId = 0, ordinal = 0)
 	@SpecificFlagHandler(attributeId = 0, handledFlags = 0)
-	public void method18() {}
+	public void method14() {}
 
 	private enum PlaceholderEnum {}
 }
