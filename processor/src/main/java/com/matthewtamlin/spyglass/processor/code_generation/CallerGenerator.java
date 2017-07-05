@@ -1,7 +1,9 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
 import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
@@ -18,9 +20,7 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.hasAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.hasAnnotation;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
@@ -49,7 +49,7 @@ public class CallerGenerator {
 	public TypeSpec generateCaller(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		if (hasAnnotation(method)) {
+		if (CallHandlerAnnoUtil.hasAnnotation(method)) {
 			return generateCallHandlerCaller(method);
 
 		} else if (ValueHandlerAnnoUtil.hasAnnotation(method)) {
@@ -161,7 +161,7 @@ public class CallerGenerator {
 
 	private TypeName getNameOfNonUseParameter(final ExecutableElement e) {
 		for (final VariableElement parameter : e.getParameters()) {
-			if (!hasAnnotation(parameter)) {
+			if (!UseAnnoUtil.hasAnnotation(parameter)) {
 				final TypeName className = ClassName.get(parameter.asType());
 
 				if (className.isBoxedPrimitive()) {

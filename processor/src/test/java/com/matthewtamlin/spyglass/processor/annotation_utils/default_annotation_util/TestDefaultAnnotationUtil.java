@@ -19,6 +19,7 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
+import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -33,7 +34,6 @@ import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
 import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.getAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.hasAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -241,7 +241,7 @@ public class TestDefaultAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testHasDefaultAnnotation_nullSupplied() {
-		hasAnnotation(null);
+		DefaultAnnoUtil.hasAnnotation(null);
 	}
 
 	@Test
@@ -345,7 +345,7 @@ public class TestDefaultAnnotationUtil {
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
 		final ExecutableElement element = getExecutableElementWithId(id);
 
-		final boolean hasAnnotation = hasAnnotation(element);
+		final boolean hasAnnotation = DefaultAnnoUtil.hasAnnotation(element);
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}

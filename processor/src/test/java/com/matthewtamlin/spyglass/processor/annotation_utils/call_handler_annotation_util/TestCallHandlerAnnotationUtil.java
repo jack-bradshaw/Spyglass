@@ -4,6 +4,7 @@ import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -18,7 +19,6 @@ import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
 import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.hasAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -76,7 +76,7 @@ public class TestCallHandlerAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testHasCallHandlerAnnotation_nullSupplied() {
-		hasAnnotation(null);
+		CallHandlerAnnoUtil.hasAnnotation(null);
 	}
 
 	@Test
@@ -105,7 +105,7 @@ public class TestCallHandlerAnnotationUtil {
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
 		final ExecutableElement element = getExecutableElementWithId(id);
 
-		final boolean hasAnnotation = hasAnnotation(element);
+		final boolean hasAnnotation = CallHandlerAnnoUtil.hasAnnotation(element);
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}

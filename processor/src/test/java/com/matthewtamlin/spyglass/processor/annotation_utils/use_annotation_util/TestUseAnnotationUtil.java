@@ -12,6 +12,7 @@ import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
+import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -26,7 +27,6 @@ import javax.lang.model.element.VariableElement;
 import javax.tools.JavaFileObject;
 
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.getAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.hasAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -164,7 +164,7 @@ public class TestUseAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testHasUseAnnotation_nullSupplied() {
-		hasAnnotation(null);
+		UseAnnoUtil.hasAnnotation(null);
 	}
 
 	@Test
@@ -233,7 +233,7 @@ public class TestUseAnnotationUtil {
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
 		final VariableElement element = getVariableElementWithId(id);
 
-		final boolean hasAnnotation = hasAnnotation(element);
+		final boolean hasAnnotation = UseAnnoUtil.hasAnnotation(element);
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
