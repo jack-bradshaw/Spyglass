@@ -191,6 +191,7 @@ public class Validator {
 				}
 			}
 
+			//TODO need to look into making this method better
 			private boolean checkParentsRecursively(final Element element) {
 				final TypeElement parent = (TypeElement) element.getEnclosingElement();
 
