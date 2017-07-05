@@ -21,7 +21,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.getUseAnnotationClasses;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.getClasses;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getValueHandlerAnnotationClasses;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.STATIC;
@@ -275,7 +275,7 @@ public class Validator {
 		for (int i = 0; i < params.size(); i++) {
 			useAnnotations.put(i, new HashSet<Annotation>());
 
-			for (final Class<? extends Annotation> annotation : getUseAnnotationClasses()) {
+			for (final Class<? extends Annotation> annotation : getClasses()) {
 				final Annotation foundAnnotation = params.get(i).getAnnotation(annotation);
 
 				if (foundAnnotation != null) {
