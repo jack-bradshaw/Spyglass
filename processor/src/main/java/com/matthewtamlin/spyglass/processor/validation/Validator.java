@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.processor.util.TypeMirrorHelper;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -18,6 +19,7 @@ import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static com.matthewtamlin.spyglass.processor.core.AnnotationRegistry.CALL_HANDLER_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processor.core.AnnotationRegistry.DEFAULT_ANNOTATIONS;
 import static com.matthewtamlin.spyglass.processor.core.AnnotationRegistry.USE_ANNOTATIONS;
@@ -216,7 +218,13 @@ public class Validator {
 		});
 	}
 
-	public static void validateElement(final Element element) throws ValidationException {
+	private TypeMirrorHelper typeMirrorHelper;
+
+	public Validator(final TypeMirrorHelper typeMirrorHelper) {
+		this.typeMirrorHelper = checkNotNull(typeMirrorHelper, "Argument \'typeMirrorHelper\' cannot be null.");
+	}
+
+	public void validateElement(final Element element) throws ValidationException {
 		for (final Rule rule : rules) {
 			rule.checkElementComplies(element);
 		}
