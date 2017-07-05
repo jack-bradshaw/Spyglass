@@ -49,7 +49,7 @@ public class DoInvocationGenerator {
 
 		if (CallHandlerAnnoUtil.hasAnnotation(method)) {
 			return getMethodForCallHandlerCase(method);
-		} else if (ValueHandlerAnnoUtil.hasValueHandlerAnnotation(method)) {
+		} else if (ValueHandlerAnnoUtil.hasAnnotation(method)) {
 			return getMethodForValueHandlerCase(method);
 		} else {
 			throw new IllegalArgumentException("Argument \'element\' must have a handler annotation.");
