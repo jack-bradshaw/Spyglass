@@ -106,7 +106,7 @@ public class TestUseAnnoInfo {
 		final VariableElement parameter = method.getParameters().get(0);
 		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		assertThat(info.getDefinedTypeFor(useAnnotation), is(nullValue()));
+		assertThat(info.getTypeSuppliedBy(useAnnotation), is(nullValue()));
 	}
 
 	@Test
@@ -128,6 +128,6 @@ public class TestUseAnnoInfo {
 		final VariableElement parameter = method.getParameters().get(0);
 		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		assertThat(info.getDefinedTypeFor(useAnnotation), is(expectedResult));
+		assertThat(info.getTypeSuppliedBy(useAnnotation), is(expectedResult));
 	}
 }
