@@ -29,13 +29,9 @@ import static javax.lang.model.element.Modifier.STATIC;
 
 @Tested(testMethod = "automated")
 public class Validator {
-	private static final List<Rule> rules = new ArrayList<>();
+	private final List<Rule> rules = new ArrayList<>();
 
-	static {
-		createMethodRules();
-	}
-
-	private static void createMethodRules() {
+	{
 		// Check element is a method
 		rules.add(new Rule() {
 			@Override
