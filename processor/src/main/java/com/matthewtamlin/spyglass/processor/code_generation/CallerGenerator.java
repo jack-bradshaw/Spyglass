@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -16,10 +17,6 @@ import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.getMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil.hasAnnotation;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.getDefaultAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.hasDefaultAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil.hasUseAnnotation;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.getValueHandlerAnnotationMirror;
 import static com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil.hasValueHandlerAnnotation;
@@ -55,7 +52,7 @@ public class CallerGenerator {
 			return generateCallHandlerCaller(method);
 
 		} else if (hasValueHandlerAnnotation(method)) {
-			return hasDefaultAnnotation(method) ?
+			return DefaultAnnoUtil.hasAnnotation(method) ?
 					generateValueHandlerCallerWithDefault(method) :
 					generateValueHandlerCallerWithoutDefault(method);
 
@@ -114,7 +111,7 @@ public class CallerGenerator {
 
 	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
 		final AnnotationMirror valueHandler = getValueHandlerAnnotationMirror(e);
-		final AnnotationMirror defaultAnno = getDefaultAnnotationMirror(e);
+		final AnnotationMirror defaultAnno = DefaultAnnoUtil.getMirror(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandler);

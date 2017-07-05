@@ -32,8 +32,8 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
-import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.getDefaultAnnotationMirror;
-import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.hasDefaultAnnotation;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.getMirror;
+import static com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil.hasAnnotation;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
@@ -57,14 +57,14 @@ public class TestDefaultAnnotationUtil {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetDefaultAnnotationMirror_nullSupplied() {
-		getDefaultAnnotationMirror(null);
+		getMirror(null);
 	}
 
 	@Test
 	public void testGetDefaultAnnotationMirror_defaultToBooleanAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToBoolean.class.getName()));
@@ -74,7 +74,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToBooleanResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("boolean resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToBooleanResource.class.getName()));
@@ -84,7 +84,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToColorResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToColorResource.class.getName()));
@@ -94,7 +94,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToColorStateListResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("color state list resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToColorStateListResource.class.getName()));
@@ -104,7 +104,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToDimensionAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToDimension.class.getName()));
@@ -114,7 +114,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToDimensionResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("dimension resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToDimensionResource.class.getName()));
@@ -124,7 +124,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToDrawableResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("drawable resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToDrawableResource.class.getName()));
@@ -134,7 +134,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToEnumConstantAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("enum constant");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToEnumConstant.class.getName()));
@@ -144,7 +144,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToFloatAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("float");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToFloat.class.getName()));
@@ -154,7 +154,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToFractionResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("fraction resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToFractionResource.class.getName()));
@@ -164,7 +164,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToIntegerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToInteger.class.getName()));
@@ -174,7 +174,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToIntegerResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("integer resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToIntegerResource.class.getName()));
@@ -184,7 +184,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToNullAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("null");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToNull.class.getName()));
@@ -194,7 +194,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToStringAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToString.class.getName()));
@@ -204,7 +204,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToStringResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("string resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToStringResource.class.getName()));
@@ -214,7 +214,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToTextArrayResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text array resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToTextArrayResource.class.getName()));
@@ -224,7 +224,7 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_defaultToTextResourceAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("text resource");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(DefaultToTextResource.class.getName()));
@@ -234,14 +234,14 @@ public class TestDefaultAnnotationUtil {
 	public void testGetDefaultAnnotationMirror_noDefaultAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no default annotation");
 
-		final AnnotationMirror mirror = getDefaultAnnotationMirror(element);
+		final AnnotationMirror mirror = getMirror(element);
 
 		assertThat(mirror, is(nullValue()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testHasDefaultAnnotation_nullSupplied() {
-		hasDefaultAnnotation(null);
+		hasAnnotation(null);
 	}
 
 	@Test
@@ -345,7 +345,7 @@ public class TestDefaultAnnotationUtil {
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
 		final ExecutableElement element = getExecutableElementWithId(id);
 
-		final boolean hasAnnotation = hasDefaultAnnotation(element);
+		final boolean hasAnnotation = hasAnnotation(element);
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
