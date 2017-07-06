@@ -2,11 +2,9 @@ package com.matthewtamlin.spyglass.processor.validation;
 
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
-import com.squareup.javapoet.TypeName;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -17,7 +15,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
