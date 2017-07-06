@@ -210,62 +210,6 @@ public class Validator {
 				throw new RuntimeException("Should never get here.");
 			}
 		});
-
-		// Check that use annotation value can be passed to method
-		rules.add(new Rule() {
-			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				for (final VariableElement parameter : ((ExecutableElement) element).getParameters()) {
-					if (UseAnnoUtil.hasAnnotation(parameter)) {
-						checkParameter(parameter);
-					}
-				}
-			}
-
-			private void checkParameter(final VariableElement parameter) {
-				final AnnotationMirror useAnnotationMirror = UseAnnoUtil.getAnnotation(parameter);
-				final TypeName
-
-				if (useAnnotationName.equals(UseNull.class.getName())) {
-					checkNullCase(parameter);
-				} else if (useAnnotationName.equals())
-			}
-
-			private void checkNullCase(final VariableElement element) {
-
-			}
-
-			private void checkNumberCase(final VariableElement element) {
-
-			}
-
-			private void checkCharacterCase(final VariableElement element) {
-
-			}
-
-			private void checkOtherCase(final VariableElement element) {
-
-			}
-		});
-
-		// For case where use annotation defines null, check that parameter can accept null
-		rules.add(new Rule() {
-			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				// four cases. value type is:
-				//		null
-				//		number
-				//		character
-				//		other
-
-				// if value type is null
-				//		check that recipient is not primitive
-				// else if value type is number or character
-				//		check that number or character is assignable to boxed recipient
-				// else
-				//		check that value type is assignable to recipient
-			}
-		});
 	}
 
 	private TypeMirrorHelper typeMirrorHelper;
