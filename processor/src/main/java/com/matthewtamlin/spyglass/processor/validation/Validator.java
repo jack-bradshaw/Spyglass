@@ -300,8 +300,4 @@ public class Validator {
 	private interface Rule {
 		public void checkElement(Element element) throws ValidationException;
 	}
-
-	private Validator() {
-		throw new RuntimeException("Util class. Do not instantiate.");
-	}
 }
