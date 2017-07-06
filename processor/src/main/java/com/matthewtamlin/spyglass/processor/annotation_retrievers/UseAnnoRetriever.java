@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.processor.annotation_retrievers;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
 
 import java.lang.annotation.Annotation;
 
@@ -17,7 +17,7 @@ public class UseAnnoRetriever {
 		checkNotNull(element, "Argument \'element\' cannot be null.");
 
 		for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.USE_ANNOS) {
-			final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, annotationClass);
+			final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, annotationClass);
 
 			if (mirror != null) {
 				return mirror;

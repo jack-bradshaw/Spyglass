@@ -11,9 +11,9 @@ public class TypeMirrorHelper {
 
 	private Types typeUtil;
 
-	public TypeMirrorHelper(final Elements elementUtil, final Types typeUtil) {
-		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
-		this.typeUtil = checkNotNull(typeUtil, "Argument \'typeUtil\' cannot be null.");
+	public TypeMirrorHelper(final Elements elementHelper, final Types typeHelper) {
+		this.elementUtil = checkNotNull(elementHelper, "Argument \'elementHelper\' cannot be null.");
+		this.typeUtil = checkNotNull(typeHelper, "Argument \'typeUtil\' cannot be null.");
 	}
 
 	public boolean isPrimitive(final TypeMirror typeMirror) {

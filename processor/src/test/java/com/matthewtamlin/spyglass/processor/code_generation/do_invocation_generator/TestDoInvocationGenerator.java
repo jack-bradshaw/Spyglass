@@ -4,6 +4,7 @@ import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processor.code_generation.DoInvocationGenerator;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
@@ -65,17 +66,13 @@ public class TestDoInvocationGenerator {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 		elementSupplier = new IdBasedElementSupplier(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()));
 
-		generator = new DoInvocationGenerator(compilationRule.getElements(), compilationRule.getTypes());
+		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
+		generator = new DoInvocationGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructor_nullElementUtil() {
-		new DoInvocationGenerator(null, mock(Types.class));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testConstructor_nullTypeUtil() {
-		new DoInvocationGenerator(mock(Elements.class), null);
+	public void testConstructor_nullCoreHelpers() {
+		new DoInvocationGenerator(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
