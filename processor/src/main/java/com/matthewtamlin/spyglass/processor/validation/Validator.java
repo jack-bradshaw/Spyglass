@@ -1,22 +1,10 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
+
 import com.matthewtamlin.java_utilities.testing.Tested;
-<<<<<<< Updated upstream
-import com.matthewtamlin.spyglass.processor.annotation_info.CallHandlerAnnoInfo;
-import com.matthewtamlin.spyglass.processor.annotation_info.DefaultAnnoInfo;
-import com.matthewtamlin.spyglass.processor.annotation_info.UseAnnoInfo;
-import com.matthewtamlin.spyglass.processor.annotation_info.ValueHandlerAnnoInfo;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
-=======
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
->>>>>>> Stashed changes
+import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 import com.squareup.javapoet.TypeName;
 
@@ -282,8 +270,10 @@ public class Validator {
 
 	private TypeMirrorHelper typeMirrorHelper;
 
-	public Validator(final TypeMirrorHelper typeMirrorHelper) {
-		this.typeMirrorHelper = checkNotNull(typeMirrorHelper, "Argument \'typeMirrorHelper\' cannot be null.");
+	public Validator(final CoreHelpers coreHelpers) {
+		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
+
+		typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
 	}
 
 	public void validateElement(final Element element) throws ValidationException {
