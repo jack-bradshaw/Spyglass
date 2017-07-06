@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.processor.validation;
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.AnnotatedElementSupplier;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 
 import org.junit.Before;
@@ -36,12 +37,12 @@ public class TestValidator {
 	@Before
 	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
 		final AnnotatedElementSupplier elementSupplier = new AnnotatedElementSupplier(dataFileObject);
-
 		elements = elementSupplier.getElementsWithAnnotation(Target.class);
-		validator = new Validator(new TypeMirrorHelper(compilationRule.getElements(), compilationRule.getTypes()));
+
+		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
+		validator = new Validator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

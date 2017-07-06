@@ -1,10 +1,10 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils.call_handler_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.call_handler_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -40,56 +40,56 @@ public class TestCallHandlerAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetCallHandlerAnnotationMirror_nullSupplied() {
-		CallHandlerAnnoUtil.getAnnotation(null);
+	public void testGetAnnotation_nullSupplied() {
+		CallHandlerAnnoRetriever.getAnnotation(null);
 	}
 
 	@Test
-	public void testGetCallHandlerAnnotationMirror_specificEnumHandlerAnnotationPresent() {
+	public void testGetAnnotation_specificEnumHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific enum");
 
-		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(SpecificEnumHandler.class.getName()));
 	}
 
 	@Test
-	public void testGetCallHandlerAnnotationMirror_specificFlagHandlerAnnotationPresent() {
+	public void testGetAnnotation_specificFlagHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("specific flag");
 
-		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(SpecificFlagHandler.class.getName()));
 	}
 
 	@Test
-	public void testGetCallHandlerAnnotationMirror_noCallHandlerAnnotationPresent() {
+	public void testGetAnnotation_noCallHandlerAnnotationPresent() {
 		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
 
-		final AnnotationMirror mirror = CallHandlerAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(nullValue()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testHasCallHandlerAnnotation_nullSupplied() {
-		CallHandlerAnnoUtil.hasAnnotation(null);
+	public void testHasAnnotation_nullSupplied() {
+		CallHandlerAnnoRetriever.hasAnnotation(null);
 	}
 
 	@Test
-	public void testHasCallHandlerAnnotation_specificEnumHandlerAnnotationPresent() {
+	public void testHasAnnotation_specificEnumHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("specific enum", true);
 	}
 
 	@Test
-	public void testHasCallHandlerAnnotation_specificFlagHandlerAnnotationPresent() {
+	public void testHasAnnotation_specificFlagHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("specific flag", true);
 	}
 
 	@Test
-	public void testHasCallHandlerAnnotation_noCallHandlerAnnotationPresent() {
+	public void testHasAnnotation_noCallHandlerAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("no call handler annotation", false);
 	}
 
@@ -104,7 +104,7 @@ public class TestCallHandlerAnnotationUtil {
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
 		final ExecutableElement element = getExecutableElementWithId(id);
 
-		final boolean hasAnnotation = CallHandlerAnnoUtil.hasAnnotation(element);
+		final boolean hasAnnotation = CallHandlerAnnoRetriever.hasAnnotation(element);
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}

@@ -1,10 +1,11 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -16,8 +17,6 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.PUBLIC;
@@ -34,25 +33,24 @@ public class CallerGenerator {
 
 	private final DoInvocationGenerator doInvocationGenerator;
 
-	public CallerGenerator(final Elements elementUtil, final Types typeUtil) {
-		checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
-		checkNotNull(typeUtil, "Argument \'typeUtil\' cannot be null.");
+	public CallerGenerator(final CoreHelpers coreHelpers) {
+		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
-		getDefaultMethodGenerator = new GetDefaultMethodGenerator(elementUtil);
-		getValueMethodGenerator = new GetValueMethodGenerator(elementUtil);
-		valueIsAvailableMethodGenerator = new ValueIsAvailableMethodGenerator(elementUtil);
-		specificValueIsAvailableMethodGenerator = new SpecificValueIsAvailableMethodGenerator(elementUtil);
-		doInvocationGenerator = new DoInvocationGenerator(elementUtil, typeUtil);
+		getDefaultMethodGenerator = new GetDefaultMethodGenerator(coreHelpers);
+		getValueMethodGenerator = new GetValueMethodGenerator(coreHelpers);
+		valueIsAvailableMethodGenerator = new ValueIsAvailableMethodGenerator(coreHelpers);
+		specificValueIsAvailableMethodGenerator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
+		doInvocationGenerator = new DoInvocationGenerator(coreHelpers);
 	}
 
 	public TypeSpec generateCaller(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		if (CallHandlerAnnoUtil.hasAnnotation(method)) {
+		if (CallHandlerAnnoRetriever.hasAnnotation(method)) {
 			return generateCallHandlerCaller(method);
 
-		} else if (ValueHandlerAnnoUtil.hasAnnotation(method)) {
-			return DefaultAnnoUtil.hasAnnotation(method) ?
+		} else if (ValueHandlerAnnoRetriever.hasAnnotation(method)) {
+			return DefaultAnnoRetriever.hasAnnotation(method) ?
 					generateValueHandlerCallerWithDefault(method) :
 					generateValueHandlerCallerWithoutDefault(method);
 
@@ -63,7 +61,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
-		final AnnotationMirror callHandlerAnno = CallHandlerAnnoUtil.getAnnotation(e);
+		final AnnotationMirror callHandlerAnno = CallHandlerAnnoRetriever.getAnnotation(e);
 
 		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.getMethod(callHandlerAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
@@ -85,7 +83,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateValueHandlerCallerWithoutDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoUtil.getAnnotation(e);
+		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandlerAnno);
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandlerAnno);
@@ -110,8 +108,8 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandler = ValueHandlerAnnoUtil.getAnnotation(e);
-		final AnnotationMirror defaultAnno = DefaultAnnoUtil.getAnnotation(e);
+		final AnnotationMirror valueHandler = ValueHandlerAnnoRetriever.getAnnotation(e);
+		final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandler);
@@ -160,7 +158,7 @@ public class CallerGenerator {
 
 	private TypeName getNameOfNonUseParameter(final ExecutableElement e) {
 		for (final VariableElement parameter : e.getParameters()) {
-			if (!UseAnnoUtil.hasAnnotation(parameter)) {
+			if (!UseAnnoRetriever.hasAnnotation(parameter)) {
 				final TypeName className = ClassName.get(parameter.asType());
 
 				if (className.isBoxedPrimitive()) {
