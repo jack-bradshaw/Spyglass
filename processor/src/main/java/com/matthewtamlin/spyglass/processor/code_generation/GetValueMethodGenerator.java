@@ -14,8 +14,9 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.I
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -24,7 +25,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.FINAL;
@@ -33,7 +33,7 @@ import static javax.lang.model.element.Modifier.FINAL;
 public class GetValueMethodGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, MethodSpec>> methodSpecSuppliers;
 
-	private final Elements elementUtil;
+	private final AnnotationMirrorHelper annotationMirrorHelper;
 
 	{
 		methodSpecSuppliers = new HashMap<>();
@@ -256,8 +256,10 @@ public class GetValueMethodGenerator {
 		);
 	}
 
-	public GetValueMethodGenerator(final Elements elementUtil) {
-		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
+	public GetValueMethodGenerator(final CoreHelpers coreHelpers) {
+		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
+
+		annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
 	}
 
 	/**
@@ -288,7 +290,7 @@ public class GetValueMethodGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		return AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, key, elementUtil).toString();
+		return annotationMirrorHelper.getAnnotationValueWithDefaults(mirror, key).toString();
 	}
 
 	private void checkIsValueHandlerAnnotation(final AnnotationMirror anno, final String exceptionMessage) {

@@ -25,8 +25,9 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -66,11 +67,12 @@ public class TestGetDefaultMethodGenerator {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 		elementSupplier = new IdBasedElementSupplier(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()));
 
-		generator = new GetDefaultMethodGenerator(compilationRule.getElements());
+		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
+		generator = new GetDefaultMethodGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructor_nullSupplied() {
+	public void testConstructor_nullCoreHelpers() {
 		new GetDefaultMethodGenerator(null);
 	}
 
@@ -82,7 +84,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetMethod_nonDefaultAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("no default annotation");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, BooleanHandler.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, BooleanHandler.class);
 
 		generator.getMethod(mirror);
 	}
@@ -90,7 +92,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToBooleanAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("boolean");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToBoolean.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToBoolean.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -102,7 +104,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToBooleanResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("boolean resource");
-		final AnnotationMirror mirror = AnnotationMirrorUtil
+		final AnnotationMirror mirror = AnnotationMirrorHelper
 				.getAnnotationMirror(element, DefaultToBooleanResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
@@ -115,7 +117,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToColorResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("color resource");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToColorResource.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToColorResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -127,7 +129,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToColorStatListResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("color state list resource");
-		final AnnotationMirror mirror = AnnotationMirrorUtil
+		final AnnotationMirror mirror = AnnotationMirrorHelper
 				.getAnnotationMirror(element, DefaultToColorStateListResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
@@ -140,7 +142,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToDimensionAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("dimension");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToDimension.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToDimension.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -153,7 +155,7 @@ public class TestGetDefaultMethodGenerator {
 	public void testGetMethod_defaultToDimensionResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("dimension resource");
 		final AnnotationMirror mirror =
-				AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToDimensionResource.class);
+				AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToDimensionResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -165,7 +167,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToDrawableResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("drawable resource");
-		final AnnotationMirror mirror = AnnotationMirrorUtil
+		final AnnotationMirror mirror = AnnotationMirrorHelper
 				.getAnnotationMirror(element, DefaultToDrawableResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
@@ -178,7 +180,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToEnumConstantAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("enum constant");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToEnumConstant.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToEnumConstant.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -190,7 +192,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToFloatAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("float");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToFloat.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToFloat.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -202,7 +204,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToFractionResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("fraction resource");
-		final AnnotationMirror mirror = AnnotationMirrorUtil
+		final AnnotationMirror mirror = AnnotationMirrorHelper
 				.getAnnotationMirror(element, DefaultToFractionResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
@@ -215,7 +217,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToIntegerAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("integer");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToInteger.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToInteger.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -227,7 +229,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToIntegerResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("integer resource");
-		final AnnotationMirror mirror = AnnotationMirrorUtil
+		final AnnotationMirror mirror = AnnotationMirrorHelper
 				.getAnnotationMirror(element, DefaultToIntegerResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
@@ -240,7 +242,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToNullAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("null");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToNull.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToNull.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -252,7 +254,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToStringAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("string");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToString.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToString.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -265,7 +267,7 @@ public class TestGetDefaultMethodGenerator {
 	public void testGetMethod_defaultToStringResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("string resource");
 		final AnnotationMirror mirror =
-				AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToStringResource.class);
+				AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToStringResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -278,7 +280,7 @@ public class TestGetDefaultMethodGenerator {
 	public void testGetMethod_defaultToTextArrayResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("text array");
 		final AnnotationMirror mirror =
-				AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToTextArrayResource.class);
+				AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToTextArrayResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -290,7 +292,7 @@ public class TestGetDefaultMethodGenerator {
 	@Test
 	public void testGetMethod_defaultToTextResourceAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("text");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToTextResource.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToTextResource.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 

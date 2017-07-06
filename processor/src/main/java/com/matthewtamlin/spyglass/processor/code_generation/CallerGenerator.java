@@ -5,6 +5,7 @@ import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnn
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -16,8 +17,6 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.PUBLIC;
@@ -34,15 +33,14 @@ public class CallerGenerator {
 
 	private final DoInvocationGenerator doInvocationGenerator;
 
-	public CallerGenerator(final Elements elementUtil, final Types typeUtil) {
-		checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
-		checkNotNull(typeUtil, "Argument \'typeUtil\' cannot be null.");
+	public CallerGenerator(final CoreHelpers coreHelpers) {
+		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
-		getDefaultMethodGenerator = new GetDefaultMethodGenerator(elementUtil);
-		getValueMethodGenerator = new GetValueMethodGenerator(elementUtil);
-		valueIsAvailableMethodGenerator = new ValueIsAvailableMethodGenerator(elementUtil);
-		specificValueIsAvailableMethodGenerator = new SpecificValueIsAvailableMethodGenerator(elementUtil);
-		doInvocationGenerator = new DoInvocationGenerator(elementUtil, typeUtil);
+		getDefaultMethodGenerator = new GetDefaultMethodGenerator(coreHelpers);
+		getValueMethodGenerator = new GetValueMethodGenerator(coreHelpers);
+		valueIsAvailableMethodGenerator = new ValueIsAvailableMethodGenerator(coreHelpers);
+		specificValueIsAvailableMethodGenerator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
+		doInvocationGenerator = new DoInvocationGenerator(coreHelpers);
 	}
 
 	public TypeSpec generateCaller(final ExecutableElement method) {
