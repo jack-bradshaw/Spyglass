@@ -285,7 +285,7 @@ public class Validator {
 	private static int countCallHandlerAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : CallHandlerAnnoInfo.ALL_ANNOS) {
+		for (final Class<? extends Annotation> annotation : AnnotationRegistry.CALL_HANDLER_ANNOS) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -297,7 +297,7 @@ public class Validator {
 	private static int countValueHandlerAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : ValueHandlerAnnoInfo.ALL_ANNOS) {
+		for (final Class<? extends Annotation> annotation : AnnotationRegistry.VALUE_HANDLER_ANNOS) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -313,7 +313,7 @@ public class Validator {
 	private static int countDefaultAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : DefaultAnnoInfo.ALL_ANNOS) {
+		for (final Class<? extends Annotation> annotation : AnnotationRegistry.DEFAULT_ANNOS) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -332,7 +332,7 @@ public class Validator {
 		for (int i = 0; i < params.size(); i++) {
 			useAnnotations.put(i, new HashSet<Annotation>());
 
-			for (final Class<? extends Annotation> annotation : UseAnnoInfo.ALL_ANNOS) {
+			for (final Class<? extends Annotation> annotation : AnnotationRegistry.USE_ANNOS) {
 				final Annotation foundAnnotation = params.get(i).getAnnotation(annotation);
 
 				if (foundAnnotation != null) {
