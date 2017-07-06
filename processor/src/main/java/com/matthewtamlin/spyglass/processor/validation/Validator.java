@@ -1,10 +1,9 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
+
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.DefaultAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 
 import java.lang.annotation.Annotation;
@@ -19,17 +18,12 @@ import java.util.Set;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.STATIC;
-import static javax.lang.model.element.NestingKind.ANONYMOUS;
-import static javax.lang.model.element.NestingKind.LOCAL;
-import static javax.lang.model.element.NestingKind.MEMBER;
-import static javax.lang.model.element.NestingKind.TOP_LEVEL;
 
 @Tested(testMethod = "automated")
 public class Validator {
@@ -217,8 +211,10 @@ public class Validator {
 
 	private TypeMirrorHelper typeMirrorHelper;
 
-	public Validator(final TypeMirrorHelper typeMirrorHelper) {
-		this.typeMirrorHelper = checkNotNull(typeMirrorHelper, "Argument \'typeMirrorHelper\' cannot be null.");
+	public Validator(final CoreHelpers coreHelpers) {
+		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
+
+		typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
 	}
 
 	public void validateElement(final Element element) throws ValidationException {
@@ -230,7 +226,7 @@ public class Validator {
 	private static int countCallHandlerAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : CallHandlerAnnoUtil.getClasses()) {
+		for (final Class<? extends Annotation> annotation : AnnotationRegistry.CALL_HANDLER_ANNOS) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -242,7 +238,7 @@ public class Validator {
 	private static int countValueHandlerAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : ValueHandlerAnnoUtil.getClasses()) {
+		for (final Class<? extends Annotation> annotation : AnnotationRegistry.VALUE_HANDLER_ANNOS) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -258,7 +254,7 @@ public class Validator {
 	private static int countDefaultAnnotations(final Element e) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : DefaultAnnoUtil.getClasses()) {
+		for (final Class<? extends Annotation> annotation : AnnotationRegistry.DEFAULT_ANNOS) {
 			if (e.getAnnotation(annotation) != null) {
 				count++;
 			}
@@ -277,7 +273,7 @@ public class Validator {
 		for (int i = 0; i < params.size(); i++) {
 			useAnnotations.put(i, new HashSet<Annotation>());
 
-			for (final Class<? extends Annotation> annotation : UseAnnoUtil.getClasses()) {
+			for (final Class<? extends Annotation> annotation : AnnotationRegistry.USE_ANNOS) {
 				final Annotation foundAnnotation = params.get(i).getAnnotation(annotation);
 
 				if (foundAnnotation != null) {
@@ -303,9 +299,5 @@ public class Validator {
 
 	private interface Rule {
 		public void checkElement(Element element) throws ValidationException;
-	}
-
-	private Validator() {
-		throw new RuntimeException("Util class. Do not instantiate.");
 	}
 }

@@ -4,10 +4,11 @@ import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.CallHandlerAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
 import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -21,8 +22,6 @@ import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.FINAL;
@@ -31,25 +30,23 @@ import static javax.lang.model.element.Modifier.FINAL;
 public class DoInvocationGenerator {
 	private static final String CAN_ASSIGN = "$T.class.isAssignableFrom(value.getClass())";
 
-	private final Elements elementUtil;
-
-	private final Types typeUtil;
+	private AnnotationMirrorHelper annotationMirrorHelper;
 
 	private TypeMirrorHelper typeMirrorHelper;
 
-	public DoInvocationGenerator(final Elements elementUtil, final Types typeUtil) {
-		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
-		this.typeUtil = checkNotNull(typeUtil, "Argument \'typeUtil\' cannot be null.");
+	public DoInvocationGenerator(final CoreHelpers coreHelpers) {
+		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
-		this.typeMirrorHelper = new TypeMirrorHelper(elementUtil, typeUtil);
+		annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
+		typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
 	}
 
 	public MethodSpec getMethod(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
-		if (CallHandlerAnnoUtil.hasAnnotation(method)) {
+		if (CallHandlerAnnoRetriever.hasAnnotation(method)) {
 			return getMethodForCallHandlerCase(method);
-		} else if (ValueHandlerAnnoUtil.hasAnnotation(method)) {
+		} else if (ValueHandlerAnnoRetriever.hasAnnotation(method)) {
 			return getMethodForValueHandlerCase(method);
 		} else {
 			throw new IllegalArgumentException("Argument \'element\' must have a handler annotation.");
@@ -83,7 +80,7 @@ public class DoInvocationGenerator {
 
 	private TypeMirror getRecipientType(final ExecutableElement method) {
 		for (final VariableElement parameter : method.getParameters()) {
-			if (!UseAnnoUtil.hasAnnotation(parameter)) {
+			if (!UseAnnoRetriever.hasAnnotation(parameter)) {
 				return parameter.asType();
 			}
 		}
@@ -107,8 +104,8 @@ public class DoInvocationGenerator {
 		final List<CodeBlock> codeBlocks = new ArrayList<>();
 
 		for (final VariableElement parameter : method.getParameters()) {
-			if (UseAnnoUtil.hasAnnotation(parameter)) {
-				final AnnotationMirror useAnnotationMirror = UseAnnoUtil.getAnnotation(parameter);
+			if (UseAnnoRetriever.hasAnnotation(parameter)) {
+				final AnnotationMirror useAnnotationMirror = UseAnnoRetriever.getAnnotation(parameter);
 				codeBlocks.add(getArgumentForUseAnnotation(useAnnotationMirror));
 			} else {
 				codeBlocks.add(null);
@@ -122,10 +119,9 @@ public class DoInvocationGenerator {
 		final String useAnnotationName = useAnnotationMirror.getAnnotationType().toString();
 
 		if (useAnnotationName.equals(UseShort.class.getName())) {
-			final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+			final AnnotationValue rawValue = annotationMirrorHelper.getAnnotationValueWithDefaults(
 					useAnnotationMirror,
-					"value",
-					elementUtil);
+					"value");
 
 			return CodeBlock.of("(short)" + rawValue.toString());
 
@@ -133,10 +129,9 @@ public class DoInvocationGenerator {
 			return CodeBlock.of("null");
 
 		} else {
-			final AnnotationValue rawValue = AnnotationMirrorUtil.getAnnotationValueWithDefaults(
+			final AnnotationValue rawValue = annotationMirrorHelper.getAnnotationValueWithDefaults(
 					useAnnotationMirror,
-					"value",
-					elementUtil);
+					"value");
 
 			return CodeBlock.of(rawValue.toString());
 		}

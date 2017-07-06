@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_utils.use_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.use_annotation_util;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
@@ -12,7 +12,7 @@ import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
-import com.matthewtamlin.spyglass.processor.annotation_utils.UseAnnoUtil;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -48,176 +48,176 @@ public class TestUseAnnotationUtil {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetUseAnnotationMirror_nullSupplied() {
-		UseAnnoUtil.getAnnotation(null);
+	public void testGetAnnotation_nullSupplied() {
+		UseAnnoRetriever.getAnnotation(null);
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useBooleanAnnotationPresent() {
+	public void testGetAnnotation_useBooleanAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("boolean");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseBoolean.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useByteAnnotationPresent() {
+	public void testGetAnnotation_useByteAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("byte");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseByte.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useCharAnnotationPresent() {
+	public void testGetAnnotation_useCharAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("char");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseChar.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useDoubleAnnotationPresent() {
+	public void testGetAnnotation_useDoubleAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("double");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseDouble.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useFloatAnnotationPresent() {
+	public void testGetAnnotation_useFloatAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("float");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseFloat.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useIntAnnotationPresent() {
+	public void testGetAnnotation_useIntAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("int");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseInt.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useLongAnnotationPresent() {
+	public void testGetAnnotation_useLongAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("long");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseLong.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useNullAnnotationPresent() {
+	public void testGetAnnotation_useNullAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("null");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseNull.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useShortAnnotationPresent() {
+	public void testGetAnnotation_useShortAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("short");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseShort.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_useStringAnnotationPresent() {
+	public void testGetAnnotation_useStringAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("string");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(notNullValue()));
 		assertThat(mirror.getAnnotationType().toString(), is(UseString.class.getName()));
 	}
 
 	@Test
-	public void testGetUseAnnotationMirror_noUseAnnotationPresent() {
+	public void testGetAnnotation_noUseAnnotationPresent() {
 		final VariableElement element = getVariableElementWithId("no use annotation");
 
-		final AnnotationMirror mirror = UseAnnoUtil.getAnnotation(element);
+		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
 		assertThat(mirror, is(nullValue()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testHasUseAnnotation_nullSupplied() {
-		UseAnnoUtil.hasAnnotation(null);
+	public void testHasAnnotation_nullSupplied() {
+		UseAnnoRetriever.hasAnnotation(null);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useBooleanAnnotationPresent() {
+	public void testHasAnnotation_useBooleanAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("boolean", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useByteAnnotationPresent() {
+	public void testHasAnnotation_useByteAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("byte", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useCharAnnotationPresent() {
+	public void testHasAnnotation_useCharAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("char", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useDoubleAnnotationPresent() {
+	public void testHasAnnotation_useDoubleAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("double", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useFloatAnnotationPresent() {
+	public void testHasAnnotation_useFloatAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("float", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useIntAnnotationPresent() {
+	public void testHasAnnotation_useIntAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("int", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useLongAnnotationPresent() {
+	public void testHasAnnotation_useLongAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("long", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useNullAnnotationPresent() {
+	public void testHasAnnotation_useNullAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("null", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useShortAnnotationPresent() {
+	public void testHasAnnotation_useShortAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("short", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_useStringAnnotationPresent() {
+	public void testHasAnnotation_useStringAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("string", true);
 	}
 
 	@Test
-	public void testHasUseAnnotation_noUseAnnotationPresent() {
+	public void testHasAnnotation_noUseAnnotationPresent() {
 		doHasAnnotationTestForElementWithId("no use annotation", false);
 	}
 
@@ -232,7 +232,7 @@ public class TestUseAnnotationUtil {
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
 		final VariableElement element = getVariableElementWithId(id);
 
-		final boolean hasAnnotation = UseAnnoUtil.hasAnnotation(element);
+		final boolean hasAnnotation = UseAnnoRetriever.hasAnnotation(element);
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}

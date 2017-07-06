@@ -5,6 +5,7 @@ import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 import com.squareup.javapoet.FieldSpec;
 import com.squareup.javapoet.JavaFile;
@@ -21,13 +22,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
-import static org.mockito.Mockito.mock;
 
 public class TestCallerGenerator {
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
@@ -44,17 +42,13 @@ public class TestCallerGenerator {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 		elementSupplier = new IdBasedElementSupplier(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()));
 
-		callerGenerator = new CallerGenerator(compilationRule.getElements(), compilationRule.getTypes());
+		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
+		callerGenerator = new CallerGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructor_nullElementUtilSupplied() {
-		new CallerGenerator(null, mock(Types.class));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testConstructor_nullTypeUtilSupplied() {
-		new CallerGenerator(mock(Elements.class), null);
+	public void testConstructor_nullCoreHelpers() {
+		new CallerGenerator(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

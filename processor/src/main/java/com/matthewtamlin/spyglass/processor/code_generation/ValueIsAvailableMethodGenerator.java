@@ -12,9 +12,10 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.processor.annotation_utils.ValueHandlerAnnoUtil;
+import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
@@ -22,7 +23,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.FINAL;
@@ -31,7 +31,7 @@ import static javax.lang.model.element.Modifier.FINAL;
 public class ValueIsAvailableMethodGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> methodBodySuppliers;
 
-	private final Elements elementUtil;
+	private final AnnotationMirrorHelper annotationMirrorHelper;
 
 	{
 		methodBodySuppliers = new HashMap<>();
@@ -243,8 +243,10 @@ public class ValueIsAvailableMethodGenerator {
 		);
 	}
 
-	public ValueIsAvailableMethodGenerator(final Elements elementUtil) {
-		this.elementUtil = checkNotNull(elementUtil, "Argument \'elementUtil\' cannot be null.");
+	public ValueIsAvailableMethodGenerator(final CoreHelpers coreHelpers) {
+		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
+
+		annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
 	}
 
 	/**
@@ -282,14 +284,14 @@ public class ValueIsAvailableMethodGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		return AnnotationMirrorUtil.getAnnotationValueWithDefaults(mirror, key, elementUtil).toString();
+		return annotationMirrorHelper.getAnnotationValueWithDefaults(mirror, key).toString();
 	}
 
 	private void checkIsValueHandlerAnnotation(final AnnotationMirror anno, final String exceptionMessage) {
 		try {
 			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
 
-			if (!ValueHandlerAnnoUtil.getClasses().contains(annotationClass)) {
+			if (!AnnotationRegistry.VALUE_HANDLER_ANNOS.contains(annotationClass)) {
 				throw new IllegalArgumentException(exceptionMessage);
 			}
 		} catch (ClassNotFoundException e) {

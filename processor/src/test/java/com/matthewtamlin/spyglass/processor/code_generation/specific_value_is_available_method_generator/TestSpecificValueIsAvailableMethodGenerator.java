@@ -7,8 +7,9 @@ import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.Sp
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.processor.code_generation.SpecificValueIsAvailableMethodGenerator;
+import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorUtil;
+import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -44,13 +45,14 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 	@Before
 	public void setup() throws MalformedURLException {
 		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-
 		elementSupplier = new IdBasedElementSupplier(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()));
-		generator = new SpecificValueIsAvailableMethodGenerator(compilationRule.getElements());
+
+		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
+		generator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testConstructor_nullSupplied() {
+	public void testConstructor_nullCoreHelpers() {
 		new SpecificValueIsAvailableMethodGenerator(null);
 	}
 
@@ -62,7 +64,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetMethod_nonCallHandlerAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("no call handler");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, DefaultToBoolean.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToBoolean.class);
 
 		generator.getMethod(mirror);
 	}
@@ -70,7 +72,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 	@Test
 	public void testGetMethod_specificEnumHandlerAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("specific enum");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, SpecificEnumHandler.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, SpecificEnumHandler.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
@@ -82,7 +84,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 	@Test
 	public void testGetMethod_colorHandlerAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("specific flag");
-		final AnnotationMirror mirror = AnnotationMirrorUtil.getAnnotationMirror(element, SpecificFlagHandler.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, SpecificFlagHandler.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
