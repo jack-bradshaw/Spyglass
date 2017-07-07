@@ -234,6 +234,11 @@ public class TestTypeMirrorHelper {
 	}
 
 	@Test
+	public void testIsNumber_typeMirrorForOtherNumberImplementationSubclass() {
+		doIsNumberTestFor("with custom number implementation subclass", true);
+	}
+
+	@Test
 	public void testIsCharacter_typeMirrorForPrimitiveBoolean() {
 		doIsCharacterTestFor("with primitive boolean", false);
 	}

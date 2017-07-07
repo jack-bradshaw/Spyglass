@@ -60,6 +60,9 @@ public class Data {
 	@ElementId("with custom number implementation")
 	public void method(NumberImplementation n) {}
 
+	@ElementId("with custom number implementation subclass")
+	public void method(NumberImplementationSubclass n) {}
+
 	private class NumberImplementation extends Number {
 		@Override
 		public int intValue() {
@@ -81,4 +84,6 @@ public class Data {
 			return 0;
 		}
 	}
+
+	private class NumberImplementationSubclass extends NumberImplementation{}
 }
