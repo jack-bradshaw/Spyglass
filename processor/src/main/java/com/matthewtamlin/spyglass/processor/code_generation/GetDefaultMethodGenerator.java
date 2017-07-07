@@ -425,7 +425,7 @@ public class GetDefaultMethodGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		return annotationMirrorHelper.getAnnotationValueWithDefaults(mirror, key).toString();
+		return annotationMirrorHelper.getValueUsingDefaults(mirror, key).toString();
 	}
 
 	private String getComplexUnitLiteral(final DimensionUnit unit) {
