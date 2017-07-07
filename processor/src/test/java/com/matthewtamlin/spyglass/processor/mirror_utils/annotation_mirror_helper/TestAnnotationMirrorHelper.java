@@ -33,7 +33,7 @@ public class TestAnnotationMirrorHelper {
 	public final CompilationRule compilationRule = new CompilationRule();
 
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/annotation_utils/annotation_mirror_util/Data.java");
+			"/mirror_utils/annotation_mirror_helper/Data.java");
 
 	private IdBasedElementSupplier elementSupplier;
 
