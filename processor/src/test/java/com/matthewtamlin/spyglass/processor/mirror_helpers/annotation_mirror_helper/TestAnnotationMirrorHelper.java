@@ -1,9 +1,9 @@
-package com.matthewtamlin.spyglass.processor.mirror_utils.annotation_mirror_helper;
+package com.matthewtamlin.spyglass.processor.mirror_helpers.annotation_mirror_helper;
 
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 
 import org.junit.Before;
 import org.junit.Rule;

@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.processor.annotation_retrievers;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 
 import java.lang.annotation.Annotation;
 

@@ -5,7 +5,6 @@ import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
 import com.matthewtamlin.spyglass.processor.grouper.Grouper;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
-import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
 import com.matthewtamlin.spyglass.processor.validation.ValidationException;
 import com.matthewtamlin.spyglass.processor.validation.Validator;
 import com.squareup.javapoet.CodeBlock;
