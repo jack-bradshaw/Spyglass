@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.mirror_utils;
+package com.matthewtamlin.spyglass.processor.mirror_helpers;
 
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;

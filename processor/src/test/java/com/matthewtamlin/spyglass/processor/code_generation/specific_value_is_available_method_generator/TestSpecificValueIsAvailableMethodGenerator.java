@@ -9,7 +9,7 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.processor.code_generation.SpecificValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
