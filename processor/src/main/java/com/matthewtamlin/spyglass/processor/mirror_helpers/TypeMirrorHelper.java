@@ -1,5 +1,7 @@
 package com.matthewtamlin.spyglass.processor.mirror_helpers;
 
+import com.matthewtamlin.java_utilities.testing.Tested;
+
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
@@ -11,6 +13,7 @@ import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+@Tested(testMethod = "automated")
 public class TypeMirrorHelper {
 	private Elements elementUtil;
 
