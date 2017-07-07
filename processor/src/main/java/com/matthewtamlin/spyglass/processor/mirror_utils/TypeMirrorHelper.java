@@ -36,7 +36,6 @@ public class TypeMirrorHelper {
 
 		return typeUtil.isAssignable(typeMirror, numberType) ||
 				typeMirrorString.equals("byte") ||
-				typeMirrorString.equals("char") ||
 				typeMirrorString.equals("short") ||
 				typeMirrorString.equals("int") ||
 				typeMirrorString.equals("long") ||
