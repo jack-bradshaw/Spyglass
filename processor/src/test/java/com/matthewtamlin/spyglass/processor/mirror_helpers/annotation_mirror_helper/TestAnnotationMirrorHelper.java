@@ -49,6 +49,11 @@ public class TestAnnotationMirrorHelper {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
+	public void testConstructor_nullElementUtil() {
+		new AnnotationMirrorHelper(null);
+	}
+
+	@Test(expected = IllegalArgumentException.class)
 	public void testGetAnnotationMirror_nullElement() {
 		AnnotationMirrorHelper.getAnnotationMirror(null, Annotation.class);
 	}
