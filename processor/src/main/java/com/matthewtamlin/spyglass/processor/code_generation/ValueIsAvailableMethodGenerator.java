@@ -284,7 +284,7 @@ public class ValueIsAvailableMethodGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		return annotationMirrorHelper.getAnnotationValueWithDefaults(mirror, key).toString();
+		return annotationMirrorHelper.getValueUsingDefaults(mirror, key).toString();
 	}
 
 	private void checkIsValueHandlerAnnotation(final AnnotationMirror anno, final String exceptionMessage) {

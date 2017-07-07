@@ -119,7 +119,7 @@ public class DoInvocationGenerator {
 		final String useAnnotationName = useAnnotationMirror.getAnnotationType().toString();
 
 		if (useAnnotationName.equals(UseShort.class.getName())) {
-			final AnnotationValue rawValue = annotationMirrorHelper.getAnnotationValueWithDefaults(
+			final AnnotationValue rawValue = annotationMirrorHelper.getValueUsingDefaults(
 					useAnnotationMirror,
 					"value");
 
@@ -129,7 +129,7 @@ public class DoInvocationGenerator {
 			return CodeBlock.of("null");
 
 		} else {
-			final AnnotationValue rawValue = annotationMirrorHelper.getAnnotationValueWithDefaults(
+			final AnnotationValue rawValue = annotationMirrorHelper.getValueUsingDefaults(
 					useAnnotationMirror,
 					"value");
 
