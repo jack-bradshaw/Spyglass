@@ -13,7 +13,7 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 public final class CallerDef {
 	public static final String PACKAGE = "com.matthewtamlin.spyglass.processors.code_generation";
 
-	public static final String INTERFACE_NAME = "Caller";
+	public static final String CLASS_NAME = "Caller";
 
 	public static final String METHOD_NAME = "call";
 
@@ -26,15 +26,15 @@ public final class CallerDef {
 				.returns(void.class)
 				.build();
 
-		final TypeSpec interfaceSpec = TypeSpec
-				.interfaceBuilder(INTERFACE_NAME)
+		final TypeSpec typeSpec = TypeSpec
+				.classBuilder(CLASS_NAME)
 				.addModifiers(PUBLIC, ABSTRACT)
 				.addTypeVariable(targetType)
 				.addMethod(methodSpec)
 				.build();
 
 		return JavaFile
-				.builder(PACKAGE, interfaceSpec)
+				.builder(PACKAGE, typeSpec)
 				.addFileComment("Spyglass auto-generated file. Do not modify!")
 				.build();
 	}
