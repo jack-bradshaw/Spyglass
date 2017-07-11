@@ -27,7 +27,7 @@ public final class CallerDef {
 
 	public static final TypeSpec ABSTRACT_CALLER;
 
-	public static final JavaFile SOURCE_FILE;
+	public static final JavaFile SRC_FILE;
 
 	static {
 		final TypeVariableName targetType = TypeVariableName.get("T");
@@ -87,7 +87,7 @@ public final class CallerDef {
 				.addField(AndroidClassNames.TYPED_ARRAY, "attrs", PRIVATE, FINAL)
 				.build();
 
-		SOURCE_FILE = JavaFile
+		SRC_FILE = JavaFile
 				.builder("com.matthewtamlin.spyglass.processors.code_generation", ABSTRACT_CALLER)
 				.addFileComment("Spyglass auto-generated file. Do not modify!")
 				.skipJavaLangImports(true)
