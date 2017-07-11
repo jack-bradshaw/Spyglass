@@ -148,7 +148,7 @@ public class CallerGenerator {
 
 	private MethodSpec.Builder getEmptyCallMethod(final TypeName targetType) {
 		return MethodSpec
-				.methodBuilder(CallerDef.METHOD_NAME)
+				.methodBuilder(CallerDef.CALL)
 				.returns(void.class)
 				.addModifiers(PUBLIC)
 				.addParameter(targetType, "target")
