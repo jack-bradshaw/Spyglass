@@ -66,7 +66,7 @@ public class MainProcessor extends AbstractProcessor {
 		coreHelpers = new CoreHelpers(processingEnvironment.getElementUtils(), processingEnvironment.getTypeUtils());
 		callerGenerator = new CallerGenerator(coreHelpers);
 
-		createFile(CallerDef.getJavaFile(), "Could not create Caller class file.");
+		createFile(CallerDef.SRC_FILE, "Could not create Caller class file.");
 	}
 
 	@Override

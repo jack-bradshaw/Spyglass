@@ -138,7 +138,7 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec.Builder getEmptyAnonymousCaller(final TypeName targetType) {
-		final ClassName genericCaller = ClassName.get(CallerDef.PACKAGE, CallerDef.CLASS_NAME);
+		final ClassName genericCaller = ClassName.get(CallerDef.SRC_FILE.packageName, CallerDef.ABSTRACT_CALLER.name);
 		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
 
 		return TypeSpec
@@ -148,7 +148,7 @@ public class CallerGenerator {
 
 	private MethodSpec.Builder getEmptyCallMethod(final TypeName targetType) {
 		return MethodSpec
-				.methodBuilder(CallerDef.CALL)
+				.methodBuilder(CallerDef.CALL.name)
 				.returns(void.class)
 				.addModifiers(PUBLIC)
 				.addParameter(targetType, "target")
