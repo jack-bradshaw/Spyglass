@@ -19,7 +19,6 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
 public class CallerGenerator {
@@ -66,7 +65,8 @@ public class CallerGenerator {
 		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.getMethod(callHandlerAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
 
-		final MethodSpec call = getEmptyCallMethod(getNameOfTargetClass(e))
+		final MethodSpec call = CallerDef.CALL
+				.toBuilder()
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", specificValueIsAvailable)
@@ -89,7 +89,8 @@ public class CallerGenerator {
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandlerAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
 
-		final MethodSpec call = getEmptyCallMethod(getNameOfTargetClass(e))
+		final MethodSpec call = CallerDef.CALL
+				.toBuilder()
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
@@ -116,7 +117,8 @@ public class CallerGenerator {
 		final MethodSpec getDefault = getDefaultMethodGenerator.getMethod(defaultAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
 
-		final MethodSpec callMethod = getEmptyCallMethod(getNameOfTargetClass(e))
+		final MethodSpec callMethod = CallerDef.CALL
+				.toBuilder()
 				.addCode(CodeBlock
 						.builder()
 						.addStatement(
@@ -144,16 +146,6 @@ public class CallerGenerator {
 		return TypeSpec
 				.anonymousClassBuilder("")
 				.addSuperinterface(specificCaller);
-	}
-
-	private MethodSpec.Builder getEmptyCallMethod(final TypeName targetType) {
-		return MethodSpec
-				.methodBuilder(CallerDef.CALL.name)
-				.returns(void.class)
-				.addModifiers(PUBLIC)
-				.addParameter(targetType, "target")
-				.addParameter(AndroidClassNames.CONTEXT, "context")
-				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs");
 	}
 
 	private TypeName getNameOfNonUseParameter(final ExecutableElement e) {
