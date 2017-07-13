@@ -90,6 +90,24 @@ public class GetArgumentGenerator {
 								.build();
 					}
 				});
+
+		methodSpecSuppliers.put(
+				UseString.class.getCanonicalName(),
+				new MethodSpecSupplier() {
+					@Override
+					public MethodSpec supplyFor(final AnnotationMirror useAnno, final int position) {
+						final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
+
+						return getBaseMethodSpec(position)
+								.returns(String.class)
+								.addCode(CodeBlock
+										.builder()
+										.addStatement("return ($T) $L", String.class, rawValue.toString())
+										.build())
+								.build();
+					}
+				}
+		);
 	}
 
 	public GetArgumentGenerator(final CoreHelpers coreHelpers) {
