@@ -116,7 +116,7 @@ public class GetArgumentGenerator {
 		this.annoMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
 	}
 
-	public List<MethodSpec> getMethod(final ExecutableElement method) {
+	public List<MethodSpec> generateFor(final ExecutableElement method) {
 		final List<MethodSpec> methods = new ArrayList<>();
 
 		for (int i = 0; i < method.getParameters().size(); i++) {
