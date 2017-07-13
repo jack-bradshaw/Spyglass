@@ -23,7 +23,7 @@ import com.matthewtamlin.spyglass.common.units.DimensionUnit;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -425,7 +425,7 @@ public class GetDefaultMethodGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		return annotationMirrorHelper.getAnnotationValueWithDefaults(mirror, key).toString();
+		return annotationMirrorHelper.getValueUsingDefaults(mirror, key).toString();
 	}
 
 	private String getComplexUnitLiteral(final DimensionUnit unit) {

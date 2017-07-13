@@ -1,10 +1,9 @@
-package com.matthewtamlin.spyglass.processor.mirror_utils.annotation_mirror_util;
+package com.matthewtamlin.spyglass.processor.mirror_helpers.annotation_mirror_helper;
 
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -34,7 +33,7 @@ public class TestAnnotationMirrorHelper {
 	public final CompilationRule compilationRule = new CompilationRule();
 
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/annotation_utils/annotation_mirror_util/Data.java");
+			"/mirror_helpers/annotation_mirror_helper/Data.java");
 
 	private IdBasedElementSupplier elementSupplier;
 
@@ -47,6 +46,11 @@ public class TestAnnotationMirrorHelper {
 		elementSupplier = new IdBasedElementSupplier(dataFileObject);
 
 		helper = new AnnotationMirrorHelper(compilationRule.getElements());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testConstructor_nullElementUtil() {
+		new AnnotationMirrorHelper(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -81,73 +85,73 @@ public class TestAnnotationMirrorHelper {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetAnnotationValueWithDefaults_nullAnnotationMirrorSupplied() {
-		helper.getAnnotationValueWithDefaults(null, "");
+	public void testGetValueUsingDefaults_nullAnnotationMirrorSupplied() {
+		helper.getValueUsingDefaults(null, "");
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetAnnotationValueWithDefaults_nullValueKeySupplied() {
-		helper.getAnnotationValueWithDefaults(mock(AnnotationMirror.class), null);
+	public void testGetValueUsingDefaults_nullValueKeySupplied() {
+		helper.getValueUsingDefaults(mock(AnnotationMirror.class), null);
 	}
 
 	@Test
-	public void testGetAnnotationValueIgnoringDefaults_invalidKey() {
+	public void testGetValueIgnoringDefaults_invalidKey() {
 		final Element e = elementSupplier.getUniqueElementWithId("get annotation value ignoring defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
-		final AnnotationValue value = helper.getAnnotationValueIgnoringDefaults(mirror, "invalidKey");
+		final AnnotationValue value = helper.getValueIgnoringDefaults(mirror, "invalidKey");
 
 		assertThat(value, is(nullValue()));
 	}
 
 	@Test
-	public void testGetAnnotationValueIgnoreDefaults_noValueProvided() {
+	public void testGetValueIgnoreDefaults_noValueProvided() {
 		final Element e = elementSupplier.getUniqueElementWithId("get annotation value ignoring defaults: no value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
-		final AnnotationValue value = helper.getAnnotationValueIgnoringDefaults(mirror, "value");
+		final AnnotationValue value = helper.getValueIgnoringDefaults(mirror, "value");
 
 		assertThat(value, is(nullValue()));
 	}
 
 	@Test
-	public void testGetAnnotationValueIgnoringDefaults_valueProvided() {
+	public void testGetValueIgnoringDefaults_valueProvided() {
 		final Element e = elementSupplier.getUniqueElementWithId("get annotation value ignoring defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
-		final AnnotationValue value = helper.getAnnotationValueIgnoringDefaults(mirror, "value");
+		final AnnotationValue value = helper.getValueIgnoringDefaults(mirror, "value");
 
 		assertThat(value, is(notNullValue()));
 		assertThat((String) value.getValue(), is(Data.SPECIFIED_VALUE));
 	}
 
 	@Test
-	public void testGetAnnotationValueWithDefaults_invalidKey() {
+	public void testGetValueUsingDefaults_invalidKey() {
 		final Element e = elementSupplier.getUniqueElementWithId("get annotation value with defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
-		final AnnotationValue value = helper.getAnnotationValueWithDefaults(mirror, "invalidKey");
+		final AnnotationValue value = helper.getValueUsingDefaults(mirror, "invalidKey");
 
 		assertThat(value, is(nullValue()));
 	}
 
 	@Test
-	public void testGetAnnotationValueWithDefaults_noValueProvided() {
+	public void testGetValueUsingDefaults_noValueProvided() {
 		final Element e = elementSupplier.getUniqueElementWithId("get annotation value with defaults: no value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
-		final AnnotationValue value = helper.getAnnotationValueWithDefaults(mirror, "value");
+		final AnnotationValue value = helper.getValueUsingDefaults(mirror, "value");
 
 		assertThat(value, is(notNullValue()));
 		assertThat((String) value.getValue(), is(SomeAnnotationWithValue.DEFAULT_VALUE));
 	}
 
 	@Test
-	public void testGetAnnotationValueWithDefaults_valueProvided() {
+	public void testGetValueUsingDefaults_valueProvided() {
 		final Element e = elementSupplier.getUniqueElementWithId("get annotation value with defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
-		final AnnotationValue value = helper.getAnnotationValueWithDefaults(mirror, "value");
+		final AnnotationValue value = helper.getValueUsingDefaults(mirror, "value");
 
 		assertThat(value, is(notNullValue()));
 		assertThat((String) value.getValue(), is(Data.SPECIFIED_VALUE));

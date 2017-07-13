@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.processor.core;
 
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
-import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
 
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
