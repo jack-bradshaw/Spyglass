@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.mirror_utils;
+package com.matthewtamlin.spyglass.processor.mirror_helpers;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
@@ -37,7 +37,7 @@ public class AnnotationMirrorHelper {
 		return null;
 	}
 
-	public AnnotationValue getAnnotationValueIgnoringDefaults(final AnnotationMirror mirror, final String valueKey) {
+	public AnnotationValue getValueIgnoringDefaults(final AnnotationMirror mirror, final String valueKey) {
 		checkNotNull(mirror, "Argument \'mirror\' cannot be null.");
 		checkNotNull(valueKey, "Argument \'valueKey\' cannot be null.");
 
@@ -52,7 +52,7 @@ public class AnnotationMirrorHelper {
 		return null;
 	}
 
-	public AnnotationValue getAnnotationValueWithDefaults(final AnnotationMirror mirror, final String valueKey) {
+	public AnnotationValue getValueUsingDefaults(final AnnotationMirror mirror, final String valueKey) {
 		checkNotNull(mirror, "Argument \'mirror\' cannot be null.");
 		checkNotNull(valueKey, "Argument \'valueKey\' cannot be null.");
 
