@@ -18,7 +18,7 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.S
 import com.matthewtamlin.spyglass.processor.code_generation.ValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;

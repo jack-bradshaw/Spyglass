@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.Sp
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
-import com.matthewtamlin.spyglass.processor.mirror_utils.AnnotationMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
@@ -117,7 +117,7 @@ public class SpecificValueIsAvailableMethodGenerator {
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
-		return annotationMirrorHelper.getAnnotationValueWithDefaults(mirror, key).toString();
+		return annotationMirrorHelper.getValueUsingDefaults(mirror, key).toString();
 	}
 
 	private void checkIsValueHandlerAnnotation(final AnnotationMirror anno, final String exceptionMessage) {
