@@ -1,4 +1,11 @@
-package com.matthewtamlin.spyglass.processor.mirror_utils;
+package com.matthewtamlin.spyglass.processor.mirror_helpers;
+
+import com.matthewtamlin.java_utilities.testing.Tested;
+
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Set;
+import java.util.Stack;
 
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
@@ -6,6 +13,7 @@ import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
+@Tested(testMethod = "automated")
 public class TypeMirrorHelper {
 	private Elements elementUtil;
 
@@ -30,24 +38,24 @@ public class TypeMirrorHelper {
 	}
 
 	public boolean isNumber(final TypeMirror typeMirror) {
-		final String typeMirrorString = typeMirror.toString();
-
 		final TypeMirror numberType = elementUtil.getTypeElement(Number.class.getCanonicalName()).asType();
 
-		return typeUtil.isAssignable(typeMirror, numberType) ||
-				typeMirrorString.equals("byte") ||
-				typeMirrorString.equals("char") ||
-				typeMirrorString.equals("short") ||
-				typeMirrorString.equals("int") ||
-				typeMirrorString.equals("long") ||
-				typeMirrorString.equals("double") ||
-				typeMirrorString.equals("float");
+		return toStringSet(getAllSupertypes(typeMirror)).contains(numberType.toString()) ||
+				typeMirror.toString().equals(numberType.toString()) ||
+				typeMirror.toString().equals("byte") ||
+				typeMirror.toString().equals("short") ||
+				typeMirror.toString().equals("int") ||
+				typeMirror.toString().equals("long") ||
+				typeMirror.toString().equals("double") ||
+				typeMirror.toString().equals("float");
 	}
 
 	public boolean isCharacter(final TypeMirror typeMirror) {
 		final TypeMirror characterType = elementUtil.getTypeElement(Character.class.getCanonicalName()).asType();
 
-		return typeUtil.isAssignable(typeMirror, characterType) || typeMirror.toString().equals("char");
+		return toStringSet(getAllSupertypes(typeMirror)).contains(characterType.toString()) ||
+				typeMirror.toString().equals(characterType.toString()) ||
+				typeMirror.toString().equals("char");
 	}
 
 	public TypeMirror boxPrimitive(final TypeMirror typeMirror) {
@@ -71,5 +79,31 @@ public class TypeMirrorHelper {
 			default:
 				throw new IllegalArgumentException("Argument \'typeMirror\' must be primitive.");
 		}
+	}
+
+	private Set<TypeMirror> getAllSupertypes(final TypeMirror typeMirror) {
+		final Set<TypeMirror> exploredSupertypes = new HashSet<>();
+		final Stack<TypeMirror> newSupertypes = new Stack<>();
+
+		newSupertypes.addAll(typeUtil.directSupertypes(typeMirror));
+
+		while (!newSupertypes.isEmpty()) {
+			final TypeMirror type = newSupertypes.pop();
+			exploredSupertypes.add(type);
+
+			newSupertypes.addAll(typeUtil.directSupertypes(type));
+		}
+
+		return exploredSupertypes;
+	}
+
+	private Set<String> toStringSet(final Collection<TypeMirror> types) {
+		final Set<String> fullyQualifiedNames = new HashSet<>();
+
+		for (final TypeMirror type : types) {
+			fullyQualifiedNames.add(type.toString());
+		}
+
+		return fullyQualifiedNames;
 	}
 }

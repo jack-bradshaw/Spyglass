@@ -4,7 +4,7 @@ package com.matthewtamlin.spyglass.processor.validation;
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
-import com.matthewtamlin.spyglass.processor.mirror_utils.TypeMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
