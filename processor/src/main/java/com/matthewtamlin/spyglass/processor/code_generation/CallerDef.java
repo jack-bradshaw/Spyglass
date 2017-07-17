@@ -1,9 +1,11 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 
@@ -93,6 +95,10 @@ public final class CallerDef {
 				.skipJavaLangImports(true)
 				.indent("\t")
 				.build();
+	}
+
+	public static ClassName asClassName() {
+		return ClassName.get(SRC_FILE.packageName, ABSTRACT_CALLER.name);
 	}
 
 	private CallerDef() {
