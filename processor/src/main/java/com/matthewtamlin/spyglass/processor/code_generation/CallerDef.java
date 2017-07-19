@@ -129,7 +129,8 @@ public final class CallerDef {
 		final ClassName genericCaller = CallerDef.getCallerAsClassName();
 		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
 
-		return TypeSpec.classBuilder(className)
+		return TypeSpec
+				.classBuilder(className)
 				.superclass(specificCaller);
 	}
 
