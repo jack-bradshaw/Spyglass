@@ -122,7 +122,7 @@ public final class CallerDef {
 						.build());
 	}
 
-	public static TypeSpec.Builder getNewCallerImplementationPrototype(
+	public static TypeSpec.Builder getNewCallerSubclassPrototype(
 			final String className,
 			final TypeName targetType) {
 
