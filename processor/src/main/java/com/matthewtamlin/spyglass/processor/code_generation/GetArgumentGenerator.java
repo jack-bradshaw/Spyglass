@@ -125,9 +125,7 @@ public class GetArgumentGenerator {
 	}
 
 	private MethodSpec.Builder getBaseMethodSpec(final int position) {
-		return MethodSpec
-				.methodBuilder("getArgument" + position)
-				.addParameter(AndroidClassNames.CONTEXT, "context", Modifier.FINAL);
+		return MethodSpec.methodBuilder("getArgument" + position);
 	}
 
 	private interface MethodSpecSupplier {
