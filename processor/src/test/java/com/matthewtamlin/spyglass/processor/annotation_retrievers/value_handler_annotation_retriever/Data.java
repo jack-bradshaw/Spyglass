@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_retrievers.call_handler_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.value_handler_annotation_retriever;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
@@ -35,15 +35,57 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.S
 import static com.matthewtamlin.spyglass.common.units.DimensionUnit.DP;
 
 public class Data {
-	@ElementId("specific enum")
-	@SpecificEnumHandler(attributeId = 0, ordinal = 1)
+	@ElementId("boolean")
+	@BooleanHandler(attributeId = 0)
 	public void method1() {}
 
-	@ElementId("specific flag")
-	@SpecificFlagHandler(attributeId = 0, handledFlags = 1)
+	@ElementId("color")
+	@ColorHandler(attributeId = 0)
 	public void method2() {}
 
-	@ElementId("no call handler annotation")
+	@ElementId("color state list")
+	@ColorStateListHandler(attributeId = 0)
+	public void method3() {}
+
+	@ElementId("dimension")
+	@DimensionHandler(attributeId = 0)
+	public void method4() {}
+
+	@ElementId("drawable")
+	@DrawableHandler(attributeId = 0)
+	public void method5() {}
+
+	@ElementId("enum constant")
+	@EnumConstantHandler(attributeId = 0, enumClass = PlaceholderEnum.class)
+	public void method6() {}
+
+	@ElementId("enum ordinal")
+	@EnumOrdinalHandler(attributeId = 0)
+	public void method7() {}
+
+	@ElementId("float")
+	@FloatHandler(attributeId = 0)
+	public void method8() {}
+
+	@ElementId("fraction")
+	@FractionHandler(attributeId = 0)
+	public void method9() {}
+
+	@ElementId("integer")
+	@IntegerHandler(attributeId = 0)
+	public void method10() {}
+
+	@ElementId("string")
+	@StringHandler(attributeId = 0)
+	public void method11() {}
+
+	@ElementId("text array")
+	public void method12() {}
+
+	@ElementId("text")
+	public void method13() {}
+
+	@ElementId("no value handler annotation")
 	@DefaultToBoolean(true)
 	@DefaultToBooleanResource(resId = 0)
 	@DefaultToColorResource(resId = 0)
@@ -61,18 +103,9 @@ public class Data {
 	@DefaultToStringResource(resId = 0)
 	@DefaultToTextArrayResource(resId = 0)
 	@DefaultToTextResource(resId = 0)
-	@BooleanHandler(attributeId = 0)
-	@ColorHandler(attributeId = 0)
-	@ColorStateListHandler(attributeId = 0)
-	@DimensionHandler(attributeId = 0)
-	@DrawableHandler(attributeId = 0)
-	@EnumConstantHandler(attributeId = 0, enumClass = PlaceholderEnum.class)
-	@EnumOrdinalHandler(attributeId = 0)
-	@FloatHandler(attributeId = 0)
-	@FractionHandler(attributeId = 0)
-	@IntegerHandler(attributeId = 0)
-	@StringHandler(attributeId = 0)
-	public void method3() {}
+	@SpecificEnumHandler(attributeId = 0, ordinal = 0)
+	@SpecificFlagHandler(attributeId = 0, handledFlags = 0)
+	public void method14() {}
 
 	private enum PlaceholderEnum {}
 }

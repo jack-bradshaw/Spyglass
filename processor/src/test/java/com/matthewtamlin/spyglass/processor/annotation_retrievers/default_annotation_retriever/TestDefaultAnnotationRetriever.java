@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_retrievers.default_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.default_annotation_retriever;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
@@ -41,7 +41,7 @@ import static org.hamcrest.Matchers.nullValue;
 @RunWith(JUnit4.class)
 public class TestDefaultAnnotationRetriever {
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/annotation_utils/default_annotation_util/Data.java");
+			"/annotation_retriever/default_annotation_util/Data.java");
 
 	private IdBasedElementSupplier elementSupplier;
 

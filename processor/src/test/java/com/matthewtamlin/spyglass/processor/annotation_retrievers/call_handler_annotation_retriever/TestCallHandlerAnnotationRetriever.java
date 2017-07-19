@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_retrievers.call_handler_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.call_handler_annotation_retriever;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
