@@ -5,6 +5,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
@@ -119,6 +120,17 @@ public final class CallerDef {
 						.builder()
 						.addStatement("super(context, target, attrs)")
 						.build());
+	}
+
+	public static TypeSpec.Builder getNewCallerImplementationPrototype(
+			final String className,
+			final TypeName targetType) {
+
+		final ClassName genericCaller = CallerDef.getCallerAsClassName();
+		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
+
+		return TypeSpec.classBuilder(className)
+				.superclass(specificCaller);
 	}
 
 	private CallerDef() {
