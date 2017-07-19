@@ -204,10 +204,10 @@ public class TestGetArgumentGenerator {
 	private void checkCompiles(final MethodSpec method) {
 		final TypeSpec wrapperTypeSpec = TypeSpec
 				.classBuilder("Wrapper")
-				.superclass(CallerDef.asClassName())
+				.superclass(CallerDef.getCallerAsClassName())
 				.addMethod(method)
-				.addMethod(CallerDef.getEmptyCallMethod().build())
-				.addMethod(CallerDef.getSubclassConstructor(TypeName.OBJECT).build())
+				.addMethod(CallerDef.getNewCallMethodPrototype().build())
+				.addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
 				.build();
 
 		final JavaFile wrapperJavaFile = JavaFile

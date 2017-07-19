@@ -97,18 +97,18 @@ public final class CallerDef {
 				.build();
 	}
 
-	public static ClassName asClassName() {
+	public static ClassName getCallerAsClassName() {
 		return ClassName.get(SRC_FILE.packageName, ABSTRACT_CALLER.name);
 	}
 
-	public static MethodSpec.Builder getEmptyCallMethod() {
+	public static MethodSpec.Builder getNewCallMethodPrototype() {
 		return MethodSpec
 				.methodBuilder(CALL.name)
 				.returns(void.class)
 				.addModifiers(PUBLIC);
 	}
 
-	public static MethodSpec.Builder getSubclassConstructor(final TypeName targetType) {
+	public static MethodSpec.Builder getNewConstructorPrototype(final TypeName targetType) {
 		return MethodSpec
 				.constructorBuilder()
 				.addModifiers(PUBLIC)
