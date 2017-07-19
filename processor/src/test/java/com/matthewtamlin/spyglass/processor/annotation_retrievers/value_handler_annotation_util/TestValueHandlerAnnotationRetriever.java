@@ -33,7 +33,7 @@ import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(JUnit4.class)
-public class TestValueHandlerAnnotationUtil {
+public class TestValueHandlerAnnotationRetriever {
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
 			"/annotation_utils/value_handler_annotation_util/Data.java");
 
