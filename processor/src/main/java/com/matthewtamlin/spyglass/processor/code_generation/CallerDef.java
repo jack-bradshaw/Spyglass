@@ -101,6 +101,26 @@ public final class CallerDef {
 		return ClassName.get(SRC_FILE.packageName, ABSTRACT_CALLER.name);
 	}
 
+	public static MethodSpec.Builder getEmptyCallMethod() {
+		return MethodSpec
+				.methodBuilder(CALL.name)
+				.returns(void.class)
+				.addModifiers(PUBLIC);
+	}
+
+	public static MethodSpec.Builder getSubclassConstructor(final TypeName targetType) {
+		return MethodSpec
+				.constructorBuilder()
+				.addModifiers(PUBLIC)
+				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
+				.addParameter(targetType, "target", FINAL)
+				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
+				.addCode(CodeBlock
+						.builder()
+						.addStatement("super(context, target, attrs)")
+						.build());
+	}
+
 	private CallerDef() {
 		throw new RuntimeException("Contract class. Do not instantiate.");
 	}
