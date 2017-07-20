@@ -10,6 +10,6 @@ import org.junit.runners.JUnit4;
 public class TestCallerDef {
 	@Test
 	public void testGetJavaFile_checkFileCompiles() {
-		CompileChecker.checkCompiles(CallerDef.getJavaFile());
+		CompileChecker.checkCompiles(CallerDef.SRC_FILE);
 	}
 }
