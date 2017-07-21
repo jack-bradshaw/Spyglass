@@ -137,8 +137,7 @@ public class TestDoInvocationGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		assertThat(generatedMethod.returnType, is(TypeName.VOID));
-		assertThat(generatedMethod.parameters, hasSize(1));
-		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) ClassName.get(Data.class)));
+		assertThat(generatedMethod.parameters, hasSize(0));
 
 		checkCompiles(generatedMethod);
 	}
@@ -150,9 +149,7 @@ public class TestDoInvocationGenerator {
 
 		assertThat(generatedMethod, is(notNullValue()));
 		assertThat(generatedMethod.returnType, is(TypeName.VOID));
-		assertThat(generatedMethod.parameters, hasSize(2));
-		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) ClassName.get(Data.class)));
-		assertThat(generatedMethod.parameters.get(1).type, is((TypeName) TypeName.OBJECT));
+		assertThat(generatedMethod.parameters, hasSize(0));
 
 		checkCompiles(generatedMethod);
 	}
