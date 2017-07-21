@@ -303,10 +303,7 @@ public class TestGetDefaultMethodGenerator {
 
 	private void checkMethodSignature(final MethodSpec generatedMethod, final TypeName returnType) {
 		assertThat(generatedMethod.returnType, is(returnType));
-
-		assertThat(generatedMethod.parameters, hasSize(2));
-		assertThat(generatedMethod.parameters.get(0).type, is((TypeName) CONTEXT));
-		assertThat(generatedMethod.parameters.get(1).type, is((TypeName) TYPED_ARRAY));
+		assertThat(generatedMethod.parameters, hasSize(0));
 	}
 
 	private void checkCompiles(final MethodSpec methodSpec) {
