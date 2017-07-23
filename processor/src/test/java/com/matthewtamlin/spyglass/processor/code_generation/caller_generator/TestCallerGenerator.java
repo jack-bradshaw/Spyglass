@@ -118,7 +118,7 @@ public class TestCallerGenerator {
 		final Set<JavaFile> filesToCompile = new HashSet<>();
 
 		filesToCompile.add(wrapperJavaFile);
-		filesToCompile.add(CallerDef.getJavaFile());
+		filesToCompile.add(CallerDef.SRC_FILE);
 
 		CompileChecker.checkCompiles(filesToCompile);
 	}
