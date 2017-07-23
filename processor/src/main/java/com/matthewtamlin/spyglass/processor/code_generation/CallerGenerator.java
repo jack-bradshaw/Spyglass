@@ -89,8 +89,7 @@ public class CallerGenerator {
 		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandlerAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
 
-		final MethodSpec call = CallerDef.CALL
-				.toBuilder()
+		final MethodSpec call = CallerDef.getNewCallMethodPrototype()
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
