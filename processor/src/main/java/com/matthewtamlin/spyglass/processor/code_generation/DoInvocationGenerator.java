@@ -57,7 +57,6 @@ public class DoInvocationGenerator {
 		return MethodSpec
 				.methodBuilder("doInvocation")
 				.returns(TypeName.VOID)
-				.addParameter(TypeName.get(method.getEnclosingElement().asType()), "target", FINAL)
 				.addCode(getInvocationLineWithoutRecipient(method))
 				.build();
 	}
@@ -72,7 +71,6 @@ public class DoInvocationGenerator {
 		return MethodSpec
 				.methodBuilder("doInvocation")
 				.returns(TypeName.VOID)
-				.addParameter(TypeName.get(method.getEnclosingElement().asType()), "target", FINAL)
 				.addParameter(TypeName.OBJECT, "value", FINAL)
 				.addCode(block.build())
 				.build();

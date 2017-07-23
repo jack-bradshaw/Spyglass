@@ -278,7 +278,6 @@ public class ValueIsAvailableMethodGenerator {
 		return MethodSpec
 				.methodBuilder("valueIsAvailable")
 				.returns(boolean.class)
-				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
 				.addCode(methodBodySuppliers.get(annotationType).supplyFor(anno))
 				.build();
 	}
