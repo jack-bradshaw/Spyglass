@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.processor.code_generation.get_argument_genera
 import com.google.testing.compile.CompilationRule;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.GetArgumentGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
@@ -22,6 +23,7 @@ import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
 
@@ -63,24 +65,25 @@ public class TestGetArgumentGenerator {
 
 	@Test
 	public void testGenerateFor_negativeParameterIndex() {
-		generator.generateFor(mock(VariableElement.class), -1);
+		generator.generateFor(mock(AnnotationMirror.class), -1);
 	}
 
 	@Test
 	public void testGenerateFor_zeroParameterIndex() {
-		generator.generateFor(mock(VariableElement.class), 0);
+		generator.generateFor(mock(AnnotationMirror.class), 0);
 	}
 
 	@Test
 	public void testGenerateFor_positiveParameterIndex() {
-		generator.generateFor(mock(VariableElement.class), 1);
+		generator.generateFor(mock(AnnotationMirror.class), 1);
 	}
 
 	@Test
 	public void testGenerateFor_parameterWithUseBoolean() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("boolean");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		assertThat(generatedMethod.returnType, either(is(TypeName.BOOLEAN)).or(is(TypeName.BOOLEAN.box())));
@@ -92,8 +95,9 @@ public class TestGetArgumentGenerator {
 	@Test
 	public void testGenerateFor_parameterWithUseByte() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("byte");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkSignatureNumberCase(generatedMethod);
@@ -103,8 +107,9 @@ public class TestGetArgumentGenerator {
 	@Test
 	public void testGenerateFor_parameterWithUseChar() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("char");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkSignatureNumberCase(generatedMethod);
@@ -114,8 +119,9 @@ public class TestGetArgumentGenerator {
 	@Test
 	public void testGenerateFor_parameterWithUseDouble() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("double");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkSignatureNumberCase(generatedMethod);
@@ -125,8 +131,9 @@ public class TestGetArgumentGenerator {
 	@Test
 	public void testGenerateFor_parameterWithUseFloat() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("float");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkSignatureNumberCase(generatedMethod);
@@ -136,8 +143,9 @@ public class TestGetArgumentGenerator {
 	@Test
 	public void testGenerateFor_parameterWithUseInt() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("int");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkSignatureNumberCase(generatedMethod);
@@ -147,8 +155,9 @@ public class TestGetArgumentGenerator {
 	@Test
 	public void testGenerateFor_parameterWithUseLong() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("long");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkSignatureNumberCase(generatedMethod);
@@ -158,8 +167,9 @@ public class TestGetArgumentGenerator {
 	@Test
 	public void testGenerateFor_parameterWithUseNull() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("null");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		assertThat(generatedMethod.returnType, is((TypeName) TypeName.OBJECT));
@@ -171,8 +181,9 @@ public class TestGetArgumentGenerator {
 	@Test
 	public void testGenerateFor_parameterWithUseShort() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("short");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkSignatureNumberCase(generatedMethod);
@@ -182,8 +193,9 @@ public class TestGetArgumentGenerator {
 	@Test
 	public void testGenerateFor_parameterWithUseString() {
 		final VariableElement parameter = getFirstParameterFromElementWithId("string");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
 
-		final MethodSpec generatedMethod = generator.generateFor(parameter, 0);
+		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		assertThat(generatedMethod.returnType, is((TypeName) ClassName.get(String.class)));

@@ -113,15 +113,10 @@ public class GetArgumentGenerator {
 		this.annoMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
 	}
 
-	public MethodSpec generateFor(final VariableElement parameter, final int parameterIndex) {
-		if (UseAnnoRetriever.hasAnnotation(parameter)) {
-			final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
-			final String useAnnoName = useAnno.getAnnotationType().toString();
+	public MethodSpec generateFor(final AnnotationMirror useAnno, final int parameterIndex) {
+		final String useAnnoName = useAnno.getAnnotationType().toString();
 
-			return methodSpecSuppliers.get(useAnnoName).supplyFor(useAnno, parameterIndex);
-		} else {
-			return null;
-		}
+		return methodSpecSuppliers.get(useAnnoName).supplyFor(useAnno, parameterIndex);
 	}
 
 	private MethodSpec.Builder getBaseMethodSpec(final int position) {
