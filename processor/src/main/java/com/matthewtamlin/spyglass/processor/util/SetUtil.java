@@ -6,6 +6,8 @@ import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
+import javax.lang.model.type.TypeMirror;
+
 @Tested(testMethod = "automated")
 public class SetUtil {
 	@SafeVarargs
@@ -15,5 +17,15 @@ public class SetUtil {
 		Collections.addAll(set, objects);
 
 		return Collections.unmodifiableSet(set);
+	}
+
+	public static Set<String> allToString(Set<?> set) {
+		final Set<String> stringSet = new HashSet<>();
+
+		for (final Object o : set) {
+			stringSet.add(o.toString());
+		}
+
+		return stringSet;
 	}
 }
