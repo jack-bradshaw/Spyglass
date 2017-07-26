@@ -8,6 +8,8 @@ import java.util.Set;
 
 import javax.lang.model.type.TypeMirror;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+
 @Tested(testMethod = "automated")
 public class SetUtil {
 	@SafeVarargs
@@ -20,6 +22,8 @@ public class SetUtil {
 	}
 
 	public static Set<String> allToString(Set<?> set) {
+		checkNotNull(set, "Argument \'set\' cannot be null.");
+
 		final Set<String> stringSet = new HashSet<>();
 
 		for (final Object o : set) {
