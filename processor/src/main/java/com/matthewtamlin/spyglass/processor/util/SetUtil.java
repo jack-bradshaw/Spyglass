@@ -21,7 +21,7 @@ public class SetUtil {
 		return Collections.unmodifiableSet(set);
 	}
 
-	public static Set<String> allToString(Set<?> set) {
+	public static Set<String> allToString(final Set<?> set) {
 		checkNotNull(set, "Argument \'set\' cannot be null.");
 
 		final Set<String> stringSet = new HashSet<>();
