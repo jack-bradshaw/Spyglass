@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.mirror_helpers;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.processor.util.SetUtil;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -40,7 +41,7 @@ public class TypeMirrorHelper {
 	public boolean isNumber(final TypeMirror typeMirror) {
 		final TypeMirror numberType = elementUtil.getTypeElement(Number.class.getCanonicalName()).asType();
 
-		return toStringSet(getAllSupertypes(typeMirror)).contains(numberType.toString()) ||
+		return SetUtil.allToString(getAllSupertypes(typeMirror)).contains(numberType.toString()) ||
 				typeMirror.toString().equals(numberType.toString()) ||
 				typeMirror.toString().equals("byte") ||
 				typeMirror.toString().equals("short") ||
@@ -53,7 +54,7 @@ public class TypeMirrorHelper {
 	public boolean isCharacter(final TypeMirror typeMirror) {
 		final TypeMirror characterType = elementUtil.getTypeElement(Character.class.getCanonicalName()).asType();
 
-		return toStringSet(getAllSupertypes(typeMirror)).contains(characterType.toString()) ||
+		return SetUtil.allToString(getAllSupertypes(typeMirror)).contains(characterType.toString()) ||
 				typeMirror.toString().equals(characterType.toString()) ||
 				typeMirror.toString().equals("char");
 	}
@@ -95,15 +96,5 @@ public class TypeMirrorHelper {
 		}
 
 		return exploredSupertypes;
-	}
-
-	private Set<String> toStringSet(final Collection<TypeMirror> types) {
-		final Set<String> fullyQualifiedNames = new HashSet<>();
-
-		for (final TypeMirror type : types) {
-			fullyQualifiedNames.add(type.toString());
-		}
-
-		return fullyQualifiedNames;
 	}
 }
