@@ -81,7 +81,7 @@ public class TypeMirrorHelper {
 		}
 	}
 
-	private Set<TypeMirror> getAllSupertypes(final TypeMirror typeMirror) {
+	public Set<TypeMirror> getAllSupertypes(final TypeMirror typeMirror) {
 		final Set<TypeMirror> exploredSupertypes = new HashSet<>();
 		final Stack<TypeMirror> newSupertypes = new Stack<>();
 
