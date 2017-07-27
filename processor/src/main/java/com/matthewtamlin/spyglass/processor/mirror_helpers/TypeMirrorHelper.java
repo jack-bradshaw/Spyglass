@@ -97,4 +97,11 @@ public class TypeMirrorHelper {
 
 		return exploredSupertypes;
 	}
+
+	public boolean isAssignable(final TypeMirror subclass, final TypeMirror superclass) {
+		final Set<TypeMirror> superclasses = getAllSupertypes(subclass);
+		final Set<String> superclassNames = SetUtil.allToString(superclasses);
+
+		return superclassNames.contains(superclass.toString());
+	}
 }
