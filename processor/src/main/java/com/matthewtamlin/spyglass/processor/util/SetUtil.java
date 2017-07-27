@@ -8,6 +8,7 @@ import java.util.Set;
 
 import javax.lang.model.type.TypeMirror;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkEachElementIsNotNull;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
@@ -23,6 +24,7 @@ public class SetUtil {
 
 	public static Set<String> allToString(final Set<?> set) {
 		checkNotNull(set, "Argument \'set\' cannot be null.");
+		checkEachElementIsNotNull(set, "Argument \'set\' cannot contain null.");
 
 		final Set<String> stringSet = new HashSet<>();
 
