@@ -4,6 +4,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
+import java.util.HashSet;
 import java.util.Set;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -28,5 +29,119 @@ public class TestSetUtil {
 		final Set<Object> set = SetUtil.unmodifiableSetOf();
 
 		set.add(new Object());
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAllToString_nullSupplied() {
+		SetUtil.allToString(null);
+	}
+
+	@Test
+	public void testAllToString_emptySetSupplied() {
+		final Set<Object> items = new HashSet<>();
+
+		final Set<String> stringSet = SetUtil.allToString(items);
+
+		assertThat(stringSet, is((Set) new HashSet<>()));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testAllToString_setContainsNull() {
+		final Set<Object> items = new HashSet<>();
+
+		items.add(null);
+
+		SetUtil.allToString(items);
+	}
+
+	@Test
+	public void testAllToString_anElementReturnsNullString() {
+		final Set<Object> items = new HashSet<>();
+
+		items.add(new Object() {
+			@Override
+			public String toString() {
+				return null;
+			}
+		});
+
+		final Set<String> stringSet = SetUtil.allToString(items);
+
+		final Set<String> expectedStrings = new HashSet<>();
+		expectedStrings.add(null);
+
+		assertThat(stringSet, is(expectedStrings));
+	}
+
+	@Test
+	public void testAllToString_oneElementOnly() {
+		final Set<Object> items = new HashSet<>();
+
+		items.add(new Object() {
+			@Override
+			public String toString() {
+				return "item0";
+			}
+		});
+
+		final Set<String> stringSet = SetUtil.allToString(items);
+
+		final Set<String> expectedStrings = new HashSet<>();
+		expectedStrings.add("item0");
+
+		assertThat(stringSet, is(expectedStrings));
+	}
+
+	@Test
+	public void testAllToString_multipleElements_uniqueStrings() {
+		final Set<Object> items = new HashSet<>();
+
+		items.add(new Object() {
+			@Override
+			public String toString() {
+				return "item0";
+			}
+		});
+
+		items.add(new Object() {
+			@Override
+			public String toString() {
+				return "item1";
+			}
+		});
+
+		final Set<String> stringSet = SetUtil.allToString(items);
+
+		final Set<String> expectedStrings = new HashSet<>();
+		expectedStrings.add("item0");
+		expectedStrings.add("item1");
+
+		assertThat(stringSet, is(expectedStrings));
+	}
+
+	@Test
+	public void testAllToString_multipleElements_duplicateStrings() {
+		final Set<Object> items = new HashSet<>();
+
+		items.add(new Object() {
+			@Override
+			public String toString() {
+				return "item0";
+			}
+		});
+
+		items.add(new Object() {
+			@Override
+			public String toString() {
+				return "item0";
+			}
+		});
+
+		final Set<String> stringSet = SetUtil.allToString(items);
+
+		final Set<String> expectedStrings = new HashSet<>();
+		expectedStrings.add("item0");
+
+		assertThat(stringSet, is(expectedStrings));
 	}
 }
