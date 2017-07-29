@@ -2,9 +2,14 @@ package com.matthewtamlin.spyglass.processor.validation;
 
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.code_generation.GetArgumentGenerator;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeName;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -15,11 +20,14 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.PRIVATE;
@@ -207,14 +215,78 @@ public class Validator {
 				throw new RuntimeException("Should never get here.");
 			}
 		});
+
+		// Check that use annotations are compatible with recipient parameter types
+		rules.add(new Rule() {
+			@Override
+			public void checkElement(final Element element) throws ValidationException {
+				for (final VariableElement parameter : ((ExecutableElement) element).getParameters()) {
+					if (UseAnnoRetriever.hasAnnotation(parameter)) {
+						final boolean paramHasUseNullAnno = UseAnnoRetriever
+								.getAnnotation(parameter)
+								.getAnnotationType()
+								.toString()
+								.equals(UseNull.class.getName());
+
+						if (paramHasUseNullAnno) {
+							checkUseNullCase(parameter);
+						} else {
+							checkGeneralCase(parameter);
+						}
+					}
+				}
+			}
+
+			private void checkUseNullCase(final VariableElement parameter) throws ValidationException {
+				if (typeMirrorHelper.isPrimitive(parameter.asType())) {
+					throw new ValidationException("UseNull annotations cannot be applied to primitive parameters.");
+				}
+			}
+
+			private void checkGeneralCase(final VariableElement parameter) throws ValidationException {
+				final TypeMirror recipientType = parameter.asType();
+
+				final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
+
+				final GetArgumentGenerator generator = new GetArgumentGenerator(coreHelpers);
+				final MethodSpec suppliedMethod = generator.generateFor(useAnno, 0);
+
+				final TypeMirror suppliedType = elementUtil
+						.getTypeElement(suppliedMethod.returnType.toString())
+						.asType();
+
+				if (typeMirrorHelper.isNumber(suppliedType)) {
+					if (!typeMirrorHelper.isNumber(recipientType) &&
+							!typeMirrorHelper.isCharacter(recipientType) &&
+							!typeMirrorHelper.isAssignable(suppliedType, recipientType)) {
+
+						throw new ValidationException("A use annotation was applied to a parameter incorrectly.");
+					}
+				} else if (typeMirrorHelper.isBoolean(suppliedType)) {
+					if (!typeMirrorHelper.isBoolean(recipientType) &&
+							!typeMirrorHelper.isAssignable(suppliedType, recipientType)) {
+
+						throw new ValidationException("A use annotation was incorrectly to a parameter incorrectly.");
+					}
+				} else {
+					if (!typeMirrorHelper.isAssignable(suppliedType, recipientType)) {
+						throw new ValidationException("A use annotation was incorrectly to a parameter incorrectly.");
+					}
+				}
+			}
+		});
 	}
+
+	private CoreHelpers coreHelpers;
+
+	private Elements elementUtil;
 
 	private TypeMirrorHelper typeMirrorHelper;
 
 	public Validator(final CoreHelpers coreHelpers) {
-		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
-
-		typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
+		this.coreHelpers = checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
+		this.elementUtil = coreHelpers.getElementHelper();
+		this.typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
 	}
 
 	public void validateElement(final Element element) throws ValidationException {
