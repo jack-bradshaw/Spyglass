@@ -98,11 +98,11 @@ public class TypeMirrorHelper {
 		return exploredSupertypes;
 	}
 
-	public boolean isAssignable(final TypeMirror type, final TypeMirror recipient) {
-		checkNotNull(type, "Argument \'type\' cannot be null.");
+	public boolean isAssignable(final TypeMirror supplied, final TypeMirror recipient) {
+		checkNotNull(supplied, "Argument \'supplied\' cannot be null.");
 		checkNotNull(recipient, "Argument \'recipient\' cannot be null.");
 
-		final Set<TypeMirror> superclasses = getAllSupertypes(type);
+		final Set<TypeMirror> superclasses = getAllSupertypes(supplied);
 		final Set<String> superclassNames = SetUtil.allToString(superclasses);
 
 		return superclassNames.contains(recipient.toString());

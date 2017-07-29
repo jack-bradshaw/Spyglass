@@ -419,37 +419,37 @@ public class TestTypeMirrorHelper {
 	}
 
 	@Test
-	public void testIsAssignable_recipientIsRegularClass_typeIsFirstLevelSubclassOfRecipient() {
+	public void testIsAssignable_recipientIsRegularClass_suppliedIsFirstLevelSubclassOfRecipient() {
 		doIsAssignableTestFor("class2", "class1", true);
 	}
 
 	@Test
-	public void testIsAssignable_recipientIsRegularClass_typeIsSecondLevelSubclassOfRecipient() {
+	public void testIsAssignable_recipientIsRegularClass_suppliedIsSecondLevelSubclassOfRecipient() {
 		doIsAssignableTestFor("class3", "class1", true);
 	}
 
 	@Test
-	public void testIsAssignable_recipientIsRegularClass_recipientIsFirstLevelSubclassOfType() {
+	public void testIsAssignable_recipientIsRegularClass_recipientIsFirstLevelSubclassOfSupplied() {
 		doIsAssignableTestFor("class1", "class2", false);
 	}
 
 	@Test
-	public void testIsAssignable_recipientIsRegularClass_typeIsNotSubclassOfRecipient() {
+	public void testIsAssignable_recipientIsRegularClass_suppliedIsNotSubclassOfRecipient() {
 		doIsAssignableTestFor("class1", "class4", false);
 	}
 
 	@Test
-	public void testIsAssignable_recipientIsInterface_typeIsFirstLevelImplementationOfRecipient() {
+	public void testIsAssignable_recipientIsInterface_suppliedIsFirstLevelImplementationOfRecipient() {
 		doIsAssignableTestFor("class2", "interface", true);
 	}
 
 	@Test
-	public void testIsAssignable_recipientIsInterface_typeIsSecondLevelImplementationOfRecipient() {
+	public void testIsAssignable_recipientIsInterface_suppliedIsSecondLevelImplementationOfRecipient() {
 		doIsAssignableTestFor("class3", "interface", true);
 	}
 
 	@Test
-	public void testIsAssignable_recipientIsInterface_recipientIsFirstLevelImplementationOfType() {
+	public void testIsAssignable_recipientIsInterface_recipientIsFirstLevelImplementationOfSupplied() {
 		doIsAssignableTestFor("interface", "class2", false);
 	}
 
