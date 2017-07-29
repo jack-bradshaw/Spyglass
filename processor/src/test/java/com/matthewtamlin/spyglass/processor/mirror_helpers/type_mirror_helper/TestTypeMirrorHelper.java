@@ -324,6 +324,91 @@ public class TestTypeMirrorHelper {
 	}
 
 	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveBoolean() {
+		doIsBooleanTestFor("with primitive boolean", true);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveByte() {
+		doIsBooleanTestFor("with primitive byte", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveChar() {
+		doIsBooleanTestFor("with primitive char", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveDouble() {
+		doIsBooleanTestFor("with primitive double", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveFloat() {
+		doIsBooleanTestFor("with primitive float", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveInt() {
+		doIsBooleanTestFor("with primitive int", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveLong() {
+		doIsBooleanTestFor("with primitive long", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveShort() {
+		doIsBooleanTestFor("with primitive short", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedBoolean() {
+		doIsBooleanTestFor("with boxed boolean", true);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedByte() {
+		doIsBooleanTestFor("with boxed byte", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedChar() {
+		doIsBooleanTestFor("with boxed char", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedDouble() {
+		doIsBooleanTestFor("with boxed double", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedFloat() {
+		doIsBooleanTestFor("with boxed float", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedInt() {
+		doIsBooleanTestFor("with boxed int", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedLong() {
+		doIsBooleanTestFor("with boxed long", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedShort() {
+		doIsBooleanTestFor("with boxed short", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForObject() {
+		doIsBooleanTestFor("with object", false);
+	}
+
+	@Test
 	public void testBoxPrimitive_typeMirrorForPrimitiveBoolean() {
 		doBoxPrimitiveTestWithPassExpectedFor("with primitive boolean", Boolean.class.getCanonicalName());
 	}
@@ -477,6 +562,13 @@ public class TestTypeMirrorHelper {
 		final VariableElement parameter = method.getParameters().get(0);
 
 		assertThat(helper.isCharacter(parameter.asType()), is(expectedResult));
+	}
+
+	private void doIsBooleanTestFor(final String elementId, final boolean expectedResult) {
+		final ExecutableElement method = (ExecutableElement) elementSupplier.getUniqueElementWithId(elementId);
+		final VariableElement parameter = method.getParameters().get(0);
+
+		assertThat(helper.isBoolean(parameter.asType()), is(expectedResult));
 	}
 
 	private void doBoxPrimitiveTestWithPassExpectedFor(final String elementId, final String expectedResultClassName) {
