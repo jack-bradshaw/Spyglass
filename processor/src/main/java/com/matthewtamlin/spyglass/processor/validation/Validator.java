@@ -9,7 +9,6 @@ import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;

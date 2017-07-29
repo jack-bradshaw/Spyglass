@@ -25,7 +25,6 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static javax.lang.model.element.Modifier.FINAL;
 
 @Tested(testMethod = "automated")
 public class ValueIsAvailableMethodGenerator {

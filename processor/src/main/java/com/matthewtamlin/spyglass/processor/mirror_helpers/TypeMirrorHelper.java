@@ -3,7 +3,6 @@ package com.matthewtamlin.spyglass.processor.mirror_helpers;
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.util.SetUtil;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.Stack;

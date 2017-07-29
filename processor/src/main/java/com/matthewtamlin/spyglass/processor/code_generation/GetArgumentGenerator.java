@@ -10,7 +10,6 @@ import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
@@ -21,8 +20,6 @@ import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
