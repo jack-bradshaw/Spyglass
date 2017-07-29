@@ -85,7 +85,7 @@ public class Data {
 		}
 	}
 
-	private class NumberImplementationSubclass extends NumberImplementation{}
+	private class NumberImplementationSubclass extends NumberImplementation {}
 
 	@ElementId("interface")
 	public interface Interface {}
