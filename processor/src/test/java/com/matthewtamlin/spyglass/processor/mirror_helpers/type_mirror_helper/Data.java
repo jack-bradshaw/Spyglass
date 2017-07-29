@@ -86,4 +86,19 @@ public class Data {
 	}
 
 	private class NumberImplementationSubclass extends NumberImplementation{}
+
+	@ElementId("interface")
+	public interface Interface {}
+
+	@ElementId("class1")
+	public static class Class1 {}
+
+	@ElementId("class2")
+	public static class Class2 extends Class1 implements Interface {}
+
+	@ElementId("class3")
+	public static class Class3 extends Class2 {}
+
+	@ElementId("class4")
+	public static class Class4 {}
 }

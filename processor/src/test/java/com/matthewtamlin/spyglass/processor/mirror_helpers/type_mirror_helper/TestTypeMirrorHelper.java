@@ -408,6 +408,56 @@ public class TestTypeMirrorHelper {
 		doBoxPrimitiveTestWithPassExpectedFor("with object", Object.class.getCanonicalName());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testIsAssignable_nullSubclassSupplied() {
+		helper.isAssignable(null, mock(TypeMirror.class));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testIsAssignable_nullSuperclassSupplied() {
+		helper.isAssignable(mock(TypeMirror.class), null);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsRegularClass_typeIsFirstLevelSubclassOfRecipient() {
+		doIsAssignableTestFor("class2", "class1", true);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsRegularClass_typeIsSecondLevelSubclassOfRecipient() {
+		doIsAssignableTestFor("class3", "class1", true);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsRegularClass_recipientIsFirstLevelSubclassOfType() {
+		doIsAssignableTestFor("class1", "class2", false);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsRegularClass_typeIsNotSubclassOfRecipient() {
+		doIsAssignableTestFor("class1", "class4", false);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsInterface_typeIsFirstLevelImplementationOfRecipient() {
+		doIsAssignableTestFor("class2", "interface", true);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsInterface_typeIsSecondLevelImplementationOfRecipient() {
+		doIsAssignableTestFor("class3", "interface", true);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsInterface_recipientIsFirstLevelImplementationOfType() {
+		doIsAssignableTestFor("interface", "class2", false);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsInterface_typeIsNotImplementationOfType() {
+		doIsAssignableTestFor("class4", "interface", false);
+	}
+
 	private void doIsPrimitiveTestFor(final String elementId, final boolean expectedResult) {
 		final ExecutableElement method = (ExecutableElement) elementSupplier.getUniqueElementWithId(elementId);
 		final VariableElement parameter = method.getParameters().get(0);
@@ -442,5 +492,16 @@ public class TestTypeMirrorHelper {
 		final VariableElement parameter = method.getParameters().get(0);
 
 		helper.boxPrimitive(parameter.asType());
+	}
+
+	private void doIsAssignableTestFor(
+			final String typeElementId,
+			final String recipientElementId,
+			final boolean expectedResult) {
+
+		final TypeMirror type = elementSupplier.getUniqueElementWithId(typeElementId).asType();
+		final TypeMirror recipient = elementSupplier.getUniqueElementWithId(recipientElementId).asType();
+
+		assertThat(helper.isAssignable(type, recipient), is(expectedResult));
 	}
 }
