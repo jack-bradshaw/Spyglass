@@ -99,6 +99,9 @@ public class TypeMirrorHelper {
 	}
 
 	public boolean isAssignable(final TypeMirror subclass, final TypeMirror superclass) {
+		checkNotNull(subclass, "Argument \'subclass\' cannot be null.");
+		checkNotNull(superclass, "Argument \'superclass\' cannot be null.");
+
 		final Set<TypeMirror> superclasses = getAllSupertypes(subclass);
 		final Set<String> superclassNames = SetUtil.allToString(superclasses);
 
