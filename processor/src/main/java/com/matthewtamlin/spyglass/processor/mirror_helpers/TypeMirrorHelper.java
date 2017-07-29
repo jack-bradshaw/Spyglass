@@ -59,6 +59,12 @@ public class TypeMirrorHelper {
 				typeMirror.toString().equals("char");
 	}
 
+	public boolean isBoolean(final TypeMirror typeMirror) {
+		final TypeMirror booleanType = elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
+
+		return typeMirror.toString().equals(booleanType.toString()) || typeMirror.toString().equals("boolean");
+	}
+
 	public TypeMirror boxPrimitive(final TypeMirror typeMirror) {
 		switch (typeMirror.toString()) {
 			case "byte":
