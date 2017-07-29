@@ -111,6 +111,6 @@ public class TypeMirrorHelper {
 		final Set<TypeMirror> superclasses = getAllSupertypes(supplied);
 		final Set<String> superclassNames = SetUtil.allToString(superclasses);
 
-		return superclassNames.contains(recipient.toString());
+		return superclassNames.contains(recipient.toString()) || supplied.toString().equals(recipient.toString());
 	}
 }
