@@ -47,7 +47,7 @@ public class GetArgumentGenerator {
 						final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
 
 						return getBaseMethodSpec(position)
-								.returns(boolean.class)
+								.returns(Boolean.class)
 								.addCode(CodeBlock
 										.builder()
 										.addStatement("return $L", rawValue.toString())
