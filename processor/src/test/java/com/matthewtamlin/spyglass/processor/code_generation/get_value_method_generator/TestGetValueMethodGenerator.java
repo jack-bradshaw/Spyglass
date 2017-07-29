@@ -108,7 +108,9 @@ public class TestGetValueMethodGenerator {
 	@Test
 	public void testGetMethod_colorStateListHandlerAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("color state list");
-		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, ColorStateListHandler.class);
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
+				element,
+				ColorStateListHandler.class);
 
 		final MethodSpec generatedMethod = generator.getMethod(mirror);
 
