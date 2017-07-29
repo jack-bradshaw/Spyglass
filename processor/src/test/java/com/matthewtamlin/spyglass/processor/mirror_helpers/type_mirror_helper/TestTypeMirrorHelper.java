@@ -524,6 +524,11 @@ public class TestTypeMirrorHelper {
 	}
 
 	@Test
+	public void testIsAssignable_recipientIsRegularClass_suppliedIsSameClassAsRecipient() {
+		doIsAssignableTestFor("class1", "class1", true);
+	}
+
+	@Test
 	public void testIsAssignable_recipientIsInterface_suppliedIsFirstLevelImplementationOfRecipient() {
 		doIsAssignableTestFor("class2", "interface", true);
 	}
