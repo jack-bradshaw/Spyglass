@@ -454,7 +454,7 @@ public class TestTypeMirrorHelper {
 	}
 
 	@Test
-	public void testIsAssignable_recipientIsInterface_typeIsNotImplementationOfType() {
+	public void testIsAssignable_recipientIsInterface_suppliedIsNotImplementationOfRecipient() {
 		doIsAssignableTestFor("class4", "interface", false);
 	}
 
