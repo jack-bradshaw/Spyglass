@@ -16,6 +16,8 @@ import java.net.MalformedURLException;
 import java.util.Set;
 
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
+import javax.lang.model.element.ExecutableElement;
 import javax.tools.JavaFileObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -55,8 +57,12 @@ public class TestValidator {
 			final Target targetAnnotation = element.getAnnotation(Target.class);
 			final boolean shouldPassValidation = targetAnnotation.isValid();
 
+			if (element.getKind() != ElementKind.METHOD) {
+				throw new RuntimeException("All test elements must be executable elements (e.g. methods).");
+			}
+
 			try {
-				validator.validateElement(element);
+				validator.validateElement((ExecutableElement) element);
 
 				if (!shouldPassValidation) {
 					throw new RuntimeException(

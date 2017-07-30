@@ -21,7 +21,6 @@ import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
@@ -37,21 +36,10 @@ public class Validator {
 	private final List<Rule> rules = new ArrayList<>();
 
 	{
-		// Check element is a method
-		rules.add(new Rule() {
-			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				if (element.getKind() != ElementKind.METHOD) {
-					final String message = "Spyglass annotations must only be applied to methods.";
-					throw new ValidationException(message);
-				}
-			}
-		});
-
 		// Check for multiple handler annotations
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (countCombinedHandlerAnnotations(element) > 1) {
 					final String message = "Methods must not have multiple handler annotations.";
 					throw new ValidationException(message);
@@ -62,7 +50,7 @@ public class Validator {
 		// Check for multiple default annotations
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (countDefaultAnnotations(element) > 1) {
 					final String message = "Methods must not have multiple default annotations.";
 					throw new ValidationException(message);
@@ -73,7 +61,7 @@ public class Validator {
 		// Check for a default annotation without a handler annotation
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				final int handlerCount = countCombinedHandlerAnnotations(element);
 				final int defaultCount = countDefaultAnnotations(element);
 
@@ -87,7 +75,7 @@ public class Validator {
 		// Check for call handlers with defaults
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				final int callHandlerCount = countCallHandlerAnnotations(element);
 				final int defaultCount = countDefaultAnnotations(element);
 
@@ -103,7 +91,7 @@ public class Validator {
 		// Check parameter count exceeds 1 minimum for value handlers
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (countValueHandlerAnnotations(element) == 1) {
 					final int paramCount = ((ExecutableElement) element).getParameters().size();
 
@@ -120,7 +108,7 @@ public class Validator {
 		// Check for parameters with multiple use annotations
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(
 						(ExecutableElement) element);
 
@@ -136,7 +124,7 @@ public class Validator {
 		// Check correct number of parameters have use annotations (value handlers case)
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (countValueHandlerAnnotations(element) == 1) {
 					final int paramCount = ((ExecutableElement) element).getParameters().size();
 					final int annotatedParamCount = countNonEmptySets(
@@ -155,7 +143,7 @@ public class Validator {
 		// Check correct number of parameters have use annotations (call handlers case)
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (countCallHandlerAnnotations(element) == 1) {
 					final int paramCount = ((ExecutableElement) element).getParameters().size();
 					final int annotatedParamCount = countNonEmptySets(
@@ -174,7 +162,7 @@ public class Validator {
 		// Check correct modifiers are applied to annotation methods
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (element.getModifiers().contains(PRIVATE)) {
 					throw new ValidationException("Methods with handler annotations must have public, protected, or " +
 							"default access. Private methods are not compatible with the Spyglass Framework.");
@@ -185,7 +173,7 @@ public class Validator {
 		// Check for methods which are members of non-static inner classes (recursively)
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (!checkParentsRecursively(element)) {
 					throw new ValidationException("Methods with handler annotations must be accessible from static " +
 							"context.");
@@ -218,7 +206,7 @@ public class Validator {
 		// Check that use annotations are compatible with recipient parameter types
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				for (final VariableElement parameter : ((ExecutableElement) element).getParameters()) {
 					if (UseAnnoRetriever.hasAnnotation(parameter)) {
 						final boolean paramHasUseNullAnno = UseAnnoRetriever
@@ -288,7 +276,7 @@ public class Validator {
 		this.typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
 	}
 
-	public void validateElement(final Element element) throws ValidationException {
+	public void validateElement(final ExecutableElement element) throws ValidationException {
 		for (final Rule rule : rules) {
 			rule.checkElement(element);
 		}
@@ -370,14 +358,14 @@ public class Validator {
 
 	private abstract static class RuleWithoutPreconditions implements Rule {
 		@Override
-		public boolean preconditionsSatisfied(final Element element) {
+		public boolean preconditionsSatisfied(final ExecutableElement element) {
 			return true;
 		}
 	}
 
 	private interface Rule {
-		public boolean preconditionsSatisfied(Element element);
+		public boolean preconditionsSatisfied(ExecutableElement element);
 
-		public void checkElement(Element element) throws ValidationException;
+		public void checkElement(ExecutableElement element) throws ValidationException;
 	}
 }
