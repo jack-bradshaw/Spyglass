@@ -3,7 +3,10 @@ package com.matthewtamlin.spyglass.processor.validation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.code_generation.GetArgumentGenerator;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
@@ -36,7 +39,7 @@ public class Validator {
 	private final List<Rule> rules = new ArrayList<>();
 
 	{
-		// Check for multiple handler annotations
+		// Every element must have no more than one handler annotation
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
@@ -47,7 +50,7 @@ public class Validator {
 			}
 		});
 
-		// Check for multiple default annotations
+		// Every element must have no more than one default annotation
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
@@ -58,28 +61,22 @@ public class Validator {
 			}
 		});
 
-		// Check for a default annotation without a handler annotation
+		// Every element with a default annotation must also have a value handler annotation
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
-				final int handlerCount = countCombinedHandlerAnnotations(element);
-				final int defaultCount = countDefaultAnnotations(element);
-
-				if (handlerCount == 0 && defaultCount == 1) {
+				if (DefaultAnnoRetriever.hasAnnotation(element) && !ValueHandlerAnnoRetriever.hasAnnotation(element)) {
 					final String message = "Methods without handler annotations must not have default annotations.";
 					throw new ValidationException(message);
 				}
 			}
 		});
 
-		// Check for call handlers with defaults
+		// Every element with a default annotation must not have a call handler annotation
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
-				final int callHandlerCount = countCallHandlerAnnotations(element);
-				final int defaultCount = countDefaultAnnotations(element);
-
-				if (callHandlerCount == 1 && defaultCount == 1) {
+				if (DefaultAnnoRetriever.hasAnnotation(element) && CallHandlerAnnoRetriever.hasAnnotation(element)) {
 					final String message = "Methods with handlers annotations that pass no value must not have " +
 							"default annotations.";
 
@@ -88,29 +85,26 @@ public class Validator {
 			}
 		});
 
-		// Check parameter count exceeds 1 minimum for value handlers
+		// Every element with a value handle annotation must have at least one parameter
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
-				if (countValueHandlerAnnotations(element) == 1) {
-					final int paramCount = ((ExecutableElement) element).getParameters().size();
+				final int parameterCount = ((ExecutableElement) element).getParameters().size();
 
-					if (paramCount < 1) {
-						final String message = "Methods with handler annotations that pass a value must have at least" +
-								" one parameter.";
+				if (ValueHandlerAnnoRetriever.hasAnnotation(element) && parameterCount < 1) {
+					final String message = "Methods with handler annotations that pass a value must have at least" +
+							" one parameter.";
 
-						throw new ValidationException(message);
-					}
+					throw new ValidationException(message);
 				}
 			}
 		});
 
-		// Check for parameters with multiple use annotations
+		// Every parameter must have at most one use annotations
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
-				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(
-						(ExecutableElement) element);
+				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(element);
 
 				for (final Integer paramIndex : useAnnotations.keySet()) {
 					if (useAnnotations.get(paramIndex).size() > 1) {
@@ -121,45 +115,39 @@ public class Validator {
 			}
 		});
 
-		// Check correct number of parameters have use annotations (value handlers case)
+		// Every element with a value handler must have a use annotation on every parameter except one
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
-				if (countValueHandlerAnnotations(element) == 1) {
-					final int paramCount = ((ExecutableElement) element).getParameters().size();
-					final int annotatedParamCount = countNonEmptySets(
-							getUseAnnotations((ExecutableElement) element).values());
+				final int paramCount = ((ExecutableElement) element).getParameters().size();
+				final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
 
-					if (annotatedParamCount != paramCount - 1) {
-						final String message = "Methods with handler annotations which pass a value must have use " +
-								"annotations on every parameter except one.";
+				if (ValueHandlerAnnoRetriever.hasAnnotation(element) && annotatedParamCount != paramCount - 1) {
+					final String message = "Methods with handler annotations which pass a value must have use " +
+							"annotations on every parameter except one.";
 
-						throw new ValidationException(message);
-					}
+					throw new ValidationException(message);
 				}
 			}
 		});
 
-		// Check correct number of parameters have use annotations (call handlers case)
+		// Every element with a call handler must have a use annotation on every parameter
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
-				if (countCallHandlerAnnotations(element) == 1) {
-					final int paramCount = ((ExecutableElement) element).getParameters().size();
-					final int annotatedParamCount = countNonEmptySets(
-							getUseAnnotations((ExecutableElement) element).values());
+				final int paramCount = ((ExecutableElement) element).getParameters().size();
+				final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
 
-					if (annotatedParamCount != paramCount) {
-						final String message = "Methods with handler annotations which pass no value must have " +
-								"use annotations on every parameter.";
+				if (CallHandlerAnnoRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
+					final String message = "Methods with handler annotations which pass no value must have " +
+							"use annotations on every parameter.";
 
-						throw new ValidationException(message);
-					}
+					throw new ValidationException(message);
 				}
 			}
 		});
 
-		// Check correct modifiers are applied to annotation methods
+		// Every element must be public, protected or package-private
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
@@ -170,7 +158,7 @@ public class Validator {
 			}
 		});
 
-		// Check for methods which are members of non-static inner classes (recursively)
+		// Every element must belong to a class which can be statically instantiated
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
@@ -203,7 +191,7 @@ public class Validator {
 			}
 		});
 
-		// Check that use annotations are compatible with recipient parameter types
+		// The use annotations of every element must be applicable to the annotated parameters
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
