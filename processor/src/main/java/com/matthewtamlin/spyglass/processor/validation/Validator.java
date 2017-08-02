@@ -43,7 +43,7 @@ public class Validator {
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
-				if (countCombinedHandlerAnnotations(element) > 1) {
+				if (countValueHandlerAnnotations(element) + countCallHandlerAnnotations(element) > 1) {
 					final String message = "Methods must not have multiple handler annotations.";
 					throw new ValidationException(message);
 				}
@@ -292,10 +292,6 @@ public class Validator {
 		}
 
 		return count;
-	}
-
-	private static int countCombinedHandlerAnnotations(final Element e) {
-		return countCallHandlerAnnotations(e) + countValueHandlerAnnotations(e);
 	}
 
 	private static int countDefaultAnnotations(final Element e) {
