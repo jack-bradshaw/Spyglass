@@ -356,16 +356,7 @@ public class Validator {
 		return count;
 	}
 
-	private abstract static class RuleWithoutPreconditions implements Rule {
-		@Override
-		public boolean preconditionsSatisfied(final ExecutableElement element) {
-			return true;
-		}
-	}
-
 	private interface Rule {
-		public boolean preconditionsSatisfied(ExecutableElement element);
-
 		public void checkElement(ExecutableElement element) throws ValidationException;
 	}
 }
