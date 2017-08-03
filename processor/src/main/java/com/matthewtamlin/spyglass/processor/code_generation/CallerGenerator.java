@@ -63,7 +63,7 @@ public class CallerGenerator {
 		final AnnotationMirror callHandlerAnno = CallHandlerAnnoRetriever.getAnnotation(e);
 
 		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.generateMethod(callHandlerAnno);
-		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
+		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
 
 		final MethodSpec call = CallerDef.CALL
 				.toBuilder()
@@ -87,7 +87,7 @@ public class CallerGenerator {
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.generateFor(valueHandlerAnno);
 		final MethodSpec getValue = getValueMethodGenerator.generateFor(valueHandlerAnno);
-		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
+		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
 
 		final MethodSpec call = CallerDef.getNewCallMethodPrototype()
 				.addCode(CodeBlock
@@ -114,7 +114,7 @@ public class CallerGenerator {
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.generateFor(valueHandler);
 		final MethodSpec getValue = getValueMethodGenerator.generateFor(valueHandler);
 		final MethodSpec getDefault = getDefaultMethodGenerator.generateFor(defaultAnno);
-		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
+		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
 
 		final MethodSpec callMethod = CallerDef.CALL
 				.toBuilder()
