@@ -324,6 +324,91 @@ public class TestTypeMirrorHelper {
 	}
 
 	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveBoolean() {
+		doIsBooleanTestFor("with primitive boolean", true);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveByte() {
+		doIsBooleanTestFor("with primitive byte", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveChar() {
+		doIsBooleanTestFor("with primitive char", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveDouble() {
+		doIsBooleanTestFor("with primitive double", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveFloat() {
+		doIsBooleanTestFor("with primitive float", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveInt() {
+		doIsBooleanTestFor("with primitive int", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveLong() {
+		doIsBooleanTestFor("with primitive long", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForPrimitiveShort() {
+		doIsBooleanTestFor("with primitive short", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedBoolean() {
+		doIsBooleanTestFor("with boxed boolean", true);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedByte() {
+		doIsBooleanTestFor("with boxed byte", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedChar() {
+		doIsBooleanTestFor("with boxed char", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedDouble() {
+		doIsBooleanTestFor("with boxed double", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedFloat() {
+		doIsBooleanTestFor("with boxed float", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedInt() {
+		doIsBooleanTestFor("with boxed int", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedLong() {
+		doIsBooleanTestFor("with boxed long", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForBoxedShort() {
+		doIsBooleanTestFor("with boxed short", false);
+	}
+
+	@Test
+	public void testIsBoolean_typeMirrorForObject() {
+		doIsBooleanTestFor("with object", false);
+	}
+
+	@Test
 	public void testBoxPrimitive_typeMirrorForPrimitiveBoolean() {
 		doBoxPrimitiveTestWithPassExpectedFor("with primitive boolean", Boolean.class.getCanonicalName());
 	}
@@ -408,6 +493,61 @@ public class TestTypeMirrorHelper {
 		doBoxPrimitiveTestWithPassExpectedFor("with object", Object.class.getCanonicalName());
 	}
 
+	@Test(expected = IllegalArgumentException.class)
+	public void testIsAssignable_nullSubclassSupplied() {
+		helper.isAssignable(null, mock(TypeMirror.class));
+	}
+
+	@Test(expected = IllegalArgumentException.class)
+	public void testIsAssignable_nullSuperclassSupplied() {
+		helper.isAssignable(mock(TypeMirror.class), null);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsRegularClass_suppliedIsFirstLevelSubclassOfRecipient() {
+		doIsAssignableTestFor("class2", "class1", true);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsRegularClass_suppliedIsSecondLevelSubclassOfRecipient() {
+		doIsAssignableTestFor("class3", "class1", true);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsRegularClass_recipientIsFirstLevelSubclassOfSupplied() {
+		doIsAssignableTestFor("class1", "class2", false);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsRegularClass_suppliedIsNotSubclassOfRecipient() {
+		doIsAssignableTestFor("class1", "class4", false);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsRegularClass_suppliedIsSameClassAsRecipient() {
+		doIsAssignableTestFor("class1", "class1", true);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsInterface_suppliedIsFirstLevelImplementationOfRecipient() {
+		doIsAssignableTestFor("class2", "interface", true);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsInterface_suppliedIsSecondLevelImplementationOfRecipient() {
+		doIsAssignableTestFor("class3", "interface", true);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsInterface_recipientIsFirstLevelImplementationOfSupplied() {
+		doIsAssignableTestFor("interface", "class2", false);
+	}
+
+	@Test
+	public void testIsAssignable_recipientIsInterface_suppliedIsNotImplementationOfRecipient() {
+		doIsAssignableTestFor("class4", "interface", false);
+	}
+
 	private void doIsPrimitiveTestFor(final String elementId, final boolean expectedResult) {
 		final ExecutableElement method = (ExecutableElement) elementSupplier.getUniqueElementWithId(elementId);
 		final VariableElement parameter = method.getParameters().get(0);
@@ -429,6 +569,13 @@ public class TestTypeMirrorHelper {
 		assertThat(helper.isCharacter(parameter.asType()), is(expectedResult));
 	}
 
+	private void doIsBooleanTestFor(final String elementId, final boolean expectedResult) {
+		final ExecutableElement method = (ExecutableElement) elementSupplier.getUniqueElementWithId(elementId);
+		final VariableElement parameter = method.getParameters().get(0);
+
+		assertThat(helper.isBoolean(parameter.asType()), is(expectedResult));
+	}
+
 	private void doBoxPrimitiveTestWithPassExpectedFor(final String elementId, final String expectedResultClassName) {
 		final ExecutableElement method = (ExecutableElement) elementSupplier.getUniqueElementWithId(elementId);
 		final VariableElement parameter = method.getParameters().get(0);
@@ -442,5 +589,16 @@ public class TestTypeMirrorHelper {
 		final VariableElement parameter = method.getParameters().get(0);
 
 		helper.boxPrimitive(parameter.asType());
+	}
+
+	private void doIsAssignableTestFor(
+			final String typeElementId,
+			final String recipientElementId,
+			final boolean expectedResult) {
+
+		final TypeMirror type = elementSupplier.getUniqueElementWithId(typeElementId).asType();
+		final TypeMirror recipient = elementSupplier.getUniqueElementWithId(recipientElementId).asType();
+
+		assertThat(helper.isAssignable(type, recipient), is(expectedResult));
 	}
 }

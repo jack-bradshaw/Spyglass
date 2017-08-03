@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_retrievers.use_annotation_util;
+package com.matthewtamlin.spyglass.processor.code_generation.get_placeholder_method_generator;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseBoolean;
@@ -13,27 +13,36 @@ import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
 
 public class Data {
-	public void method(@ElementId("boolean") @UseBoolean(true) boolean b, Object o) {}
+	@ElementId("boolean")
+	public void method(@UseBoolean(true) boolean b) {}
 
-	public void method(Object o, @ElementId("byte") @UseByte(0) byte b) {}
+	@ElementId("byte")
+	public void method(@UseByte(1) byte b) {}
 
-	public void method(@ElementId("char") @UseChar(0) char c) {}
+	@ElementId("char")
+	public void method(@UseChar('a') char c) {}
 
-	public void method(@ElementId("double") @UseDouble(0) double d) {}
+	@ElementId("double")
+	public void method(@UseDouble(10.2) double d) {}
 
-	public void method(@ElementId("float") @UseFloat(0) float f) {}
+	@ElementId("float")
+	public void method(@UseFloat(20.8F) float f) {}
 
-	public void method(@ElementId("int") @UseInt(0) int i) {}
+	@ElementId("int")
+	public void method(@UseInt(9) int i) {}
 
-	public void method(@ElementId("long") @UseLong(0) long l) {}
+	@ElementId("long")
+	public void method(@UseLong(9L) long l) {}
 
-	public void method(@ElementId("null") @UseNull Object o) {}
+	@ElementId("null")
+	public void method(@UseNull Object o) {}
 
-	public void method(@ElementId("short") @UseShort(0) short s) {}
+	@ElementId("short")
+	public void method(@UseShort(2) short s) {}
 
-	public void method(@ElementId("string") @UseString("") String s) {}
+	@ElementId("string")
+	public void method(@UseString("") String s) {}
 
-	public void method(@ElementId("no use annotation") Object o1, Object o2) {}
-
-	private enum PlaceholderEnum {}
+	@ElementId("none")
+	public void method(Void v) {}
 }

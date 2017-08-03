@@ -1,9 +1,12 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.ParameterizedTypeName;
+import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 import com.squareup.javapoet.TypeVariableName;
 
@@ -93,6 +96,42 @@ public final class CallerDef {
 				.skipJavaLangImports(true)
 				.indent("\t")
 				.build();
+	}
+
+	public static ClassName getCallerAsClassName() {
+		return ClassName.get(SRC_FILE.packageName, ABSTRACT_CALLER.name);
+	}
+
+	public static MethodSpec.Builder getNewCallMethodPrototype() {
+		return MethodSpec
+				.methodBuilder(CALL.name)
+				.returns(void.class)
+				.addModifiers(PUBLIC);
+	}
+
+	public static MethodSpec.Builder getNewConstructorPrototype(final TypeName targetType) {
+		return MethodSpec
+				.constructorBuilder()
+				.addModifiers(PUBLIC)
+				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
+				.addParameter(targetType, "target", FINAL)
+				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
+				.addCode(CodeBlock
+						.builder()
+						.addStatement("super(context, target, attrs)")
+						.build());
+	}
+
+	public static TypeSpec.Builder getNewCallerSubclassPrototype(
+			final String className,
+			final TypeName targetType) {
+
+		final ClassName genericCaller = CallerDef.getCallerAsClassName();
+		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
+
+		return TypeSpec
+				.classBuilder(className)
+				.superclass(specificCaller);
 	}
 
 	private CallerDef() {

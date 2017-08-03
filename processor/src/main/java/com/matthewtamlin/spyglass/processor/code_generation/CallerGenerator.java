@@ -42,7 +42,7 @@ public class CallerGenerator {
 		doInvocationGenerator = new DoInvocationGenerator(coreHelpers);
 	}
 
-	public TypeSpec generateCaller(final ExecutableElement method) {
+	public TypeSpec generateFor(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		if (CallHandlerAnnoRetriever.hasAnnotation(method)) {
@@ -62,8 +62,8 @@ public class CallerGenerator {
 	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
 		final AnnotationMirror callHandlerAnno = CallHandlerAnnoRetriever.getAnnotation(e);
 
-		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.getMethod(callHandlerAnno);
-		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
+		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.generateFor(callHandlerAnno);
+		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
 
 		final MethodSpec call = CallerDef.CALL
 				.toBuilder()
@@ -85,12 +85,11 @@ public class CallerGenerator {
 	private TypeSpec generateValueHandlerCallerWithoutDefault(final ExecutableElement e) {
 		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
 
-		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandlerAnno);
-		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandlerAnno);
-		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
+		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.generateFor(valueHandlerAnno);
+		final MethodSpec getValue = getValueMethodGenerator.generateFor(valueHandlerAnno);
+		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
 
-		final MethodSpec call = CallerDef.CALL
-				.toBuilder()
+		final MethodSpec call = CallerDef.getNewCallMethodPrototype()
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
@@ -112,10 +111,10 @@ public class CallerGenerator {
 		final AnnotationMirror valueHandler = ValueHandlerAnnoRetriever.getAnnotation(e);
 		final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
 
-		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);
-		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandler);
-		final MethodSpec getDefault = getDefaultMethodGenerator.getMethod(defaultAnno);
-		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
+		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.generateFor(valueHandler);
+		final MethodSpec getValue = getValueMethodGenerator.generateFor(valueHandler);
+		final MethodSpec getDefault = getDefaultMethodGenerator.generateFor(defaultAnno);
+		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
 
 		final MethodSpec callMethod = CallerDef.CALL
 				.toBuilder()
