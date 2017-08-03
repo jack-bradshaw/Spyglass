@@ -450,9 +450,6 @@ public class GetDefaultMethodGenerator {
 	}
 
 	private MethodSpec.Builder getBaseMethodSpec() {
-		return MethodSpec
-				.methodBuilder("getDefault")
-				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
-				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL);
+		return MethodSpec.methodBuilder("getDefault");
 	}
 }
