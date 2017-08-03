@@ -26,8 +26,10 @@ import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
 
+import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.CombinableMatcher.either;
 import static org.hamcrest.core.Is.is;
@@ -222,5 +224,6 @@ public class TestGetPlaceholderMethodGenerator {
 		assertThat("Generated method should not be null.", generatedMethod, is(notNullValue()));
 		assertThat("Generated method has wrong return type.", generatedMethod.returnType, is(returnType));
 		assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters.size(), is(0));
+		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
 	}
 }
