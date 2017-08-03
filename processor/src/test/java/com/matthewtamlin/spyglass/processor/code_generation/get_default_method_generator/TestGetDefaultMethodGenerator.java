@@ -24,6 +24,7 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
@@ -40,6 +41,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -87,7 +90,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.BOOLEAN);
+		checkMethodSignature(generatedMethod, ClassName.BOOLEAN.box());
 		checkCompiles(generatedMethod);
 	}
 
@@ -101,7 +104,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.BOOLEAN);
+		checkMethodSignature(generatedMethod, ClassName.BOOLEAN.box());
 		checkCompiles(generatedMethod);
 	}
 
@@ -183,7 +186,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, ClassName.get(Data.PlaceholderEnum.class));
+		checkMethodSignature(generatedMethod, ClassName.get(Enum.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -311,9 +314,10 @@ public class TestGetDefaultMethodGenerator {
 	}
 
 	private void checkCompiles(final MethodSpec methodSpec) {
-		// Create a type to contain the method
-		final TypeSpec wrapperTypeSpec = TypeSpec
-				.classBuilder("Wrapper")
+		final TypeSpec wrapperTypeSpec = CallerDef
+				.getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
+				.addMethod(CallerDef.getNewCallMethodPrototype().build())
+				.addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
 				.addMethod(methodSpec)
 				.build();
 
@@ -321,6 +325,11 @@ public class TestGetDefaultMethodGenerator {
 				.builder("", wrapperTypeSpec)
 				.build();
 
-		CompileChecker.checkCompiles(wrapperJavaFile);
+
+		final Set<JavaFile> filesToCompile = new HashSet<>();
+		filesToCompile.add(wrapperJavaFile);
+		filesToCompile.add(CallerDef.SRC_FILE);
+
+		CompileChecker.checkCompiles(filesToCompile);
 	}
 }
