@@ -8,6 +8,7 @@ import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRet
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.code_generation.GetArgumentGenerator;
+import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
@@ -188,6 +189,26 @@ public class Validator {
 				}
 
 				throw new RuntimeException("Should never get here.");
+			}
+		});
+
+		// Every value handler annotation must be applicable to the annotated method
+		rules.add(new Rule() {
+			@Override
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				if (!ValueHandlerAnnoRetriever.hasAnnotation(element)) {
+					return;
+				}
+
+				final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(element);
+
+				final GetValueMethodGenerator methodGenerator = new GetValueMethodGenerator(coreHelpers);
+				final MethodSpec supplierMethod = methodGenerator.getMethod(valueHandlerAnno);
+				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
+
+				if (!isAssignable(suppliedType, getParameterWithoutUseAnnotation(element).asType())) {
+					throw new ValidationException("A value handler annotation was applied to a method incorrectly.");
+				}
 			}
 		});
 
