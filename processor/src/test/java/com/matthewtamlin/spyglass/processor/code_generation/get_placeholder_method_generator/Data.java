@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.code_generation.get_argument_generator;
+package com.matthewtamlin.spyglass.processor.code_generation.get_placeholder_method_generator;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseBoolean;
