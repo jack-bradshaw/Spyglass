@@ -8,13 +8,13 @@ import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler_combinations.IntegerHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler_combinations.WithDefaultToInteger;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler_combinations.WithDefaultToIntegerResource;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler_combinations.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.integer_handler_combinations.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import org.junit.Before;
 import org.junit.Rule;

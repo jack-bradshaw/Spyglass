@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.annotation_retrievers.default_annotation_util;
+package com.matthewtamlin.spyglass.processor.annotation_retrievers.default_annotation_retriever;
 
 import com.matthewtamlin.avatar.element_supplier.ElementId;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;

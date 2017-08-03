@@ -10,26 +10,20 @@ import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
-import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.VariableElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class GetArgumentGenerator {
+public class GetPlaceholderMethodGenerator {
 	private final Map<String, MethodSpecSupplier> methodSpecSuppliers = new HashMap<>();
 
 	private AnnotationMirrorHelper annoMirrorHelper;
@@ -50,7 +44,7 @@ public class GetArgumentGenerator {
 						final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
 
 						return getBaseMethodSpec(position)
-								.returns(boolean.class)
+								.returns(Boolean.class)
 								.addCode(CodeBlock
 										.builder()
 										.addStatement("return $L", rawValue.toString())
@@ -90,37 +84,40 @@ public class GetArgumentGenerator {
 								.build();
 					}
 				});
+
+		methodSpecSuppliers.put(
+				UseString.class.getCanonicalName(),
+				new MethodSpecSupplier() {
+					@Override
+					public MethodSpec supplyFor(final AnnotationMirror useAnno, final int position) {
+						final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
+
+						return getBaseMethodSpec(position)
+								.returns(String.class)
+								.addCode(CodeBlock
+										.builder()
+										.addStatement("return ($T) $L", String.class, rawValue.toString())
+										.build())
+								.build();
+					}
+				}
+		);
 	}
 
-	public GetArgumentGenerator(final CoreHelpers coreHelpers) {
+	public GetPlaceholderMethodGenerator(final CoreHelpers coreHelpers) {
 		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
 		this.annoMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
 	}
 
-	public List<MethodSpec> getMethod(final ExecutableElement method) {
-		final List<MethodSpec> methods = new ArrayList<>();
+	public MethodSpec generateFor(final AnnotationMirror useAnno, final int parameterIndex) {
+		final String useAnnoName = useAnno.getAnnotationType().toString();
 
-		for (int i = 0; i < method.getParameters().size(); i++) {
-			final VariableElement parameter = method.getParameters().get(i);
-
-			if (UseAnnoRetriever.hasAnnotation(parameter)) {
-				final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
-				final String useAnnoName = useAnno.getAnnotationType().toString();
-
-				methods.add(methodSpecSuppliers.get(useAnnoName).supplyFor(useAnno, i));
-			} else {
-				methods.add(null);
-			}
-		}
-
-		return methods;
+		return methodSpecSuppliers.get(useAnnoName).supplyFor(useAnno, parameterIndex);
 	}
 
 	private MethodSpec.Builder getBaseMethodSpec(final int position) {
-		return MethodSpec
-				.methodBuilder("getArgument" + position)
-				.addParameter(AndroidClassNames.CONTEXT, "context", Modifier.FINAL);
+		return MethodSpec.methodBuilder("getArgument" + position);
 	}
 
 	private interface MethodSpecSupplier {

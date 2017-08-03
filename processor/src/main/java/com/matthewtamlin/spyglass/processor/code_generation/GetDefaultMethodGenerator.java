@@ -24,6 +24,7 @@ import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -32,6 +33,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.FINAL;
@@ -41,6 +44,8 @@ public class GetDefaultMethodGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, MethodSpec>> methodSpecSuppliers;
 
 	private final AnnotationMirrorHelper annotationMirrorHelper;
+
+	private final Elements elementHelper;
 
 	{
 		methodSpecSuppliers = new HashMap<>();
@@ -56,7 +61,7 @@ public class GetDefaultMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(boolean.class)
+								.returns(Boolean.class)
 								.addCode(body)
 								.build();
 					}
@@ -71,12 +76,13 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getBoolean($L)",
+										"return $N().getResources().getBoolean($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(boolean.class)
+								.returns(Boolean.class)
 								.addCode(body)
 								.build();
 					}
@@ -91,13 +97,14 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getColor(context, $L)",
+										"return $T.getColor($N(), $L)",
 										AndroidClassNames.CONTEXT_COMPAT,
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(int.class)
+								.returns(Number.class)
 								.addCode(body)
 								.build();
 					}
@@ -112,8 +119,9 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getColorStateList(context, $L)",
+										"return $T.getColorStateList($N(), $L)",
 										AndroidClassNames.CONTEXT_COMPAT,
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -136,8 +144,9 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"$T metrics = context.getResources().getDisplayMetrics()",
-										AndroidClassNames.DISPLAY_METRICS)
+										"$T metrics = $N().getResources().getDisplayMetrics()",
+										AndroidClassNames.DISPLAY_METRICS,
+										CallerDef.GET_CONTEXT)
 								.addStatement(
 										"return $1T.applyDimension($1T.$2L, $3L, metrics)",
 										AndroidClassNames.TYPED_VALUE,
@@ -146,7 +155,7 @@ public class GetDefaultMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(float.class)
+								.returns(Number.class)
 								.addCode(body)
 								.build();
 					}
@@ -161,12 +170,13 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getDimension($L)",
+										"return $N().getResources().getDimension($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(float.class)
+								.returns(Number.class)
 								.addCode(body)
 								.build();
 					}
@@ -181,8 +191,9 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getDrawable(context, $L)",
+										"return $T.getDrawable($N(), $L)",
 										AndroidClassNames.CONTEXT_COMPAT,
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -199,17 +210,20 @@ public class GetDefaultMethodGenerator {
 				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
+						final String enumClassName = getLiteralFromAnnotation(anno, "enumClass");
+						final TypeMirror enumType = elementHelper.getTypeElement(enumClassName).asType();
+
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getEnumConstant($L, $L)",
+										"return $T.getEnumConstant($T, $L)",
 										TypeName.get(EnumUtil.class),
-										getLiteralFromAnnotation(anno, "enumClass"),
+										enumType,
 										getLiteralFromAnnotation(anno, "ordinal"))
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(Object.class)
+								.returns(ClassName.get(enumType))
 								.addCode(body)
 								.build();
 					}
@@ -227,7 +241,7 @@ public class GetDefaultMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(float.class)
+								.returns(Number.class)
 								.addCode(body)
 								.build();
 					}
@@ -242,14 +256,15 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getFraction($L, $L, $L)",
+										"return $N().getResources().getFraction($L, $L, $L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"),
 										getLiteralFromAnnotation(anno, "baseMultiplier"),
 										getLiteralFromAnnotation(anno, "parentMultiplier"))
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(float.class)
+								.returns(Number.class)
 								.addCode(body)
 								.build();
 					}
@@ -267,7 +282,7 @@ public class GetDefaultMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(int.class)
+								.returns(Number.class)
 								.addCode(body)
 								.build();
 					}
@@ -282,12 +297,13 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getInteger($L)",
+										"return $N().getResources().getInteger($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(int.class)
+								.returns(Number.class)
 								.addCode(body)
 								.build();
 					}
@@ -338,7 +354,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getString($L)",
+										"return $N().getResources().getString($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -358,7 +375,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getTextArray($L)",
+										"return $N().getResources().getTextArray($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -378,7 +396,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getText($L)",
+										"return $N().getResources().getText($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -395,6 +414,7 @@ public class GetDefaultMethodGenerator {
 		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
 		annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
+		elementHelper = coreHelpers.getElementHelper();
 	}
 
 	/**
@@ -416,9 +436,8 @@ public class GetDefaultMethodGenerator {
 	 * @throws IllegalArgumentException
 	 * 		if {@code anno} is null
 	 */
-	public MethodSpec getMethod(final AnnotationMirror anno) {
+	public MethodSpec generateFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
-		checkIsDefaultAnnotation(anno, "Argument \'anno\' must be a mirror of a default annotation.");
 
 		final String annotationType = anno.getAnnotationType().toString();
 		return methodSpecSuppliers.get(annotationType).supplyFor(anno);
@@ -441,22 +460,7 @@ public class GetDefaultMethodGenerator {
 		throw new RuntimeException("Should never get here.");
 	}
 
-	private void checkIsDefaultAnnotation(final AnnotationMirror anno, final String exceptionMessage) {
-		try {
-			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
-
-			if (!AnnotationRegistry.DEFAULT_ANNOS.contains(annotationClass)) {
-				throw new IllegalArgumentException(exceptionMessage);
-			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}
-	}
-
 	private MethodSpec.Builder getBaseMethodSpec() {
-		return MethodSpec
-				.methodBuilder("getDefault")
-				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
-				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL);
+		return MethodSpec.methodBuilder("getDefault");
 	}
 }

@@ -52,42 +52,42 @@ public class TestCallerGenerator {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGenerateCaller_nullSupplied() {
-		callerGenerator.generateCaller(null);
+	public void testGenerateFor_nullSupplied() {
+		callerGenerator.generateFor(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGenerateCaller_elementWithNoHandlerAnnotation() {
+	public void testGenerateFor_elementWithNoHandlerAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("no handler");
 
-		callerGenerator.generateCaller(element);
+		callerGenerator.generateFor(element);
 	}
 
 	@Test
-	public void testGenerateCaller_elementWithCallHandler() {
+	public void testGenerateFor_elementWithCallHandler() {
 		final ExecutableElement element = getExecutableElementWithId("call handler");
 
-		final TypeSpec result = callerGenerator.generateCaller(element);
+		final TypeSpec result = callerGenerator.generateFor(element);
 
 		assertThat(result, is(notNullValue()));
 		checkCompiles(result);
 	}
 
 	@Test
-	public void testGenerateCaller_elementWithValueHandlerButNoDefault() {
+	public void testGenerateFor_elementWithValueHandlerButNoDefault() {
 		final ExecutableElement element = getExecutableElementWithId("value handler no default");
 
-		final TypeSpec result = callerGenerator.generateCaller(element);
+		final TypeSpec result = callerGenerator.generateFor(element);
 
 		assertThat(result, is(notNullValue()));
 		checkCompiles(result);
 	}
 
 	@Test
-	public void testGenerateCaller_elementWithValueHandlerAndDefault() throws MalformedURLException {
+	public void testGenerateFor_elementWithValueHandlerAndDefault() throws MalformedURLException {
 		final ExecutableElement element = getExecutableElementWithId("value handler with default");
 
-		final TypeSpec result = callerGenerator.generateCaller(element);
+		final TypeSpec result = callerGenerator.generateFor(element);
 
 		assertThat(result, is(notNullValue()));
 		checkCompiles(result);
@@ -118,7 +118,7 @@ public class TestCallerGenerator {
 		final Set<JavaFile> filesToCompile = new HashSet<>();
 
 		filesToCompile.add(wrapperJavaFile);
-		filesToCompile.add(CallerDef.getJavaFile());
+		filesToCompile.add(CallerDef.SRC_FILE);
 
 		CompileChecker.checkCompiles(filesToCompile);
 	}

@@ -41,7 +41,7 @@ public class DoInvocationGenerator {
 		typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
 	}
 
-	public MethodSpec getMethod(final ExecutableElement method) {
+	public MethodSpec generateFor(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		if (CallHandlerAnnoRetriever.hasAnnotation(method)) {
@@ -57,7 +57,6 @@ public class DoInvocationGenerator {
 		return MethodSpec
 				.methodBuilder("doInvocation")
 				.returns(TypeName.VOID)
-				.addParameter(TypeName.get(method.getEnclosingElement().asType()), "target", FINAL)
 				.addCode(getInvocationLineWithoutRecipient(method))
 				.build();
 	}
@@ -72,7 +71,6 @@ public class DoInvocationGenerator {
 		return MethodSpec
 				.methodBuilder("doInvocation")
 				.returns(TypeName.VOID)
-				.addParameter(TypeName.get(method.getEnclosingElement().asType()), "target", FINAL)
 				.addParameter(TypeName.OBJECT, "value", FINAL)
 				.addCode(block.build())
 				.build();

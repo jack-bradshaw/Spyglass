@@ -2,9 +2,18 @@ package com.matthewtamlin.spyglass.processor.validation;
 
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.code_generation.GetPlaceholderMethodGenerator;
+import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
+import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
+import com.squareup.javapoet.MethodSpec;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -15,11 +24,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.PRIVATE;
@@ -30,32 +41,21 @@ public class Validator {
 	private final List<Rule> rules = new ArrayList<>();
 
 	{
-		// Check element is a method
+		// Every element must have no more than one handler annotation
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				if (element.getKind() != ElementKind.METHOD) {
-					final String message = "Spyglass annotations must only be applied to methods.";
-					throw new ValidationException(message);
-				}
-			}
-		});
-
-		// Check for multiple handler annotations
-		rules.add(new Rule() {
-			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				if (countCombinedHandlerAnnotations(element) > 1) {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				if (countValueHandlerAnnotations(element) + countCallHandlerAnnotations(element) > 1) {
 					final String message = "Methods must not have multiple handler annotations.";
 					throw new ValidationException(message);
 				}
 			}
 		});
 
-		// Check for multiple default annotations
+		// Every element must have no more than one default annotation
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (countDefaultAnnotations(element) > 1) {
 					final String message = "Methods must not have multiple default annotations.";
 					throw new ValidationException(message);
@@ -63,28 +63,22 @@ public class Validator {
 			}
 		});
 
-		// Check for a default annotation without a handler annotation
+		// Every element with a default annotation must also have a value handler annotation
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				final int handlerCount = countCombinedHandlerAnnotations(element);
-				final int defaultCount = countDefaultAnnotations(element);
-
-				if (handlerCount == 0 && defaultCount == 1) {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				if (DefaultAnnoRetriever.hasAnnotation(element) && !ValueHandlerAnnoRetriever.hasAnnotation(element)) {
 					final String message = "Methods without handler annotations must not have default annotations.";
 					throw new ValidationException(message);
 				}
 			}
 		});
 
-		// Check for call handlers with defaults
+		// Every element with a default annotation must not have a call handler annotation
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				final int callHandlerCount = countCallHandlerAnnotations(element);
-				final int defaultCount = countDefaultAnnotations(element);
-
-				if (callHandlerCount == 1 && defaultCount == 1) {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				if (DefaultAnnoRetriever.hasAnnotation(element) && CallHandlerAnnoRetriever.hasAnnotation(element)) {
 					final String message = "Methods with handlers annotations that pass no value must not have " +
 							"default annotations.";
 
@@ -93,29 +87,26 @@ public class Validator {
 			}
 		});
 
-		// Check parameter count exceeds 1 minimum for value handlers
+		// Every element with a value handle annotation must have at least one parameter
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				if (countValueHandlerAnnotations(element) == 1) {
-					final int paramCount = ((ExecutableElement) element).getParameters().size();
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				final int parameterCount = ((ExecutableElement) element).getParameters().size();
 
-					if (paramCount < 1) {
-						final String message = "Methods with handler annotations that pass a value must have at least" +
-								" one parameter.";
+				if (ValueHandlerAnnoRetriever.hasAnnotation(element) && parameterCount < 1) {
+					final String message = "Methods with handler annotations that pass a value must have at least" +
+							" one parameter.";
 
-						throw new ValidationException(message);
-					}
+					throw new ValidationException(message);
 				}
 			}
 		});
 
-		// Check for parameters with multiple use annotations
+		// Every parameter must have at most one use annotations
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(
-						(ExecutableElement) element);
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(element);
 
 				for (final Integer paramIndex : useAnnotations.keySet()) {
 					if (useAnnotations.get(paramIndex).size() > 1) {
@@ -126,48 +117,42 @@ public class Validator {
 			}
 		});
 
-		// Check correct number of parameters have use annotations (value handlers case)
+		// Every element with a value handler must have a use annotation on every parameter except one
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				if (countValueHandlerAnnotations(element) == 1) {
-					final int paramCount = ((ExecutableElement) element).getParameters().size();
-					final int annotatedParamCount = countNonEmptySets(
-							getUseAnnotations((ExecutableElement) element).values());
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				final int paramCount = ((ExecutableElement) element).getParameters().size();
+				final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
 
-					if (annotatedParamCount != paramCount - 1) {
-						final String message = "Methods with handler annotations which pass a value must have use " +
-								"annotations on every parameter except one.";
+				if (ValueHandlerAnnoRetriever.hasAnnotation(element) && annotatedParamCount != paramCount - 1) {
+					final String message = "Methods with handler annotations which pass a value must have use " +
+							"annotations on every parameter except one.";
 
-						throw new ValidationException(message);
-					}
+					throw new ValidationException(message);
 				}
 			}
 		});
 
-		// Check correct number of parameters have use annotations (call handlers case)
+		// Every element with a call handler must have a use annotation on every parameter
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
-				if (countCallHandlerAnnotations(element) == 1) {
-					final int paramCount = ((ExecutableElement) element).getParameters().size();
-					final int annotatedParamCount = countNonEmptySets(
-							getUseAnnotations((ExecutableElement) element).values());
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				final int paramCount = ((ExecutableElement) element).getParameters().size();
+				final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
 
-					if (annotatedParamCount != paramCount) {
-						final String message = "Methods with handler annotations which pass no value must have " +
-								"use annotations on every parameter.";
+				if (CallHandlerAnnoRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
+					final String message = "Methods with handler annotations which pass no value must have " +
+							"use annotations on every parameter.";
 
-						throw new ValidationException(message);
-					}
+					throw new ValidationException(message);
 				}
 			}
 		});
 
-		// Check correct modifiers are applied to annotation methods
+		// Every element must be public, protected or package-private
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (element.getModifiers().contains(PRIVATE)) {
 					throw new ValidationException("Methods with handler annotations must have public, protected, or " +
 							"default access. Private methods are not compatible with the Spyglass Framework.");
@@ -175,10 +160,10 @@ public class Validator {
 			}
 		});
 
-		// Check for methods which are members of non-static inner classes (recursively)
+		// Every element must belong to a class which can be statically instantiated
 		rules.add(new Rule() {
 			@Override
-			public void checkElement(final Element element) throws ValidationException {
+			public void checkElement(final ExecutableElement element) throws ValidationException {
 				if (!checkParentsRecursively(element)) {
 					throw new ValidationException("Methods with handler annotations must be accessible from static " +
 							"context.");
@@ -207,17 +192,103 @@ public class Validator {
 				throw new RuntimeException("Should never get here.");
 			}
 		});
+
+		// Every value handler annotation must be applicable to the annotated method
+		rules.add(new Rule() {
+			@Override
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				if (!ValueHandlerAnnoRetriever.hasAnnotation(element)) {
+					return;
+				}
+
+				final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(element);
+
+				final GetValueMethodGenerator methodGenerator = new GetValueMethodGenerator(coreHelpers);
+				final MethodSpec supplierMethod = methodGenerator.generateFor(valueHandlerAnno);
+				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
+
+				if (!isAssignable(suppliedType, getParameterWithoutUseAnnotation(element).asType())) {
+					throw new ValidationException("A value handler annotation was applied to a method incorrectly.");
+				}
+			}
+		});
+
+		// Every default annotation must be applicable to the annotated method
+		rules.add(new Rule() {
+			@Override
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				if (!DefaultAnnoRetriever.hasAnnotation(element)) {
+					return;
+				}
+
+				final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(element);
+
+				final GetDefaultMethodGenerator methodGenerator = new GetDefaultMethodGenerator(coreHelpers);
+				final MethodSpec supplierMethod = methodGenerator.generateFor(defaultAnno);
+				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
+
+				if (!isAssignable(suppliedType, getParameterWithoutUseAnnotation(element).asType())) {
+					throw new ValidationException("A default annotation was applied to a method incorrectly.");
+				}
+			}
+		});
+
+		// Every use annotation must be applicable to the annotated parameter
+		rules.add(new Rule() {
+			@Override
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				for (final VariableElement parameter : ((ExecutableElement) element).getParameters()) {
+					if (!UseAnnoRetriever.hasAnnotation(parameter)) {
+						return;
+					}
+
+					final boolean paramHasUseNullAnno = UseAnnoRetriever
+							.getAnnotation(parameter)
+							.getAnnotationType()
+							.toString()
+							.equals(UseNull.class.getName());
+
+					if (paramHasUseNullAnno) {
+						checkUseNullCase(parameter);
+					} else {
+						checkGeneralCase(parameter);
+					}
+				}
+			}
+
+			private void checkUseNullCase(final VariableElement parameter) throws ValidationException {
+				if (typeMirrorHelper.isPrimitive(parameter.asType())) {
+					throw new ValidationException("UseNull annotations cannot be applied to primitive parameters.");
+				}
+			}
+
+			private void checkGeneralCase(final VariableElement parameter) throws ValidationException {
+				final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
+
+				final GetPlaceholderMethodGenerator methodGenerator = new GetPlaceholderMethodGenerator(coreHelpers);
+				final MethodSpec supplierMethod = methodGenerator.generateFor(useAnno, 0);
+				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
+
+				if (!isAssignable(suppliedType, parameter.asType())) {
+					throw new ValidationException("A use annotation was applied to a parameter incorrectly.");
+				}
+			}
+		});
 	}
+
+	private CoreHelpers coreHelpers;
+
+	private Elements elementUtil;
 
 	private TypeMirrorHelper typeMirrorHelper;
 
 	public Validator(final CoreHelpers coreHelpers) {
-		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
-
-		typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
+		this.coreHelpers = checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
+		this.elementUtil = coreHelpers.getElementHelper();
+		this.typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
 	}
 
-	public void validateElement(final Element element) throws ValidationException {
+	public void validateElement(final ExecutableElement element) throws ValidationException {
 		for (final Rule rule : rules) {
 			rule.checkElement(element);
 		}
@@ -245,10 +316,6 @@ public class Validator {
 		}
 
 		return count;
-	}
-
-	private static int countCombinedHandlerAnnotations(final Element e) {
-		return countCallHandlerAnnotations(e) + countValueHandlerAnnotations(e);
 	}
 
 	private static int countDefaultAnnotations(final Element e) {
@@ -285,6 +352,34 @@ public class Validator {
 		return useAnnotations;
 	}
 
+	private TypeMirror getReturnTypeAsTypeMirror(final MethodSpec methodSpec) {
+		return elementUtil.getTypeElement(methodSpec.returnType.toString()).asType();
+	}
+
+	private static VariableElement getParameterWithoutUseAnnotation(final ExecutableElement method) {
+		for (final VariableElement parameter : method.getParameters()) {
+			if (!UseAnnoRetriever.hasAnnotation(parameter)) {
+				return parameter;
+			}
+		}
+
+		return null;
+	}
+
+	private boolean isAssignable(final TypeMirror suppliedType, final TypeMirror recipientType) {
+		if (typeMirrorHelper.isAssignable(suppliedType, recipientType)) {
+			return true;
+		} else if (typeMirrorHelper.isNumber(suppliedType)) {
+			return typeMirrorHelper.isNumber(recipientType) || typeMirrorHelper.isCharacter(recipientType);
+
+		} else if (typeMirrorHelper.isBoolean(suppliedType)) {
+			return typeMirrorHelper.isBoolean(recipientType);
+
+		} else {
+			return false;
+		}
+	}
+
 	private static int countNonEmptySets(final Collection<? extends Set> collection) {
 		int count = 0;
 
@@ -298,6 +393,6 @@ public class Validator {
 	}
 
 	private interface Rule {
-		public void checkElement(Element element) throws ValidationException;
+		public void checkElement(ExecutableElement element) throws ValidationException;
 	}
 }

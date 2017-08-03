@@ -26,6 +26,7 @@ import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
@@ -104,10 +105,15 @@ public class MainProcessor extends AbstractProcessor {
 
 	private void validateElements(final Set<? extends Element> elements) {
 		for (final Element element : elements) {
+			// This check should never fail since handler and default annotations are restricted to methods
+			if (element.getKind() != ElementKind.METHOD) {
+				throw new RuntimeException("A handler or default annotation was found on a non-method element.");
+			}
+
 			try {
 				final Validator validator = new Validator(coreHelpers);
 
-				validator.validateElement(element);
+				validator.validateElement((ExecutableElement) element);
 
 			} catch (final ValidationException validationException) {
 				messager.printMessage(ERROR, validationException.getMessage(), element);
@@ -127,7 +133,7 @@ public class MainProcessor extends AbstractProcessor {
 			boolean firstLoop = true;
 
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
-				final TypeSpec anonymousCaller = callerGenerator.generateCaller(method);
+				final TypeSpec anonymousCaller = callerGenerator.generateFor(method);
 
 				if (firstLoop) {
 					firstLoop = false;
