@@ -204,7 +204,7 @@ public class Validator {
 				final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(element);
 
 				final GetValueMethodGenerator methodGenerator = new GetValueMethodGenerator(coreHelpers);
-				final MethodSpec supplierMethod = methodGenerator.getMethod(valueHandlerAnno);
+				final MethodSpec supplierMethod = methodGenerator.generateFor(valueHandlerAnno);
 				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
 
 				if (!isAssignable(suppliedType, getParameterWithoutUseAnnotation(element).asType())) {

@@ -86,7 +86,7 @@ public class CallerGenerator {
 		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandlerAnno);
-		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandlerAnno);
+		final MethodSpec getValue = getValueMethodGenerator.generateFor(valueHandlerAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
 
 		final MethodSpec call = CallerDef.getNewCallMethodPrototype()
@@ -112,7 +112,7 @@ public class CallerGenerator {
 		final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);
-		final MethodSpec getValue = getValueMethodGenerator.getMethod(valueHandler);
+		final MethodSpec getValue = getValueMethodGenerator.generateFor(valueHandler);
 		final MethodSpec getDefault = getDefaultMethodGenerator.getMethod(defaultAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
 

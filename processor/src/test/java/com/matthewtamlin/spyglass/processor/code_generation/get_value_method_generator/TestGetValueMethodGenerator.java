@@ -70,7 +70,7 @@ public class TestGetValueMethodGenerator {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetMethod_nullSupplied() {
-		generator.getMethod(null);
+		generator.generateFor(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -78,7 +78,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("no value handler");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToBoolean.class);
 
-		generator.getMethod(mirror);
+		generator.generateFor(mirror);
 	}
 
 	@Test
@@ -86,7 +86,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("boolean");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, BooleanHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, TypeName.BOOLEAN);
@@ -98,7 +98,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("color");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, ColorHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, TypeName.INT);
@@ -112,7 +112,7 @@ public class TestGetValueMethodGenerator {
 				element,
 				ColorStateListHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, ClassName.get(ColorStateList.class));
@@ -124,7 +124,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("dimension");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DimensionHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, TypeName.FLOAT);
@@ -136,7 +136,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("drawable");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DrawableHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, ClassName.get(Drawable.class));
@@ -148,7 +148,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("enum constant");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, EnumConstantHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, TypeName.OBJECT);
@@ -160,7 +160,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("enum ordinal");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, EnumOrdinalHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, TypeName.INT);
@@ -172,7 +172,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("float");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, FloatHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, TypeName.FLOAT);
@@ -184,7 +184,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("fraction");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, FractionHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, TypeName.FLOAT);
@@ -196,7 +196,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("integer");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, IntegerHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, TypeName.INT);
@@ -208,7 +208,7 @@ public class TestGetValueMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("string");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, StringHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod, ClassName.get(String.class));
