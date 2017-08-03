@@ -79,14 +79,6 @@ public class TestGetDefaultMethodGenerator {
 		generator.generateFor(null);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testGenerateFor_nonDefaultAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("no default annotation");
-		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, BooleanHandler.class);
-
-		generator.generateFor(mirror);
-	}
-
 	@Test
 	public void testGenerateFor_defaultToBooleanAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("boolean");
