@@ -62,7 +62,7 @@ public class CallerGenerator {
 	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
 		final AnnotationMirror callHandlerAnno = CallHandlerAnnoRetriever.getAnnotation(e);
 
-		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.generateMethod(callHandlerAnno);
+		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.generateFor(callHandlerAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
 
 		final MethodSpec call = CallerDef.CALL
