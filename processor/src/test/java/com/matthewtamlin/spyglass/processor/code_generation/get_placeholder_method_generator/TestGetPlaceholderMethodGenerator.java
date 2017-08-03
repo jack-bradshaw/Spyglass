@@ -33,7 +33,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 import static org.mockito.Mockito.mock;
 
-public class TestGetArgumentGenerator {
+public class TestGetPlaceholderMethodGenerator {
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
 			"code_generation/get_argument_generator/Data.java");
 
