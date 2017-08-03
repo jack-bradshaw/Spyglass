@@ -17,6 +17,7 @@ import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -25,6 +26,8 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.FINAL;
@@ -34,6 +37,8 @@ public class GetValueMethodGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, MethodSpec>> methodSpecSuppliers;
 
 	private final AnnotationMirrorHelper annotationMirrorHelper;
+
+	private final Elements elementHelper;
 
 	{
 		methodSpecSuppliers = new HashMap<>();
@@ -51,7 +56,7 @@ public class GetValueMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(boolean.class)
+								.returns(Boolean.class)
 								.addCode(body).build();
 					}
 				}
@@ -70,7 +75,7 @@ public class GetValueMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(int.class)
+								.returns(Number.class)
 								.addCode(body).build();
 					}
 				}
@@ -108,7 +113,7 @@ public class GetValueMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(float.class)
+								.returns(Number.class)
 								.addCode(body).build();
 					}
 				}
@@ -138,21 +143,20 @@ public class GetValueMethodGenerator {
 				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
-						final String enumClassPath = getLiteralFromAnnotation(anno, "enumClass");
+						final String enumClassName = getLiteralFromAnnotation(anno, "enumClass");
+						final TypeMirror enumType = elementHelper.getTypeElement(enumClassName).asType();
 
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"final int ordinal = attrs.getInt($L, 0)",
-										getLiteralFromAnnotation(anno, "attributeId"))
-								.addStatement(
-										"return $T.getEnumConstant($L, ordinal)",
+										"return $T.getEnumConstant($T, $L)",
 										TypeName.get(EnumUtil.class),
-										enumClassPath)
+										enumType,
+										getLiteralFromAnnotation(anno, "ordinal"))
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(Object.class)
+								.returns(ClassName.get(enumType))
 								.addCode(body).build();
 					}
 				}
@@ -171,7 +175,7 @@ public class GetValueMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(int.class)
+								.returns(Number.class)
 								.addCode(body).build();
 					}
 				}
@@ -190,7 +194,7 @@ public class GetValueMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(float.class)
+								.returns(Number.class)
 								.addCode(body).build();
 					}
 				}
@@ -211,7 +215,7 @@ public class GetValueMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(float.class)
+								.returns(Number.class)
 								.addCode(body).build();
 					}
 				}
@@ -230,7 +234,7 @@ public class GetValueMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(int.class)
+								.returns(Number.class)
 								.addCode(body).build();
 					}
 				}
@@ -260,6 +264,7 @@ public class GetValueMethodGenerator {
 		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
 		annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
+		elementHelper = coreHelpers.getElementHelper();
 	}
 
 	/**
