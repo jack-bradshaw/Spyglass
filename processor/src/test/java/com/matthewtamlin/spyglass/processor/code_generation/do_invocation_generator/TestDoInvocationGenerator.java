@@ -73,7 +73,7 @@ public class TestDoInvocationGenerator {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetMethod_nullElementSupplied() {
-		generator.getMethod(null);
+		generator.generateFor(null);
 	}
 
 	@Test
@@ -129,7 +129,7 @@ public class TestDoInvocationGenerator {
 	private void doTestForElementWithId(final String id) {
 		final ExecutableElement element = getExecutableElementWithId(id);
 
-		final MethodSpec generatedMethod = generator.getMethod(element);
+		final MethodSpec generatedMethod = generator.generateFor(element);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		assertThat(generatedMethod.returnType, is(TypeName.VOID));
