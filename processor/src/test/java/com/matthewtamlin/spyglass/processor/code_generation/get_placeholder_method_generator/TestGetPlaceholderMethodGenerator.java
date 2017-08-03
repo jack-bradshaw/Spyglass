@@ -35,7 +35,7 @@ import static org.mockito.Mockito.mock;
 
 public class TestGetPlaceholderMethodGenerator {
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
-			"code_generation/get_argument_generator/Data.java");
+			"code_generation/get_placeholder_method_generator/Data.java");
 
 	@Rule
 	public final CompilationRule compilationRule = new CompilationRule();
