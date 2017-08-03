@@ -191,7 +191,7 @@ public class Validator {
 			}
 		});
 
-		// The use annotations of every element must be applicable to the annotated parameters
+		// Every use annotation must be applicable to the annotated parameter
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
@@ -219,34 +219,14 @@ public class Validator {
 			}
 
 			private void checkGeneralCase(final VariableElement parameter) throws ValidationException {
-				final TypeMirror recipientType = parameter.asType();
-
 				final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
 
-				final GetArgumentGenerator generator = new GetArgumentGenerator(coreHelpers);
-				final MethodSpec suppliedMethod = generator.generateFor(useAnno, 0);
+				final GetArgumentGenerator methodGenerator = new GetArgumentGenerator(coreHelpers);
+				final MethodSpec supplierMethod = methodGenerator.generateFor(useAnno, 0);
+				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
 
-				final TypeMirror suppliedType = elementUtil
-						.getTypeElement(suppliedMethod.returnType.toString())
-						.asType();
-
-				if (typeMirrorHelper.isNumber(suppliedType)) {
-					if (!typeMirrorHelper.isNumber(recipientType) &&
-							!typeMirrorHelper.isCharacter(recipientType) &&
-							!typeMirrorHelper.isAssignable(suppliedType, recipientType)) {
-
-						throw new ValidationException("A use annotation was applied to a parameter incorrectly.");
-					}
-				} else if (typeMirrorHelper.isBoolean(suppliedType)) {
-					if (!typeMirrorHelper.isBoolean(recipientType) &&
-							!typeMirrorHelper.isAssignable(suppliedType, recipientType)) {
-
-						throw new ValidationException("A use annotation was incorrectly to a parameter incorrectly.");
-					}
-				} else {
-					if (!typeMirrorHelper.isAssignable(suppliedType, recipientType)) {
-						throw new ValidationException("A use annotation was incorrectly to a parameter incorrectly.");
-					}
+				if (!isAssignable(suppliedType, parameter.asType())) {
+					throw new ValidationException("A use annotation was applied to a parameter incorrectly.");
 				}
 			}
 		});
@@ -326,6 +306,34 @@ public class Validator {
 		}
 
 		return useAnnotations;
+	}
+
+	private TypeMirror getReturnTypeAsTypeMirror(final MethodSpec methodSpec) {
+		return elementUtil.getTypeElement(methodSpec.returnType.toString()).asType();
+	}
+
+	private static VariableElement getParameterWithoutUseAnnotation(final ExecutableElement method) {
+		for (final VariableElement parameter : method.getParameters()) {
+			if (!UseAnnoRetriever.hasAnnotation(parameter)) {
+				return parameter;
+			}
+		}
+
+		return null;
+	}
+
+	private boolean isAssignable(final TypeMirror suppliedType, final TypeMirror recipientType) {
+		if (typeMirrorHelper.isAssignable(suppliedType, recipientType)) {
+			return true;
+		} else if (typeMirrorHelper.isNumber(suppliedType)) {
+			return typeMirrorHelper.isNumber(recipientType) || typeMirrorHelper.isCharacter(recipientType);
+
+		} else if (typeMirrorHelper.isBoolean(suppliedType)) {
+			return typeMirrorHelper.isBoolean(recipientType);
+
+		} else {
+			return false;
+		}
 	}
 
 	private static int countNonEmptySets(final Collection<? extends Set> collection) {
