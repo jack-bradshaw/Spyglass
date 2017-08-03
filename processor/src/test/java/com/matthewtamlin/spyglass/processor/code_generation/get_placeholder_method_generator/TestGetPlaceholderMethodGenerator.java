@@ -63,7 +63,7 @@ public class TestGetPlaceholderMethodGenerator {
 		generator.generateFor(null, 0);
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testGenerateFor_negativeParameterIndex() {
 		generator.generateFor(mock(AnnotationMirror.class), -1);
 	}
