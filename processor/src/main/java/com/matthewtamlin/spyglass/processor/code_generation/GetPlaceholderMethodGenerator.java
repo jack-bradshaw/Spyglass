@@ -21,6 +21,7 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 
+import static com.matthewtamlin.java_utilities.checkers.IntChecker.checkGreaterThanOrEqualTo;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class GetPlaceholderMethodGenerator {
@@ -111,6 +112,9 @@ public class GetPlaceholderMethodGenerator {
 	}
 
 	public MethodSpec generateFor(final AnnotationMirror useAnno, final int parameterIndex) {
+		checkNotNull(useAnno, "Argument \'useAnno\' cannot be null.");
+		checkGreaterThanOrEqualTo(parameterIndex, 0, "Argument \'parameterIndex\' must be at least zero.");
+
 		final String useAnnoName = useAnno.getAnnotationType().toString();
 
 		return methodSpecSuppliers.get(useAnnoName).supplyFor(useAnno, parameterIndex);
