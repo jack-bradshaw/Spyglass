@@ -115,7 +115,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.INT);
+		checkMethodSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -141,7 +141,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.FLOAT);
+		checkMethodSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -155,7 +155,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.FLOAT);
+		checkMethodSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -183,7 +183,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.OBJECT);
+		checkMethodSignature(generatedMethod, ClassName.get(Data.PlaceholderEnum.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -195,7 +195,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.FLOAT);
+		checkMethodSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -209,7 +209,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.FLOAT);
+		checkMethodSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -221,7 +221,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.INT);
+		checkMethodSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -235,7 +235,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, TypeName.INT);
+		checkMethodSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
