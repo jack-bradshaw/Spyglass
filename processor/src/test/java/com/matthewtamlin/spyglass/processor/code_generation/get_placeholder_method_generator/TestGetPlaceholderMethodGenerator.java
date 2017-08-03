@@ -87,8 +87,6 @@ public class TestGetPlaceholderMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
 		checkSignature(generatedMethod, ClassName.get(Boolean.class));
-		assertThat(generatedMethod.parameters.size(), is(0));
-
 		checkCompiles(generatedMethod);
 	}
 
