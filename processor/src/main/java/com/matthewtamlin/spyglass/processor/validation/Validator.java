@@ -7,7 +7,7 @@ import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnn
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.code_generation.GetArgumentGenerator;
+import com.matthewtamlin.spyglass.processor.code_generation.GetPlaceholderMethodGenerator;
 import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
 import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
@@ -265,7 +265,7 @@ public class Validator {
 			private void checkGeneralCase(final VariableElement parameter) throws ValidationException {
 				final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
 
-				final GetArgumentGenerator methodGenerator = new GetArgumentGenerator(coreHelpers);
+				final GetPlaceholderMethodGenerator methodGenerator = new GetPlaceholderMethodGenerator(coreHelpers);
 				final MethodSpec supplierMethod = methodGenerator.generateFor(useAnno, 0);
 				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
 
