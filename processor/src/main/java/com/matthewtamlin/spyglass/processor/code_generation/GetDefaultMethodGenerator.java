@@ -76,7 +76,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getBoolean($L)",
+										"return $N().getResources().getBoolean($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -96,8 +97,9 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getColor(context, $L)",
+										"return $T.getColor($N(), $L)",
 										AndroidClassNames.CONTEXT_COMPAT,
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -117,8 +119,9 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getColorStateList(context, $L)",
+										"return $T.getColorStateList($N(), $L)",
 										AndroidClassNames.CONTEXT_COMPAT,
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -141,8 +144,9 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"$T metrics = context.getResources().getDisplayMetrics()",
-										AndroidClassNames.DISPLAY_METRICS)
+										"$T metrics = $N().getResources().getDisplayMetrics()",
+										AndroidClassNames.DISPLAY_METRICS,
+										CallerDef.GET_CONTEXT)
 								.addStatement(
 										"return $1T.applyDimension($1T.$2L, $3L, metrics)",
 										AndroidClassNames.TYPED_VALUE,
@@ -166,7 +170,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getDimension($L)",
+										"return $N().getResources().getDimension($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -186,8 +191,9 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getDrawable(context, $L)",
+										"return $T.getDrawable($N(), $L)",
 										AndroidClassNames.CONTEXT_COMPAT,
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -250,7 +256,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getFraction($L, $L, $L)",
+										"return $N().getResources().getFraction($L, $L, $L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"),
 										getLiteralFromAnnotation(anno, "baseMultiplier"),
 										getLiteralFromAnnotation(anno, "parentMultiplier"))
@@ -290,7 +297,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getInteger($L)",
+										"return $N().getResources().getInteger($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -346,7 +354,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getString($L)",
+										"return $N().getResources().getString($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -366,7 +375,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getTextArray($L)",
+										"return $N().getResources().getTextArray($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
@@ -386,7 +396,8 @@ public class GetDefaultMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return context.getResources().getText($L)",
+										"return $N().getResources().getText($L)",
+										CallerDef.GET_CONTEXT,
 										getLiteralFromAnnotation(anno, "resId"))
 								.build();
 
