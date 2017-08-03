@@ -427,7 +427,6 @@ public class GetDefaultMethodGenerator {
 	 */
 	public MethodSpec generateFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
-		checkIsDefaultAnnotation(anno, "Argument \'anno\' must be a mirror of a default annotation.");
 
 		final String annotationType = anno.getAnnotationType().toString();
 		return methodSpecSuppliers.get(annotationType).supplyFor(anno);
@@ -448,18 +447,6 @@ public class GetDefaultMethodGenerator {
 		}
 
 		throw new RuntimeException("Should never get here.");
-	}
-
-	private void checkIsDefaultAnnotation(final AnnotationMirror anno, final String exceptionMessage) {
-		try {
-			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
-
-			if (!AnnotationRegistry.DEFAULT_ANNOS.contains(annotationClass)) {
-				throw new IllegalArgumentException(exceptionMessage);
-			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}
 	}
 
 	private MethodSpec.Builder getBaseMethodSpec() {

@@ -3,7 +3,6 @@ package com.matthewtamlin.spyglass.processor.code_generation;
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
@@ -104,7 +103,6 @@ public class SpecificValueIsAvailableMethodGenerator {
 	 */
 	public MethodSpec generateFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
-		checkIsValueHandlerAnnotation(anno, "Argument \'anno\' must be a mirror of a call handler annotation.");
 
 		final String annotationTypeName = anno.getAnnotationType().toString();
 
@@ -118,17 +116,5 @@ public class SpecificValueIsAvailableMethodGenerator {
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
 		return annotationMirrorHelper.getValueUsingDefaults(mirror, key).toString();
-	}
-
-	private void checkIsValueHandlerAnnotation(final AnnotationMirror anno, final String exceptionMessage) {
-		try {
-			final Class annotationClass = (Class) Class.forName(anno.getAnnotationType().toString());
-
-			if (!AnnotationRegistry.CALL_HANDLER_ANNOS.contains(annotationClass)) {
-				throw new IllegalArgumentException(exceptionMessage);
-			}
-		} catch (ClassNotFoundException e) {
-			throw new RuntimeException(e);
-		}
 	}
 }
