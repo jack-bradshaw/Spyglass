@@ -217,18 +217,20 @@ public class Validator {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
 				for (final VariableElement parameter : ((ExecutableElement) element).getParameters()) {
-					if (UseAnnoRetriever.hasAnnotation(parameter)) {
-						final boolean paramHasUseNullAnno = UseAnnoRetriever
-								.getAnnotation(parameter)
-								.getAnnotationType()
-								.toString()
-								.equals(UseNull.class.getName());
+					if (!UseAnnoRetriever.hasAnnotation(parameter)) {
+						return;
+					}
 
-						if (paramHasUseNullAnno) {
-							checkUseNullCase(parameter);
-						} else {
-							checkGeneralCase(parameter);
-						}
+					final boolean paramHasUseNullAnno = UseAnnoRetriever
+							.getAnnotation(parameter)
+							.getAnnotationType()
+							.toString()
+							.equals(UseNull.class.getName());
+
+					if (paramHasUseNullAnno) {
+						checkUseNullCase(parameter);
+					} else {
+						checkGeneralCase(parameter);
 					}
 				}
 			}
