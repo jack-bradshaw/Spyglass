@@ -8,6 +8,7 @@ import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRet
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.code_generation.GetArgumentGenerator;
+import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
 import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
@@ -208,6 +209,26 @@ public class Validator {
 
 				if (!isAssignable(suppliedType, getParameterWithoutUseAnnotation(element).asType())) {
 					throw new ValidationException("A value handler annotation was applied to a method incorrectly.");
+				}
+			}
+		});
+
+		// Every default annotation must be applicable to the annotated method
+		rules.add(new Rule() {
+			@Override
+			public void checkElement(final ExecutableElement element) throws ValidationException {
+				if (!DefaultAnnoRetriever.hasAnnotation(element)) {
+					return;
+				}
+
+				final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(element);
+
+				final GetDefaultMethodGenerator methodGenerator = new GetDefaultMethodGenerator(coreHelpers);
+				final MethodSpec supplierMethod = methodGenerator.getMethod(defaultAnno);
+				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
+
+				if (!isAssignable(suppliedType, getParameterWithoutUseAnnotation(element).asType())) {
+					throw new ValidationException("A default annotation was applied to a method incorrectly.");
 				}
 			}
 		});
