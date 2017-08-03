@@ -45,7 +45,7 @@ public class GetDefaultMethodGenerator {
 
 	private final AnnotationMirrorHelper annotationMirrorHelper;
 
-	private final Elements elementUtil;
+	private final Elements elementHelper;
 
 	{
 		methodSpecSuppliers = new HashMap<>();
@@ -205,7 +205,7 @@ public class GetDefaultMethodGenerator {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
 						final String enumClassName = getLiteralFromAnnotation(anno, "enumClass");
-						final TypeMirror enumType = elementUtil.getTypeElement(enumClassName).asType();
+						final TypeMirror enumType = elementHelper.getTypeElement(enumClassName).asType();
 
 						final CodeBlock body = CodeBlock
 								.builder()
@@ -403,7 +403,7 @@ public class GetDefaultMethodGenerator {
 		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
 		annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
-		elementUtil = coreHelpers.getElementHelper();
+		elementHelper = coreHelpers.getElementHelper();
 	}
 
 	/**
