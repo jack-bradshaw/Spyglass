@@ -69,14 +69,6 @@ public class TestValueIsAvailableMethodGenerator {
 		generator.generateFor(null);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testGenerateFor_nonValueHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("no value handler");
-		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToBoolean.class);
-
-		generator.generateFor(mirror);
-	}
-
 	@Test
 	public void testGenerateFor_booleanHandlerAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("boolean");

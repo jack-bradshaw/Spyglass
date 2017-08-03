@@ -60,14 +60,6 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 		generator.generateFor(null);
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testGenerateFor_nonCallHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("no call handler");
-		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToBoolean.class);
-
-		generator.generateFor(mirror);
-	}
-
 	@Test
 	public void testGenerateFor_specificEnumHandlerAnnotationSupplied() {
 		final Element element = elementSupplier.getUniqueElementWithId("specific enum");
