@@ -57,7 +57,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetMethod_nullSupplied() {
-		generator.getMethod(null);
+		generator.generateMethod(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -65,7 +65,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("no call handler");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToBoolean.class);
 
-		generator.getMethod(mirror);
+		generator.generateMethod(mirror);
 	}
 
 	@Test
@@ -73,7 +73,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("specific enum");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, SpecificEnumHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
@@ -85,7 +85,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 		final Element element = elementSupplier.getUniqueElementWithId("specific flag");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, SpecificFlagHandler.class);
 
-		final MethodSpec generatedMethod = generator.getMethod(mirror);
+		final MethodSpec generatedMethod = generator.generateMethod(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
