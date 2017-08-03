@@ -324,8 +324,7 @@ public class TestGetDefaultMethodGenerator {
 		final JavaFile wrapperJavaFile = JavaFile
 				.builder("", wrapperTypeSpec)
 				.build();
-
-
+		
 		final Set<JavaFile> filesToCompile = new HashSet<>();
 		filesToCompile.add(wrapperJavaFile);
 		filesToCompile.add(CallerDef.SRC_FILE);
