@@ -102,7 +102,7 @@ public class SpecificValueIsAvailableMethodGenerator {
 	 * @throws IllegalArgumentException
 	 * 		if {@code anno} is null
 	 */
-	public MethodSpec generateMethod(final AnnotationMirror anno) {
+	public MethodSpec generateFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 		checkIsValueHandlerAnnotation(anno, "Argument \'anno\' must be a mirror of a call handler annotation.");
 
