@@ -23,7 +23,7 @@ import javax.lang.model.element.AnnotationValue;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-public class GetArgumentGenerator {
+public class GetPlaceholderMethodGenerator {
 	private final Map<String, MethodSpecSupplier> methodSpecSuppliers = new HashMap<>();
 
 	private AnnotationMirrorHelper annoMirrorHelper;
@@ -104,7 +104,7 @@ public class GetArgumentGenerator {
 		);
 	}
 
-	public GetArgumentGenerator(final CoreHelpers coreHelpers) {
+	public GetPlaceholderMethodGenerator(final CoreHelpers coreHelpers) {
 		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
 		this.annoMirrorHelper = coreHelpers.getAnnotationMirrorHelper();

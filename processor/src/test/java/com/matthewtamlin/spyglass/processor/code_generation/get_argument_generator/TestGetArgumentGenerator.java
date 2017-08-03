@@ -5,7 +5,7 @@ import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
-import com.matthewtamlin.spyglass.processor.code_generation.GetArgumentGenerator;
+import com.matthewtamlin.spyglass.processor.code_generation.GetPlaceholderMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 import com.squareup.javapoet.ClassName;
@@ -42,7 +42,7 @@ public class TestGetArgumentGenerator {
 
 	private IdBasedElementSupplier elementSupplier;
 
-	private GetArgumentGenerator generator;
+	private GetPlaceholderMethodGenerator generator;
 
 	@Before
 	public void setup() throws MalformedURLException {
@@ -50,12 +50,12 @@ public class TestGetArgumentGenerator {
 		elementSupplier = new IdBasedElementSupplier(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()));
 
 		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
-		generator = new GetArgumentGenerator(coreHelpers);
+		generator = new GetPlaceholderMethodGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructor_nullCoreHelpers() {
-		new GetArgumentGenerator(null);
+		new GetPlaceholderMethodGenerator(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
