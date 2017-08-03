@@ -42,7 +42,7 @@ public class CallerGenerator {
 		doInvocationGenerator = new DoInvocationGenerator(coreHelpers);
 	}
 
-	public TypeSpec generateCaller(final ExecutableElement method) {
+	public TypeSpec generateFor(final ExecutableElement method) {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		if (CallHandlerAnnoRetriever.hasAnnotation(method)) {

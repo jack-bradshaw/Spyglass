@@ -133,7 +133,7 @@ public class MainProcessor extends AbstractProcessor {
 			boolean firstLoop = true;
 
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
-				final TypeSpec anonymousCaller = callerGenerator.generateCaller(method);
+				final TypeSpec anonymousCaller = callerGenerator.generateFor(method);
 
 				if (firstLoop) {
 					firstLoop = false;
