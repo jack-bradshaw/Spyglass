@@ -53,21 +53,21 @@ public class TestCallerGenerator {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGenerateCaller_nullSupplied() {
-		callerGenerator.generateCaller(null);
+		callerGenerator.generateFor(null);
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGenerateCaller_elementWithNoHandlerAnnotation() {
 		final ExecutableElement element = getExecutableElementWithId("no handler");
 
-		callerGenerator.generateCaller(element);
+		callerGenerator.generateFor(element);
 	}
 
 	@Test
 	public void testGenerateCaller_elementWithCallHandler() {
 		final ExecutableElement element = getExecutableElementWithId("call handler");
 
-		final TypeSpec result = callerGenerator.generateCaller(element);
+		final TypeSpec result = callerGenerator.generateFor(element);
 
 		assertThat(result, is(notNullValue()));
 		checkCompiles(result);
@@ -77,7 +77,7 @@ public class TestCallerGenerator {
 	public void testGenerateCaller_elementWithValueHandlerButNoDefault() {
 		final ExecutableElement element = getExecutableElementWithId("value handler no default");
 
-		final TypeSpec result = callerGenerator.generateCaller(element);
+		final TypeSpec result = callerGenerator.generateFor(element);
 
 		assertThat(result, is(notNullValue()));
 		checkCompiles(result);
@@ -87,7 +87,7 @@ public class TestCallerGenerator {
 	public void testGenerateCaller_elementWithValueHandlerAndDefault() throws MalformedURLException {
 		final ExecutableElement element = getExecutableElementWithId("value handler with default");
 
-		final TypeSpec result = callerGenerator.generateCaller(element);
+		final TypeSpec result = callerGenerator.generateFor(element);
 
 		assertThat(result, is(notNullValue()));
 		checkCompiles(result);
