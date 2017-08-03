@@ -224,7 +224,7 @@ public class Validator {
 				final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(element);
 
 				final GetDefaultMethodGenerator methodGenerator = new GetDefaultMethodGenerator(coreHelpers);
-				final MethodSpec supplierMethod = methodGenerator.getMethod(defaultAnno);
+				final MethodSpec supplierMethod = methodGenerator.generateFor(defaultAnno);
 				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
 
 				if (!isAssignable(suppliedType, getParameterWithoutUseAnnotation(element).asType())) {

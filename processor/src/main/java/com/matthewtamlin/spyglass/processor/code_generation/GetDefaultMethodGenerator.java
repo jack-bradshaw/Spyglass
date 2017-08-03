@@ -416,7 +416,7 @@ public class GetDefaultMethodGenerator {
 	 * @throws IllegalArgumentException
 	 * 		if {@code anno} is null
 	 */
-	public MethodSpec getMethod(final AnnotationMirror anno) {
+	public MethodSpec generateFor(final AnnotationMirror anno) {
 		checkNotNull(anno, "Argument \'anno\' cannot be null.");
 		checkIsDefaultAnnotation(anno, "Argument \'anno\' must be a mirror of a default annotation.");
 

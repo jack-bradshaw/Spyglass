@@ -113,7 +113,7 @@ public class CallerGenerator {
 
 		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.getMethod(valueHandler);
 		final MethodSpec getValue = getValueMethodGenerator.generateFor(valueHandler);
-		final MethodSpec getDefault = getDefaultMethodGenerator.getMethod(defaultAnno);
+		final MethodSpec getDefault = getDefaultMethodGenerator.generateFor(defaultAnno);
 		final MethodSpec doInvocation = doInvocationGenerator.getMethod(e);
 
 		final MethodSpec callMethod = CallerDef.CALL
