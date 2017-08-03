@@ -72,57 +72,57 @@ public class TestDoInvocationGenerator {
 	}
 
 	@Test(expected = IllegalArgumentException.class)
-	public void testGetMethod_nullElementSupplied() {
+	public void testGenerateFor_nullElementSupplied() {
 		generator.generateFor(null);
 	}
 
 	@Test
-	public void testGetMethod_callHandler_noArgs() {
+	public void testGenerateFor_callHandler_noArgs() {
 		doTestForElementWithId("call handler, no args");
 	}
 
 	@Test
-	public void testGetMethod_callHandler_oneArg() {
+	public void testGenerateFor_callHandler_oneArg() {
 		doTestForElementWithId("call handler, one arg");
 	}
 
 	@Test
-	public void testGetMethod_callHandler_multipleArgs() {
+	public void testGenerateFor_callHandler_multipleArgs() {
 		doTestForElementWithId("call handler, multiple args");
 	}
 
 	@Test
-	public void testGetMethod_valueHandler_primitiveNumberArg() {
+	public void testGenerateFor_valueHandler_primitiveNumberArg() {
 		doTestForElementWithId("value handler, primitive number arg");
 	}
 
 	@Test
-	public void testGetMethod_valueHandler_primitiveNonNumberArg() {
+	public void testGenerateFor_valueHandler_primitiveNonNumberArg() {
 		doTestForElementWithId("value handler, primitive non-number arg");
 	}
 
 	@Test
-	public void testGetMethod_valueHandler_primitiveCharArg() {
+	public void testGenerateFor_valueHandler_primitiveCharArg() {
 		doTestForElementWithId("value handler, primitive char arg");
 	}
 
 	@Test
-	public void testGetMethod_valueHandler_objectNumberArg() {
+	public void testGenerateFor_valueHandler_objectNumberArg() {
 		doTestForElementWithId("value handler, object number arg");
 	}
 
 	@Test
-	public void testGetMethod_valueHandler_objectNonNumberArg() {
+	public void testGenerateFor_valueHandler_objectNonNumberArg() {
 		doTestForElementWithId("value handler, object non-number arg");
 	}
 
 	@Test
-	public void testGetMethod_valueHandler_objectCharacterArg() {
+	public void testGenerateFor_valueHandler_objectCharacterArg() {
 		doTestForElementWithId("value handler, object character arg");
 	}
 
 	@Test
-	public void testGetMethod_valueHandler_multipleArgs() {
+	public void testGenerateFor_valueHandler_multipleArgs() {
 		doTestForElementWithId("value handler, multiple args");
 	}
 
