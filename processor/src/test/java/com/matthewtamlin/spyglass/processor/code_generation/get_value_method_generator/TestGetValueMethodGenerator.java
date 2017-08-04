@@ -38,6 +38,7 @@ import java.net.MalformedURLException;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 
+import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -208,8 +209,10 @@ public class TestGetValueMethodGenerator {
 	}
 
 	private void checkMethodSignature(final MethodSpec generatedMethod, final TypeName returnType) {
-		assertThat(generatedMethod.returnType, is(returnType));
-		assertThat(generatedMethod.parameters, hasSize(0));
+		assertThat("Generated method must not be null.", generatedMethod, is(notNullValue()));
+		assertThat("Generated method has wrong return type.", generatedMethod.returnType, is(returnType));
+		assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters.size(), is(0));
+		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
 	}
 
 	private void checkCompiles(final MethodSpec methodSpec) {
