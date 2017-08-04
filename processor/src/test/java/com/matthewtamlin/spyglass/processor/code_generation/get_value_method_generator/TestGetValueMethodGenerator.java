@@ -17,6 +17,7 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
@@ -33,6 +34,8 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
@@ -214,17 +217,22 @@ public class TestGetValueMethodGenerator {
 		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
 	}
 
-	private void checkCompiles(final MethodSpec methodSpec) {
-		// Create a type to contain the method
-		final TypeSpec wrapperTypeSpec = TypeSpec
-				.classBuilder("Wrapper")
-				.addMethod(methodSpec)
+	private void checkCompiles(final MethodSpec method) {
+		final TypeSpec wrapperTypeSpec = CallerDef
+				.getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
+				.addMethod(CallerDef.getNewCallMethodPrototype().build())
+				.addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
+				.addMethod(method)
 				.build();
 
 		final JavaFile wrapperJavaFile = JavaFile
 				.builder("", wrapperTypeSpec)
 				.build();
 
-		CompileChecker.checkCompiles(wrapperJavaFile);
+		final Set<JavaFile> filesToCompile = new HashSet<>();
+		filesToCompile.add(wrapperJavaFile);
+		filesToCompile.add(CallerDef.SRC_FILE);
+
+		CompileChecker.checkCompiles(filesToCompile);
 	}
 }
