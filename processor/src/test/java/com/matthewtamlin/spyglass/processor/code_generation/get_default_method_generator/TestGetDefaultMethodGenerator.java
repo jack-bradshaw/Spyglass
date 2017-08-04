@@ -316,12 +316,12 @@ public class TestGetDefaultMethodGenerator {
 		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
 	}
 
-	private void checkCompiles(final MethodSpec methodSpec) {
+	private void checkCompiles(final MethodSpec method) {
 		final TypeSpec wrapperTypeSpec = CallerDef
 				.getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
 				.addMethod(CallerDef.getNewCallMethodPrototype().build())
 				.addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
-				.addMethod(methodSpec)
+				.addMethod(method)
 				.build();
 
 		final JavaFile wrapperJavaFile = JavaFile
