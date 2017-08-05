@@ -5,7 +5,7 @@ import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.SpecificValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
@@ -21,14 +21,14 @@ import org.junit.Test;
 
 import java.io.File;
 import java.net.MalformedURLException;
+import java.util.HashSet;
+import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.Modifier;
 
 import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
@@ -91,17 +91,22 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
 	}
 
-	private void checkCompiles(final MethodSpec methodSpec) {
-		// Create a type to contain the method
-		final TypeSpec wrapperTypeSpec = TypeSpec
-				.classBuilder("Wrapper")
-				.addMethod(methodSpec)
+	private void checkCompiles(final MethodSpec method) {
+		final TypeSpec wrapperTypeSpec = CallerDef
+				.getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
+				.addMethod(CallerDef.getNewCallMethodPrototype().build())
+				.addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
+				.addMethod(method)
 				.build();
 
 		final JavaFile wrapperJavaFile = JavaFile
 				.builder("", wrapperTypeSpec)
 				.build();
 
-		CompileChecker.checkCompiles(wrapperJavaFile);
+		final Set<JavaFile> filesToCompile = new HashSet<>();
+		filesToCompile.add(wrapperJavaFile);
+		filesToCompile.add(CallerDef.SRC_FILE);
+
+		CompileChecker.checkCompiles(filesToCompile);
 	}
 }
