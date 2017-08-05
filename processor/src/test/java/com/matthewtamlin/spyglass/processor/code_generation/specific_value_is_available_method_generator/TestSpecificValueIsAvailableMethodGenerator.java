@@ -24,7 +24,9 @@ import java.net.MalformedURLException;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
+import javax.lang.model.element.Modifier;
 
+import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -67,7 +69,6 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -79,14 +80,15 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
 
 	private void checkMethodSignature(final MethodSpec generatedMethod) {
-		assertThat(generatedMethod.returnType, is(TypeName.BOOLEAN));
-		assertThat(generatedMethod.parameters, hasSize(0));
+		assertThat("Generated method must not be null.", generatedMethod, is(notNullValue()));
+		assertThat("Generated method has wrong return type.", generatedMethod.returnType, is(TypeName.BOOLEAN.box()));
+		assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters.size(), is(0));
+		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
 	}
 
 	private void checkCompiles(final MethodSpec methodSpec) {
