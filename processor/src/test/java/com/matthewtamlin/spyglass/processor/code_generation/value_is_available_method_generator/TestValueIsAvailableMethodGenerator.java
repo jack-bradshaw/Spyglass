@@ -80,7 +80,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -92,7 +91,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -106,7 +104,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -118,7 +115,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -130,7 +126,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -142,7 +137,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -154,7 +148,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -166,7 +159,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -178,7 +170,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -190,7 +181,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
@@ -202,7 +192,6 @@ public class TestValueIsAvailableMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		assertThat(generatedMethod, is(notNullValue()));
 		checkMethodSignature(generatedMethod);
 		checkCompiles(generatedMethod);
 	}
