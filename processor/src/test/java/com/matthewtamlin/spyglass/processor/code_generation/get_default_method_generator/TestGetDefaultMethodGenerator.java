@@ -187,7 +187,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, ClassName.get(Enum.class));
+		checkMethodSignature(generatedMethod, TypeName.OBJECT);
 		checkCompiles(generatedMethod);
 	}
 
