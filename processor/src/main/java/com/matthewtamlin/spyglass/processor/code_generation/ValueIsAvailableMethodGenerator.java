@@ -274,7 +274,7 @@ public class ValueIsAvailableMethodGenerator {
 
 		return MethodSpec
 				.methodBuilder("valueIsAvailable")
-				.returns(boolean.class)
+				.returns(Boolean.class)
 				.addCode(methodBodySuppliers.get(annotationType).supplyFor(anno))
 				.build();
 	}
