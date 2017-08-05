@@ -20,11 +20,9 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.matthewtamlin.spyglass.common.units.DimensionUnit;
-import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -33,19 +31,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static javax.lang.model.element.Modifier.FINAL;
 
 @Tested(testMethod = "automated")
 public class GetDefaultMethodGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, MethodSpec>> methodSpecSuppliers;
 
 	private final AnnotationMirrorHelper annotationMirrorHelper;
-
-	private final Elements elementHelper;
 
 	{
 		methodSpecSuppliers = new HashMap<>();
@@ -211,19 +205,18 @@ public class GetDefaultMethodGenerator {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
 						final String enumClassName = getLiteralFromAnnotation(anno, "enumClass");
-						final TypeMirror enumType = elementHelper.getTypeElement(enumClassName).asType();
 
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getEnumConstant($T, $L)",
+										"return $T.getEnumConstant($L, $L)",
 										TypeName.get(EnumUtil.class),
-										enumType,
+										enumClassName,
 										getLiteralFromAnnotation(anno, "ordinal"))
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(ClassName.get(enumType))
+								.returns(TypeName.OBJECT)
 								.addCode(body)
 								.build();
 					}
@@ -414,7 +407,6 @@ public class GetDefaultMethodGenerator {
 		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
 		annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
-		elementHelper = coreHelpers.getElementHelper();
 	}
 
 	/**
