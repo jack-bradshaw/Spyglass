@@ -94,7 +94,7 @@ public class TestGetValueMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		checkSignature(generatedMethod, TypeName.INT);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -118,7 +118,7 @@ public class TestGetValueMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		checkSignature(generatedMethod, TypeName.FLOAT);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -140,7 +140,7 @@ public class TestGetValueMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		checkSignature(generatedMethod, TypeName.OBJECT);
+		checkSignature(generatedMethod, ClassName.get(Object.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -151,7 +151,7 @@ public class TestGetValueMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		checkSignature(generatedMethod, TypeName.INT);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -162,7 +162,7 @@ public class TestGetValueMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		checkSignature(generatedMethod, TypeName.FLOAT);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -173,7 +173,7 @@ public class TestGetValueMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		checkSignature(generatedMethod, TypeName.FLOAT);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -184,7 +184,7 @@ public class TestGetValueMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		checkSignature(generatedMethod, TypeName.INT);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
