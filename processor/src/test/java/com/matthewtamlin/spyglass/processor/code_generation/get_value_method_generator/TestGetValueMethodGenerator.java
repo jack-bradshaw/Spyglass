@@ -83,7 +83,7 @@ public class TestGetValueMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		checkSignature(generatedMethod, TypeName.BOOLEAN);
+		checkSignature(generatedMethod, TypeName.BOOLEAN.box());
 		checkCompiles(generatedMethod);
 	}
 
