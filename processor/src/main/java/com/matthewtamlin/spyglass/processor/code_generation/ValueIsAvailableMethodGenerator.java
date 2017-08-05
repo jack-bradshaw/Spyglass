@@ -43,8 +43,9 @@ public class ValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getBoolean($1L, false) == false && \n" +
-												"attrs.getBoolean($1L, true) == true",
+												"$1N().getBoolean($2L, false) == false && \n" +
+												"$1N().getBoolean($2L, true) == true",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
@@ -62,8 +63,9 @@ public class ValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getColor($1L, 1) == 1 && \n" +
-												"attrs.getColor($1L, 2) == 2",
+												"$1N().getColor($2L, 1) == 1 && \n" +
+												"$1N().getColor($2L, 2) == 2",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
@@ -80,7 +82,8 @@ public class ValueIsAvailableMethodGenerator {
 						return CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getColorStateList($L) != null",
+										"return $N().getColorStateList($L) != null",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 					}
@@ -99,8 +102,9 @@ public class ValueIsAvailableMethodGenerator {
 								.add("\n")
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getDimension($1L, negInf) == negInf && \n" +
-												"attrs.getDimension($1L, posInf) == posInf",
+												"$1N().getDimension($2L, negInf) == negInf && \n" +
+												"$1N().getDimension($2L, posInf) == posInf",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
@@ -117,7 +121,8 @@ public class ValueIsAvailableMethodGenerator {
 						return CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getDrawable($L) != null",
+										"return $N().getDrawable($L) != null",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 					}
@@ -133,8 +138,9 @@ public class ValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getInt($1L, 1) == 1 && \n" +
-												"attrs.getInt($1L, 2) == 2",
+												"$1N().getInt($2L, 1) == 1 && \n" +
+												"$1N().getInt($2L, 2) == 2",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
@@ -152,8 +158,9 @@ public class ValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getInt($1L, 1) == 1 && \n" +
-												"attrs.getInt($1L, 2) == 2",
+												"$1N().getInt($2L, 1) == 1 && \n" +
+												"$1N().getInt($2L, 2) == 2",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
@@ -174,8 +181,9 @@ public class ValueIsAvailableMethodGenerator {
 								.add("\n")
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getFloat($1L, negInf) == negInf && \n" +
-												"attrs.getFloat($1L, posInf) == posInf",
+												"$1N().getFloat($2L, negInf) == negInf && \n" +
+												"$1N().getFloat($2L, posInf) == posInf",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
@@ -196,8 +204,9 @@ public class ValueIsAvailableMethodGenerator {
 								.add("\n")
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getFraction($1L, 1, 1, negInf) == negInf && \n" +
-												"attrs.getFraction($1L, 1, 1, posInf) == posInf",
+												"$1N().getFraction($2L, 1, 1, negInf) == negInf && \n" +
+												"$1N().getFraction($2L, 1, 1, posInf) == posInf",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
@@ -215,8 +224,9 @@ public class ValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getInt($1L, 1) == 1 && \n" +
-												"attrs.getInt($1L, 2) == 2",
+												"$1N().getInt($2L, 1) == 1 && \n" +
+												"$1N().getInt($2L, 2) == 2",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.addStatement("return !defaultConsistentlyReturned")
@@ -233,7 +243,8 @@ public class ValueIsAvailableMethodGenerator {
 						return CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.hasValue($L)",
+										"return $N().hasValue($L)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 					}
