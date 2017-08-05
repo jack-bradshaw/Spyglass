@@ -35,14 +35,16 @@ public class SpecificValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getInt($1L, 1) == 1 && \n" +
-												"attrs.getInt($1L, 2) == 2",
+												"$1N().getInt($2L, 1) == 1 && \n" +
+												"$1N().getInt($2L, 2) == 2",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(object, "attributeId"))
 								.add("\n")
 								.addStatement(
 										"return defaultConsistentlyReturned ? \n" +
 												"false :\n" +
-												"attrs.getInt($L, 0) == $L",
+												"$N().getInt($L, 0) == $L",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(object, "attributeId"),
 										getLiteralFromAnnotation(object, "ordinal"))
 								.build();
@@ -59,14 +61,16 @@ public class SpecificValueIsAvailableMethodGenerator {
 								.builder()
 								.addStatement(
 										"final boolean defaultConsistentlyReturned = \n" +
-												"attrs.getInt($1L, 1) == 1 && \n" +
-												"attrs.getInt($1L, 2) == 2",
+												"$1N().getInt($2L, 1) == 1 && \n" +
+												"$1N().getInt($2L, 2) == 2",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(object, "attributeId"))
 								.add("\n")
 								.addStatement(
 										"return defaultConsistentlyReturned ? \n" +
 												"false : \n" +
-												"(attrs.getInt($L, 0) & $L) > 0",
+												"($N().getInt($L, 0) & $L) > 0",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(object, "attributeId"),
 										getLiteralFromAnnotation(object, "handledFlags"))
 								.build();
