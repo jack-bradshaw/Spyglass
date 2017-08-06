@@ -26,7 +26,7 @@ import static org.hamcrest.Matchers.nullValue;
 @RunWith(JUnit4.class)
 public class TestCallHandlerAnnotationRetriever {
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/annotation_retrievers/call_handler_annotation_util/Data.java");
+			"/annotation_retrievers/call_handler_annotation_retriever/Data.java");
 
 	private IdBasedElementSupplier elementSupplier;
 
