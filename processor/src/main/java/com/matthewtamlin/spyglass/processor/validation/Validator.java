@@ -294,11 +294,11 @@ public class Validator {
 		}
 	}
 
-	private static int countCallHandlerAnnotations(final Element e) {
+	private static int countCallHandlerAnnotations(final ExecutableElement method) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : AnnotationRegistry.CALL_HANDLER_ANNOS) {
-			if (e.getAnnotation(annotation) != null) {
+		for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CALL_HANDLER_ANNOS) {
+			if (method.getAnnotation(annotationClass) != null) {
 				count++;
 			}
 		}
@@ -306,11 +306,11 @@ public class Validator {
 		return count;
 	}
 
-	private static int countValueHandlerAnnotations(final Element e) {
+	private static int countValueHandlerAnnotations(final ExecutableElement method) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : AnnotationRegistry.VALUE_HANDLER_ANNOS) {
-			if (e.getAnnotation(annotation) != null) {
+		for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.VALUE_HANDLER_ANNOS) {
+			if (method.getAnnotation(annotationClass) != null) {
 				count++;
 			}
 		}
@@ -318,11 +318,11 @@ public class Validator {
 		return count;
 	}
 
-	private static int countDefaultAnnotations(final Element e) {
+	private static int countDefaultAnnotations(final ExecutableElement method) {
 		int count = 0;
 
-		for (final Class<? extends Annotation> annotation : AnnotationRegistry.DEFAULT_ANNOS) {
-			if (e.getAnnotation(annotation) != null) {
+		for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.DEFAULT_ANNOS) {
+			if (method.getAnnotation(annotationClass) != null) {
 				count++;
 			}
 		}
@@ -330,18 +330,16 @@ public class Validator {
 		return count;
 	}
 
-	private static Map<Integer, Set<Annotation>> getUseAnnotations(
-			final ExecutableElement element) {
-
+	private static Map<Integer, Set<Annotation>> getUseAnnotations(final ExecutableElement method) {
 		final Map<Integer, Set<Annotation>> useAnnotations = new HashMap<>();
 
-		final List<? extends VariableElement> params = element.getParameters();
+		final List<? extends VariableElement> params = method.getParameters();
 
 		for (int i = 0; i < params.size(); i++) {
 			useAnnotations.put(i, new HashSet<Annotation>());
 
-			for (final Class<? extends Annotation> annotation : AnnotationRegistry.USE_ANNOS) {
-				final Annotation foundAnnotation = params.get(i).getAnnotation(annotation);
+			for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.USE_ANNOS) {
+				final Annotation foundAnnotation = params.get(i).getAnnotation(annotationClass);
 
 				if (foundAnnotation != null) {
 					useAnnotations.get(i).add(foundAnnotation);
