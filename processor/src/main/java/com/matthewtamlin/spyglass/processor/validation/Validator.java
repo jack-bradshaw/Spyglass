@@ -31,6 +31,7 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
+import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.PRIVATE;
@@ -280,11 +281,14 @@ public class Validator {
 
 	private Elements elementUtil;
 
+	private Types typeHelper;
+
 	private TypeMirrorHelper typeMirrorHelper;
 
 	public Validator(final CoreHelpers coreHelpers) {
 		this.coreHelpers = checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 		this.elementUtil = coreHelpers.getElementHelper();
+		this.typeHelper = coreHelpers.getTypeHelper();
 		this.typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
 	}
 
@@ -365,7 +369,7 @@ public class Validator {
 	}
 
 	private boolean isAssignable(final TypeMirror suppliedType, final TypeMirror recipientType) {
-		if (typeMirrorHelper.isAssignable(suppliedType, recipientType)) {
+		if (typeHelper.isSubtype(suppliedType, recipientType) || typeHelper.isSameType(suppliedType, recipientType)) {
 			return true;
 		} else if (typeMirrorHelper.isNumber(suppliedType)) {
 			return typeMirrorHelper.isNumber(recipientType) || typeMirrorHelper.isCharacter(recipientType);
