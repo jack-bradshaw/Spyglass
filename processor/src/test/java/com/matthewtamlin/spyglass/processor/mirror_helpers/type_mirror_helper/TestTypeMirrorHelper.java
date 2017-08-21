@@ -414,6 +414,106 @@ public class TestTypeMirrorHelper {
 	}
 
 	@Test
+	public void testIsEnum_typeMirrorForPrimitiveBoolean() {
+		doIsEnumTestFor("with primitive boolean", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveByte() {
+		doIsEnumTestFor("with primitive byte", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveChar() {
+		doIsEnumTestFor("with primitive char", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveDouble() {
+		doIsEnumTestFor("with primitive double", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveFloat() {
+		doIsEnumTestFor("with primitive float", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveInt() {
+		doIsEnumTestFor("with primitive int", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveLong() {
+		doIsEnumTestFor("with primitive long", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveShort() {
+		doIsEnumTestFor("with primitive short", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedBoolean() {
+		doIsEnumTestFor("with boxed boolean", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedByte() {
+		doIsEnumTestFor("with boxed byte", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedChar() {
+		doIsEnumTestFor("with boxed char", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedDouble() {
+		doIsEnumTestFor("with boxed double", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedFloat() {
+		doIsEnumTestFor("with boxed float", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedInt() {
+		doIsEnumTestFor("with boxed int", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedLong() {
+		doIsEnumTestFor("with boxed long", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedShort() {
+		doIsEnumTestFor("with boxed short", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForObject() {
+		doIsEnumTestFor("with object", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForRawEnum() {
+		doIsEnumTestFor("with raw enum", true);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForWildcardEnum() {
+		doIsEnumTestFor("with wildcard enum", true);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForRegularEnum() {
+		doIsEnumTestFor("with regular enum", true);
+	}
+
+	@Test
 	public void testBoxPrimitive_typeMirrorForPrimitiveBoolean() {
 		doBoxPrimitiveTestWithPassExpectedFor("with primitive boolean", Boolean.class.getCanonicalName());
 	}
@@ -579,6 +679,13 @@ public class TestTypeMirrorHelper {
 		final VariableElement parameter = method.getParameters().get(0);
 
 		assertThat(helper.isBoolean(parameter.asType()), is(expectedResult));
+	}
+
+	private void doIsEnumTestFor(final String elementId, final boolean expectedResult) {
+		final ExecutableElement method = (ExecutableElement) elementSupplier.getUniqueElementWithId(elementId);
+		final VariableElement parameter = method.getParameters().get(0);
+
+		assertThat(helper.isEnum(parameter.asType()), is(expectedResult));
 	}
 
 	private void doBoxPrimitiveTestWithPassExpectedFor(final String elementId, final String expectedResultClassName) {
