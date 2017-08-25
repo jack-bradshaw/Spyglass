@@ -16,6 +16,7 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.S
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -35,16 +36,18 @@ import static org.hamcrest.Matchers.nullValue;
 @RunWith(JUnit4.class)
 public class TestValueHandlerAnnotationRetriever {
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/annotation_retriever/value_handler_annotation_util/Data.java");
+			"/annotation_retrievers/value_handler_annotation_retriever/Data.java");
 
 	private IdBasedElementSupplier elementSupplier;
 
+	@BeforeClass
+	public static void setupClass() {
+		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
+	}
+
 	@Before
 	public void setup() throws MalformedURLException {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-
 		elementSupplier = new IdBasedElementSupplier(dataFileObject);
 	}
 

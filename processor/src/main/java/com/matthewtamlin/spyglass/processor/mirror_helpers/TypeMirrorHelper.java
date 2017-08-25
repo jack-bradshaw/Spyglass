@@ -40,8 +40,7 @@ public class TypeMirrorHelper {
 	public boolean isNumber(final TypeMirror typeMirror) {
 		final TypeMirror numberType = elementUtil.getTypeElement(Number.class.getCanonicalName()).asType();
 
-		return SetUtil.allToString(getAllSupertypes(typeMirror)).contains(numberType.toString()) ||
-				typeMirror.toString().equals(numberType.toString()) ||
+		return typeUtil.isAssignable(typeMirror, numberType) ||
 				typeMirror.toString().equals("byte") ||
 				typeMirror.toString().equals("short") ||
 				typeMirror.toString().equals("int") ||
@@ -53,15 +52,19 @@ public class TypeMirrorHelper {
 	public boolean isCharacter(final TypeMirror typeMirror) {
 		final TypeMirror characterType = elementUtil.getTypeElement(Character.class.getCanonicalName()).asType();
 
-		return SetUtil.allToString(getAllSupertypes(typeMirror)).contains(characterType.toString()) ||
-				typeMirror.toString().equals(characterType.toString()) ||
-				typeMirror.toString().equals("char");
+		return typeUtil.isAssignable(typeMirror, characterType) || typeMirror.toString().equals("char");
 	}
 
 	public boolean isBoolean(final TypeMirror typeMirror) {
 		final TypeMirror booleanType = elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
 
-		return typeMirror.toString().equals(booleanType.toString()) || typeMirror.toString().equals("boolean");
+		return typeUtil.isAssignable(typeMirror, booleanType) || typeMirror.toString().equals("boolean");
+	}
+
+	public boolean isEnum(final TypeMirror typeMirror) {
+		final TypeMirror enumType = elementUtil.getTypeElement(Enum.class.getCanonicalName()).asType();
+
+		return typeUtil.isAssignable(typeMirror, enumType);
 	}
 
 	public TypeMirror boxPrimitive(final TypeMirror typeMirror) {
@@ -85,31 +88,5 @@ public class TypeMirrorHelper {
 			default:
 				throw new IllegalArgumentException("Argument \'typeMirror\' must be primitive.");
 		}
-	}
-
-	private Set<TypeMirror> getAllSupertypes(final TypeMirror typeMirror) {
-		final Set<TypeMirror> exploredSupertypes = new HashSet<>();
-		final Stack<TypeMirror> newSupertypes = new Stack<>();
-
-		newSupertypes.addAll(typeUtil.directSupertypes(typeMirror));
-
-		while (!newSupertypes.isEmpty()) {
-			final TypeMirror type = newSupertypes.pop();
-			exploredSupertypes.add(type);
-
-			newSupertypes.addAll(typeUtil.directSupertypes(type));
-		}
-
-		return exploredSupertypes;
-	}
-
-	public boolean isAssignable(final TypeMirror supplied, final TypeMirror recipient) {
-		checkNotNull(supplied, "Argument \'supplied\' cannot be null.");
-		checkNotNull(recipient, "Argument \'recipient\' cannot be null.");
-
-		final Set<TypeMirror> superclasses = getAllSupertypes(supplied);
-		final Set<String> superclassNames = SetUtil.allToString(superclasses);
-
-		return superclassNames.contains(recipient.toString()) || supplied.toString().equals(recipient.toString());
 	}
 }

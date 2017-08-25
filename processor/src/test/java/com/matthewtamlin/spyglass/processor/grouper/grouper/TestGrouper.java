@@ -5,6 +5,7 @@ import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
@@ -44,10 +45,13 @@ public class TestGrouper {
 
 	private Set<Element> veryNestedClassChildren;
 
+	@BeforeClass
+	public static void setupClass() {
+		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
+	}
+
 	@Before
 	public void setup() throws MalformedURLException {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
 		final IdBasedElementSupplier elementSupplier = new IdBasedElementSupplier(dataFileObject);
 

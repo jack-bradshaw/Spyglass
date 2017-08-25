@@ -6,6 +6,7 @@ import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -34,9 +35,13 @@ public class TestTypeMirrorHelper {
 
 	private TypeMirrorHelper helper;
 
+	@BeforeClass
+	public static void setupClass() {
+		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
+	}
+
 	@Before
 	public void setup() throws MalformedURLException {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
 		elementSupplier = new IdBasedElementSupplier(dataFileObject);
 
@@ -409,6 +414,106 @@ public class TestTypeMirrorHelper {
 	}
 
 	@Test
+	public void testIsEnum_typeMirrorForPrimitiveBoolean() {
+		doIsEnumTestFor("with primitive boolean", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveByte() {
+		doIsEnumTestFor("with primitive byte", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveChar() {
+		doIsEnumTestFor("with primitive char", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveDouble() {
+		doIsEnumTestFor("with primitive double", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveFloat() {
+		doIsEnumTestFor("with primitive float", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveInt() {
+		doIsEnumTestFor("with primitive int", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveLong() {
+		doIsEnumTestFor("with primitive long", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForPrimitiveShort() {
+		doIsEnumTestFor("with primitive short", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedBoolean() {
+		doIsEnumTestFor("with boxed boolean", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedByte() {
+		doIsEnumTestFor("with boxed byte", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedChar() {
+		doIsEnumTestFor("with boxed char", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedDouble() {
+		doIsEnumTestFor("with boxed double", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedFloat() {
+		doIsEnumTestFor("with boxed float", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedInt() {
+		doIsEnumTestFor("with boxed int", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedLong() {
+		doIsEnumTestFor("with boxed long", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForBoxedShort() {
+		doIsEnumTestFor("with boxed short", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForObject() {
+		doIsEnumTestFor("with object", false);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForRawEnum() {
+		doIsEnumTestFor("with raw enum", true);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForWildcardEnum() {
+		doIsEnumTestFor("with wildcard enum", true);
+	}
+
+	@Test
+	public void testIsEnum_typeMirrorForRegularEnum() {
+		doIsEnumTestFor("with regular enum", true);
+	}
+
+	@Test
 	public void testBoxPrimitive_typeMirrorForPrimitiveBoolean() {
 		doBoxPrimitiveTestWithPassExpectedFor("with primitive boolean", Boolean.class.getCanonicalName());
 	}
@@ -493,61 +598,6 @@ public class TestTypeMirrorHelper {
 		doBoxPrimitiveTestWithPassExpectedFor("with object", Object.class.getCanonicalName());
 	}
 
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsAssignable_nullSubclassSupplied() {
-		helper.isAssignable(null, mock(TypeMirror.class));
-	}
-
-	@Test(expected = IllegalArgumentException.class)
-	public void testIsAssignable_nullSuperclassSupplied() {
-		helper.isAssignable(mock(TypeMirror.class), null);
-	}
-
-	@Test
-	public void testIsAssignable_recipientIsRegularClass_suppliedIsFirstLevelSubclassOfRecipient() {
-		doIsAssignableTestFor("class2", "class1", true);
-	}
-
-	@Test
-	public void testIsAssignable_recipientIsRegularClass_suppliedIsSecondLevelSubclassOfRecipient() {
-		doIsAssignableTestFor("class3", "class1", true);
-	}
-
-	@Test
-	public void testIsAssignable_recipientIsRegularClass_recipientIsFirstLevelSubclassOfSupplied() {
-		doIsAssignableTestFor("class1", "class2", false);
-	}
-
-	@Test
-	public void testIsAssignable_recipientIsRegularClass_suppliedIsNotSubclassOfRecipient() {
-		doIsAssignableTestFor("class1", "class4", false);
-	}
-
-	@Test
-	public void testIsAssignable_recipientIsRegularClass_suppliedIsSameClassAsRecipient() {
-		doIsAssignableTestFor("class1", "class1", true);
-	}
-
-	@Test
-	public void testIsAssignable_recipientIsInterface_suppliedIsFirstLevelImplementationOfRecipient() {
-		doIsAssignableTestFor("class2", "interface", true);
-	}
-
-	@Test
-	public void testIsAssignable_recipientIsInterface_suppliedIsSecondLevelImplementationOfRecipient() {
-		doIsAssignableTestFor("class3", "interface", true);
-	}
-
-	@Test
-	public void testIsAssignable_recipientIsInterface_recipientIsFirstLevelImplementationOfSupplied() {
-		doIsAssignableTestFor("interface", "class2", false);
-	}
-
-	@Test
-	public void testIsAssignable_recipientIsInterface_suppliedIsNotImplementationOfRecipient() {
-		doIsAssignableTestFor("class4", "interface", false);
-	}
-
 	private void doIsPrimitiveTestFor(final String elementId, final boolean expectedResult) {
 		final ExecutableElement method = (ExecutableElement) elementSupplier.getUniqueElementWithId(elementId);
 		final VariableElement parameter = method.getParameters().get(0);
@@ -576,6 +626,13 @@ public class TestTypeMirrorHelper {
 		assertThat(helper.isBoolean(parameter.asType()), is(expectedResult));
 	}
 
+	private void doIsEnumTestFor(final String elementId, final boolean expectedResult) {
+		final ExecutableElement method = (ExecutableElement) elementSupplier.getUniqueElementWithId(elementId);
+		final VariableElement parameter = method.getParameters().get(0);
+
+		assertThat(helper.isEnum(parameter.asType()), is(expectedResult));
+	}
+
 	private void doBoxPrimitiveTestWithPassExpectedFor(final String elementId, final String expectedResultClassName) {
 		final ExecutableElement method = (ExecutableElement) elementSupplier.getUniqueElementWithId(elementId);
 		final VariableElement parameter = method.getParameters().get(0);
@@ -589,16 +646,5 @@ public class TestTypeMirrorHelper {
 		final VariableElement parameter = method.getParameters().get(0);
 
 		helper.boxPrimitive(parameter.asType());
-	}
-
-	private void doIsAssignableTestFor(
-			final String typeElementId,
-			final String recipientElementId,
-			final boolean expectedResult) {
-
-		final TypeMirror type = elementSupplier.getUniqueElementWithId(typeElementId).asType();
-		final TypeMirror recipient = elementSupplier.getUniqueElementWithId(recipientElementId).asType();
-
-		assertThat(helper.isAssignable(type, recipient), is(expectedResult));
 	}
 }
