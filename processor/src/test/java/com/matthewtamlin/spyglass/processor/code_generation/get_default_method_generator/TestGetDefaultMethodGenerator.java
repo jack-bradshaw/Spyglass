@@ -36,6 +36,7 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
@@ -46,7 +47,9 @@ import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
+import javax.tools.JavaFileObject;
 
+import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
@@ -63,10 +66,15 @@ public class TestGetDefaultMethodGenerator {
 
 	private GetDefaultMethodGenerator generator;
 
+	@BeforeClass
+	public static void setupClass() {
+		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
+	}
+
 	@Before
 	public void setup() throws MalformedURLException {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-		elementSupplier = new IdBasedElementSupplier(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()));
+		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
+		elementSupplier = new IdBasedElementSupplier(dataFileObject);
 
 		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
 		generator = new GetDefaultMethodGenerator(coreHelpers);
@@ -186,7 +194,7 @@ public class TestGetDefaultMethodGenerator {
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
 		assertThat(generatedMethod, is(notNullValue()));
-		checkMethodSignature(generatedMethod, ClassName.get(Enum.class));
+		checkMethodSignature(generatedMethod, TypeName.OBJECT);
 		checkCompiles(generatedMethod);
 	}
 
@@ -309,16 +317,18 @@ public class TestGetDefaultMethodGenerator {
 	}
 
 	private void checkMethodSignature(final MethodSpec generatedMethod, final TypeName returnType) {
-		assertThat(generatedMethod.returnType, is(returnType));
-		assertThat(generatedMethod.parameters, hasSize(0));
+		assertThat("Generated method must not be null.", generatedMethod, is(notNullValue()));
+		assertThat("Generated method has wrong return type.", generatedMethod.returnType, is(returnType));
+		assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters, hasSize(0));
+		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
 	}
 
-	private void checkCompiles(final MethodSpec methodSpec) {
+	private void checkCompiles(final MethodSpec method) {
 		final TypeSpec wrapperTypeSpec = CallerDef
 				.getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
 				.addMethod(CallerDef.getNewCallMethodPrototype().build())
 				.addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
-				.addMethod(methodSpec)
+				.addMethod(method)
 				.build();
 
 		final JavaFile wrapperJavaFile = JavaFile

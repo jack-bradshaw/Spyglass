@@ -6,6 +6,7 @@ import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -28,19 +29,23 @@ import static org.mockito.Mockito.mock;
 
 @RunWith(JUnit4.class)
 public class TestAnnotationMirrorHelper {
-	@Rule
-	public final CompilationRule compilationRule = new CompilationRule();
-
 	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
 			"/mirror_helpers/annotation_mirror_helper/Data.java");
+
+	@Rule
+	public final CompilationRule compilationRule = new CompilationRule();
 
 	private IdBasedElementSupplier elementSupplier;
 
 	private AnnotationMirrorHelper helper;
 
+	@BeforeClass
+	public static void setupClass() {
+		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
+	}
+
 	@Before
 	public void setup() throws MalformedURLException {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
 		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
 		elementSupplier = new IdBasedElementSupplier(dataFileObject);
 

@@ -16,7 +16,6 @@ import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -25,19 +24,14 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static javax.lang.model.element.Modifier.FINAL;
 
 @Tested(testMethod = "automated")
 public class GetValueMethodGenerator {
 	private final Map<String, ParametrisedSupplier<AnnotationMirror, MethodSpec>> methodSpecSuppliers;
 
 	private final AnnotationMirrorHelper annotationMirrorHelper;
-
-	private final Elements elementHelper;
 
 	{
 		methodSpecSuppliers = new HashMap<>();
@@ -50,7 +44,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getBoolean($L, false)",
+										"return $N().getBoolean($L, false)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 
@@ -69,7 +64,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getColor($L, 1)",
+										"return $N().getColor($L, 1)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 
@@ -88,7 +84,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getColorStateList($L)",
+										"return $N().getColorStateList($L)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 
@@ -107,7 +104,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getDimension($L, Float.NEGATIVE_INFINITY)",
+										"return $N().getDimension($L, Float.NEGATIVE_INFINITY)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 
@@ -126,7 +124,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getDrawable($L)",
+										"return $N().getDrawable($L)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 
@@ -143,19 +142,21 @@ public class GetValueMethodGenerator {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
 						final String enumClassName = getLiteralFromAnnotation(anno, "enumClass");
-						final TypeMirror enumType = elementHelper.getTypeElement(enumClassName).asType();
 
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getEnumConstant($T, $L)",
+										"final int ordinal = $N().getInt($L, 1)",
+										CallerDef.GET_ATTRS,
+										getLiteralFromAnnotation(anno, "attributeId"))
+								.addStatement(
+										"return $T.getEnumConstant($L, ordinal)",
 										TypeName.get(EnumUtil.class),
-										enumType,
-										getLiteralFromAnnotation(anno, "ordinal"))
+										enumClassName)
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(ClassName.get(enumType))
+								.returns(TypeName.OBJECT)
 								.addCode(body).build();
 					}
 				}
@@ -169,7 +170,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getInt($L, 1)",
+										"return $N().getInt($L, 1)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 
@@ -188,7 +190,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getFloat($L, Float.NEGATIVE_INFINITY)",
+										"return $N().getFloat($L, Float.NEGATIVE_INFINITY)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 
@@ -207,7 +210,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getFraction($L, $L, $L, Float.NEGATIVE_INFINITY)",
+										"return $N().getFraction($L, $L, $L, Float.NEGATIVE_INFINITY)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"),
 										getLiteralFromAnnotation(anno, "baseMultiplier"),
 										getLiteralFromAnnotation(anno, "parentMultiplier"))
@@ -228,7 +232,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getInt($L, 1)",
+										"return $N().getInt($L, 1)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 
@@ -247,7 +252,8 @@ public class GetValueMethodGenerator {
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return attrs.getString($L)",
+										"return $N().getString($L)",
+										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.build();
 
@@ -263,7 +269,6 @@ public class GetValueMethodGenerator {
 		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
 		annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
-		elementHelper = coreHelpers.getElementHelper();
 	}
 
 	/**
@@ -297,8 +302,6 @@ public class GetValueMethodGenerator {
 	}
 
 	private MethodSpec.Builder getBaseMethodSpec() {
-		return MethodSpec
-				.methodBuilder("getValue")
-				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL);
+		return MethodSpec.methodBuilder("getValue");
 	}
 }

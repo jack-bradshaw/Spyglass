@@ -15,18 +15,23 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
 import java.io.File;
 import java.net.MalformedURLException;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.VariableElement;
+import javax.tools.JavaFileObject;
 
+import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.CombinableMatcher.either;
 import static org.hamcrest.core.Is.is;
@@ -44,10 +49,15 @@ public class TestGetPlaceholderMethodGenerator {
 
 	private GetPlaceholderMethodGenerator generator;
 
+	@BeforeClass
+	public static void setupClass() {
+		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
+	}
+
 	@Before
 	public void setup() throws MalformedURLException {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-		elementSupplier = new IdBasedElementSupplier(JavaFileObjects.forResource(DATA_FILE.toURI().toURL()));
+		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
+		elementSupplier = new IdBasedElementSupplier(dataFileObject);
 
 		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
 		generator = new GetPlaceholderMethodGenerator(coreHelpers);
@@ -63,7 +73,7 @@ public class TestGetPlaceholderMethodGenerator {
 		generator.generateFor(null, 0);
 	}
 
-	@Test
+	@Test(expected = IllegalArgumentException.class)
 	public void testGenerateFor_negativeParameterIndex() {
 		generator.generateFor(mock(AnnotationMirror.class), -1);
 	}
@@ -85,10 +95,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		assertThat(generatedMethod.returnType, either(is(TypeName.BOOLEAN)).or(is(TypeName.BOOLEAN.box())));
-		assertThat(generatedMethod.parameters.size(), is(0));
-
+		checkSignature(generatedMethod, ClassName.get(Boolean.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -99,8 +106,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		checkSignatureNumberCase(generatedMethod);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -111,8 +117,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		checkSignatureNumberCase(generatedMethod);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -123,8 +128,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		checkSignatureNumberCase(generatedMethod);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -135,8 +139,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		checkSignatureNumberCase(generatedMethod);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -147,8 +150,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		checkSignatureNumberCase(generatedMethod);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -159,8 +161,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		checkSignatureNumberCase(generatedMethod);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -171,10 +172,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		assertThat(generatedMethod.returnType, is((TypeName) TypeName.OBJECT));
-		assertThat(generatedMethod.parameters.size(), is(0));
-
+		checkSignature(generatedMethod, ClassName.get(Object.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -185,8 +183,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		checkSignatureNumberCase(generatedMethod);
+		checkSignature(generatedMethod, ClassName.get(Number.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -197,10 +194,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		assertThat(generatedMethod, is(notNullValue()));
-		assertThat(generatedMethod.returnType, is((TypeName) ClassName.get(String.class)));
-		assertThat(generatedMethod.parameters.size(), is(0));
-
+		checkSignature(generatedMethod, ClassName.get(String.class));
 		checkCompiles(generatedMethod);
 	}
 
@@ -213,13 +207,19 @@ public class TestGetPlaceholderMethodGenerator {
 		}
 	}
 
+	private void checkSignature(final MethodSpec generatedMethod, final TypeName returnType) {
+		assertThat("Generated method must not be null.", generatedMethod, is(notNullValue()));
+		assertThat("Generated method has wrong return type.", generatedMethod.returnType, is(returnType));
+		assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters.size(), is(0));
+		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
+	}
+
 	private void checkCompiles(final MethodSpec method) {
-		final TypeSpec wrapperTypeSpec = TypeSpec
-				.classBuilder("Wrapper")
-				.superclass(CallerDef.getCallerAsClassName())
-				.addMethod(method)
+		final TypeSpec wrapperTypeSpec = CallerDef
+				.getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
 				.addMethod(CallerDef.getNewCallMethodPrototype().build())
 				.addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
+				.addMethod(method)
 				.build();
 
 		final JavaFile wrapperJavaFile = JavaFile
@@ -231,10 +231,5 @@ public class TestGetPlaceholderMethodGenerator {
 		filesToCompile.add(CallerDef.SRC_FILE);
 
 		CompileChecker.checkCompiles(filesToCompile);
-	}
-
-	private void checkSignatureNumberCase(final MethodSpec method) {
-		assertThat("Expected Number return type.", method.returnType, is((TypeName) ClassName.get(Number.class)));
-		assertThat("Expected no parameters.", method.parameters.size(), is(0));
 	}
 }

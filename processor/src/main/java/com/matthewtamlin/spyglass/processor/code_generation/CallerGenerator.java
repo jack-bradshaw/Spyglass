@@ -13,6 +13,9 @@ import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -22,24 +25,27 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 @Tested(testMethod = "automated")
 public class CallerGenerator {
-	private final GetDefaultMethodGenerator getDefaultMethodGenerator;
+	private final GetDefaultMethodGenerator getDefaultGenerator;
 
-	private final GetValueMethodGenerator getValueMethodGenerator;
+	private final GetValueMethodGenerator getValueGenerator;
 
-	private final ValueIsAvailableMethodGenerator valueIsAvailableMethodGenerator;
+	private final GetPlaceholderMethodGenerator getPlaceholderGenerator;
 
-	private final SpecificValueIsAvailableMethodGenerator specificValueIsAvailableMethodGenerator;
+	private final ValueIsAvailableMethodGenerator valueIsAvailableGenerator;
 
-	private final DoInvocationGenerator doInvocationGenerator;
+	private final SpecificValueIsAvailableMethodGenerator specificValueIsAvailableGenerator;
+
+	private CastWrapperGenerator wrapperGenerator;
 
 	public CallerGenerator(final CoreHelpers coreHelpers) {
 		checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
 
-		getDefaultMethodGenerator = new GetDefaultMethodGenerator(coreHelpers);
-		getValueMethodGenerator = new GetValueMethodGenerator(coreHelpers);
-		valueIsAvailableMethodGenerator = new ValueIsAvailableMethodGenerator(coreHelpers);
-		specificValueIsAvailableMethodGenerator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
-		doInvocationGenerator = new DoInvocationGenerator(coreHelpers);
+		getDefaultGenerator = new GetDefaultMethodGenerator(coreHelpers);
+		getValueGenerator = new GetValueMethodGenerator(coreHelpers);
+		getPlaceholderGenerator = new GetPlaceholderMethodGenerator(coreHelpers);
+		valueIsAvailableGenerator = new ValueIsAvailableMethodGenerator(coreHelpers);
+		specificValueIsAvailableGenerator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
+		wrapperGenerator = new CastWrapperGenerator(coreHelpers);
 	}
 
 	public TypeSpec generateFor(final ExecutableElement method) {
@@ -60,107 +66,150 @@ public class CallerGenerator {
 	}
 
 	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
-		final AnnotationMirror callHandlerAnno = CallHandlerAnnoRetriever.getAnnotation(e);
+		final TypeSpec.Builder callerBuilder = CallerDef
+				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
 
-		final MethodSpec specificValueIsAvailable = specificValueIsAvailableMethodGenerator.generateFor(callHandlerAnno);
-		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
+		final CodeBlock.Builder invocationBuilder = CodeBlock
+				.builder()
+				.add("$N().$N(", CallerDef.GET_TARGET, e);
 
-		final MethodSpec call = CallerDef.CALL
-				.toBuilder()
+		for (int i = 0; i < e.getParameters().size(); i++) {
+			final VariableElement parameter = e.getParameters().get(i);
+			final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
+			final MethodSpec argMethod = getPlaceholderGenerator.generateFor(useAnno, i);
+
+			invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
+			callerBuilder.addMethod(argMethod);
+		}
+
+		invocationBuilder.add(");");
+
+		final MethodSpec specificValueIsAvailable = specificValueIsAvailableGenerator.generateFor(
+				CallHandlerAnnoRetriever.getAnnotation(e));
+
+		final MethodSpec call = CallerDef
+				.getNewCallMethodPrototype()
 				.addCode(CodeBlock
 						.builder()
-						.beginControlFlow("if ($N(attrs))", specificValueIsAvailable)
-						.addStatement("$N(target)", doInvocation)
+						.beginControlFlow("if ($N())", specificValueIsAvailable)
+						.add(invocationBuilder.build())
 						.endControlFlow()
 						.build())
 				.build();
 
-		return getEmptyAnonymousCaller(getNameOfTargetClass(e))
-				.addMethod(call)
+		return callerBuilder
 				.addMethod(specificValueIsAvailable)
-				.addMethod(doInvocation)
+				.addMethod(call)
 				.build();
 	}
 
 	private TypeSpec generateValueHandlerCallerWithoutDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
+		final TypeSpec.Builder callerBuilder = CallerDef
+				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
 
-		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.generateFor(valueHandlerAnno);
-		final MethodSpec getValue = getValueMethodGenerator.generateFor(valueHandlerAnno);
-		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
 
-		final MethodSpec call = CallerDef.getNewCallMethodPrototype()
+		final CodeBlock.Builder invocationBuilder = CodeBlock
+				.builder()
+				.add("$N().$N(", CallerDef.GET_TARGET, e);
+
+		for (int i = 0; i < e.getParameters().size(); i++) {
+			final VariableElement parameter = e.getParameters().get(i);
+
+			final MethodSpec argMethod = UseAnnoRetriever.hasAnnotation(parameter) ?
+					getPlaceholderGenerator.generateFor(UseAnnoRetriever.getAnnotation(parameter), i) :
+					getValueGenerator.generateFor(ValueHandlerAnnoRetriever.getAnnotation(e));
+
+			invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
+			callerBuilder.addMethod(argMethod);
+		}
+
+		invocationBuilder.add(");");
+
+		final MethodSpec specificValueIsAvailable = specificValueIsAvailableGenerator.generateFor(
+				CallHandlerAnnoRetriever.getAnnotation(e));
+
+		final MethodSpec call = CallerDef
+				.getNewCallMethodPrototype()
 				.addCode(CodeBlock
 						.builder()
-						.beginControlFlow("if ($N(attrs))", valueIsAvailable)
-						.addStatement("final Object value = $N(attrs)", getValue)
-						.addStatement("$N(target, value)", doInvocation)
+						.beginControlFlow("if ($N())", specificValueIsAvailable)
+						.add(invocationBuilder.build())
 						.endControlFlow()
 						.build())
 				.build();
 
-		return getEmptyAnonymousCaller(getNameOfTargetClass(e))
+		return callerBuilder
+				.addMethod(specificValueIsAvailable)
 				.addMethod(call)
-				.addMethod(valueIsAvailable)
-				.addMethod(getValue)
-				.addMethod(doInvocation)
 				.build();
 	}
 
 	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
-		final AnnotationMirror valueHandler = ValueHandlerAnnoRetriever.getAnnotation(e);
-		final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
+		final TypeSpec.Builder callerBuilder = CallerDef
+				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
 
-		final MethodSpec valueIsAvailable = valueIsAvailableMethodGenerator.generateFor(valueHandler);
-		final MethodSpec getValue = getValueMethodGenerator.generateFor(valueHandler);
-		final MethodSpec getDefault = getDefaultMethodGenerator.generateFor(defaultAnno);
-		final MethodSpec doInvocation = doInvocationGenerator.generateFor(e);
 
-		final MethodSpec callMethod = CallerDef.CALL
-				.toBuilder()
-				.addCode(CodeBlock
-						.builder()
-						.addStatement(
-								"final Object value = $N(attrs) ? $N(attrs) : $N(context, attrs)",
-								valueIsAvailable,
-								getValue,
-								getDefault)
-						.addStatement("$N(target, value)", doInvocation)
-						.build())
-				.build();
+		final CodeBlock.Builder nonDefaultCaseInvocationBuilder = CodeBlock
+				.builder()
+				.add("$N().$N(", CallerDef.GET_TARGET, e);
 
-		return getEmptyAnonymousCaller(getNameOfTargetClass(e))
-				.addMethod(callMethod)
-				.addMethod(valueIsAvailable)
-				.addMethod(getValue)
-				.addMethod(getDefault)
-				.addMethod(doInvocation)
-				.build();
-	}
+		final CodeBlock.Builder defaultCaseInvocationBuilder = CodeBlock
+				.builder()
+				.add("$N().$N(", CallerDef.GET_TARGET, e);
 
-	private TypeSpec.Builder getEmptyAnonymousCaller(final TypeName targetType) {
-		final ClassName genericCaller = ClassName.get(CallerDef.SRC_FILE.packageName, CallerDef.ABSTRACT_CALLER.name);
-		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
+		for (int i = 0; i < e.getParameters().size(); i++) {
+			final VariableElement parameter = e.getParameters().get(i);
 
-		return TypeSpec
-				.anonymousClassBuilder("")
-				.addSuperinterface(specificCaller);
-	}
+			if (UseAnnoRetriever.hasAnnotation(parameter)) {
+				final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
+				final MethodSpec argMethod = getPlaceholderGenerator.generateFor(useAnno, i);
 
-	private TypeName getNameOfNonUseParameter(final ExecutableElement e) {
-		for (final VariableElement parameter : e.getParameters()) {
-			if (!UseAnnoRetriever.hasAnnotation(parameter)) {
-				final TypeName className = ClassName.get(parameter.asType());
+				nonDefaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
+				defaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
 
-				if (className.isBoxedPrimitive()) {
-					return className.unbox();
-				} else {
-					return className;
-				}
+				callerBuilder.addMethod(argMethod);
+			} else {
+				final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
+				final AnnotationMirror defaultAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
+
+				final MethodSpec nonDefaultCaseArgMethod = getValueGenerator.generateFor(valueHandlerAnno);
+				final MethodSpec defaultCaseArgMethod = getDefaultGenerator.generateFor(defaultAnno);
+
+				nonDefaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(
+						nonDefaultCaseArgMethod,
+						parameter.asType()));
+
+				defaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(
+						defaultCaseArgMethod,
+						parameter.asType()));
+
+				callerBuilder.addMethod(nonDefaultCaseArgMethod);
+				callerBuilder.addMethod(defaultCaseArgMethod);
 			}
 		}
 
-		throw new RuntimeException("No non-use argument found.");
+		nonDefaultCaseInvocationBuilder.add(");");
+		defaultCaseInvocationBuilder.add(");");
+
+		final MethodSpec valueIsAvailable = valueIsAvailableGenerator.generateFor(
+				ValueHandlerAnnoRetriever.getAnnotation(e));
+
+		final MethodSpec call = CallerDef
+				.getNewCallMethodPrototype()
+				.addCode(CodeBlock
+						.builder()
+						.beginControlFlow("if ($N())", valueIsAvailable)
+						.add(nonDefaultCaseInvocationBuilder.build())
+						.nextControlFlow("else")
+						.add(defaultCaseInvocationBuilder.build())
+						.endControlFlow()
+						.build())
+				.build();
+
+		return callerBuilder
+				.addMethod(valueIsAvailable)
+				.addMethod(call)
+				.build();
 	}
 
 	private TypeName getNameOfTargetClass(final ExecutableElement method) {
