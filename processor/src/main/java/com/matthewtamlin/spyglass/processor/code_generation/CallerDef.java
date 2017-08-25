@@ -134,6 +134,15 @@ public final class CallerDef {
 				.superclass(specificCaller);
 	}
 
+	public static TypeSpec.Builder getNewAnonymousCallerPrototype(final TypeName targetType) {
+		final ClassName genericCaller = ClassName.get(CallerDef.SRC_FILE.packageName, CallerDef.ABSTRACT_CALLER.name);
+		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
+
+		return TypeSpec
+				.anonymousClassBuilder("")
+				.addSuperinterface(specificCaller);
+	}
+
 	private CallerDef() {
 		throw new RuntimeException("Contract class. Do not instantiate.");
 	}
