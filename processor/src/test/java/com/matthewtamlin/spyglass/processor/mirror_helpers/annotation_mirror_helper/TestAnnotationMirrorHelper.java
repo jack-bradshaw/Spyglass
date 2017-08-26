@@ -1,25 +1,19 @@
 package com.matthewtamlin.spyglass.processor.mirror_helpers.annotation_mirror_helper;
 
-import com.google.testing.compile.CompilationRule;
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
-import java.net.MalformedURLException;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
-import javax.tools.JavaFileObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -29,27 +23,18 @@ import static org.mockito.Mockito.mock;
 
 @RunWith(JUnit4.class)
 public class TestAnnotationMirrorHelper {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/mirror_helpers/annotation_mirror_helper/Data.java");
-
 	@Rule
-	public final CompilationRule compilationRule = new CompilationRule();
-
-	private IdBasedElementSupplier elementSupplier;
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/mirror_helpers/" +
+					"annotation_mirror_helper/Data.java")
+			.build();
 
 	private AnnotationMirrorHelper helper;
 
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
 	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		elementSupplier = new IdBasedElementSupplier(dataFileObject);
-
-		helper = new AnnotationMirrorHelper(compilationRule.getElements());
+	public void setup() {
+		helper = new AnnotationMirrorHelper(avatarRule.getProcessingEnvironment().getElementUtils());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -69,7 +54,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Test
 	public void testGetAnnotationMirror_annotationMissing() {
-		final Element element = elementSupplier.getUniqueElementWithId("get annotation mirror: without annotation");
+		final Element element = avatarRule.getElementWithUniqueId("get annotation mirror: without annotation");
 
 		final AnnotationMirror mirror =
 				AnnotationMirrorHelper.getAnnotationMirror(element, SomeAnnotationWithValue.class);
@@ -79,7 +64,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Test
 	public void testGetAnnotationMirror_annotationPresent() {
-		final Element element = elementSupplier.getUniqueElementWithId("get annotation mirror: with annotation");
+		final Element element = avatarRule.getElementWithUniqueId("get annotation mirror: with annotation");
 
 		final AnnotationMirror mirror = AnnotationMirrorHelper
 				.getAnnotationMirror(element, SomeAnnotationWithValue.class);
@@ -100,7 +85,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Test
 	public void testGetValueIgnoringDefaults_invalidKey() {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value ignoring defaults: with value");
+		final Element e = avatarRule.getElementWithUniqueId("get annotation value ignoring defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
 		final AnnotationValue value = helper.getValueIgnoringDefaults(mirror, "invalidKey");
@@ -110,7 +95,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Test
 	public void testGetValueIgnoreDefaults_noValueProvided() {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value ignoring defaults: no value");
+		final Element e = avatarRule.getElementWithUniqueId("get annotation value ignoring defaults: no value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
 		final AnnotationValue value = helper.getValueIgnoringDefaults(mirror, "value");
@@ -120,7 +105,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Test
 	public void testGetValueIgnoringDefaults_valueProvided() {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value ignoring defaults: with value");
+		final Element e = avatarRule.getElementWithUniqueId("get annotation value ignoring defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
 		final AnnotationValue value = helper.getValueIgnoringDefaults(mirror, "value");
@@ -131,7 +116,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Test
 	public void testGetValueUsingDefaults_invalidKey() {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value with defaults: with value");
+		final Element e = avatarRule.getElementWithUniqueId("get annotation value with defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
 		final AnnotationValue value = helper.getValueUsingDefaults(mirror, "invalidKey");
@@ -141,7 +126,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Test
 	public void testGetValueUsingDefaults_noValueProvided() {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value with defaults: no value");
+		final Element e = avatarRule.getElementWithUniqueId("get annotation value with defaults: no value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
 		final AnnotationValue value = helper.getValueUsingDefaults(mirror, "value");
@@ -152,7 +137,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Test
 	public void testGetValueUsingDefaults_valueProvided() {
-		final Element e = elementSupplier.getUniqueElementWithId("get annotation value with defaults: with value");
+		final Element e = avatarRule.getElementWithUniqueId("get annotation value with defaults: with value");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(e, SomeAnnotationWithValue.class);
 
 		final AnnotationValue value = helper.getValueUsingDefaults(mirror, "value");
