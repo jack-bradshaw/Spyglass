@@ -1,55 +1,39 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
-import com.google.testing.compile.CompilationRule;
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.AnnotatedElementSupplier;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.Set;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
-import javax.tools.JavaFileObject;
-
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnit4.class)
 public class TestValidator {
 	@Rule
-	public final CompilationRule compilationRule = new CompilationRule();
-
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
-			"validation/Data.java");
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/validation/Data.java")
+			.build();
 
 	private Set<Element> elements;
 
 	private Validator validator;
 
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
 	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		final AnnotatedElementSupplier elementSupplier = new AnnotatedElementSupplier(dataFileObject);
-		elements = elementSupplier.getElementsWithAnnotation(Target.class);
+	public void setup() {
+		elements = avatarRule.getElementsWithAnnotation(Target.class);
 
-		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
-		validator = new Validator(coreHelpers);
+		validator = new Validator(new CoreHelpers(
+				avatarRule.getProcessingEnvironment().getElementUtils(),
+				avatarRule.getProcessingEnvironment().getTypeUtils()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

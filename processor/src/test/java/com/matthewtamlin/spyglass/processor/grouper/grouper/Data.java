@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.grouper.grouper;
 
-import com.matthewtamlin.avatar.element_supplier.ElementId;
+
+import com.matthewtamlin.avatar.rules.ElementId;
 
 @ElementId("primary class")
 public class Data {
