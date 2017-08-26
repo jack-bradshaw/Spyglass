@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.processor.mirror_helpers.type_mirror_helper;
 
-import com.matthewtamlin.avatar.element_supplier.ElementId;
+import com.matthewtamlin.avatar.rules.ElementId;
 
 public class Data {
 	@ElementId("with primitive boolean")

@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.processor.code_generation.get_default_method_generator;
 
-import com.matthewtamlin.avatar.element_supplier.ElementId;
+import com.matthewtamlin.avatar.rules.ElementId;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToColorResource;
