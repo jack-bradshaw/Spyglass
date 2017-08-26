@@ -3,65 +3,45 @@ package com.matthewtamlin.spyglass.processor.mirror_helpers.type_mirror_helper;
 import com.matthewtamlin.avatar.rules.ElementId;
 
 public class Data {
-	@ElementId("with primitive boolean")
-	public void method(boolean b) {}
-
-	@ElementId("with primitive byte")
-	public void method(byte b) {}
-
-	@ElementId("with primitive char")
-	public void method(char c) {}
-
-	@ElementId("with primitive double")
-	public void method(double d) {}
-
-	@ElementId("with primitive float")
-	public void method(float f) {}
-
-	@ElementId("with primitive int")
-	public void method(int i) {}
-
-	@ElementId("with primitive long")
-	public void method(long l) {}
-
-	@ElementId("with primitive short")
-	public void method(short s) {}
-
-	@ElementId("with boxed boolean")
-	public void method(Boolean b) {}
-
-	@ElementId("with boxed byte")
-	public void method(Byte b) {}
-
-	@ElementId("with boxed char")
-	public void method(Character c) {}
-
-	@ElementId("with boxed double")
-	public void method(Double d) {}
-
-	@ElementId("with boxed float")
-	public void method(Float f) {}
-
-	@ElementId("with boxed int")
-	public void method(Integer i) {}
-
-	@ElementId("with boxed long")
-	public void method(Long l) {}
-
-	@ElementId("with boxed short")
-	public void method(Short s) {}
-
-	@ElementId("with object")
-	public void method(Object o) {}
-
-	@ElementId("with number")
-	public void method(Number n) {}
-
-	@ElementId("with custom number implementation")
-	public void method(NumberImplementation n) {}
-
-	@ElementId("with custom number implementation subclass")
-	public void method(NumberImplementationSubclass n) {}
+	public void method(@ElementId("primitive boolean") boolean b) {}
+	
+	public void method(@ElementId("primitive byte") byte b) {}
+	
+	public void method(@ElementId("primitive char") char c) {}
+	
+	public void method(@ElementId("primitive double") double d) {}
+	
+	public void method(@ElementId("primitive float") float f) {}
+	
+	public void method(@ElementId("primitive int") int i) {}
+	
+	public void method(@ElementId("primitive long") long l) {}
+	
+	public void method(@ElementId("primitive short") short s) {}
+	
+	public void method(@ElementId("boxed boolean") Boolean b) {}
+	
+	public void method(@ElementId("boxed byte") Byte b) {}
+	
+	public void method(@ElementId("boxed char") Character c) {}
+	
+	public void method(@ElementId("boxed double") Double d) {}
+	
+	public void method(@ElementId("boxed float") Float f) {}
+	
+	public void method(@ElementId("boxed int") Integer i) {}
+	
+	public void method(@ElementId("boxed long") Long l) {}
+	
+	public void method(@ElementId("boxed short") Short s) {}
+	
+	public void method(@ElementId("object") Object o) {}
+	
+	public void method(@ElementId("number") Number n) {}
+	
+	public void method(@ElementId("custom number implementation") NumberImplementation n) {}
+	
+	public void method(@ElementId("custom number implementation subclass") NumberImplementationSubclass n) {}
 
 	private class NumberImplementation extends Number {
 		@Override

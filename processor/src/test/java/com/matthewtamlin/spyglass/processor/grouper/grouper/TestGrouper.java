@@ -1,24 +1,20 @@
 package com.matthewtamlin.spyglass.processor.grouper.grouper;
 
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.tools.JavaFileObject;
 
 import static com.matthewtamlin.spyglass.processor.grouper.Grouper.groupByEnclosingClass;
 import static org.hamcrest.MatcherAssert.assertThat;
@@ -26,8 +22,11 @@ import static org.hamcrest.Matchers.is;
 
 @RunWith(JUnit4.class)
 public class TestGrouper {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
-			"grouper/grouper/Data.java");
+	@Rule
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/grouper/grouper/Data.java")
+			.build();
 
 	private TypeElement primaryClass;
 
@@ -45,37 +44,29 @@ public class TestGrouper {
 
 	private Set<Element> veryNestedClassChildren;
 
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
 	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		final IdBasedElementSupplier elementSupplier = new IdBasedElementSupplier(dataFileObject);
-
-		primaryClass = (TypeElement) elementSupplier.getUniqueElementWithId("primary class");
-		secondaryClass = (TypeElement) elementSupplier.getUniqueElementWithId("secondary class");
-		innerClass = (TypeElement) elementSupplier.getUniqueElementWithId("inner class");
-		veryNestedClass = (TypeElement) elementSupplier.getUniqueElementWithId("very nested class");
+	public void setup() {
+		primaryClass = avatarRule.getElementWithUniqueId("primary class");
+		secondaryClass = avatarRule.getElementWithUniqueId("secondary class");
+		innerClass = avatarRule.getElementWithUniqueId("inner class");
+		veryNestedClass = avatarRule.getElementWithUniqueId("very nested class");
 
 		primaryClassChildren = new HashSet<>();
-		primaryClassChildren.add(elementSupplier.getUniqueElementWithId("primary class field"));
-		primaryClassChildren.add(elementSupplier.getUniqueElementWithId("primary class method"));
-		primaryClassChildren.add(elementSupplier.getUniqueElementWithId("inner class"));
+		primaryClassChildren.add(avatarRule.getElementWithUniqueId("primary class field"));
+		primaryClassChildren.add(avatarRule.getElementWithUniqueId("primary class method"));
+		primaryClassChildren.add(avatarRule.getElementWithUniqueId("inner class"));
 
 		secondaryClassChildren = new HashSet<>();
-		secondaryClassChildren.add(elementSupplier.getUniqueElementWithId("secondary class field"));
-		secondaryClassChildren.add(elementSupplier.getUniqueElementWithId("secondary class method"));
+		secondaryClassChildren.add(avatarRule.getElementWithUniqueId("secondary class field"));
+		secondaryClassChildren.add(avatarRule.getElementWithUniqueId("secondary class method"));
 
 		innerClassChildren = new HashSet<>();
-		innerClassChildren.add(elementSupplier.getUniqueElementWithId("inner class field"));
-		innerClassChildren.add(elementSupplier.getUniqueElementWithId("inner class method"));
+		innerClassChildren.add(avatarRule.getElementWithUniqueId("inner class field"));
+		innerClassChildren.add(avatarRule.getElementWithUniqueId("inner class method"));
 
 		veryNestedClassChildren = new HashSet<>();
-		veryNestedClassChildren.add(elementSupplier.getUniqueElementWithId("very nested class field"));
-		veryNestedClassChildren.add(elementSupplier.getUniqueElementWithId("very nested class method"));
+		veryNestedClassChildren.add(avatarRule.getElementWithUniqueId("very nested class field"));
+		veryNestedClassChildren.add(avatarRule.getElementWithUniqueId("very nested class method"));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

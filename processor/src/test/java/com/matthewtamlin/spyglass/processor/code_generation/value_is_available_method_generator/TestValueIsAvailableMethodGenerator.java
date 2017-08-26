@@ -1,9 +1,6 @@
 package com.matthewtamlin.spyglass.processor.code_generation.value_is_available_method_generator;
 
-import com.google.testing.compile.CompilationRule;
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorStateListHandler;
@@ -26,48 +23,35 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
-import javax.tools.JavaFileObject;
 
 import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class TestValueIsAvailableMethodGenerator {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
-			"code_generation/value_is_available_method_generator/Data.java");
-
 	@Rule
-	public final CompilationRule compilationRule = new CompilationRule();
-
-	private IdBasedElementSupplier elementSupplier;
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
+					"code_generation/value_is_available_method_generator/Data.java")
+			.build();
 
 	private ValueIsAvailableMethodGenerator generator;
 
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
 	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		elementSupplier = new IdBasedElementSupplier(dataFileObject);
-
-		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
-		generator = new ValueIsAvailableMethodGenerator(coreHelpers);
+	public void setup() {
+		generator = new ValueIsAvailableMethodGenerator(new CoreHelpers(
+				avatarRule.getProcessingEnvironment().getElementUtils(),
+				avatarRule.getProcessingEnvironment().getTypeUtils()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
@@ -82,7 +66,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_booleanHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("boolean");
+		final Element element = avatarRule.getElementWithUniqueId("boolean");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, BooleanHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
@@ -93,7 +77,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_colorHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("color");
+		final Element element = avatarRule.getElementWithUniqueId("color");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, ColorHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
@@ -104,7 +88,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_colorStateListHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("color state list");
+		final Element element = avatarRule.getElementWithUniqueId("color state list");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
 				element,
 				ColorStateListHandler.class);
@@ -117,7 +101,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_dimensionHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("dimension");
+		final Element element = avatarRule.getElementWithUniqueId("dimension");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DimensionHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
@@ -128,7 +112,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_drawableHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("drawable");
+		final Element element = avatarRule.getElementWithUniqueId("drawable");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DrawableHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
@@ -139,7 +123,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_enumConstantHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("enum constant");
+		final Element element = avatarRule.getElementWithUniqueId("enum constant");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, EnumConstantHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
@@ -150,7 +134,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_EnumOrdinalHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("enum ordinal");
+		final Element element = avatarRule.getElementWithUniqueId("enum ordinal");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, EnumOrdinalHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
@@ -161,7 +145,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_floatHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("float");
+		final Element element = avatarRule.getElementWithUniqueId("float");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, FloatHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
@@ -172,7 +156,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_fractionHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("fraction");
+		final Element element = avatarRule.getElementWithUniqueId("fraction");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, FractionHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
@@ -183,7 +167,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_integerHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("integer");
+		final Element element = avatarRule.getElementWithUniqueId("integer");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, IntegerHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
@@ -194,7 +178,7 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Test
 	public void testGenerateFor_stringHandlerAnnotationSupplied() {
-		final Element element = elementSupplier.getUniqueElementWithId("string");
+		final Element element = avatarRule.getElementWithUniqueId("string");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, StringHandler.class);
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);

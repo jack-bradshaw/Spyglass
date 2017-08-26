@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.use_annotation_retriever;
 
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseChar;
@@ -14,18 +13,13 @@ import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.io.File;
-import java.net.MalformedURLException;
-
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.VariableElement;
-import javax.tools.JavaFileObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -34,21 +28,12 @@ import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(JUnit4.class)
 public class TestUseAnnotationRetriever {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/annotation_retrievers/use_annotation_retriever/Data.java");
-
-	private IdBasedElementSupplier elementSupplier;
-
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
-	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		elementSupplier = new IdBasedElementSupplier(dataFileObject);
-	}
+	@Rule
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/annotation_retrievers/" +
+					"use_annotation_retriever/Data.java")
+			.build();
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAnnotation_nullSupplied() {
@@ -57,7 +42,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useBooleanAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("boolean");
+		final VariableElement element = avatarRule.getElementWithUniqueId("boolean");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -67,7 +52,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useByteAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("byte");
+		final VariableElement element = avatarRule.getElementWithUniqueId("byte");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -77,7 +62,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useCharAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("char");
+		final VariableElement element = avatarRule.getElementWithUniqueId("char");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -87,7 +72,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useDoubleAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("double");
+		final VariableElement element = avatarRule.getElementWithUniqueId("double");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -97,7 +82,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useFloatAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("float");
+		final VariableElement element = avatarRule.getElementWithUniqueId("float");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -107,7 +92,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useIntAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("int");
+		final VariableElement element = avatarRule.getElementWithUniqueId("int");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -117,7 +102,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useLongAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("long");
+		final VariableElement element = avatarRule.getElementWithUniqueId("long");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -127,7 +112,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useNullAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("null");
+		final VariableElement element = avatarRule.getElementWithUniqueId("null");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -137,7 +122,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useShortAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("short");
+		final VariableElement element = avatarRule.getElementWithUniqueId("short");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -147,7 +132,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_useStringAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("string");
+		final VariableElement element = avatarRule.getElementWithUniqueId("string");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -157,7 +142,7 @@ public class TestUseAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_noUseAnnotationPresent() {
-		final VariableElement element = getVariableElementWithId("no use annotation");
+		final VariableElement element = avatarRule.getElementWithUniqueId("no use annotation");
 
 		final AnnotationMirror mirror = UseAnnoRetriever.getAnnotation(element);
 
@@ -224,16 +209,8 @@ public class TestUseAnnotationRetriever {
 		doHasAnnotationTestForElementWithId("no use annotation", false);
 	}
 
-	private VariableElement getVariableElementWithId(final String id) {
-		try {
-			return (VariableElement) elementSupplier.getUniqueElementWithId(id);
-		} catch (final ClassCastException e) {
-			throw new RuntimeException("Found element with ID " + id + ", but it wasn't a VariableElement.");
-		}
-	}
-
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
-		final VariableElement element = getVariableElementWithId(id);
+		final VariableElement element = avatarRule.getElementWithUniqueId(id);
 
 		final boolean hasAnnotation = UseAnnoRetriever.hasAnnotation(element);
 

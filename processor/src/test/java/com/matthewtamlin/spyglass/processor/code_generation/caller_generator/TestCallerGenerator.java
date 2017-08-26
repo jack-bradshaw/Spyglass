@@ -1,8 +1,6 @@
 package com.matthewtamlin.spyglass.processor.code_generation.caller_generator;
 
-import com.google.testing.compile.CompilationRule;
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
@@ -13,43 +11,34 @@ import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
 
-import java.io.File;
-import java.net.MalformedURLException;
 import java.util.HashSet;
 import java.util.Set;
 
 import javax.lang.model.element.ExecutableElement;
-import javax.tools.JavaFileObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.notNullValue;
 
 public class TestCallerGenerator {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor/" +
-			"code_generation/caller_generator/Data.java");
 	@Rule
-	public final CompilationRule compilationRule = new CompilationRule();
-
-	private IdBasedElementSupplier elementSupplier;
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/code_generation/" +
+					"caller_generator/Data.java")
+			.build();
 
 	private CallerGenerator callerGenerator;
 
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
 	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		elementSupplier = new IdBasedElementSupplier(dataFileObject);
+	public void setup() {
+		final CoreHelpers coreHelpers = new CoreHelpers(
+				avatarRule.getProcessingEnvironment().getElementUtils(),
+				avatarRule.getProcessingEnvironment().getTypeUtils());
 
-		final CoreHelpers coreHelpers = new CoreHelpers(compilationRule.getElements(), compilationRule.getTypes());
 		callerGenerator = new CallerGenerator(coreHelpers);
 	}
 
@@ -65,14 +54,14 @@ public class TestCallerGenerator {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGenerateFor_elementWithNoHandlerAnnotation() {
-		final ExecutableElement element = getExecutableElementWithId("no handler");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("no handler");
 
 		callerGenerator.generateFor(element);
 	}
 
 	@Test
 	public void testGenerateFor_elementWithCallHandler() {
-		final ExecutableElement element = getExecutableElementWithId("call handler");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("call handler");
 
 		final TypeSpec result = callerGenerator.generateFor(element);
 
@@ -82,7 +71,7 @@ public class TestCallerGenerator {
 
 	@Test
 	public void testGenerateFor_elementWithValueHandlerButNoDefault() {
-		final ExecutableElement element = getExecutableElementWithId("value handler no default");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("value handler no default");
 
 		final TypeSpec result = callerGenerator.generateFor(element);
 
@@ -91,21 +80,13 @@ public class TestCallerGenerator {
 	}
 
 	@Test
-	public void testGenerateFor_elementWithValueHandlerAndDefault() throws MalformedURLException {
-		final ExecutableElement element = getExecutableElementWithId("value handler with default");
+	public void testGenerateFor_elementWithValueHandlerAndDefault() {
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("value handler with default");
 
 		final TypeSpec result = callerGenerator.generateFor(element);
 
 		assertThat(result, is(notNullValue()));
 		checkCompiles(result);
-	}
-
-	private ExecutableElement getExecutableElementWithId(final String id) {
-		try {
-			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
-		} catch (final ClassCastException e) {
-			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
-		}
 	}
 
 	private void checkCompiles(final TypeSpec anonymousTypeSpec) {

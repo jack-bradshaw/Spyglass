@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.value_handler_annotation_retriever;
 
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorStateListHandler;
@@ -15,18 +14,13 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.I
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.io.File;
-import java.net.MalformedURLException;
-
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
-import javax.tools.JavaFileObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -35,21 +29,12 @@ import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(JUnit4.class)
 public class TestValueHandlerAnnotationRetriever {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/annotation_retrievers/value_handler_annotation_retriever/Data.java");
-
-	private IdBasedElementSupplier elementSupplier;
-
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
-	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		elementSupplier = new IdBasedElementSupplier(dataFileObject);
-	}
+	@Rule
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/annotation_retrievers/" +
+					"value_handler_annotation_retriever/Data.java")
+			.build();
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAnnotation_nullSupplied() {
@@ -58,7 +43,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_booleanHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("boolean");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("boolean");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -68,7 +53,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_colorHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("color");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("color");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -78,7 +63,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_colorStateListHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("color state list");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("color state list");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -88,7 +73,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_dimensionHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("dimension");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("dimension");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -98,7 +83,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_drawableHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("drawable");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("drawable");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -109,7 +94,7 @@ public class TestValueHandlerAnnotationRetriever {
 	@Test
 	public void testGetAnnotation_enumConstantHandlerAnnotationPresent() {
 
-		final ExecutableElement element = getExecutableElementWithId("enum constant");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("enum constant");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -120,7 +105,7 @@ public class TestValueHandlerAnnotationRetriever {
 	@Test
 	public void testGetAnnotation_enumOrdinalHandlerAnnotationPresent() {
 
-		final ExecutableElement element = getExecutableElementWithId("enum ordinal");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("enum ordinal");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -130,7 +115,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_floatHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("float");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("float");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -140,7 +125,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_fractionHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("fraction");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("fraction");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -150,7 +135,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_integerHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("integer");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("integer");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -160,7 +145,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_stringHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("string");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("string");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -170,7 +155,7 @@ public class TestValueHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_noValueHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("no value handler annotation");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("no value handler annotation");
 
 		final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
 
@@ -242,16 +227,8 @@ public class TestValueHandlerAnnotationRetriever {
 		doHasAnnotationTestForElementWithId("no value handler annotation", false);
 	}
 
-	private ExecutableElement getExecutableElementWithId(final String id) {
-		try {
-			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
-		} catch (final ClassCastException e) {
-			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
-		}
-	}
-
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
-		final ExecutableElement element = getExecutableElementWithId(id);
+		final ExecutableElement element = avatarRule.getElementWithUniqueId(id);
 
 		final boolean hasAnnotation = ValueHandlerAnnoRetriever.hasAnnotation(element);
 
