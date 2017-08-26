@@ -1,18 +1,13 @@
 package com.matthewtamlin.spyglass.processor.grouper.type_element_wrapper;
 
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 
-import java.io.File;
-import java.net.MalformedURLException;
-
 import javax.lang.model.element.TypeElement;
-import javax.tools.JavaFileObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -20,27 +15,21 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.Matchers.not;
 
 public class TestTypeElementWrapper {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/grouper/type_element_wrapper/Data.java");
-
-	private IdBasedElementSupplier elementSupplier;
+	@Rule
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/grouper/" +
+					"type_element_wrapper/Data.java")
+			.build();
 
 	private TypeElement class1;
 
 	private TypeElement class2;
 
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
 	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		final IdBasedElementSupplier elementSupplier = new IdBasedElementSupplier(dataFileObject);
-
-		class1 = (TypeElement) elementSupplier.getUniqueElementWithId("class 1");
-		class2 = (TypeElement) elementSupplier.getUniqueElementWithId("class 2");
+	public void setup() {
+		class1 = avatarRule.getElementWithUniqueId("class 1");
+		class2 = avatarRule.getElementWithUniqueId("class 2");
 	}
 
 	@Test(expected = IllegalArgumentException.class)

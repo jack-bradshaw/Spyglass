@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.default_annotation_retriever;
 
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToColorResource;
@@ -21,18 +20,13 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.io.File;
-import java.net.MalformedURLException;
-
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
-import javax.tools.JavaFileObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -41,21 +35,12 @@ import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(JUnit4.class)
 public class TestDefaultAnnotationRetriever {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/annotation_retrievers/default_annotation_retriever/Data.java");
-
-	private IdBasedElementSupplier elementSupplier;
-
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
-	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		elementSupplier = new IdBasedElementSupplier(dataFileObject);
-	}
+	@Rule
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/annotation_retrievers/" +
+					"default_annotation_retriever/Data.java")
+			.build();
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAnnotation_nullSupplied() {
@@ -64,7 +49,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToBooleanAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("boolean");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("boolean");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -74,7 +59,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToBooleanResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("boolean resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("boolean resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -84,7 +69,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToColorResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("color resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("color resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -94,7 +79,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToColorStateListResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("color state list resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("color state list resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -104,7 +89,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToDimensionAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("dimension");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("dimension");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -114,7 +99,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToDimensionResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("dimension resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("dimension resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -124,7 +109,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToDrawableResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("drawable resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("drawable resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -134,7 +119,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToEnumConstantAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("enum constant");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("enum constant");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -144,7 +129,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToFloatAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("float");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("float");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -154,7 +139,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToFractionResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("fraction resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("fraction resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -164,7 +149,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToIntegerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("integer");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("integer");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -174,7 +159,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToIntegerResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("integer resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("integer resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -184,7 +169,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToNullAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("null");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("null");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -194,7 +179,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToStringAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("string");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("string");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -204,7 +189,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToStringResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("string resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("string resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -214,7 +199,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToTextArrayResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text array resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("text array resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -224,7 +209,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_defaultToTextResourceAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("text resource");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("text resource");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -234,7 +219,7 @@ public class TestDefaultAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_noDefaultAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("no default annotation");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("no default annotation");
 
 		final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
 
@@ -336,16 +321,8 @@ public class TestDefaultAnnotationRetriever {
 		doHasAnnotationTestForElementWithId("no default annotation", false);
 	}
 
-	private ExecutableElement getExecutableElementWithId(final String id) {
-		try {
-			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
-		} catch (final ClassCastException e) {
-			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
-		}
-	}
-
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
-		final ExecutableElement element = getExecutableElementWithId(id);
+		final ExecutableElement element = avatarRule.getElementWithUniqueId(id);
 
 		final boolean hasAnnotation = DefaultAnnoRetriever.hasAnnotation(element);
 

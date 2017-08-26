@@ -1,23 +1,17 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.call_handler_annotation_retriever;
 
-import com.google.testing.compile.JavaFileObjects;
-import com.matthewtamlin.avatar.element_supplier.IdBasedElementSupplier;
+import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
 
-import org.junit.Before;
-import org.junit.BeforeClass;
+import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
 
-import java.io.File;
-import java.net.MalformedURLException;
-
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
-import javax.tools.JavaFileObject;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -26,21 +20,12 @@ import static org.hamcrest.Matchers.nullValue;
 
 @RunWith(JUnit4.class)
 public class TestCallHandlerAnnotationRetriever {
-	private static final File DATA_FILE = new File("processor/src/test/java/com/matthewtamlin/spyglass/processor" +
-			"/annotation_retrievers/call_handler_annotation_retriever/Data.java");
-
-	private IdBasedElementSupplier elementSupplier;
-
-	@BeforeClass
-	public static void setupClass() {
-		assertThat("Data file does not exist.", DATA_FILE.exists(), is(true));
-	}
-
-	@Before
-	public void setup() throws MalformedURLException {
-		final JavaFileObject dataFileObject = JavaFileObjects.forResource(DATA_FILE.toURI().toURL());
-		elementSupplier = new IdBasedElementSupplier(dataFileObject);
-	}
+	@Rule
+	public final AvatarRule avatarRule = AvatarRule
+			.builder()
+			.withSourcesAt("processor/src/test/java/com/matthewtamlin/spyglass/processor/annotation_retrievers/" +
+					"call_handler_annotation_retriever/Data.java")
+			.build();
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAnnotation_nullSupplied() {
@@ -49,7 +34,7 @@ public class TestCallHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_specificEnumHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("specific enum");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("specific enum");
 
 		final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
 
@@ -59,7 +44,7 @@ public class TestCallHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_specificFlagHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("specific flag");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("specific flag");
 
 		final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
 
@@ -69,7 +54,7 @@ public class TestCallHandlerAnnotationRetriever {
 
 	@Test
 	public void testGetAnnotation_noCallHandlerAnnotationPresent() {
-		final ExecutableElement element = getExecutableElementWithId("no call handler annotation");
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("no call handler annotation");
 
 		final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
 
@@ -96,16 +81,8 @@ public class TestCallHandlerAnnotationRetriever {
 		doHasAnnotationTestForElementWithId("no call handler annotation", false);
 	}
 
-	private ExecutableElement getExecutableElementWithId(final String id) {
-		try {
-			return (ExecutableElement) elementSupplier.getUniqueElementWithId(id);
-		} catch (final ClassCastException e) {
-			throw new RuntimeException("Found element with ID " + id + ", but it wasn't an ExecutableElement.");
-		}
-	}
-
 	private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
-		final ExecutableElement element = getExecutableElementWithId(id);
+		final ExecutableElement element = avatarRule.getElementWithUniqueId(id);
 
 		final boolean hasAnnotation = CallHandlerAnnoRetriever.hasAnnotation(element);
 
