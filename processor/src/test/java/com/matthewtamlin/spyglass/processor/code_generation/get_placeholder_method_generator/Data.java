@@ -1,6 +1,6 @@
 package com.matthewtamlin.spyglass.processor.code_generation.get_placeholder_method_generator;
 
-import com.matthewtamlin.avatar.element_supplier.ElementId;
+import com.matthewtamlin.avatar.rules.ElementId;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseBoolean;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseChar;
