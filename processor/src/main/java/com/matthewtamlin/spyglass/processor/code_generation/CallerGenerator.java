@@ -71,7 +71,7 @@ public class CallerGenerator {
 
 		final CodeBlock.Builder invocationBuilder = CodeBlock
 				.builder()
-				.add("$N().$N(", CallerDef.GET_TARGET, e);
+				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
 		for (int i = 0; i < e.getParameters().size(); i++) {
 			final VariableElement parameter = e.getParameters().get(i);
@@ -114,7 +114,7 @@ public class CallerGenerator {
 
 		final CodeBlock.Builder invocationBuilder = CodeBlock
 				.builder()
-				.add("$N().$N(", CallerDef.GET_TARGET, e);
+				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
 		for (int i = 0; i < e.getParameters().size(); i++) {
 			final VariableElement parameter = e.getParameters().get(i);
@@ -156,14 +156,13 @@ public class CallerGenerator {
 		final TypeSpec.Builder callerBuilder = CallerDef
 				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
 
-
 		final CodeBlock.Builder nonDefaultCaseInvocationBuilder = CodeBlock
 				.builder()
-				.add("$N().$N(", CallerDef.GET_TARGET, e);
+				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
 		final CodeBlock.Builder defaultCaseInvocationBuilder = CodeBlock
 				.builder()
-				.add("$N().$N(", CallerDef.GET_TARGET, e);
+				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
 		for (int i = 0; i < e.getParameters().size(); i++) {
 			final VariableElement parameter = e.getParameters().get(i);
