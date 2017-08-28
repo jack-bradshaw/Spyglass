@@ -55,8 +55,7 @@ public class CallerGenerator {
 					generateValueHandlerCallerWithoutDefault(method);
 
 		} else {
-			throw new IllegalArgumentException("Argument \'method\' has neither a value handler annotation nor a call" +
-					" handler annotation.");
+			return null;
 		}
 	}
 
