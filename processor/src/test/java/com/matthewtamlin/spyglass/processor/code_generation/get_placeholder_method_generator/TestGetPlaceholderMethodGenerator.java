@@ -58,17 +58,26 @@ public class TestGetPlaceholderMethodGenerator {
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testGenerateFor_negativeParameterIndex() {
-		generator.generateFor(mock(AnnotationMirror.class), -1);
+		final VariableElement parameter = avatarRule.getElementWithUniqueId("boolean");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+
+		generator.generateFor(useAnnotation, -1);
 	}
 
 	@Test
 	public void testGenerateFor_zeroParameterIndex() {
-		generator.generateFor(mock(AnnotationMirror.class), 0);
+		final VariableElement parameter = avatarRule.getElementWithUniqueId("boolean");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+
+		generator.generateFor(useAnnotation, 0);
 	}
 
 	@Test
 	public void testGenerateFor_positiveParameterIndex() {
-		generator.generateFor(mock(AnnotationMirror.class), 1);
+		final VariableElement parameter = avatarRule.getElementWithUniqueId("boolean");
+		final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+
+		generator.generateFor(useAnnotation, 1);
 	}
 
 	@Test
