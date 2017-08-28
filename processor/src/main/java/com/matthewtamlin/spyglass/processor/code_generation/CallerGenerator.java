@@ -6,15 +6,10 @@ import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRet
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
@@ -177,7 +172,7 @@ public class CallerGenerator {
 				callerBuilder.addMethod(argMethod);
 			} else {
 				final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
-				final AnnotationMirror defaultAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
+				final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
 
 				final MethodSpec nonDefaultCaseArgMethod = getValueGenerator.generateFor(valueHandlerAnno);
 				final MethodSpec defaultCaseArgMethod = getDefaultGenerator.generateFor(defaultAnno);
