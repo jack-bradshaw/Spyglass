@@ -47,19 +47,19 @@ public class CallerGenerator {
 		checkNotNull(method, "Argument \'method\' cannot be null.");
 
 		if (CallHandlerAnnoRetriever.hasAnnotation(method)) {
-			return generateCallHandlerCaller(method);
+			return generateForCallHandler(method);
 
 		} else if (ValueHandlerAnnoRetriever.hasAnnotation(method)) {
 			return DefaultAnnoRetriever.hasAnnotation(method) ?
-					generateValueHandlerCallerWithDefault(method) :
-					generateValueHandlerCallerWithoutDefault(method);
+					generateForValueHandlerWithDefault(method) :
+					generateCallerForValueHandlerWithoutDefault(method);
 
 		} else {
 			return null;
 		}
 	}
 
-	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
+	private TypeSpec generateForCallHandler(final ExecutableElement e) {
 		final TypeSpec.Builder callerBuilder = CallerDef
 				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
 
@@ -101,7 +101,7 @@ public class CallerGenerator {
 				.build();
 	}
 
-	private TypeSpec generateValueHandlerCallerWithoutDefault(final ExecutableElement e) {
+	private TypeSpec generateCallerForValueHandlerWithoutDefault(final ExecutableElement e) {
 		final TypeSpec.Builder callerBuilder = CallerDef
 				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
 
@@ -146,7 +146,7 @@ public class CallerGenerator {
 				.build();
 	}
 
-	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
+	private TypeSpec generateForValueHandlerWithDefault(final ExecutableElement e) {
 		final TypeSpec.Builder callerBuilder = CallerDef
 				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
 
