@@ -80,6 +80,10 @@ public class CallerGenerator {
 
 			invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
 			callerBuilder.addMethod(argMethod);
+
+			if (i < e.getParameters().size() - 1) {
+				invocationBuilder.add(", ");
+			}
 		}
 
 		invocationBuilder.add(");");
@@ -121,6 +125,10 @@ public class CallerGenerator {
 
 			invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
 			callerBuilder.addMethod(argMethod);
+
+			if (i < e.getParameters().size() - 1) {
+				invocationBuilder.add(", ");
+			}
 		}
 
 		invocationBuilder.add(");");
@@ -185,6 +193,11 @@ public class CallerGenerator {
 
 				callerBuilder.addMethod(nonDefaultCaseArgMethod);
 				callerBuilder.addMethod(defaultCaseArgMethod);
+			}
+
+			if (i < e.getParameters().size() - 1) {
+				nonDefaultCaseInvocationBuilder.add(", ");
+				defaultCaseInvocationBuilder.add(", ");
 			}
 		}
 
