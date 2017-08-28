@@ -40,7 +40,6 @@ public class CastWrapperGenerator {
 			return generateComplexCastWrapperFor(method, recipient);
 
 		} else {
-			//TODO throw exception instead
 			return null;
 		}
 	}
