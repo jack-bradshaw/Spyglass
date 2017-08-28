@@ -33,13 +33,14 @@ public class CastWrapperGenerator {
 		if (typeHelper.isAssignable(methodReturnType, recipient)) {
 			return CodeBlock
 					.builder()
-					.addStatement("($T) $N()", recipient, method)
+					.add("($T) $N()", recipient, method)
 					.build();
 
 		} else if (complexCastIsPossible(methodReturnType, recipient)) {
 			return generateComplexCastWrapperFor(method, recipient);
 
 		} else {
+			//TODO throw exception instead
 			return null;
 		}
 	}
