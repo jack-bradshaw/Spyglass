@@ -88,6 +88,4 @@ public class TestCallHandlerAnnotationRetriever {
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
-
-	private enum PlaceholderEnum {}
 }
