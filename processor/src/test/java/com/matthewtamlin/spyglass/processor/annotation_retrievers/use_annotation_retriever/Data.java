@@ -34,6 +34,4 @@ public class Data {
 	public void method(@ElementId("string") @UseString("") String s) {}
 
 	public void method(@ElementId("no use annotation") Object o1, Object o2) {}
-
-	private enum PlaceholderEnum {}
 }

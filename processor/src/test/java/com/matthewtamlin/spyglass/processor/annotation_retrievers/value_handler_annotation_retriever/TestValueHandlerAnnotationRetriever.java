@@ -234,6 +234,4 @@ public class TestValueHandlerAnnotationRetriever {
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
-
-	private enum PlaceholderEnum {}
 }
