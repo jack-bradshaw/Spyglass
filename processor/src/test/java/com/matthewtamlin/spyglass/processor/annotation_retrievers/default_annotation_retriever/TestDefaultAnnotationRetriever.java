@@ -328,6 +328,4 @@ public class TestDefaultAnnotationRetriever {
 
 		assertThat(hasAnnotation, is(shouldHaveAnnotation));
 	}
-
-	private enum PlaceholderEnum {}
 }
