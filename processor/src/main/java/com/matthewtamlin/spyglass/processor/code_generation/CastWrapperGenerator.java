@@ -52,6 +52,7 @@ public class CastWrapperGenerator {
 	private CodeBlock generateComplexCastWrapperFor(final MethodSpec method, final TypeMirror recipient) {
 		final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
 
+		// If the method returns a character, an additional cast to byte is needed
 		final CodeBlock toNumber = typeMirrorHelper.isCharacter(methodReturnType) ?
 				CodeBlock.of("($T) ($T) $N()", Number.class, byte.class, method) :
 				CodeBlock.of("($T) $N()", Number.class, method);
