@@ -105,7 +105,6 @@ public class CallerGenerator {
 		final TypeSpec.Builder callerBuilder = CallerDef
 				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
 
-
 		final CodeBlock.Builder invocationBuilder = CodeBlock
 				.builder()
 				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
@@ -150,11 +149,11 @@ public class CallerGenerator {
 		final TypeSpec.Builder callerBuilder = CallerDef
 				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
 
-		final CodeBlock.Builder nonDefaultCaseInvocationBuilder = CodeBlock
+		final CodeBlock.Builder valueAvailableCaseInvocationBuilder = CodeBlock
 				.builder()
 				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
-		final CodeBlock.Builder defaultCaseInvocationBuilder = CodeBlock
+		final CodeBlock.Builder valueUnavailableCaseInvocationBuilder = CodeBlock
 				.builder()
 				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
@@ -165,37 +164,37 @@ public class CallerGenerator {
 				final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
 				final MethodSpec argMethod = getPlaceholderGenerator.generateFor(useAnno, i);
 
-				nonDefaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
-				defaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
+				valueAvailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
+				valueUnavailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
 
 				callerBuilder.addMethod(argMethod);
 			} else {
 				final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
 				final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
 
-				final MethodSpec nonDefaultCaseArgMethod = getValueGenerator.generateFor(valueHandlerAnno);
-				final MethodSpec defaultCaseArgMethod = getDefaultGenerator.generateFor(defaultAnno);
+				final MethodSpec valueAvailableCaseArgMethod = getValueGenerator.generateFor(valueHandlerAnno);
+				final MethodSpec valueUnavailableCaseArgMethod = getDefaultGenerator.generateFor(defaultAnno);
 
-				nonDefaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(
-						nonDefaultCaseArgMethod,
+				valueAvailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(
+						valueAvailableCaseArgMethod,
 						parameter.asType()));
 
-				defaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(
-						defaultCaseArgMethod,
+				valueUnavailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(
+						valueUnavailableCaseArgMethod,
 						parameter.asType()));
 
-				callerBuilder.addMethod(nonDefaultCaseArgMethod);
-				callerBuilder.addMethod(defaultCaseArgMethod);
+				callerBuilder.addMethod(valueAvailableCaseArgMethod);
+				callerBuilder.addMethod(valueUnavailableCaseArgMethod);
 			}
 
 			if (i < e.getParameters().size() - 1) {
-				nonDefaultCaseInvocationBuilder.add(", ");
-				defaultCaseInvocationBuilder.add(", ");
+				valueAvailableCaseInvocationBuilder.add(", ");
+				valueUnavailableCaseInvocationBuilder.add(", ");
 			}
 		}
 
-		nonDefaultCaseInvocationBuilder.add(");");
-		defaultCaseInvocationBuilder.add(");");
+		valueAvailableCaseInvocationBuilder.add(");");
+		valueUnavailableCaseInvocationBuilder.add(");");
 
 		final MethodSpec valueIsAvailable = valueIsAvailableGenerator.generateFor(
 				ValueHandlerAnnoRetriever.getAnnotation(e));
@@ -205,9 +204,9 @@ public class CallerGenerator {
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N())", valueIsAvailable)
-						.add(nonDefaultCaseInvocationBuilder.build())
+						.add(valueAvailableCaseInvocationBuilder.build())
 						.nextControlFlow("else")
-						.add(defaultCaseInvocationBuilder.build())
+						.add(valueUnavailableCaseInvocationBuilder.build())
 						.endControlFlow()
 						.build())
 				.build();
