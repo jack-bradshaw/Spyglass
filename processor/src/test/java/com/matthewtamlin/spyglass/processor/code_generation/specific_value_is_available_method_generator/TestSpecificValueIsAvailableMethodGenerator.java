@@ -40,9 +40,9 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 
 	@Before
 	public void setup() {
-		generator = new SpecificValueIsAvailableMethodGenerator(new CoreHelpers(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils()));
+		final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
+
+		generator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

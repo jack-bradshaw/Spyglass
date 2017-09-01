@@ -53,9 +53,9 @@ public class TestGetValueMethodGenerator {
 
 	@Before
 	public void setup() {
-		generator = new GetValueMethodGenerator(new CoreHelpers(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils()));
+		final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
+
+		generator = new GetValueMethodGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

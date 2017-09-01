@@ -40,9 +40,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 	@Before
 	public void setup() {
-		final CoreHelpers coreHelpers = new CoreHelpers(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils());
+		final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
 		generator = new GetPlaceholderMethodGenerator(coreHelpers);
 	}
 
