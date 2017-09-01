@@ -21,11 +21,15 @@ public class TestTypeMirrorHelper {
 
 	private Elements elementUtils;
 
+	private Types typeUtils;
+
 	private TypeMirrorHelper helper;
 
 	@Before
 	public void setup() {
 		elementUtils = avatarRule.getElementUtils();
+		typeUtils = avatarRule.getTypeUtils();
+
 		helper = new TypeMirrorHelper(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
 	}
 
@@ -41,58 +45,58 @@ public class TestTypeMirrorHelper {
 
 	@Test
 	public void testIsPrimitive_typeMirrorForPrimitiveBoolean() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(boolean.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Boolean.class.getCanonicalName()).asType();
 
-		assertThat(helper.isPrimitive(typeMirror), is(true));
+		assertThat(helper.isPrimitive(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsPrimitive_typeMirrorForPrimitiveByte() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(byte.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Byte.class.getCanonicalName()).asType();
 
-		assertThat(helper.isPrimitive(typeMirror), is(true));
+		assertThat(helper.isPrimitive(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsPrimitive_typeMirrorForPrimitiveChar() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(char.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Character.class.getCanonicalName()).asType();
 
-		assertThat(helper.isPrimitive(typeMirror), is(true));
+		assertThat(helper.isPrimitive(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsPrimitive_typeMirrorForPrimitiveDouble() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(double.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Double.class.getCanonicalName()).asType();
 
-		assertThat(helper.isPrimitive(typeMirror), is(true));
+		assertThat(helper.isPrimitive(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsPrimitive_typeMirrorForPrimitiveFloat() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(float.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Float.class.getCanonicalName()).asType();
 
-		assertThat(helper.isPrimitive(typeMirror), is(true));
+		assertThat(helper.isPrimitive(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsPrimitive_typeMirrorForPrimitiveInt() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(int.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Integer.class.getCanonicalName()).asType();
 
-		assertThat(helper.isPrimitive(typeMirror), is(true));
+		assertThat(helper.isPrimitive(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsPrimitive_typeMirrorForPrimitiveLong() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(long.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Long.class.getCanonicalName()).asType();
 
-		assertThat(helper.isPrimitive(typeMirror), is(true));
+		assertThat(helper.isPrimitive(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsPrimitive_typeMirrorForPrimitiveShort() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(short.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Short.class.getCanonicalName()).asType();
 
-		assertThat(helper.isPrimitive(typeMirror), is(true));
+		assertThat(helper.isPrimitive(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
@@ -160,58 +164,58 @@ public class TestTypeMirrorHelper {
 
 	@Test
 	public void testIsNumber_typeMirrorForPrimitiveBoolean() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(boolean.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Boolean.class.getCanonicalName()).asType();
 
-		assertThat(helper.isNumber(typeMirror), is(false));
+		assertThat(helper.isNumber(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsNumber_typeMirrorForPrimitiveByte() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(byte.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Byte.class.getCanonicalName()).asType();
 
-		assertThat(helper.isNumber(typeMirror), is(true));
+		assertThat(helper.isNumber(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsNumber_typeMirrorForPrimitiveChar() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(char.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Character.class.getCanonicalName()).asType();
 
-		assertThat(helper.isNumber(typeMirror), is(false));
+		assertThat(helper.isNumber(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsNumber_typeMirrorForPrimitiveDouble() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(double.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Double.class.getCanonicalName()).asType();
 
-		assertThat(helper.isNumber(typeMirror), is(true));
+		assertThat(helper.isNumber(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsNumber_typeMirrorForPrimitiveFloat() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(float.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Float.class.getCanonicalName()).asType();
 
-		assertThat(helper.isNumber(typeMirror), is(true));
+		assertThat(helper.isNumber(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsNumber_typeMirrorForPrimitiveInt() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(int.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Integer.class.getCanonicalName()).asType();
 
-		assertThat(helper.isNumber(typeMirror), is(true));
+		assertThat(helper.isNumber(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsNumber_typeMirrorForPrimitiveLong() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(long.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Long.class.getCanonicalName()).asType();
 
-		assertThat(helper.isNumber(typeMirror), is(true));
+		assertThat(helper.isNumber(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsNumber_typeMirrorForPrimitiveShort() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(short.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Short.class.getCanonicalName()).asType();
 
-		assertThat(helper.isNumber(typeMirror), is(true));
+		assertThat(helper.isNumber(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
@@ -278,10 +282,10 @@ public class TestTypeMirrorHelper {
 	}
 
 	@Test
-	public void testIsNumber_typeMirrorForPrimitive() {
+	public void testIsNumber_typeMirrorForNumber() {
 		final TypeMirror typeMirror = elementUtils.getTypeElement(Number.class.getCanonicalName()).asType();
 
-		assertThat(helper.isNumber(typeMirror), is(false));
+		assertThat(helper.isNumber(typeMirror), is(true));
 	}
 
 	@Test
@@ -304,58 +308,58 @@ public class TestTypeMirrorHelper {
 
 	@Test
 	public void testIsCharacter_typeMirrorForPrimitiveBoolean() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(boolean.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Boolean.class.getCanonicalName()).asType();
 
-		assertThat(helper.isCharacter(typeMirror), is(false));
+		assertThat(helper.isCharacter(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsCharacter_typeMirrorForPrimitiveByte() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(byte.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Byte.class.getCanonicalName()).asType();
 
-		assertThat(helper.isCharacter(typeMirror), is(false));
+		assertThat(helper.isCharacter(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsCharacter_typeMirrorForPrimitiveChar() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(char.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Character.class.getCanonicalName()).asType();
 
-		assertThat(helper.isCharacter(typeMirror), is(true));
+		assertThat(helper.isCharacter(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsCharacter_typeMirrorForPrimitiveDouble() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(double.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Double.class.getCanonicalName()).asType();
 
-		assertThat(helper.isCharacter(typeMirror), is(false));
+		assertThat(helper.isCharacter(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsCharacter_typeMirrorForPrimitiveFloat() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(float.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Float.class.getCanonicalName()).asType();
 
-		assertThat(helper.isCharacter(typeMirror), is(false));
+		assertThat(helper.isCharacter(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsCharacter_typeMirrorForPrimitiveInt() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(int.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Integer.class.getCanonicalName()).asType();
 
-		assertThat(helper.isCharacter(typeMirror), is(false));
+		assertThat(helper.isCharacter(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsCharacter_typeMirrorForPrimitiveLong() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(long.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Long.class.getCanonicalName()).asType();
 
-		assertThat(helper.isCharacter(typeMirror), is(false));
+		assertThat(helper.isCharacter(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsCharacter_typeMirrorForPrimitiveShort() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(short.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Short.class.getCanonicalName()).asType();
 
-		assertThat(helper.isCharacter(typeMirror), is(false));
+		assertThat(helper.isCharacter(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
@@ -423,58 +427,58 @@ public class TestTypeMirrorHelper {
 
 	@Test
 	public void testIsBoolean_typeMirrorForPrimitiveBoolean() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(boolean.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Boolean.class.getCanonicalName()).asType();
 
-		assertThat(helper.isBoolean(typeMirror), is(true));
+		assertThat(helper.isBoolean(typeUtils.unboxedType(typeMirror)), is(true));
 	}
 
 	@Test
 	public void testIsBoolean_typeMirrorForPrimitiveByte() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(byte.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Byte.class.getCanonicalName()).asType();
 
-		assertThat(helper.isBoolean(typeMirror), is(false));
+		assertThat(helper.isBoolean(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsBoolean_typeMirrorForPrimitiveChar() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(char.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Character.class.getCanonicalName()).asType();
 
-		assertThat(helper.isBoolean(typeMirror), is(false));
+		assertThat(helper.isBoolean(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsBoolean_typeMirrorForPrimitiveDouble() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(double.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Double.class.getCanonicalName()).asType();
 
-		assertThat(helper.isBoolean(typeMirror), is(false));
+		assertThat(helper.isBoolean(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsBoolean_typeMirrorForPrimitiveFloat() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(float.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Float.class.getCanonicalName()).asType();
 
-		assertThat(helper.isBoolean(typeMirror), is(false));
+		assertThat(helper.isBoolean(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsBoolean_typeMirrorForPrimitiveInt() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(int.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Integer.class.getCanonicalName()).asType();
 
-		assertThat(helper.isBoolean(typeMirror), is(false));
+		assertThat(helper.isBoolean(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsBoolean_typeMirrorForPrimitiveLong() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(long.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Long.class.getCanonicalName()).asType();
 
-		assertThat(helper.isBoolean(typeMirror), is(false));
+		assertThat(helper.isBoolean(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
 	public void testIsBoolean_typeMirrorForPrimitiveShort() {
-		final TypeMirror typeMirror = elementUtils.getTypeElement(short.class.getCanonicalName()).asType();
+		final TypeMirror typeMirror = elementUtils.getTypeElement(Short.class.getCanonicalName()).asType();
 
-		assertThat(helper.isBoolean(typeMirror), is(false));
+		assertThat(helper.isBoolean(typeUtils.unboxedType(typeMirror)), is(false));
 	}
 
 	@Test
