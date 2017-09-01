@@ -49,9 +49,9 @@ public class TestValueIsAvailableMethodGenerator {
 
 	@Before
 	public void setup() {
-		generator = new ValueIsAvailableMethodGenerator(new CoreHelpers(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils()));
+		final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
+
+		generator = new ValueIsAvailableMethodGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

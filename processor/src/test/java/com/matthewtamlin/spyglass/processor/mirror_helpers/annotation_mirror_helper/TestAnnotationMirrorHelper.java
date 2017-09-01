@@ -34,7 +34,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Before
 	public void setup() {
-		helper = new AnnotationMirrorHelper(avatarRule.getProcessingEnvironment().getElementUtils());
+		helper = new AnnotationMirrorHelper(avatarRule.getElementUtils());
 	}
 
 	@Test(expected = IllegalArgumentException.class)

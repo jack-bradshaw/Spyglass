@@ -31,9 +31,7 @@ public class TestValidator {
 	public void setup() {
 		elements = avatarRule.getElementsWithAnnotation(Target.class);
 
-		validator = new Validator(new CoreHelpers(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils()));
+		validator = new Validator(new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)

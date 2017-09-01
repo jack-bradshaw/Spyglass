@@ -24,13 +24,14 @@ public class TestTypeMirrorHelper {
 					"type_mirror_helper/Data.java")
 			.build();
 
+	private Elements elementUtils;
+
 	private TypeMirrorHelper helper;
 
 	@Before
 	public void setup() {
-		helper = new TypeMirrorHelper(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils());
+		elementUtils = avatarRule.getElementUtils();
+		helper = new TypeMirrorHelper(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
 	}
 
 	@Test(expected = IllegalArgumentException.class)
