@@ -55,27 +55,4 @@ public class TypeMirrorHelper {
 
 		return typeUtil.isAssignable(typeMirror, booleanType) || typeMirror.toString().equals("boolean");
 	}
-
-	public TypeMirror boxPrimitive(final TypeMirror typeMirror) {
-		switch (typeMirror.toString()) {
-			case "byte":
-				return elementUtil.getTypeElement(Byte.class.getCanonicalName()).asType();
-			case "char":
-				return elementUtil.getTypeElement(Character.class.getCanonicalName()).asType();
-			case "short":
-				return elementUtil.getTypeElement(Short.class.getCanonicalName()).asType();
-			case "int":
-				return elementUtil.getTypeElement(Integer.class.getCanonicalName()).asType();
-			case "long":
-				return elementUtil.getTypeElement(Long.class.getCanonicalName()).asType();
-			case "float":
-				return elementUtil.getTypeElement(Float.class.getCanonicalName()).asType();
-			case "double":
-				return elementUtil.getTypeElement(Double.class.getCanonicalName()).asType();
-			case "boolean":
-				return elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
-			default:
-				throw new IllegalArgumentException("Argument \'typeMirror\' must be primitive.");
-		}
-	}
 }
