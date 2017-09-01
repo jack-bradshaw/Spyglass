@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.mirror_helpers.type_mirror_helper;
+package com.matthewtamlin.spyglass.processor.mirror_helpers;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
