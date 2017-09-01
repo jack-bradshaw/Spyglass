@@ -56,12 +56,6 @@ public class TypeMirrorHelper {
 		return typeUtil.isAssignable(typeMirror, booleanType) || typeMirror.toString().equals("boolean");
 	}
 
-	public boolean isEnum(final TypeMirror typeMirror) {
-		final TypeMirror enumType = elementUtil.getTypeElement(Enum.class.getCanonicalName()).asType();
-
-		return typeUtil.isAssignable(typeMirror, enumType);
-	}
-
 	public TypeMirror boxPrimitive(final TypeMirror typeMirror) {
 		switch (typeMirror.toString()) {
 			case "byte":
