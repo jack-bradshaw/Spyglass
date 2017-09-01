@@ -15,6 +15,7 @@ import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -83,9 +84,13 @@ public class MainProcessor extends AbstractProcessor {
 
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
-		final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
-		validateElements(allElements);
-		createCompanions(allElements);
+		try {
+			final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
+			validateElements(allElements);
+			createCompanions(allElements);
+		} catch (final Throwable t) {
+			messager.printMessage(ERROR, "An unknown error while processing spyglass annotations: " + t);
+		}
 
 		return false;
 	}
