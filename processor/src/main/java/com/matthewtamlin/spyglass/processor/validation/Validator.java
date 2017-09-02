@@ -165,14 +165,13 @@ public class Validator {
 		rules.add(new Rule() {
 			@Override
 			public void checkElement(final ExecutableElement element) throws ValidationException {
-				if (!checkParentsRecursively(element)) {
+				if (!hasStaticRoot(element)) {
 					throw new ValidationException("Methods with handler annotations must be accessible from static " +
 							"context.");
 				}
 			}
 
-			//TODO need to look into making this method better
-			private boolean checkParentsRecursively(final Element element) {
+			private boolean hasStaticRoot(final Element element) {
 				final TypeElement parent = (TypeElement) element.getEnclosingElement();
 
 				if (parent == null) {
