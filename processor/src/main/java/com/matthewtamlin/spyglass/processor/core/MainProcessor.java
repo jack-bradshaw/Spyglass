@@ -6,7 +6,7 @@ import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
 import com.matthewtamlin.spyglass.processor.grouper.Grouper;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
 import com.matthewtamlin.spyglass.processor.validation.ValidationException;
-import com.matthewtamlin.spyglass.processor.validation.Validator;
+import com.matthewtamlin.spyglass.processor.validation.BasicValidator;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -15,7 +15,6 @@ import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -116,7 +115,7 @@ public class MainProcessor extends AbstractProcessor {
 			}
 
 			try {
-				final Validator validator = new Validator(coreHelpers);
+				final BasicValidator validator = new BasicValidator(coreHelpers);
 
 				validator.validateElement((ExecutableElement) element);
 
