@@ -52,7 +52,7 @@ public class TestBasicValidator {
 			}
 
 			try {
-				validator.validateElement((ExecutableElement) element);
+				validator.validate((ExecutableElement) element);
 
 				if (!shouldPassValidation) {
 					throw new RuntimeException(
