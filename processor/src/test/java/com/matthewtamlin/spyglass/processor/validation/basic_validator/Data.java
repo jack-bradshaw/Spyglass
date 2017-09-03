@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.validation;
+package com.matthewtamlin.spyglass.processor.validation.basic_validator;
 
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;

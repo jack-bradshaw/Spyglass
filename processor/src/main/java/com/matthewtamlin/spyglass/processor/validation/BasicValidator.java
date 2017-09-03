@@ -25,7 +25,7 @@ import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.STATIC;
 
 @Tested(testMethod = "automated")
-public class Validator {
+public class BasicValidator {
 	private final List<Rule> rules = new ArrayList<>();
 
 	{

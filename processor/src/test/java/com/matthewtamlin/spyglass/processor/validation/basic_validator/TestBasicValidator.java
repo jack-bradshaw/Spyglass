@@ -1,7 +1,9 @@
-package com.matthewtamlin.spyglass.processor.validation;
+package com.matthewtamlin.spyglass.processor.validation.basic_validator;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
+import com.matthewtamlin.spyglass.processor.validation.BasicValidator;
+import com.matthewtamlin.spyglass.processor.validation.ValidationException;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -16,7 +18,7 @@ import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
 
 @RunWith(JUnit4.class)
-public class TestValidator {
+public class TestBasicValidator {
 	@Rule
 	public final AvatarRule avatarRule = AvatarRule
 			.builder()
@@ -25,18 +27,18 @@ public class TestValidator {
 
 	private Set<Element> elements;
 
-	private Validator validator;
+	private BasicValidator validator;
 
 	@Before
 	public void setup() {
 		elements = avatarRule.getElementsWithAnnotation(Target.class);
 
-		validator = new Validator(new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils()));
+		validator = new BasicValidator(new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils()));
 	}
 
 	@Test(expected = IllegalArgumentException.class)
 	public void testConstructor_nullTypeMirrorHelper() {
-		new Validator(null);
+		new BasicValidator(null);
 	}
 
 	@Test
