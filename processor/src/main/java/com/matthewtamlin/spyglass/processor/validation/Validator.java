@@ -2,18 +2,10 @@ package com.matthewtamlin.spyglass.processor.validation;
 
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.code_generation.GetPlaceholderMethodGenerator;
-import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
-import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
-import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
-import com.squareup.javapoet.MethodSpec;
 
 import java.lang.annotation.Annotation;
 import java.util.ArrayList;
@@ -24,16 +16,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import javax.lang.model.type.TypeMirror;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 
-import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.PRIVATE;
 import static javax.lang.model.element.Modifier.STATIC;
 
@@ -192,103 +179,6 @@ public class Validator {
 				throw new RuntimeException("Should never get here.");
 			}
 		});
-
-		// Every value handler annotation must be applicable to the annotated method
-		rules.add(new Rule() {
-			@Override
-			public void checkElement(final ExecutableElement element) throws ValidationException {
-				if (!ValueHandlerAnnoRetriever.hasAnnotation(element)) {
-					return;
-				}
-
-				final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(element);
-
-				final GetValueMethodGenerator methodGenerator = new GetValueMethodGenerator(coreHelpers);
-				final MethodSpec supplierMethod = methodGenerator.generateFor(valueHandlerAnno);
-				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
-
-				if (!isAssignable(suppliedType, getParameterWithoutUseAnnotation(element).asType())) {
-					throw new ValidationException("A value handler annotation was applied to a method incorrectly.");
-				}
-			}
-		});
-
-		// Every default annotation must be applicable to the annotated method
-		rules.add(new Rule() {
-			@Override
-			public void checkElement(final ExecutableElement element) throws ValidationException {
-				if (!DefaultAnnoRetriever.hasAnnotation(element)) {
-					return;
-				}
-
-				final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(element);
-
-				final GetDefaultMethodGenerator methodGenerator = new GetDefaultMethodGenerator(coreHelpers);
-				final MethodSpec supplierMethod = methodGenerator.generateFor(defaultAnno);
-				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
-
-				if (!isAssignable(suppliedType, getParameterWithoutUseAnnotation(element).asType())) {
-					throw new ValidationException("A default annotation was applied to a method incorrectly.");
-				}
-			}
-		});
-
-		// Every use annotation must be applicable to the annotated parameter
-		rules.add(new Rule() {
-			@Override
-			public void checkElement(final ExecutableElement element) throws ValidationException {
-				for (final VariableElement parameter : ((ExecutableElement) element).getParameters()) {
-					if (!UseAnnoRetriever.hasAnnotation(parameter)) {
-						return;
-					}
-
-					final boolean paramHasUseNullAnno = UseAnnoRetriever
-							.getAnnotation(parameter)
-							.getAnnotationType()
-							.toString()
-							.equals(UseNull.class.getName());
-
-					if (paramHasUseNullAnno) {
-						checkUseNullCase(parameter);
-					} else {
-						checkGeneralCase(parameter);
-					}
-				}
-			}
-
-			private void checkUseNullCase(final VariableElement parameter) throws ValidationException {
-				if (typeMirrorHelper.isPrimitive(parameter.asType())) {
-					throw new ValidationException("UseNull annotations cannot be applied to primitive parameters.");
-				}
-			}
-
-			private void checkGeneralCase(final VariableElement parameter) throws ValidationException {
-				final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
-
-				final GetPlaceholderMethodGenerator methodGenerator = new GetPlaceholderMethodGenerator(coreHelpers);
-				final MethodSpec supplierMethod = methodGenerator.generateFor(useAnno, 0);
-				final TypeMirror suppliedType = getReturnTypeAsTypeMirror(supplierMethod);
-
-				if (!isAssignable(suppliedType, parameter.asType())) {
-					throw new ValidationException("A use annotation was applied to a parameter incorrectly.");
-				}
-			}
-		});
-	}
-
-	private CoreHelpers coreHelpers;
-
-	private Elements elementUtil;
-
-	private Types typeHelper;
-
-	private TypeMirrorHelper typeMirrorHelper;
-
-	public Validator(final CoreHelpers coreHelpers) {
-		this.coreHelpers = checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
-		this.elementUtil = coreHelpers.getElementHelper();
-		this.typeHelper = coreHelpers.getTypeHelper();
-		this.typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
 	}
 
 	public void validateElement(final ExecutableElement element) throws ValidationException {
@@ -351,34 +241,6 @@ public class Validator {
 		}
 
 		return useAnnotations;
-	}
-
-	private TypeMirror getReturnTypeAsTypeMirror(final MethodSpec methodSpec) {
-		return elementUtil.getTypeElement(methodSpec.returnType.toString()).asType();
-	}
-
-	private static VariableElement getParameterWithoutUseAnnotation(final ExecutableElement method) {
-		for (final VariableElement parameter : method.getParameters()) {
-			if (!UseAnnoRetriever.hasAnnotation(parameter)) {
-				return parameter;
-			}
-		}
-
-		return null;
-	}
-
-	private boolean isAssignable(final TypeMirror suppliedType, final TypeMirror recipientType) {
-		if (typeHelper.isSubtype(suppliedType, recipientType) || typeHelper.isSameType(suppliedType, recipientType)) {
-			return true;
-		} else if (typeMirrorHelper.isNumber(suppliedType)) {
-			return typeMirrorHelper.isNumber(recipientType) || typeMirrorHelper.isCharacter(recipientType);
-
-		} else if (typeMirrorHelper.isBoolean(suppliedType)) {
-			return typeMirrorHelper.isBoolean(recipientType);
-
-		} else {
-			return false;
-		}
 	}
 
 	private static int countNonEmptySets(final Collection<? extends Set> collection) {
