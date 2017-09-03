@@ -5,8 +5,10 @@ import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
 import com.matthewtamlin.spyglass.processor.grouper.Grouper;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
+import com.matthewtamlin.spyglass.processor.validation.Result;
 import com.matthewtamlin.spyglass.processor.validation.ValidationException;
 import com.matthewtamlin.spyglass.processor.validation.BasicValidator;
+import com.matthewtamlin.spyglass.processor.validation.Validator;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
 import com.squareup.javapoet.MethodSpec;
@@ -114,16 +116,11 @@ public class MainProcessor extends AbstractProcessor {
 				throw new RuntimeException("A handler or default annotation was found on a non-method element.");
 			}
 
-			try {
-				final BasicValidator validator = new BasicValidator(coreHelpers);
+			final Validator basicValidator = new BasicValidator();
+			final Result result = basicValidator.validate((ExecutableElement) element);
 
-				validator.validateElement((ExecutableElement) element);
-
-			} catch (final ValidationException validationException) {
-				messager.printMessage(ERROR, validationException.getMessage(), element);
-
-			} catch (final Exception exception) {
-				messager.printMessage(ERROR, "Spyglass validation failure.", element);
+			if (!result.isSuccessful()) {
+				messager.printMessage(ERROR, result.getDescription());
 			}
 		}
 	}
