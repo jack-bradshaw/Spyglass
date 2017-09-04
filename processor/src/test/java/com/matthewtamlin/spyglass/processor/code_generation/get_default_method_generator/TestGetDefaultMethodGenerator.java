@@ -44,9 +44,8 @@ import javax.lang.model.element.Element;
 
 import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 public class TestGetDefaultMethodGenerator {
 	@Rule
@@ -304,7 +303,7 @@ public class TestGetDefaultMethodGenerator {
 	private void checkMethodSignature(final MethodSpec generatedMethod, final TypeName returnType) {
 		assertThat("Generated method must not be null.", generatedMethod, is(notNullValue()));
 		assertThat("Generated method has wrong return type.", generatedMethod.returnType, is(returnType));
-		assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters, hasSize(0));
+		assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters.size(), is(0));
 		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
 	}
 

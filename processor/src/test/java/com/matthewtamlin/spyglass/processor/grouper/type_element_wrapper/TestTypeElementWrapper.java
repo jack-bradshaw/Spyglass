@@ -9,10 +9,11 @@ import org.junit.Test;
 
 import javax.lang.model.element.TypeElement;
 
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.equalTo;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.not;
+
 
 public class TestTypeElementWrapper {
 	@Rule

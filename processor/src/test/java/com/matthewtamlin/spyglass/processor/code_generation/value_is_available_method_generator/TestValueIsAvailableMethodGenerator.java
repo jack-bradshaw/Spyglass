@@ -34,8 +34,9 @@ import javax.lang.model.element.Element;
 
 import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+
 
 public class TestValueIsAvailableMethodGenerator {
 	@Rule
