@@ -12,7 +12,7 @@ public abstract class Result {
 		return new AutoValue_Result(true, "Validation successful.");
 	}
 
-	public static Result createFailure(final String description) {
-		return new AutoValue_Result(false, description);
+	public static Result createFailure(final String description, final Object... args) {
+		return new AutoValue_Result(false, String.format(description, args));
 	}
 }
