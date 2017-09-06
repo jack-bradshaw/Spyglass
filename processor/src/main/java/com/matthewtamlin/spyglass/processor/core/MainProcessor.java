@@ -34,6 +34,7 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
 
 import static javax.tools.Diagnostic.Kind.ERROR;
 
@@ -42,13 +43,17 @@ public class MainProcessor extends AbstractProcessor {
 
 	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
 
+	private Elements elementUtil;
+
 	private Messager messager;
 
 	private Filer filer;
 
-	private CoreHelpers coreHelpers;
-
 	private CallerGenerator callerGenerator;
+
+	private Validator basicValidator;
+
+	private TypeValidator typeValidator;
 
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
@@ -64,11 +69,17 @@ public class MainProcessor extends AbstractProcessor {
 	public synchronized void init(final ProcessingEnvironment processingEnvironment) {
 		super.init(processingEnvironment);
 
+		elementUtil = processingEnvironment.getElementUtils();
 		messager = processingEnvironment.getMessager();
 		filer = processingEnvironment.getFiler();
 
-		coreHelpers = new CoreHelpers(processingEnvironment.getElementUtils(), processingEnvironment.getTypeUtils());
+		final CoreHelpers coreHelpers = new CoreHelpers(
+				processingEnvironment.getElementUtils(),
+				processingEnvironment.getTypeUtils());
+
 		callerGenerator = new CallerGenerator(coreHelpers);
+		basicValidator = new BasicValidator();
+		typeValidator = new TypeValidator(coreHelpers);
 
 		createFile(CallerDef.SRC_FILE, "Could not create Caller class file.");
 	}
@@ -89,8 +100,8 @@ public class MainProcessor extends AbstractProcessor {
 		try {
 			final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
 
-			if (basicValidationPasses(allElements)) {
-				if (typeValidationPasses(allElements)) {
+			if (allElementsPassValidation(allElements, basicValidator)) {
+				if (allElementsPassValidation(allElements, typeValidator)) {
 					createCompanions(allElements);
 				}
 			}
@@ -118,10 +129,8 @@ public class MainProcessor extends AbstractProcessor {
 		return supportedElements;
 	}
 
-	private boolean basicValidationPasses(final Set<? extends Element> elements) {
+	private boolean allElementsPassValidation(final Set<? extends Element> elements, final Validator validator) {
 		boolean allPassed = true;
-
-		final Validator validator = new BasicValidator();
 
 		for (final Element element : elements) {
 			// This check should never fail since handler and default annotations are restricted to methods
@@ -132,30 +141,8 @@ public class MainProcessor extends AbstractProcessor {
 			final Result result = validator.validate((ExecutableElement) element);
 
 			if (!result.isSuccessful()) {
-				messager.printMessage(ERROR, result.getDescription());
 				allPassed = false;
-			}
-		}
-
-		return allPassed;
-	}
-
-	private boolean typeValidationPasses(final Set<? extends Element> elements) {
-		boolean allPassed = true;
-
-		final Validator validator = new TypeValidator(coreHelpers);
-
-		for (final Element element : elements) {
-			// This check should never fail since handler and default annotations are restricted to methods
-			if (element.getKind() != ElementKind.METHOD) {
-				throw new RuntimeException("A handler or default annotation was found on a non-method element.");
-			}
-
-			final Result basicValidationResult = validator.validate((ExecutableElement) element);
-
-			if (!basicValidationResult.isSuccessful()) {
-				allPassed = false;
-				messager.printMessage(ERROR, basicValidationResult.getDescription());
+				messager.printMessage(ERROR, result.getDescription(), element);
 			}
 		}
 
@@ -197,7 +184,7 @@ public class MainProcessor extends AbstractProcessor {
 					.addMethod(activateCallers)
 					.build();
 
-			final PackageElement targetClassPackage = coreHelpers.getElementHelper().getPackageOf(targetClass.unwrap());
+			final PackageElement targetClassPackage = elementUtil.getPackageOf(targetClass.unwrap());
 
 			final JavaFile companionFile = JavaFile
 					.builder(targetClassPackage.getQualifiedName().toString(), companionClass)
