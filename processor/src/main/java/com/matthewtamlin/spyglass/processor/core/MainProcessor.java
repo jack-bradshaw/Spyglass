@@ -97,13 +97,9 @@ public class MainProcessor extends AbstractProcessor {
 		} catch (final Throwable t) {
 			messager.printMessage(
 					ERROR,
-					String.format(
-							"An unknown error occurred while processing Spyglass annotations. Please update to the " +
-									"latest version of Spyglass, or report the issue if a newer version does not " +
-									"exist. Error message: %1$s. Error cause: %2$s. Error stacktrace: %3$s.",
-							t.getMessage(),
-							t.getCause(),
-							Arrays.toString(t.getStackTrace())));
+					"An unknown error occurred while processing Spyglass annotations. Please update to the latest " +
+							"version of Spyglass, or report the issue if a newer version does not exist. Stacktrace: " +
+							Arrays.toString(t.getStackTrace()));
 		}
 
 		return false;
