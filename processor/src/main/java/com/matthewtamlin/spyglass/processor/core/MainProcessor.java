@@ -5,9 +5,9 @@ import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
 import com.matthewtamlin.spyglass.processor.grouper.Grouper;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
-import com.matthewtamlin.spyglass.processor.validation.Result;
-import com.matthewtamlin.spyglass.processor.validation.ValidationException;
 import com.matthewtamlin.spyglass.processor.validation.BasicValidator;
+import com.matthewtamlin.spyglass.processor.validation.Result;
+import com.matthewtamlin.spyglass.processor.validation.TypeValidator;
 import com.matthewtamlin.spyglass.processor.validation.Validator;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
@@ -87,8 +87,12 @@ public class MainProcessor extends AbstractProcessor {
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
 		try {
 			final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
-			validateElements(allElements);
-			createCompanions(allElements);
+
+			if (basicValidationPasses(allElements)) {
+				if (typeValidationPasses(allElements)) {
+					createCompanions(allElements);
+				}
+			}
 		} catch (final Throwable t) {
 			messager.printMessage(ERROR, "An unknown error while processing spyglass annotations: " + t);
 		}
@@ -109,20 +113,48 @@ public class MainProcessor extends AbstractProcessor {
 		return supportedElements;
 	}
 
-	private void validateElements(final Set<? extends Element> elements) {
+	private boolean basicValidationPasses(final Set<? extends Element> elements) {
+		boolean allPassed = true;
+
+		final Validator validator = new BasicValidator();
+
 		for (final Element element : elements) {
 			// This check should never fail since handler and default annotations are restricted to methods
 			if (element.getKind() != ElementKind.METHOD) {
 				throw new RuntimeException("A handler or default annotation was found on a non-method element.");
 			}
 
-			final Validator basicValidator = new BasicValidator();
-			final Result result = basicValidator.validate((ExecutableElement) element);
+			final Result result = validator.validate((ExecutableElement) element);
 
 			if (!result.isSuccessful()) {
 				messager.printMessage(ERROR, result.getDescription());
+				allPassed = false;
 			}
 		}
+
+		return allPassed;
+	}
+
+	private boolean typeValidationPasses(final Set<? extends Element> elements) {
+		boolean allPassed = true;
+
+		final Validator validator = new TypeValidator(coreHelpers);
+
+		for (final Element element : elements) {
+			// This check should never fail since handler and default annotations are restricted to methods
+			if (element.getKind() != ElementKind.METHOD) {
+				throw new RuntimeException("A handler or default annotation was found on a non-method element.");
+			}
+
+			final Result basicValidationResult = validator.validate((ExecutableElement) element);
+
+			if (!basicValidationResult.isSuccessful()) {
+				allPassed = false;
+				messager.printMessage(ERROR, basicValidationResult.getDescription());
+			}
+		}
+
+		return allPassed;
 	}
 
 	private void createCompanions(final Set<ExecutableElement> elements) {
