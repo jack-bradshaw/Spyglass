@@ -97,23 +97,23 @@ public class SpecificValueIsAvailableMethodGenerator {
 	 * value is available, and false otherwise. What exactly it means for a value to be available and which value is
 	 * of interest is defined by each specific implementation.
 	 *
-	 * @param anno
+	 * @param callHandlerAnno
 	 * 		the annotation to use when generating the method body, not null
 	 *
 	 * @return the method spec, not null
 	 *
 	 * @throws IllegalArgumentException
-	 * 		if {@code anno} is null
+	 * 		if {@code callHandlerAnno} is null
 	 */
-	public MethodSpec generateFor(final AnnotationMirror anno) {
-		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+	public MethodSpec generateFor(final AnnotationMirror callHandlerAnno) {
+		checkNotNull(callHandlerAnno, "Argument \'callHandlerAnno\' cannot be null.");
 
-		final String annotationTypeName = anno.getAnnotationType().toString();
+		final String annoClassName = callHandlerAnno.getAnnotationType().toString();
 
 		return MethodSpec
 				.methodBuilder("specificValueIsAvailable")
 				.returns(Boolean.class)
-				.addCode(methodBodySuppliers.get(annotationTypeName).supplyFor(anno))
+				.addCode(methodBodySuppliers.get(annoClassName).supplyFor(callHandlerAnno))
 				.build();
 	}
 

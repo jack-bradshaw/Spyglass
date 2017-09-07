@@ -26,6 +26,7 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
+import static jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType.W;
 
 @Tested(testMethod = "automated")
 public class GetValueMethodGenerator {
@@ -282,19 +283,20 @@ public class GetValueMethodGenerator {
 	 * queries the supplied typed array and returns a value from it. Exactly what is returned is determined by each
 	 * specific implementation.
 	 *
-	 * @param anno
+	 * @param valueHandlerAnno
 	 * 		the annotation to use when generating the method body, not null
 	 *
 	 * @return the method spec, not null
 	 *
 	 * @throws IllegalArgumentException
-	 * 		if {@code anno} is null
+	 * 		if {@code valueHandlerAnno} is null
 	 */
-	public MethodSpec generateFor(final AnnotationMirror anno) {
-		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+	public MethodSpec generateFor(final AnnotationMirror valueHandlerAnno) {
+		checkNotNull(valueHandlerAnno, "Argument \'valueHandlerAnno\' cannot be null.");
 
-		final String annotationType = anno.getAnnotationType().toString();
-		return methodSpecSuppliers.get(annotationType).supplyFor(anno);
+		final String annoClassName = valueHandlerAnno.getAnnotationType().toString();
+
+		return methodSpecSuppliers.get(annoClassName).supplyFor(valueHandlerAnno);
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {

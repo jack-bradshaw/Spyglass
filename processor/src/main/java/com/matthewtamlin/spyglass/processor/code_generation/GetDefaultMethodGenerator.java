@@ -420,19 +420,20 @@ public class GetDefaultMethodGenerator {
 	 * returns some value using a context and a typed array. Exactly what is returned is determined by each specific
 	 * implementation.
 	 *
-	 * @param anno
+	 * @param defaultAnno
 	 * 		the annotation to use when generating the method body, not null
 	 *
 	 * @return the method spec, not null
 	 *
 	 * @throws IllegalArgumentException
-	 * 		if {@code anno} is null
+	 * 		if {@code defaultAnno} is null
 	 */
-	public MethodSpec generateFor(final AnnotationMirror anno) {
-		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+	public MethodSpec generateFor(final AnnotationMirror defaultAnno) {
+		checkNotNull(defaultAnno, "Argument \'defaultAnno\' cannot be null.");
 
-		final String annotationType = anno.getAnnotationType().toString();
-		return methodSpecSuppliers.get(annotationType).supplyFor(anno);
+		final String annoClassName = defaultAnno.getAnnotationType().toString();
+
+		return methodSpecSuppliers.get(annoClassName).supplyFor(defaultAnno);
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
