@@ -117,6 +117,10 @@ public class GetPlaceholderMethodGenerator {
 
 		final String annoClassName = useAnno.getAnnotationType().toString();
 
+		if (!methodSpecSuppliers.containsKey(annoClassName)) {
+			throw new IllegalArgumentException("Argument \'useAnno\' is not a use annotation.");
+		}
+
 		return methodSpecSuppliers.get(annoClassName).supplyFor(useAnno, parameterIndex);
 	}
 

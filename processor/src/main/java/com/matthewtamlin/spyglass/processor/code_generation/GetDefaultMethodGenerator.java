@@ -31,7 +31,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
@@ -427,11 +426,17 @@ public class GetDefaultMethodGenerator {
 	 *
 	 * @throws IllegalArgumentException
 	 * 		if {@code defaultAnno} is null
+	 * @throws IllegalArgumentException
+	 * 		if {@code defaultAnno} is not a default annotation
 	 */
 	public MethodSpec generateFor(final AnnotationMirror defaultAnno) {
 		checkNotNull(defaultAnno, "Argument \'defaultAnno\' cannot be null.");
 
 		final String annoClassName = defaultAnno.getAnnotationType().toString();
+
+		if (!methodSpecSuppliers.containsKey(annoClassName)) {
+			throw new IllegalArgumentException("Argument \'defaultAnno\' is not a default annotation.");
+		}
 
 		return methodSpecSuppliers.get(annoClassName).supplyFor(defaultAnno);
 	}

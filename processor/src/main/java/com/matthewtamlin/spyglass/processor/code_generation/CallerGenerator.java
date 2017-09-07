@@ -68,7 +68,7 @@ public class CallerGenerator {
 						attrsParameter);
 			}
 		} else {
-			return null;
+			throw new IllegalArgumentException("Argument \'method\' does not have a handler annotation.");
 		}
 	}
 

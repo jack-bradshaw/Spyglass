@@ -15,7 +15,6 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static javax.lang.model.element.Modifier.FINAL;
 
 @Tested(testMethod = "automated")
 public class SpecificValueIsAvailableMethodGenerator {
@@ -104,11 +103,17 @@ public class SpecificValueIsAvailableMethodGenerator {
 	 *
 	 * @throws IllegalArgumentException
 	 * 		if {@code callHandlerAnno} is null
+	 * @throws IllegalArgumentException
+	 * 		if {@code callHandlerAnno} is not a call handler annotation
 	 */
 	public MethodSpec generateFor(final AnnotationMirror callHandlerAnno) {
 		checkNotNull(callHandlerAnno, "Argument \'callHandlerAnno\' cannot be null.");
 
 		final String annoClassName = callHandlerAnno.getAnnotationType().toString();
+
+		if (!methodBodySuppliers.containsKey(annoClassName)) {
+			throw new IllegalArgumentException("Argument \'callHandlerAnno\' is not a call handler annotation.");
+		}
 
 		return MethodSpec
 				.methodBuilder("specificValueIsAvailable")

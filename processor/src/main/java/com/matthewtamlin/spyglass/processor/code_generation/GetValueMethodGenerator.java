@@ -26,7 +26,6 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static jdk.nashorn.internal.runtime.regexp.joni.encoding.CharacterType.W;
 
 @Tested(testMethod = "automated")
 public class GetValueMethodGenerator {
@@ -290,11 +289,17 @@ public class GetValueMethodGenerator {
 	 *
 	 * @throws IllegalArgumentException
 	 * 		if {@code valueHandlerAnno} is null
+	 * @throws IllegalArgumentException
+	 * 		if {@code valueHandlerAnno} is not a value handler annotation
 	 */
 	public MethodSpec generateFor(final AnnotationMirror valueHandlerAnno) {
 		checkNotNull(valueHandlerAnno, "Argument \'valueHandlerAnno\' cannot be null.");
 
 		final String annoClassName = valueHandlerAnno.getAnnotationType().toString();
+
+		if (!methodSpecSuppliers.containsKey(annoClassName)) {
+			throw new IllegalArgumentException("Argument \'valueHandlerAnno\' cannot contain null.");
+		}
 
 		return methodSpecSuppliers.get(annoClassName).supplyFor(valueHandlerAnno);
 	}
