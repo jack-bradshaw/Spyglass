@@ -155,8 +155,8 @@ public class CallerGenerator {
 
 		invocationBuilder.add(");");
 
-		final MethodSpec specificValueIsAvailable = specificValueIsAvailableGenerator.generateFor(
-				CallHandlerAnnoRetriever.getAnnotation(e));
+		final MethodSpec specificValueIsAvailable = valueIsAvailableGenerator.generateFor(
+				ValueHandlerAnnoRetriever.getAnnotation(e));
 
 		final MethodSpec call = CallerDef
 				.getNewCallMethodPrototype()
