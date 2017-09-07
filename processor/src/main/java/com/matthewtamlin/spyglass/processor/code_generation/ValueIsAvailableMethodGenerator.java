@@ -277,11 +277,17 @@ public class ValueIsAvailableMethodGenerator {
 	 *
 	 * @throws IllegalArgumentException
 	 * 		if {@code valueHandlerAnno} is null
+	 * @throws IllegalArgumentException
+	 * 		if {@code valueHandlerAnno} is not a value handler annotation
 	 */
 	public MethodSpec generateFor(final AnnotationMirror valueHandlerAnno) {
 		checkNotNull(valueHandlerAnno, "Argument \'valueHandlerAnno\' cannot be null.");
 
 		final String annoClassName = valueHandlerAnno.getAnnotationType().toString();
+
+		if (!methodBodySuppliers.containsKey(annoClassName)) {
+			throw new IllegalArgumentException("Argument \'valueHandlerAnno\' is not a value handler annotation.");
+		}
 
 		return MethodSpec
 				.methodBuilder("valueIsAvailable")
