@@ -23,10 +23,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.B
 import static com.matthewtamlin.spyglass.common.units.DimensionUnit.DP;
 
 public class Data {
-	@ElementId("no default annotation")
-	@BooleanHandler(attributeId = 1)
-	public void noDefaultAnnotation() {}
-
 	@ElementId("boolean")
 	@DefaultToBoolean(true)
 	public void withBoolean() {}

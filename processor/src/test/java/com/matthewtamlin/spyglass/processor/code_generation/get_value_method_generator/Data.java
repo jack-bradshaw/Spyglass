@@ -15,10 +15,6 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.I
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
 
 public class Data {
-	@ElementId("no value handler")
-	@DefaultToBoolean(true)
-	public void noValueHandlerAnnotation() {}
-
 	@ElementId("boolean")
 	@BooleanHandler(attributeId = 1)
 	public void withBoolean() {}
