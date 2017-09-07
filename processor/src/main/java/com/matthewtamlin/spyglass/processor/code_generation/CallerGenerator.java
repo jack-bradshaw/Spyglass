@@ -43,25 +43,46 @@ public class CallerGenerator {
 		wrapperGenerator = new CastWrapperGenerator(coreHelpers);
 	}
 
-	public TypeSpec generateFor(final ExecutableElement method) {
+	public TypeSpec generateFor(
+			final ExecutableElement method,
+			final CodeBlock contextParameter,
+			final CodeBlock targetParameter,
+			final CodeBlock attrsParameter) {
+
 		checkNotNull(method, "Argument \'method\' cannot be null.");
+		checkNotNull(contextParameter, "Argument \'contextParameter\' cannot be null.");
+		checkNotNull(targetParameter, "Argument \'targetParameter\' cannot be null.");
+		checkNotNull(attrsParameter, "Argument \'attrsParameter\' cannot be null.");
 
 		if (CallHandlerAnnoRetriever.hasAnnotation(method)) {
-			return generateForCallHandler(method);
+			return generateForCallHandler(method, contextParameter, targetParameter, attrsParameter);
 
 		} else if (ValueHandlerAnnoRetriever.hasAnnotation(method)) {
-			return DefaultAnnoRetriever.hasAnnotation(method) ?
-					generateForValueHandlerWithDefault(method) :
-					generateCallerForValueHandlerWithoutDefault(method);
-
+			if (DefaultAnnoRetriever.hasAnnotation(method)) {
+				return generateForValueHandlerWithDefault(method, contextParameter, targetParameter, attrsParameter);
+			} else {
+				return generateCallerForValueHandlerWithoutDefault(
+						method,
+						contextParameter,
+						targetParameter,
+						attrsParameter);
+			}
 		} else {
 			return null;
 		}
 	}
 
-	private TypeSpec generateForCallHandler(final ExecutableElement e) {
-		final TypeSpec.Builder callerBuilder = CallerDef
-				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
+	private TypeSpec generateForCallHandler(
+			final ExecutableElement e,
+			final CodeBlock contextParameter,
+			final CodeBlock targetParameter,
+			final CodeBlock attrsParameter) {
+
+		final TypeSpec.Builder callerBuilder = CallerDef.getNewAnonymousCallerPrototype(
+				getNameOfTargetClass(e),
+				contextParameter,
+				targetParameter,
+				attrsParameter);
 
 		final CodeBlock.Builder invocationBuilder = CodeBlock
 				.builder()
@@ -101,9 +122,17 @@ public class CallerGenerator {
 				.build();
 	}
 
-	private TypeSpec generateCallerForValueHandlerWithoutDefault(final ExecutableElement e) {
-		final TypeSpec.Builder callerBuilder = CallerDef
-				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
+	private TypeSpec generateCallerForValueHandlerWithoutDefault(
+			final ExecutableElement e,
+			final CodeBlock contextParameter,
+			final CodeBlock targetParameter,
+			final CodeBlock attrsParameter) {
+
+		final TypeSpec.Builder callerBuilder = CallerDef.getNewAnonymousCallerPrototype(
+				getNameOfTargetClass(e),
+				contextParameter,
+				targetParameter,
+				attrsParameter);
 
 		final CodeBlock.Builder invocationBuilder = CodeBlock
 				.builder()
@@ -145,9 +174,17 @@ public class CallerGenerator {
 				.build();
 	}
 
-	private TypeSpec generateForValueHandlerWithDefault(final ExecutableElement e) {
-		final TypeSpec.Builder callerBuilder = CallerDef
-				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
+	private TypeSpec generateForValueHandlerWithDefault(
+			final ExecutableElement e,
+			final CodeBlock contextParameter,
+			final CodeBlock targetParameter,
+			final CodeBlock attrsParameter) {
+
+		final TypeSpec.Builder callerBuilder = CallerDef.getNewAnonymousCallerPrototype(
+				getNameOfTargetClass(e),
+				contextParameter,
+				targetParameter,
+				attrsParameter);
 
 		final CodeBlock.Builder valueAvailableCaseInvocationBuilder = CodeBlock
 				.builder()
