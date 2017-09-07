@@ -30,17 +30,14 @@ public class CastWrapperGenerator {
 	public CodeBlock generateFor(final MethodSpec method, final TypeMirror recipient) {
 		final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
 
-		if (typeHelper.isAssignable(methodReturnType, recipient)) {
+		if (complexCastIsPossible(methodReturnType, recipient)) {
+			return generateComplexCastWrapperFor(method, recipient);
+
+		} else {
 			return CodeBlock
 					.builder()
 					.add("($T) $N()", recipient, method)
 					.build();
-
-		} else if (complexCastIsPossible(methodReturnType, recipient)) {
-			return generateComplexCastWrapperFor(method, recipient);
-
-		} else {
-			return null;
 		}
 	}
 
