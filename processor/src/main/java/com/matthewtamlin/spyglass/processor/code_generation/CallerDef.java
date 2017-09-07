@@ -134,12 +134,18 @@ public final class CallerDef {
 				.superclass(specificCaller);
 	}
 
-	public static TypeSpec.Builder getNewAnonymousCallerPrototype(final TypeName targetType) {
+	public static TypeSpec.Builder getNewAnonymousCallerPrototype(
+			final TypeName targetType,
+			final CodeBlock contextParameter,
+			final CodeBlock targetParameter,
+			final CodeBlock attrsParameter) {
+
 		final ClassName genericCaller = ClassName.get(CallerDef.SRC_FILE.packageName, CallerDef.ABSTRACT_CALLER.name);
 		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
 
 		return TypeSpec
-				.anonymousClassBuilder("")
+				.anonymousClassBuilder(
+						CodeBlock.of("$L, $L, $L", contextParameter, targetParameter, attrsParameter).toString())
 				.addSuperinterface(specificCaller);
 	}
 

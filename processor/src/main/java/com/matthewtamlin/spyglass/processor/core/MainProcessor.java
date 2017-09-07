@@ -158,7 +158,11 @@ public class MainProcessor extends AbstractProcessor {
 			boolean firstLoop = true;
 
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
-				final TypeSpec anonymousCaller = callerGenerator.generateFor(method);
+				final TypeSpec anonymousCaller = callerGenerator.generateFor(
+						method,
+						CodeBlock.of("context"),
+						CodeBlock.of("target"),
+						CodeBlock.of("attrs"));
 
 				if (firstLoop) {
 					firstLoop = false;
@@ -166,7 +170,7 @@ public class MainProcessor extends AbstractProcessor {
 					methodBody.add("\n");
 				}
 
-				methodBody.addStatement("$L.call(target, context, attrs)", anonymousCaller);
+				methodBody.addStatement("$L.call()", anonymousCaller);
 			}
 
 			final MethodSpec activateCallers = MethodSpec
