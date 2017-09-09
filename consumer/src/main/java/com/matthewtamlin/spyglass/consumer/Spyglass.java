@@ -63,10 +63,8 @@ public class Spyglass {
 				builder.defStyleAttr,
 				builder.defStyleRes);
 
-		final String annotationSourceName = builder.annotationSource.getCanonicalName();
-
 		try {
-			companionClass = Class.forName(annotationSourceName + "_SpyglassCompanion");
+			companionClass = Class.forName(CompanionNamer.getCompanionNameFor(annotationSource));
 		} catch (final ClassNotFoundException e) {
 			throw new RuntimeException(
 					"No companion class found, this should never happen. Class check already done in builder.", e);
