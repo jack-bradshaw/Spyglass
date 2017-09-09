@@ -197,8 +197,8 @@ public class MainProcessor extends AbstractProcessor {
 					.build();
 
 			final TypeSpec companionClass = TypeSpec
-					.classBuilder(targetClass.unwrap().getSimpleName() + COMPANION_CLASS_NAME_SUFFIX)
-					.addMethod(activateCallers)
+					.classBuilder(CompanionNamer.getCompanionNameFor(targetClass.unwrap(), "SpyglassCompanion"))
+					.addMethod(activateCallers.build())
 					.build();
 
 			final PackageElement targetClassPackage = elementUtil.getPackageOf(targetClass.unwrap());
