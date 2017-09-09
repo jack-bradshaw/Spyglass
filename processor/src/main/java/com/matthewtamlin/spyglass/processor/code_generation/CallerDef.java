@@ -136,8 +136,8 @@ public final class CallerDef {
 
 	public static TypeSpec.Builder getNewAnonymousCallerPrototype(
 			final TypeName targetType,
-			final CodeBlock contextParameter,
 			final CodeBlock targetParameter,
+			final CodeBlock contextParameter,
 			final CodeBlock attrsParameter) {
 
 		final ClassName genericCaller = ClassName.get(CallerDef.SRC_FILE.packageName, CallerDef.ABSTRACT_CALLER.name);

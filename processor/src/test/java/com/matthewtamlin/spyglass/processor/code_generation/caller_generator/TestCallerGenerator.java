@@ -75,8 +75,8 @@ public class TestCallerGenerator {
 
 		callerGenerator.generateFor(
 				element,
-				CodeBlock.of("context"),
 				CodeBlock.of("target"),
+				CodeBlock.of("context"),
 				CodeBlock.of("attrs"));
 	}
 
@@ -86,8 +86,8 @@ public class TestCallerGenerator {
 
 		final TypeSpec result = callerGenerator.generateFor(
 				element,
-				CodeBlock.of("context"),
 				CodeBlock.of("target"),
+				CodeBlock.of("context"),
 				CodeBlock.of("attrs"));
 
 		assertThat(result, is(notNullValue()));
@@ -100,8 +100,8 @@ public class TestCallerGenerator {
 
 		final TypeSpec result = callerGenerator.generateFor(
 				element,
-				CodeBlock.of("context"),
 				CodeBlock.of("target"),
+				CodeBlock.of("context"),
 				CodeBlock.of("attrs"));
 
 		assertThat(result, is(notNullValue()));
@@ -114,8 +114,8 @@ public class TestCallerGenerator {
 
 		final TypeSpec result = callerGenerator.generateFor(
 				element,
-				CodeBlock.of("context"),
 				CodeBlock.of("target"),
+				CodeBlock.of("context"),
 				CodeBlock.of("attrs"));
 
 		assertThat(result, is(notNullValue()));

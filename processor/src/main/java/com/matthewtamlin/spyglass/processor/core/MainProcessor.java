@@ -173,8 +173,8 @@ public class MainProcessor extends AbstractProcessor {
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
 				final TypeSpec anonymousCaller = callerGenerator.generateFor(
 						method,
-						CodeBlock.of("context"),
 						CodeBlock.of("target"),
+						CodeBlock.of("context"),
 						CodeBlock.of("attrs"));
 
 				if (firstLoop) {
