@@ -194,6 +194,12 @@ public class CallerGenerator {
 				.builder()
 				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
+		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
+		final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
+
+		callerBuilder.addMethod(getValueMethod);
+		callerBuilder.addMethod(getDefaultMethod);
+
 		for (int i = 0; i < e.getParameters().size(); i++) {
 			final VariableElement parameter = e.getParameters().get(i);
 
@@ -206,22 +212,16 @@ public class CallerGenerator {
 
 				callerBuilder.addMethod(argMethod);
 			} else {
-				final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
-				final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
-
-				final MethodSpec valueAvailableCaseArgMethod = getValueGenerator.generateFor(valueHandlerAnno);
-				final MethodSpec valueUnavailableCaseArgMethod = getDefaultGenerator.generateFor(defaultAnno);
+				final MethodSpec getValueMethod = getValueGenerator.generateFor(valueHandlerAnno);
+				final MethodSpec getDefaultMethod = getDefaultGenerator.generateFor(defaultAnno);
 
 				valueAvailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(
-						valueAvailableCaseArgMethod,
+						getValueMethod,
 						parameter.asType()));
 
 				valueUnavailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(
-						valueUnavailableCaseArgMethod,
+						getDefaultMethod,
 						parameter.asType()));
-
-				callerBuilder.addMethod(valueAvailableCaseArgMethod);
-				callerBuilder.addMethod(valueUnavailableCaseArgMethod);
 			}
 
 			if (i < e.getParameters().size() - 1) {
