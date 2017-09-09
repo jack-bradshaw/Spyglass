@@ -39,8 +39,6 @@ import javax.lang.model.util.Elements;
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class MainProcessor extends AbstractProcessor {
-	private static final String COMPANION_CLASS_NAME_SUFFIX = "_SpyglassCompanion";
-
 	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
 
 	private Elements elementUtil;
@@ -197,7 +195,7 @@ public class MainProcessor extends AbstractProcessor {
 			activateCallers.addCode(methodBody.build());
 
 			final TypeSpec companionClass = TypeSpec
-					.classBuilder(CompanionNamer.getCompanionNameFor(targetClass.unwrap(), "SpyglassCompanion"))
+					.classBuilder(CompanionNamer.getCompanionNameFor(targetClass.unwrap()))
 					.addMethod(activateCallers.build())
 					.build();
 

@@ -4,8 +4,8 @@ import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.TypeElement;
 
 public class CompanionNamer {
-	public static String getCompanionNameFor(final TypeElement targetClass, final String companionSuffix) {
-		return getPrefix(targetClass) + "_" + companionSuffix;
+	public static String getCompanionNameFor(final TypeElement targetClass) {
+		return getPrefix(targetClass) + "_SpyglassCompanion";
 	}
 
 	private static String getPrefix(final TypeElement targetClass) {
