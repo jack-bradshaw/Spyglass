@@ -122,7 +122,8 @@ public class MainProcessor extends AbstractProcessor {
 					String.format(
 							"An unknown error occurred while processing Spyglass annotations. Please update to the " +
 									"latest version of Spyglass, or report the issue if a newer version does not " +
-									"exist. Exception message: \'%1$s\'. Stacktrace: \'%2$s\'.",
+									"exist. Error message: \'%1$s\'. Stacktrace: " +
+									"\'%2$s\'.",
 							t.getMessage(),
 							Arrays.toString(t.getStackTrace())));
 		}
