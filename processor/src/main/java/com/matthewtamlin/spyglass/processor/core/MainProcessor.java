@@ -166,6 +166,14 @@ public class MainProcessor extends AbstractProcessor {
 		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = Grouper.groupByEnclosingClass(elements);
 
 		for (final TypeElementWrapper targetClass : sortedElements.keySet()) {
+			final MethodSpec.Builder activateCallers = MethodSpec
+					.methodBuilder("activateCallers")
+					.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+					.returns(void.class)
+					.addParameter(TypeName.get(targetClass.unwrap().asType()), "target")
+					.addParameter(AndroidClassNames.CONTEXT, "context")
+					.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs");
+
 			final CodeBlock.Builder methodBody = CodeBlock.builder();
 
 			boolean firstLoop = true;
@@ -186,15 +194,7 @@ public class MainProcessor extends AbstractProcessor {
 				methodBody.addStatement("$L.call()", anonymousCaller);
 			}
 
-			final MethodSpec activateCallers = MethodSpec
-					.methodBuilder("activateCallers")
-					.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-					.returns(void.class)
-					.addParameter(TypeName.get(targetClass.unwrap().asType()), "target")
-					.addParameter(AndroidClassNames.CONTEXT, "context")
-					.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs")
-					.addCode(methodBody.build())
-					.build();
+			activateCallers.addCode(methodBody.build());
 
 			final TypeSpec companionClass = TypeSpec
 					.classBuilder(CompanionNamer.getCompanionNameFor(targetClass.unwrap(), "SpyglassCompanion"))
