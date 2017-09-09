@@ -195,9 +195,11 @@ public class CallerGenerator {
 				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
 		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
-		final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
-
+		final MethodSpec getValueMethod = getValueGenerator.generateFor(valueHandlerAnno);
 		callerBuilder.addMethod(getValueMethod);
+
+		final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
+		final MethodSpec getDefaultMethod = getDefaultGenerator.generateFor(defaultAnno);
 		callerBuilder.addMethod(getDefaultMethod);
 
 		for (int i = 0; i < e.getParameters().size(); i++) {
@@ -212,9 +214,6 @@ public class CallerGenerator {
 
 				callerBuilder.addMethod(argMethod);
 			} else {
-				final MethodSpec getValueMethod = getValueGenerator.generateFor(valueHandlerAnno);
-				final MethodSpec getDefaultMethod = getDefaultGenerator.generateFor(defaultAnno);
-
 				valueAvailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(
 						getValueMethod,
 						parameter.asType()));
