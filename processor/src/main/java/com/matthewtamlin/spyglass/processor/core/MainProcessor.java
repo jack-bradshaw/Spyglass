@@ -55,6 +55,10 @@ public class MainProcessor extends AbstractProcessor {
 
 	private TypeValidator typeValidator;
 
+	private boolean callerFileCreatedSuccessfully;
+
+	private boolean callerFileFailureMessageDisplayed;
+
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
 
@@ -81,7 +85,7 @@ public class MainProcessor extends AbstractProcessor {
 		basicValidator = new BasicValidator();
 		typeValidator = new TypeValidator(coreHelpers);
 
-		createFile(CallerDef.SRC_FILE, "Could not create Caller class file.");
+		callerFileCreatedSuccessfully = createFile(CallerDef.SRC_FILE, "Could not create Caller class file.");
 	}
 
 	@Override
@@ -97,6 +101,15 @@ public class MainProcessor extends AbstractProcessor {
 
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
+		if (!callerFileCreatedSuccessfully) {
+			if (!callerFileFailureMessageDisplayed) {
+				messager.printMessage(ERROR, "Base Caller class could not be created. Aborting Spyglass processing.");
+				callerFileFailureMessageDisplayed = true;
+			}
+
+			return false;
+		}
+
 		try {
 			final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
 
@@ -203,11 +216,16 @@ public class MainProcessor extends AbstractProcessor {
 		}
 	}
 
-	private void createFile(final JavaFile file, final String errorMessage) {
+	private boolean createFile(final JavaFile file, final String errorMessage) {
 		try {
 			file.writeTo(filer);
+
+			return true;
+
 		} catch (final IOException e) {
 			messager.printMessage(ERROR, errorMessage);
+
+			return false;
 		}
 	}
 }
