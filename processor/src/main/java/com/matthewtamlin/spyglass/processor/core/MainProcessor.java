@@ -176,9 +176,8 @@ public class MainProcessor extends AbstractProcessor {
 					.addParameter(AndroidClassNames.CONTEXT, "context")
 					.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs");
 
-			final CodeBlock.Builder methodBody = CodeBlock.builder();
-
-			boolean firstLoop = true;
+			final CodeBlock.Builder methodBody = CodeBlock
+					.builder();
 
 			for (final ExecutableElement method : sortedElements.get(targetClass)) {
 				final TypeSpec anonymousCaller = callerGenerator.generateFor(
@@ -187,12 +186,7 @@ public class MainProcessor extends AbstractProcessor {
 						CodeBlock.of("context"),
 						CodeBlock.of("attrs"));
 
-				if (firstLoop) {
-					firstLoop = false;
-				} else {
-					methodBody.add("\n");
-				}
-
+				methodBody.add("\n");
 				methodBody.addStatement("$L.call()", anonymousCaller);
 			}
 
