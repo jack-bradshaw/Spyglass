@@ -317,7 +317,7 @@ public class Spyglass {
 			}
 
 			try {
-				Class.forName(annotationSource.getCanonicalName() + "_SpyglassCompanion");
+				Class.forName(CompanionNamer.getCompanionNameFor(annotationSource));
 			} catch (final ClassNotFoundException e) {
 				final String unformattedExceptionMessage =
 						"No companion class was found for the annotation source class (%1$s)." +
