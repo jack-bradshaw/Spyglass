@@ -1,6 +1,5 @@
 package com.matthewtamlin.spyglass.common.annotations.default_annotations;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.common.units.DimensionUnit;
 
 import java.lang.annotation.ElementType;
@@ -20,7 +19,6 @@ import java.lang.annotation.Target;
  * <li>Except for one float parameter, every parameter has a use annotation.</li>
  * </ul>
  */
-@Tested(testMethod = "automated")
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToDimension {
