@@ -101,7 +101,7 @@ public class CallerGenerator {
 			}
 		}
 
-		invocationBuilder.add(");");
+		invocationBuilder.add(");\n");
 
 		final MethodSpec specificValueIsAvailable = specificValueIsAvailableGenerator.generateFor(
 				CallHandlerAnnoRetriever.getAnnotation(e));
@@ -153,7 +153,7 @@ public class CallerGenerator {
 			}
 		}
 
-		invocationBuilder.add(");");
+		invocationBuilder.add(");\n");
 
 		final MethodSpec specificValueIsAvailable = valueIsAvailableGenerator.generateFor(
 				ValueHandlerAnnoRetriever.getAnnotation(e));
@@ -229,8 +229,8 @@ public class CallerGenerator {
 			}
 		}
 
-		valueAvailableCaseInvocationBuilder.add(");");
-		valueUnavailableCaseInvocationBuilder.add(");");
+		valueAvailableCaseInvocationBuilder.add(");\n");
+		valueUnavailableCaseInvocationBuilder.add(");\n");
 
 		final MethodSpec valueIsAvailable = valueIsAvailableGenerator.generateFor(
 				ValueHandlerAnnoRetriever.getAnnotation(e));
