@@ -187,6 +187,19 @@ public class TestSpyglass {
 				.build();
 	}
 
+	@Test
+	@UiThreadTest
+	public void testInstantiateUsingBuilder_targetIsNestedClass() {
+		final View targetView = new NestedContainer.NestedClass(context);
+
+		Spyglass.builder()
+				.withTarget(targetView)
+				.withAnnotationSource(NestedContainer.NestedClass.class)
+				.withContext(context)
+				.withStyleableResource(new int[]{})
+				.build();
+	}
+
 	@Test(expected = IllegalThreadException.class)
 	public void testPassDataToMethods_calledOnNonUiThread() {
 		final View targetView = new ViewWithNormalCompanion(context);
