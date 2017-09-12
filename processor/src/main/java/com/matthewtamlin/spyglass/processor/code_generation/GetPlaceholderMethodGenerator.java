@@ -61,10 +61,10 @@ public class GetPlaceholderMethodGenerator {
 						final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
 
 						return getBaseMethodSpec(position)
-								.returns(Number.class)
+								.returns(Character.class)
 								.addCode(CodeBlock
 										.builder()
-										.addStatement("return ($T) $L", byte.class, rawValue.toString())
+										.addStatement("return ($T) $L", Character.class, rawValue.toString())
 										.build())
 								.build();
 					}
