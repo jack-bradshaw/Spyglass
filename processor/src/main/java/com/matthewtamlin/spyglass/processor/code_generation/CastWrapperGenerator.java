@@ -29,8 +29,11 @@ public class CastWrapperGenerator {
 	public CodeBlock generateFor(final MethodSpec method, final TypeMirror recipient) {
 		final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
 
-		if (complexCastIsPossible(methodReturnType, recipient)) {
-			return generateComplexCastWrapperFor(method, recipient);
+		if (typeMirrorHelper.isNumber(recipient) && typeMirrorHelper.isNumber(methodReturnType)) {
+			return generateNumberCastWrapperFor(method, recipient);
+
+		} else if (typeMirrorHelper.isCharacter(recipient) && typeMirrorHelper.isCharacter(methodReturnType)) {
+			return generateCharacterCastWrapperFor(method, recipient);
 
 		} else {
 			return CodeBlock
@@ -40,30 +43,16 @@ public class CastWrapperGenerator {
 		}
 	}
 
-	private boolean complexCastIsPossible(final TypeMirror methodReturnType, final TypeMirror recipient) {
-		return (typeMirrorHelper.isNumber(recipient) || typeMirrorHelper.isCharacter(recipient)) &&
-				(typeMirrorHelper.isNumber(methodReturnType) || typeMirrorHelper.isCharacter(methodReturnType));
-	}
-
-	private CodeBlock generateComplexCastWrapperFor(final MethodSpec method, final TypeMirror recipient) {
+	private CodeBlock generateNumberCastWrapperFor(final MethodSpec method, final TypeMirror recipient) {
 		final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
 
-		// If the method returns a character, an intermediate cast to byte is needed
-		final CodeBlock toNumber = typeMirrorHelper.isCharacter(methodReturnType) ?
-				CodeBlock.of("($T) ($T) $N()", Number.class, byte.class, method) :
-				CodeBlock.of("($T) $N()", Number.class, method);
+		final CodeBlock toNumber = CodeBlock.of("($T) $N()", Number.class, method);
 
 		if (recipient.toString().equals("byte")) {
 			return CodeBlock.of("(byte) ($L).byteValue()", toNumber);
 
 		} else if (recipient.toString().equals(Byte.class.getCanonicalName())) {
 			return CodeBlock.of("($T) ($L).byteValue()", Byte.class, toNumber);
-
-		} else if (recipient.toString().equals("char")) {
-			return CodeBlock.of("(char) ($L).byteValue()", toNumber);
-
-		} else if (recipient.toString().equals(Character.class.getCanonicalName())) {
-			return CodeBlock.of("($T) ($L).byteValue()", Character.class, toNumber);
 
 		} else if (recipient.toString().equals("short")) {
 			return CodeBlock.of("(short) ($L).shortValue()", toNumber);
@@ -97,7 +86,24 @@ public class CastWrapperGenerator {
 
 		} else {
 			throw new RuntimeException(String.format(
-					"Cannot create complex cast wrapper from \'%1$s\' to \'%2$s\'.",
+					"Cannot create cast wrapper from \'%1$s\' to \'%2$s\'.",
+					methodReturnType,
+					recipient));
+		}
+	}
+
+	private CodeBlock generateCharacterCastWrapperFor(final MethodSpec method, final TypeMirror recipient) {
+		final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
+
+		if (recipient.toString().equals("char")) {
+			return CodeBlock.of("(char) $N()", method);
+
+		} else if (recipient.toString().equals(Character.class.getCanonicalName())) {
+			return CodeBlock.of("($T) $N()", Character.class, method);
+
+		} else {
+			throw new RuntimeException(String.format(
+					"Cannot create cast wrapper from \'%1$s\' to \'%2$s\'.",
 					methodReturnType,
 					recipient));
 		}
