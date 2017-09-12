@@ -197,15 +197,9 @@ public class TypeValidator implements Validator {
 	}
 
 	private boolean isAssignableOrConvertible(final TypeMirror suppliedType, final TypeMirror recipientType) {
-		if (typeHelper.isAssignable(suppliedType, recipientType)) {
-			return true;
-
-		} else if (typeMirrorHelper.isNumber(suppliedType) || typeMirrorHelper.isCharacter(suppliedType)) {
-			return typeMirrorHelper.isNumber(recipientType) || typeMirrorHelper.isCharacter(recipientType);
-
-		} else {
-			return false;
-		}
+		return typeHelper.isAssignable(suppliedType, recipientType) ||
+				(typeMirrorHelper.isNumber(suppliedType) && typeMirrorHelper.isNumber(recipientType)) ||
+				(typeMirrorHelper.isCharacter(suppliedType) && typeMirrorHelper.isCharacter(recipientType));
 	}
 
 	private interface Rule {
