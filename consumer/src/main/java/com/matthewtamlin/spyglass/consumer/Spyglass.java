@@ -97,6 +97,8 @@ public class Spyglass {
 
 			activateCallers.invoke(null, target, context, attrSource);
 
+			attrSource.recycle();
+
 		} catch (final NoSuchMethodException e) {
 			throw new InvalidSpyglassCompanionException(
 					"Invalid Spyglass companion class found. Have the generated files modified?", e);
