@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.miscellaneous;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -6,7 +6,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.integration_tests.miscellaneous.UseAnnotationsTestTarget;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.use_annotation_combinations.UseAnnotationsTestTarget;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -17,7 +17,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
-public class TestUseAnnotations {
+public class TestUseAnnotationCombinations {
 	@Rule
 	public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 

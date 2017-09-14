@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests.miscellaneous;
+package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.use_annotation_combinations;
 
 import android.annotation.TargetApi;
 import android.content.Context;
