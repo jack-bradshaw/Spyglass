@@ -25,22 +25,19 @@ import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UseAnnotationsTestTargetBase extends View {
+public abstract class UseAnnotationsTestTargetBase extends View {
 	private ReceivedValue<List<Object>> receivedValue = ReceivedValue.none();
 
 	public UseAnnotationsTestTargetBase(final Context context) {
 		super(context);
-		init(null, 0, 0);
 	}
 
 	public UseAnnotationsTestTargetBase(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
-		init(attrs, 0, 0);
 	}
 
 	public UseAnnotationsTestTargetBase(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
-		init(attrs, defStyleAttr, 0);
 	}
 
 	@TargetApi(21)
@@ -52,73 +49,15 @@ public class UseAnnotationsTestTargetBase extends View {
 			final int defStyleRes) {
 
 		super(context, attrs, defStyleAttr, defStyleRes);
-		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.UseAnnotationsTestTargetBase_useAnnotationsAttr)
-	@DefaultToString("default value")
-	public void handlerMethod(
-			final String arg0,
-			@UseBoolean(true) final boolean arg1,
-			@UseByte(30) final byte arg2,
-			@UseChar('\u1003') final char arg3,
-			@UseDouble(10.5) final double arg4,
-			@UseFloat(40.8F) final float arg5,
-			@UseInt(9) final int arg6,
-			@UseLong(123456789123456789L) final long arg7,
-			@UseNull final Object arg8,
-			@UseShort(2) final short arg9,
-			@UseString("used string") final String arg10) {
-
-		final List<Object> invocationArgs = new ArrayList<>();
-
-		invocationArgs.add(arg0);
-		invocationArgs.add(arg1);
-		invocationArgs.add(arg2);
-		invocationArgs.add(arg3);
-		invocationArgs.add(arg4);
-		invocationArgs.add(arg5);
-		invocationArgs.add(arg6);
-		invocationArgs.add(arg7);
-		invocationArgs.add(arg8);
-		invocationArgs.add(arg9);
-		invocationArgs.add(arg10);
-
-		receivedValue = ReceivedValue.of(invocationArgs);
-	}
-
-	public ReceivedValue<List<Object>> getReceivedValue() {
+	public ReceivedValue<List<Object>> getReceivedValues() {
 		return receivedValue;
 	}
 
-	public ReceivedValue<List<Object>> getUseAnnotationValues() {
-		final List<Object> expectedArgs = new ArrayList<>();
-
-		expectedArgs.add("default value");
-		expectedArgs.add(true);
-		expectedArgs.add((byte) 30);
-		expectedArgs.add('\u1003');
-		expectedArgs.add(10.5);
-		expectedArgs.add(40.8F);
-		expectedArgs.add(9);
-		expectedArgs.add(123456789123456789L);
-		expectedArgs.add(null);
-		expectedArgs.add((short) 2);
-		expectedArgs.add("used string");
-
-		return ReceivedValue.of(expectedArgs);
+	public void setReceivedValue(final ReceivedValue<List<Object>> receivedValue) {
+		this.receivedValue = receivedValue;
 	}
 
-	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
-				.withTarget(this)
-				.withAnnotationSource(UseAnnotationsTestTargetBase.class)
-				.withStyleableResource(R.styleable.UseAnnotationsTestTargetBase)
-				.withContext(getContext())
-				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
-				.build()
-				.passDataToMethods();
-	}
+	public abstract ReceivedValue<List<Object>> getExpectedReceivedValues();
 }
