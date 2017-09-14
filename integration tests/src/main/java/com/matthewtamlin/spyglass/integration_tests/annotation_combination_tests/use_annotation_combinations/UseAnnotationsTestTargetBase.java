@@ -25,27 +25,27 @@ import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import java.util.ArrayList;
 import java.util.List;
 
-public class UseAnnotationsTestTarget extends View {
+public class UseAnnotationsTestTargetBase extends View {
 	private ReceivedValue<List<Object>> receivedValue = ReceivedValue.none();
 
-	public UseAnnotationsTestTarget(final Context context) {
+	public UseAnnotationsTestTargetBase(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public UseAnnotationsTestTarget(final Context context, final AttributeSet attrs) {
+	public UseAnnotationsTestTargetBase(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public UseAnnotationsTestTarget(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public UseAnnotationsTestTargetBase(final Context context, final AttributeSet attrs, final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public UseAnnotationsTestTarget(
+	public UseAnnotationsTestTargetBase(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -55,7 +55,7 @@ public class UseAnnotationsTestTarget extends View {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@StringHandler(attributeId = R.styleable.UseAnnotationsTestTarget_useAnnotationsAttr)
+	@StringHandler(attributeId = R.styleable.UseAnnotationsTestTargetBase_useAnnotationsAttr)
 	@DefaultToString("default value")
 	public void handlerMethod(
 			final String arg0,
@@ -112,8 +112,8 @@ public class UseAnnotationsTestTarget extends View {
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(UseAnnotationsTestTarget.class)
-				.withStyleableResource(R.styleable.UseAnnotationsTestTarget)
+				.withAnnotationSource(UseAnnotationsTestTargetBase.class)
+				.withStyleableResource(R.styleable.UseAnnotationsTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
 				.withDefStyleAttr(defStyleAttr)
