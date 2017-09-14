@@ -85,10 +85,7 @@ public class CastWrapperGenerator {
 			return CodeBlock.of("($T) ($L).doubleValue()", Double.class, toNumber);
 
 		} else {
-			throw new RuntimeException(String.format(
-					"Cannot create cast wrapper from \'%1$s\' to \'%2$s\'.",
-					methodReturnType,
-					recipient));
+			return CodeBlock.of("($T) $N()", methodReturnType, method);
 		}
 	}
 
@@ -102,10 +99,7 @@ public class CastWrapperGenerator {
 			return CodeBlock.of("($T) $N()", Character.class, method);
 
 		} else {
-			throw new RuntimeException(String.format(
-					"Cannot create cast wrapper from \'%1$s\' to \'%2$s\'.",
-					methodReturnType,
-					recipient));
+			return CodeBlock.of("($T) $N()", methodReturnType, method);
 		}
 	}
 }
