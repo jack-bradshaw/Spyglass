@@ -80,4 +80,8 @@
 	<declare-styleable name="StringHandlerTestTargetBase">
 		<attr name="stringHandlerAttr" format="string"/>
 	</declare-styleable>
+
+	<declare-styleable name="OverloadBehaviourTestTarget">
+		<attr name="overloadAttr" format="string"/>
+	</declare-styleable>
 </resources>
