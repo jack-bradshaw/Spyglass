@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.integration_tests;
+package com.matthewtamlin.spyglass.integration_tests.miscellaneous;
 
 import android.annotation.TargetApi;
 import android.content.Context;
@@ -19,6 +19,7 @@ import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
+import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import java.util.ArrayList;
