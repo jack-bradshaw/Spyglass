@@ -1,10 +1,12 @@
-package com.matthewtamlin.spyglass.integration_tests;
+package com.matthewtamlin.spyglass.integration_tests.miscellaneous;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
+
+import com.matthewtamlin.spyglass.integration_tests.miscellaneous.UseAnnotationsTestTarget;
 
 import org.junit.Before;
 import org.junit.Rule;
