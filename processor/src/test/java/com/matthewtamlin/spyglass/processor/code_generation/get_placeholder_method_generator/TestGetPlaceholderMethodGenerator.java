@@ -107,7 +107,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		checkSignature(generatedMethod, ClassName.get(Number.class));
+		checkSignature(generatedMethod, ClassName.get(Character.class));
 		checkCompiles(generatedMethod);
 	}
 
