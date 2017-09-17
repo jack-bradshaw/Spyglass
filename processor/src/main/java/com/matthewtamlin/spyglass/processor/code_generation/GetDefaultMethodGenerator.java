@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.common.class_definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToColorResource;
