@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.processor.code_generation.get_placeholder_met
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.GetPlaceholderMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;

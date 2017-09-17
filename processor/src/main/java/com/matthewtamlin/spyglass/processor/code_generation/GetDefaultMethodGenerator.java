@@ -19,6 +19,7 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.matthewtamlin.spyglass.common.units.DimensionUnit;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;

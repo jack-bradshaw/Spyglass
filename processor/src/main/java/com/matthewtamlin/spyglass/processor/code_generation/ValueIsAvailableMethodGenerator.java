@@ -12,6 +12,7 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;

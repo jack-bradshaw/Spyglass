@@ -3,7 +3,7 @@ package com.matthewtamlin.spyglass.processor.code_generation.specific_value_is_a
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.SpecificValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
