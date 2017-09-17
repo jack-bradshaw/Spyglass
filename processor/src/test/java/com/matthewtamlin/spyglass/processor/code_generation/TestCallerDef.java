@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 
 import org.junit.Test;

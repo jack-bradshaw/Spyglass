@@ -3,6 +3,7 @@ package com.matthewtamlin.spyglass.processor.code_generation;
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
@@ -15,7 +16,6 @@ import java.util.Map;
 import javax.lang.model.element.AnnotationMirror;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
-import static javax.lang.model.element.Modifier.FINAL;
 
 @Tested(testMethod = "automated")
 public class SpecificValueIsAvailableMethodGenerator {
@@ -97,23 +97,29 @@ public class SpecificValueIsAvailableMethodGenerator {
 	 * value is available, and false otherwise. What exactly it means for a value to be available and which value is
 	 * of interest is defined by each specific implementation.
 	 *
-	 * @param anno
+	 * @param callHandlerAnno
 	 * 		the annotation to use when generating the method body, not null
 	 *
 	 * @return the method spec, not null
 	 *
 	 * @throws IllegalArgumentException
-	 * 		if {@code anno} is null
+	 * 		if {@code callHandlerAnno} is null
+	 * @throws IllegalArgumentException
+	 * 		if {@code callHandlerAnno} is not a call handler annotation
 	 */
-	public MethodSpec generateFor(final AnnotationMirror anno) {
-		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+	public MethodSpec generateFor(final AnnotationMirror callHandlerAnno) {
+		checkNotNull(callHandlerAnno, "Argument \'callHandlerAnno\' cannot be null.");
 
-		final String annotationTypeName = anno.getAnnotationType().toString();
+		final String annoClassName = callHandlerAnno.getAnnotationType().toString();
+
+		if (!methodBodySuppliers.containsKey(annoClassName)) {
+			throw new IllegalArgumentException("Argument \'callHandlerAnno\' is not a call handler annotation.");
+		}
 
 		return MethodSpec
 				.methodBuilder("specificValueIsAvailable")
 				.returns(Boolean.class)
-				.addCode(methodBodySuppliers.get(annotationTypeName).supplyFor(anno))
+				.addCode(methodBodySuppliers.get(annoClassName).supplyFor(callHandlerAnno))
 				.build();
 	}
 

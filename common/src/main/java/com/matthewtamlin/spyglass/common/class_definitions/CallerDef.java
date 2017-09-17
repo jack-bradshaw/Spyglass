@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.code_generation;
+package com.matthewtamlin.spyglass.common.class_definitions;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.squareup.javapoet.ClassName;
@@ -18,9 +18,9 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
 public final class CallerDef {
-	public static final MethodSpec GET_CONTEXT;
-
 	public static final MethodSpec GET_TARGET;
+
+	public static final MethodSpec GET_CONTEXT;
 
 	public static final MethodSpec GET_ATTRS;
 
@@ -35,18 +35,18 @@ public final class CallerDef {
 	static {
 		final TypeVariableName targetType = TypeVariableName.get("T");
 
-		GET_CONTEXT = MethodSpec
-				.methodBuilder("getContext")
-				.addModifiers(PROTECTED)
-				.returns(AndroidClassNames.CONTEXT)
-				.addCode(CodeBlock.of("return context;"))
-				.build();
-
 		GET_TARGET = MethodSpec
 				.methodBuilder("getTarget")
 				.addModifiers(PROTECTED)
 				.returns(targetType)
 				.addCode(CodeBlock.of("return target;"))
+				.build();
+
+		GET_CONTEXT = MethodSpec
+				.methodBuilder("getContext")
+				.addModifiers(PROTECTED)
+				.returns(AndroidClassNames.CONTEXT)
+				.addCode(CodeBlock.of("return context;"))
 				.build();
 
 		GET_ATTRS = MethodSpec
@@ -59,19 +59,20 @@ public final class CallerDef {
 		CALL = MethodSpec
 				.methodBuilder("call")
 				.addModifiers(PUBLIC, ABSTRACT)
+				.addException(Throwable.class)
 				.returns(void.class)
 				.build();
 
 		CONSTRUCTOR = MethodSpec
 				.constructorBuilder()
 				.addModifiers(PUBLIC)
-				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
 				.addParameter(targetType, "target", FINAL)
+				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
 				.addCode(CodeBlock
 						.builder()
-						.addStatement("this.context = context")
 						.addStatement("this.target = target")
+						.addStatement("this.context = context")
 						.addStatement("this.attrs = attrs")
 						.build())
 				.build();
@@ -80,18 +81,18 @@ public final class CallerDef {
 				.classBuilder("Caller")
 				.addModifiers(PUBLIC, ABSTRACT)
 				.addTypeVariable(targetType)
-				.addMethod(GET_CONTEXT)
 				.addMethod(GET_TARGET)
+				.addMethod(GET_CONTEXT)
 				.addMethod(GET_ATTRS)
 				.addMethod(CALL)
 				.addMethod(CONSTRUCTOR)
-				.addField(AndroidClassNames.CONTEXT, "context", PRIVATE, FINAL)
 				.addField(targetType, "target", PRIVATE, FINAL)
+				.addField(AndroidClassNames.CONTEXT, "context", PRIVATE, FINAL)
 				.addField(AndroidClassNames.TYPED_ARRAY, "attrs", PRIVATE, FINAL)
 				.build();
 
 		SRC_FILE = JavaFile
-				.builder("com.matthewtamlin.spyglass.processors.code_generation", ABSTRACT_CALLER)
+				.builder("com.matthewtamlin.spyglass.core", ABSTRACT_CALLER)
 				.addFileComment("Spyglass auto-generated file. Do not modify!")
 				.skipJavaLangImports(true)
 				.indent("\t")
@@ -105,6 +106,7 @@ public final class CallerDef {
 	public static MethodSpec.Builder getNewCallMethodPrototype() {
 		return MethodSpec
 				.methodBuilder(CALL.name)
+				.addException(Throwable.class)
 				.returns(void.class)
 				.addModifiers(PUBLIC);
 	}
@@ -113,12 +115,12 @@ public final class CallerDef {
 		return MethodSpec
 				.constructorBuilder()
 				.addModifiers(PUBLIC)
-				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
 				.addParameter(targetType, "target", FINAL)
+				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
 				.addCode(CodeBlock
 						.builder()
-						.addStatement("super(context, target, attrs)")
+						.addStatement("super(target, context, attrs)")
 						.build());
 	}
 
@@ -134,12 +136,18 @@ public final class CallerDef {
 				.superclass(specificCaller);
 	}
 
-	public static TypeSpec.Builder getNewAnonymousCallerPrototype(final TypeName targetType) {
-		final ClassName genericCaller = ClassName.get(CallerDef.SRC_FILE.packageName, CallerDef.ABSTRACT_CALLER.name);
+	public static TypeSpec.Builder getNewAnonymousCallerPrototype(
+			final TypeName targetType,
+			final CodeBlock targetParameter,
+			final CodeBlock contextParameter,
+			final CodeBlock attrsParameter) {
+
+		final ClassName genericCaller = CallerDef.getCallerAsClassName();
 		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
 
 		return TypeSpec
-				.anonymousClassBuilder("")
+				.anonymousClassBuilder(
+						CodeBlock.of("$L, $L, $L", targetParameter, contextParameter, attrsParameter).toString())
 				.addSuperinterface(specificCaller);
 	}
 

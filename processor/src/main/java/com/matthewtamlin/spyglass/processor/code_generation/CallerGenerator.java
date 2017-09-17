@@ -1,20 +1,16 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
-import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.ParameterizedTypeName;
 import com.squareup.javapoet.TypeName;
 import com.squareup.javapoet.TypeSpec;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
@@ -48,30 +44,50 @@ public class CallerGenerator {
 		wrapperGenerator = new CastWrapperGenerator(coreHelpers);
 	}
 
-	public TypeSpec generateFor(final ExecutableElement method) {
+	public TypeSpec generateFor(
+			final ExecutableElement method,
+			final CodeBlock targetParameter,
+			final CodeBlock contextParameter,
+			final CodeBlock attrsParameter) {
+
 		checkNotNull(method, "Argument \'method\' cannot be null.");
+		checkNotNull(targetParameter, "Argument \'targetParameter\' cannot be null.");
+		checkNotNull(contextParameter, "Argument \'contextParameter\' cannot be null.");
+		checkNotNull(attrsParameter, "Argument \'attrsParameter\' cannot be null.");
 
 		if (CallHandlerAnnoRetriever.hasAnnotation(method)) {
-			return generateCallHandlerCaller(method);
+			return generateForCallHandler(method, targetParameter, contextParameter, attrsParameter);
 
 		} else if (ValueHandlerAnnoRetriever.hasAnnotation(method)) {
-			return DefaultAnnoRetriever.hasAnnotation(method) ?
-					generateValueHandlerCallerWithDefault(method) :
-					generateValueHandlerCallerWithoutDefault(method);
-
+			if (DefaultAnnoRetriever.hasAnnotation(method)) {
+				return generateForValueHandlerWithDefault(method, targetParameter, contextParameter, attrsParameter);
+			} else {
+				return generateCallerForValueHandlerWithoutDefault(
+						method,
+						targetParameter,
+						contextParameter,
+						attrsParameter);
+			}
 		} else {
-			throw new IllegalArgumentException("Argument \'method\' has neither a value handler annotation nor a call" +
-					" handler annotation.");
+			throw new IllegalArgumentException("Argument \'method\' does not have a handler annotation.");
 		}
 	}
 
-	private TypeSpec generateCallHandlerCaller(final ExecutableElement e) {
-		final TypeSpec.Builder callerBuilder = CallerDef
-				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
+	private TypeSpec generateForCallHandler(
+			final ExecutableElement e,
+			final CodeBlock targetParameter,
+			final CodeBlock contextParameter,
+			final CodeBlock attrsParameter) {
+
+		final TypeSpec.Builder callerBuilder = CallerDef.getNewAnonymousCallerPrototype(
+				getNameOfTargetClass(e),
+				targetParameter,
+				contextParameter,
+				attrsParameter);
 
 		final CodeBlock.Builder invocationBuilder = CodeBlock
 				.builder()
-				.add("$N().$N(", CallerDef.GET_TARGET, e);
+				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
 		for (int i = 0; i < e.getParameters().size(); i++) {
 			final VariableElement parameter = e.getParameters().get(i);
@@ -80,9 +96,13 @@ public class CallerGenerator {
 
 			invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
 			callerBuilder.addMethod(argMethod);
+
+			if (i < e.getParameters().size() - 1) {
+				invocationBuilder.add(", ");
+			}
 		}
 
-		invocationBuilder.add(");");
+		invocationBuilder.add(");\n");
 
 		final MethodSpec specificValueIsAvailable = specificValueIsAvailableGenerator.generateFor(
 				CallHandlerAnnoRetriever.getAnnotation(e));
@@ -103,14 +123,21 @@ public class CallerGenerator {
 				.build();
 	}
 
-	private TypeSpec generateValueHandlerCallerWithoutDefault(final ExecutableElement e) {
-		final TypeSpec.Builder callerBuilder = CallerDef
-				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
+	private TypeSpec generateCallerForValueHandlerWithoutDefault(
+			final ExecutableElement e,
+			final CodeBlock targetParameter,
+			final CodeBlock contextParameter,
+			final CodeBlock attrsParameter) {
 
+		final TypeSpec.Builder callerBuilder = CallerDef.getNewAnonymousCallerPrototype(
+				getNameOfTargetClass(e),
+				targetParameter,
+				contextParameter,
+				attrsParameter);
 
 		final CodeBlock.Builder invocationBuilder = CodeBlock
 				.builder()
-				.add("$N().$N(", CallerDef.GET_TARGET, e);
+				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
 		for (int i = 0; i < e.getParameters().size(); i++) {
 			final VariableElement parameter = e.getParameters().get(i);
@@ -121,12 +148,16 @@ public class CallerGenerator {
 
 			invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
 			callerBuilder.addMethod(argMethod);
+
+			if (i < e.getParameters().size() - 1) {
+				invocationBuilder.add(", ");
+			}
 		}
 
-		invocationBuilder.add(");");
+		invocationBuilder.add(");\n");
 
-		final MethodSpec specificValueIsAvailable = specificValueIsAvailableGenerator.generateFor(
-				CallHandlerAnnoRetriever.getAnnotation(e));
+		final MethodSpec specificValueIsAvailable = valueIsAvailableGenerator.generateFor(
+				ValueHandlerAnnoRetriever.getAnnotation(e));
 
 		final MethodSpec call = CallerDef
 				.getNewCallMethodPrototype()
@@ -144,18 +175,33 @@ public class CallerGenerator {
 				.build();
 	}
 
-	private TypeSpec generateValueHandlerCallerWithDefault(final ExecutableElement e) {
-		final TypeSpec.Builder callerBuilder = CallerDef
-				.getNewAnonymousCallerPrototype(getNameOfTargetClass(e));
+	private TypeSpec generateForValueHandlerWithDefault(
+			final ExecutableElement e,
+			final CodeBlock targetParameter,
+			final CodeBlock contextParameter,
+			final CodeBlock attrsParameter) {
 
+		final TypeSpec.Builder callerBuilder = CallerDef.getNewAnonymousCallerPrototype(
+				getNameOfTargetClass(e),
+				targetParameter,
+				contextParameter,
+				attrsParameter);
 
-		final CodeBlock.Builder nonDefaultCaseInvocationBuilder = CodeBlock
+		final CodeBlock.Builder valueAvailableCaseInvocationBuilder = CodeBlock
 				.builder()
-				.add("$N().$N(", CallerDef.GET_TARGET, e);
+				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
 
-		final CodeBlock.Builder defaultCaseInvocationBuilder = CodeBlock
+		final CodeBlock.Builder valueUnavailableCaseInvocationBuilder = CodeBlock
 				.builder()
-				.add("$N().$N(", CallerDef.GET_TARGET, e);
+				.add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
+
+		final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
+		final MethodSpec getValueMethod = getValueGenerator.generateFor(valueHandlerAnno);
+		callerBuilder.addMethod(getValueMethod);
+
+		final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
+		final MethodSpec getDefaultMethod = getDefaultGenerator.generateFor(defaultAnno);
+		callerBuilder.addMethod(getDefaultMethod);
 
 		for (int i = 0; i < e.getParameters().size(); i++) {
 			final VariableElement parameter = e.getParameters().get(i);
@@ -164,32 +210,28 @@ public class CallerGenerator {
 				final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
 				final MethodSpec argMethod = getPlaceholderGenerator.generateFor(useAnno, i);
 
-				nonDefaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
-				defaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
+				valueAvailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
+				valueUnavailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
 
 				callerBuilder.addMethod(argMethod);
 			} else {
-				final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
-				final AnnotationMirror defaultAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
-
-				final MethodSpec nonDefaultCaseArgMethod = getValueGenerator.generateFor(valueHandlerAnno);
-				final MethodSpec defaultCaseArgMethod = getDefaultGenerator.generateFor(defaultAnno);
-
-				nonDefaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(
-						nonDefaultCaseArgMethod,
+				valueAvailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(
+						getValueMethod,
 						parameter.asType()));
 
-				defaultCaseInvocationBuilder.add(wrapperGenerator.generateFor(
-						defaultCaseArgMethod,
+				valueUnavailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(
+						getDefaultMethod,
 						parameter.asType()));
+			}
 
-				callerBuilder.addMethod(nonDefaultCaseArgMethod);
-				callerBuilder.addMethod(defaultCaseArgMethod);
+			if (i < e.getParameters().size() - 1) {
+				valueAvailableCaseInvocationBuilder.add(", ");
+				valueUnavailableCaseInvocationBuilder.add(", ");
 			}
 		}
 
-		nonDefaultCaseInvocationBuilder.add(");");
-		defaultCaseInvocationBuilder.add(");");
+		valueAvailableCaseInvocationBuilder.add(");\n");
+		valueUnavailableCaseInvocationBuilder.add(");\n");
 
 		final MethodSpec valueIsAvailable = valueIsAvailableGenerator.generateFor(
 				ValueHandlerAnnoRetriever.getAnnotation(e));
@@ -199,9 +241,9 @@ public class CallerGenerator {
 				.addCode(CodeBlock
 						.builder()
 						.beginControlFlow("if ($N())", valueIsAvailable)
-						.add(nonDefaultCaseInvocationBuilder.build())
+						.add(valueAvailableCaseInvocationBuilder.build())
 						.nextControlFlow("else")
-						.add(defaultCaseInvocationBuilder.build())
+						.add(valueUnavailableCaseInvocationBuilder.build())
 						.endControlFlow()
 						.build())
 				.build();

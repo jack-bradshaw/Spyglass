@@ -1,11 +1,6 @@
 package com.matthewtamlin.spyglass.processor.mirror_helpers;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.util.SetUtil;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.Stack;
 
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
@@ -59,34 +54,5 @@ public class TypeMirrorHelper {
 		final TypeMirror booleanType = elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
 
 		return typeUtil.isAssignable(typeMirror, booleanType) || typeMirror.toString().equals("boolean");
-	}
-
-	public boolean isEnum(final TypeMirror typeMirror) {
-		final TypeMirror enumType = elementUtil.getTypeElement(Enum.class.getCanonicalName()).asType();
-
-		return typeUtil.isAssignable(typeMirror, enumType);
-	}
-
-	public TypeMirror boxPrimitive(final TypeMirror typeMirror) {
-		switch (typeMirror.toString()) {
-			case "byte":
-				return elementUtil.getTypeElement(Byte.class.getCanonicalName()).asType();
-			case "char":
-				return elementUtil.getTypeElement(Character.class.getCanonicalName()).asType();
-			case "short":
-				return elementUtil.getTypeElement(Short.class.getCanonicalName()).asType();
-			case "int":
-				return elementUtil.getTypeElement(Integer.class.getCanonicalName()).asType();
-			case "long":
-				return elementUtil.getTypeElement(Long.class.getCanonicalName()).asType();
-			case "float":
-				return elementUtil.getTypeElement(Float.class.getCanonicalName()).asType();
-			case "double":
-				return elementUtil.getTypeElement(Double.class.getCanonicalName()).asType();
-			case "boolean":
-				return elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
-			default:
-				throw new IllegalArgumentException("Argument \'typeMirror\' must be primitive.");
-		}
 	}
 }

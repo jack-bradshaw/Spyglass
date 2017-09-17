@@ -1,7 +1,4 @@
-package com.matthewtamlin.spyglass.common;
-
-import com.matthewtamlin.spyglass.common.enum_util.EnumInstantiationException;
-import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
+package com.matthewtamlin.spyglass.common.enum_util;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

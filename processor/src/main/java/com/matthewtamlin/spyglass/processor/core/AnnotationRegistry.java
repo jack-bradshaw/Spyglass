@@ -1,5 +1,6 @@
 package com.matthewtamlin.spyglass.processor.core;
 
+import com.google.common.collect.ImmutableSet;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
@@ -40,13 +41,12 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.processor.util.SetUtil;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
 public class AnnotationRegistry {
-	public static final Set<Class<? extends Annotation>> VALUE_HANDLER_ANNOS = SetUtil.unmodifiableSetOf(
+	public static final Set<Class<? extends Annotation>> VALUE_HANDLER_ANNOS = ImmutableSet.of(
 			BooleanHandler.class,
 			ColorHandler.class,
 			ColorStateListHandler.class,
@@ -59,11 +59,11 @@ public class AnnotationRegistry {
 			IntegerHandler.class,
 			StringHandler.class);
 
-	public static final Set<Class<? extends Annotation>> CALL_HANDLER_ANNOS = SetUtil.unmodifiableSetOf(
+	public static final Set<Class<? extends Annotation>> CALL_HANDLER_ANNOS = ImmutableSet.of(
 			SpecificEnumHandler.class,
 			SpecificFlagHandler.class);
 
-	public static final Set<Class<? extends Annotation>> DEFAULT_ANNOS = SetUtil.unmodifiableSetOf(
+	public static final Set<Class<? extends Annotation>> DEFAULT_ANNOS = ImmutableSet.of(
 			DefaultToBoolean.class,
 			DefaultToBooleanResource.class,
 			DefaultToColorResource.class,
@@ -82,7 +82,7 @@ public class AnnotationRegistry {
 			DefaultToTextArrayResource.class,
 			DefaultToTextResource.class);
 
-	public static final Set<Class<? extends Annotation>> USE_ANNOS = SetUtil.unmodifiableSetOf(
+	public static final Set<Class<? extends Annotation>> USE_ANNOS = ImmutableSet.of(
 			UseBoolean.class,
 			UseByte.class,
 			UseChar.class,

@@ -63,10 +63,11 @@ public class Spyglass {
 				builder.defStyleAttr,
 				builder.defStyleRes);
 
-		final String annotationSourceName = builder.annotationSource.getCanonicalName();
-
 		try {
-			companionClass = Class.forName(annotationSourceName + "_SpyglassCompanion");
+			final String packageName = annotationSource.getPackage().getName();
+			final String companionName = CompanionNamer.getCompanionNameFor(annotationSource);
+
+			companionClass = Class.forName(packageName + "." + companionName);
 		} catch (final ClassNotFoundException e) {
 			throw new RuntimeException(
 					"No companion class found, this should never happen. Class check already done in builder.", e);
@@ -96,6 +97,8 @@ public class Spyglass {
 
 			activateCallers.invoke(null, target, context, attrSource);
 
+			attrSource.recycle();
+
 		} catch (final NoSuchMethodException e) {
 			throw new InvalidSpyglassCompanionException(
 					"Invalid Spyglass companion class found. Have the generated files modified?", e);
@@ -104,7 +107,10 @@ public class Spyglass {
 			if (e.getCause() instanceof SpyglassRuntimeException) {
 				throw (SpyglassRuntimeException) e.getCause();
 			} else {
-				throw new TargetException("A method in the target class throw an exception when invoked.", e);
+				throw new TargetException(
+						target,
+						"A method in the target class threw an exception when invoked.",
+						e.getCause());
 			}
 
 		} catch (final IllegalAccessException e) {
@@ -319,7 +325,10 @@ public class Spyglass {
 			}
 
 			try {
-				Class.forName(annotationSource.getCanonicalName() + "_SpyglassCompanion");
+				final String packageName = annotationSource.getPackage().getName();
+				final String companionName = CompanionNamer.getCompanionNameFor(annotationSource);
+
+				Class.forName(packageName + "." + companionName);
 			} catch (final ClassNotFoundException e) {
 				final String unformattedExceptionMessage =
 						"No companion class was found for the annotation source class (%1$s)." +

@@ -18,7 +18,7 @@ import javax.lang.model.element.TypeElement;
 
 import static com.matthewtamlin.spyglass.processor.grouper.Grouper.groupByEnclosingClass;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.core.Is.is;
 
 @RunWith(JUnit4.class)
 public class TestGrouper {

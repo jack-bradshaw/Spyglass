@@ -6,10 +6,6 @@ import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.Sp
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
 
 public class Data {
-	@ElementId("no call handler")
-	@DefaultToBoolean(true)
-	public void noValueHandlerAnnotation() {}
-
 	@ElementId("specific enum")
 	@SpecificEnumHandler(attributeId = 1, ordinal = 0)
 	public void withSpecificEnum() {}
