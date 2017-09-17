@@ -171,6 +171,7 @@ public class MainProcessor extends AbstractProcessor {
 			final MethodSpec.Builder activateCallers = MethodSpec
 					.methodBuilder("activateCallers")
 					.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+					.addException(Throwable.class)
 					.returns(void.class)
 					.addParameter(TypeName.get(targetClass.unwrap().asType()), "target")
 					.addParameter(AndroidClassNames.CONTEXT, "context")

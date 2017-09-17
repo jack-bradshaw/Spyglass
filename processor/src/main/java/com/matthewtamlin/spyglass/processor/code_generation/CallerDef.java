@@ -59,6 +59,7 @@ public final class CallerDef {
 		CALL = MethodSpec
 				.methodBuilder("call")
 				.addModifiers(PUBLIC, ABSTRACT)
+				.addException(Throwable.class)
 				.returns(void.class)
 				.build();
 
@@ -105,6 +106,7 @@ public final class CallerDef {
 	public static MethodSpec.Builder getNewCallMethodPrototype() {
 		return MethodSpec
 				.methodBuilder(CALL.name)
+				.addException(Throwable.class)
 				.returns(void.class)
 				.addModifiers(PUBLIC);
 	}
