@@ -92,7 +92,7 @@ public final class CallerDef {
 				.build();
 
 		SRC_FILE = JavaFile
-				.builder("com.matthewtamlin.spyglass.processors.code_generation", ABSTRACT_CALLER)
+				.builder("com.matthewtamlin.spyglass.core", ABSTRACT_CALLER)
 				.addFileComment("Spyglass auto-generated file. Do not modify!")
 				.skipJavaLangImports(true)
 				.indent("\t")
