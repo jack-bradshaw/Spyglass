@@ -108,6 +108,7 @@ public class Spyglass {
 				throw (SpyglassRuntimeException) e.getCause();
 			} else {
 				throw new TargetException(
+						target,
 						"A method in the target class threw an exception when invoked.",
 						e.getCause());
 			}

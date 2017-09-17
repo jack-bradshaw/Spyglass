@@ -1,19 +1,34 @@
 package com.matthewtamlin.spyglass.consumer;
 
 public class TargetException extends RuntimeException {
-	public TargetException() {
-		super();
+	private Object target;
+
+	private String methodName;
+
+	private Throwable thrownByTarget;
+
+	public TargetException(final Object target, final String methodName, final Throwable thrownByTarget) {
+		super(String.format(
+				"Target of type \'%1$s\' threw an exception when method \'%2$s\' was invoked.",
+				target.getClass(),
+				methodName));
+
+		this.target = target;
+		this.methodName = methodName;
+		this.thrownByTarget = thrownByTarget;
+
+		initCause(thrownByTarget);
 	}
 
-	public TargetException(final String message) {
-		super(message);
+	public Object getTarget() {
+		return target;
 	}
 
-	public TargetException(final String message, final Throwable cause) {
-		super(message, cause);
+	public String getMethodName() {
+		return methodName;
 	}
 
-	public TargetException(final Throwable cause) {
-		super(cause);
+	public Throwable getThrownByTarget() {
+		return thrownByTarget;
 	}
 }
