@@ -142,7 +142,7 @@ public final class CallerDef {
 			final CodeBlock contextParameter,
 			final CodeBlock attrsParameter) {
 
-		final ClassName genericCaller = ClassName.get(CallerDef.SRC_FILE.packageName, CallerDef.ABSTRACT_CALLER.name);
+		final ClassName genericCaller = CallerDef.getCallerAsClassName();
 		final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
 
 		return TypeSpec
