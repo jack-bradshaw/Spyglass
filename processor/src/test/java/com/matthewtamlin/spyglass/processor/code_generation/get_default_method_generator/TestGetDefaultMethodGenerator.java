@@ -21,7 +21,7 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
-import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
@@ -44,9 +44,8 @@ import javax.lang.model.element.Element;
 
 import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasSize;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
 
 public class TestGetDefaultMethodGenerator {
 	@Rule
@@ -60,9 +59,7 @@ public class TestGetDefaultMethodGenerator {
 
 	@Before
 	public void setup() {
-		final CoreHelpers coreHelpers = new CoreHelpers(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils());
+		final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
 
 		generator = new GetDefaultMethodGenerator(coreHelpers);
 	}
@@ -306,7 +303,7 @@ public class TestGetDefaultMethodGenerator {
 	private void checkMethodSignature(final MethodSpec generatedMethod, final TypeName returnType) {
 		assertThat("Generated method must not be null.", generatedMethod, is(notNullValue()));
 		assertThat("Generated method has wrong return type.", generatedMethod.returnType, is(returnType));
-		assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters, hasSize(0));
+		assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters.size(), is(0));
 		assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
 	}
 

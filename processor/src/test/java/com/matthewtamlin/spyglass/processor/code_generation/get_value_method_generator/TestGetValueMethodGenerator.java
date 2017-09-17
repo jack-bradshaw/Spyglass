@@ -15,7 +15,7 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
@@ -38,8 +38,9 @@ import javax.lang.model.element.Element;
 
 import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+
 
 public class TestGetValueMethodGenerator {
 	@Rule
@@ -53,9 +54,9 @@ public class TestGetValueMethodGenerator {
 
 	@Before
 	public void setup() {
-		generator = new GetValueMethodGenerator(new CoreHelpers(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils()));
+		final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
+
+		generator = new GetValueMethodGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

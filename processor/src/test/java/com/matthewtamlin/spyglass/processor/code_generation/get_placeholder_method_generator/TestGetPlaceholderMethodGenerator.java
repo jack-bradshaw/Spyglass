@@ -2,7 +2,7 @@ package com.matthewtamlin.spyglass.processor.code_generation.get_placeholder_met
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.GetPlaceholderMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
@@ -40,9 +40,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 	@Before
 	public void setup() {
-		final CoreHelpers coreHelpers = new CoreHelpers(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils());
+		final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
 		generator = new GetPlaceholderMethodGenerator(coreHelpers);
 	}
 
@@ -109,7 +107,7 @@ public class TestGetPlaceholderMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
-		checkSignature(generatedMethod, ClassName.get(Number.class));
+		checkSignature(generatedMethod, ClassName.get(Character.class));
 		checkCompiles(generatedMethod);
 	}
 

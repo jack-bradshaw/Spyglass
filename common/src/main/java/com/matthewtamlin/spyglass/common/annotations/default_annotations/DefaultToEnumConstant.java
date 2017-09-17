@@ -1,7 +1,5 @@
 package com.matthewtamlin.spyglass.common.annotations.default_annotations;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
-
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -21,7 +19,6 @@ import java.lang.annotation.Target;
  * </li>
  * </ul>
  */
-@Tested(testMethod = "automated")
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToEnumConstant {

@@ -3,7 +3,7 @@ package com.matthewtamlin.spyglass.processor.code_generation.specific_value_is_a
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.SpecificValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
@@ -25,8 +25,9 @@ import javax.lang.model.element.Element;
 
 import static javax.lang.model.element.Modifier.STATIC;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
+
 
 public class TestSpecificValueIsAvailableMethodGenerator {
 	@Rule
@@ -40,9 +41,9 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 
 	@Before
 	public void setup() {
-		generator = new SpecificValueIsAvailableMethodGenerator(new CoreHelpers(
-				avatarRule.getProcessingEnvironment().getElementUtils(),
-				avatarRule.getProcessingEnvironment().getTypeUtils()));
+		final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
+
+		generator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
 	}
 
 	@Test(expected = IllegalArgumentException.class)

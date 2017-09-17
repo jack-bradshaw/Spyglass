@@ -1,11 +1,13 @@
 package com.matthewtamlin.spyglass.processor.core;
 
-import com.matthewtamlin.spyglass.processor.code_generation.AndroidClassNames;
-import com.matthewtamlin.spyglass.processor.code_generation.CallerDef;
+import com.matthewtamlin.spyglass.common.class_definitions.AndroidClassNames;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
 import com.matthewtamlin.spyglass.processor.grouper.Grouper;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
-import com.matthewtamlin.spyglass.processor.validation.ValidationException;
+import com.matthewtamlin.spyglass.processor.validation.BasicValidator;
+import com.matthewtamlin.spyglass.processor.validation.Result;
+import com.matthewtamlin.spyglass.processor.validation.TypeValidator;
 import com.matthewtamlin.spyglass.processor.validation.Validator;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
@@ -15,6 +17,7 @@ import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.Map;
@@ -31,21 +34,28 @@ import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.util.Elements;
 
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 public class MainProcessor extends AbstractProcessor {
-	private static final String COMPANION_CLASS_NAME_SUFFIX = "_SpyglassCompanion";
-
 	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
+
+	private Elements elementUtil;
 
 	private Messager messager;
 
 	private Filer filer;
 
-	private CoreHelpers coreHelpers;
-
 	private CallerGenerator callerGenerator;
+
+	private Validator basicValidator;
+
+	private TypeValidator typeValidator;
+
+	private boolean callerFileCreatedSuccessfully;
+
+	private boolean callerFileFailureMessageDisplayed;
 
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
@@ -61,13 +71,19 @@ public class MainProcessor extends AbstractProcessor {
 	public synchronized void init(final ProcessingEnvironment processingEnvironment) {
 		super.init(processingEnvironment);
 
+		elementUtil = processingEnvironment.getElementUtils();
 		messager = processingEnvironment.getMessager();
 		filer = processingEnvironment.getFiler();
 
-		coreHelpers = new CoreHelpers(processingEnvironment.getElementUtils(), processingEnvironment.getTypeUtils());
-		callerGenerator = new CallerGenerator(coreHelpers);
+		final CoreHelpers coreHelpers = new CoreHelpers(
+				processingEnvironment.getElementUtils(),
+				processingEnvironment.getTypeUtils());
 
-		createFile(CallerDef.SRC_FILE, "Could not create Caller class file.");
+		callerGenerator = new CallerGenerator(coreHelpers);
+		basicValidator = new BasicValidator();
+		typeValidator = new TypeValidator(coreHelpers);
+
+		callerFileCreatedSuccessfully = createFile(CallerDef.SRC_FILE, "Could not create Caller class file.");
 	}
 
 	@Override
@@ -83,9 +99,34 @@ public class MainProcessor extends AbstractProcessor {
 
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
-		final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
-		validateElements(allElements);
-		createCompanions(allElements);
+		if (!callerFileCreatedSuccessfully) {
+			if (!callerFileFailureMessageDisplayed) {
+				messager.printMessage(ERROR, "Base Caller class could not be created. Aborting Spyglass processing.");
+				callerFileFailureMessageDisplayed = true;
+			}
+
+			return false;
+		}
+
+		try {
+			final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
+
+			if (allElementsPassValidation(allElements, basicValidator)) {
+				if (allElementsPassValidation(allElements, typeValidator)) {
+					createCompanions(allElements);
+				}
+			}
+		} catch (final Throwable t) {
+			messager.printMessage(
+					ERROR,
+					String.format(
+							"An unknown error occurred while processing Spyglass annotations. Please update to the " +
+									"latest version of Spyglass, or report the issue if a newer version does not " +
+									"exist. Error message: \'%1$s\'. Stacktrace: " +
+									"\'%2$s\'.",
+							t.getMessage(),
+							Arrays.toString(t.getStackTrace())));
+		}
 
 		return false;
 	}
@@ -103,63 +144,61 @@ public class MainProcessor extends AbstractProcessor {
 		return supportedElements;
 	}
 
-	private void validateElements(final Set<? extends Element> elements) {
+	private boolean allElementsPassValidation(final Set<? extends Element> elements, final Validator validator) {
+		boolean allPassed = true;
+
 		for (final Element element : elements) {
 			// This check should never fail since handler and default annotations are restricted to methods
 			if (element.getKind() != ElementKind.METHOD) {
 				throw new RuntimeException("A handler or default annotation was found on a non-method element.");
 			}
 
-			try {
-				final Validator validator = new Validator(coreHelpers);
+			final Result result = validator.validate((ExecutableElement) element);
 
-				validator.validateElement((ExecutableElement) element);
-
-			} catch (final ValidationException validationException) {
-				messager.printMessage(ERROR, validationException.getMessage(), element);
-
-			} catch (final Exception exception) {
-				messager.printMessage(ERROR, "Spyglass validation failure.", element);
+			if (!result.isSuccessful()) {
+				allPassed = false;
+				messager.printMessage(ERROR, result.getDescription(), element);
 			}
 		}
+
+		return allPassed;
 	}
 
 	private void createCompanions(final Set<ExecutableElement> elements) {
 		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = Grouper.groupByEnclosingClass(elements);
 
 		for (final TypeElementWrapper targetClass : sortedElements.keySet()) {
-			final CodeBlock.Builder methodBody = CodeBlock.builder();
-
-			boolean firstLoop = true;
-
-			for (final ExecutableElement method : sortedElements.get(targetClass)) {
-				final TypeSpec anonymousCaller = callerGenerator.generateFor(method);
-
-				if (firstLoop) {
-					firstLoop = false;
-				} else {
-					methodBody.add("\n");
-				}
-
-				methodBody.addStatement("$L.call(target, context, attrs)", anonymousCaller);
-			}
-
-			final MethodSpec activateCallers = MethodSpec
+			final MethodSpec.Builder activateCallers = MethodSpec
 					.methodBuilder("activateCallers")
 					.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
+					.addException(Throwable.class)
 					.returns(void.class)
 					.addParameter(TypeName.get(targetClass.unwrap().asType()), "target")
 					.addParameter(AndroidClassNames.CONTEXT, "context")
-					.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs")
-					.addCode(methodBody.build())
-					.build();
+					.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs");
+
+			final CodeBlock.Builder methodBody = CodeBlock
+					.builder();
+
+			for (final ExecutableElement method : sortedElements.get(targetClass)) {
+				final TypeSpec anonymousCaller = callerGenerator.generateFor(
+						method,
+						CodeBlock.of("target"),
+						CodeBlock.of("context"),
+						CodeBlock.of("attrs"));
+
+				methodBody.add("\n");
+				methodBody.addStatement("$L.call()", anonymousCaller);
+			}
+
+			activateCallers.addCode(methodBody.build());
 
 			final TypeSpec companionClass = TypeSpec
-					.classBuilder(targetClass.unwrap().getSimpleName() + COMPANION_CLASS_NAME_SUFFIX)
-					.addMethod(activateCallers)
+					.classBuilder(CompanionNamer.getCompanionNameFor(targetClass.unwrap()))
+					.addMethod(activateCallers.build())
 					.build();
 
-			final PackageElement targetClassPackage = coreHelpers.getElementHelper().getPackageOf(targetClass.unwrap());
+			final PackageElement targetClassPackage = elementUtil.getPackageOf(targetClass.unwrap());
 
 			final JavaFile companionFile = JavaFile
 					.builder(targetClassPackage.getQualifiedName().toString(), companionClass)
@@ -174,11 +213,16 @@ public class MainProcessor extends AbstractProcessor {
 		}
 	}
 
-	private void createFile(final JavaFile file, final String errorMessage) {
+	private boolean createFile(final JavaFile file, final String errorMessage) {
 		try {
 			file.writeTo(filer);
+
+			return true;
+
 		} catch (final IOException e) {
 			messager.printMessage(ERROR, errorMessage);
+
+			return false;
 		}
 	}
 }

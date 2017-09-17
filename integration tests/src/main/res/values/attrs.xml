@@ -8,7 +8,7 @@
 		<attr name="subclassAttr" format="string"/>
 	</declare-styleable>
 
-	<declare-styleable name="UseAnnotationsTestTarget">
+	<declare-styleable name="UseAnnotationsTestTargetBase">
 		<attr name="useAnnotationsAttr" format="string"/>
 	</declare-styleable>
 
@@ -79,5 +79,13 @@
 
 	<declare-styleable name="StringHandlerTestTargetBase">
 		<attr name="stringHandlerAttr" format="string"/>
+	</declare-styleable>
+
+	<declare-styleable name="OverloadBehaviourTestTarget">
+		<attr name="overloadAttr" format="string"/>
+	</declare-styleable>
+
+	<declare-styleable name="ExceptionBehaviourTestTargetBase">
+		<attr name="exceptionAttr" format="string"/>
 	</declare-styleable>
 </resources>

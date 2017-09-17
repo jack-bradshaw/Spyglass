@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.common.class_definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorStateListHandler;
@@ -12,6 +13,7 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
@@ -282,19 +284,26 @@ public class GetValueMethodGenerator {
 	 * queries the supplied typed array and returns a value from it. Exactly what is returned is determined by each
 	 * specific implementation.
 	 *
-	 * @param anno
+	 * @param valueHandlerAnno
 	 * 		the annotation to use when generating the method body, not null
 	 *
 	 * @return the method spec, not null
 	 *
 	 * @throws IllegalArgumentException
-	 * 		if {@code anno} is null
+	 * 		if {@code valueHandlerAnno} is null
+	 * @throws IllegalArgumentException
+	 * 		if {@code valueHandlerAnno} is not a value handler annotation
 	 */
-	public MethodSpec generateFor(final AnnotationMirror anno) {
-		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+	public MethodSpec generateFor(final AnnotationMirror valueHandlerAnno) {
+		checkNotNull(valueHandlerAnno, "Argument \'valueHandlerAnno\' cannot be null.");
 
-		final String annotationType = anno.getAnnotationType().toString();
-		return methodSpecSuppliers.get(annotationType).supplyFor(anno);
+		final String annoClassName = valueHandlerAnno.getAnnotationType().toString();
+
+		if (!methodSpecSuppliers.containsKey(annoClassName)) {
+			throw new IllegalArgumentException("Argument \'valueHandlerAnno\' cannot contain null.");
+		}
+
+		return methodSpecSuppliers.get(annoClassName).supplyFor(valueHandlerAnno);
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {

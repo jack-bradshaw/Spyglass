@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.common.class_definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToColorResource;
@@ -18,6 +19,7 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
+import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.matthewtamlin.spyglass.common.units.DimensionUnit;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
@@ -31,7 +33,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.lang.model.element.AnnotationMirror;
-import javax.lang.model.util.Elements;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
@@ -420,19 +421,26 @@ public class GetDefaultMethodGenerator {
 	 * returns some value using a context and a typed array. Exactly what is returned is determined by each specific
 	 * implementation.
 	 *
-	 * @param anno
+	 * @param defaultAnno
 	 * 		the annotation to use when generating the method body, not null
 	 *
 	 * @return the method spec, not null
 	 *
 	 * @throws IllegalArgumentException
-	 * 		if {@code anno} is null
+	 * 		if {@code defaultAnno} is null
+	 * @throws IllegalArgumentException
+	 * 		if {@code defaultAnno} is not a default annotation
 	 */
-	public MethodSpec generateFor(final AnnotationMirror anno) {
-		checkNotNull(anno, "Argument \'anno\' cannot be null.");
+	public MethodSpec generateFor(final AnnotationMirror defaultAnno) {
+		checkNotNull(defaultAnno, "Argument \'defaultAnno\' cannot be null.");
 
-		final String annotationType = anno.getAnnotationType().toString();
-		return methodSpecSuppliers.get(annotationType).supplyFor(anno);
+		final String annoClassName = defaultAnno.getAnnotationType().toString();
+
+		if (!methodSpecSuppliers.containsKey(annoClassName)) {
+			throw new IllegalArgumentException("Argument \'defaultAnno\' is not a default annotation.");
+		}
+
+		return methodSpecSuppliers.get(annoClassName).supplyFor(defaultAnno);
 	}
 
 	private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {

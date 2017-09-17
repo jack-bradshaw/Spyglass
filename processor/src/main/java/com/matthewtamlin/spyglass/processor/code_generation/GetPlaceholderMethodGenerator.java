@@ -61,10 +61,10 @@ public class GetPlaceholderMethodGenerator {
 						final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
 
 						return getBaseMethodSpec(position)
-								.returns(Number.class)
+								.returns(Character.class)
 								.addCode(CodeBlock
 										.builder()
-										.addStatement("return ($T) $L", byte.class, rawValue.toString())
+										.addStatement("return ($T) $L", Character.class, rawValue.toString())
 										.build())
 								.build();
 					}
@@ -115,9 +115,13 @@ public class GetPlaceholderMethodGenerator {
 		checkNotNull(useAnno, "Argument \'useAnno\' cannot be null.");
 		checkGreaterThanOrEqualTo(parameterIndex, 0, "Argument \'parameterIndex\' must be at least zero.");
 
-		final String useAnnoName = useAnno.getAnnotationType().toString();
+		final String annoClassName = useAnno.getAnnotationType().toString();
 
-		return methodSpecSuppliers.get(useAnnoName).supplyFor(useAnno, parameterIndex);
+		if (!methodSpecSuppliers.containsKey(annoClassName)) {
+			throw new IllegalArgumentException("Argument \'useAnno\' is not a use annotation.");
+		}
+
+		return methodSpecSuppliers.get(annoClassName).supplyFor(useAnno, parameterIndex);
 	}
 
 	private MethodSpec.Builder getBaseMethodSpec(final int position) {

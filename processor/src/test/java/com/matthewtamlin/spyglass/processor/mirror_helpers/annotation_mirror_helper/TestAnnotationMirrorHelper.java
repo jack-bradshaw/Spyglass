@@ -15,10 +15,10 @@ import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
 
+import static org.hamcrest.CoreMatchers.nullValue;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.is;
-import static org.hamcrest.Matchers.notNullValue;
-import static org.hamcrest.Matchers.nullValue;
+import static org.hamcrest.core.Is.is;
+import static org.hamcrest.core.IsNull.notNullValue;
 import static org.mockito.Mockito.mock;
 
 @RunWith(JUnit4.class)
@@ -34,7 +34,7 @@ public class TestAnnotationMirrorHelper {
 
 	@Before
 	public void setup() {
-		helper = new AnnotationMirrorHelper(avatarRule.getProcessingEnvironment().getElementUtils());
+		helper = new AnnotationMirrorHelper(avatarRule.getElementUtils());
 	}
 
 	@Test(expected = IllegalArgumentException.class)

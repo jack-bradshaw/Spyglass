@@ -4,7 +4,6 @@ import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.TypeMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
@@ -30,77 +29,77 @@ public class CastWrapperGenerator {
 	public CodeBlock generateFor(final MethodSpec method, final TypeMirror recipient) {
 		final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
 
-		if (typeHelper.isAssignable(methodReturnType, recipient)) {
+		if (typeMirrorHelper.isNumber(recipient) && typeMirrorHelper.isNumber(methodReturnType)) {
+			return generateNumberCastWrapperFor(method, recipient);
+
+		} else if (typeMirrorHelper.isCharacter(recipient) && typeMirrorHelper.isCharacter(methodReturnType)) {
+			return generateCharacterCastWrapperFor(method, recipient);
+
+		} else {
 			return CodeBlock
 					.builder()
 					.add("($T) $N()", recipient, method)
 					.build();
-
-		} else if (complexCastIsPossible(methodReturnType, recipient)) {
-			return generateComplexCastWrapperFor(method, recipient);
-
-		} else {
-			//TODO throw exception instead
-			return null;
 		}
 	}
 
-	private boolean complexCastIsPossible(final TypeMirror methodReturnType, final TypeMirror recipient) {
-		return (typeMirrorHelper.isNumber(recipient) || typeMirrorHelper.isCharacter(recipient)) &&
-				(typeMirrorHelper.isNumber(methodReturnType) || typeMirrorHelper.isCharacter(methodReturnType));
-	}
-
-	private CodeBlock generateComplexCastWrapperFor(final MethodSpec method, final TypeMirror recipient) {
+	private CodeBlock generateNumberCastWrapperFor(final MethodSpec method, final TypeMirror recipient) {
 		final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
 
-		final CodeBlock toNumber = typeMirrorHelper.isCharacter(methodReturnType) ?
-				CodeBlock.of("($T) ($T) $N()", Number.class, byte.class, method) :
-				CodeBlock.of("($T) $N()", Number.class, method);
+		final CodeBlock toNumber = CodeBlock.of("($T) $N()", Number.class, method);
 
 		if (recipient.toString().equals("byte")) {
 			return CodeBlock.of("(byte) ($L).byteValue()", toNumber);
 
-		} else if (elementHelper.getTypeElement(Byte.class.getCanonicalName()).equals(recipient)) {
+		} else if (recipient.toString().equals(Byte.class.getCanonicalName())) {
 			return CodeBlock.of("($T) ($L).byteValue()", Byte.class, toNumber);
-
-		} else if (recipient.toString().equals("char")) {
-			return CodeBlock.of("(char) ($L).byteValue()", toNumber);
-
-		} else if (elementHelper.getTypeElement(Character.class.getCanonicalName()).equals(recipient)) {
-			return CodeBlock.of("($T) ($L).byteValue()", Character.class, toNumber);
 
 		} else if (recipient.toString().equals("short")) {
 			return CodeBlock.of("(short) ($L).shortValue()", toNumber);
 
-		} else if (elementHelper.getTypeElement(Short.class.getCanonicalName()).equals(recipient)) {
+		} else if (recipient.toString().equals(Short.class.getCanonicalName())) {
 			return CodeBlock.of("($T) ($L).shortValue()", Short.class, toNumber);
 
 		} else if (recipient.toString().equals("int")) {
 			return CodeBlock.of("(int) ($L).intValue()", toNumber);
 
-		} else if (elementHelper.getTypeElement(Integer.class.getCanonicalName()).equals(recipient)) {
+		} else if (recipient.toString().equals(Integer.class.getCanonicalName())) {
 			return CodeBlock.of("($T) ($L).intValue()", Integer.class, toNumber);
 
 		} else if (recipient.toString().equals("long")) {
 			return CodeBlock.of("(long) ($L).longValue()", toNumber);
 
-		} else if (elementHelper.getTypeElement(Long.class.getCanonicalName()).equals(recipient)) {
+		} else if (recipient.toString().equals(Long.class.getCanonicalName())) {
 			return CodeBlock.of("($T) ($L).longValue()", Long.class, toNumber);
 
 		} else if (recipient.toString().equals("float")) {
 			return CodeBlock.of("(float) ($L).floatValue()", toNumber);
 
-		} else if (elementHelper.getTypeElement(Float.class.getCanonicalName()).equals(recipient)) {
+		} else if (recipient.toString().equals(Float.class.getCanonicalName())) {
 			return CodeBlock.of("($T) ($L).floatValue()", Float.class, toNumber);
 
 		} else if (recipient.toString().equals("double")) {
 			return CodeBlock.of("(double) ($L).doubleValue()", toNumber);
 
-		} else if (elementHelper.getTypeElement(Double.class.getCanonicalName()).equals(recipient)) {
+		} else if (recipient.toString().equals(Double.class.getCanonicalName())) {
 			return CodeBlock.of("($T) ($L).doubleValue()", Double.class, toNumber);
 
 		} else {
-			return null;
+			return CodeBlock.of("($T) $N()", methodReturnType, method);
+		}
+	}
+
+	private CodeBlock generateCharacterCastWrapperFor(final MethodSpec method, final TypeMirror recipient) {
+		final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
+
+		if (recipient.toString().equals("char")) {
+			return CodeBlock.of("(char) $N()", method);
+
+		} else if (recipient.toString().equals(Character.class.getCanonicalName())) {
+			return CodeBlock.of("($T) $N()", Character.class, method);
+
+		} else {
+			return CodeBlock.of("($T) $N()", methodReturnType, method);
 		}
 	}
 }
