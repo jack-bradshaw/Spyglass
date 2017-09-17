@@ -18,9 +18,9 @@ import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
 public final class CallerDef {
-	public static final MethodSpec GET_CONTEXT;
-
 	public static final MethodSpec GET_TARGET;
+
+	public static final MethodSpec GET_CONTEXT;
 
 	public static final MethodSpec GET_ATTRS;
 
@@ -35,18 +35,18 @@ public final class CallerDef {
 	static {
 		final TypeVariableName targetType = TypeVariableName.get("T");
 
-		GET_CONTEXT = MethodSpec
-				.methodBuilder("getContext")
-				.addModifiers(PROTECTED)
-				.returns(AndroidClassNames.CONTEXT)
-				.addCode(CodeBlock.of("return context;"))
-				.build();
-
 		GET_TARGET = MethodSpec
 				.methodBuilder("getTarget")
 				.addModifiers(PROTECTED)
 				.returns(targetType)
 				.addCode(CodeBlock.of("return target;"))
+				.build();
+
+		GET_CONTEXT = MethodSpec
+				.methodBuilder("getContext")
+				.addModifiers(PROTECTED)
+				.returns(AndroidClassNames.CONTEXT)
+				.addCode(CodeBlock.of("return context;"))
 				.build();
 
 		GET_ATTRS = MethodSpec
@@ -66,13 +66,13 @@ public final class CallerDef {
 		CONSTRUCTOR = MethodSpec
 				.constructorBuilder()
 				.addModifiers(PUBLIC)
-				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
 				.addParameter(targetType, "target", FINAL)
+				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
 				.addCode(CodeBlock
 						.builder()
-						.addStatement("this.context = context")
 						.addStatement("this.target = target")
+						.addStatement("this.context = context")
 						.addStatement("this.attrs = attrs")
 						.build())
 				.build();
@@ -81,13 +81,13 @@ public final class CallerDef {
 				.classBuilder("Caller")
 				.addModifiers(PUBLIC, ABSTRACT)
 				.addTypeVariable(targetType)
-				.addMethod(GET_CONTEXT)
 				.addMethod(GET_TARGET)
+				.addMethod(GET_CONTEXT)
 				.addMethod(GET_ATTRS)
 				.addMethod(CALL)
 				.addMethod(CONSTRUCTOR)
-				.addField(AndroidClassNames.CONTEXT, "context", PRIVATE, FINAL)
 				.addField(targetType, "target", PRIVATE, FINAL)
+				.addField(AndroidClassNames.CONTEXT, "context", PRIVATE, FINAL)
 				.addField(AndroidClassNames.TYPED_ARRAY, "attrs", PRIVATE, FINAL)
 				.build();
 
@@ -115,12 +115,12 @@ public final class CallerDef {
 		return MethodSpec
 				.constructorBuilder()
 				.addModifiers(PUBLIC)
-				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
 				.addParameter(targetType, "target", FINAL)
+				.addParameter(AndroidClassNames.CONTEXT, "context", FINAL)
 				.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs", FINAL)
 				.addCode(CodeBlock
 						.builder()
-						.addStatement("super(context, target, attrs)")
+						.addStatement("super(target, context, attrs)")
 						.build());
 	}
 
@@ -147,7 +147,7 @@ public final class CallerDef {
 
 		return TypeSpec
 				.anonymousClassBuilder(
-						CodeBlock.of("$L, $L, $L", contextParameter, targetParameter, attrsParameter).toString())
+						CodeBlock.of("$L, $L, $L", targetParameter, contextParameter, attrsParameter).toString())
 				.addSuperinterface(specificCaller);
 	}
 
