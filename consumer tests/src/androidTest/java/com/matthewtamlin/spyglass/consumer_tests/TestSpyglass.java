@@ -7,12 +7,10 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
 import com.matthewtamlin.spyglass.consumer.IllegalThreadException;
 import com.matthewtamlin.spyglass.consumer.InvalidBuilderStateException;
 import com.matthewtamlin.spyglass.consumer.InvalidSpyglassCompanionException;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
-import com.matthewtamlin.spyglass.consumer.TargetException;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -224,38 +222,6 @@ public class TestSpyglass {
 				.builder()
 				.withTarget(targetView)
 				.withAnnotationSource(ViewWithIncompleteCompanion.class)
-				.withContext(context)
-				.withStyleableResource(new int[0])
-				.build();
-
-		spyglass.passDataToMethods();
-	}
-
-	@Test(expected = TargetException.class)
-	@UiThreadTest
-	public void testPassDataToMethods_usingViewWithCompanionThrowsTargetException() {
-		final View targetView = new ViewWithCompanionThrowsTargetException(context);
-
-		final Spyglass spyglass = Spyglass
-				.builder()
-				.withTarget(targetView)
-				.withAnnotationSource(ViewWithCompanionThrowsTargetException.class)
-				.withContext(context)
-				.withStyleableResource(new int[0])
-				.build();
-
-		spyglass.passDataToMethods();
-	}
-
-	@Test(expected = SpyglassRuntimeException.class)
-	@UiThreadTest
-	public void testPassDataToMethods_usingViewWithCompanionThrowsSpyglassRuntimeException() {
-		final View targetView = new ViewWithCompanionThrowsSpyglassRuntimeException(context);
-
-		final Spyglass spyglass = Spyglass
-				.builder()
-				.withTarget(targetView)
-				.withAnnotationSource(ViewWithCompanionThrowsSpyglassRuntimeException.class)
 				.withContext(context)
 				.withStyleableResource(new int[0])
 				.build();

@@ -5,7 +5,6 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 
-import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
 import com.matthewtamlin.spyglass.consumer.TargetException;
 
 import org.junit.Before;
@@ -38,11 +37,5 @@ public class TestExceptionBehaviour {
 		}
 
 		assertThat("No exception thrown.", false);
-	}
-
-	@Test(expected = SpyglassRuntimeException.class)
-	@UiThreadTest
-	public void testExceptionBehaviour_handlerMethodThrowsSpyglassRuntimeException() {
-		new ThrowsSpyglassRuntimeException(context);
 	}
 }

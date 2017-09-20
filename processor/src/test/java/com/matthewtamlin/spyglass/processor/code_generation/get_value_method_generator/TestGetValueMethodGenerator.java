@@ -133,7 +133,7 @@ public class TestGetValueMethodGenerator {
 
 		final MethodSpec generatedMethod = generator.generateFor(mirror);
 
-		checkSignature(generatedMethod, TypeName.OBJECT);
+		checkSignature(generatedMethod, ClassName.get(Data.PlaceholderEnum.class));
 		checkCompiles(generatedMethod);
 	}
 
