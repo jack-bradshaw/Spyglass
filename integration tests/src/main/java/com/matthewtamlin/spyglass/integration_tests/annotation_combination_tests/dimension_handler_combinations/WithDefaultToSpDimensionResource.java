@@ -5,8 +5,8 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToDimensionResource;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.annotations.annotations.default_annotations.DefaultToDimensionResource;
+import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.DimensionHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
