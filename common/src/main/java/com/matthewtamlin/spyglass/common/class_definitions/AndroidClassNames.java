@@ -2,6 +2,9 @@ package com.matthewtamlin.spyglass.common.class_definitions;
 
 import com.squareup.javapoet.ClassName;
 
+/**
+ * Definitions for classes available in Android projects.
+ */
 public class AndroidClassNames {
 	public static final ClassName CONTEXT = ClassName.get("android.content", "Context");
 

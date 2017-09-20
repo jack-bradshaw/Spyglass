@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.common.units;
 
 /**
- * A unit of measurement which can quantify a screen dimensions.
+ * A unit of measurement which can quantify a screen dimension.
  */
 public enum DimensionUnit {
 	/**
@@ -25,8 +25,7 @@ public enum DimensionUnit {
 	IN,
 
 	/**
-	 * Scale independent pixels. Automatically scaled by the system based on the user's font size
-	 * preference.
+	 * Scale independent pixels. Automatically scaled by the system based on the user's font size preference.
 	 */
 	SP,
 
