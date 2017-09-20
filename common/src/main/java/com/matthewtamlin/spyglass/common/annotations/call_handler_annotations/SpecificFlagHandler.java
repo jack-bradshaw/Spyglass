@@ -7,9 +7,9 @@ import java.lang.annotation.Target;
 
 /**
  * Declares a method to be called by the Spyglass framework if a specific condition is met. The annotated method will
- * only be called if the integer value mapped to the specified attribute matches with the specified flags (using a
+ * only be called if the integer value mapped to the attribute ID matches with the specified flags (using a
  * bitwise-OR operation).
- *
+ * <p>
  * This annotation should only be applied to methods which satisfy all of the following criteria: <ul> <li>The method
  * has no other handler annotations.</li> <li>The method has no default annotation.</li> <li>Every parameter has a
  * use annotation.</li> </ul>
