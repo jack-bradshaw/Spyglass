@@ -231,38 +231,6 @@ public class TestSpyglass {
 		spyglass.passDataToMethods();
 	}
 
-	@Test(expected = TargetException.class)
-	@UiThreadTest
-	public void testPassDataToMethods_usingViewWithCompanionThrowsTargetException() {
-		final View targetView = new ViewWithCompanionThrowsTargetException(context);
-
-		final Spyglass spyglass = Spyglass
-				.builder()
-				.withTarget(targetView)
-				.withAnnotationSource(ViewWithCompanionThrowsTargetException.class)
-				.withContext(context)
-				.withStyleableResource(new int[0])
-				.build();
-
-		spyglass.passDataToMethods();
-	}
-
-	@Test(expected = SpyglassRuntimeException.class)
-	@UiThreadTest
-	public void testPassDataToMethods_usingViewWithCompanionThrowsSpyglassRuntimeException() {
-		final View targetView = new ViewWithCompanionThrowsSpyglassRuntimeException(context);
-
-		final Spyglass spyglass = Spyglass
-				.builder()
-				.withTarget(targetView)
-				.withAnnotationSource(ViewWithCompanionThrowsSpyglassRuntimeException.class)
-				.withContext(context)
-				.withStyleableResource(new int[0])
-				.build();
-
-		spyglass.passDataToMethods();
-	}
-
 	@Test
 	@UiThreadTest
 	public void testPassDataToMethods_usingViewWithNormalCompanion() throws NoSuchMethodException {
