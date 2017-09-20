@@ -1,5 +1,9 @@
 package com.matthewtamlin.spyglass.consumer;
 
+/**
+ * Exception that indicates a method in a target class threw an exception when invoked by the Spyglass framework.
+ * The exception contains the target object, the called method name, and the original exception.
+ */
 public class TargetException extends RuntimeException {
 	private Object target;
 
@@ -20,14 +24,23 @@ public class TargetException extends RuntimeException {
 		initCause(thrownByTarget);
 	}
 
+	/**
+	 * @return the target which threw the exception, not null
+	 */
 	public Object getTarget() {
 		return target;
 	}
 
+	/**
+	 * @return the name of the method which throw the exception, not null
+	 */
 	public String getMethodName() {
 		return methodName;
 	}
 
+	/**
+	 * @return the exception which was thrown by the target, not null
+	 */
 	public Throwable getThrownByTarget() {
 		return thrownByTarget;
 	}
