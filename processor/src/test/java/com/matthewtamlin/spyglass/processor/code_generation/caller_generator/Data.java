@@ -1,10 +1,10 @@
 package com.matthewtamlin.spyglass.processor.code_generation.caller_generator;
 
 import com.matthewtamlin.avatar.rules.ElementId;
-import com.matthewtamlin.spyglass.annotations.annotations.call_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.default_annotations.DefaultToBoolean;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
 
 public class Data {
 	@ElementId("no handler")
