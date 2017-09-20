@@ -7,12 +7,10 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.common.exception.SpyglassRuntimeException;
 import com.matthewtamlin.spyglass.consumer.IllegalThreadException;
 import com.matthewtamlin.spyglass.consumer.InvalidBuilderStateException;
 import com.matthewtamlin.spyglass.consumer.InvalidSpyglassCompanionException;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
-import com.matthewtamlin.spyglass.consumer.TargetException;
 
 import org.junit.Before;
 import org.junit.Rule;
