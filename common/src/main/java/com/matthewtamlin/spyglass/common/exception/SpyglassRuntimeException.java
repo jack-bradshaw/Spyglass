@@ -1,7 +1,8 @@
 package com.matthewtamlin.spyglass.common.exception;
 
 /**
- * A runtime exception caused by the Spyglass framework, as distinct from exceptions caused by non-Spyglass objects.
+ * A runtime exception caused internally by the Spyglass framework, as distinct from exceptions caused by non-Spyglass
+ * objects.
  */
 public class SpyglassRuntimeException extends RuntimeException {
 	public SpyglassRuntimeException() {

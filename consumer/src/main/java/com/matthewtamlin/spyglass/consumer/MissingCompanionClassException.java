@@ -1,7 +1,7 @@
 package com.matthewtamlin.spyglass.consumer;
 
 /**
- * An exception to indicate that no companion class exists for a particular class.
+ * Exception that indicates a required Spyglass companion could not be found at runtime.
  */
 public class MissingCompanionClassException extends RuntimeException {
 	public MissingCompanionClassException() {

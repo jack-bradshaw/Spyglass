@@ -17,6 +17,9 @@ import static javax.lang.model.element.Modifier.PROTECTED;
 import static javax.lang.model.element.Modifier.PUBLIC;
 
 @Tested(testMethod = "automated")
+/**
+ * Code generation definition for the Caller class.
+ */
 public final class CallerDef {
 	public static final MethodSpec GET_TARGET;
 

@@ -7,30 +7,18 @@ import android.support.annotation.RequiresApi;
  * Exception to indicate that a method has been called on a illegal thread.
  */
 public class IllegalThreadException extends RuntimeException {
-	/**
-	 * Constructs a new IllegalThreadException with no cause or message. The
-	 */
 	public IllegalThreadException() {
 		super();
 	}
 
-	/**
-	 * Constructs a new IllegalThreadException with a message but no cause.
-	 */
 	public IllegalThreadException(final String message) {
 		super(message);
 	}
 
-	/**
-	 * Constructs a new IllegalThreadException with a message and a cause.
-	 */
 	public IllegalThreadException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 
-	/**
-	 * Constructs a new IllegalThreadException with a cause but no method.
-	 */
 	public IllegalThreadException(final Throwable cause) {
 		super(cause);
 	}

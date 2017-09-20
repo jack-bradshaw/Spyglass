@@ -1,5 +1,8 @@
 package com.matthewtamlin.spyglass.consumer;
 
+/**
+ * Exception that indicates a malformed Spyglass companion was found.
+ */
 public class InvalidSpyglassCompanionException extends RuntimeException {
 	public InvalidSpyglassCompanionException() {
 		super();
