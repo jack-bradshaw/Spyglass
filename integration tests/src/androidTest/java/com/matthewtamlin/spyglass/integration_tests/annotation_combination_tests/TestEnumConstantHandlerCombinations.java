@@ -7,12 +7,13 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.common.enum_util.EnumInstantiationException;
+import com.matthewtamlin.spyglass.consumer.TargetException;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.EnumConstantHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.EnumForTesting.Fruit;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.WithDefaultToEnumConstantOfInvalidFruit;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.WithDefaultToEnumConstantWithOrdinalTooBig;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.WithDefaultToEnumConstantOfWatermelon;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.WithDefaultToEnumConstantWithOrdinalTooSmall;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.WithDefaultToNull;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.WithoutDefault;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
@@ -49,7 +50,7 @@ public class TestEnumConstantHandlerCombinations {
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(Fruit.PEAR)));
 	}
 
-	@Test(expected = EnumInstantiationException.class)
+	@Test(expected = TargetException.class)
 	@UiThreadTest
 	public void testSpyglassFails_attributePresent_attributeEqualsInvalidFruit() {
 		final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_with_attr_equals_invalid_fruit);
@@ -77,12 +78,20 @@ public class TestEnumConstantHandlerCombinations {
 		assertThat(target.getReceivedValue(), is(ReceivedValue.of(Fruit.WATERMELON)));
 	}
 
-	@Test(expected = EnumInstantiationException.class)
+	@Test(expected = TargetException.class)
 	@UiThreadTest
-	public void testSpyglassFails_attributeMissing_defaultToEnumConstantPresent_defaultToInvalidFruit() {
+	public void testSpyglassFails_attributeMissing_defaultToEnumConstantPresent_defaultOrdinalTooSmall() {
 		final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_without_attr);
 
-		final EnumConstantHandlerTestTargetBase target = new WithDefaultToEnumConstantOfInvalidFruit(context, attrs);
+		new WithDefaultToEnumConstantWithOrdinalTooSmall(context, attrs);
+	}
+
+	@Test(expected = TargetException.class)
+	@UiThreadTest
+	public void testSpyglassFails_attributeMissing_defaultToEnumConstantPresent_defaultOrdinalTooBig() {
+		final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_without_attr);
+
+		new WithDefaultToEnumConstantWithOrdinalTooBig(context, attrs);
 	}
 
 
