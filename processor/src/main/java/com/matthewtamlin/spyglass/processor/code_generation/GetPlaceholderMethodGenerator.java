@@ -1,15 +1,15 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseBoolean;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseByte;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseChar;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseDouble;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseFloat;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseInt;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseLong;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseBoolean;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseByte;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseDouble;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseFloat;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseInt;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseShort;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseString;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;

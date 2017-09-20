@@ -5,10 +5,9 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseChar;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
