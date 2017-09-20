@@ -20,7 +20,6 @@ import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelpe
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -152,9 +151,19 @@ public class GetValueMethodGenerator {
 										"final int ordinal = $N().getInt($L, 1)",
 										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
+								.add("\n")
+								.beginControlFlow(
+										"if ($T.values().length < ordinal - 1)",
+										ClassName.bestGuess(enumClassName))
 								.addStatement(
-										"return $L.values()[ordinal]",
-										enumClassName)
+										"throw new $T($L)",
+										RuntimeException.class,
+										"\"Ordinal \" + ordinal + \" is out of bounds for enum " + enumClassName + "\"")
+								.endControlFlow()
+								.add("\n")
+								.addStatement(
+										"return $T.values()[ordinal]",
+										ClassName.bestGuess(enumClassName))
 								.build();
 
 						return getBaseMethodSpec()
