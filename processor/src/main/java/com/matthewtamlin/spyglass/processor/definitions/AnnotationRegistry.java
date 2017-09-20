@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.processor.core;
+package com.matthewtamlin.spyglass.processor.definitions;
 
 import com.google.common.collect.ImmutableSet;
 import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;

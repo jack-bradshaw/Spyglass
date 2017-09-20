@@ -6,7 +6,7 @@ import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.core.AnnotationRegistry;
+import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 
 import java.lang.annotation.Annotation;
 import java.util.Collection;
