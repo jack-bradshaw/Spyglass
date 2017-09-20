@@ -23,6 +23,7 @@ import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
+import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -215,7 +216,7 @@ public class GetDefaultMethodGenerator {
 								.build();
 
 						return getBaseMethodSpec()
-								.returns(TypeName.OBJECT)
+								.returns(ClassName.bestGuess(enumClassName))
 								.addCode(body)
 								.build();
 					}
