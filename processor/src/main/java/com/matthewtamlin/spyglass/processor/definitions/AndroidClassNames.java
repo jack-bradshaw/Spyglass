@@ -1,4 +1,4 @@
-package com.matthewtamlin.spyglass.common.class_definitions;
+package com.matthewtamlin.spyglass.processor.definitions;
 
 import com.squareup.javapoet.ClassName;
 
