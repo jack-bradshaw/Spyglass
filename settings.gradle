@@ -1,4 +1,4 @@
-include ':common'
+include ':annotations'
 include ':consumer'
 include ':consumer tests'
 include ':integration tests'

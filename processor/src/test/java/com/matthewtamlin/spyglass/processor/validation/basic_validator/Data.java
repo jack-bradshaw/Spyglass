@@ -1,26 +1,25 @@
 package com.matthewtamlin.spyglass.processor.validation.basic_validator;
 
-import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.common.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToEnumConstant;
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToNull;
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToStringResource;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseBoolean;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseByte;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseChar;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseDouble;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseFloat;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseInt;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseLong;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseShort;
-import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseString;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.DimensionHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FloatHandler;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.annotations.annotations.call_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.annotations.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.annotations.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.annotations.annotations.default_annotations.DefaultToEnumConstant;
+import com.matthewtamlin.spyglass.annotations.annotations.default_annotations.DefaultToNull;
+import com.matthewtamlin.spyglass.annotations.annotations.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.annotations.annotations.default_annotations.DefaultToStringResource;
+import com.matthewtamlin.spyglass.annotations.annotations.use_annotations.UseBoolean;
+import com.matthewtamlin.spyglass.annotations.annotations.use_annotations.UseByte;
+import com.matthewtamlin.spyglass.annotations.annotations.use_annotations.UseChar;
+import com.matthewtamlin.spyglass.annotations.annotations.use_annotations.UseDouble;
+import com.matthewtamlin.spyglass.annotations.annotations.use_annotations.UseFloat;
+import com.matthewtamlin.spyglass.annotations.annotations.use_annotations.UseInt;
+import com.matthewtamlin.spyglass.annotations.annotations.use_annotations.UseLong;
+import com.matthewtamlin.spyglass.annotations.annotations.use_annotations.UseNull;
+import com.matthewtamlin.spyglass.annotations.annotations.use_annotations.UseString;
+import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.FloatHandler;
+import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.StringHandler;
 
 abstract class Data {
 	@Target(isValid = true)
