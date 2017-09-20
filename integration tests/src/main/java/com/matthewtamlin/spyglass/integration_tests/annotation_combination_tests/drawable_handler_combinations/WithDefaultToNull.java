@@ -6,8 +6,8 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.annotations.annotations.default_annotations.DefaultToNull;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.DrawableHandler;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToNull;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.DrawableHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;

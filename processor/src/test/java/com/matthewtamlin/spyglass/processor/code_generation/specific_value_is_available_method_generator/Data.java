@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.processor.code_generation.specific_value_is_available_method_generator;
 
 import com.matthewtamlin.avatar.rules.ElementId;
-import com.matthewtamlin.spyglass.annotations.annotations.call_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
 
 public class Data {
 	@ElementId("specific enum")

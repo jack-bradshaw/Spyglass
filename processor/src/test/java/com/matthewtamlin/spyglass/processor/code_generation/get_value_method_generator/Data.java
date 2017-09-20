@@ -1,17 +1,17 @@
 package com.matthewtamlin.spyglass.processor.code_generation.get_value_method_generator;
 
 import com.matthewtamlin.avatar.rules.ElementId;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.ColorHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.ColorStateListHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.DimensionHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.DrawableHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.EnumConstantHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.EnumOrdinalHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.FloatHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.FractionHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.IntegerHandler;
-import com.matthewtamlin.spyglass.annotations.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.ColorHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.ColorStateListHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.DrawableHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.EnumOrdinalHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FloatHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.IntegerHandler;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
 
 public class Data {
 	@ElementId("boolean")
