@@ -6,14 +6,13 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Declares a method capable of handling a String attribute. If the Spyglass framework finds
- * a String value mapped to the specified attribute, it will invoke the method and pass in the
- * value. This annotation should only be applied to methods which satisfy all of the following
- * criteria:
+ * Declares a method capable of handling a String attribute. If the Spyglass framework finds a String value mapped to
+ * the attribute ID, it will invoke the method and pass in the value. This annotation should only be applied to
+ * methods which satisfy all of the following criteria:
  * <ul>
  * <li>The method has no other handler annotations.</li>
- * <li>The method has at least one String parameter.</li>
- * <li>Except for one String parameter, every parameter has a use annotation.</li>
+ * <li>The method has at least one {@code String} parameter.</li>
+ * <li>Except for one {@code String} parameter, every parameter has a use annotation.</li>
  * </ul>
  */
 @Retention(RetentionPolicy.SOURCE)

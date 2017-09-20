@@ -1,5 +1,8 @@
 package com.matthewtamlin.spyglass.consumer;
 
+/**
+ * Generates companion class names based on target classes.
+ */
 public class CompanionNamer {
 	public static String getCompanionNameFor(final Class<?> targetClass) {
 		return getParentChain(targetClass) + "_SpyglassCompanion";
