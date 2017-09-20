@@ -39,10 +39,4 @@ public class TestExceptionBehaviour {
 
 		assertThat("No exception thrown.", false);
 	}
-
-	@Test(expected = SpyglassRuntimeException.class)
-	@UiThreadTest
-	public void testExceptionBehaviour_handlerMethodThrowsSpyglassRuntimeException() {
-		new ThrowsSpyglassRuntimeException(context);
-	}
 }
