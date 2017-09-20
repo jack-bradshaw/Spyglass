@@ -6,8 +6,8 @@ import android.content.res.ColorStateList;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToColorStateListResource;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorStateListHandler;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.ColorStateListHandler;
 import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
