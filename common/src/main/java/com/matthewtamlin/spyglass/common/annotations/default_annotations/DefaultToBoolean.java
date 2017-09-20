@@ -6,9 +6,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * Defines a default for the annotated method, so that the Spyglass framework can invoke the
- * method if its handler annotation is not satisfied. This annotation should only be applied to
- * methods which satisfy all of the following criteria:
+ * Defines a default for the annotated method, so that the Spyglass framework can invoke the method if its handler
+ * annotation is not satisfied. This annotation should only be applied to methods which satisfy all of the following
+ * criteria:
  * <ul>
  * <li>The method has a handler annotation.</li>
  * <li>The method has no other default annotations.</li>
