@@ -1,10 +1,8 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
 import com.google.common.collect.ImmutableList;
-import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToEnumConstant;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.common.annotations.use_annotations.UseNull;
-import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.EnumConstantHandler;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
@@ -37,16 +35,10 @@ public class TypeValidator implements Validator {
 					}
 
 					final AnnotationMirror anno = ValueHandlerAnnoRetriever.getAnnotation(element);
-					final String annoName = anno.getAnnotationType().toString();
 
 					final MethodSpec supplier = getValueMethodGenerator.generateFor(anno);
 					final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
 					final TypeMirror recipientType = getParameterWithoutUseAnnotation(element).asType();
-
-					// A limitation currently prevents enums from being checked at compile time
-					if (annoName.equals(EnumConstantHandler.class.getName())) {
-						return Result.createSuccessful();
-					}
 
 					if (!isAssignableOrConvertible(suppliedType, recipientType)) {
 						return Result.createFailure(
@@ -73,11 +65,6 @@ public class TypeValidator implements Validator {
 					final MethodSpec supplier = getDefaultMethodGenerator.generateFor(anno);
 					final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
 					final TypeMirror recipientType = getParameterWithoutUseAnnotation(element).asType();
-
-					// A limitation currently prevents enums from being checked at compile time
-					if (annoName.equals(DefaultToEnumConstant.class.getName())) {
-						return Result.createSuccessful();
-					}
 
 					if (annoName.equals(DefaultToNull.class.getName())) {
 						if (typeMirrorHelper.isPrimitive(recipientType)) {

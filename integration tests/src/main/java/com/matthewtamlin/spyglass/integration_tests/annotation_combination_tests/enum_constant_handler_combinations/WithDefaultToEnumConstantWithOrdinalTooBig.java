@@ -12,18 +12,18 @@ import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
-public class WithDefaultToEnumConstantOfInvalidFruit extends EnumConstantHandlerTestTargetBase {
-	public WithDefaultToEnumConstantOfInvalidFruit(final Context context) {
+public class WithDefaultToEnumConstantWithOrdinalTooBig extends EnumConstantHandlerTestTargetBase {
+	public WithDefaultToEnumConstantWithOrdinalTooBig(final Context context) {
 		super(context);
 		init(null, 0, 0);
 	}
 
-	public WithDefaultToEnumConstantOfInvalidFruit(final Context context, final AttributeSet attrs) {
+	public WithDefaultToEnumConstantWithOrdinalTooBig(final Context context, final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public WithDefaultToEnumConstantOfInvalidFruit(
+	public WithDefaultToEnumConstantWithOrdinalTooBig(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr) {
@@ -34,7 +34,7 @@ public class WithDefaultToEnumConstantOfInvalidFruit extends EnumConstantHandler
 
 	@TargetApi(21)
 	@RequiresApi(21)
-	public WithDefaultToEnumConstantOfInvalidFruit(
+	public WithDefaultToEnumConstantWithOrdinalTooBig(
 			final Context context,
 			final AttributeSet attrs,
 			final int defStyleAttr,
@@ -55,7 +55,7 @@ public class WithDefaultToEnumConstantOfInvalidFruit extends EnumConstantHandler
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
 		Spyglass.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToEnumConstantOfInvalidFruit.class)
+				.withAnnotationSource(WithDefaultToEnumConstantWithOrdinalTooBig.class)
 				.withStyleableResource(R.styleable.EnumConstantHandlerTestTargetBase)
 				.withContext(getContext())
 				.withAttributeSet(attrs)
