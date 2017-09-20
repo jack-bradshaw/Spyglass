@@ -1,8 +1,8 @@
 package com.matthewtamlin.spyglass.processor.code_generation.caller_generator;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.common.class_definitions.AndroidClassNames;
-import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
+import com.matthewtamlin.spyglass.processor.definitions.AndroidClassNames;
+import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
