@@ -153,7 +153,7 @@ public class GetValueMethodGenerator {
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.add("\n")
 								.beginControlFlow(
-										"if ($T.values().length < ordinal - 1)",
+										"if (ordinal < 0 || $1T.values().length - 1 < ordinal)",
 										ClassName.bestGuess(enumClassName))
 								.addStatement(
 										"throw new $T($L)",
