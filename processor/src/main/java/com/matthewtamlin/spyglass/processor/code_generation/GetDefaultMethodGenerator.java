@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.common.class_definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBoolean;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToBooleanResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToColorResource;
@@ -19,9 +18,8 @@ import com.matthewtamlin.spyglass.common.annotations.default_annotations.Default
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextArrayResource;
 import com.matthewtamlin.spyglass.common.annotations.default_annotations.DefaultToTextResource;
+import com.matthewtamlin.spyglass.common.class_definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
-import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
-import com.matthewtamlin.spyglass.common.units.DimensionUnit;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
@@ -133,8 +131,8 @@ public class GetDefaultMethodGenerator {
 				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
-						final String unitLiteral = getLiteralFromAnnotation(anno, "unit");
-						final DimensionUnit unitEnum = (DimensionUnit) EnumUtil.getEnumConstant(unitLiteral);
+						final String unitFull = getLiteralFromAnnotation(anno, "unit");
+						final String unitShort = unitFull.substring(unitFull.lastIndexOf(".") + 1);
 
 						final CodeBlock body = CodeBlock
 								.builder()
@@ -145,7 +143,7 @@ public class GetDefaultMethodGenerator {
 								.addStatement(
 										"return $1T.applyDimension($1T.$2L, $3L, metrics)",
 										AndroidClassNames.TYPED_VALUE,
-										getComplexUnitLiteral(unitEnum),
+										getComplexUnitLiteral(unitShort),
 										getLiteralFromAnnotation(anno, "value"))
 								.build();
 
@@ -205,13 +203,13 @@ public class GetDefaultMethodGenerator {
 				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
-						final String enumClassName = getLiteralFromAnnotation(anno, "enumClass");
+						final String enumClass = getLiteralFromAnnotation(anno, "enumClass");
+						final String enumClassName = enumClass.substring(0, enumClass.lastIndexOf(".class"));
 
 						final CodeBlock body = CodeBlock
 								.builder()
 								.addStatement(
-										"return $T.getEnumConstant($L, $L)",
-										TypeName.get(EnumUtil.class),
+										"return $L.values()[$L]",
 										enumClassName,
 										getLiteralFromAnnotation(anno, "ordinal"))
 								.build();
@@ -447,14 +445,14 @@ public class GetDefaultMethodGenerator {
 		return annotationMirrorHelper.getValueUsingDefaults(mirror, key).toString();
 	}
 
-	private String getComplexUnitLiteral(final DimensionUnit unit) {
+	private String getComplexUnitLiteral(final String unit) {
 		switch (unit) {
-			case PX: {return "COMPLEX_UNIT_PX";}
-			case DP: {return "COMPLEX_UNIT_DIP";}
-			case PT: {return "COMPLEX_UNIT_PT";}
-			case IN: {return "COMPLEX_UNIT_IN";}
-			case SP: {return "COMPLEX_UNIT_SP";}
-			case MM: {return "COMPLEX_UNIT_MM";}
+			case "PX": {return "COMPLEX_UNIT_PX";}
+			case "DP": {return "COMPLEX_UNIT_DIP";}
+			case "PT": {return "COMPLEX_UNIT_PT";}
+			case "IN": {return "COMPLEX_UNIT_IN";}
+			case "SP": {return "COMPLEX_UNIT_SP";}
+			case "MM": {return "COMPLEX_UNIT_MM";}
 		}
 
 		throw new RuntimeException("Should never get here.");

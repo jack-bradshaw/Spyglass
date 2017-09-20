@@ -1,7 +1,6 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.common.class_definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.ColorStateListHandler;
@@ -13,8 +12,8 @@ import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.F
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.FractionHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.IntegerHandler;
 import com.matthewtamlin.spyglass.common.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.common.class_definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.common.class_definitions.CallerDef;
-import com.matthewtamlin.spyglass.common.enum_util.EnumUtil;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
@@ -143,7 +142,8 @@ public class GetValueMethodGenerator {
 				new ParametrisedSupplier<AnnotationMirror, MethodSpec>() {
 					@Override
 					public MethodSpec supplyFor(final AnnotationMirror anno) {
-						final String enumClassName = getLiteralFromAnnotation(anno, "enumClass");
+						final String enumClass = getLiteralFromAnnotation(anno, "enumClass");
+						final String enumClassName = enumClass.substring(0, enumClass.lastIndexOf(".class"));
 
 						final CodeBlock body = CodeBlock
 								.builder()
@@ -152,8 +152,7 @@ public class GetValueMethodGenerator {
 										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(anno, "attributeId"))
 								.addStatement(
-										"return $T.getEnumConstant($L, ordinal)",
-										TypeName.get(EnumUtil.class),
+										"return $L.values()[ordinal]",
 										enumClassName)
 								.build();
 
