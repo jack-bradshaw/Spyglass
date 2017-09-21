@@ -84,7 +84,13 @@ public class MainProcessor extends AbstractProcessor {
 		basicValidator = new BasicValidator();
 		typeValidator = new TypeValidator(coreHelpers);
 
-		callerFileCreatedSuccessfully = createFile(CallerDef.SRC_FILE, "Could not create Caller class file.");
+		final String callerName = CallerDef.SRC_FILE.packageName + "." + CallerDef.SRC_FILE.typeSpec.name;
+
+		if (elementUtil.getTypeElement(callerName) == null) {
+			callerFileCreatedSuccessfully = createFile(CallerDef.SRC_FILE, "Could not create Caller class file.");
+		} else {
+			callerFileCreatedSuccessfully = true;
+		}
 	}
 
 	@Override
