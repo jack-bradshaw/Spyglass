@@ -46,13 +46,13 @@ task zipRelease(type: Zip) {
 	archiveName "release-${version}.zip"
 }
 
-task generateRelease << {
+task buildRelease << {
 	println "Release ${version} can be found at ${localReleaseDest}/"
 	println "Release ${version} zipped can be found ${buildDir}/release-${version}.zip"
 }
 
-generateRelease.dependsOn(uploadArchives)
-generateRelease.dependsOn(zipRelease)
+buildRelease.dependsOn(uploadArchives)
+buildRelease.dependsOn(zipRelease)
 
 artifacts {
 	archives androidSourcesJar
