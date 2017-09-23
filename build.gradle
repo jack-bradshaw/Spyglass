@@ -22,7 +22,7 @@ allprojects {
 ext {
 	PUBLISH_GROUP_ID = 'com.matthew-tamlin'
 	PUBLISH_ARTIFACT_ID_BASE = 'spyglass'
-	PUBLISH_VERSION = '0.1.0'
+	PUBLISH_VERSION = '1.0.0'
 }
 
 task clean(type: Delete) {
