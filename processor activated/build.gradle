@@ -4,9 +4,7 @@ sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
 ext {
-	PUBLISH_GROUP_ID = 'com.matthew-tamlin'
-	PUBLISH_ARTIFACT_ID = 'spyglass-processor'
-	PUBLISH_VERSION = '1.0.0'
+	PUBLISH_ARTIFACT_ID_SUFFIX = '-processor'
 }
 
 dependencies {
