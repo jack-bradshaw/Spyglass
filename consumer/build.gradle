@@ -10,13 +10,16 @@ android {
 	}
 }
 
-ext {
-	PUBLISH_ARTIFACT_ID_SUFFIX = '-runtime'
-}
-
 dependencies {
 	compile project(':markers')
 	compile 'com.android.support:appcompat-v7:25.3.1'
 }
 
-apply from: 'build_release.gradle'
+ext {
+	POM_ARTIFACT_ID_SUFFIX = '-runtime'
+	POM_NAME = 'Spyglass Runtime'
+	POM_PACKAGING = 'aar'
+	POM_DESCRIPTION = 'Runtime classes for the Spyglass framework.'
+}
+
+apply from: rootProject.file('maven-publish.gradle')
