@@ -33,5 +33,5 @@ task buildRelease(dependsOn: [
 ext {
 	groupId = 'com.matthew-tamlin'
 	artifactId = 'spyglass'
-	versionNumber = '1.0.1'
+	versionNumber = '1.0.0'
 }
