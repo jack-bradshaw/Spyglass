@@ -291,6 +291,13 @@ public class CompanionGenerator {
 						.build())
 				.build();
 
+		final MethodSpec getBuilder = MethodSpec
+				.methodBuilder("builder")
+				.addModifiers(PUBLIC, STATIC)
+				.returns(builderTypeName)
+				.addCode("return new $T();\n", builderTypeName)
+				.build();
+
 		final TypeSpec companion = CompanionDef
 				.getNewCompanionImplementationPrototype(companionName)
 				.addField(callers)
@@ -300,6 +307,7 @@ public class CompanionGenerator {
 				.addMethod(companionConstructor)
 				.addMethod(activateCallers)
 				.addMethod(initialiseCallers)
+				.addMethod(getBuilder)
 				.addType(builder)
 				.build();
 
