@@ -1,20 +1,19 @@
 package com.matthewtamlin.spyglass.processor.core;
 
-import com.matthewtamlin.spyglass.processor.definitions.AndroidClassNames;
+
+import com.google.common.collect.ImmutableSet;
+import com.matthewtamlin.spyglass.processor.code_generation.CompanionGenerator;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
-import com.matthewtamlin.spyglass.processor.code_generation.CallerGenerator;
+import com.matthewtamlin.spyglass.processor.definitions.CompanionDef;
+import com.matthewtamlin.spyglass.processor.definitions.TargetExceptionDef;
 import com.matthewtamlin.spyglass.processor.grouper.Grouper;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
 import com.matthewtamlin.spyglass.processor.validation.BasicValidator;
 import com.matthewtamlin.spyglass.processor.validation.Result;
 import com.matthewtamlin.spyglass.processor.validation.TypeValidator;
 import com.matthewtamlin.spyglass.processor.validation.Validator;
-import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
 
 import java.io.IOException;
 import java.lang.annotation.Annotation;
@@ -32,8 +31,6 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
-import javax.lang.model.element.Modifier;
-import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 
@@ -42,21 +39,26 @@ import static javax.tools.Diagnostic.Kind.ERROR;
 public class MainProcessor extends AbstractProcessor {
 	private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
 
+	private static final Set<JavaFile> REQUIRED_FILES = ImmutableSet.of(
+			CallerDef.SRC_FILE,
+			CompanionDef.SRC_FILE,
+			TargetExceptionDef.SRC_FILE);
+
 	private Elements elementUtil;
 
 	private Messager messager;
 
 	private Filer filer;
 
-	private CallerGenerator callerGenerator;
+	private CompanionGenerator companionGenerator;
 
 	private Validator basicValidator;
 
 	private TypeValidator typeValidator;
 
-	private boolean callerFileCreatedSuccessfully;
+	private boolean allRequiredFilesCreated;
 
-	private boolean callerFileFailureMessageDisplayed;
+	private boolean requiredFilesMissingErrorWritten;
 
 	static {
 		final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
@@ -64,6 +66,7 @@ public class MainProcessor extends AbstractProcessor {
 		intermediateSet.addAll(AnnotationRegistry.CALL_HANDLER_ANNOS);
 		intermediateSet.addAll(AnnotationRegistry.VALUE_HANDLER_ANNOS);
 		intermediateSet.addAll(AnnotationRegistry.DEFAULT_ANNOS);
+		intermediateSet.addAll(AnnotationRegistry.USE_ANNOS);
 
 		SUPPORTED_ANNOTATIONS = Collections.unmodifiableSet(intermediateSet);
 	}
@@ -80,17 +83,11 @@ public class MainProcessor extends AbstractProcessor {
 				processingEnvironment.getElementUtils(),
 				processingEnvironment.getTypeUtils());
 
-		callerGenerator = new CallerGenerator(coreHelpers);
+		companionGenerator = new CompanionGenerator(coreHelpers);
 		basicValidator = new BasicValidator();
 		typeValidator = new TypeValidator(coreHelpers);
 
-		final String callerName = CallerDef.SRC_FILE.packageName + "." + CallerDef.SRC_FILE.typeSpec.name;
-
-		if (elementUtil.getTypeElement(callerName) == null) {
-			callerFileCreatedSuccessfully = createFile(CallerDef.SRC_FILE, "Could not create Caller class file.");
-		} else {
-			callerFileCreatedSuccessfully = true;
-		}
+		createRequiredFiles();
 	}
 
 	@Override
@@ -106,21 +103,25 @@ public class MainProcessor extends AbstractProcessor {
 
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
-		if (!callerFileCreatedSuccessfully) {
-			if (!callerFileFailureMessageDisplayed) {
-				messager.printMessage(ERROR, "Base Caller class could not be created. Aborting Spyglass processing.");
-				callerFileFailureMessageDisplayed = true;
+		if (!allRequiredFilesCreated) {
+			if (!requiredFilesMissingErrorWritten) {
+				messager.printMessage(ERROR, "A required class could not be written. Aborting Spyglass processing.");
+				requiredFilesMissingErrorWritten = true;
 			}
 
 			return false;
 		}
 
 		try {
-			final Set<ExecutableElement> allElements = findSupportedElements(roundEnv);
+			final Set<ExecutableElement> methods = findMethodsWithSpyglassAnnotations(roundEnv);
 
-			if (allElementsPassValidation(allElements, basicValidator)) {
-				if (allElementsPassValidation(allElements, typeValidator)) {
-					createCompanions(allElements);
+			if (allElementsPassValidation(methods, basicValidator)) {
+				if (allElementsPassValidation(methods, typeValidator)) {
+					final Set<TypeElement> types = findTypesWithSpyglassAnnotations(roundEnv);
+
+					for (final TypeElement type : types) {
+						createFile(companionGenerator.generateFor(type), "Failed to create Spyglass Companion");
+					}
 				}
 			}
 		} catch (final Throwable t) {
@@ -138,17 +139,52 @@ public class MainProcessor extends AbstractProcessor {
 		return false;
 	}
 
-	private Set<ExecutableElement> findSupportedElements(final RoundEnvironment roundEnv) {
-		final Set<ExecutableElement> supportedElements = new HashSet<>();
+	private void createRequiredFiles() {
+		allRequiredFilesCreated = true;
+
+		for (final JavaFile requiredFile : REQUIRED_FILES) {
+			final String className = requiredFile.packageName + "." + requiredFile.typeSpec.name;
+
+			// Spyglass could be used in a project which depends on a project which also uses Spyglass
+			final boolean alreadyExists = elementUtil.getTypeElement(className) != null;
+
+			if (alreadyExists) {
+				allRequiredFilesCreated &= true;
+			} else {
+				allRequiredFilesCreated &= createFile(requiredFile, "Could not create required class: " + className);
+			}
+		}
+	}
+
+	private Set<ExecutableElement> findMethodsWithSpyglassAnnotations(final RoundEnvironment roundEnvironment) {
+		final Set<ExecutableElement> methods = new HashSet<>();
 
 		for (final Class<? extends Annotation> annoType : SUPPORTED_ANNOTATIONS) {
-			for (final Element foundElement : roundEnv.getElementsAnnotatedWith(annoType)) {
-				// All elements should be executable elements
-				supportedElements.add((ExecutableElement) foundElement);
+			for (final Element foundElement : roundEnvironment.getElementsAnnotatedWith(annoType)) {
+				if (foundElement.getKind() == ElementKind.METHOD) {
+					methods.add((ExecutableElement) foundElement);
+				} else if (foundElement.getKind() == ElementKind.PARAMETER) {
+					methods.add((ExecutableElement) foundElement.getEnclosingElement());
+				} else {
+					throw new RuntimeException("A Spyglass annotation was somehow applied to an illegal element type.");
+				}
 			}
 		}
 
-		return supportedElements;
+		return methods;
+	}
+
+	private Set<TypeElement> findTypesWithSpyglassAnnotations(final RoundEnvironment roundEnvironment) {
+		final Set<ExecutableElement> methods = findMethodsWithSpyglassAnnotations(roundEnvironment);
+		final Map<TypeElementWrapper, Set<ExecutableElement>> typesToMethods = Grouper.groupByEnclosingClass(methods);
+
+		final Set<TypeElement> unwrappedTypes = new HashSet<>();
+
+		for (final TypeElementWrapper wrappedType : typesToMethods.keySet()) {
+			unwrappedTypes.add(wrappedType.unwrap());
+		}
+
+		return unwrappedTypes;
 	}
 
 	private boolean allElementsPassValidation(final Set<? extends Element> elements, final Validator validator) {
@@ -169,55 +205,6 @@ public class MainProcessor extends AbstractProcessor {
 		}
 
 		return allPassed;
-	}
-
-	private void createCompanions(final Set<ExecutableElement> elements) {
-		final Map<TypeElementWrapper, Set<ExecutableElement>> sortedElements = Grouper.groupByEnclosingClass(elements);
-
-		for (final TypeElementWrapper targetClass : sortedElements.keySet()) {
-			final MethodSpec.Builder activateCallers = MethodSpec
-					.methodBuilder("activateCallers")
-					.addModifiers(Modifier.PUBLIC, Modifier.STATIC)
-					.addException(Throwable.class)
-					.returns(void.class)
-					.addParameter(TypeName.get(targetClass.unwrap().asType()), "target")
-					.addParameter(AndroidClassNames.CONTEXT, "context")
-					.addParameter(AndroidClassNames.TYPED_ARRAY, "attrs");
-
-			final CodeBlock.Builder methodBody = CodeBlock
-					.builder();
-
-			for (final ExecutableElement method : sortedElements.get(targetClass)) {
-				final TypeSpec anonymousCaller = callerGenerator.generateFor(
-						method,
-						CodeBlock.of("target"),
-						CodeBlock.of("context"),
-						CodeBlock.of("attrs"));
-
-				methodBody.add("\n");
-				methodBody.addStatement("$L.call()", anonymousCaller);
-			}
-
-			activateCallers.addCode(methodBody.build());
-
-			final TypeSpec companionClass = TypeSpec
-					.classBuilder(CompanionNamer.getCompanionNameFor(targetClass.unwrap()))
-					.addMethod(activateCallers.build())
-					.build();
-
-			final PackageElement targetClassPackage = elementUtil.getPackageOf(targetClass.unwrap());
-
-			final JavaFile companionFile = JavaFile
-					.builder(targetClassPackage.getQualifiedName().toString(), companionClass)
-					.addFileComment("Generated by the Spyglass framework. Do not modify!")
-					.indent("\t")
-					.skipJavaLangImports(true)
-					.build();
-
-			createFile(
-					companionFile,
-					"Could not create companion file for class " + targetClass.unwrap().getSimpleName() + ".");
-		}
 	}
 
 	private boolean createFile(final JavaFile file, final String errorMessage) {
