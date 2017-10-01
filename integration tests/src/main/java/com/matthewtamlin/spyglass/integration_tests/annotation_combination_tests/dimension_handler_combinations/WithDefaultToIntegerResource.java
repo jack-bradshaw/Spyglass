@@ -5,11 +5,10 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToIntegerResource;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.DimensionHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToIntegerResource;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.DimensionHandler;
 
 public class WithDefaultToIntegerResource extends DimensionHandlerTestTargetBase {
 	public WithDefaultToIntegerResource(final Context context) {
@@ -46,14 +45,14 @@ public class WithDefaultToIntegerResource extends DimensionHandlerTestTargetBase
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithDefaultToIntegerResource_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToIntegerResource.class)
-				.withStyleableResource(R.styleable.DimensionHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.DimensionHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

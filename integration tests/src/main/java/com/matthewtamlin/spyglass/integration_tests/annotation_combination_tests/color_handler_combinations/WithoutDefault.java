@@ -5,10 +5,9 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.ColorHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.ColorHandler;
 
 public class WithoutDefault extends ColorHandlerTestTargetBase {
 	public WithoutDefault(final Context context) {
@@ -44,14 +43,14 @@ public class WithoutDefault extends ColorHandlerTestTargetBase {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithoutDefault_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithoutDefault.class)
-				.withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

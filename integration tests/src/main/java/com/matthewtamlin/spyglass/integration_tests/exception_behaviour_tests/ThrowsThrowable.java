@@ -5,10 +5,9 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
+import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
-import com.matthewtamlin.spyglass.integration_tests.R;
 
 @SuppressWarnings({"ThrowableInstanceNeverThrown", "UnusedParameters"})
 public class ThrowsThrowable extends ExceptionBehaviourTestTargetBase {
@@ -52,14 +51,14 @@ public class ThrowsThrowable extends ExceptionBehaviourTestTargetBase {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		ThrowsThrowable_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(ThrowsThrowable.class)
-				.withStyleableResource(R.styleable.ExceptionBehaviourTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.ExceptionBehaviourTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}
