@@ -26,7 +26,6 @@ task clean(type: Delete) {
 }
 
 task buildRelease(dependsOn: [
-		':consumer:uploadArchives',
 		':processor activated:uploadArchives',
 		':markers:uploadArchives'])
 
