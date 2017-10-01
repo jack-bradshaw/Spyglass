@@ -6,10 +6,9 @@ import android.graphics.drawable.Drawable;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.DrawableHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.DrawableHandler;
 
 public class WithoutDefault extends DrawableHandlerTestTargetBase {
 	public WithoutDefault(final Context context) {
@@ -45,14 +44,14 @@ public class WithoutDefault extends DrawableHandlerTestTargetBase {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithoutDefault_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithoutDefault.class)
-				.withStyleableResource(R.styleable.DrawableHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.DrawableHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

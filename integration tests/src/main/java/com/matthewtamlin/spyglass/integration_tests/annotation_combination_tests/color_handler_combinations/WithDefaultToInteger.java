@@ -5,11 +5,10 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToInteger;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.ColorHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToInteger;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.ColorHandler;
 
 public class WithDefaultToInteger extends ColorHandlerTestTargetBase {
 	public static final int DEFAULT_VALUE = 142970;
@@ -48,14 +47,14 @@ public class WithDefaultToInteger extends ColorHandlerTestTargetBase {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithDefaultToInteger_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToInteger.class)
-				.withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

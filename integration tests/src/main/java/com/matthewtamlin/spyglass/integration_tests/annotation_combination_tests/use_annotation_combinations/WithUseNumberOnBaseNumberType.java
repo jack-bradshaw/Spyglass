@@ -5,6 +5,8 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
+import com.matthewtamlin.spyglass.integration_tests.R;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseByte;
 import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseDouble;
@@ -13,9 +15,6 @@ import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseInt;
 import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseLong;
 import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseShort;
 import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -88,14 +87,14 @@ public class WithUseNumberOnBaseNumberType extends UseAnnotationsTestTargetBase 
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithUseNumberOnBaseNumberType_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithUseNumberOnBaseNumberType.class)
-				.withStyleableResource(R.styleable.UseAnnotationsTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.UseAnnotationsTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

@@ -5,14 +5,11 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToNull;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FractionHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations.FractionHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-
-import static com.matthewtamlin.spyglass.integration_tests.R.styleable.FractionHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToNull;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FractionHandler;
 
 public class WithDefaultToNull extends FractionHandlerTestTargetBase {
 	public WithDefaultToNull(final Context context) {
@@ -49,14 +46,14 @@ public class WithDefaultToNull extends FractionHandlerTestTargetBase {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithDefaultToNull_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToNull.class)
-				.withStyleableResource(FractionHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

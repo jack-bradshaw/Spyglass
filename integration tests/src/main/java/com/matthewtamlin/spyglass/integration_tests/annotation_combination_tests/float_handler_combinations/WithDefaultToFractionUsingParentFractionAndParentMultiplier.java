@@ -5,11 +5,10 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToFractionResource;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FloatHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToFractionResource;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FloatHandler;
 
 public class WithDefaultToFractionUsingParentFractionAndParentMultiplier extends FloatHandlerTestTargetBase {
 	public static final int MULTIPLIER = 44;
@@ -19,12 +18,14 @@ public class WithDefaultToFractionUsingParentFractionAndParentMultiplier extends
 		init(null, 0, 0);
 	}
 
-	public WithDefaultToFractionUsingParentFractionAndParentMultiplier(final Context context, final AttributeSet attrs) {
+	public WithDefaultToFractionUsingParentFractionAndParentMultiplier(final Context context,
+			final AttributeSet attrs) {
 		super(context, attrs);
 		init(attrs, 0, 0);
 	}
 
-	public WithDefaultToFractionUsingParentFractionAndParentMultiplier(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public WithDefaultToFractionUsingParentFractionAndParentMultiplier(final Context context, final AttributeSet attrs,
+			final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
@@ -48,14 +49,14 @@ public class WithDefaultToFractionUsingParentFractionAndParentMultiplier extends
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithDefaultToFractionUsingParentFractionAndParentMultiplier_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToFractionUsingParentFractionAndParentMultiplier.class)
-				.withStyleableResource(R.styleable.FloatHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.FloatHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}
