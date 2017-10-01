@@ -20,6 +20,8 @@ public class AndroidClassNames {
 
 	public static final ClassName DRAWABLE = ClassName.get("android.graphics.drawable", "Drawable");
 
+	public static final ClassName ATTRIBUTE_SET = ClassName.get("android.util", "AttributeSet");
+
 	private AndroidClassNames() {
 		throw new RuntimeException("Constants class. Do not instantiate.");
 	}

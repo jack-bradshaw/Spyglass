@@ -23,7 +23,6 @@ dependencies {
 
 	provided project(':markers')
 
-	compile project(':consumer')
 	compile 'com.android.support:appcompat-v7:25.3.1'
 	compile 'org.apache.commons:commons-lang3:3.5'
 

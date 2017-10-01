@@ -6,10 +6,9 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
 
 public class OverloadBehaviourTestTarget extends View {
 	private ReceivedValue<String> positiveReceivedValue = ReceivedValue.none();
@@ -61,14 +60,14 @@ public class OverloadBehaviourTestTarget extends View {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		OverloadBehaviourTestTarget_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(OverloadBehaviourTestTarget.class)
-				.withStyleableResource(R.styleable.OverloadBehaviourTestTarget)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.OverloadBehaviourTestTarget)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

@@ -6,9 +6,8 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
+import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
 
 public class SpecificFlagHandlerTestTarget extends View {
 	private boolean handlerCalled = false;
@@ -50,14 +49,14 @@ public class SpecificFlagHandlerTestTarget extends View {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		SpecificFlagHandlerTestTarget_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(SpecificFlagHandlerTestTarget.class)
-				.withStyleableResource(R.styleable.SpecificFlagHandlerTestTarget)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.SpecificFlagHandlerTestTarget)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}
