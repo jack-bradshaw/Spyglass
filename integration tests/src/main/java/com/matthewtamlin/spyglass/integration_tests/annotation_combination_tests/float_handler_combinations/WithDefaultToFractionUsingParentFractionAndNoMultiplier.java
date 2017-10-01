@@ -5,11 +5,10 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToFractionResource;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FloatHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToFractionResource;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FloatHandler;
 
 public class WithDefaultToFractionUsingParentFractionAndNoMultiplier extends FloatHandlerTestTargetBase {
 	public static final int PARENT_MULTIPLIER = 12;
@@ -24,7 +23,8 @@ public class WithDefaultToFractionUsingParentFractionAndNoMultiplier extends Flo
 		init(attrs, 0, 0);
 	}
 
-	public WithDefaultToFractionUsingParentFractionAndNoMultiplier(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+	public WithDefaultToFractionUsingParentFractionAndNoMultiplier(final Context context, final AttributeSet attrs,
+			final int defStyleAttr) {
 		super(context, attrs, defStyleAttr);
 		init(attrs, defStyleAttr, 0);
 	}
@@ -48,14 +48,14 @@ public class WithDefaultToFractionUsingParentFractionAndNoMultiplier extends Flo
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithDefaultToFractionUsingParentFractionAndNoMultiplier_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToFractionUsingParentFractionAndNoMultiplier.class)
-				.withStyleableResource(R.styleable.FloatHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.FloatHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

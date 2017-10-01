@@ -5,11 +5,10 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
 
 public class WithDefaultToString extends StringHandlerTestTargetBase {
 	public static final String DEFAULT_VALUE = "Hello world!";
@@ -48,14 +47,14 @@ public class WithDefaultToString extends StringHandlerTestTargetBase {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithDefaultToString_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToString.class)
-				.withStyleableResource(R.styleable.StringHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.StringHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

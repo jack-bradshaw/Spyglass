@@ -5,12 +5,11 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToFractionResource;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FractionHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations.FractionHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToFractionResource;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FractionHandler;
 
 public class WithDefaultToFractionUsingParentFractionAndParentMultiplier extends FractionHandlerTestTargetBase {
 	public static final int MULTIPLIER = 44;
@@ -51,14 +50,14 @@ public class WithDefaultToFractionUsingParentFractionAndParentMultiplier extends
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithDefaultToFractionUsingParentFractionAndParentMultiplier_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithDefaultToFractionUsingParentFractionAndParentMultiplier.class)
-				.withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}
