@@ -6,11 +6,10 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
 
 public class Superclass extends View {
 	public static final String EXPECTED_VALUE = "superclass expected value";
@@ -50,14 +49,14 @@ public class Superclass extends View {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		Superclass_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(Superclass.class)
-				.withStyleableResource(R.styleable.Superclass)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.Superclass)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

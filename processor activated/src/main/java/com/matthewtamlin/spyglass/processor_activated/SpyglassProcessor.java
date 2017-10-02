@@ -1,9 +1,9 @@
 package com.matthewtamlin.spyglass.processor_activated;
 
-import com.google.auto.service.AutoService;
 import com.matthewtamlin.spyglass.processor.core.MainProcessor;
 
-import javax.annotation.processing.Processor;
+import javax.annotation.processing.SupportedSourceVersion;
+import javax.lang.model.SourceVersion;
 
-@AutoService(Processor.class)
+@SupportedSourceVersion(SourceVersion.RELEASE_7)
 public class SpyglassProcessor extends MainProcessor {}
