@@ -27,7 +27,7 @@ task clean(type: Delete) {
 
 task buildRelease(dependsOn: [
 		':processor activated:uploadArchives',
-		':markers:uploadArchives'])
+		':annotations:uploadArchives'])
 
 ext {
 	groupId = 'com.matthew-tamlin'
