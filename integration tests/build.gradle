@@ -21,7 +21,7 @@ android {
 dependencies {
 	annotationProcessor project(":processor activated")
 
-	provided project(':markers')
+	provided project(':annotations')
 
 	compile 'com.android.support:appcompat-v7:25.3.1'
 	compile 'org.apache.commons:commons-lang3:3.5'
