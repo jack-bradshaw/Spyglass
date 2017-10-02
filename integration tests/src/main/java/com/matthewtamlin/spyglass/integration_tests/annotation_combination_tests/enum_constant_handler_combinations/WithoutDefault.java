@@ -5,11 +5,10 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.EnumConstantHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations.EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.EnumConstantHandler;
 
 public class WithoutDefault extends EnumConstantHandlerTestTargetBase {
 	public WithoutDefault(final Context context) {
@@ -47,14 +46,14 @@ public class WithoutDefault extends EnumConstantHandlerTestTargetBase {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithoutDefault_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithoutDefault.class)
-				.withStyleableResource(R.styleable.EnumConstantHandlerTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.EnumConstantHandlerTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}

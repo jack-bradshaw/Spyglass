@@ -5,12 +5,11 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
+import com.matthewtamlin.spyglass.integration_tests.R;
+import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.markers.annotations.use_annotations.UseChar;
 import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.consumer.Spyglass;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -74,14 +73,14 @@ public class WithUseChar extends UseAnnotationsTestTargetBase {
 	}
 
 	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		Spyglass.builder()
+		WithUseChar_SpyglassCompanion
+				.builder()
 				.withTarget(this)
-				.withAnnotationSource(WithUseChar.class)
-				.withStyleableResource(R.styleable.UseAnnotationsTestTargetBase)
 				.withContext(getContext())
+				.withStyleableResource(R.styleable.UseAnnotationsTestTargetBase)
 				.withAttributeSet(attrs)
-				.withDefStyleAttr(defStyleAttr)
-				.withDefStyleRes(defStyleRes)
+				.withDefaultStyleAttribute(defStyleAttr)
+				.withDefaultStyleResource(defStyleRes)
 				.build()
 				.passDataToMethods();
 	}
