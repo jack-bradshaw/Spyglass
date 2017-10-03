@@ -7,6 +7,18 @@ dependencies {
 	compile project(':processor')
 }
 
+sourceSets {
+	main {
+		java {
+			srcDir 'src/main/java'
+		}
+
+		resources {
+			srcDir 'src/main/resources'
+		}
+	}
+}
+
 ext {
 	POM_ARTIFACT_ID_SUFFIX = '-processor'
 	POM_NAME = 'Spyglass Processor'
