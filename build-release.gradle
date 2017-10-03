@@ -1,0 +1,66 @@
+apply plugin: 'maven'
+
+def localReleaseDest = "${buildDir}/release/${versionNumber}"
+
+uploadArchives {
+	repositories.mavenDeployer {
+		pom.groupId = groupId
+		pom.artifactId = artifactId + POM_ARTIFACT_ID_SUFFIX
+		pom.version = versionNumber
+
+		pom.project {
+			name POM_NAME
+			packaging jar
+			description POM_DESCRIPTION
+			url 'https://github.com/MatthewTamlin/Spyglass'
+
+			licenses {
+				license {
+					name 'Apache License, Version 2.0'
+					url 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+				}
+			}
+
+			developers {
+				developer {
+					id 'MatthewTamlin'
+					name 'Matthew Tamlin'
+					email 'matthew.tamlin@icloud.com'
+				}
+			}
+
+			scm {
+				url 'https://github.com/MatthewTamlin/Spyglass'
+			}
+		}
+
+		repository(url: "file://${localReleaseDest}")
+	}
+}
+
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+	classifier = 'sources'
+	from sourceSets.main.allSource
+}
+
+task javadocsJar(type: Jar, dependsOn: javadoc) {
+	classifier = 'javadoc'
+	from javadoc
+}
+
+task zipRelease(type: Zip) {
+	from localReleaseDest
+	destinationDir buildDir
+	archiveName "release-${versionNumber}.zip"
+}
+
+task buildRelease(dependsOn: ['uploadArchives', 'zipRelease']) {
+	println "Release ${versionNumber} can be found at ${localReleaseDest}/"
+	println "Release ${versionNumber} zipped can be found ${buildDir}/release-${versionNumber}.zip"
+}
+
+artifacts {
+	archives sourcesJar
+	archives javadocsJar
+}
