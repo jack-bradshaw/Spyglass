@@ -19,15 +19,12 @@ allprojects {
 	}
 }
 
-
 task clean(type: Delete) {
 	delete rootProject.buildDir
 	rootProject.getAllprojects().each {delete project.buildDir}
 }
 
-task buildRelease(dependsOn: [
-		':processor activated:uploadArchives',
-		':annotations:uploadArchives'])
+task buildRelease(dependsOn: [':processor activated:buildRelease', ':annotations:buildRelease'])
 
 ext {
 	groupId = 'com.matthew-tamlin'
