@@ -37,3 +37,10 @@ ext {
 	artifactId = 'spyglass'
 	versionNumber = '1.0.0'
 }
+
+subprojects { project ->
+	if (project.name != 'integration tests') {
+		group = rootProject.groupId
+		version = rootProject.versionNumber
+	}
+}
