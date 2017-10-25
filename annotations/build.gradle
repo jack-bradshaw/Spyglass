@@ -15,7 +15,8 @@ dependencies {
 ext {
 	POM_ARTIFACT_ID_SUFFIX = '-annotations'
 	POM_NAME = 'Spyglass Annotations'
+	POM_PACKAGING = 'jar'
 	POM_DESCRIPTION = 'Source markers to direct the Spyglass framework at compile-time.'
 }
 
-apply from: rootProject.file('build-release.gradle')
+apply from: rootProject.file('maven-publish.gradle')
