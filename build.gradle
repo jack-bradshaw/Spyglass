@@ -21,7 +21,10 @@ allprojects {
 
 task clean(type: Delete) {
 	delete rootProject.buildDir
-	rootProject.getAllprojects().each {delete project.buildDir}
+
+	rootProject.getAllprojects().each {
+		delete project.buildDir
+	}
 }
 
 task buildRelease(dependsOn: [':processor activated:buildRelease', ':annotations:buildRelease'])
