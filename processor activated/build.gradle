@@ -22,7 +22,8 @@ sourceSets {
 ext {
 	POM_ARTIFACT_ID_SUFFIX = '-processor'
 	POM_NAME = 'Spyglass Processor'
+	POM_PACKAGING = 'jar'
 	POM_DESCRIPTION = 'Performs compile-time processing for the Spyglass framework.'
 }
 
-apply from: rootProject.file('build-release.gradle')
+apply from: rootProject.file('maven-publish.gradle')

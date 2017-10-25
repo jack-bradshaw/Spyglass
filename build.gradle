@@ -21,13 +21,26 @@ allprojects {
 
 task clean(type: Delete) {
 	delete rootProject.buildDir
-	rootProject.getAllprojects().each {delete project.buildDir}
+
+	rootProject.getAllprojects().each {
+		delete project.buildDir
+	}
 }
 
-task buildRelease(dependsOn: [':processor activated:buildRelease', ':annotations:buildRelease'])
+task buildRelease(dependsOn: [
+		':processor activated:uploadArchives',
+		':annotations:uploadArchives',
+		':processor:uploadArchives'])
 
 ext {
 	groupId = 'com.matthew-tamlin'
 	artifactId = 'spyglass'
 	versionNumber = '1.0.0'
+}
+
+subprojects { project ->
+	if (project.name != 'integration tests') {
+		group = rootProject.groupId
+		version = rootProject.versionNumber
+	}
 }
