@@ -24,6 +24,17 @@ def isAndroidProject() {
 	return plugins.hasPlugin('com.android.application') || plugins.hasPlugin('com.android.library')
 }
 
+task zipRelease(type: Zip) {
+	from localReleaseDest
+	destinationDir buildDir
+	archiveName "release-${versionNumber}.zip"
+}
+
+task buildRelease(dependsOn: ['uploadArchives', 'zipRelease']) {
+	println "Release ${versionNumber} can be found at ${localReleaseDest}/"
+	println "Release ${versionNumber} zipped can be found ${buildDir}/release-${versionNumber}.zip"
+}
+
 afterEvaluate { project ->
 	uploadArchives {
 		repositories {
