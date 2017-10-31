@@ -14,12 +14,12 @@ import java.lang.annotation.Target;
  * the fraction is defined in resources as a parent type, then it will be multiplied by the {@code parentMultiplier}
  * before being passed in. By default, both multipliers are set to 1.
  * <p>
- * This annotation should only be applied to methods which satisfy all of the following
- * criteria:
+ * This annotation should only be applied to methods which satisfy all of the following criteria:
  * <ul>
+ * <li>The method is a non-static member of an Android View subclass.</li>
  * <li>The method has no other handler annotations.</li>
  * <li>The method has at least one {@code Number} parameter.</li>
- * <li>Except for one {@code Number} parameter, every parameter has a use annotation.</li>
+ * <li>Except for one {@code Number} parameter, every parameter belonging to the method has a use annotation.</li>
  * </ul>
  */
 @Retention(RetentionPolicy.SOURCE)
