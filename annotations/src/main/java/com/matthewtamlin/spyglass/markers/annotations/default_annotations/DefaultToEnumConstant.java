@@ -11,11 +11,15 @@ import java.lang.annotation.Target;
  * values to get a reference to a specific enum constant. This annotation should only be applied to methods which
  * satisfy all of the following criteria:
  * <ul>
+ * <li>The method is a non-static member of an Android View subclass.</li>
  * <li>The method has a handler annotation.</li>
  * <li>The method has no other default annotations.</li>
  * <li>The method has at least one parameter of the specified enum type.</li>
- * <li>Every parameter has a use annotation except for one parameter of the specified enum type.
+ * <li>Every parameter has a use annotation except for one parameter belonging to the method of the specified enum type.
  * </li>
+ * <p>
+ * Important note: An exception will be thrown at runtime if the mapped value does not correspond to an ordinal of
+ * the enum class.
  * </ul>
  */
 @Retention(RetentionPolicy.SOURCE)

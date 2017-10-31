@@ -11,14 +11,15 @@ import java.lang.annotation.Target;
  * reference to the enum constant with the mapped value as its ordinal. The framework will then invoke the method and
  * pass in the constant. This annotation should only be applied to methods which satisfy all of the following criteria:
  * <ul>
+ * <li>The method is a non-static member of an Android View subclass.</li>
  * <li>The method has no other handler annotations.</li>
  * <li>The method has at least one parameter of the specified enum type.</li>
- * <li>Every parameter has a use annotation except for one parameter of the specified enum type.
- * </li>
+ * <li>Every parameter belonging to the method has a use annotation, except for one parameter of the specified enum
+ * type.</li>
  * </ul>
- *
+ * <p>
  * Important note: An exception will be thrown at runtime if the mapped value does not correspond to an ordinal of
- * the enum class, or the enum class is not assignable to the recipient parameter of the annotated method.
+ * the enum class.
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
