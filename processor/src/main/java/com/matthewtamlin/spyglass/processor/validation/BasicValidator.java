@@ -96,7 +96,7 @@ public class BasicValidator implements Validator {
 				}
 			},
 
-			// Every parameter must have at most one use annotations
+			// Every parameter must have at most one use-annotations
 			new Rule() {
 				@Override
 				public Result checkElement(final ExecutableElement element) {
@@ -104,7 +104,7 @@ public class BasicValidator implements Validator {
 
 					for (final Integer paramIndex : useAnnotations.keySet()) {
 						if (useAnnotations.get(paramIndex).size() > 1) {
-							return Result.createFailure("Parameters must not have multiple use annotations.");
+							return Result.createFailure("Parameters must not have multiple use-annotations.");
 						}
 					}
 
@@ -112,7 +112,7 @@ public class BasicValidator implements Validator {
 				}
 			},
 
-			// Every element with a value handler must have a use annotation on every parameter except one
+			// Every element with a value handler must have a use-annotation on every parameter except one
 			new Rule() {
 				@Override
 				public Result checkElement(final ExecutableElement element) {
@@ -131,7 +131,7 @@ public class BasicValidator implements Validator {
 				}
 			},
 
-			// Every element with a call handler must have a use annotation on every parameter
+			// Every element with a call handler must have a use-annotation on every parameter
 			new Rule() {
 				@Override
 				public Result checkElement(final ExecutableElement element) {
@@ -141,7 +141,7 @@ public class BasicValidator implements Validator {
 					if (CallHandlerAnnoRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
 						return Result.createFailure(
 								"Methods with handler annotations which pass no value must have " +
-										"use annotations on every parameter.");
+										"use-annotations on every parameter.");
 					}
 
 					return Result.createSuccessful();
