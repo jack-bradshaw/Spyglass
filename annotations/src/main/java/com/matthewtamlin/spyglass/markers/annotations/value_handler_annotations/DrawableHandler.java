@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  * <li>The method is a non-static member of an Android View subclass.</li>
  * <li>The method has no other handler annotations.</li>
  * <li>The method has at least one {@code Drawable} parameter.</li>
- * <li>Except for one {@code Drawable} parameter, every parameter belonging to the method has a use annotation.</li>
+ * <li>Except for one {@code Drawable} parameter, every parameter belonging to the method has a use-annotation.</li>
  * </ul>
  */
 @Retention(RetentionPolicy.SOURCE)

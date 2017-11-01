@@ -87,7 +87,7 @@ public class TypeValidator implements Validator {
 				}
 			},
 
-			// Every use annotation must be applicable to the annotated parameter
+			// Every use-annotation must be applicable to the annotated parameter
 			new Rule() {
 				@Override
 				public Result checkElement(final ExecutableElement element) {
@@ -115,7 +115,7 @@ public class TypeValidator implements Validator {
 					if (annoName.equals(UseNull.class.getName())) {
 						if (typeMirrorHelper.isPrimitive(recipientType)) {
 							return Result.createFailure(
-									"Misused use annotation found. Primitive arguments cannot receive null.");
+									"Misused use-annotation found. Primitive arguments cannot receive null.");
 
 						} else {
 							return Result.createSuccessful();
@@ -124,7 +124,7 @@ public class TypeValidator implements Validator {
 
 					if (!isAssignableOrConvertible(suppliedType, recipientType)) {
 						return Result.createFailure(
-								"Misused use annotation found. \'%1$s\' cannot be cast to \'%2$s\'.",
+								"Misused use-annotation found. \'%1$s\' cannot be cast to \'%2$s\'.",
 								suppliedType,
 								recipientType);
 					}
