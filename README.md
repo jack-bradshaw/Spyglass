@@ -1,5 +1,5 @@
 # Spyglass
-Spyglass is an Android library which uses annotation processing to eliminate boilerplate code in custom views.
+Spyglass is an Android library which makes attribute handling in custom views much simpler.
 
 ## Advantages of the Spyglass framework
 The Spyglass framework has several advantages over other means of handling custom view attributes:
