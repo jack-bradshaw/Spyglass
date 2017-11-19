@@ -206,8 +206,6 @@ public class CompanionGenerator {
 				.addMethod(build)
 				.build();
 
-		// Step beta: define companion
-
 		final FieldSpec callers = FieldSpec
 				.builder(listOfCallers(), "callers", PRIVATE, FINAL)
 				.initializer("new $T();", arrayListOfCallers())
