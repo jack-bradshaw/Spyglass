@@ -206,8 +206,6 @@ public class CompanionGenerator {
 				.addMethod(build)
 				.build();
 
-		// Step beta: define companion
-
 		final FieldSpec callers = FieldSpec
 				.builder(listOfCallers(), "callers", PRIVATE, FINAL)
 				.initializer("new $T();", arrayListOfCallers())
@@ -260,9 +258,13 @@ public class CompanionGenerator {
 						.beginControlFlow("try")
 						.addStatement("caller.$N()", CallerDef.CALL)
 						.nextControlFlow("catch (final $T t)", Throwable.class)
+						.addStatement("$N.recycle()", companionAttributes)
+						.add("\n")
 						.addStatement("throw new $T(t)", TargetExceptionDef.getTargetExceptionAsClassname())
 						.endControlFlow()
 						.endControlFlow()
+						.add("\n")
+						.addStatement("$N.recycle()", companionAttributes)
 						.build())
 				.build();
 
