@@ -258,9 +258,13 @@ public class CompanionGenerator {
 						.beginControlFlow("try")
 						.addStatement("caller.$N()", CallerDef.CALL)
 						.nextControlFlow("catch (final $T t)", Throwable.class)
+						.addStatement("$N.recycle()", companionAttributes)
+						.add("\n")
 						.addStatement("throw new $T(t)", TargetExceptionDef.getTargetExceptionAsClassname())
 						.endControlFlow()
 						.endControlFlow()
+						.add("\n")
+						.addStatement("$N.recycle()", companionAttributes)
 						.build())
 				.build();
 
