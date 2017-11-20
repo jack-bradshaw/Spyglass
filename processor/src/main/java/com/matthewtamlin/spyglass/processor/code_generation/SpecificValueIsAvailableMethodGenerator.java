@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
@@ -73,6 +74,32 @@ public class SpecificValueIsAvailableMethodGenerator {
 										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(object, "attributeId"),
 										getLiteralFromAnnotation(object, "handledFlags"))
+								.build();
+					}
+				}
+		);
+
+		methodBodySuppliers.put(
+				SpecificBooleanHandler.class.getName(),
+				new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
+					@Override
+					public CodeBlock supplyFor(final AnnotationMirror object) {
+						return CodeBlock
+								.builder()
+								.addStatement(
+										"final boolean defaultConsistentlyReturned = \n" +
+												"$1N().getBoolean($2L, true) == true && \n" +
+												"$1N().getBoolean($2L, false) == false",
+										CallerDef.GET_ATTRS,
+										getLiteralFromAnnotation(object, "attributeId"))
+								.add("\n")
+								.addStatement(
+										"return defaultConsistentlyReturned ? \n" +
+												"false : \n" +
+												"$N().getBoolean($L, true) == $L",
+										CallerDef.GET_ATTRS,
+										getLiteralFromAnnotation(object, "attributeId"),
+										getLiteralFromAnnotation(object, "handledBoolean"))
 								.build();
 					}
 				}
