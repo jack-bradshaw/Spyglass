@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.call_handler_annotation_retriever;
 
 import com.matthewtamlin.avatar.rules.ElementId;
+import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToBoolean;
@@ -35,13 +36,17 @@ import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.
 import static com.matthewtamlin.spyglass.markers.units.DimensionUnit.DP;
 
 public class Data {
+	@ElementId("specific boolean")
+	@SpecificBooleanHandler(attributeId = 0, handledBoolean = true)
+	public void method1() {}
+
 	@ElementId("specific enum")
 	@SpecificEnumHandler(attributeId = 0, ordinal = 1)
-	public void method1() {}
+	public void method2() {}
 
 	@ElementId("specific flag")
 	@SpecificFlagHandler(attributeId = 0, handledFlags = 1)
-	public void method2() {}
+	public void method3() {}
 
 	@ElementId("no call handler annotation")
 	@DefaultToBoolean(true)
@@ -72,7 +77,7 @@ public class Data {
 	@FractionHandler(attributeId = 0)
 	@IntegerHandler(attributeId = 0)
 	@StringHandler(attributeId = 0)
-	public void method3() {}
+	public void method4() {}
 
 	private enum PlaceholderEnum {}
 }
