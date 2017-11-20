@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.definitions;
 
 import com.google.common.collect.ImmutableSet;
+import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToBoolean;
@@ -60,6 +61,7 @@ public class AnnotationRegistry {
 			StringHandler.class);
 
 	public static final Set<Class<? extends Annotation>> CALL_HANDLER_ANNOS = ImmutableSet.of(
+			SpecificBooleanHandler.class,
 			SpecificEnumHandler.class,
 			SpecificFlagHandler.class);
 
