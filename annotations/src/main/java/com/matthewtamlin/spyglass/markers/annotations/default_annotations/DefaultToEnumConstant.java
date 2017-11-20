@@ -31,7 +31,8 @@ public @interface DefaultToEnumConstant {
 	Class<? extends Enum> enumClass();
 
 	/**
-	 * @return the ordinal of the specific enum constant to use as the default value
+	 * @return the ordinal of the enum constant to use as the default values, with regard to the enum class supplied
+	 * {@code enumClass()}
 	 */
 	int ordinal();
 }

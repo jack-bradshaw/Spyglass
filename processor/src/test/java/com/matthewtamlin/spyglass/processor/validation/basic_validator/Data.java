@@ -46,7 +46,7 @@ abstract class Data {
 
 	@Target(isValid = false)
 	@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
-	@SpecificEnumHandler(attributeId = 1, ordinal = 1)
+	@SpecificEnumHandler(attributeId = 1, handledOrdinal = 1)
 	void method6() {}
 
 	@Target(isValid = false)

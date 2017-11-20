@@ -29,7 +29,7 @@ public @interface SpecificFlagHandler {
 	int attributeId();
 
 	/**
-	 * @return the specific flags handled by the method
+	 * @return the flags handled by the method
 	 */
 	int handledFlags();
 }

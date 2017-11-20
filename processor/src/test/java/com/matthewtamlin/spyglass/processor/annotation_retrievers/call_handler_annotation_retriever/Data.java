@@ -41,7 +41,7 @@ public class Data {
 	public void method1() {}
 
 	@ElementId("specific enum")
-	@SpecificEnumHandler(attributeId = 0, ordinal = 1)
+	@SpecificEnumHandler(attributeId = 0, handledOrdinal = 1)
 	public void method2() {}
 
 	@ElementId("specific flag")
