@@ -67,10 +67,10 @@ Step 3: Apply the `@StringHandler` annotation to the `setTitle` method to tell t
 Now that your class has a Spyglass annotation, the Spyglass framework will detect it at compile-time and automatically generate the `CustomView_SpyglassCompanion` class.
 
 Step 4: Use the generated class in the custom view's `init` method:
-```java```
+```java
     private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         inflate(getContext(), R.layout.custom_view, this);
-        
+
         titleView = findViewById(R.id.title_view);
 
         CustomView_SpyglassCompanion
