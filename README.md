@@ -100,7 +100,7 @@ That's it. Now when you instantiate the class from XML, the Spyglass companion i
     </FrameLayout>
  ```
 
-The framework isn't limited to strings and has lots of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters. The usage section goes into much more detail.
+The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters. The usage section goes into much more detail.
 
 ## Advantages of the Spyglass framework
 Traditionally, attributes are handled using the TypedArray class. The Spyglass framework has several advantages over this approach:
