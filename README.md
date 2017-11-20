@@ -40,6 +40,8 @@ Step 1: Create a custom view class.
         }
         
         private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            inflate(getContext(), R.layout.custom_view, this);
+
             titleView = findViewById(R.id.title_view);
         }
     }
@@ -67,6 +69,8 @@ Now that your class has a Spyglass annotation, the Spyglass framework will detec
 Step 4: Use the generated class in the custom view's `init` method:
 ```java```
     private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        inflate(getContext(), R.layout.custom_view, this);
+        
         titleView = findViewById(R.id.title_view);
 
         CustomView_SpyglassCompanion
