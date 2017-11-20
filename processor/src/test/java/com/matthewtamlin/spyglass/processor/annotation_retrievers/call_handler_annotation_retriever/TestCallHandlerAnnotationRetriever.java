@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.call_handler_annotation_retriever;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
+import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
@@ -31,6 +32,16 @@ public class TestCallHandlerAnnotationRetriever {
 	@Test(expected = IllegalArgumentException.class)
 	public void testGetAnnotation_nullSupplied() {
 		CallHandlerAnnoRetriever.getAnnotation(null);
+	}
+
+	@Test
+	public void testGetAnnotation_specificBooleanHandlerAnnotationPresent() {
+		final ExecutableElement element = avatarRule.getElementWithUniqueId("specific boolean");
+
+		final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
+
+		assertThat(mirror, is(notNullValue()));
+		assertThat(mirror.getAnnotationType().toString(), is(SpecificBooleanHandler.class.getName()));
 	}
 
 	@Test
