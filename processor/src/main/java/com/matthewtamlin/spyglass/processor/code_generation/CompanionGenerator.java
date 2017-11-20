@@ -24,6 +24,7 @@ import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
@@ -223,6 +224,11 @@ public class CompanionGenerator {
 				.builder(AndroidClassNames.TYPED_ARRAY, "attributes", PRIVATE, FINAL)
 				.build();
 
+		final FieldSpec companionHasBeenUsed = FieldSpec
+				.builder(AtomicBoolean.class, "companionHasBeenUsed", PRIVATE, FINAL)
+				.initializer("new $T(false);", AtomicBoolean.class)
+				.build();
+
 		final CodeBlock.Builder initialiseCallersCodeBuilder = CodeBlock.builder();
 		final Set<ExecutableElement> annotatedMethods = findAnnotatedElements(targetType);
 		final Iterator<ExecutableElement> annotatedMethodsIterator = annotatedMethods.iterator();
@@ -254,6 +260,13 @@ public class CompanionGenerator {
 				.getNewActivateCallersMethodPrototype()
 				.addCode(CodeBlock
 						.builder()
+						.beginControlFlow("if (!$N.compareAndSet(false, true))", companionHasBeenUsed)
+						.addStatement(
+								"throw new $T($S)",
+								RuntimeException.class,
+								"This companion has already been used. Each instance can only be used once.")
+						.endControlFlow()
+						.add("\n")
 						.beginControlFlow("for (final $T caller : $N)", CallerDef.getCallerAsClassName(), callers)
 						.beginControlFlow("try")
 						.addStatement("caller.$N()", CallerDef.CALL)
@@ -307,6 +320,7 @@ public class CompanionGenerator {
 				.addField(companionTarget)
 				.addField(companionContext)
 				.addField(companionAttributes)
+				.addField(companionHasBeenUsed)
 				.addMethod(companionConstructor)
 				.addMethod(activateCallers)
 				.addMethod(initialiseCallers)
