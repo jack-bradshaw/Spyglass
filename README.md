@@ -305,12 +305,53 @@ The Spyglass framework provides the following `@Use` annotations:
 Check the Javadoc of these annotations for minutiae regarding their application.
 
 ## Defining conditional mapping relationships
-In some cases a 1:1 mapping between attributes and methods isn't sufficient, instead a conditional mapping between specific values and specific method calls is needed. The Spyglass framework currently supports conditional mapping for enums and flags.
+In some cases a 1:1 mapping between attributes and methods isn't sufficient, instead a conditional mapping between specific values and specific method calls is needed. The Spyglass framework currently supports conditional mapping for booleans, enums and flags. Conditional mappings are just like regular mappings, except the Spyglass framework applies simple conditional logic to the attribute value to determine whether or not the method should be called.
 
-### Enum constants
-Consider the case of an enum attribute which defines the direction a view faces towards. In XML it makes sense to set the value using a single enum attribute, but in Java it makes more sense to design the API with four distinct methods. Using the `@SpecificEnumHandler` annotation, the Spyglass framework can route specific enum constants to specific methods.
+### Booleans
+Boolean conditional mapping is the simplest to understand and implement. 
 
-Start by defining an enum attribute in the `attrs` resource file as:
+Imagine a view that displays an image of a light that is either on or off. In XML it makes sense to set the state using a single boolean attribute, but in Java it might make more sense to design the class with two distinct methods. Using the `@SpecificBooleanHandler` annotation, the Spyglass framework can route `true` and `false` to different methods.
+
+Start by defining a boolean attribute in the `attrs` resource file as:
+```XML
+<resources>
+	<declare-styleable name="ExampleView">
+		<attr name="lightIsOn" format="boolean"/>
+	</declare-styleable>
+</resources>
+```
+
+Next apply the `@SpecificBooleanHandler` annotation to multiple methods in the view class.
+```java
+@SpecificBooleanHandler(attributeId = R.styleable.lightIsOn, handledBoolean = true)
+public void setLightToOn() {
+	// Some implementation
+}
+
+@SpecificBooleanHandler(attributeId = R.styleable.lightIsOn, handledBoolean = false)
+public void setLightToOff() {
+	// Some implementation
+}
+```
+
+Now when the Spyglass framework finds the `lightIsOn` attribute, it uses the attibute value to determine which method to call. If the attribute is not present in the XML at all, then neither method is called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `setLightToOff` method is invoked.
+```XML
+<FrameLayout
+	android:width="match_parent"
+	android:height="match_parent">
+	
+	<com.example.ExampleView
+		android:width="match_parent"
+		android:height="match_parent"
+		app:lightIsOn="false"/>
+
+</FrameLayout>
+```
+
+### Enums
+Conditional mapping can also be used for enum attributes. Imagine a view which can face north, south, west or east. In XML it makes sense to set the direction using a single enum attribute, but in Java it makes more sense to design the class with four distinct methods. Using the `@SpecificEnumHandler` annotation, the Spyglass framework can route each enum constant to a different method.
+
+Start by defining an enum attribute in the `attrs` resource file.
 ```XML
 <resources>
 	<declare-styleable name="ExampleView">
@@ -324,7 +365,7 @@ Start by defining an enum attribute in the `attrs` resource file as:
 </resources>
 ```
 
-Then define an equivalent enum in a Java file:
+Then define an equivalent enum in a Java file.
 ```java
 public enum Direction {
 	NORTH,
@@ -334,7 +375,9 @@ public enum Direction {
 }
 ```
 
-Finally apply the `@SpecificEnumHandler` annotation to the methods in the view class.
+The Spyglass framework handles the conversion between the XML enum and the Java enum just as it does when using the `@EnumConstantHandler` annotation.
+
+Next apply the `@SpecificEnumHandler` annotation to the methods in the view class.
 ```java
 @SpecificEnumHandler(attributeId = R.styleable.directionFacing, ordinal = 0)
 public void faceNorth() {
@@ -357,7 +400,7 @@ public void faceWest() {
 }
 ```
 
-Just as with the `@EnumConstantHandler`, the Spyglass framework automatically handles conversion between the XML enum and the Java enum. The difference is that in this case the framework doesn't pass in the value, instead it uses the value's ordinal to decide which method to call. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `faceWest` method is invoked.
+Now when the Spyglass framework finds the `directionFacing` attribute, it uses the attibute value to determine which method to call. If the attribute is not present in the XML at all, then none of the methods are called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `faceWest` method is invoked.
 ```XML
 <FrameLayout
 	android:width="match_parent"
@@ -372,7 +415,7 @@ Just as with the `@EnumConstantHandler`, the Spyglass framework automatically ha
 ```
 
 ### Flags
-Consider the case of a flag attribute which defines some properties to apply to some text. In XML it makes sense to set the value using a single flag attribute, but in Java it makes more sense to design the API with distinct methods. Using the `@SpecificFlagHandler` annotation, the Spyglass framework can route specific flags to specific methods.
+Conditional mapping can also be used for flag attributes. Imagine a view which displays a string and applies a bold, italic and/or underline effect to the text. In XML it makes sense to set the style using a single flag attribute, but in Java it makes more sense to design the class with distinct methods. Using the `@SpecificFlagHandler` annotation, the Spyglass framework can route specific flags to differnt methods.
 
 Start by defining a flag attribute in the `attrs` resource file as:
 ```XML
@@ -388,7 +431,7 @@ Start by defining a flag attribute in the `attrs` resource file as:
 </resources>
 ```
 
-Next apply the annotation to the methods in the view class.
+Next apply the `@SpecificFlagHandler` annotation to multiple methods in the view class.
 ```java
 @SpecificFlagHandler(attributeId = R.styleable.textProperties, handledFlags = 1)
 public void useBoldText() {
@@ -411,7 +454,9 @@ public void useRegularText() {
 }
 ```
 
-When the Spyglass framework find a value for the `textProperties` attribute, it will do a bitwise-OR comparison between the value and the handled flags. If the comparison resolves to true, then the method is called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `useBoldText` and `useUnderlinedText` methods are called.
+Now when the Spyglass framework finds the `textProperties` attribute, it uses the attibute value to determine which methods to call. If the attribute is not present in the XML at all, then none of the methods are called. The Spyglass framework determines which methods to call by doing a bitwise-OR comparison between the attribute value and the `handledFlags` values in the annotations. If any comparison resolves to true, then the associated method is called.
+
+For example, when the following layout is inflated and the ExampleView class is instantiated, the `useBoldText` and `useUnderlinedText` methods are called, but the `useItalicText` and `useRegularText` methods are not.
 ```XML
 <FrameLayout
 	android:width="match_parent"
