@@ -11,7 +11,7 @@ public class Data {
 	public void withSpecificBoolean() {}
 
 	@ElementId("specific enum")
-	@SpecificEnumHandler(attributeId = 1, ordinal = 0)
+	@SpecificEnumHandler(attributeId = 1, handledOrdinal = 0)
 	public void withSpecificEnum() {}
 
 	@ElementId("specific flag")

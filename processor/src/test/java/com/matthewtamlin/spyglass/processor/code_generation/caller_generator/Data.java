@@ -20,6 +20,6 @@ public class Data {
 	public void valueHandlerOnly(String s) {}
 
 	@ElementId("call handler")
-	@SpecificEnumHandler(attributeId = 1, ordinal = 1)
+	@SpecificEnumHandler(attributeId = 1, handledOrdinal = 1)
 	public void callHandler() {}
 }
