@@ -115,7 +115,7 @@ public class Data {
 	@FractionHandler(attributeId = 0)
 	@IntegerHandler(attributeId = 0)
 	@StringHandler(attributeId = 0)
-	@SpecificEnumHandler(attributeId = 0, ordinal = 0)
+	@SpecificEnumHandler(attributeId = 0, handledOrdinal = 0)
 	@SpecificFlagHandler(attributeId = 0, handledFlags = 0)
 	public void method18() {}
 

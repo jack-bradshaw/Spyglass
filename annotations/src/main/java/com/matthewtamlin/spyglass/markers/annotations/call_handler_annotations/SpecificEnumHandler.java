@@ -29,5 +29,5 @@ public @interface SpecificEnumHandler {
 	/**
 	 * @return the ordinal of the enum constant handled by the method
 	 */
-	int ordinal();
+	int handledOrdinal();
 }

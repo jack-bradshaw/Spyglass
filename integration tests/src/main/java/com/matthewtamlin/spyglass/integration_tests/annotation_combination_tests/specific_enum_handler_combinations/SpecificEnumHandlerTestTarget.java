@@ -39,7 +39,7 @@ public class SpecificEnumHandlerTestTarget extends View {
 		init(attrs, defStyleAttr, defStyleRes);
 	}
 
-	@SpecificEnumHandler(attributeId = R.styleable.SpecificEnumHandlerTestTarget_specificEnumHandlerAttr, ordinal = 0)
+	@SpecificEnumHandler(attributeId = R.styleable.SpecificEnumHandlerTestTarget_specificEnumHandlerAttr, handledOrdinal = 0)
 	public void handlerMethod() {
 		handlerCalled = true;
 	}
