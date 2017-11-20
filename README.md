@@ -85,7 +85,7 @@ Step 4: Use the generated class in the custom view's `init` method:
     }
  ```
 
-That's it. Now when you instantiate the class from XML, the Spyglass companion interprets the attributes and makes the required method call. For example, if we inflate the following then the `setTitle` method will be called with `"Hello, World!"` as the argument.
+That's it. Now when you instantiate the class from XML, the Spyglass companion interprets the attributes and makes the required method call. For example, if we inflate the following layout then `setTitle` will be called with `"Hello, World!"` as the argument.
 ```XML
     <FrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
