@@ -1,6 +1,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation.specific_value_is_available_method_generator;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
+import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
@@ -57,6 +58,20 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 	}
 
 	@Test
+	public void testGenerateFor_specificBooleanHandlerAnnotationSupplied() {
+		final Element element = avatarRule.getElementWithUniqueId("specific boolean");
+
+		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
+				element,
+				SpecificBooleanHandler.class);
+
+		final MethodSpec generatedMethod = generator.generateFor(mirror);
+
+		checkMethodSignature(generatedMethod);
+		checkCompiles(generatedMethod);
+	}
+
+	@Test
 	public void testGenerateFor_specificEnumHandlerAnnotationSupplied() {
 		final Element element = avatarRule.getElementWithUniqueId("specific enum");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, SpecificEnumHandler.class);
@@ -68,7 +83,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 	}
 
 	@Test
-	public void testGenerateFor_colorHandlerAnnotationSupplied() {
+	public void testGenerateFor_specificFlagHandlerAnnotationSupplied() {
 		final Element element = avatarRule.getElementWithUniqueId("specific flag");
 		final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, SpecificFlagHandler.class);
 
