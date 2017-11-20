@@ -103,7 +103,7 @@ public class Data {
 	@DefaultToStringResource(resId = 0)
 	@DefaultToTextArrayResource(resId = 0)
 	@DefaultToTextResource(resId = 0)
-	@SpecificEnumHandler(attributeId = 0, ordinal = 0)
+	@SpecificEnumHandler(attributeId = 0, handledOrdinal = 0)
 	@SpecificFlagHandler(attributeId = 0, handledFlags = 0)
 	public void method14() {}
 

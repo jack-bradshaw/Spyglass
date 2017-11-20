@@ -27,7 +27,7 @@ public @interface SpecificEnumHandler {
 	int attributeId();
 
 	/**
-	 * @return the specific ordinal handled by the method
+	 * @return the ordinal of the enum constant handled by the method
 	 */
-	int ordinal();
+	int handledOrdinal();
 }

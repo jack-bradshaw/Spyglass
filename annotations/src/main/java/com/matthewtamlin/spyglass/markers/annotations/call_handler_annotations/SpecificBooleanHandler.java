@@ -27,7 +27,7 @@ public @interface SpecificBooleanHandler {
 	int attributeId();
 
 	/**
-	 * @return the specific boolean handled by the method
+	 * @return the boolean handled by the method
 	 */
 	boolean handledBoolean();
 }
