@@ -85,6 +85,10 @@
 		<attr name="overloadAttr" format="string"/>
 	</declare-styleable>
 
+	<declare-styleable name="ReuseBehaviourTestTarget">
+		<attr name="reuseAttr" format="string"/>
+	</declare-styleable>
+
 	<declare-styleable name="ExceptionBehaviourTestTargetBase">
 		<attr name="exceptionAttr" format="string"/>
 	</declare-styleable>
