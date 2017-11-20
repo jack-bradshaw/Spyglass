@@ -307,8 +307,51 @@ Check the Javadoc of these annotations for minutiae regarding their application.
 ## Defining conditional mapping relationships
 In some cases a 1:1 mapping between attributes and methods isn't sufficient, instead a conditional mapping between specific values and specific method calls is needed. The Spyglass framework currently supports conditional mapping for enums and flags.
 
-### Enum constants
-Consider the case of an enum attribute which defines the direction a view faces towards. In XML it makes sense to set the value using a single enum attribute, but in Java it makes more sense to design the API with four distinct methods. Using the `@SpecificEnumHandler` annotation, the Spyglass framework can route specific enum constants to specific methods.
+### Booleans
+Boolean conditional mapping is the simplest to understand and implement. 
+
+Imagine a view that displays an image of a light that is either on or off. In XML it makes sense to set the state using a single boolean attribute, but in Java it might make more sense to design the class with two distinct methods. Using the `@SpecificBooleanHandler` annotation, the Spyglass framework can route `true` and `false` to different methods.
+
+Start by defining a boolean attribute in the `attrs` resource file as:
+```XML
+<resources>
+	<declare-styleable name="ExampleView">
+		<attr name="lightIsOn" format="boolean"/>
+	</declare-styleable>
+</resources>
+```
+
+Next apply the `@SpecificBooleanHandler` annotation to multiple methods in the view class.
+```java
+@SpecificBooleanHandler(attributeId = R.styleable.lightIsOn, handledBoolean = true)
+public void setLightToOn() {
+	// Some implementation
+}
+
+@SpecificBooleanHandler(attributeId = R.styleable.lightIsOn, handledBoolean = false)
+public void setLightToOff() {
+	// Some implementation
+}
+```
+
+Now when the Spyglass framework finds the `lightIsOn` attribute, it uses the attibute value to determine which method to call. If the attribute is not present in the XML at all, then neither method is called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `setLightToOff` method is invoked.
+```XML
+<FrameLayout
+	android:width="match_parent"
+	android:height="match_parent">
+	
+	<com.example.ExampleView
+		android:width="match_parent"
+		android:height="match_parent"
+		app:lightIsOn="false"/>
+
+</FrameLayout>
+```
+
+Note that the attribute value is not actually passed in as an argument because the same value would always be passed. If a method has an `@SpecificBooleanHandler` annotation, then every parameter must have an `@Use` annotation.
+
+### Enums
+Imagine a view which can face north, south, west or east. In XML it makes sense to set the direction using a single enum attribute, but in Java it makes more sense to design the API with four distinct methods. Using the `@SpecificEnumHandler` annotation, the Spyglass framework can route specific enum constants to specific methods.
 
 Start by defining an enum attribute in the `attrs` resource file as:
 ```XML
