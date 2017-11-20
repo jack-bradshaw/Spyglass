@@ -1,6 +1,107 @@
 # Spyglass
 Spyglass is an Android library that makes attribute handling in custom views much simpler. The framework is based on one central assertion: Every custom annotation that can be used to configure a view via XML can be mapped to an equivalent method call in the view class. The Spyglass framework uses compile-time code generation to implement these mapping relationships without impacting performance or readability.
 
+## Quick start
+The traditional approach to handling attributes is full of boilerplate code and clumsy resource handling. The Spyglass framework addresses these issues with compile-time code generation. To demonstrate how it works, here's an example showing how to make a custom view that displays a String title.
+
+Step 1: Create a custom view class.
+```java
+    public class CustomView extends FrameLayout {
+        private TextView titleView;
+
+        public CustomView(Context context) {
+            super(context);
+            init(null, 0, 0);
+        }
+
+        public CustomView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+            init(attrs, 0, 0);
+        }
+
+        public CustomView(Context context, AttributeSet attrs, int defStyleAttr) {
+            super(context, attrs, defStyleAttr);
+            init(attrs, defStyleAttr, 0);
+        }
+
+        @RequiresApi(21)
+        public CustomView(
+                Context context, 
+                AttributeSet attrs,
+                int defStyleAttr,
+                int defStyleRes) {
+
+            super(context, attrs, defStyleAttr, defStyleRes);
+            init(attrs, defStyleAttr, defStyleRes);
+        }
+
+        public void setTitle(String title) {
+            titleView.setText(title);
+        }
+        
+        private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+            inflate(getContext(), R.layout.custom_view, this);
+
+            titleView = findViewById(R.id.title_view);
+        }
+    }
+ ```
+
+Step 2: Define a string attribute in the `values/attrs.xml` resource file:
+```XML
+    <resources>
+	    <declare-styleable name="CustomView">
+		    <attr name="title" format="string"/>
+	    </declare-styleable>
+    </resources>
+ ```
+
+Step 3: Apply the `@StringHandler` annotation to the `setTitle` method to tell the Spyglass framework to route the attribute value to this method when the view is inflated.
+```java
+    @HandlesString(attributeId = R.styleable.CustomView_title)
+    public void setTitle(String title) {
+        titleView.setText(title);
+    }
+```
+
+Now that your class has a Spyglass annotation, the Spyglass framework will detect it at compile-time and automatically generate the `CustomView_SpyglassCompanion` class.
+
+Step 4: Use the generated class in the custom view's `init` method:
+```java
+    private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        inflate(getContext(), R.layout.custom_view, this);
+
+        titleView = findViewById(R.id.title_view);
+
+        CustomView_SpyglassCompanion
+                .builder()
+                .withTarget(this)
+                .withContext(getContext())
+                .withAttributeSet(attrs)
+                .withDefaultStyleAttribute(defStyleAttr)
+                .withDefaultStyleResource(defStyleRes)
+                .build()
+                .passDataToMethods();
+    }
+ ```
+
+That's it. Now when you instantiate the class from XML, the Spyglass companion interprets the attributes and makes the required method call. For example, if we inflate the following layout then `setTitle` will be called with `"Hello, World!"` as the argument.
+```XML
+    <FrameLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+	    xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:width="match_parent"
+        android:height="match_parent">
+
+        <com.example.CustomView
+            android:width="match_parent"
+            android:height="match_parent"
+            app:title="Hello, World!"/>
+    </FrameLayout>
+ ```
+
+The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters. The usage section goes into much more detail.
+
 ## Advantages of the Spyglass framework
 Traditionally, attributes are handled using the TypedArray class. The Spyglass framework has several advantages over this approach:
 - Entirely compile-time: The Spyglass framework generates code at compile-time, performs compile-time validation, and makes absolutely no reflective calls at runtime. This eliminates several classes of bugs and makes runtime performance no different from code written by hand.
