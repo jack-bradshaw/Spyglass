@@ -7,9 +7,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_flag_handler_combinations.SpecificFlagHandlerTestTarget_SpyglassCompanion;
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificBooleanHandler;
-import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
 
 public class SpecificBooleanHandlerTestTarget extends View {
 	private boolean handlerCalled = false;

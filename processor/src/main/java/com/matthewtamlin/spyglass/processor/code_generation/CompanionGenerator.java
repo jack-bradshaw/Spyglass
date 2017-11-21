@@ -315,7 +315,6 @@ public class CompanionGenerator {
 
 		final TypeSpec companion = CompanionDef
 				.getNewCompanionImplementationPrototype(companionName)
-				.addModifiers(PUBLIC)
 				.addField(callers)
 				.addField(companionTarget)
 				.addField(companionContext)
