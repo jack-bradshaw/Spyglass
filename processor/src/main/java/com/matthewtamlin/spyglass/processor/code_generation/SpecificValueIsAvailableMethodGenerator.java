@@ -47,7 +47,7 @@ public class SpecificValueIsAvailableMethodGenerator {
 												"$N().getInt($L, 0) == $L",
 										CallerDef.GET_ATTRS,
 										getLiteralFromAnnotation(object, "attributeId"),
-										getLiteralFromAnnotation(object, "ordinal"))
+										getLiteralFromAnnotation(object, "handledOrdinal"))
 								.build();
 					}
 				}
