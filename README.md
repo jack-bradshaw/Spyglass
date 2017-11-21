@@ -130,6 +130,8 @@ dependencies {
 
 Always make sure the annotations dependency and the processor dependency have the same version number.
 
+Older versions are available in [the Maven repo](https://bintray.com/matthewtamlin/maven).
+
 ## Usage
 Use of the Spyglass framework is divided into four tasks:
 - Defining mapping relationships.
