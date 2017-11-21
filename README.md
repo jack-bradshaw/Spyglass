@@ -103,11 +103,10 @@ That's it. Now when you instantiate the class from XML, the Spyglass companion i
 The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters. The usage section goes into much more detail.
 
 ## Advantages of the Spyglass framework
-Traditionally, attributes are handled using the TypedArray class. The Spyglass framework has several advantages over this approach:
-- Entirely compile-time: The Spyglass framework generates code at compile-time, performs compile-time validation, and makes absolutely no reflective calls at runtime. This eliminates several classes of bugs and makes runtime performance no different from code written by hand.
-- Better missing-attribute control: Traditionally a default value must always be provided when accessing an attribute. This makes it difficult to ignore missing attributes without significant boilerplate overhead. The Spyglass framework was designed to give developers full control of the default behaviour with minimal overhead.
+Custom view attributes are traditionally handled using the TypedArray class. The Spyglass framework has several advantages over this approach:
+- Better missing-attribute control: Traditionally a default value must always be provided when accessing an attribute. This makes it difficult to ignore missing attributes without significant boilerplate overhead. The Spyglass framework was designed from the ground up to give developers full control over the default behaviour.
 - High level abstractions: The Spyglass framework uses descriptive annotations with sane defaults to allow developers to work at a high level. All the low level implementation code is generated automatically and can be forgotten about.
-- Readable code: As well as making the view must more readable, the Spyglass framework generates code which can be easily read and understood. Since there's no reflection, debugging tools and stacktraces can easily follow your program flow through the generated code.
+- Readable code: As well as making the view much more readable, the Spyglass framework generates code which can be easily read and understood. Since there's no reflection, debugging tools and stacktraces can easily follow your program flow through the generated code if things go wrong.
 - Friendlier API: The API of the Spyglass framework is easier to use than the TypedArray class. Intent is declared using annotations, and the API uses builders where appropriate to avoid confusing variable order.
 
 ## Dependency
@@ -572,6 +571,9 @@ For example, when the following layout is inflated and the ExampleView class is 
 
 </FrameLayout>
 ```
+
+## Performance
+The Spyglass framework generates code at compile-time, performs compile-time validation, and makes absolutely no reflective calls at runtime. This eliminates several classes of bugs and makes runtime performance no different from code written by hand.
 
 ## Compatibility
 The Spyglass framework is compatible with all versions of Android.
