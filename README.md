@@ -234,7 +234,7 @@ The Android resource system isn't limited to string resources, and neither is th
 
 Check the Javadoc of these annotations for minutiae regarding their application. 
 
-All of these annotations are analagous to the `@StringHandler` annotation, except for the `@EnumConstantHandler` which is a little bit more involved. This annotation is very useful, because it handles all the conversion between XML enums and Java enums.
+All of these annotations are analogous to the `@StringHandler` annotation, except for the `@EnumConstantHandler` which is a little bit more involved. This annotation is very useful, because it handles all the conversion between XML enums and Java enums.
 
 To handle an enum attribute, start by defining the attribute in the `attrs` resource file.
 ```XML
@@ -287,7 +287,7 @@ Normally if a view is inflated from an XML layout and no value is provided for a
 ### Default annotations
 The simplest way to define defaults is using the `@DefaultTo` annotations.
 
-The previous example can be modified to set the default title to "Untitied document" by adding the `@DefaultToString` annotation to the `setTitle` method.
+The previous example can be modified to set the default title to "Untitled document" by adding the `@DefaultToString` annotation to the `setTitle` method.
 ```java
 @HandlesString(R.styleable.ExampleView_title)
 @DefaultToString("Untitled document")
@@ -365,12 +365,12 @@ Now if the view is instantiated from XML without a `title` attribute, the `setTi
 It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr)`. The third parameter should be propagated to the `withDefaultStyleAttribute` method of the Spyglass companion builder.
 
 ### Default style resources
-Every Spyglass companion builder also exposes the `withDefaultStyleResource` method which is very similar to the `withDefaultStyleAttribute` method, except the supplied resource ID directly referes to a style resource instead of going through the current theme.
+Every Spyglass companion builder also exposes the `withDefaultStyleResource` method which is very similar to the `withDefaultStyleAttribute` method, except the supplied resource ID directly refers to a style resource instead of going through the current theme.
 
 It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)`. The fourth parameter should be propagated to the `withDefaultStyleResoure` method of the Spyglass companion builder.
 
 ### All together
-What happens if you supply a default style attribute, a default style resource and an `@DefaultTo` annotation? When multilple default sources are available, the Spyglass framework searches through them until a value is found. If the attribute is not found in the default style attribute, then the Spyglass framework moves onto the default style resource. If a value is still not found, it moves onto the default annotation. If no default annotation is found, then the method is not called at all.
+What happens if you supply a default style attribute, a default style resource and an `@DefaultTo` annotation? When multiple default sources are available, the Spyglass framework searches through them until a value is found. If the attribute is not found in the default style attribute, then the Spyglass framework moves onto the default style resource. If a value is still not found, it moves onto the default annotation. If no default annotation is found, then the method is not called at all.
 
 ## Defining placeholder values
 All of the previous examples involve methods which have only one parameter, but what happens when the Spyglass framework encounters a method with multiple parameters? To call a multi-parameter method, placeholder values must be defined for all but one parameter. Placeholder values are defined by applying `@Use` annotations to the parameters.
@@ -379,7 +379,7 @@ Here's a common example:
 ```java
 @HandlesString(R.styleable.ExampleView_title)
 public void setTitle(String title, boolean animate) {
-	// Some implementaiton
+	// Some implementation
 }
 ```
 
@@ -387,7 +387,7 @@ Normally when a view is being first initialised there is no need to show animati
 ```java
 @HandlesString(R.styleable.ExampleView_title)
 public void setTitle(String title, @UseBoolean(false) boolean animate) {
-	// Some implementaiton
+	// Some implementation
 }
 ```
 
@@ -437,7 +437,7 @@ public void setLightToOff() {
 }
 ```
 
-Now when the Spyglass framework finds the `lightIsOn` attribute, it uses the attibute value to determine which method to call. If the attribute is not present in the XML at all, then neither method is called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `setLightToOff` method is invoked.
+Now when the Spyglass framework finds the `lightIsOn` attribute, it uses the attribute value to determine which method to call. If the attribute is not present in the XML at all, then neither method is called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `setLightToOff` method is invoked.
 ```XML
 <FrameLayout
 	android:width="match_parent"
@@ -503,7 +503,7 @@ public void faceWest() {
 }
 ```
 
-Now when the Spyglass framework finds the `directionFacing` attribute, it uses the attibute value to determine which method to call. If the attribute is not present in the XML at all, then none of the methods are called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `faceWest` method is invoked.
+Now when the Spyglass framework finds the `directionFacing` attribute, it uses the attribute value to determine which method to call. If the attribute is not present in the XML at all, then none of the methods are called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `faceWest` method is invoked.
 ```XML
 <FrameLayout
 	android:width="match_parent"
@@ -518,7 +518,7 @@ Now when the Spyglass framework finds the `directionFacing` attribute, it uses t
 ```
 
 ### Flags
-Conditional mapping can also be used for flag attributes. Imagine a view which displays a string and applies a bold, italic and/or underline effect to the text. In XML it makes sense to set the style using a single flag attribute, but in Java it makes more sense to design the class with distinct methods. Using the `@SpecificFlagHandler` annotation, the Spyglass framework can route specific flags to differnt methods.
+Conditional mapping can also be used for flag attributes. Imagine a view which displays a string and applies a bold, italic and/or underline effect to the text. In XML it makes sense to set the style using a single flag attribute, but in Java it makes more sense to design the class with distinct methods. Using the `@SpecificFlagHandler` annotation, the Spyglass framework can route specific flags to different methods.
 
 Start by defining a flag attribute in the `attrs` resource file as:
 ```XML
@@ -557,7 +557,7 @@ public void useRegularText() {
 }
 ```
 
-Now when the Spyglass framework finds the `textProperties` attribute, it uses the attibute value to determine which methods to call. If the attribute is not present in the XML at all, then none of the methods are called. The Spyglass framework determines which methods to call by doing a bitwise-OR comparison between the attribute value and the `handledFlags` values in the annotations. If any comparison resolves to true, then the associated method is called.
+Now when the Spyglass framework finds the `textProperties` attribute, it uses the attribute value to determine which methods to call. If the attribute is not present in the XML at all, then none of the methods are called. The Spyglass framework determines which methods to call by doing a bitwise-OR comparison between the attribute value and the `handledFlags` values in the annotations. If any comparison resolves to true, then the associated method is called.
 
 For example, when the following layout is inflated and the ExampleView class is instantiated, the `useBoldText` and `useUnderlinedText` methods are called, but the `useItalicText` and `useRegularText` methods are not.
 ```XML
@@ -577,7 +577,7 @@ For example, when the following layout is inflated and the ExampleView class is 
 The Spyglass framework is compatible with all versions of Android.
 
 ## Licensing
-This library is licenced under the Apache v2.0 licence. Have a look at [the license](LICENSE) for details.
+This library is licensed under the Apache v2.0 licence. Have a look at [the license](LICENSE) for details.
 
 ## Issues
 Before reporting an issue, please ensure the issue has not already been resolved and ensure the issue directly relates to the framework.
