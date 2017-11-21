@@ -47,7 +47,7 @@ Step 1: Create a custom view class.
     }
  ```
 
-Step 2: Define a string attribute in the `values/attrs.xml` resource file:
+Step 2: Define a string attribute in the `values/attrs.xml` resource file.
 ```XML
     <resources>
 	    <declare-styleable name="CustomView">
