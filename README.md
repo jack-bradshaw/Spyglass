@@ -572,7 +572,7 @@ Custom view attributes are traditionally handled using the TypedArray class. The
 - Readable code: As well as making the view much more readable, the Spyglass framework generates code which can be easily read and understood. Since there's no reflection, debugging tools and stacktraces can easily follow your program flow through the generated code if things go wrong.
 - Friendlier API: The API of the Spyglass framework is easier to use than the TypedArray class. Intent is declared using annotations, and the API uses builders where appropriate to avoid confusing variable order.
 
-## Performance
+## A note on performance
 The Spyglass framework generates code at compile-time, performs compile-time validation, and makes absolutely no reflective calls at runtime. This eliminates several classes of bugs and makes runtime performance no different from code written by hand.
 
 ## Compatibility
