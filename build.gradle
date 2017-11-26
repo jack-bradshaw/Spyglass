@@ -48,7 +48,8 @@ task clean(type: Delete) {
 task buildRelease(dependsOn: [
 		':processor activated:buildRelease',
 		':annotations:buildRelease',
-		':processor:buildRelease'])
+		':processor:buildRelease',
+		':runtime_dependencies:buildRelease'])
 
 ext {
 	groupId = 'com.matthew-tamlin'
