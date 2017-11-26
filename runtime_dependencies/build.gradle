@@ -14,8 +14,17 @@
  * limitations under the License.
  */
 
-include ':annotations'
-include ':integration_tests'
-include ':processor'
-include ':processor_activated'
-include ':runtime_dependencies'
+apply plugin: 'com.android.library'
+
+android {
+	compileSdkVersion 26
+
+	defaultConfig {
+		minSdkVersion 14
+		targetSdkVersion 26
+	}
+}
+
+dependencies {
+	implementation 'com.android.support:support-compat:26.1.0'
+}
