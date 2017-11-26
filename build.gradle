@@ -46,7 +46,7 @@ task clean(type: Delete) {
 }
 
 task buildRelease(dependsOn: [
-		':processor activated:buildRelease',
+		':processor_activated:buildRelease',
 		':annotations:buildRelease',
 		':processor:buildRelease'])
 
