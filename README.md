@@ -1,7 +1,29 @@
 # Spyglass
 Spyglass is an Android library that makes attribute handling in custom views much simpler. The framework is based on one central assertion: Every custom annotation that can be used to configure a view via XML can be mapped to an equivalent method call in the view class. The Spyglass framework uses compile-time code generation to implement these mapping relationships without impacting performance or readability.
 
-## Quick start
+## Dependency
+To use the framework, add the following to your gradle build file:
+```groovy
+repositories {
+	jcenter()
+}
+
+dependencies {
+	// For Android Gradle plugin 3.0.0+ projects:
+	compileOnly 'com.matthew-tamlin:spyglass-annotations:2.0.1'
+	annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.1'
+
+	// For older projects:
+	provided 'com.matthew-tamlin:spyglass-annotations:2.0.1'
+	annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.1'
+}
+```
+
+Always make sure the annotations dependency and the processor dependency have the same version number.
+
+Older versions are available in [the Maven repo](https://bintray.com/matthewtamlin/maven).
+
+## Quick tutorial
 The traditional approach to handling attributes is full of boilerplate code and clumsy resource handling. The Spyglass framework addresses these issues with compile-time code generation. To demonstrate how it works, here's an example showing how to make a custom view that displays a String title.
 
 Step 1: Create a custom view class.
@@ -102,36 +124,7 @@ That's it. Now when you instantiate the class from XML, the Spyglass companion i
 
 The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters. The usage section goes into much more detail.
 
-## Advantages of the Spyglass framework
-Custom view attributes are traditionally handled using the TypedArray class. The Spyglass framework has several advantages over this approach:
-- Better missing-attribute control: Traditionally a default value must always be provided when accessing an attribute. This makes it difficult to ignore missing attributes without significant boilerplate overhead. The Spyglass framework was designed from the ground up to give developers full control over the default behaviour.
-- High level abstractions: The Spyglass framework uses descriptive annotations with sane defaults to allow developers to work at a high level. All the low level implementation code is generated automatically and can be forgotten about.
-- Readable code: As well as making the view much more readable, the Spyglass framework generates code which can be easily read and understood. Since there's no reflection, debugging tools and stacktraces can easily follow your program flow through the generated code if things go wrong.
-- Friendlier API: The API of the Spyglass framework is easier to use than the TypedArray class. Intent is declared using annotations, and the API uses builders where appropriate to avoid confusing variable order.
-
-## Dependency
-To use the framework, add the following to your gradle build file:
-```groovy
-repositories {
-	jcenter()
-}
-
-dependencies {
-	// For Android Gradle plugin 3.0.0+ projects:
-	compileOnly 'com.matthew-tamlin:spyglass-annotations:2.0.1'
-	annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.1'
-
-	// For older projects:
-	provided 'com.matthew-tamlin:spyglass-annotations:2.0.1'
-	annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.1'
-}
-```
-
-Always make sure the annotations dependency and the processor dependency have the same version number.
-
-Older versions are available in [the Maven repo](https://bintray.com/matthewtamlin/maven).
-
-## Usage
+## In depth tutorial
 Use of the Spyglass framework is divided into four tasks:
 - Defining mapping relationships.
 - Defining default values.
@@ -572,7 +565,14 @@ For example, when the following layout is inflated and the ExampleView class is 
 </FrameLayout>
 ```
 
-## Performance
+## Advantages of the Spyglass framework
+Custom view attributes are traditionally handled using the TypedArray class. The Spyglass framework has several advantages over this approach:
+- Better missing-attribute control: Traditionally a default value must always be provided when accessing an attribute. This makes it difficult to ignore missing attributes without significant boilerplate overhead. The Spyglass framework was designed from the ground up to give developers full control over the default behaviour.
+- High level abstractions: The Spyglass framework uses descriptive annotations with sane defaults to allow developers to work at a high level. All the low level implementation code is generated automatically and can be forgotten about.
+- Readable code: As well as making the view much more readable, the Spyglass framework generates code which can be easily read and understood. Since there's no reflection, debugging tools and stacktraces can easily follow your program flow through the generated code if things go wrong.
+- Friendlier API: The API of the Spyglass framework is easier to use than the TypedArray class. Intent is declared using annotations, and the API uses builders where appropriate to avoid confusing variable order.
+
+## A note on performance
 The Spyglass framework generates code at compile-time, performs compile-time validation, and makes absolutely no reflective calls at runtime. This eliminates several classes of bugs and makes runtime performance no different from code written by hand.
 
 ## Compatibility
