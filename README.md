@@ -10,12 +10,12 @@ repositories {
 
 dependencies {
 	// For Android Gradle plugin 3.0.0+ projects:
-	compileOnly 'com.matthew-tamlin:spyglass-annotations:2.0.1'
-	annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.1'
+	compileOnly 'com.matthew-tamlin:spyglass-annotations:2.0.2'
+	annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.2'
 
 	// For older projects:
-	provided 'com.matthew-tamlin:spyglass-annotations:2.0.1'
-	annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.1'
+    provided 'com.matthew-tamlin:spyglass-annotations:2.0.2'
+	annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.2'
 }
 ```
 
