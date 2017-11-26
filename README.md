@@ -23,7 +23,7 @@ Always make sure the annotations dependency and the processor dependency have th
 
 Older versions are available in [the Maven repo](https://bintray.com/matthewtamlin/maven).
 
-## Quick start
+## Quick tutorial
 The traditional approach to handling attributes is full of boilerplate code and clumsy resource handling. The Spyglass framework addresses these issues with compile-time code generation. To demonstrate how it works, here's an example showing how to make a custom view that displays a String title.
 
 Step 1: Create a custom view class.
@@ -124,7 +124,7 @@ That's it. Now when you instantiate the class from XML, the Spyglass companion i
 
 The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters. The usage section goes into much more detail.
 
-## Usage
+## In depth tutorial
 Use of the Spyglass framework is divided into four tasks:
 - Defining mapping relationships.
 - Defining default values.
