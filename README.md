@@ -21,7 +21,7 @@ dependencies {
 }
 ```
 
-Always make sure the annotations dependency and the processor dependency have the same version number.
+Always make sure all three dependencies have the same version number.
 
 Older versions are available in [the Maven repo](https://bintray.com/matthewtamlin/maven).
 
