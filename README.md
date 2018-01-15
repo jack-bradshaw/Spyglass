@@ -101,6 +101,7 @@ Step 4: Use the generated class in the custom view's `init` method:
                 .builder()
                 .withTarget(this)
                 .withContext(getContext())
+                .withStyleableResource(R.styleable.CustomView)
                 .withAttributeSet(attrs)
                 .withDefaultStyleAttribute(defStyleAttr)
                 .withDefaultStyleResource(defStyleRes)
