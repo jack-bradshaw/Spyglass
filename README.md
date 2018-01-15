@@ -583,6 +583,3 @@ The Spyglass framework is compatible with all versions of Android.
 
 ## Licensing
 This library is licensed under the Apache v2.0 licence. Have a look at [the license](LICENSE) for details.
-
-## Issues
-Before reporting an issue, please ensure the issue has not already been resolved and ensure the issue directly relates to the framework.
