@@ -227,7 +227,7 @@ The Android resource system isn't limited to string resources, and neither is th
 - `@FractionHandler`
 - `@IntegerHandler`
 
-Check the Javadoc of these annotations for minutiae regarding their application. 
+Check the Javadoc of these annotations for specifics.
 
 All of these annotations are analogous to the `@StringHandler` annotation, except for the `@EnumConstantHandler` which is a little bit more involved. This annotation is very useful, because it handles all the conversion between XML enums and Java enums.
 
@@ -311,7 +311,7 @@ The following `@DefaultTo` annotations are provided by the Spyglass framework:
 - `@DefaultToTextArrayResource`
 - `@DefaultToTextResource`
 
-Check the Javadoc of these annotations for minutiae regarding their application.
+Check the Javadoc of these annotations for specifics.
 
 ### Default style attribute
 Every Spyglass companion builder exposes the `withDefaultStyleAttribute` method which accepts a resource ID that refers to an attribute in the current theme, which in turn refers to a style to source default values from. That's quite a mouth full, so here's a more useful demo.
@@ -400,7 +400,7 @@ The Spyglass framework provides the following `@Use` annotations:
 - `@UseShort`
 - `@UseString`
 
-Check the Javadoc of these annotations for minutiae regarding their application.
+Check the Javadoc of these annotations for specifics.
 
 ## Defining conditional mapping relationships
 In some cases a 1:1 mapping between attributes and methods isn't sufficient, instead a conditional mapping between specific values and specific method calls is needed. The Spyglass framework currently supports conditional mapping for booleans, enums and flags. Conditional mappings are just like regular mappings, except the Spyglass framework applies simple conditional logic to the attribute value to determine whether or not the method should be called.
