@@ -579,7 +579,7 @@ Custom view attributes are traditionally handled using the TypedArray class. The
 The Spyglass framework generates code at compile-time, performs compile-time validation, and makes absolutely no reflective calls at runtime. This eliminates several classes of bugs and makes runtime performance no different from code written by hand.
 
 ## Compatibility
-The Spyglass framework is compatible with all versions of Android.
+The Spyglass framework is compatible with Android 14 and up.
 
 ## Licensing
 This library is licensed under the Apache v2.0 licence. Have a look at [the license](LICENSE) for details.
