@@ -17,5 +17,5 @@
 include ':annotations'
 include ':integration_tests'
 include ':processor'
-include ':processor_activated'
+include ':processor-activated'
 include ':runtime-dependencies'
