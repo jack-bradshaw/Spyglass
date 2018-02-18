@@ -16,14 +16,14 @@
   -->
 
 <manifest
-	package="com.matthewtamlin.spyglass.integration_tests"
-	xmlns:android="http://schemas.android.com/apk/res/android">
+        package="com.matthewtamlin.spyglass.integration_tests"
+        xmlns:android="http://schemas.android.com/apk/res/android">
 
-	<application
-		android:allowBackup="false"
-		android:label="Spyglass Integration Tests"
-		android:supportsRtl="true"
-		android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
+    <application
+            android:allowBackup="false"
+            android:label="Spyglass Integration Tests"
+            android:supportsRtl="true"
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
 
-	</application>
+    </application>
 </manifest>

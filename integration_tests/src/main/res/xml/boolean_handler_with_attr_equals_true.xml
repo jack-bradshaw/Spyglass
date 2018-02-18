@@ -16,5 +16,5 @@
   -->
 
 <com.matthewtamlin.spyglass.integration_test.boolean_handler_test_target.BooleanHandlerTestTarget
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	app:booleanHandlerAttr="true"/>
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:booleanHandlerAttr="true"/>

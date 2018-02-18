@@ -16,5 +16,5 @@
   -->
 
 <resources>
-	<string name="stringForTesting">123abc</string>
+    <string name="stringForTesting">123abc</string>
 </resources>

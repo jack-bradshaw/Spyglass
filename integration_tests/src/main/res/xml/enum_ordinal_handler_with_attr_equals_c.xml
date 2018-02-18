@@ -16,5 +16,5 @@
   -->
 
 <com.matthewtamlin.spyglass.integration_tests.enum_ordinal_handler.EnumOrdinalHandlerTestTargetBase
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	app:language="c"/>
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:language="c"/>

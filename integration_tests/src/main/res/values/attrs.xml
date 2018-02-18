@@ -16,100 +16,100 @@
   -->
 
 <resources>
-	<declare-styleable name="Superclass">
-		<attr name="superclassAttr" format="string"/>
-	</declare-styleable>
+    <declare-styleable name="Superclass">
+        <attr name="superclassAttr" format="string"/>
+    </declare-styleable>
 
-	<declare-styleable name="Subclass">
-		<attr name="subclassAttr" format="string"/>
-	</declare-styleable>
+    <declare-styleable name="Subclass">
+        <attr name="subclassAttr" format="string"/>
+    </declare-styleable>
 
-	<declare-styleable name="UseAnnotationsTestTargetBase">
-		<attr name="useAnnotationsAttr" format="string"/>
-	</declare-styleable>
+    <declare-styleable name="UseAnnotationsTestTargetBase">
+        <attr name="useAnnotationsAttr" format="string"/>
+    </declare-styleable>
 
-	<declare-styleable name="SpecificEnumHandlerTestTarget">
-		<attr name="specificEnumHandlerAttr" format="enum">
-			<enum name="value0" value="0"/>
-			<enum name="value1" value="1"/>
-		</attr>
-	</declare-styleable>
+    <declare-styleable name="SpecificEnumHandlerTestTarget">
+        <attr name="specificEnumHandlerAttr" format="enum">
+            <enum name="value0" value="0"/>
+            <enum name="value1" value="1"/>
+        </attr>
+    </declare-styleable>
 
-	<declare-styleable name="SpecificFlagHandlerTestTarget">
-		<attr name="specificFlagHandlerAttr">
-			<flag name="value1" value="1"/>
-			<flag name="value2" value="2"/>
-		</attr>
-	</declare-styleable>
+    <declare-styleable name="SpecificFlagHandlerTestTarget">
+        <attr name="specificFlagHandlerAttr">
+            <flag name="value1" value="1"/>
+            <flag name="value2" value="2"/>
+        </attr>
+    </declare-styleable>
 
-	<declare-styleable name="SpecificBooleanHandlerTestTarget">
-		<attr name="specificBooleanHandlerAttr" format="boolean"/>
-	</declare-styleable>
+    <declare-styleable name="SpecificBooleanHandlerTestTarget">
+        <attr name="specificBooleanHandlerAttr" format="boolean"/>
+    </declare-styleable>
 
-	<declare-styleable name="BooleanHandlerTestTargetBase">
-		<attr name="booleanHandlerAttr" format="boolean"/>
-	</declare-styleable>
+    <declare-styleable name="BooleanHandlerTestTargetBase">
+        <attr name="booleanHandlerAttr" format="boolean"/>
+    </declare-styleable>
 
-	<declare-styleable name="ColorHandlerTestTargetBase">
-		<attr name="colorHandlerAttr" format="color"/>
-	</declare-styleable>
+    <declare-styleable name="ColorHandlerTestTargetBase">
+        <attr name="colorHandlerAttr" format="color"/>
+    </declare-styleable>
 
-	<declare-styleable name="ColorStateListHandlerTestTargetBase">
-		<attr name="colorStateListHandlerAttr" format="color"/>
-	</declare-styleable>
+    <declare-styleable name="ColorStateListHandlerTestTargetBase">
+        <attr name="colorStateListHandlerAttr" format="color"/>
+    </declare-styleable>
 
-	<declare-styleable name="DimensionHandlerTestTargetBase">
-		<attr name="dimensionHandlerAttr" format="dimension"/>
-	</declare-styleable>
+    <declare-styleable name="DimensionHandlerTestTargetBase">
+        <attr name="dimensionHandlerAttr" format="dimension"/>
+    </declare-styleable>
 
-	<declare-styleable name="DrawableHandlerTestTargetBase">
-		<attr name="drawableHandlerAttr" format="reference"/>
-	</declare-styleable>
+    <declare-styleable name="DrawableHandlerTestTargetBase">
+        <attr name="drawableHandlerAttr" format="reference"/>
+    </declare-styleable>
 
-	<declare-styleable name="EnumConstantHandlerTestTargetBase">
-		<attr name="fruit" format="enum">
-			<enum name="apple" value="0"/>
-			<enum name="pear" value="1"/>
-			<enum name="orange" value="2"/>
-			<enum name="banana" value="3"/>
-			<enum name="watermelon" value="4"/>
-			<enum name="invalid_fruit" value="5"/>
-		</attr>
-	</declare-styleable>
+    <declare-styleable name="EnumConstantHandlerTestTargetBase">
+        <attr name="fruit" format="enum">
+            <enum name="apple" value="0"/>
+            <enum name="pear" value="1"/>
+            <enum name="orange" value="2"/>
+            <enum name="banana" value="3"/>
+            <enum name="watermelon" value="4"/>
+            <enum name="invalid_fruit" value="5"/>
+        </attr>
+    </declare-styleable>
 
-	<declare-styleable name="EnumOrdinalHandlerTestTargetBase">
-		<attr name="language" format="enum">
-			<enum name="java" value="0"/>
-			<enum name="c" value="1"/>
-			<enum name="python" value="2"/>
-		</attr>
-	</declare-styleable>
+    <declare-styleable name="EnumOrdinalHandlerTestTargetBase">
+        <attr name="language" format="enum">
+            <enum name="java" value="0"/>
+            <enum name="c" value="1"/>
+            <enum name="python" value="2"/>
+        </attr>
+    </declare-styleable>
 
-	<declare-styleable name="FloatHandlerTestTargetBase">
-		<attr name="floatHandlerAttr" format="float"/>
-	</declare-styleable>
+    <declare-styleable name="FloatHandlerTestTargetBase">
+        <attr name="floatHandlerAttr" format="float"/>
+    </declare-styleable>
 
-	<declare-styleable name="FractionHandlerTestTargetBase">
-		<attr name="fractionHandlerAttr" format="fraction"/>
-	</declare-styleable>
-	
-	<declare-styleable name="IntegerHandlerTestTargetBase">
-		<attr name="integerHandlerAttr" format="integer"/>
-	</declare-styleable>
+    <declare-styleable name="FractionHandlerTestTargetBase">
+        <attr name="fractionHandlerAttr" format="fraction"/>
+    </declare-styleable>
 
-	<declare-styleable name="StringHandlerTestTargetBase">
-		<attr name="stringHandlerAttr" format="string"/>
-	</declare-styleable>
+    <declare-styleable name="IntegerHandlerTestTargetBase">
+        <attr name="integerHandlerAttr" format="integer"/>
+    </declare-styleable>
 
-	<declare-styleable name="OverloadBehaviourTestTarget">
-		<attr name="overloadAttr" format="string"/>
-	</declare-styleable>
+    <declare-styleable name="StringHandlerTestTargetBase">
+        <attr name="stringHandlerAttr" format="string"/>
+    </declare-styleable>
 
-	<declare-styleable name="ReuseBehaviourTestTarget">
-		<attr name="reuseAttr" format="string"/>
-	</declare-styleable>
+    <declare-styleable name="OverloadBehaviourTestTarget">
+        <attr name="overloadAttr" format="string"/>
+    </declare-styleable>
 
-	<declare-styleable name="ExceptionBehaviourTestTargetBase">
-		<attr name="exceptionAttr" format="string"/>
-	</declare-styleable>
+    <declare-styleable name="ReuseBehaviourTestTarget">
+        <attr name="reuseAttr" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="ExceptionBehaviourTestTargetBase">
+        <attr name="exceptionAttr" format="string"/>
+    </declare-styleable>
 </resources>
