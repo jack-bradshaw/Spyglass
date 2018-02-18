@@ -33,8 +33,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface UseDouble {
-	/**
-	 * @return the value to pass
-	 */
-	double value();
+  /**
+   * @return the value to pass
+   */
+  double value();
 }

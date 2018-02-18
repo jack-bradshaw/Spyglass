@@ -33,8 +33,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface UseShort {
-	/**
-	 * @return the value to pass
-	 */
-	short value();
+  /**
+   * @return the value to pass
+   */
+  short value();
 }

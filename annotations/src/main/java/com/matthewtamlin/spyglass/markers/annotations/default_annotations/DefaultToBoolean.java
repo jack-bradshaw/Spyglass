@@ -36,8 +36,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToBoolean {
-	/**
-	 * @return the default value
-	 */
-	boolean value();
+  /**
+   * @return the default value
+   */
+  boolean value();
 }
