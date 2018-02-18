@@ -19,6 +19,9 @@ apply plugin: 'java'
 sourceCompatibility = '1.7'
 targetCompatibility = '1.7'
 
+group = rootProject.group
+version = rootProject.version
+
 dependencies {
   implementation 'com.matthew-tamlin:java-utilities:1.3.3'
   implementation 'com.squareup:javapoet:1.8.0'
