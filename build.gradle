@@ -15,68 +15,68 @@
  */
 
 buildscript {
-	repositories {
-		jcenter()
-		google()
+  repositories {
+    jcenter()
+    google()
 
-		maven {
-			url "https://plugins.gradle.org/m2/"
-		}
-	}
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
 
-	dependencies {
-		classpath 'com.android.tools.build:gradle:3.0.1'
-	}
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.0.1'
+  }
 }
 
 plugins {
-	id 'net.ltgt.apt' version '0.13' apply false
+  id 'net.ltgt.apt' version '0.13' apply false
 }
 
 allprojects {
-	repositories {
-		jcenter()
-		google()
-	}
+  repositories {
+    jcenter()
+    google()
+  }
 }
 
 task clean(type: Delete) {
-	delete rootProject.buildDir
+  delete rootProject.buildDir
 
-	rootProject.getAllprojects().each {
-		delete project.buildDir
-	}
+  rootProject.getAllprojects().each {
+    delete project.buildDir
+  }
 }
 
 task cleanAllModules(dependsOn: [
-		':annotations:deleteOutputDirectories',
-		':integration_tests:deleteOutputDirectories',
-		':processor:deleteOutputDirectories',
-		':processor_activated:deleteOutputDirectories',
-		':runtime_dependencies:deleteOutputDirectories'])
+    ':annotations:deleteOutputDirectories',
+    ':integration_tests:deleteOutputDirectories',
+    ':processor:deleteOutputDirectories',
+    ':processor_activated:deleteOutputDirectories',
+    ':runtime_dependencies:deleteOutputDirectories'])
 
 task buildAllModules(dependsOn: [
     ':annotations:build',
-		':integration_tests:build',
-		':processor:build',
-		':processor_activated:build',
-		':runtime_dependencies:build'])
+    ':integration_tests:build',
+    ':processor:build',
+    ':processor_activated:build',
+    ':runtime_dependencies:build'])
 
 task buildAllReleases(dependsOn: [
-		':annotations:buildRelease',
-		':processor:buildRelease',
-		':processor_activated:buildRelease',
-		':runtime_dependencies:buildRelease'])
+    ':annotations:buildRelease',
+    ':processor:buildRelease',
+    ':processor_activated:buildRelease',
+    ':runtime_dependencies:buildRelease'])
 
 ext {
-	groupId = 'com.matthew-tamlin'
-	artifactId = 'spyglass'
-	versionNumber = '2.0.2'
+  groupId = 'com.matthew-tamlin'
+  artifactId = 'spyglass'
+  versionNumber = '2.0.2'
 }
 
 subprojects { project ->
-	if (project.name != 'integration tests') {
-		group = rootProject.groupId
-		version = rootProject.versionNumber
-	}
+  if (project.name != 'integration tests') {
+    group = rootProject.groupId
+    version = rootProject.versionNumber
+  }
 }
