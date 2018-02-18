@@ -40,14 +40,6 @@ allprojects {
   }
 }
 
-task clean(type: Delete) {
-  delete rootProject.buildDir
-
-  rootProject.getAllprojects().each {
-    delete project.buildDir
-  }
-}
-
 task cleanAllModules(dependsOn: [
     ':annotations:deleteOutputDirectories',
     ':integration_tests:deleteOutputDirectories',
