@@ -55,6 +55,13 @@ task cleanAllModules(dependsOn: [
 		':processor_activated:deleteOutputDirectories',
 		':runtime_dependencies:deleteOutputDirectories'])
 
+task buildAllModules(dependsOn: [
+    ':annotations:build',
+		':integration_tests:build',
+		':processor:build',
+		':processor_activated:build',
+		':runtime_dependencies:build'])
+
 task buildAllReleases(dependsOn: [
 		':annotations:buildRelease',
 		':processor:buildRelease',
