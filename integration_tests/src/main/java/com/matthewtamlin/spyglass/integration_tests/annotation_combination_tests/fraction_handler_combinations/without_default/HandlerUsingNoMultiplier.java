@@ -29,22 +29,22 @@ import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.
 
 public class HandlerUsingNoMultiplier extends FractionHandlerTestTargetBase {
   public static final int MULTIPLIER = 93;
-
+  
   public HandlerUsingNoMultiplier(final Context context) {
     super(context);
     init(null, 0, 0);
   }
-
+  
   public HandlerUsingNoMultiplier(final Context context, final AttributeSet attrs) {
     super(context, attrs);
     init(attrs, 0, 0);
   }
-
+  
   public HandlerUsingNoMultiplier(final Context context, final AttributeSet attrs, final int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     init(attrs, defStyleAttr, 0);
   }
-
+  
   @TargetApi(21)
   @RequiresApi(21)
   public HandlerUsingNoMultiplier(
@@ -52,16 +52,16 @@ public class HandlerUsingNoMultiplier extends FractionHandlerTestTargetBase {
       final AttributeSet attrs,
       final int defStyleAttr,
       final int defStyleRes) {
-
+    
     super(context, attrs, defStyleAttr, defStyleRes);
     init(attrs, defStyleAttr, defStyleRes);
   }
-
+  
   @FractionHandler(attributeId = R.styleable.FloatHandlerTestTargetBase_floatHandlerAttr)
   public void handlerMethod(final float f) {
     setReceivedValue(ReceivedValue.of(f));
   }
-
+  
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     HandlerUsingNoMultiplier_SpyglassCompanion
         .builder()
