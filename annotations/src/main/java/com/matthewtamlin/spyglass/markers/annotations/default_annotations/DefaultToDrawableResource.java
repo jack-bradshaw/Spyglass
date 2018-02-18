@@ -36,8 +36,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToDrawableResource {
-	/**
-	 * @return the resource ID of the default value, must resolve to a drawable resource
-	 */
-	int resId();
+  /**
+   * @return the resource ID of the default value, must resolve to a drawable resource
+   */
+  int resId();
 }

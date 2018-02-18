@@ -41,14 +41,14 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToEnumConstant {
-	/**
-	 * @return the type of enum to use for the default value
-	 */
-	Class<? extends Enum> enumClass();
-
-	/**
-	 * @return the ordinal of the enum constant to use as the default values, with regard to the enum class supplied
-	 * {@code enumClass()}
-	 */
-	int ordinal();
+  /**
+   * @return the type of enum to use for the default value
+   */
+  Class<? extends Enum> enumClass();
+  
+  /**
+   * @return the ordinal of the enum constant to use as the default values, with regard to the enum class supplied
+   * {@code enumClass()}
+   */
+  int ordinal();
 }

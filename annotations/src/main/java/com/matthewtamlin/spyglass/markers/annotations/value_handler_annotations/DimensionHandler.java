@@ -36,8 +36,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DimensionHandler {
-	/**
-	 * @return the resource ID of the handled attribute
-	 */
-	int attributeId();
+  /**
+   * @return the resource ID of the handled attribute
+   */
+  int attributeId();
 }

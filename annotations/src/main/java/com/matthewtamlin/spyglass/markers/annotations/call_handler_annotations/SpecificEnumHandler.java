@@ -37,13 +37,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface SpecificEnumHandler {
-	/**
-	 * @return the resource ID of the handled attribute
-	 */
-	int attributeId();
-
-	/**
-	 * @return the ordinal of the enum constant handled by the method
-	 */
-	int handledOrdinal();
+  /**
+   * @return the resource ID of the handled attribute
+   */
+  int attributeId();
+  
+  /**
+   * @return the ordinal of the enum constant handled by the method
+   */
+  int handledOrdinal();
 }
