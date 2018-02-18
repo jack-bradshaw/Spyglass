@@ -48,6 +48,13 @@ task clean(type: Delete) {
 	}
 }
 
+task cleanAllModules(dependsOn: [
+		':annotations:deleteOutputDirectories',
+		':integration_tests:deleteOutputDirectories',
+		':processor:deleteOutputDirectories',
+		':processor_activated:deleteOutputDirectories',
+		':runtime_dependencies:deleteOutputDirectories'])
+
 task buildRelease(dependsOn: [
 		':processor_activated:buildRelease',
 		':annotations:buildRelease',

@@ -50,3 +50,10 @@ dependencies {
 	androidTestImplementation 'com.google.dexmaker:dexmaker:1.2'
 	androidTestImplementation 'com.google.dexmaker:dexmaker-mockito:1.2'
 }
+
+task deleteOutputDirectories {
+	doFirst {
+		delete('out')
+		delete('build')
+	}
+}

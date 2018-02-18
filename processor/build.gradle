@@ -46,3 +46,10 @@ ext {
 }
 
 apply from: rootProject.file('maven-publish.gradle')
+
+task deleteOutputDirectories {
+	doFirst {
+		delete('out')
+		delete('build')
+	}
+}
