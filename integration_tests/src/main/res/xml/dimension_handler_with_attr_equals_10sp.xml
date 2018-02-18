@@ -16,5 +16,5 @@
   -->
 
 <com.matthewtamlin.spyglass.integration_tests.dimension_handler.DimensionHandlerTestTargetBase
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	app:dimensionHandlerAttr="10sp"/>
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:dimensionHandlerAttr="10sp"/>

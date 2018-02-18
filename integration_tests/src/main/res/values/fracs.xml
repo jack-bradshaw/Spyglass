@@ -16,6 +16,6 @@
   -->
 
 <resources>
-	<fraction name="base_fraction_for_testing" type="fraction">5%</fraction>
-	<fraction name="parent_fraction_for_testing" type="fraction">1000%p</fraction>
+    <fraction name="base_fraction_for_testing" type="fraction">5%</fraction>
+    <fraction name="parent_fraction_for_testing" type="fraction">1000%p</fraction>
 </resources>

@@ -38,11 +38,10 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
-
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_enum_handler_combinations.SpecificEnumHandlerTestTarget;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_enum_handler_combinations
+    .SpecificEnumHandlerTestTarget;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,57 +52,57 @@ import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
 public class TestSpecificEnumHandlerCombinations {
-	@Rule
-	public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
+  @Rule
+  public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 
-	private Context context;
+  private Context context;
 
-	@Before
-	public void setup() {
-		context = InstrumentationRegistry.getTargetContext();
-	}
+  @Before
+  public void setup() {
+    context = InstrumentationRegistry.getTargetContext();
+  }
 
-	@Test
-	@UiThreadTest
-	public void testSpyglassCallsMethod_attributePresent_matchesSpecificOrdinal() {
-		final AttributeSet attrs = AttributeSetSupplier.fromXml(
-				context,
-				R.xml.specific_enum_handler_with_attr_equals_value0);
+  @Test
+  @UiThreadTest
+  public void testSpyglassCallsMethod_attributePresent_matchesSpecificOrdinal() {
+    final AttributeSet attrs = AttributeSetSupplier.fromXml(
+        context,
+        R.xml.specific_enum_handler_with_attr_equals_value0);
 
-		final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context, attrs);
+    final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context, attrs);
 
-		assertThat(target.wasHandlerCalled(), is(true));
-	}
+    assertThat(target.wasHandlerCalled(), is(true));
+  }
 
-	@Test
-	@UiThreadTest
-	public void testSpyglassNeverCallsMethod_attributePresent_doesNotMatchSpecificOrdinal() {
-		final AttributeSet attrs = AttributeSetSupplier.fromXml(
-				context,
-				R.xml.specific_enum_handler_with_attr_equals_value1);
+  @Test
+  @UiThreadTest
+  public void testSpyglassNeverCallsMethod_attributePresent_doesNotMatchSpecificOrdinal() {
+    final AttributeSet attrs = AttributeSetSupplier.fromXml(
+        context,
+        R.xml.specific_enum_handler_with_attr_equals_value1);
 
-		final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context, attrs);
+    final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context, attrs);
 
-		assertThat(target.wasHandlerCalled(), is(false));
-	}
+    assertThat(target.wasHandlerCalled(), is(false));
+  }
 
-	@Test
-	@UiThreadTest
-	public void testSpyglassNeverCallsMethod_attributeMissing() {
-		final AttributeSet attrs = AttributeSetSupplier.fromXml(
-				context,
-				R.xml.specific_enum_handler_without_attr);
+  @Test
+  @UiThreadTest
+  public void testSpyglassNeverCallsMethod_attributeMissing() {
+    final AttributeSet attrs = AttributeSetSupplier.fromXml(
+        context,
+        R.xml.specific_enum_handler_without_attr);
 
-		final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context, attrs);
+    final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context, attrs);
 
-		assertThat(target.wasHandlerCalled(), is(false));
-	}
+    assertThat(target.wasHandlerCalled(), is(false));
+  }
 
-	@Test
-	@UiThreadTest
-	public void testSpyglassNeverCallsMethod_noAttributesSupplied() {
-		final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context);
+  @Test
+  @UiThreadTest
+  public void testSpyglassNeverCallsMethod_noAttributesSupplied() {
+    final SpecificEnumHandlerTestTarget target = new SpecificEnumHandlerTestTarget(context);
 
-		assertThat(target.wasHandlerCalled(), is(false));
-	}
+    assertThat(target.wasHandlerCalled(), is(false));
+  }
 }

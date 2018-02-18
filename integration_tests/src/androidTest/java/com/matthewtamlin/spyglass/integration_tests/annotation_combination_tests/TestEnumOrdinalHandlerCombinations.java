@@ -38,16 +38,10 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
-
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler_combinations.EnumOrdinalHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler_combinations.WithDefaultToInteger;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler_combinations.WithDefaultToIntegerResource;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler_combinations.WithDefaultToNull;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler_combinations.WithoutDefault;
+import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_ordinal_handler_combinations.*;
 import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -59,64 +53,64 @@ import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
 public class TestEnumOrdinalHandlerCombinations {
-	@Rule
-	public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
+  @Rule
+  public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
 
-	private Context context;
+  private Context context;
 
-	@Before
-	public void setup() {
-		context = InstrumentationRegistry.getTargetContext();
-	}
+  @Before
+  public void setup() {
+    context = InstrumentationRegistry.getTargetContext();
+  }
 
-	@Test
-	@UiThreadTest
-	public void testSpyglassPassesCorrectData_attributePresent_attributeEqualsC() {
-		final AttributeSet attrs = fromXml(context, R.xml.enum_ordinal_handler_with_attr_equals_c);
+  @Test
+  @UiThreadTest
+  public void testSpyglassPassesCorrectData_attributePresent_attributeEqualsC() {
+    final AttributeSet attrs = fromXml(context, R.xml.enum_ordinal_handler_with_attr_equals_c);
 
-		final EnumOrdinalHandlerTestTargetBase target = new WithoutDefault(context, attrs);
+    final EnumOrdinalHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
-		assertThat(target.getReceivedValue(), is(ReceivedValue.of(1)));
-	}
+    assertThat(target.getReceivedValue(), is(ReceivedValue.of(1)));
+  }
 
-	@Test
-	@UiThreadTest
-	public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
-		final AttributeSet attrs = fromXml(context, R.xml.enum_ordinal_handler_without_attr);
+  @Test
+  @UiThreadTest
+  public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
+    final AttributeSet attrs = fromXml(context, R.xml.enum_ordinal_handler_without_attr);
 
-		final EnumOrdinalHandlerTestTargetBase target = new WithoutDefault(context, attrs);
+    final EnumOrdinalHandlerTestTargetBase target = new WithoutDefault(context, attrs);
 
-		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>none()));
-	}
+    assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>none()));
+  }
 
-	@Test
-	@UiThreadTest
-	public void testSpyglassPassesCorrectData_attributeMissing_defaultToIntegerPresent() {
-		final AttributeSet attrs = fromXml(context, R.xml.enum_ordinal_handler_without_attr);
+  @Test
+  @UiThreadTest
+  public void testSpyglassPassesCorrectData_attributeMissing_defaultToIntegerPresent() {
+    final AttributeSet attrs = fromXml(context, R.xml.enum_ordinal_handler_without_attr);
 
-		final EnumOrdinalHandlerTestTargetBase target = new WithDefaultToInteger(context, attrs);
+    final EnumOrdinalHandlerTestTargetBase target = new WithDefaultToInteger(context, attrs);
 
-		assertThat(target.getReceivedValue(), is(ReceivedValue.of(WithDefaultToInteger.DEFAULT_VALUE)));
-	}
+    assertThat(target.getReceivedValue(), is(ReceivedValue.of(WithDefaultToInteger.DEFAULT_VALUE)));
+  }
 
-	@Test
-	@UiThreadTest
-	public void testSpyglassPassesCorrectData_attributeMissing_defaultToIntegerResourcePresent() {
-		final AttributeSet attrs = fromXml(context, R.xml.enum_ordinal_handler_without_attr);
+  @Test
+  @UiThreadTest
+  public void testSpyglassPassesCorrectData_attributeMissing_defaultToIntegerResourcePresent() {
+    final AttributeSet attrs = fromXml(context, R.xml.enum_ordinal_handler_without_attr);
 
-		final EnumOrdinalHandlerTestTargetBase target = new WithDefaultToIntegerResource(context, attrs);
+    final EnumOrdinalHandlerTestTargetBase target = new WithDefaultToIntegerResource(context, attrs);
 
-		final int expectedValue = context.getResources().getInteger(R.integer.IntegerForTesting);
-		assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
-	}
+    final int expectedValue = context.getResources().getInteger(R.integer.IntegerForTesting);
+    assertThat(target.getReceivedValue(), is(ReceivedValue.of(expectedValue)));
+  }
 
-	@Test
-	@UiThreadTest
-	public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
-		final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.enum_ordinal_handler_without_attr);
+  @Test
+  @UiThreadTest
+  public void testSpyglassCallsMethod_attributeMissing_defaultToNullPresent() {
+    final AttributeSet attrs = AttributeSetSupplier.fromXml(context, R.xml.enum_ordinal_handler_without_attr);
 
-		final EnumOrdinalHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
+    final EnumOrdinalHandlerTestTargetBase target = new WithDefaultToNull(context, attrs);
 
-		assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>of(null)));
-	}
+    assertThat(target.getReceivedValue(), is(ReceivedValue.<Integer>of(null)));
+  }
 }

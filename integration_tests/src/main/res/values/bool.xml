@@ -16,5 +16,5 @@
   -->
 
 <resources>
-	<bool name="BooleanForTesting">true</bool>
+    <bool name="BooleanForTesting">true</bool>
 </resources>

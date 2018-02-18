@@ -16,5 +16,5 @@
   -->
 
 <com.matthewtamlin.spyglass.integration_tests.color_state_list_handler.ColorStateListHandlerTestTargetBase
-	xmlns:app="http://schemas.android.com/apk/res-auto"
-	app:colorStateListHandlerAttr="@color/main_color_state_list_for_testing"/>
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        app:colorStateListHandlerAttr="@color/main_color_state_list_for_testing"/>

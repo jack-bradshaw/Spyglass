@@ -20,56 +20,55 @@ import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToStringResource;
 import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
 
 public class WithDefaultToStringResource extends StringHandlerTestTargetBase {
-	public WithDefaultToStringResource(final Context context) {
-		super(context);
-		init(null, 0, 0);
-	}
+  public WithDefaultToStringResource(final Context context) {
+    super(context);
+    init(null, 0, 0);
+  }
 
-	public WithDefaultToStringResource(final Context context, final AttributeSet attrs) {
-		super(context, attrs);
-		init(attrs, 0, 0);
-	}
+  public WithDefaultToStringResource(final Context context, final AttributeSet attrs) {
+    super(context, attrs);
+    init(attrs, 0, 0);
+  }
 
-	public WithDefaultToStringResource(final Context context, final AttributeSet attrs, final int defStyleAttr) {
-		super(context, attrs, defStyleAttr);
-		init(attrs, defStyleAttr, 0);
-	}
+  public WithDefaultToStringResource(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+    init(attrs, defStyleAttr, 0);
+  }
 
-	@TargetApi(21)
-	@RequiresApi(21)
-	public WithDefaultToStringResource(
-			final Context context,
-			final AttributeSet attrs,
-			final int defStyleAttr,
-			final int defStyleRes) {
+  @TargetApi(21)
+  @RequiresApi(21)
+  public WithDefaultToStringResource(
+      final Context context,
+      final AttributeSet attrs,
+      final int defStyleAttr,
+      final int defStyleRes) {
 
-		super(context, attrs, defStyleAttr, defStyleRes);
-		init(attrs, defStyleAttr, defStyleRes);
-	}
+    super(context, attrs, defStyleAttr, defStyleRes);
+    init(attrs, defStyleAttr, defStyleRes);
+  }
 
-	@StringHandler(attributeId = R.styleable.StringHandlerTestTargetBase_stringHandlerAttr)
-	@DefaultToStringResource(resId = R.string.stringForTesting)
-	public void handlerMethod(final String s) {
-		setReceivedValue(ReceivedValue.of(s));
-	}
+  @StringHandler(attributeId = R.styleable.StringHandlerTestTargetBase_stringHandlerAttr)
+  @DefaultToStringResource(resId = R.string.stringForTesting)
+  public void handlerMethod(final String s) {
+    setReceivedValue(ReceivedValue.of(s));
+  }
 
-	private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-		WithDefaultToStringResource_SpyglassCompanion
-				.builder()
-				.withTarget(this)
-				.withContext(getContext())
-				.withStyleableResource(R.styleable.StringHandlerTestTargetBase)
-				.withAttributeSet(attrs)
-				.withDefaultStyleAttribute(defStyleAttr)
-				.withDefaultStyleResource(defStyleRes)
-				.build()
-				.passDataToMethods();
-	}
+  private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
+    WithDefaultToStringResource_SpyglassCompanion
+        .builder()
+        .withTarget(this)
+        .withContext(getContext())
+        .withStyleableResource(R.styleable.StringHandlerTestTargetBase)
+        .withAttributeSet(attrs)
+        .withDefaultStyleAttribute(defStyleAttr)
+        .withDefaultStyleResource(defStyleRes)
+        .build()
+        .passDataToMethods();
+  }
 }

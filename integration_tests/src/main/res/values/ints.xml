@@ -16,5 +16,5 @@
   -->
 
 <resources>
-	<integer name="IntegerForTesting">82648</integer>
+    <integer name="IntegerForTesting">82648</integer>
 </resources>
