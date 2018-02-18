@@ -53,20 +53,20 @@ task cleanAllModules(dependsOn: [
     ':integration_tests:deleteOutputDirectories',
     ':processor:deleteOutputDirectories',
     ':processor_activated:deleteOutputDirectories',
-    ':runtime_dependencies:deleteOutputDirectories'])
+    ':runtime-dependencies:deleteOutputDirectories'])
 
 task buildAllModules(dependsOn: [
     ':annotations:build',
     ':integration_tests:build',
     ':processor:build',
     ':processor_activated:build',
-    ':runtime_dependencies:build'])
+    ':runtime-dependencies:build'])
 
 task buildAllReleases(dependsOn: [
     ':annotations:buildRelease',
     ':processor:buildRelease',
     ':processor_activated:buildRelease',
-    ':runtime_dependencies:buildRelease'])
+    ':runtime-dependencies:buildRelease'])
 
 ext {
   groupId = 'com.matthew-tamlin'
