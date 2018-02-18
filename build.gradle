@@ -52,20 +52,20 @@ task cleanAllModules(dependsOn: [
     ':annotations:deleteOutputDirectories',
     ':integration_tests:deleteOutputDirectories',
     ':processor:deleteOutputDirectories',
-    ':processor_activated:deleteOutputDirectories',
+    ':processor-activated:deleteOutputDirectories',
     ':runtime-dependencies:deleteOutputDirectories'])
 
 task buildAllModules(dependsOn: [
     ':annotations:build',
     ':integration_tests:build',
     ':processor:build',
-    ':processor_activated:build',
+    ':processor-activated:build',
     ':runtime-dependencies:build'])
 
 task buildAllReleases(dependsOn: [
     ':annotations:buildRelease',
     ':processor:buildRelease',
-    ':processor_activated:buildRelease',
+    ':processor-activated:buildRelease',
     ':runtime-dependencies:buildRelease'])
 
 ext {

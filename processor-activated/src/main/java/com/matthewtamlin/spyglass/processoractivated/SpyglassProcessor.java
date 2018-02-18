@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.processor_activated;
+package com.matthewtamlin.spyglass.processoractivated;
 
 import com.matthewtamlin.spyglass.processor.core.MainProcessor;
 

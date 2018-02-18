@@ -35,7 +35,7 @@ android {
 }
 
 dependencies {
-  annotationProcessor project(':processor_activated')
+  annotationProcessor project(':processor-activated')
 
   compileOnly project(':annotations')
 

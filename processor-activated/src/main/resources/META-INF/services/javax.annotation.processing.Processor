@@ -14,4 +14,4 @@
 # limitations under the License.
 #
 
-com.matthewtamlin.spyglass.processor_activated.SpyglassProcessor
+com.matthewtamlin.spyglass.processoractivated.SpyglassProcessor
