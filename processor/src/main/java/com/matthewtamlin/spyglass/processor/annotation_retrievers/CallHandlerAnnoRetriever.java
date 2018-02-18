@@ -20,34 +20,33 @@ import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 
-import java.lang.annotation.Annotation;
-
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
+import java.lang.annotation.Annotation;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
 public class CallHandlerAnnoRetriever {
-	public static AnnotationMirror getAnnotation(final ExecutableElement element) {
-		checkNotNull(element, "Argument \'element\' cannot be null.");
+  public static AnnotationMirror getAnnotation(final ExecutableElement element) {
+    checkNotNull(element, "Argument \'element\' cannot be null.");
 
-		for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CALL_HANDLER_ANNOS) {
-			final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, annotationClass);
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CALL_HANDLER_ANNOS) {
+      final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, annotationClass);
 
-			if (mirror != null) {
-				return mirror;
-			}
-		}
+      if (mirror != null) {
+        return mirror;
+      }
+    }
 
-		return null;
-	}
+    return null;
+  }
 
-	public static boolean hasAnnotation(final ExecutableElement element) {
-		return getAnnotation(element) != null;
-	}
+  public static boolean hasAnnotation(final ExecutableElement element) {
+    return getAnnotation(element) != null;
+  }
 
-	private CallHandlerAnnoRetriever() {
-		throw new RuntimeException("Utility class. Do not instantiate.");
-	}
+  private CallHandlerAnnoRetriever() {
+    throw new RuntimeException("Utility class. Do not instantiate.");
+  }
 }

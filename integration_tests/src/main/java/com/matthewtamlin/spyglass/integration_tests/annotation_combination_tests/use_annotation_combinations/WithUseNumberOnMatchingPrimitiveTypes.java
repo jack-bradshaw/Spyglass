@@ -33,18 +33,18 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends UseAnnotationsTestTar
     super(context);
     init(null, 0, 0);
   }
-
+  
   public WithUseNumberOnMatchingPrimitiveTypes(final Context context, final AttributeSet attrs) {
     super(context, attrs);
     init(attrs, 0, 0);
   }
-
+  
   public WithUseNumberOnMatchingPrimitiveTypes(final Context context, final AttributeSet attrs,
       final int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     init(attrs, defStyleAttr, 0);
   }
-
+  
   @RequiresApi(21)
   @TargetApi(21)
   public WithUseNumberOnMatchingPrimitiveTypes(
@@ -52,11 +52,11 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends UseAnnotationsTestTar
       final AttributeSet attrs,
       final int defStyleAttr,
       final int defStyleRes) {
-
+    
     super(context, attrs, defStyleAttr, defStyleRes);
     init(attrs, defStyleAttr, defStyleRes);
   }
-
+  
   @StringHandler(attributeId = R.styleable.UseAnnotationsTestTargetBase_useAnnotationsAttr)
   @DefaultToString("default value")
   public void handlerMethod(
@@ -69,9 +69,9 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends UseAnnotationsTestTar
       @UseInt(9) final int arg6,
       @UseLong(123456789123456789L) final long arg7,
       @UseShort(2) final short arg8) {
-
+    
     final List<Object> invocationArgs = new ArrayList<>();
-
+    
     invocationArgs.add(arg0);
     invocationArgs.add(arg1);
     invocationArgs.add(arg2);
@@ -81,14 +81,14 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends UseAnnotationsTestTar
     invocationArgs.add(arg6);
     invocationArgs.add(arg7);
     invocationArgs.add(arg8);
-
+    
     setReceivedValue(ReceivedValue.of(invocationArgs));
   }
-
+  
   @Override
   public ReceivedValue<List<Object>> getExpectedReceivedValues() {
     final List<Object> expectedArgs = new ArrayList<>();
-
+    
     expectedArgs.add("default value");
     expectedArgs.add(true);
     expectedArgs.add(30);
@@ -98,10 +98,10 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends UseAnnotationsTestTar
     expectedArgs.add(9);
     expectedArgs.add(123456789123456789L);
     expectedArgs.add(2);
-
+    
     return ReceivedValue.of(expectedArgs);
   }
-
+  
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     WithUseNumberOnMatchingPrimitiveTypes_SpyglassCompanion
         .builder()

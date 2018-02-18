@@ -22,15 +22,15 @@ import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.S
 import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
 
 public class Data {
-	@ElementId("specific boolean")
-	@SpecificBooleanHandler(attributeId = 1, handledBoolean = true)
-	public void withSpecificBoolean() {}
+  @ElementId("specific boolean")
+  @SpecificBooleanHandler(attributeId = 1, handledBoolean = true)
+  public void withSpecificBoolean() {}
 
-	@ElementId("specific enum")
-	@SpecificEnumHandler(attributeId = 1, handledOrdinal = 0)
-	public void withSpecificEnum() {}
+  @ElementId("specific enum")
+  @SpecificEnumHandler(attributeId = 1, handledOrdinal = 0)
+  public void withSpecificEnum() {}
 
-	@ElementId("specific flag")
-	@SpecificFlagHandler(attributeId = 1, handledFlags = 1)
-	public void withSpecificFlag() {}
+  @ElementId("specific flag")
+  @SpecificFlagHandler(attributeId = 1, handledFlags = 1)
+  public void withSpecificFlag() {}
 }

@@ -29,17 +29,17 @@ public class WithoutDefault extends StringHandlerTestTargetBase {
     super(context);
     init(null, 0, 0);
   }
-
+  
   public WithoutDefault(final Context context, final AttributeSet attrs) {
     super(context, attrs);
     init(attrs, 0, 0);
   }
-
+  
   public WithoutDefault(final Context context, final AttributeSet attrs, final int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     init(attrs, defStyleAttr, 0);
   }
-
+  
   @TargetApi(21)
   @RequiresApi(21)
   public WithoutDefault(
@@ -47,16 +47,16 @@ public class WithoutDefault extends StringHandlerTestTargetBase {
       final AttributeSet attrs,
       final int defStyleAttr,
       final int defStyleRes) {
-
+    
     super(context, attrs, defStyleAttr, defStyleRes);
     init(attrs, defStyleAttr, defStyleRes);
   }
-
+  
   @StringHandler(attributeId = R.styleable.StringHandlerTestTargetBase_stringHandlerAttr)
   public void handlerMethod(final String s) {
     setReceivedValue(ReceivedValue.of(s));
   }
-
+  
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     WithoutDefault_SpyglassCompanion
         .builder()
