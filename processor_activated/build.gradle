@@ -20,33 +20,33 @@ sourceCompatibility = "1.7"
 targetCompatibility = "1.7"
 
 dependencies {
-	implementation project(':processor')
+  implementation project(':processor')
 }
 
 sourceSets {
-	main {
-		java {
-			srcDir 'src/main/java'
-		}
+  main {
+    java {
+      srcDir 'src/main/java'
+    }
 
-		resources {
-			srcDir 'src/main/resources'
-		}
-	}
+    resources {
+      srcDir 'src/main/resources'
+    }
+  }
 }
 
 ext {
-	POM_ARTIFACT_ID_SUFFIX = '-processor'
-	POM_NAME = 'Spyglass Processor'
-	POM_PACKAGING = 'jar'
-	POM_DESCRIPTION = 'Performs compile-time processing for the Spyglass framework.'
+  POM_ARTIFACT_ID_SUFFIX = '-processor'
+  POM_NAME = 'Spyglass Processor'
+  POM_PACKAGING = 'jar'
+  POM_DESCRIPTION = 'Performs compile-time processing for the Spyglass framework.'
 }
 
 apply from: rootProject.file('maven-publish.gradle')
 
 task deleteOutputDirectories {
-	doFirst {
-		delete('out')
-		delete('build')
-	}
+  doFirst {
+    delete('out')
+    delete('build')
+  }
 }
