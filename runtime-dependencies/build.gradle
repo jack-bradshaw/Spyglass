@@ -16,6 +16,9 @@
 
 apply plugin: 'com.android.library'
 
+group = rootProject.group
+version = rootProject.version
+
 android {
   compileSdkVersion 26
 

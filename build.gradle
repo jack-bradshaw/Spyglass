@@ -33,6 +33,9 @@ plugins {
   id 'net.ltgt.apt' version '0.13' apply false
 }
 
+group = 'com.matthew-tamlin'
+version = '2.0.2'
+
 allprojects {
   repositories {
     jcenter()
@@ -61,14 +64,5 @@ task buildAllReleases(dependsOn: [
     ':runtime-dependencies:buildRelease'])
 
 ext {
-  groupId = 'com.matthew-tamlin'
   artifactId = 'spyglass'
-  versionNumber = '2.0.2'
-}
-
-subprojects { project ->
-  if (project.name != 'integration tests') {
-    group = rootProject.groupId
-    version = rootProject.versionNumber
-  }
 }
