@@ -38,14 +38,23 @@ sourceSets {
   }
 }
 
-ext {
-  POM_ARTIFACT_ID_SUFFIX = '-processor'
-  POM_NAME = 'Spyglass Processor'
-  POM_PACKAGING = 'jar'
-  POM_DESCRIPTION = 'Performs compile-time processing for the Spyglass framework.'
-}
+ext.releaseInfo = [
+    group: rootProject.group,
+    artifactId: "$rootProject.ext.rootArtifactId-processor",
+    version: rootProject.version,
 
-apply from: rootProject.file('maven-publish.gradle')
+    name: 'Spyglass Processor',
+    description: 'Performs compile-time processing for the Spyglass framework.',
+    url: 'https://www.github.com/MatthewTamlin/Spyglass',
+    scmUrl: 'https://www.github.com/MatthewTamlin/Spyglass',
+
+    license: [
+        name: 'The Apache Software License, Version 2.0',
+        url: 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+    ]
+]
+
+apply from: rootProject.file('release-java-library.gradle')
 
 task deleteOutputDirectories {
   doFirst {
