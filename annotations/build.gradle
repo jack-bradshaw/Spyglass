@@ -31,14 +31,23 @@ dependencies {
   testImplementation 'org.mockito:mockito-core:1.10.19'
 }
 
-ext {
-  POM_ARTIFACT_ID_SUFFIX = '-annotations'
-  POM_NAME = 'Spyglass Annotations'
-  POM_PACKAGING = 'jar'
-  POM_DESCRIPTION = 'Source markers to direct the Spyglass framework at compile-time.'
-}
+ext.releaseInfo = [
+    group: rootProject.group,
+    artifactId: "${rootProject.ext.rootArtifactId}-annotations",
+    version: rootProject.version,
 
-apply from: rootProject.file('maven-publish.gradle')
+    name: 'Spyglass Annotations',
+    description: 'Source code markers to direct the Spyglass framework at compile-time.',
+    url: 'https://www.github.com/MatthewTamlin/Spyglass',
+    scmUrl: 'https://www.github.com/MatthewTamlin/Spyglass',
+
+    license: [
+        name: 'The Apache Software License, Version 2.0',
+        url: 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+    ]
+]
+
+apply from: rootProject.file('release-java-library.gradle')
 
 task deleteOutputDirectories {
   doFirst {

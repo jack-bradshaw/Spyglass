@@ -36,6 +36,8 @@ plugins {
 group = 'com.matthew-tamlin'
 version = '2.0.2'
 
+ext.rootArtifactId = 'spyglass'
+
 allprojects {
   repositories {
     jcenter()
