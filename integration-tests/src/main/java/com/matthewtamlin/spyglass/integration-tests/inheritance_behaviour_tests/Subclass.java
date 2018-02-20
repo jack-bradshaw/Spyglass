@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
 
 public class Subclass extends Superclass {
   public static final String EXPECTED_VALUE = "subclass expected value";
