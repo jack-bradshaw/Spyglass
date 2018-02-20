@@ -21,7 +21,7 @@ import com.matthewtamlin.spyglass.markers.annotations.default_annotations.Defaul
 import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.UseNull;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
 import com.matthewtamlin.spyglass.processor.code_generation.GetPlaceholderMethodGenerator;
 import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
@@ -45,11 +45,11 @@ public class TypeValidator implements Validator {
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
-          if (!ValueHandlerAnnoRetriever.hasAnnotation(element)) {
+          if (!UnconditionalHandlerRetriever.hasAnnotation(element)) {
             return Result.createSuccessful();
           }
           
-          final AnnotationMirror anno = ValueHandlerAnnoRetriever.getAnnotation(element);
+          final AnnotationMirror anno = UnconditionalHandlerRetriever.getAnnotation(element);
           
           final MethodSpec supplier = getValueMethodGenerator.generateFor(anno);
           final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
