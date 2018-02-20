@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations;
+package com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

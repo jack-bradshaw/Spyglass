@@ -17,8 +17,8 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.value_handler_annotation_retriever;
 
 import com.matthewtamlin.avatar.rules.ElementId;
-import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.*;
 import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.*;
 
