@@ -18,7 +18,7 @@ package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ConditionalHandlerRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
@@ -75,7 +75,7 @@ public class CallerGenerator {
       return generateForCallHandler(method, targetParameter, contextParameter, attrsParameter);
       
     } else if (UnconditionalHandlerRetriever.hasAnnotation(method)) {
-      if (DefaultAnnoRetriever.hasAnnotation(method)) {
+      if (DefaultRetriever.hasAnnotation(method)) {
         return generateForValueHandlerWithDefault(method, targetParameter, contextParameter, attrsParameter);
       } else {
         return generateCallerForValueHandlerWithoutDefault(
@@ -215,7 +215,7 @@ public class CallerGenerator {
     final MethodSpec getValueMethod = getValueGenerator.generateFor(valueHandlerAnno);
     callerBuilder.addMethod(getValueMethod);
     
-    final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
+    final AnnotationMirror defaultAnno = DefaultRetriever.getAnnotation(e);
     final MethodSpec getDefaultMethod = getDefaultGenerator.generateFor(defaultAnno);
     callerBuilder.addMethod(getDefaultMethod);
     
