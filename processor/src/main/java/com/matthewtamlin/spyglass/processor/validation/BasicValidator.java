@@ -19,7 +19,7 @@ package com.matthewtamlin.spyglass.processor.validation;
 
 import com.google.common.collect.ImmutableList;
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ConditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
@@ -80,7 +80,7 @@ public class BasicValidator implements Validator {
         @Override
         public Result checkElement(final ExecutableElement element) {
           if (DefaultAnnoRetriever.hasAnnotation(element) &&
-              CallHandlerAnnoRetriever.hasAnnotation(element)) {
+              ConditionalHandlerRetriever.hasAnnotation(element)) {
             
             return Result.createFailure(
                 "Methods with handlers annotations that pass no value must not have default " +
@@ -148,7 +148,7 @@ public class BasicValidator implements Validator {
           final int paramCount = ((ExecutableElement) element).getParameters().size();
           final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
           
-          if (CallHandlerAnnoRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
+          if (ConditionalHandlerRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
             return Result.createFailure(
                 "Methods with handler annotations which pass no value must have " +
                     "use-annotations on every parameter.");

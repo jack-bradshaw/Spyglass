@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ConditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
@@ -71,7 +71,7 @@ public class CallerGenerator {
     checkNotNull(contextParameter, "Argument \'contextParameter\' cannot be null.");
     checkNotNull(attrsParameter, "Argument \'attrsParameter\' cannot be null.");
     
-    if (CallHandlerAnnoRetriever.hasAnnotation(method)) {
+    if (ConditionalHandlerRetriever.hasAnnotation(method)) {
       return generateForCallHandler(method, targetParameter, contextParameter, attrsParameter);
       
     } else if (ValueHandlerAnnoRetriever.hasAnnotation(method)) {
@@ -121,7 +121,7 @@ public class CallerGenerator {
     invocationBuilder.add(");\n");
     
     final MethodSpec specificValueIsAvailable = specificValueIsAvailableGenerator.generateFor(
-        CallHandlerAnnoRetriever.getAnnotation(e));
+        ConditionalHandlerRetriever.getAnnotation(e));
     
     final MethodSpec call = CallerDef
         .getNewCallMethodPrototype()

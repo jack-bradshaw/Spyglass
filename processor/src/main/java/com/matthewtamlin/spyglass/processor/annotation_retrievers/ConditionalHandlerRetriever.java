@@ -27,7 +27,7 @@ import java.lang.annotation.Annotation;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class CallHandlerAnnoRetriever {
+public class ConditionalHandlerRetriever {
   public static AnnotationMirror getAnnotation(final ExecutableElement element) {
     checkNotNull(element, "Argument \'element\' cannot be null.");
 
@@ -46,7 +46,7 @@ public class CallHandlerAnnoRetriever {
     return getAnnotation(element) != null;
   }
 
-  private CallHandlerAnnoRetriever() {
+  private ConditionalHandlerRetriever() {
     throw new RuntimeException("Utility class. Do not instantiate.");
   }
 }
