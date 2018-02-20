@@ -19,7 +19,7 @@ package com.matthewtamlin.spyglass.processor.code_generation;
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ConditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.PlaceholderRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
@@ -107,7 +107,7 @@ public class CallerGenerator {
     
     for (int i = 0; i < e.getParameters().size(); i++) {
       final VariableElement parameter = e.getParameters().get(i);
-      final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
+      final AnnotationMirror useAnno = PlaceholderRetriever.getAnnotation(parameter);
       final MethodSpec argMethod = getPlaceholderGenerator.generateFor(useAnno, i);
       
       invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
@@ -158,8 +158,8 @@ public class CallerGenerator {
     for (int i = 0; i < e.getParameters().size(); i++) {
       final VariableElement parameter = e.getParameters().get(i);
       
-      final MethodSpec argMethod = UseAnnoRetriever.hasAnnotation(parameter) ?
-          getPlaceholderGenerator.generateFor(UseAnnoRetriever.getAnnotation(parameter), i) :
+      final MethodSpec argMethod = PlaceholderRetriever.hasAnnotation(parameter) ?
+          getPlaceholderGenerator.generateFor(PlaceholderRetriever.getAnnotation(parameter), i) :
           getValueGenerator.generateFor(UnconditionalHandlerRetriever.getAnnotation(e));
       
       invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
@@ -222,8 +222,8 @@ public class CallerGenerator {
     for (int i = 0; i < e.getParameters().size(); i++) {
       final VariableElement parameter = e.getParameters().get(i);
       
-      if (UseAnnoRetriever.hasAnnotation(parameter)) {
-        final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
+      if (PlaceholderRetriever.hasAnnotation(parameter)) {
+        final AnnotationMirror useAnno = PlaceholderRetriever.getAnnotation(parameter);
         final MethodSpec argMethod = getPlaceholderGenerator.generateFor(useAnno, i);
         
         valueAvailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));

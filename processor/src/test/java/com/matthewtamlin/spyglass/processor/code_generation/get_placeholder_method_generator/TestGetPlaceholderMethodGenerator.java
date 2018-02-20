@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation.get_placeholder_method_generator;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.PlaceholderRetriever;
 import com.matthewtamlin.spyglass.processor.code_generation.GetPlaceholderMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
@@ -66,7 +66,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test(expected = IllegalArgumentException.class)
   public void testGenerateFor_negativeParameterIndex() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("boolean");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     generator.generateFor(useAnnotation, -1);
   }
@@ -74,7 +74,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_zeroParameterIndex() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("boolean");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     generator.generateFor(useAnnotation, 0);
   }
@@ -82,7 +82,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_positiveParameterIndex() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("boolean");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     generator.generateFor(useAnnotation, 1);
   }
@@ -90,7 +90,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseBoolean() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("boolean");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
@@ -101,7 +101,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseByte() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("byte");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
@@ -112,7 +112,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseChar() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("char");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
@@ -123,7 +123,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseDouble() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("double");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
@@ -134,7 +134,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseFloat() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("float");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
@@ -145,7 +145,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseInt() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("int");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
@@ -156,7 +156,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseLong() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("long");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
@@ -167,7 +167,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseNull() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("null");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
@@ -178,7 +178,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseShort() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("short");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 
@@ -189,7 +189,7 @@ public class TestGetPlaceholderMethodGenerator {
   @Test
   public void testGenerateFor_parameterWithUseString() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("string");
-    final AnnotationMirror useAnnotation = UseAnnoRetriever.getAnnotation(parameter);
+    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
 
     final MethodSpec generatedMethod = generator.generateFor(useAnnotation, 0);
 

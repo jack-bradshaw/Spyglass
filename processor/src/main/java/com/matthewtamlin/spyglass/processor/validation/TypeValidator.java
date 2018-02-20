@@ -20,7 +20,7 @@ import com.google.common.collect.ImmutableList;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToNull;
 import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.UseNull;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.PlaceholderRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
 import com.matthewtamlin.spyglass.processor.code_generation.GetPlaceholderMethodGenerator;
@@ -107,7 +107,7 @@ public class TypeValidator implements Validator {
         @Override
         public Result checkElement(final ExecutableElement element) {
           for (final VariableElement parameter : element.getParameters()) {
-            if (UseAnnoRetriever.hasAnnotation(parameter)) {
+            if (PlaceholderRetriever.hasAnnotation(parameter)) {
               final Result result = checkParameter(parameter);
               
               if (!result.isSuccessful()) {
@@ -120,7 +120,7 @@ public class TypeValidator implements Validator {
         }
         
         private Result checkParameter(final VariableElement parameter) {
-          final AnnotationMirror anno = UseAnnoRetriever.getAnnotation(parameter);
+          final AnnotationMirror anno = PlaceholderRetriever.getAnnotation(parameter);
           final String annoName = anno.getAnnotationType().toString();
           
           final MethodSpec supplier = getPlaceholderMethodGenerator.generateFor(anno, 0);
@@ -190,7 +190,7 @@ public class TypeValidator implements Validator {
   
   private static VariableElement getParameterWithoutUseAnnotation(final ExecutableElement method) {
     for (final VariableElement parameter : method.getParameters()) {
-      if (!UseAnnoRetriever.hasAnnotation(parameter)) {
+      if (!PlaceholderRetriever.hasAnnotation(parameter)) {
         return parameter;
       }
     }
