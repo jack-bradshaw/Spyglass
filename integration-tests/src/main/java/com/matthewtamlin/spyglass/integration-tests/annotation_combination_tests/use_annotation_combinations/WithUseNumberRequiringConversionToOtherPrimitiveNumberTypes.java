@@ -24,7 +24,7 @@ import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
-import com.matthewtamlin.spyglass.markers.annotations.use_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.*;
 
 import java.util.ArrayList;
 import java.util.List;

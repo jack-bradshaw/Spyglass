@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.use_annotations;
+package com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -32,9 +32,9 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
-public @interface UseChar {
+public @interface UseByte {
   /**
    * @return the value to pass
    */
-  char value();
+  byte value();
 }
