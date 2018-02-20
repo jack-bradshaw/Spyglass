@@ -47,14 +47,14 @@ allprojects {
 
 task cleanAllModules(dependsOn: [
     ':annotations:deleteOutputDirectories',
-    ':integration_tests:deleteOutputDirectories',
+    ':integration-tests:deleteOutputDirectories',
     ':processor:deleteOutputDirectories',
     ':processor-activated:deleteOutputDirectories',
     ':runtime-dependencies:deleteOutputDirectories'])
 
 task buildAllModules(dependsOn: [
     ':annotations:build',
-    ':integration_tests:build',
+    ':integration-tests:build',
     ':processor:build',
     ':processor-activated:build',
     ':runtime-dependencies:build'])
