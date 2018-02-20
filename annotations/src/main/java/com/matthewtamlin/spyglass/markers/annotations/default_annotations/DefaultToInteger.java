@@ -36,8 +36,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToInteger {
-	/**
-	 * @return the default value
-	 */
-	int value();
+  /**
+   * @return the default value
+   */
+  int value();
 }

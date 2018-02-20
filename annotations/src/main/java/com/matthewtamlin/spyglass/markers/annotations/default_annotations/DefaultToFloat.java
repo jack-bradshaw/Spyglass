@@ -36,8 +36,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToFloat {
-	/**
-	 * @return the default value
-	 */
-	float value();
+  /**
+   * @return the default value
+   */
+  float value();
 }

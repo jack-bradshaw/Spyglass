@@ -20,15 +20,15 @@ import com.matthewtamlin.avatar.rules.ElementId;
 
 @ElementId("top level")
 public class Data {
-	@ElementId("nested one level")
-	public class ClassA {
-		public class ClassB {
-			public class ClassC {
-				@ElementId("nested multiple levels")
-				public class ClassD {
+  @ElementId("nested one level")
+  public class ClassA {
+    public class ClassB {
+      public class ClassC {
+        @ElementId("nested multiple levels")
+        public class ClassD {
 
-				}
-			}
-		}
-	}
+        }
+      }
+    }
+  }
 }

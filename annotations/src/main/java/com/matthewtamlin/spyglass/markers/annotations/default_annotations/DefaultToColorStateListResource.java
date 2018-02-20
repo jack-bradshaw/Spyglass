@@ -36,8 +36,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToColorStateListResource {
-	/**
-	 * @return the resource ID of the default value, must resolve to a color state list resource
-	 */
-	int resId();
+  /**
+   * @return the resource ID of the default value, must resolve to a color state list resource
+   */
+  int resId();
 }

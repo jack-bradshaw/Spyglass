@@ -18,7 +18,6 @@ package com.matthewtamlin.spyglass.processor.core.companion_namer;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.core.CompanionNamer;
-
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -31,40 +30,40 @@ import static org.hamcrest.core.Is.is;
 
 @RunWith(JUnit4.class)
 public class TestCompanionNamer {
-	@Rule
-	public final AvatarRule avatarRule = AvatarRule
-			.builder()
-			.withSourcesAt(
-					"processor/src/test/java/com/matthewtamlin/spyglass/processor/core/companion_namer/Data.java")
-			.build();
+  @Rule
+  public final AvatarRule avatarRule = AvatarRule
+      .builder()
+      .withSourcesAt(
+          "processor/src/test/java/com/matthewtamlin/spyglass/processor/core/companion_namer/Data.java")
+      .build();
 
-	@Test
-	public void testGetCompanionNameFor_topLevelClass() {
-		final TypeElement element = avatarRule.getElementWithUniqueId("top level");
+  @Test
+  public void testGetCompanionNameFor_topLevelClass() {
+    final TypeElement element = avatarRule.getElementWithUniqueId("top level");
 
-		final String companionName = CompanionNamer.getCompanionNameFor(element);
-		final String expectedName = "Data_SpyglassCompanion";
+    final String companionName = CompanionNamer.getCompanionNameFor(element);
+    final String expectedName = "Data_SpyglassCompanion";
 
-		assertThat(companionName, is(expectedName));
-	}
+    assertThat(companionName, is(expectedName));
+  }
 
-	@Test
-	public void testGetCompanionNameFor_classNestedByOneLevel() {
-		final TypeElement element = avatarRule.getElementWithUniqueId("nested one level");
+  @Test
+  public void testGetCompanionNameFor_classNestedByOneLevel() {
+    final TypeElement element = avatarRule.getElementWithUniqueId("nested one level");
 
-		final String companionName = CompanionNamer.getCompanionNameFor(element);
-		final String expectedName = "Data_ClassA_SpyglassCompanion";
+    final String companionName = CompanionNamer.getCompanionNameFor(element);
+    final String expectedName = "Data_ClassA_SpyglassCompanion";
 
-		assertThat(companionName, is(expectedName));
-	}
+    assertThat(companionName, is(expectedName));
+  }
 
-	@Test
-	public void testGetCompanionNameFor_classNestedByMultipleLevels() {
-		final TypeElement element = avatarRule.getElementWithUniqueId("nested multiple levels");
+  @Test
+  public void testGetCompanionNameFor_classNestedByMultipleLevels() {
+    final TypeElement element = avatarRule.getElementWithUniqueId("nested multiple levels");
 
-		final String companionName = CompanionNamer.getCompanionNameFor(element);
-		final String expectedName = "Data_ClassA_ClassB_ClassC_ClassD_SpyglassCompanion";
+    final String companionName = CompanionNamer.getCompanionNameFor(element);
+    final String expectedName = "Data_ClassA_ClassB_ClassC_ClassD_SpyglassCompanion";
 
-		assertThat(companionName, is(expectedName));
-	}
+    assertThat(companionName, is(expectedName));
+  }
 }

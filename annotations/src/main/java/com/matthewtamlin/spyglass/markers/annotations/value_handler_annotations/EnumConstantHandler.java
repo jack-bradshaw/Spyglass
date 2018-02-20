@@ -40,13 +40,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface EnumConstantHandler {
-	/**
-	 * @return the resource ID of the handled attribute
-	 */
-	int attributeId();
-
-	/**
-	 * @return the enum type to use
-	 */
-	Class<? extends Enum> enumClass();
+  /**
+   * @return the resource ID of the handled attribute
+   */
+  int attributeId();
+  
+  /**
+   * @return the enum type to use
+   */
+  Class<? extends Enum> enumClass();
 }

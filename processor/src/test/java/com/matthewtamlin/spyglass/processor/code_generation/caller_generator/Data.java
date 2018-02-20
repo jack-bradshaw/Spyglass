@@ -23,19 +23,19 @@ import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.
 import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
 
 public class Data {
-	@ElementId("no handler")
-	public void noHandler() {}
+  @ElementId("no handler")
+  public void noHandler() {}
 
-	@ElementId("value handler with default")
-	@BooleanHandler(attributeId = 1)
-	@DefaultToBoolean(false)
-	public void valueHandlerAndDefault(boolean b) {}
+  @ElementId("value handler with default")
+  @BooleanHandler(attributeId = 1)
+  @DefaultToBoolean(false)
+  public void valueHandlerAndDefault(boolean b) {}
 
-	@ElementId("value handler no default")
-	@StringHandler(attributeId = 1)
-	public void valueHandlerOnly(String s) {}
+  @ElementId("value handler no default")
+  @StringHandler(attributeId = 1)
+  public void valueHandlerOnly(String s) {}
 
-	@ElementId("call handler")
-	@SpecificEnumHandler(attributeId = 1, handledOrdinal = 1)
-	public void callHandler() {}
+  @ElementId("call handler")
+  @SpecificEnumHandler(attributeId = 1, handledOrdinal = 1)
+  public void callHandler() {}
 }
