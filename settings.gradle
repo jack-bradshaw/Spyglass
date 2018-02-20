@@ -15,7 +15,7 @@
  */
 
 include ':annotations'
-include ':integration_tests'
+include ':integration-tests'
 include ':processor'
 include ':processor-activated'
 include ':runtime-dependencies'
