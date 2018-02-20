@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToBoolean;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.BooleanHandler;
 
 public class WithDefaultToBoolean extends BooleanHandlerTestTargetBase {
   public static final boolean DEFAULT_VALUE = true;

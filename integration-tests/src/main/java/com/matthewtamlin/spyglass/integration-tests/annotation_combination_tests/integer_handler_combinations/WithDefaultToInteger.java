@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToInteger;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.IntegerHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.IntegerHandler;
 
 public class WithDefaultToInteger extends IntegerHandlerTestTargetBase {
   public static final int DEFAULT_VALUE = 60;

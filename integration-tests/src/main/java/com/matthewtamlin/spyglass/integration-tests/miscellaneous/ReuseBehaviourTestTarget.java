@@ -22,7 +22,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
 
 public class ReuseBehaviourTestTarget extends View {
   public ReuseBehaviourTestTarget(final Context context) {

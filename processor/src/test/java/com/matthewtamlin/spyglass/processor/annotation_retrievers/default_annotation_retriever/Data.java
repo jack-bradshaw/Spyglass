@@ -20,7 +20,7 @@ import com.matthewtamlin.avatar.rules.ElementId;
 import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.*;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
 
 import static com.matthewtamlin.spyglass.markers.units.DimensionUnit.DP;
 
