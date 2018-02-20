@@ -41,18 +41,18 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface FractionHandler {
-	/**
-	 * @return the resource ID of the handled attribute
-	 */
-	int attributeId();
+  /**
+   * @return the resource ID of the handled attribute
+   */
+  int attributeId();
 
-	/**
-	 * @return the value to multiply base fractions by, defaults to 1
-	 */
-	int baseMultiplier() default 1;
+  /**
+   * @return the value to multiply base fractions by, defaults to 1
+   */
+  int baseMultiplier() default 1;
 
-	/**
-	 * @return the value to multiply parent fractions by, defaults to 1
-	 */
-	int parentMultiplier() default 1;
+  /**
+   * @return the value to multiply parent fractions by, defaults to 1
+   */
+  int parentMultiplier() default 1;
 }

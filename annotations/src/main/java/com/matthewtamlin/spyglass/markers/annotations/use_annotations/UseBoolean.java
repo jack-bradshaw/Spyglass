@@ -33,8 +33,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface UseBoolean {
-	/**
-	 * @return the value to pass
-	 */
-	boolean value();
+  /**
+   * @return the value to pass
+   */
+  boolean value();
 }

@@ -33,8 +33,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
 public @interface UseString {
-	/**
-	 * @return the value to pass
-	 */
-	String value();
+  /**
+   * @return the value to pass
+   */
+  String value();
 }

@@ -39,13 +39,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToDimension {
-	/**
-	 * @return the numerical value of the default dimension, measured in the units passed to {@code unit()}
-	 */
-	float value();
+  /**
+   * @return the numerical value of the default dimension, measured in the units passed to {@code unit()}
+   */
+  float value();
 
-	/**
-	 * @return the units of the value passed to {@code value()}
-	 */
-	DimensionUnit unit();
+  /**
+   * @return the units of the value passed to {@code value()}
+   */
+  DimensionUnit unit();
 }

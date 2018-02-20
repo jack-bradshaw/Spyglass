@@ -37,13 +37,13 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface SpecificBooleanHandler {
-	/**
-	 * @return the resource ID of the handled attribute
-	 */
-	int attributeId();
-
-	/**
-	 * @return the boolean handled by the method
-	 */
-	boolean handledBoolean();
+  /**
+   * @return the resource ID of the handled attribute
+   */
+  int attributeId();
+  
+  /**
+   * @return the boolean handled by the method
+   */
+  boolean handledBoolean();
 }

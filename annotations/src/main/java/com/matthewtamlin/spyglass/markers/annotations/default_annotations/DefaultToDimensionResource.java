@@ -37,8 +37,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
 public @interface DefaultToDimensionResource {
-	/**
-	 * @return the resource ID of the default value, must resolve to a dimension resource
-	 */
-	int resId();
+  /**
+   * @return the resource ID of the default value, must resolve to a dimension resource
+   */
+  int resId();
 }
