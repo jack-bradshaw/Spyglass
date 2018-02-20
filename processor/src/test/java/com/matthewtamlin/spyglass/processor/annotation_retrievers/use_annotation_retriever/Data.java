@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.use_annotation_retriever;
 
 import com.matthewtamlin.avatar.rules.ElementId;
-import com.matthewtamlin.spyglass.markers.annotations.use_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.*;
 
 public class Data {
   public void method(@ElementId("boolean") @UseBoolean(true) boolean b, Object o) {}

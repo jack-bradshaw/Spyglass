@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.use_annotations;
+package com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -27,14 +27,14 @@ import java.lang.annotation.Target;
  * <ul>
  * <li>The parameter belongs to a method that has a handler annotation.</li>
  * <li>The parameter has no other use-annotations.</li>
- * <li>The parameter accepts a {@code Number} value.</li>
+ * <li>The parameter accepts a {@code String} value.</li>
  * </ul>
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
-public @interface UseShort {
+public @interface UseString {
   /**
    * @return the value to pass
    */
-  short value();
+  String value();
 }
