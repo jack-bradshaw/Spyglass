@@ -134,7 +134,7 @@ A mapping relationship tells the Spyglass framework how to route attributes when
 Consider the following class.
 ```java
 public class ExampleView extends FrameLayout {
-	public MyView(Context context) {
+	public ExampleView(Context context) {
 		super(context);
 		init(null);
 	}
