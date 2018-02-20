@@ -20,7 +20,7 @@ package com.matthewtamlin.spyglass.processor.validation;
 import com.google.common.collect.ImmutableList;
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.ConditionalHandlerRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 
@@ -65,7 +65,7 @@ public class BasicValidator implements Validator {
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
-          if (DefaultAnnoRetriever.hasAnnotation(element) &&
+          if (DefaultRetriever.hasAnnotation(element) &&
               !UnconditionalHandlerRetriever.hasAnnotation(element)) {
             return Result.createFailure(
                 "Methods without handler annotations must not have default annotations.");
@@ -79,7 +79,7 @@ public class BasicValidator implements Validator {
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
-          if (DefaultAnnoRetriever.hasAnnotation(element) &&
+          if (DefaultRetriever.hasAnnotation(element) &&
               ConditionalHandlerRetriever.hasAnnotation(element)) {
             
             return Result.createFailure(
