@@ -32,7 +32,7 @@ import java.util.Map;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 @Tested(testMethod = "automated")
-public class ValueIsAvailableMethodGenerator {
+public class AnyValueIsAvailableMethodGenerator {
   private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> methodBodySuppliers;
   
   private final AnnotationMirrorHelper annotationMirrorHelper;
@@ -258,7 +258,7 @@ public class ValueIsAvailableMethodGenerator {
     );
   }
   
-  public ValueIsAvailableMethodGenerator(final CoreHelpers coreHelpers) {
+  public AnyValueIsAvailableMethodGenerator(final CoreHelpers coreHelpers) {
     checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
     
     annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();

@@ -18,7 +18,7 @@ package com.matthewtamlin.spyglass.processor.code_generation.value_is_available_
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
-import com.matthewtamlin.spyglass.processor.code_generation.ValueIsAvailableMethodGenerator;
+import com.matthewtamlin.spyglass.processor.code_generation.AnyValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
@@ -42,7 +42,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 
-public class TestValueIsAvailableMethodGenerator {
+public class TestAnyValueIsAvailableMethodGenerator {
   @Rule
   public final AvatarRule avatarRule = AvatarRule
       .builder()
@@ -50,18 +50,18 @@ public class TestValueIsAvailableMethodGenerator {
           "code_generation/value_is_available_method_generator/Data.java")
       .build();
 
-  private ValueIsAvailableMethodGenerator generator;
+  private AnyValueIsAvailableMethodGenerator generator;
 
   @Before
   public void setup() {
     final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
 
-    generator = new ValueIsAvailableMethodGenerator(coreHelpers);
+    generator = new AnyValueIsAvailableMethodGenerator(coreHelpers);
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testConstructor_nullCoreHelpers() {
-    new ValueIsAvailableMethodGenerator(null);
+    new AnyValueIsAvailableMethodGenerator(null);
   }
 
   @Test(expected = IllegalArgumentException.class)

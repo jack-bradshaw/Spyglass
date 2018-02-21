@@ -43,7 +43,7 @@ public class CallerGenerator {
   
   private final GetPlaceholderMethodGenerator getPlaceholderGenerator;
   
-  private final ValueIsAvailableMethodGenerator valueIsAvailableGenerator;
+  private final AnyValueIsAvailableMethodGenerator valueIsAvailableGenerator;
   
   private final SpecificValueIsAvailableMethodGenerator specificValueIsAvailableGenerator;
   
@@ -55,7 +55,7 @@ public class CallerGenerator {
     getDefaultGenerator = new GetDefaultMethodGenerator(coreHelpers);
     getValueGenerator = new GetValueMethodGenerator(coreHelpers);
     getPlaceholderGenerator = new GetPlaceholderMethodGenerator(coreHelpers);
-    valueIsAvailableGenerator = new ValueIsAvailableMethodGenerator(coreHelpers);
+    valueIsAvailableGenerator = new AnyValueIsAvailableMethodGenerator(coreHelpers);
     specificValueIsAvailableGenerator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
     wrapperGenerator = new CastWrapperGenerator(coreHelpers);
   }
