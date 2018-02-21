@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToIntegerResource;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.DimensionHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.DimensionHandler;
 
 public class WithDefaultToIntegerResource extends DimensionHandlerTestTargetBase {
   public WithDefaultToIntegerResource(final Context context) {

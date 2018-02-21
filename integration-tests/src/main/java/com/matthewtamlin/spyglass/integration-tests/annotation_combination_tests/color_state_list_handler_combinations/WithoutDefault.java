@@ -23,7 +23,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.ColorStateListHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.ColorStateListHandler;
 
 public class WithoutDefault extends ColorStateListHandlerTestTargetBase {
   public WithoutDefault(final Context context) {

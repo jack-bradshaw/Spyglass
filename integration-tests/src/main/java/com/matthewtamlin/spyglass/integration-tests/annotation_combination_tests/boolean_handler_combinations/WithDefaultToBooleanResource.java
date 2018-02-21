@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToBooleanResource;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.BooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.BooleanHandler;
 
 public class WithDefaultToBooleanResource extends BooleanHandlerTestTargetBase {
   public WithDefaultToBooleanResource(final Context context) {

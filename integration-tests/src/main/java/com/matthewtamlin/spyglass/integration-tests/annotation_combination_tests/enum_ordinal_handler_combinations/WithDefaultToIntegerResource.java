@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToIntegerResource;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.EnumOrdinalHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.EnumOrdinalHandler;
 
 public class WithDefaultToIntegerResource extends EnumOrdinalHandlerTestTargetBase {
   public WithDefaultToIntegerResource(final Context context) {

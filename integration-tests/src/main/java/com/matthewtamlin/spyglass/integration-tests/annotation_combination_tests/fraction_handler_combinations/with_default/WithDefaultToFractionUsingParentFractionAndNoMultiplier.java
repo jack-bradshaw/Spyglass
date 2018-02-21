@@ -26,7 +26,7 @@ import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests
     .FractionHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToFractionResource;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.FractionHandler;
 
 public class WithDefaultToFractionUsingParentFractionAndNoMultiplier extends FractionHandlerTestTargetBase {
   public static final int PARENT_MULTIPLIER = 12;

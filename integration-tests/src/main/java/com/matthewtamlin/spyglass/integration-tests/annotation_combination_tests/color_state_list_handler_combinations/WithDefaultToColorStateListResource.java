@@ -24,7 +24,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToColorStateListResource;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.ColorStateListHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.ColorStateListHandler;
 
 public class WithDefaultToColorStateListResource extends ColorStateListHandlerTestTargetBase {
   public WithDefaultToColorStateListResource(final Context context) {
