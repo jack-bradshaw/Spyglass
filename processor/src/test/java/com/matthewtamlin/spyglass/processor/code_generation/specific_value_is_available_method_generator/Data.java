@@ -17,9 +17,9 @@
 package com.matthewtamlin.spyglass.processor.code_generation.specific_value_is_available_method_generator;
 
 import com.matthewtamlin.avatar.rules.ElementId;
-import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificBooleanHandler;
-import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificBooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificFlagHandler;
 
 public class Data {
   @ElementId("specific boolean")
