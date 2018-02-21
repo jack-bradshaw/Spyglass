@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations;
+package com.matthewtamlin.spyglass.markers.annotations.placeholders;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -27,9 +27,14 @@ import java.lang.annotation.Target;
  * <ul>
  * <li>The parameter belongs to a method that has a handler annotation.</li>
  * <li>The parameter has no other use-annotations.</li>
- * <li>The parameter is not primitive.</li>
+ * <li>The parameter accepts a boolean value.</li>
  * </ul>
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.PARAMETER)
-public @interface UseNull {}
+public @interface UseBoolean {
+  /**
+   * @return the value to pass
+   */
+  boolean value();
+}
