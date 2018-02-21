@@ -23,8 +23,8 @@ import android.util.AttributeSet;
 import android.view.View;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToString;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.StringHandler;
 
 public class Superclass extends View {
   public static final String EXPECTED_VALUE = "superclass expected value";

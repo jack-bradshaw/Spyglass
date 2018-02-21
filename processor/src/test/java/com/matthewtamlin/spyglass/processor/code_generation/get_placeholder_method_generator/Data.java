@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation.get_placeholder_method_generator;
 
 import com.matthewtamlin.avatar.rules.ElementId;
-import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
 
 public class Data {
   public void method(@UseBoolean(true) @ElementId("boolean") boolean b) {}

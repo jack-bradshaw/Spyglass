@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation.value_is_available_method_generator;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
 import com.matthewtamlin.spyglass.processor.code_generation.AnyValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;

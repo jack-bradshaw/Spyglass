@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation.get_default_method_generator;
 
 import com.matthewtamlin.avatar.rules.ElementId;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.*;
 
 import static com.matthewtamlin.spyglass.markers.units.DimensionUnit.DP;
 

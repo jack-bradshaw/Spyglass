@@ -19,7 +19,7 @@ package com.matthewtamlin.spyglass.processor.code_generation.get_value_method_ge
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
 import com.matthewtamlin.spyglass.processor.code_generation.GetValueMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;

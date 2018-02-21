@@ -17,8 +17,8 @@
 package com.matthewtamlin.spyglass.processor.validation;
 
 import com.google.common.collect.ImmutableList;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToNull;
-import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.UseNull;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToNull;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseNull;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.PlaceholderRetriever;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;

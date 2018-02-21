@@ -22,8 +22,8 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToNull;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.EnumOrdinalHandler;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToNull;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.EnumOrdinalHandler;
 
 public class WithDefaultToNull extends EnumOrdinalHandlerTestTargetBase {
   public WithDefaultToNull(final Context context) {
