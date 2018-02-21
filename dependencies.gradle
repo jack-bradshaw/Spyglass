@@ -35,7 +35,7 @@ ext.dependencies = [
         compiler: 'com.google.auto.value:auto-value:1.4.1'
     ],
 
-    guava: 'com.google.guava:guava:20.0-rc1',
+    guava: 'com.google.guava:guava:24.0-jre',
 
     androidUtilities: 'com.matthew-tamlin:android-utilities:5.1.1',
 
@@ -48,7 +48,7 @@ ext.dependencies = [
         io: 'commons-io:commons-io:2.6'
     ],
 
-    compileTesting: 'com.google.testing.compile:compile-testing:0.8',
+    compileTesting: 'com.google.testing.compile:compile-testing:0.13',
 
     avatar: 'com.matthew-tamlin:avatar:2.1.0'
 ]
