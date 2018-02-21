@@ -17,9 +17,9 @@
 package com.matthewtamlin.spyglass.processor.definitions;
 
 import com.google.common.collect.ImmutableSet;
-import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificBooleanHandler;
-import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificBooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.*;
 import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
