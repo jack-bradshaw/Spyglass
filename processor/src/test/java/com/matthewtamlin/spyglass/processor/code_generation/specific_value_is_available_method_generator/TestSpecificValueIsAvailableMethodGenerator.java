@@ -17,9 +17,9 @@
 package com.matthewtamlin.spyglass.processor.code_generation.specific_value_is_available_method_generator;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificBooleanHandler;
-import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificBooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.processor.code_generation.SpecificValueIsAvailableMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;

@@ -22,7 +22,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificEnumHandler;
 
 public class SpecificEnumHandlerTestTarget extends View {
   private boolean handlerCalled = false;

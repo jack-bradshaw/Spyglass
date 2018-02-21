@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.conditionalhandler;
+package com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,29 +23,27 @@ import java.lang.annotation.Target;
 
 /**
  * Declares a method to be called by the Spyglass framework if a specific condition is met. The annotated method will
- * only be called if the integer value mapped to the attribute ID matches with the specified flags (using a bitwise-OR
- * operation).
+ * only be called if the integer value mapped to the attribute ID is equal to the specified ordinal.
  * <p>
  * This annotation should only be applied to methods which satisfy all of the following criteria:
  * <ul>
  * <li>The method is a non-static member of an Android View subclass.</li>
  * <li>The method has no other handler annotations.</li>
  * <li>The method has no default annotation.</li>
- * <li>Every parameter belonging to the method has a use-annotation.</li>
- * </ul>
+ * <li>Every parameter belonging to the method has a use-annotation.</li></ul>
  * <p>
  * Is it valid for a method with this annotation to have no parameters.
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface SpecificFlagHandler {
+public @interface SpecificEnumHandler {
   /**
    * @return the resource ID of the handled attribute
    */
   int attributeId();
-
+  
   /**
-   * @return the flags handled by the method
+   * @return the ordinal of the enum constant handled by the method
    */
-  int handledFlags();
+  int handledOrdinal();
 }

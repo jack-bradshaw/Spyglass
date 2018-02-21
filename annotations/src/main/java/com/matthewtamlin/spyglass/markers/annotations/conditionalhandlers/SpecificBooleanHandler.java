@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.conditionalhandler;
+package com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,7 +23,7 @@ import java.lang.annotation.Target;
 
 /**
  * Declares a method to be called by the Spyglass framework if a specific condition is met. The annotated method will
- * only be called if the integer value mapped to the attribute ID is equal to the specified ordinal.
+ * only be called if the boolean value mapped to the attribute ID is equal to the specified boolean.
  * <p>
  * This annotation should only be applied to methods which satisfy all of the following criteria:
  * <ul>
@@ -36,14 +36,14 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface SpecificEnumHandler {
+public @interface SpecificBooleanHandler {
   /**
    * @return the resource ID of the handled attribute
    */
   int attributeId();
   
   /**
-   * @return the ordinal of the enum constant handled by the method
+   * @return the boolean handled by the method
    */
-  int handledOrdinal();
+  boolean handledBoolean();
 }
