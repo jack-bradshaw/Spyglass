@@ -17,8 +17,8 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.value_handler_annotation_retriever;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.*;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -43,14 +43,14 @@ public class TestValueHandlerAnnotationRetriever {
 
   @Test(expected = IllegalArgumentException.class)
   public void testGetAnnotation_nullSupplied() {
-    ValueHandlerAnnoRetriever.getAnnotation(null);
+    UnconditionalHandlerRetriever.getAnnotation(null);
   }
 
   @Test
   public void testGetAnnotation_booleanHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("boolean");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(BooleanHandler.class.getName()));
@@ -60,7 +60,7 @@ public class TestValueHandlerAnnotationRetriever {
   public void testGetAnnotation_colorHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("color");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(ColorHandler.class.getName()));
@@ -70,7 +70,7 @@ public class TestValueHandlerAnnotationRetriever {
   public void testGetAnnotation_colorStateListHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("color state list");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(ColorStateListHandler.class.getName()));
@@ -80,7 +80,7 @@ public class TestValueHandlerAnnotationRetriever {
   public void testGetAnnotation_dimensionHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("dimension");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DimensionHandler.class.getName()));
@@ -90,7 +90,7 @@ public class TestValueHandlerAnnotationRetriever {
   public void testGetAnnotation_drawableHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("drawable");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DrawableHandler.class.getName()));
@@ -101,7 +101,7 @@ public class TestValueHandlerAnnotationRetriever {
 
     final ExecutableElement element = avatarRule.getElementWithUniqueId("enum constant");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(EnumConstantHandler.class.getName()));
@@ -112,7 +112,7 @@ public class TestValueHandlerAnnotationRetriever {
 
     final ExecutableElement element = avatarRule.getElementWithUniqueId("enum ordinal");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(EnumOrdinalHandler.class.getName()));
@@ -122,7 +122,7 @@ public class TestValueHandlerAnnotationRetriever {
   public void testGetAnnotation_floatHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("float");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(FloatHandler.class.getName()));
@@ -132,7 +132,7 @@ public class TestValueHandlerAnnotationRetriever {
   public void testGetAnnotation_fractionHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("fraction");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(FractionHandler.class.getName()));
@@ -142,7 +142,7 @@ public class TestValueHandlerAnnotationRetriever {
   public void testGetAnnotation_integerHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("integer");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(IntegerHandler.class.getName()));
@@ -152,7 +152,7 @@ public class TestValueHandlerAnnotationRetriever {
   public void testGetAnnotation_stringHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("string");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(StringHandler.class.getName()));
@@ -162,14 +162,14 @@ public class TestValueHandlerAnnotationRetriever {
   public void testGetAnnotation_noValueHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("no value handler annotation");
 
-    final AnnotationMirror mirror = ValueHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(nullValue()));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testHasAnnotation_nullSupplied() {
-    ValueHandlerAnnoRetriever.hasAnnotation(null);
+    UnconditionalHandlerRetriever.hasAnnotation(null);
   }
 
   @Test
@@ -235,7 +235,7 @@ public class TestValueHandlerAnnotationRetriever {
   private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
     final ExecutableElement element = avatarRule.getElementWithUniqueId(id);
 
-    final boolean hasAnnotation = ValueHandlerAnnoRetriever.hasAnnotation(element);
+    final boolean hasAnnotation = UnconditionalHandlerRetriever.hasAnnotation(element);
 
     assertThat(hasAnnotation, is(shouldHaveAnnotation));
   }

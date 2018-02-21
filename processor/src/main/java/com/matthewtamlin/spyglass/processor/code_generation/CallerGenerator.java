@@ -17,10 +17,10 @@
 package com.matthewtamlin.spyglass.processor.code_generation;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.UseAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ConditionalHandlerRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.PlaceholderRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.squareup.javapoet.CodeBlock;
@@ -43,7 +43,7 @@ public class CallerGenerator {
   
   private final GetPlaceholderMethodGenerator getPlaceholderGenerator;
   
-  private final ValueIsAvailableMethodGenerator valueIsAvailableGenerator;
+  private final AnyValueIsAvailableMethodGenerator valueIsAvailableGenerator;
   
   private final SpecificValueIsAvailableMethodGenerator specificValueIsAvailableGenerator;
   
@@ -55,7 +55,7 @@ public class CallerGenerator {
     getDefaultGenerator = new GetDefaultMethodGenerator(coreHelpers);
     getValueGenerator = new GetValueMethodGenerator(coreHelpers);
     getPlaceholderGenerator = new GetPlaceholderMethodGenerator(coreHelpers);
-    valueIsAvailableGenerator = new ValueIsAvailableMethodGenerator(coreHelpers);
+    valueIsAvailableGenerator = new AnyValueIsAvailableMethodGenerator(coreHelpers);
     specificValueIsAvailableGenerator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
     wrapperGenerator = new CastWrapperGenerator(coreHelpers);
   }
@@ -71,11 +71,11 @@ public class CallerGenerator {
     checkNotNull(contextParameter, "Argument \'contextParameter\' cannot be null.");
     checkNotNull(attrsParameter, "Argument \'attrsParameter\' cannot be null.");
     
-    if (CallHandlerAnnoRetriever.hasAnnotation(method)) {
+    if (ConditionalHandlerRetriever.hasAnnotation(method)) {
       return generateForCallHandler(method, targetParameter, contextParameter, attrsParameter);
       
-    } else if (ValueHandlerAnnoRetriever.hasAnnotation(method)) {
-      if (DefaultAnnoRetriever.hasAnnotation(method)) {
+    } else if (UnconditionalHandlerRetriever.hasAnnotation(method)) {
+      if (DefaultRetriever.hasAnnotation(method)) {
         return generateForValueHandlerWithDefault(method, targetParameter, contextParameter, attrsParameter);
       } else {
         return generateCallerForValueHandlerWithoutDefault(
@@ -107,7 +107,7 @@ public class CallerGenerator {
     
     for (int i = 0; i < e.getParameters().size(); i++) {
       final VariableElement parameter = e.getParameters().get(i);
-      final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
+      final AnnotationMirror useAnno = PlaceholderRetriever.getAnnotation(parameter);
       final MethodSpec argMethod = getPlaceholderGenerator.generateFor(useAnno, i);
       
       invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
@@ -121,7 +121,7 @@ public class CallerGenerator {
     invocationBuilder.add(");\n");
     
     final MethodSpec specificValueIsAvailable = specificValueIsAvailableGenerator.generateFor(
-        CallHandlerAnnoRetriever.getAnnotation(e));
+        ConditionalHandlerRetriever.getAnnotation(e));
     
     final MethodSpec call = CallerDef
         .getNewCallMethodPrototype()
@@ -158,9 +158,9 @@ public class CallerGenerator {
     for (int i = 0; i < e.getParameters().size(); i++) {
       final VariableElement parameter = e.getParameters().get(i);
       
-      final MethodSpec argMethod = UseAnnoRetriever.hasAnnotation(parameter) ?
-          getPlaceholderGenerator.generateFor(UseAnnoRetriever.getAnnotation(parameter), i) :
-          getValueGenerator.generateFor(ValueHandlerAnnoRetriever.getAnnotation(e));
+      final MethodSpec argMethod = PlaceholderRetriever.hasAnnotation(parameter) ?
+          getPlaceholderGenerator.generateFor(PlaceholderRetriever.getAnnotation(parameter), i) :
+          getValueGenerator.generateFor(UnconditionalHandlerRetriever.getAnnotation(e));
       
       invocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
       callerBuilder.addMethod(argMethod);
@@ -173,7 +173,7 @@ public class CallerGenerator {
     invocationBuilder.add(");\n");
     
     final MethodSpec specificValueIsAvailable = valueIsAvailableGenerator.generateFor(
-        ValueHandlerAnnoRetriever.getAnnotation(e));
+        UnconditionalHandlerRetriever.getAnnotation(e));
     
     final MethodSpec call = CallerDef
         .getNewCallMethodPrototype()
@@ -211,19 +211,19 @@ public class CallerGenerator {
         .builder()
         .add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
     
-    final AnnotationMirror valueHandlerAnno = ValueHandlerAnnoRetriever.getAnnotation(e);
+    final AnnotationMirror valueHandlerAnno = UnconditionalHandlerRetriever.getAnnotation(e);
     final MethodSpec getValueMethod = getValueGenerator.generateFor(valueHandlerAnno);
     callerBuilder.addMethod(getValueMethod);
     
-    final AnnotationMirror defaultAnno = DefaultAnnoRetriever.getAnnotation(e);
+    final AnnotationMirror defaultAnno = DefaultRetriever.getAnnotation(e);
     final MethodSpec getDefaultMethod = getDefaultGenerator.generateFor(defaultAnno);
     callerBuilder.addMethod(getDefaultMethod);
     
     for (int i = 0; i < e.getParameters().size(); i++) {
       final VariableElement parameter = e.getParameters().get(i);
       
-      if (UseAnnoRetriever.hasAnnotation(parameter)) {
-        final AnnotationMirror useAnno = UseAnnoRetriever.getAnnotation(parameter);
+      if (PlaceholderRetriever.hasAnnotation(parameter)) {
+        final AnnotationMirror useAnno = PlaceholderRetriever.getAnnotation(parameter);
         final MethodSpec argMethod = getPlaceholderGenerator.generateFor(useAnno, i);
         
         valueAvailableCaseInvocationBuilder.add(wrapperGenerator.generateFor(argMethod, parameter.asType()));
@@ -250,7 +250,7 @@ public class CallerGenerator {
     valueUnavailableCaseInvocationBuilder.add(");\n");
     
     final MethodSpec valueIsAvailable = valueIsAvailableGenerator.generateFor(
-        ValueHandlerAnnoRetriever.getAnnotation(e));
+        UnconditionalHandlerRetriever.getAnnotation(e));
     
     final MethodSpec call = CallerDef
         .getNewCallMethodPrototype()

@@ -26,7 +26,7 @@ import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests
     .FractionHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToNull;
-import com.matthewtamlin.spyglass.markers.annotations.value_handler_annotations.FractionHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.FractionHandler;
 
 public class WithDefaultToNull extends FractionHandlerTestTargetBase {
   public WithDefaultToNull(final Context context) {
