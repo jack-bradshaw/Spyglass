@@ -16,7 +16,7 @@
 
 package com.matthewtamlin.spyglass.processor.code_generation;
 
-import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirror_helpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;

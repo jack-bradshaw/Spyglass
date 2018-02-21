@@ -24,8 +24,8 @@ import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations
     .EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToNull;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToNull;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.EnumConstantHandler;
 
 public class WithDefaultToNull extends EnumConstantHandlerTestTargetBase {
   public WithDefaultToNull(final Context context) {

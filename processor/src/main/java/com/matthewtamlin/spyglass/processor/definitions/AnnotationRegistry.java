@@ -17,12 +17,12 @@
 package com.matthewtamlin.spyglass.processor.definitions;
 
 import com.google.common.collect.ImmutableSet;
-import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificBooleanHandler;
-import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.*;
-import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.*;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificBooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.*;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
 
 import java.lang.annotation.Annotation;
 import java.util.Set;

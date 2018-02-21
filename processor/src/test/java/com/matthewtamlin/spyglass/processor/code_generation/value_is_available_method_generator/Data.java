@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.code_generation.value_is_available_method_generator;
 
 import com.matthewtamlin.avatar.rules.ElementId;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
 
 public class Data {
   @ElementId("boolean")
