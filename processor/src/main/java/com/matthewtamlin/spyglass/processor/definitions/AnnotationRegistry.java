@@ -21,7 +21,7 @@ import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.Specifi
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.*;
-import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
 
 import java.lang.annotation.Annotation;

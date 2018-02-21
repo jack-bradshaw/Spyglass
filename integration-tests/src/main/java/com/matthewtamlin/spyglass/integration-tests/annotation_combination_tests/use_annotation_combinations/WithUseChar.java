@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToString;
-import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.UseChar;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseChar;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
 
 import java.util.ArrayList;

@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.use_annotation_retriever;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.PlaceholderRetriever;
 import org.junit.Rule;
 import org.junit.Test;
