@@ -25,6 +25,19 @@ version = rootProject.version
 
 apply from: rootProject.file('dependencies.gradle')
 
+sourceSets {
+  test {
+    java {
+      srcDirs = ['src/test/java']
+    }
+
+    resources {
+      srcDirs = ['src/test/resources']
+      includes = ['**/*.java']
+    }
+  }
+}
+
 dependencies {
   implementation project(':annotations')
 
