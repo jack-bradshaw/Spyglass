@@ -22,7 +22,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToColorResource;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToColorResource;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.ColorHandler;
 
 public class WithDefaultToColorResource extends ColorHandlerTestTargetBase {

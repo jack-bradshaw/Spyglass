@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.default_annotations;
+package com.matthewtamlin.spyglass.markers.annotations.defaults;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,7 +23,8 @@ import java.lang.annotation.Target;
 
 /**
  * Defines a default for the annotated method, so that the Spyglass framework can invoke the method if its handler
- * annotation is not satisfied. This annotation should only be applied to methods which satisfy all of the following
+ * annotation is not satisfied. The dimension value retrieved from resources is converted to units of pixels before
+ * being passed to the method. This annotation should only be applied to methods which satisfy all of the following
  * criteria:
  * <ul>
  * <li>The method is a non-static member of an Android View subclass.</li>
@@ -35,9 +36,9 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface DefaultToIntegerResource {
+public @interface DefaultToDimensionResource {
   /**
-   * @return the resource ID of the default value, must resolve to an integer resource
+   * @return the resource ID of the default value, must resolve to a dimension resource
    */
   int resId();
 }

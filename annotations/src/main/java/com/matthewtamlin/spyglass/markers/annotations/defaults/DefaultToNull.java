@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.default_annotations;
+package com.matthewtamlin.spyglass.markers.annotations.defaults;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -26,18 +26,13 @@ import java.lang.annotation.Target;
  * annotation is not satisfied. This annotation should only be applied to methods which satisfy all of the following
  * criteria:
  * <ul>
- * <li>The method belongs to an Android View subclass.</li>
+ * <li>The method is a non-static member of an Android View subclass.</li>
  * <li>The method has a handler annotation.</li>
  * <li>The method has no other default annotations.</li>
- * <li>The method has at least one boolean parameter.</li>
- * <li>Except for one boolean parameter, every parameter belonging to the method has a use-annotation.</li>
+ * <li>The method has at least one non-primitive parameter.</li>
+ * <li>Except for one non-primitive parameter, every parameter belonging to the method has a use-annotation.</li>
  * </ul>
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface DefaultToBoolean {
-  /**
-   * @return the default value
-   */
-  boolean value();
-}
+public @interface DefaultToNull {}

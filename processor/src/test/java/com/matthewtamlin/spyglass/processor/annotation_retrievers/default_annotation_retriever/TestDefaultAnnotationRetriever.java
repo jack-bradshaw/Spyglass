@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.default_annotation_retriever;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.*;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultRetriever;
 import org.junit.Rule;
 import org.junit.Test;

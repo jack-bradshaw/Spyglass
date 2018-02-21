@@ -20,7 +20,7 @@ import com.google.common.collect.ImmutableSet;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.*;
 import com.matthewtamlin.spyglass.markers.annotations.placeholder_annotations.*;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
 
