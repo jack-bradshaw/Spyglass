@@ -18,7 +18,7 @@ package com.matthewtamlin.spyglass.processor.annotation_retrievers.default_annot
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.markers.annotations.default_annotations.*;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultRetriever;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -44,14 +44,14 @@ public class TestDefaultAnnotationRetriever {
 
   @Test(expected = IllegalArgumentException.class)
   public void testGetAnnotation_nullSupplied() {
-    DefaultAnnoRetriever.getAnnotation(null);
+    DefaultRetriever.getAnnotation(null);
   }
 
   @Test
   public void testGetAnnotation_defaultToBooleanAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("boolean");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToBoolean.class.getName()));
@@ -61,7 +61,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToBooleanResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("boolean resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToBooleanResource.class.getName()));
@@ -71,7 +71,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToColorResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("color resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToColorResource.class.getName()));
@@ -81,7 +81,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToColorStateListResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("color state list resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToColorStateListResource.class.getName()));
@@ -91,7 +91,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToDimensionAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("dimension");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToDimension.class.getName()));
@@ -101,7 +101,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToDimensionResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("dimension resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToDimensionResource.class.getName()));
@@ -111,7 +111,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToDrawableResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("drawable resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToDrawableResource.class.getName()));
@@ -121,7 +121,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToEnumConstantAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("enum constant");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToEnumConstant.class.getName()));
@@ -131,7 +131,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToFloatAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("float");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToFloat.class.getName()));
@@ -141,7 +141,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToFractionResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("fraction resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToFractionResource.class.getName()));
@@ -151,7 +151,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToIntegerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("integer");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToInteger.class.getName()));
@@ -161,7 +161,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToIntegerResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("integer resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToIntegerResource.class.getName()));
@@ -171,7 +171,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToNullAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("null");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToNull.class.getName()));
@@ -181,7 +181,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToStringAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("string");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToString.class.getName()));
@@ -191,7 +191,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToStringResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("string resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToStringResource.class.getName()));
@@ -201,7 +201,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToTextArrayResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("text array resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToTextArrayResource.class.getName()));
@@ -211,7 +211,7 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_defaultToTextResourceAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("text resource");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(DefaultToTextResource.class.getName()));
@@ -221,14 +221,14 @@ public class TestDefaultAnnotationRetriever {
   public void testGetAnnotation_noDefaultAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("no default annotation");
 
-    final AnnotationMirror mirror = DefaultAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = DefaultRetriever.getAnnotation(element);
 
     assertThat(mirror, is(nullValue()));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testHasAnnotation_nullSupplied() {
-    DefaultAnnoRetriever.hasAnnotation(null);
+    DefaultRetriever.hasAnnotation(null);
   }
 
   @Test
@@ -324,7 +324,7 @@ public class TestDefaultAnnotationRetriever {
   private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
     final ExecutableElement element = avatarRule.getElementWithUniqueId(id);
 
-    final boolean hasAnnotation = DefaultAnnoRetriever.hasAnnotation(element);
+    final boolean hasAnnotation = DefaultRetriever.hasAnnotation(element);
 
     assertThat(hasAnnotation, is(shouldHaveAnnotation));
   }

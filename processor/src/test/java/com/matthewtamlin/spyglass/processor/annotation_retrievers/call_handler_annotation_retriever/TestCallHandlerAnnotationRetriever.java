@@ -17,10 +17,10 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.call_handler_annotation_retriever;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificBooleanHandler;
-import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.markers.annotations.call_handler_annotations.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificBooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificEnumHandler;
+import com.matthewtamlin.spyglass.markers.annotations.conditional_handler_annotations.SpecificFlagHandler;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ConditionalHandlerRetriever;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -46,14 +46,14 @@ public class TestCallHandlerAnnotationRetriever {
 
   @Test(expected = IllegalArgumentException.class)
   public void testGetAnnotation_nullSupplied() {
-    CallHandlerAnnoRetriever.getAnnotation(null);
+    ConditionalHandlerRetriever.getAnnotation(null);
   }
 
   @Test
   public void testGetAnnotation_specificBooleanHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("specific boolean");
 
-    final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = ConditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(SpecificBooleanHandler.class.getName()));
@@ -63,7 +63,7 @@ public class TestCallHandlerAnnotationRetriever {
   public void testGetAnnotation_specificEnumHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("specific enum");
 
-    final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = ConditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(SpecificEnumHandler.class.getName()));
@@ -73,7 +73,7 @@ public class TestCallHandlerAnnotationRetriever {
   public void testGetAnnotation_specificFlagHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("specific flag");
 
-    final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = ConditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(notNullValue()));
     assertThat(mirror.getAnnotationType().toString(), is(SpecificFlagHandler.class.getName()));
@@ -83,14 +83,14 @@ public class TestCallHandlerAnnotationRetriever {
   public void testGetAnnotation_noCallHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("no call handler annotation");
 
-    final AnnotationMirror mirror = CallHandlerAnnoRetriever.getAnnotation(element);
+    final AnnotationMirror mirror = ConditionalHandlerRetriever.getAnnotation(element);
 
     assertThat(mirror, is(nullValue()));
   }
 
   @Test(expected = IllegalArgumentException.class)
   public void testHasAnnotation_nullSupplied() {
-    CallHandlerAnnoRetriever.hasAnnotation(null);
+    ConditionalHandlerRetriever.hasAnnotation(null);
   }
 
   @Test
@@ -111,7 +111,7 @@ public class TestCallHandlerAnnotationRetriever {
   private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
     final ExecutableElement element = avatarRule.getElementWithUniqueId(id);
 
-    final boolean hasAnnotation = CallHandlerAnnoRetriever.hasAnnotation(element);
+    final boolean hasAnnotation = ConditionalHandlerRetriever.hasAnnotation(element);
 
     assertThat(hasAnnotation, is(shouldHaveAnnotation));
   }

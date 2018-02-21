@@ -19,9 +19,9 @@ package com.matthewtamlin.spyglass.processor.validation;
 
 import com.google.common.collect.ImmutableList;
 import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.ConditionalHandlerRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultRetriever;
+import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 
 import javax.lang.model.element.Element;
@@ -65,8 +65,8 @@ public class BasicValidator implements Validator {
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
-          if (DefaultAnnoRetriever.hasAnnotation(element) &&
-              !ValueHandlerAnnoRetriever.hasAnnotation(element)) {
+          if (DefaultRetriever.hasAnnotation(element) &&
+              !UnconditionalHandlerRetriever.hasAnnotation(element)) {
             return Result.createFailure(
                 "Methods without handler annotations must not have default annotations.");
           }
@@ -79,8 +79,8 @@ public class BasicValidator implements Validator {
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
-          if (DefaultAnnoRetriever.hasAnnotation(element) &&
-              CallHandlerAnnoRetriever.hasAnnotation(element)) {
+          if (DefaultRetriever.hasAnnotation(element) &&
+              ConditionalHandlerRetriever.hasAnnotation(element)) {
             
             return Result.createFailure(
                 "Methods with handlers annotations that pass no value must not have default " +
@@ -97,7 +97,7 @@ public class BasicValidator implements Validator {
         public Result checkElement(final ExecutableElement element) {
           final int parameterCount = ((ExecutableElement) element).getParameters().size();
           
-          if (ValueHandlerAnnoRetriever.hasAnnotation(element) && parameterCount < 1) {
+          if (UnconditionalHandlerRetriever.hasAnnotation(element) && parameterCount < 1) {
             return Result.createFailure(
                 "Methods with handler annotations that pass a value must have at least one parameter.");
           }
@@ -129,7 +129,7 @@ public class BasicValidator implements Validator {
           final int paramCount = ((ExecutableElement) element).getParameters().size();
           final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
           
-          if (ValueHandlerAnnoRetriever.hasAnnotation(element) &&
+          if (UnconditionalHandlerRetriever.hasAnnotation(element) &&
               annotatedParamCount != paramCount - 1) {
             
             return Result.createFailure(
@@ -148,7 +148,7 @@ public class BasicValidator implements Validator {
           final int paramCount = ((ExecutableElement) element).getParameters().size();
           final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
           
-          if (CallHandlerAnnoRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
+          if (ConditionalHandlerRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
             return Result.createFailure(
                 "Methods with handler annotations which pass no value must have " +
                     "use-annotations on every parameter.");
