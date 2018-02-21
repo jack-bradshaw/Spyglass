@@ -33,7 +33,7 @@ import static org.hamcrest.core.Is.is;
 import static org.hamcrest.core.IsNull.notNullValue;
 
 @RunWith(JUnit4.class)
-public class TestUseAnnotationRetriever {
+public class TestPlaceholderRetriever {
   @Rule
   public final AvatarRule avatarRule = AvatarRule
       .builder()
