@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import android.view.View;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.StringHandler;
 
 public class OverloadBehaviourTestTarget extends View {
   private ReceivedValue<String> positiveReceivedValue = ReceivedValue.none();

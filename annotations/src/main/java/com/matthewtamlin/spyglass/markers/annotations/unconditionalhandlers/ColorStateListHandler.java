@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations;
+package com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

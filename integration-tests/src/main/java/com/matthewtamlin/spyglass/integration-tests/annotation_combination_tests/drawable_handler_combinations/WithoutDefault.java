@@ -23,7 +23,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.DrawableHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.DrawableHandler;
 
 public class WithoutDefault extends DrawableHandlerTestTargetBase {
   public WithoutDefault(final Context context) {

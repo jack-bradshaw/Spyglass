@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToNull;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.ColorHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.ColorHandler;
 
 public class WithDefaultToNull extends ColorHandlerTestTargetBase {
   public WithDefaultToNull(final Context context) {

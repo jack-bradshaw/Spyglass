@@ -20,10 +20,10 @@ import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.Specifi
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.*;
 import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.BooleanHandler;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.DimensionHandler;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.FloatHandler;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.BooleanHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.DimensionHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.FloatHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.StringHandler;
 
 abstract class Data {
   @Target(isValid = true)

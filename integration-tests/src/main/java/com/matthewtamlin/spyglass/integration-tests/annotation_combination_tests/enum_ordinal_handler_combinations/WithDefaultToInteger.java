@@ -23,7 +23,7 @@ import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToInteger;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.EnumOrdinalHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.EnumOrdinalHandler;
 
 public class WithDefaultToInteger extends EnumOrdinalHandlerTestTargetBase {
   public static final int DEFAULT_VALUE = 9849;

@@ -25,7 +25,7 @@ import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests
     .EnumForTesting.Fruit;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToEnumConstant;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.EnumConstantHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.EnumConstantHandler;
 
 public class WithDefaultToEnumConstantOfWatermelon extends EnumConstantHandlerTestTargetBase {
   public WithDefaultToEnumConstantOfWatermelon(final Context context) {

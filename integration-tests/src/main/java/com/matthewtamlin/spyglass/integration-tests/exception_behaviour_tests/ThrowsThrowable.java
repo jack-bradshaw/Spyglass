@@ -22,7 +22,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToString;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.StringHandler;
 
 @SuppressWarnings({"ThrowableInstanceNeverThrown", "UnusedParameters"})
 public class ThrowsThrowable extends ExceptionBehaviourTestTargetBase {

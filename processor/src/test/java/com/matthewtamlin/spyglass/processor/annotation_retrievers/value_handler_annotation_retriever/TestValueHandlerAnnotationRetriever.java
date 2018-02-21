@@ -17,7 +17,7 @@
 package com.matthewtamlin.spyglass.processor.annotation_retrievers.value_handler_annotation_retriever;
 
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
 import com.matthewtamlin.spyglass.processor.annotation_retrievers.UnconditionalHandlerRetriever;
 import org.junit.Rule;
 import org.junit.Test;
