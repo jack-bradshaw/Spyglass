@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.default_annotations;
+package com.matthewtamlin.spyglass.markers.annotations.defaults;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -29,15 +29,15 @@ import java.lang.annotation.Target;
  * <li>The method is a non-static member of an Android View subclass.</li>
  * <li>The method has a handler annotation.</li>
  * <li>The method has no other default annotations.</li>
- * <li>The method has at least one {@code String} parameter.</li>
- * <li>Except for one {@code String} parameter, every parameter belonging to the method has a use-annotation.</li>
+ * <li>The method has at least one {@code Drawable} parameter.</li>
+ * <li>Except for one {@code Drawable} parameter, every parameter belonging to the method has a use-annotation.</li>
  * </ul>
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface DefaultToStringResource {
+public @interface DefaultToDrawableResource {
   /**
-   * @return the resource ID of the default value, must resolve to a string resource
+   * @return the resource ID of the default value, must resolve to a drawable resource
    */
   int resId();
 }

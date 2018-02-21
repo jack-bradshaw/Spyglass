@@ -22,7 +22,7 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
 import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToFractionResource;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToFractionResource;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.FloatHandler;
 
 public class WithDefaultToFractionUsingBaseFractionAndParentMultiplier extends FloatHandlerTestTargetBase {

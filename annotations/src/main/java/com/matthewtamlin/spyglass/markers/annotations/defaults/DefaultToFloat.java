@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.markers.annotations.default_annotations;
+package com.matthewtamlin.spyglass.markers.annotations.defaults;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
@@ -23,15 +23,8 @@ import java.lang.annotation.Target;
 
 /**
  * Defines a default for the annotated method, so that the Spyglass framework can invoke the method if its handler
- * annotation is not satisfied. Before the default value is passed into the method, the fraction multiplication rule is
- * applied.
- * <p>
- * Android defines two types of fraction resources: base fractions and parent fractions. If the fraction is defined
- * in resources as a base type, then it will be multiplied by the {@code baseMultiplier} before being passed in. If
- * the fraction is defined in resources as a parent type, then it will be multiplied by the {@code parentMultiplier}
- * before being passed in. By default, both multipliers are set to 1.
- * <p>
- * This annotation should only be applied to methods which satisfy all of the following criteria:
+ * annotation is not satisfied. This annotation should only be applied to methods which satisfy all of the following
+ * criteria:
  * <ul>
  * <li>The method is a non-static member of an Android View subclass.</li>
  * <li>The method has a handler annotation.</li>
@@ -42,19 +35,9 @@ import java.lang.annotation.Target;
  */
 @Retention(RetentionPolicy.SOURCE)
 @Target(ElementType.METHOD)
-public @interface DefaultToFractionResource {
+public @interface DefaultToFloat {
   /**
-   * @return the resource ID of the default value, must resolve to a fraction resource
+   * @return the default value
    */
-  int resId();
-  
-  /**
-   * @return the value to multiply base fractions by, defaults to 1
-   */
-  int baseMultiplier() default 1;
-  
-  /**
-   * @return the value to multiply parent fractions by, defaults to 1
-   */
-  int parentMultiplier() default 1;
+  float value();
 }

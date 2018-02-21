@@ -21,7 +21,7 @@ import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToString;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToString;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
 
 @SuppressWarnings({"ThrowableInstanceNeverThrown", "UnusedParameters"})

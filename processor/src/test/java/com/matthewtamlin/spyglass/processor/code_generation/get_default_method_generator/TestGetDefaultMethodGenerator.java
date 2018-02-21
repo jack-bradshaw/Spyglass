@@ -19,7 +19,7 @@ package com.matthewtamlin.spyglass.processor.code_generation.get_default_method_
 import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.*;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.*;
 import com.matthewtamlin.spyglass.processor.code_generation.GetDefaultMethodGenerator;
 import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;

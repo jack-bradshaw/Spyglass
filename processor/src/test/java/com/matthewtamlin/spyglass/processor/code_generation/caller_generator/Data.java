@@ -18,7 +18,7 @@ package com.matthewtamlin.spyglass.processor.code_generation.caller_generator;
 
 import com.matthewtamlin.avatar.rules.ElementId;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandler.SpecificEnumHandler;
-import com.matthewtamlin.spyglass.markers.annotations.default_annotations.DefaultToBoolean;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToBoolean;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.BooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.unconditional_handler_annotations.StringHandler;
 
