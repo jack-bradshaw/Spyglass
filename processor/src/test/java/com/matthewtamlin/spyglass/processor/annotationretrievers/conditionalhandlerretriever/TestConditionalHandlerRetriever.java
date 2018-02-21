@@ -36,7 +36,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 
 @RunWith(JUnit4.class)
-public class TestCallHandlerAnnotationRetriever {
+public class TestConditionalHandlerRetriever {
   @Rule
   public final AvatarRule avatarRule = AvatarRule
       .builder()

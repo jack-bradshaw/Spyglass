@@ -34,7 +34,7 @@ import static org.hamcrest.core.IsNull.notNullValue;
 
 
 @RunWith(JUnit4.class)
-public class TestDefaultAnnotationRetriever {
+public class TestDefaultRetriever {
   @Rule
   public final AvatarRule avatarRule = AvatarRule
       .builder()
