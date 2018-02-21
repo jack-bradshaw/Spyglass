@@ -18,7 +18,7 @@ package com.matthewtamlin.spyglass.processor.core;
 
 
 import com.google.common.collect.ImmutableSet;
-import com.matthewtamlin.spyglass.processor.code_generation.CompanionGenerator;
+import com.matthewtamlin.spyglass.processor.codegeneration.CompanionGenerator;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.definitions.CompanionDef;
