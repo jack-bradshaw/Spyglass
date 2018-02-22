@@ -32,6 +32,7 @@ import com.matthewtamlin.spyglass.processor.validation.Validator;
 import com.squareup.javapoet.JavaFile;
 
 import javax.annotation.processing.*;
+import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
 import javax.lang.model.element.ExecutableElement;
@@ -43,6 +44,7 @@ import java.util.*;
 
 import static javax.tools.Diagnostic.Kind.ERROR;
 
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class MainProcessor extends AbstractProcessor {
   private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
   
