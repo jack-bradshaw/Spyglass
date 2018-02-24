@@ -16,6 +16,9 @@
 
 apply plugin: 'com.android.library'
 
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
 group = rootProject.group
 version = rootProject.version
 

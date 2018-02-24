@@ -14,12 +14,21 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.processoractivated;
+package com.matthewtamlin.spyglass.processor.core;
 
-import com.matthewtamlin.spyglass.processor.core.MainProcessor;
+import com.matthewtamlin.avatar.rules.ElementId;
 
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
+@ElementId("top level")
+public class TestCompanionNamerData {
+  @ElementId("nested one level")
+  public class ClassA {
+    public class ClassB {
+      public class ClassC {
+        @ElementId("nested multiple levels")
+        public class ClassD {
 
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
-public class SpyglassProcessor extends MainProcessor {}
+        }
+      }
+    }
+  }
+}

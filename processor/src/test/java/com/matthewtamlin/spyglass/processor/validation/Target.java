@@ -14,12 +14,8 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.processoractivated;
+package com.matthewtamlin.spyglass.processor.validation;
 
-import com.matthewtamlin.spyglass.processor.core.MainProcessor;
-
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
-
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
-public class SpyglassProcessor extends MainProcessor {}
+@interface Target {
+  boolean isValid();
+}

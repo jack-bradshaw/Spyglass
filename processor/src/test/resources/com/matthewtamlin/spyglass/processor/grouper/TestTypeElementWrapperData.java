@@ -14,12 +14,14 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.processoractivated;
+package com.matthewtamlin.spyglass.processor.grouper;
 
-import com.matthewtamlin.spyglass.processor.core.MainProcessor;
+import com.matthewtamlin.avatar.rules.ElementId;
 
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
+public class TestTypeElementWrapperData {
+  @ElementId("class 1")
+  public static class Class1 {}
 
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
-public class SpyglassProcessor extends MainProcessor {}
+  @ElementId("class 2")
+  public static class Class2 {}
+}

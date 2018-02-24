@@ -14,12 +14,10 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.processoractivated;
+package com.matthewtamlin.spyglass.processor.mirrorhelpers;
 
-import com.matthewtamlin.spyglass.processor.core.MainProcessor;
+public @interface SomeAnnotationWithValue {
+  public static final String DEFAULT_VALUE = "default value";
 
-import javax.annotation.processing.SupportedSourceVersion;
-import javax.lang.model.SourceVersion;
-
-@SupportedSourceVersion(SourceVersion.RELEASE_8)
-public class SpyglassProcessor extends MainProcessor {}
+  String value() default DEFAULT_VALUE;
+}
