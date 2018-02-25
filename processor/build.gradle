@@ -50,9 +50,6 @@ dependencies {
 
   implementation project.ext.dependencies.javaPoet
 
-  testImplementation files('lib/android.jar')
-  testImplementation files('lib/android-support-v4.jar')
-
   testImplementation project.ext.dependencies.compileTesting
 
   testImplementation project.ext.dependencies.avatar
