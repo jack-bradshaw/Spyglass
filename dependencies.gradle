@@ -50,5 +50,10 @@ ext.dependencies = [
 
     compileTesting: 'com.google.testing.compile:compile-testing:0.13',
 
-    avatar: 'com.matthew-tamlin:avatar:2.1.0'
+    avatar: 'com.matthew-tamlin:avatar:2.1.0',
+
+    dagger: [
+        core: 'com.google.dagger:dagger:2.9',
+        compiler: 'com.google.dagger:dagger-compiler:2.9',
+    ]
 ]
