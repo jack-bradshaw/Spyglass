@@ -20,13 +20,13 @@ import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
+import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import java.util.HashMap;
 import java.util.Map;
@@ -121,10 +121,9 @@ public class SpecificValueIsAvailableMethodGenerator {
     );
   }
   
-  public SpecificValueIsAvailableMethodGenerator(final CoreHelpers coreHelpers) {
-    checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
-    
-    annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
+  @Inject
+  public SpecificValueIsAvailableMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {
+    this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
   }
   
   /**

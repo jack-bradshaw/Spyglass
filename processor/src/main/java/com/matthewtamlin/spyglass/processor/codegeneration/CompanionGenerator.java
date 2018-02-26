@@ -17,17 +17,18 @@
 package com.matthewtamlin.spyglass.processor.codegeneration;
 
 import com.matthewtamlin.spyglass.processor.core.CompanionNamer;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.*;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.*;
 
+import javax.inject.Inject;
 import javax.lang.model.element.*;
 import javax.lang.model.util.Elements;
 import java.lang.annotation.Annotation;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
+import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.*;
 
 public class CompanionGenerator {
@@ -35,9 +36,10 @@ public class CompanionGenerator {
   
   private Elements elementUtil;
   
-  public CompanionGenerator(final CoreHelpers coreHelpers) {
-    callerGenerator = new CallerGenerator(coreHelpers);
-    elementUtil = coreHelpers.getElementHelper();
+  @Inject
+  public CompanionGenerator(final CallerGenerator callerGenerator, final Elements elementUtil) {
+    this.callerGenerator = checkNotNull(callerGenerator);
+    this.elementUtil = checkNotNull(elementUtil);
   }
   
   public JavaFile generateFor(final TypeElement targetType) {

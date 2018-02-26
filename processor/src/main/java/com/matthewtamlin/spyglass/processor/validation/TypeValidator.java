@@ -25,10 +25,10 @@ import com.matthewtamlin.spyglass.processor.annotationretrievers.UnconditionalHa
 import com.matthewtamlin.spyglass.processor.codegeneration.GetDefaultMethodGenerator;
 import com.matthewtamlin.spyglass.processor.codegeneration.GetPlaceholderMethodGenerator;
 import com.matthewtamlin.spyglass.processor.codegeneration.GetValueMethodGenerator;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.TypeMirrorHelper;
 import com.squareup.javapoet.MethodSpec;
 
+import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.VariableElement;
@@ -160,16 +160,21 @@ public class TypeValidator implements Validator {
   
   private GetPlaceholderMethodGenerator getPlaceholderMethodGenerator;
   
-  public TypeValidator(final CoreHelpers coreHelpers) {
-    checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
-    
-    elementHelper = coreHelpers.getElementHelper();
-    typeHelper = coreHelpers.getTypeHelper();
-    typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
-    
-    getValueMethodGenerator = new GetValueMethodGenerator(coreHelpers);
-    getDefaultMethodGenerator = new GetDefaultMethodGenerator(coreHelpers);
-    getPlaceholderMethodGenerator = new GetPlaceholderMethodGenerator(coreHelpers);
+  @Inject
+  public TypeValidator(
+      final Elements elementUtil,
+      final Types typeUtil,
+      final TypeMirrorHelper typeMirrorHelper,
+      final GetValueMethodGenerator getValueMethodGenerator,
+      final GetDefaultMethodGenerator getDefaultMethodGenerator,
+      final GetPlaceholderMethodGenerator getPlaceholderMethodGenerator) {
+      
+    this.elementHelper = checkNotNull(elementUtil);
+    this.typeHelper = checkNotNull(typeUtil);
+    this.typeMirrorHelper = checkNotNull(typeMirrorHelper);
+    this.getValueMethodGenerator = checkNotNull(getValueMethodGenerator);
+    this.getDefaultMethodGenerator = checkNotNull(getDefaultMethodGenerator);
+    this.getPlaceholderMethodGenerator = checkNotNull(getPlaceholderMethodGenerator);
   }
   
   public Result validate(final ExecutableElement element) {
