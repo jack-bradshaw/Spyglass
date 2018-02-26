@@ -16,11 +16,11 @@
 
 package com.matthewtamlin.spyglass.processor.codegeneration;
 
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.TypeMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
+import javax.inject.Inject;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
@@ -28,22 +28,25 @@ import javax.lang.model.util.Types;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class CastWrapperGenerator {
-  private final Elements elementHelper;
+  private final Elements elementUtil;
   
-  private final Types typeHelper;
+  private final Types typeUtil;
   
   private final TypeMirrorHelper typeMirrorHelper;
   
-  public CastWrapperGenerator(final CoreHelpers coreHelpers) {
-    checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
+  @Inject
+  public CastWrapperGenerator(
+      final Elements elementUtil,
+      final Types typeUtil,
+      final TypeMirrorHelper typeMirrorHelper) {
     
-    elementHelper = coreHelpers.getElementHelper();
-    typeHelper = coreHelpers.getTypeHelper();
-    typeMirrorHelper = coreHelpers.getTypeMirrorHelper();
+    this.elementUtil = checkNotNull(elementUtil);
+    this.typeUtil = checkNotNull(typeUtil);
+    this.typeMirrorHelper = checkNotNull(typeMirrorHelper);
   }
   
   public CodeBlock generateFor(final MethodSpec method, final TypeMirror recipient) {
-    final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
+    final TypeMirror methodReturnType = elementUtil.getTypeElement(method.returnType.toString()).asType();
     
     if (typeMirrorHelper.isNumber(recipient) && typeMirrorHelper.isNumber(methodReturnType)) {
       return generateNumberCastWrapperFor(method, recipient);
@@ -60,7 +63,7 @@ public class CastWrapperGenerator {
   }
   
   private CodeBlock generateNumberCastWrapperFor(final MethodSpec method, final TypeMirror recipient) {
-    final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
+    final TypeMirror methodReturnType = elementUtil.getTypeElement(method.returnType.toString()).asType();
     
     final CodeBlock toNumber = CodeBlock.of("($T) $N()", Number.class, method);
     
@@ -106,7 +109,7 @@ public class CastWrapperGenerator {
   }
   
   private CodeBlock generateCharacterCastWrapperFor(final MethodSpec method, final TypeMirror recipient) {
-    final TypeMirror methodReturnType = elementHelper.getTypeElement(method.returnType.toString()).asType();
+    final TypeMirror methodReturnType = elementUtil.getTypeElement(method.returnType.toString()).asType();
     
     if (recipient.toString().equals("char")) {
       return CodeBlock.of("(char) $N()", method);
