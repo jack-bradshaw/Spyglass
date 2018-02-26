@@ -44,6 +44,9 @@ dependencies {
   compileOnly project.ext.dependencies.autoValue.core
   apt project.ext.dependencies.autoValue.compiler
 
+  implementation project.ext.dependencies.dagger.core
+  apt project.ext.dependencies.dagger.compiler
+
   implementation project.ext.dependencies.javaUtilities
 
   implementation project.ext.dependencies.guava
