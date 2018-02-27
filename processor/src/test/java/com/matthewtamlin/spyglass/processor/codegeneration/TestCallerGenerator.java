@@ -18,10 +18,11 @@ package com.matthewtamlin.spyglass.processor.codegeneration;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
+import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
+import com.matthewtamlin.spyglass.processor.mirrorhelpers.TypeMirrorHelper;
 import com.squareup.javapoet.*;
 import org.junit.Before;
 import org.junit.Rule;
@@ -47,14 +48,19 @@ public class TestCallerGenerator {
   
   @Before
   public void setup() {
-    final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
+    final AnnotationMirrorHelper annotationMirrorHelper = new AnnotationMirrorHelper(avatarRule.getElementUtils());
     
-    callerGenerator = new CallerGenerator(coreHelpers);
-  }
-  
-  @Test(expected = IllegalArgumentException.class)
-  public void testConstructor_nullCoreHelpers() {
-    new CallerGenerator(null);
+    callerGenerator = new CallerGenerator(
+        new GetDefaultMethodGenerator(annotationMirrorHelper),
+        new GetValueMethodGenerator(annotationMirrorHelper),
+        new GetPlaceholderMethodGenerator(annotationMirrorHelper),
+        new AnyValueIsAvailableMethodGenerator(annotationMirrorHelper),
+        new SpecificValueIsAvailableMethodGenerator(annotationMirrorHelper),
+        new CastWrapperGenerator(
+            avatarRule.getElementUtils(),
+            avatarRule.getTypeUtils(),
+            new TypeMirrorHelper(avatarRule.getElementUtils(), avatarRule.getTypeUtils()))
+    );
   }
   
   @Test(expected = IllegalArgumentException.class)

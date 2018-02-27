@@ -18,7 +18,6 @@ package com.matthewtamlin.spyglass.processor.grouper;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
