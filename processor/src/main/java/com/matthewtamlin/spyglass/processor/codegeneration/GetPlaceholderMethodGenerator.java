@@ -17,11 +17,11 @@
 package com.matthewtamlin.spyglass.processor.codegeneration;
 
 import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
+import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import java.util.HashMap;
@@ -111,10 +111,9 @@ public class GetPlaceholderMethodGenerator {
     );
   }
   
-  public GetPlaceholderMethodGenerator(final CoreHelpers coreHelpers) {
-    checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
-    
-    this.annoMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
+  @Inject
+  public GetPlaceholderMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {
+    this.annoMirrorHelper = checkNotNull(annotationMirrorHelper);
   }
   
   public MethodSpec generateFor(final AnnotationMirror useAnno, final int parameterIndex) {

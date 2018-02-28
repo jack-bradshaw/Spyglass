@@ -18,6 +18,7 @@ package com.matthewtamlin.spyglass.processor.mirrorhelpers;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
+import javax.inject.Inject;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
@@ -30,6 +31,7 @@ public class TypeMirrorHelper {
   
   private Types typeUtil;
   
+  @Inject
   public TypeMirrorHelper(final Elements elementHelper, final Types typeHelper) {
     this.elementUtil = checkNotNull(elementHelper, "Argument \'elementHelper\' cannot be null.");
     this.typeUtil = checkNotNull(typeHelper, "Argument \'typeUtil\' cannot be null.");
