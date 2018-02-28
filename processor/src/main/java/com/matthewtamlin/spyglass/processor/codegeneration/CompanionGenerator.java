@@ -352,9 +352,9 @@ public class CompanionGenerator {
   private Set<ExecutableElement> findAnnotatedElements(final TypeElement type) {
     final Set<Class<? extends Annotation>> handlerAnnotations = new HashSet<>();
     
-    handlerAnnotations.addAll(AnnotationRegistry.CALL_HANDLER_ANNOS);
-    handlerAnnotations.addAll(AnnotationRegistry.VALUE_HANDLER_ANNOS);
-    handlerAnnotations.addAll(AnnotationRegistry.DEFAULT_ANNOS);
+    handlerAnnotations.addAll(AnnotationRegistry.CONDITIONAL_HANDLERS);
+    handlerAnnotations.addAll(AnnotationRegistry.UNCONDITIONAL_HANDLERS);
+    handlerAnnotations.addAll(AnnotationRegistry.DEFAULTS);
     
     final Set<ExecutableElement> methodsWithAnnotations = new HashSet<>();
     
