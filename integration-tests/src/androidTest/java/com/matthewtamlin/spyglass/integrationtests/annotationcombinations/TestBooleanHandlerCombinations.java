@@ -30,7 +30,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -38,10 +38,14 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.boolean_handler_combinations.*;
-import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.booleanhandler.BooleanHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.booleanhandler.WithDefaultToBoolean;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.booleanhandler.WithDefaultToBooleanResource;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.booleanhandler.WithDefaultToNull;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.booleanhandler.WithoutDefault;
+import com.matthewtamlin.spyglass.integrationtests.framework.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_tests;
+package com.matthewtamlin.spyglass.integrationtests.inheritancebehaviour;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToString;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.StringHandler;
 

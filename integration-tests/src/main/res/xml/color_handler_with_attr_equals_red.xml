@@ -15,6 +15,6 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.colorhandler.ColorHandlerTestTargetBase
         app:colorHandlerAttr="#FF0000"
         xmlns:app="http://schemas.android.com/apk/res-auto"/>
