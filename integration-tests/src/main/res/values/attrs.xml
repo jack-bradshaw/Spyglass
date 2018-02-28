@@ -24,7 +24,7 @@
         <attr name="subclassAttr" format="string"/>
     </declare-styleable>
 
-    <declare-styleable name="UseAnnotationsTestTargetBase">
+    <declare-styleable name="PlaceholderTestTargetBase">
         <attr name="useAnnotationsAttr" format="string"/>
     </declare-styleable>
 

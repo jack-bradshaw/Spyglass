@@ -35,7 +35,7 @@ import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.Stri
 import java.util.ArrayList;
 import java.util.List;
 
-public class WithUseNumberRequiringConversionToOtherPrimitiveNumberTypes extends UseAnnotationsTestTargetBase {
+public class WithUseNumberRequiringConversionToOtherPrimitiveNumberTypes extends PlaceholderTestTargetBase {
   public WithUseNumberRequiringConversionToOtherPrimitiveNumberTypes(final Context context) {
     super(context);
     init(null, 0, 0);

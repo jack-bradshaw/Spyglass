@@ -30,7 +30,7 @@ import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.Stri
 import java.util.ArrayList;
 import java.util.List;
 
-public class WithUseChar extends UseAnnotationsTestTargetBase {
+public class WithUseChar extends PlaceholderTestTargetBase {
   public WithUseChar(final Context context) {
     super(context);
     init(null, 0, 0);

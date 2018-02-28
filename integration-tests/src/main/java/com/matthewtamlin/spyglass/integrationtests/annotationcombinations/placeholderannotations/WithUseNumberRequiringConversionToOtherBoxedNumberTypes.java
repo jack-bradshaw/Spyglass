@@ -35,7 +35,7 @@ import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.Stri
 import java.util.ArrayList;
 import java.util.List;
 
-public class WithUseNumberRequiringConversionToOtherBoxedNumberTypes extends UseAnnotationsTestTargetBase {
+public class WithUseNumberRequiringConversionToOtherBoxedNumberTypes extends PlaceholderTestTargetBase {
   public WithUseNumberRequiringConversionToOtherBoxedNumberTypes(final Context context) {
     super(context);
     init(null, 0, 0);

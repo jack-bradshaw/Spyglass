@@ -37,7 +37,7 @@ import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.Stri
 import java.util.ArrayList;
 import java.util.List;
 
-public class WithUseNumberOnMatchingPrimitiveTypes extends UseAnnotationsTestTargetBase {
+public class WithUseNumberOnMatchingPrimitiveTypes extends PlaceholderTestTargetBase {
   public WithUseNumberOnMatchingPrimitiveTypes(final Context context) {
     super(context);
     init(null, 0, 0);
