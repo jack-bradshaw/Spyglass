@@ -30,7 +30,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations;
 
 import android.content.Context;
 import android.content.res.ColorStateList;
@@ -40,23 +40,19 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_state_list_handler_combinations
-    .ColorStateListHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_state_list_handler_combinations
-    .WithDefaultToColorStateListResource;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_state_list_handler_combinations
-    .WithDefaultToNull;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_state_list_handler_combinations
-    .WithoutDefault;
-import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.colorstatelisthandler.ColorStateListHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.colorstatelisthandler.WithDefaultToColorStateListResource;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.colorstatelisthandler.WithDefaultToNull;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.colorstatelisthandler.WithoutDefault;
+import com.matthewtamlin.spyglass.integrationtests.framework.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier.fromXml;
+import static com.matthewtamlin.spyglass.integrationtests.framework.AttributeSetSupplier.fromXml;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 

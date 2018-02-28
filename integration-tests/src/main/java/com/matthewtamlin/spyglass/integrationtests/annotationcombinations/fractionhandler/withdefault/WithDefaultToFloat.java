@@ -14,20 +14,17 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations
-    .with_default;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withdefault;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations
-    .FractionHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.FractionHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToFloat;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.FractionHandler;
-
 
 public class WithDefaultToFloat extends FractionHandlerTestTargetBase {
   public static final float DEFAULT_VALUE = 17.0F;

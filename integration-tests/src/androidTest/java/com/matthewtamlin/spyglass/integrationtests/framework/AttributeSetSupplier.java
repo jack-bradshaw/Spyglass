@@ -30,7 +30,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.framework;
+package com.matthewtamlin.spyglass.integrationtests.framework;
 
 import android.content.Context;
 import android.util.AttributeSet;

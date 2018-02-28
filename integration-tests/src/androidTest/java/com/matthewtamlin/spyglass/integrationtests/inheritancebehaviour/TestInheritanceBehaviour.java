@@ -30,14 +30,15 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.inheritance_behaviour_tests;
+package com.matthewtamlin.spyglass.integrationtests.inheritancebehaviour;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

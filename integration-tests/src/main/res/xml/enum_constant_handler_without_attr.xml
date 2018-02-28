@@ -15,4 +15,4 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.enum_constant_handler.EnumConstantHAndlerTestTargetBase/>
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.enumconstanthandler.EnumConstantHandlerTestTargetBase/>
