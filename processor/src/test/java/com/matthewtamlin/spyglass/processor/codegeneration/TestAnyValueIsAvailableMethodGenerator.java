@@ -19,8 +19,6 @@ package com.matthewtamlin.spyglass.processor.codegeneration;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
-import com.matthewtamlin.spyglass.processor.codegeneration.AnyValueIsAvailableMethodGenerator;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
@@ -55,13 +53,11 @@ public class TestAnyValueIsAvailableMethodGenerator {
 
   @Before
   public void setup() {
-    final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
-
-    generator = new AnyValueIsAvailableMethodGenerator(coreHelpers);
+    generator = new AnyValueIsAvailableMethodGenerator(new AnnotationMirrorHelper(avatarRule.getElementUtils()));
   }
 
   @Test(expected = IllegalArgumentException.class)
-  public void testConstructor_nullCoreHelpers() {
+  public void testConstructor_nullAnnotationMirrorHelperHelpers() {
     new AnyValueIsAvailableMethodGenerator(null);
   }
 

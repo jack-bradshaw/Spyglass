@@ -18,7 +18,6 @@ package com.matthewtamlin.spyglass.processor.codegeneration;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
@@ -27,6 +26,7 @@ import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 
+import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import java.util.HashMap;
 import java.util.Map;
@@ -281,10 +281,9 @@ public class GetValueMethodGenerator {
     );
   }
   
-  public GetValueMethodGenerator(final CoreHelpers coreHelpers) {
-    checkNotNull(coreHelpers, "Argument \'coreHelpers\' cannot be null.");
-    
-    annotationMirrorHelper = coreHelpers.getAnnotationMirrorHelper();
+  @Inject
+  public GetValueMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {
+    this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
   }
   
   /**

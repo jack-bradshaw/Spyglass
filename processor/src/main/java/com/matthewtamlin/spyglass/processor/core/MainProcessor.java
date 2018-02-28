@@ -32,6 +32,7 @@ import com.matthewtamlin.spyglass.processor.validation.Validator;
 import com.squareup.javapoet.JavaFile;
 
 import javax.annotation.processing.*;
+import javax.inject.Inject;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ElementKind;
@@ -53,17 +54,23 @@ public class MainProcessor extends AbstractProcessor {
       CompanionDef.SRC_FILE,
       TargetExceptionDef.SRC_FILE);
   
-  private Elements elementUtil;
+  @Inject
+  protected Elements elementUtil;
   
-  private Messager messager;
+  @Inject
+  protected Messager messager;
   
-  private Filer filer;
+  @Inject
+  protected Filer filer;
   
-  private CompanionGenerator companionGenerator;
+  @Inject
+  protected CompanionGenerator companionGenerator;
   
-  private Validator basicValidator;
+  @Inject
+  protected BasicValidator basicValidator;
   
-  private TypeValidator typeValidator;
+  @Inject
+  protected TypeValidator typeValidator;
   
   private boolean allRequiredFilesCreated;
   
@@ -84,17 +91,11 @@ public class MainProcessor extends AbstractProcessor {
   public synchronized void init(final ProcessingEnvironment processingEnvironment) {
     super.init(processingEnvironment);
     
-    elementUtil = processingEnvironment.getElementUtils();
-    messager = processingEnvironment.getMessager();
-    filer = processingEnvironment.getFiler();
-    
-    final CoreHelpers coreHelpers = new CoreHelpers(
-        processingEnvironment.getElementUtils(),
-        processingEnvironment.getTypeUtils());
-    
-    companionGenerator = new CompanionGenerator(coreHelpers);
-    basicValidator = new BasicValidator();
-    typeValidator = new TypeValidator(coreHelpers);
+    DaggerCoreComponent
+        .builder()
+        .setProcessingEnvironment(processingEnvironment)
+        .build()
+        .inject(this);
     
     createRequiredFiles();
   }

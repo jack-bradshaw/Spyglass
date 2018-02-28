@@ -18,6 +18,7 @@ package com.matthewtamlin.spyglass.processor.mirrorhelpers;
 
 import com.matthewtamlin.java_utilities.testing.Tested;
 
+import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import javax.lang.model.element.Element;
@@ -32,6 +33,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 public class AnnotationMirrorHelper {
   private Elements elementHelper;
   
+  @Inject
   public AnnotationMirrorHelper(final Elements elementHelper) {
     this.elementHelper = checkNotNull(elementHelper, "Argument \'elementHelper\' cannot be null.");
   }

@@ -19,10 +19,9 @@ package com.matthewtamlin.spyglass.processor.codegeneration;
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.processor.annotationretrievers.PlaceholderRetriever;
-import com.matthewtamlin.spyglass.processor.codegeneration.GetPlaceholderMethodGenerator;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
+import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.*;
 import org.junit.Before;
 import org.junit.Rule;
@@ -50,8 +49,7 @@ public class TestGetPlaceholderMethodGenerator {
 
   @Before
   public void setup() {
-    final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
-    generator = new GetPlaceholderMethodGenerator(coreHelpers);
+    generator = new GetPlaceholderMethodGenerator(new AnnotationMirrorHelper(avatarRule.getElementUtils()));
   }
 
   @Test(expected = IllegalArgumentException.class)

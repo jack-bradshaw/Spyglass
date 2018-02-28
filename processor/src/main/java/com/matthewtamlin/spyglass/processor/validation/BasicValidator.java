@@ -24,6 +24,7 @@ import com.matthewtamlin.spyglass.processor.annotationretrievers.DefaultRetrieve
 import com.matthewtamlin.spyglass.processor.annotationretrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 
+import javax.inject.Inject;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
@@ -205,6 +206,9 @@ public class BasicValidator implements Validator {
           throw new RuntimeException("Should never get here.");
         }
       });
+  
+  @Inject
+  public BasicValidator() {}
   
   public Result validate(final ExecutableElement element) {
     for (final Rule rule : rules) {

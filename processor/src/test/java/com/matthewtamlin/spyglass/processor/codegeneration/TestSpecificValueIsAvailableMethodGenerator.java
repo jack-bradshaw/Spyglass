@@ -21,8 +21,6 @@ import com.matthewtamlin.avatar.rules.AvatarRule;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificFlagHandler;
-import com.matthewtamlin.spyglass.processor.codegeneration.SpecificValueIsAvailableMethodGenerator;
-import com.matthewtamlin.spyglass.processor.core.CoreHelpers;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
@@ -56,9 +54,7 @@ public class TestSpecificValueIsAvailableMethodGenerator {
 
   @Before
   public void setup() {
-    final CoreHelpers coreHelpers = new CoreHelpers(avatarRule.getElementUtils(), avatarRule.getTypeUtils());
-
-    generator = new SpecificValueIsAvailableMethodGenerator(coreHelpers);
+    generator = new SpecificValueIsAvailableMethodGenerator(new AnnotationMirrorHelper(avatarRule.getElementUtils()));
   }
 
   @Test(expected = IllegalArgumentException.class)
