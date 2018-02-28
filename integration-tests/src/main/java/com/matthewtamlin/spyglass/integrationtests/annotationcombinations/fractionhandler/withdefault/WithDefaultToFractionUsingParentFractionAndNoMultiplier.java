@@ -27,8 +27,6 @@ import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToFraction
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.FractionHandler;
 
 public class WithDefaultToFractionUsingParentFractionAndNoMultiplier extends FractionHandlerTestTargetBase {
-  public static final int PARENT_MULTIPLIER = 12;
-
   public WithDefaultToFractionUsingParentFractionAndNoMultiplier(final Context context) {
     super(context);
     init(null, 0, 0);
