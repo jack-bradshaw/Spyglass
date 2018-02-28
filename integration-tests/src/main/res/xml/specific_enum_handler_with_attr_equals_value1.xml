@@ -15,6 +15,6 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_enum_handler_combinations.SpecificEnumHandlerTestTarget
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.specificenumhandler.SpecificEnumHandlerTestTarget
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:specificEnumHandlerAttr="value1"/>

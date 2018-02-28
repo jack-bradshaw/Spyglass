@@ -15,6 +15,6 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.miscellaneous.OverloadBehaviourTestTarget
+<com.matthewtamlin.spyglass.integrationtests.miscellaneous.OverloadBehaviourTestTarget
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:overloadAttr="hello"/>

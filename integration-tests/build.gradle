@@ -24,7 +24,7 @@ android {
   buildToolsVersion "26.0.2"
 
   defaultConfig {
-    applicationId "com.matthewtamlin.spyglass.integration_tests"
+    applicationId "com.matthewtamlin.spyglass.integrationtests"
 
     minSdkVersion 14
     targetSdkVersion 26

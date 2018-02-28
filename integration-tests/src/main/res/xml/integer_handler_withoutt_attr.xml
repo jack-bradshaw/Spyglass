@@ -15,4 +15,4 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.integer_handler.IntegerHandlerTestTargetBase/>
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.integerhandler.IntegerHandlerTestTargetBase/>

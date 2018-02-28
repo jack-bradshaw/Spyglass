@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.enum_constant_handler_combinations;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations.enumconstanthandler;
 
 public class EnumForTesting {
   public enum Fruit {
