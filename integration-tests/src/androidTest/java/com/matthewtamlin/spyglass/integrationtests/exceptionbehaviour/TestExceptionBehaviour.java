@@ -30,13 +30,14 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.exception_behaviour_tests;
+package com.matthewtamlin.spyglass.integrationtests.exceptionbehaviour;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import com.matthewtamlin.spyglass.core.TargetException;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

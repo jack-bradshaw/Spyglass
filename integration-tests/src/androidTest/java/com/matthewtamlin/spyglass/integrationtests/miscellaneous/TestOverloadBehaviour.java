@@ -30,7 +30,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.miscellaneous;
+package com.matthewtamlin.spyglass.integrationtests.miscellaneous;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -38,9 +38,9 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.framework.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

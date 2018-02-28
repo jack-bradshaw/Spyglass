@@ -15,6 +15,6 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.integer_handler.IntegerHandlerTestTargetBase
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.integerhandler.IntegerHandlerTestTargetBase
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:integerHandlerAttr="80"/>

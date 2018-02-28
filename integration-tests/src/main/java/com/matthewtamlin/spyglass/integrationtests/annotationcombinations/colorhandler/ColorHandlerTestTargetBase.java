@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_handler_combinations;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations.colorhandler;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 
 public abstract class ColorHandlerTestTargetBase extends View {
   private ReceivedValue<Integer> receivedValue = ReceivedValue.none();

@@ -30,7 +30,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.miscellaneous;
+package com.matthewtamlin.spyglass.integrationtests.miscellaneous;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;

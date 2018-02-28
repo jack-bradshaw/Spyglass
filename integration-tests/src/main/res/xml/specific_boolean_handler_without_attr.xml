@@ -15,4 +15,4 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_flag_handler_combinations.SpecificFlagHandlerTestTarget/>
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.specificbooleanhandler.SpecificBooleanHandlerTestTarget/>
