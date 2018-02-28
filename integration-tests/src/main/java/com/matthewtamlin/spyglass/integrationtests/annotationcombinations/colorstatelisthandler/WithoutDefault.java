@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.color_state_list_handler_combinations;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations.colorstatelisthandler;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.ColorStateList;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.ColorStateListHandler;
 
 public class WithoutDefault extends ColorStateListHandlerTestTargetBase {

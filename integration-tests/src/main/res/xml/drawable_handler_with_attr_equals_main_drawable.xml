@@ -15,6 +15,6 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.drawable_handler.DrawableHandlerTestTargetBase
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.drawablehandler.DrawableHandlerTestTargetBase
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:drawableHandlerAttr="@drawable/main_drawable_for_testing"/>

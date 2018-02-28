@@ -14,45 +14,38 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations
-    .with_default;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withoutdefault;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations
-    .FractionHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
-import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToFractionResource;
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.FractionHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.FractionHandler;
 
-public class WithDefaultToFractionUsingBaseFractionAndParentMultiplier extends FractionHandlerTestTargetBase {
+public class HandlerUsingParentMultiplier extends FractionHandlerTestTargetBase {
   public static final int MULTIPLIER = 17;
 
-  public WithDefaultToFractionUsingBaseFractionAndParentMultiplier(final Context context) {
+  public HandlerUsingParentMultiplier(final Context context) {
     super(context);
     init(null, 0, 0);
   }
 
-  public WithDefaultToFractionUsingBaseFractionAndParentMultiplier(final Context context, final AttributeSet attrs) {
+  public HandlerUsingParentMultiplier(final Context context, final AttributeSet attrs) {
     super(context, attrs);
     init(attrs, 0, 0);
   }
 
-  public WithDefaultToFractionUsingBaseFractionAndParentMultiplier(
-      final Context context,
-      final AttributeSet attrs,
-      final int defStyleAttr) {
-
+  public HandlerUsingParentMultiplier(final Context context, final AttributeSet attrs, final int defStyleAttr) {
     super(context, attrs, defStyleAttr);
     init(attrs, defStyleAttr, 0);
   }
 
   @TargetApi(21)
   @RequiresApi(21)
-  public WithDefaultToFractionUsingBaseFractionAndParentMultiplier(
+  public HandlerUsingParentMultiplier(
       final Context context,
       final AttributeSet attrs,
       final int defStyleAttr,
@@ -62,14 +55,15 @@ public class WithDefaultToFractionUsingBaseFractionAndParentMultiplier extends F
     init(attrs, defStyleAttr, defStyleRes);
   }
 
-  @FractionHandler(attributeId = R.styleable.FloatHandlerTestTargetBase_floatHandlerAttr)
-  @DefaultToFractionResource(resId = R.fraction.base_fraction_for_testing, parentMultiplier = MULTIPLIER)
+  @FractionHandler(
+      attributeId = R.styleable.FloatHandlerTestTargetBase_floatHandlerAttr,
+      parentMultiplier = MULTIPLIER)
   public void handlerMethod(final float f) {
     setReceivedValue(ReceivedValue.of(f));
   }
 
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
-    WithDefaultToFractionUsingBaseFractionAndParentMultiplier_SpyglassCompanion
+    HandlerUsingParentMultiplier_SpyglassCompanion
         .builder()
         .withTarget(this)
         .withContext(getContext())

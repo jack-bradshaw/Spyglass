@@ -14,15 +14,24 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.use_annotation_combinations.*;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.UseAnnotationsTestTargetBase;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseChar;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseNull;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseNumberOnBaseNumberType;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseNumberOnMatchingBoxedTypes;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseNumberOnMatchingPrimitiveTypes;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseNumberRequiringConversionToOtherBoxedNumberTypes;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseNumberRequiringConversionToOtherPrimitiveNumberTypes;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseString;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

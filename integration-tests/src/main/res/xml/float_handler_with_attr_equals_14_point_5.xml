@@ -15,6 +15,6 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.float_handler.FloatHandlerTestTargetBase
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.floathandler.FloatHandlerTestTargetBase
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:floatHandlerAttr="14.5"/>

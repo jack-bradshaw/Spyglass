@@ -15,4 +15,4 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.color_handler.ColorHandlerTestTargetBase/>
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.colorhandler.ColorHandlerTestTargetBase/>
