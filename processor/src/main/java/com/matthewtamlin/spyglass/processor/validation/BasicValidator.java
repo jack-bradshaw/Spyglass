@@ -225,7 +225,7 @@ public class BasicValidator implements Validator {
   private static int countCallHandlerAnnotations(final ExecutableElement method) {
     int count = 0;
     
-    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CALL_HANDLER_ANNOS) {
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CONDITIONAL_HANDLERS) {
       if (method.getAnnotation(annotationClass) != null) {
         count++;
       }
@@ -237,7 +237,7 @@ public class BasicValidator implements Validator {
   private static int countValueHandlerAnnotations(final ExecutableElement method) {
     int count = 0;
     
-    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.VALUE_HANDLER_ANNOS) {
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.UNCONDITIONAL_HANDLERS) {
       if (method.getAnnotation(annotationClass) != null) {
         count++;
       }
@@ -249,7 +249,7 @@ public class BasicValidator implements Validator {
   private static int countDefaultAnnotations(final ExecutableElement method) {
     int count = 0;
     
-    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.DEFAULT_ANNOS) {
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.DEFAULTS) {
       if (method.getAnnotation(annotationClass) != null) {
         count++;
       }
@@ -266,7 +266,7 @@ public class BasicValidator implements Validator {
     for (int i = 0; i < params.size(); i++) {
       useAnnotations.put(i, new HashSet<Annotation>());
       
-      for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.USE_ANNOS) {
+      for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.PLACEHOLDERS) {
         final Annotation foundAnnotation = params.get(i).getAnnotation(annotationClass);
         
         if (foundAnnotation != null) {
