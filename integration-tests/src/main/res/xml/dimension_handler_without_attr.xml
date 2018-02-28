@@ -15,4 +15,4 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.dimension_handler.DimensionHandlerTestTargetBase/>
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.dimensionhandler.DimensionHandlerTestTargetBase/>

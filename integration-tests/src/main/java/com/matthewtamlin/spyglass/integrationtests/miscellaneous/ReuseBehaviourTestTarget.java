@@ -14,14 +14,14 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.miscellaneous;
+package com.matthewtamlin.spyglass.integrationtests.miscellaneous;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
-import com.matthewtamlin.spyglass.integration_tests.R;
+import com.matthewtamlin.spyglass.integrationtests.R;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.StringHandler;
 
 public class ReuseBehaviourTestTarget extends View {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.exception_behaviour_tests;
+package com.matthewtamlin.spyglass.integrationtests.exceptionbehaviour;
 
 import android.annotation.TargetApi;
 import android.content.Context;

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -22,10 +22,9 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.specific_enum_handler_combinations
-    .SpecificEnumHandlerTestTarget;
-import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.specificenumhandler.SpecificEnumHandlerTestTarget;
+import com.matthewtamlin.spyglass.integrationtests.framework.AttributeSetSupplier;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;

@@ -15,6 +15,6 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.fraction_handler.FractionHandlerTestTargetBase
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.FractionHandlerTestTargetBase
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:fractionHandlerAttr="@fraction/base_fraction_for_testing"/>

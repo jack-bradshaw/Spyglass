@@ -15,6 +15,6 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_test.boolean_handler_test_target.BooleanHandlerTestTarget
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.booleanhandler.BooleanHandlerTestTargetBase
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:booleanHandlerAttr="true"/>

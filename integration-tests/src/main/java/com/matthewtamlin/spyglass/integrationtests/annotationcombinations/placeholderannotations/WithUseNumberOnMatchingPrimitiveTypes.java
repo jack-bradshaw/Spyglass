@@ -14,17 +14,25 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.use_annotation_combinations;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations;
 
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToString;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseBoolean;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseByte;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseChar;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseDouble;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseFloat;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseInt;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseLong;
+import com.matthewtamlin.spyglass.markers.annotations.placeholders.UseShort;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.StringHandler;
-import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
 
 import java.util.ArrayList;
 import java.util.List;

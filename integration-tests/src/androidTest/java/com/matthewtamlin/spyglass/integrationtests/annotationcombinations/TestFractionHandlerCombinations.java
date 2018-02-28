@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests;
+package com.matthewtamlin.spyglass.integrationtests.annotationcombinations;
 
 import android.content.Context;
 import android.support.test.InstrumentationRegistry;
@@ -22,25 +22,26 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
-import com.matthewtamlin.spyglass.integration_tests.R;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations
-    .FractionHandlerTestTargetBase;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations
-    .with_default.*;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations
-    .without_default.HandlerUsingBaseMultiplier;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations
-    .without_default.HandlerUsingNoMultiplier;
-import com.matthewtamlin.spyglass.integration_tests.annotation_combination_tests.fraction_handler_combinations
-    .without_default.HandlerUsingParentMultiplier;
-import com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier;
-import com.matthewtamlin.spyglass.integration_tests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.FractionHandlerTestTargetBase;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withdefault.WithDefaultToFractionUsingBaseFractionAndBaseMultiplier;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withdefault.WithDefaultToFractionUsingBaseFractionAndNoMultiplier;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withdefault.WithDefaultToFractionUsingBaseFractionAndParentMultiplier;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withdefault.WithDefaultToFractionUsingParentFractionAndBaseMultiplier;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withdefault.WithDefaultToFractionUsingParentFractionAndNoMultiplier;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withdefault.WithDefaultToFractionUsingParentFractionAndParentMultiplier;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withdefault.WithDefaultToNull;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withoutdefault.HandlerUsingBaseMultiplier;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withoutdefault.HandlerUsingNoMultiplier;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.fractionhandler.withoutdefault.HandlerUsingParentMultiplier;
+import com.matthewtamlin.spyglass.integrationtests.framework.AttributeSetSupplier;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import static com.matthewtamlin.spyglass.integration_tests.framework.AttributeSetSupplier.fromXml;
+import static com.matthewtamlin.spyglass.integrationtests.framework.AttributeSetSupplier.fromXml;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 

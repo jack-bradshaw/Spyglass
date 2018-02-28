@@ -15,6 +15,6 @@
   ~ limitations under the License.
   -->
 
-<com.matthewtamlin.spyglass.integration_tests.dimension_handler.DimensionHandlerTestTargetBase
+<com.matthewtamlin.spyglass.integrationtests.annotationcombinations.dimensionhandler.DimensionHandlerTestTargetBase
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:dimensionHandlerAttr="10pt"/>
