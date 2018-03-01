@@ -65,9 +65,9 @@ public class TestGetPlaceholderMethodGenerator {
   @Test(expected = IllegalArgumentException.class)
   public void testGenerateFor_negativeParameterIndex() {
     final VariableElement parameter = avatarRule.getElementWithUniqueId("boolean");
-    final AnnotationMirror useAnnotation = PlaceholderRetriever.getAnnotation(parameter);
+    final AnnotationMirror placeholder = PlaceholderRetriever.getAnnotation(parameter);
 
-    generator.generateFor(useAnnotation, -1);
+    generator.generateFor(placeholder, -1);
   }
 
   @Test
