@@ -34,7 +34,7 @@ android {
 apply from: rootProject.file('dependencies.gradle')
 
 dependencies {
-  implementation project.ext.dependencies.appCompat
+  api project.ext.dependencies.appCompat
   api project.ext.dependencies.rxJava
 }
 
