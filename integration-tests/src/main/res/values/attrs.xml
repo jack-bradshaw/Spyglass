@@ -25,7 +25,7 @@
     </declare-styleable>
 
     <declare-styleable name="PlaceholderTestTargetBase">
-        <attr name="useAnnotationsAttr" format="string"/>
+        <attr name="placeholderAttr" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="SpecificEnumHandlerTestTarget">

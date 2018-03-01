@@ -66,7 +66,7 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends PlaceholderTestTarget
     init(attrs, defStyleAttr, defStyleRes);
   }
   
-  @StringHandler(attributeId = R.styleable.UseAnnotationsTestTargetBase_useAnnotationsAttr)
+  @StringHandler(attributeId = R.styleable.PlaceholderTestTargetBase_placeholderAttr)
   @DefaultToString("default value")
   public void handlerMethod(
       final String arg0,
@@ -116,7 +116,7 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends PlaceholderTestTarget
         .builder()
         .withTarget(this)
         .withContext(getContext())
-        .withStyleableResource(R.styleable.UseAnnotationsTestTargetBase)
+        .withStyleableResource(R.styleable.PlaceholderTestTargetBase)
         .withAttributeSet(attrs)
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
