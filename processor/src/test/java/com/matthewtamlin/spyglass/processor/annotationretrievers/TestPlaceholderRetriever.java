@@ -149,7 +149,7 @@ public class TestPlaceholderRetriever {
 
   @Test
   public void testGetAnnotation_noUseAnnotationPresent() {
-    final VariableElement element = avatarRule.getElementWithUniqueId("no use-annotation");
+    final VariableElement element = avatarRule.getElementWithUniqueId("no placeholder");
 
     final AnnotationMirror mirror = PlaceholderRetriever.getAnnotation(element);
 
@@ -213,7 +213,7 @@ public class TestPlaceholderRetriever {
 
   @Test
   public void testHasAnnotation_noUseAnnotationPresent() {
-    doHasAnnotationTestForElementWithId("no use-annotation", false);
+    doHasAnnotationTestForElementWithId("no placeholder", false);
   }
 
   private void doHasAnnotationTestForElementWithId(final String id, final boolean shouldHaveAnnotation) {
