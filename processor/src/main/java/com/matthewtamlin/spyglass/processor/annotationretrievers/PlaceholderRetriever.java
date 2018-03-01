@@ -31,7 +31,7 @@ public class PlaceholderRetriever {
   public static AnnotationMirror getAnnotation(final VariableElement element) {
     checkNotNull(element, "Argument \'element\' cannot be null.");
     
-    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.USE_ANNOS) {
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.PLACEHOLDERS) {
       final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, annotationClass);
       
       if (mirror != null) {

@@ -25,24 +25,24 @@ import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 
 import java.util.List;
 
-public abstract class UseAnnotationsTestTargetBase extends View {
+public abstract class PlaceholderTestTargetBase extends View {
   private ReceivedValue<List<Object>> receivedValue = ReceivedValue.none();
 
-  public UseAnnotationsTestTargetBase(final Context context) {
+  public PlaceholderTestTargetBase(final Context context) {
     super(context);
   }
 
-  public UseAnnotationsTestTargetBase(final Context context, final AttributeSet attrs) {
+  public PlaceholderTestTargetBase(final Context context, final AttributeSet attrs) {
     super(context, attrs);
   }
 
-  public UseAnnotationsTestTargetBase(final Context context, final AttributeSet attrs, final int defStyleAttr) {
+  public PlaceholderTestTargetBase(final Context context, final AttributeSet attrs, final int defStyleAttr) {
     super(context, attrs, defStyleAttr);
   }
 
   @TargetApi(21)
   @RequiresApi(21)
-  public UseAnnotationsTestTargetBase(
+  public PlaceholderTestTargetBase(
       final Context context,
       final AttributeSet attrs,
       final int defStyleAttr,

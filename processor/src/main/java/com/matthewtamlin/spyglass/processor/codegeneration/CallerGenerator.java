@@ -113,8 +113,8 @@ public class CallerGenerator {
     
     for (int i = 0; i < e.getParameters().size(); i++) {
       final VariableElement parameter = e.getParameters().get(i);
-      final AnnotationMirror useAnno = PlaceholderRetriever.getAnnotation(parameter);
-      final MethodSpec argMethod = getPlaceholderMethodGenerator.generateFor(useAnno, i);
+      final AnnotationMirror placeholder = PlaceholderRetriever.getAnnotation(parameter);
+      final MethodSpec argMethod = getPlaceholderMethodGenerator.generateFor(placeholder, i);
       
       invocationBuilder.add(castWrapperGenerator.generateFor(argMethod, parameter.asType()));
       callerBuilder.addMethod(argMethod);
@@ -229,8 +229,8 @@ public class CallerGenerator {
       final VariableElement parameter = e.getParameters().get(i);
       
       if (PlaceholderRetriever.hasAnnotation(parameter)) {
-        final AnnotationMirror useAnno = PlaceholderRetriever.getAnnotation(parameter);
-        final MethodSpec argMethod = getPlaceholderMethodGenerator.generateFor(useAnno, i);
+        final AnnotationMirror placeholder = PlaceholderRetriever.getAnnotation(parameter);
+        final MethodSpec argMethod = getPlaceholderMethodGenerator.generateFor(placeholder, i);
         
         valueAvailableCaseInvocationBuilder.add(castWrapperGenerator.generateFor(argMethod, parameter.asType()));
         valueUnavailableCaseInvocationBuilder.add(castWrapperGenerator.generateFor(argMethod, parameter.asType()));

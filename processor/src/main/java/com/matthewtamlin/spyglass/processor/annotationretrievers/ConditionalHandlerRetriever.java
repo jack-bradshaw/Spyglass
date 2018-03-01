@@ -31,7 +31,7 @@ public class ConditionalHandlerRetriever {
   public static AnnotationMirror getAnnotation(final ExecutableElement element) {
     checkNotNull(element, "Argument \'element\' cannot be null.");
 
-    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CALL_HANDLER_ANNOS) {
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CONDITIONAL_HANDLERS) {
       final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, annotationClass);
 
       if (mirror != null) {

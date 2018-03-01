@@ -35,7 +35,7 @@ import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.Stri
 import java.util.ArrayList;
 import java.util.List;
 
-public class WithUseNumberRequiringConversionToOtherBoxedNumberTypes extends UseAnnotationsTestTargetBase {
+public class WithUseNumberRequiringConversionToOtherBoxedNumberTypes extends PlaceholderTestTargetBase {
   public WithUseNumberRequiringConversionToOtherBoxedNumberTypes(final Context context) {
     super(context);
     init(null, 0, 0);
@@ -67,7 +67,7 @@ public class WithUseNumberRequiringConversionToOtherBoxedNumberTypes extends Use
     init(attrs, defStyleAttr, defStyleRes);
   }
 
-  @StringHandler(attributeId = R.styleable.UseAnnotationsTestTargetBase_useAnnotationsAttr)
+  @StringHandler(attributeId = R.styleable.PlaceholderTestTargetBase_placeholderAttr)
   @DefaultToString("default value")
   public void handlerMethod(
       final String arg0,
@@ -111,7 +111,7 @@ public class WithUseNumberRequiringConversionToOtherBoxedNumberTypes extends Use
         .builder()
         .withTarget(this)
         .withContext(getContext())
-        .withStyleableResource(R.styleable.UseAnnotationsTestTargetBase)
+        .withStyleableResource(R.styleable.PlaceholderTestTargetBase)
         .withAttributeSet(attrs)
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)

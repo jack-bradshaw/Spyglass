@@ -31,7 +31,7 @@ public class DefaultRetriever {
   public static AnnotationMirror getAnnotation(final ExecutableElement element) {
     checkNotNull(element, "Argument \'element\' cannot be null.");
     
-    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.DEFAULT_ANNOS) {
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.DEFAULTS) {
       final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, annotationClass);
       
       if (mirror != null) {

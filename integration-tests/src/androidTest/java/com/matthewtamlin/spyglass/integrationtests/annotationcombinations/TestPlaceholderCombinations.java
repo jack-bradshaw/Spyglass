@@ -22,7 +22,7 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
-import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.UseAnnotationsTestTargetBase;
+import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.PlaceholderTestTargetBase;
 import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseChar;
 import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseNull;
 import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.placeholderannotations.WithUseNumberOnBaseNumberType;
@@ -43,7 +43,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.core.Is.is;
 
 @RunWith(AndroidJUnit4.class)
-public class TestUseAnnotationCombinations {
+public class TestPlaceholderCombinations {
   @Rule
   public final UiThreadTestRule uiThreadTestRule = new UiThreadTestRule();
   
@@ -120,7 +120,7 @@ public class TestUseAnnotationCombinations {
     checkEquality(target);
   }
   
-  private void checkEquality(final UseAnnotationsTestTargetBase target) {
+  private void checkEquality(final PlaceholderTestTargetBase target) {
     final ReceivedValue<List<Object>> receivedValues = target.getReceivedValues();
     final ReceivedValue<List<Object>> expectedReceivedValues = target.getExpectedReceivedValues();
     
