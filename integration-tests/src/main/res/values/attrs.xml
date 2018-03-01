@@ -24,8 +24,8 @@
         <attr name="subclassAttr" format="string"/>
     </declare-styleable>
 
-    <declare-styleable name="UseAnnotationsTestTargetBase">
-        <attr name="useAnnotationsAttr" format="string"/>
+    <declare-styleable name="PlaceholderTestTargetBase">
+        <attr name="placeholderAttr" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="SpecificEnumHandlerTestTarget">

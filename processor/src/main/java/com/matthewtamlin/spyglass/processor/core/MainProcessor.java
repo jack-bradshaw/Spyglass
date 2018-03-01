@@ -79,10 +79,10 @@ public class MainProcessor extends AbstractProcessor {
   static {
     final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
     
-    intermediateSet.addAll(AnnotationRegistry.CALL_HANDLER_ANNOS);
-    intermediateSet.addAll(AnnotationRegistry.VALUE_HANDLER_ANNOS);
-    intermediateSet.addAll(AnnotationRegistry.DEFAULT_ANNOS);
-    intermediateSet.addAll(AnnotationRegistry.USE_ANNOS);
+    intermediateSet.addAll(AnnotationRegistry.CONDITIONAL_HANDLERS);
+    intermediateSet.addAll(AnnotationRegistry.UNCONDITIONAL_HANDLERS);
+    intermediateSet.addAll(AnnotationRegistry.DEFAULTS);
+    intermediateSet.addAll(AnnotationRegistry.PLACEHOLDERS);
     
     SUPPORTED_ANNOTATIONS = Collections.unmodifiableSet(intermediateSet);
   }

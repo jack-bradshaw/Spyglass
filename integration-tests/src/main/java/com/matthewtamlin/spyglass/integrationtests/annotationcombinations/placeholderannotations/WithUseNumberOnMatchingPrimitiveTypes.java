@@ -37,7 +37,7 @@ import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.Stri
 import java.util.ArrayList;
 import java.util.List;
 
-public class WithUseNumberOnMatchingPrimitiveTypes extends UseAnnotationsTestTargetBase {
+public class WithUseNumberOnMatchingPrimitiveTypes extends PlaceholderTestTargetBase {
   public WithUseNumberOnMatchingPrimitiveTypes(final Context context) {
     super(context);
     init(null, 0, 0);
@@ -66,7 +66,7 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends UseAnnotationsTestTar
     init(attrs, defStyleAttr, defStyleRes);
   }
   
-  @StringHandler(attributeId = R.styleable.UseAnnotationsTestTargetBase_useAnnotationsAttr)
+  @StringHandler(attributeId = R.styleable.PlaceholderTestTargetBase_placeholderAttr)
   @DefaultToString("default value")
   public void handlerMethod(
       final String arg0,
@@ -116,7 +116,7 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends UseAnnotationsTestTar
         .builder()
         .withTarget(this)
         .withContext(getContext())
-        .withStyleableResource(R.styleable.UseAnnotationsTestTargetBase)
+        .withStyleableResource(R.styleable.PlaceholderTestTargetBase)
         .withAttributeSet(attrs)
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)

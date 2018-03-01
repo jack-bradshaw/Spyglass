@@ -28,7 +28,7 @@ import java.lang.annotation.Annotation;
 import java.util.Set;
 
 public class AnnotationRegistry {
-  public static final Set<Class<? extends Annotation>> VALUE_HANDLER_ANNOS = ImmutableSet.of(
+  public static final Set<Class<? extends Annotation>> UNCONDITIONAL_HANDLERS = ImmutableSet.of(
       BooleanHandler.class,
       ColorHandler.class,
       ColorStateListHandler.class,
@@ -41,12 +41,12 @@ public class AnnotationRegistry {
       IntegerHandler.class,
       StringHandler.class);
   
-  public static final Set<Class<? extends Annotation>> CALL_HANDLER_ANNOS = ImmutableSet.of(
+  public static final Set<Class<? extends Annotation>> CONDITIONAL_HANDLERS = ImmutableSet.of(
       SpecificBooleanHandler.class,
       SpecificEnumHandler.class,
       SpecificFlagHandler.class);
   
-  public static final Set<Class<? extends Annotation>> DEFAULT_ANNOS = ImmutableSet.of(
+  public static final Set<Class<? extends Annotation>> DEFAULTS = ImmutableSet.of(
       DefaultToBoolean.class,
       DefaultToBooleanResource.class,
       DefaultToColorResource.class,
@@ -65,7 +65,7 @@ public class AnnotationRegistry {
       DefaultToTextArrayResource.class,
       DefaultToTextResource.class);
   
-  public static final Set<Class<? extends Annotation>> USE_ANNOS = ImmutableSet.of(
+  public static final Set<Class<? extends Annotation>> PLACEHOLDERS = ImmutableSet.of(
       UseBoolean.class,
       UseByte.class,
       UseChar.class,
