@@ -47,8 +47,8 @@ public class GetPlaceholderMethodGenerator {
         UseBoolean.class.getCanonicalName(),
         new MethodSpecSupplier() {
           @Override
-          public MethodSpec supplyFor(final AnnotationMirror useAnno, final int position) {
-            final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
+          public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
+            final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(placeholder, "value");
             
             return getBaseMethodSpec(position)
                 .returns(Boolean.class)
@@ -63,8 +63,8 @@ public class GetPlaceholderMethodGenerator {
         UseChar.class.getCanonicalName(),
         new MethodSpecSupplier() {
           @Override
-          public MethodSpec supplyFor(final AnnotationMirror useAnno, final int position) {
-            final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
+          public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
+            final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(placeholder, "value");
             
             return getBaseMethodSpec(position)
                 .returns(Character.class)
@@ -81,7 +81,7 @@ public class GetPlaceholderMethodGenerator {
         UseNull.class.getCanonicalName(),
         new MethodSpecSupplier() {
           @Override
-          public MethodSpec supplyFor(final AnnotationMirror useAnno, final int position) {
+          public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
             return getBaseMethodSpec(position)
                 .returns(Object.class)
                 .addCode(CodeBlock
@@ -96,8 +96,8 @@ public class GetPlaceholderMethodGenerator {
         UseString.class.getCanonicalName(),
         new MethodSpecSupplier() {
           @Override
-          public MethodSpec supplyFor(final AnnotationMirror useAnno, final int position) {
-            final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
+          public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
+            final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(placeholder, "value");
             
             return getBaseMethodSpec(position)
                 .returns(String.class)
@@ -116,17 +116,17 @@ public class GetPlaceholderMethodGenerator {
     this.annoMirrorHelper = checkNotNull(annotationMirrorHelper);
   }
   
-  public MethodSpec generateFor(final AnnotationMirror useAnno, final int parameterIndex) {
-    checkNotNull(useAnno, "Argument \'useAnno\' cannot be null.");
+  public MethodSpec generateFor(final AnnotationMirror placeholder, final int parameterIndex) {
+    checkNotNull(placeholder, "Argument \'placeholder\' cannot be null.");
     checkGreaterThanOrEqualTo(parameterIndex, 0, "Argument \'parameterIndex\' must be at least zero.");
     
-    final String annoClassName = useAnno.getAnnotationType().toString();
+    final String annoClassName = placeholder.getAnnotationType().toString();
     
     if (!methodSpecSuppliers.containsKey(annoClassName)) {
-      throw new IllegalArgumentException("Argument \'useAnno\' is not a use-annotation.");
+      throw new IllegalArgumentException("Argument \'placeholder\' is not a use-annotation.");
     }
     
-    return methodSpecSuppliers.get(annoClassName).supplyFor(useAnno, parameterIndex);
+    return methodSpecSuppliers.get(annoClassName).supplyFor(placeholder, parameterIndex);
   }
   
   private MethodSpec.Builder getBaseMethodSpec(final int position) {
@@ -134,13 +134,13 @@ public class GetPlaceholderMethodGenerator {
   }
   
   private interface MethodSpecSupplier {
-    public MethodSpec supplyFor(AnnotationMirror useAnno, int position);
+    public MethodSpec supplyFor(AnnotationMirror placeholder, int position);
   }
   
   private class PrimitiveToNumberMethodSpecSupplier implements MethodSpecSupplier {
     @Override
-    public MethodSpec supplyFor(final AnnotationMirror useAnno, final int position) {
-      final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(useAnno, "value");
+    public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
+      final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(placeholder, "value");
       
       return getBaseMethodSpec(position)
           .returns(Number.class)
