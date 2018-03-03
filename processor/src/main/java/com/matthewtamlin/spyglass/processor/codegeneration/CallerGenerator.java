@@ -22,6 +22,7 @@ import com.matthewtamlin.spyglass.processor.annotationretrievers.DefaultRetrieve
 import com.matthewtamlin.spyglass.processor.annotationretrievers.PlaceholderRetriever;
 import com.matthewtamlin.spyglass.processor.annotationretrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
+import com.matthewtamlin.spyglass.processor.definitions.TargetExceptionDef;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
 import com.squareup.javapoet.TypeName;
@@ -133,8 +134,12 @@ public class CallerGenerator {
         .getNewCallMethodPrototype()
         .addCode(CodeBlock
             .builder()
+            .beginControlFlow("try")
             .beginControlFlow("if ($N())", specificValueIsAvailable)
             .add(invocationBuilder.build())
+            .endControlFlow()
+            .nextControlFlow("catch (final Throwable error)")
+            .addStatement("throw new $T(error)", TargetExceptionDef.getTargetExceptionAsClassname())
             .endControlFlow()
             .build())
         .build();
@@ -185,8 +190,12 @@ public class CallerGenerator {
         .getNewCallMethodPrototype()
         .addCode(CodeBlock
             .builder()
+            .beginControlFlow("try")
             .beginControlFlow("if ($N())", specificValueIsAvailable)
             .add(invocationBuilder.build())
+            .endControlFlow()
+            .nextControlFlow("catch (final Throwable error)")
+            .addStatement("throw new $T(error)", TargetExceptionDef.getTargetExceptionAsClassname())
             .endControlFlow()
             .build())
         .build();
@@ -262,10 +271,14 @@ public class CallerGenerator {
         .getNewCallMethodPrototype()
         .addCode(CodeBlock
             .builder()
+            .beginControlFlow("try")
             .beginControlFlow("if ($N())", valueIsAvailable)
             .add(valueAvailableCaseInvocationBuilder.build())
             .nextControlFlow("else")
             .add(valueUnavailableCaseInvocationBuilder.build())
+            .endControlFlow()
+            .nextControlFlow("catch (final Throwable error)")
+            .addStatement("throw new $T(error)", TargetExceptionDef.getTargetExceptionAsClassname())
             .endControlFlow()
             .build())
         .build();
