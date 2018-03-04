@@ -38,7 +38,7 @@ public class CompanionDef {
     ACTIVATE_CALLERS = MethodSpec
         .methodBuilder("passDataToMethods")
         .addModifiers(PUBLIC, ABSTRACT)
-        .returns(void.class)
+        .returns(RxJavaClassNames.COMPLETABLE)
         .build();
     
     INTERFACE = TypeSpec
@@ -74,6 +74,6 @@ public class CompanionDef {
         .methodBuilder(ACTIVATE_CALLERS.name)
         .addModifiers(PUBLIC)
         .addAnnotation(Override.class)
-        .returns(void.class);
+        .returns(RxJavaClassNames.COMPLETABLE);
   }
 }
