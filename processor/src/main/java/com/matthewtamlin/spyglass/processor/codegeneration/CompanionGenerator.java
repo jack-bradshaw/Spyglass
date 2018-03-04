@@ -202,8 +202,14 @@ public class CompanionGenerator {
         .build();
     
     final FieldSpec callers = FieldSpec
-        .builder(listOfCallers(), "callers", PRIVATE, FINAL)
-        .initializer("new $T();", arrayListOfCallers())
+        .builder(
+            ParameterizedTypeName.get(ClassName.get(List.class), CallerDef.getCallerAsClassName()),
+            "callers",
+            PRIVATE,
+            FINAL)
+        .initializer(
+            "new $T();",
+            ParameterizedTypeName.get(ClassName.get(ArrayList.class), CallerDef.getCallerAsClassName()))
         .build();
     
     final FieldSpec companionTarget = FieldSpec
@@ -334,18 +340,6 @@ public class CompanionGenerator {
         .indent("\t")
         .skipJavaLangImports(true)
         .build();
-  }
-  
-  private TypeName listOfCallers() {
-    final ClassName genericList = ClassName.get(List.class);
-    
-    return ParameterizedTypeName.get(genericList, CallerDef.getCallerAsClassName());
-  }
-  
-  private TypeName arrayListOfCallers() {
-    final ClassName genericArrayList = ClassName.get(ArrayList.class);
-    
-    return ParameterizedTypeName.get(genericArrayList, CallerDef.getCallerAsClassName());
   }
   
   private PackageElement getPackage(final TypeElement type) {
