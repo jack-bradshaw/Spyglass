@@ -128,10 +128,7 @@ public final class CallerDef {
             .build());
   }
   
-  public static TypeSpec.Builder getNewCallerSubclassPrototype(
-      final String className,
-      final TypeName targetType) {
-    
+  public static TypeSpec.Builder getNewCallerSubclassPrototype(final String className, final TypeName targetType) {
     final ClassName genericCaller = CallerDef.getCallerAsClassName();
     final TypeName specificCaller = ParameterizedTypeName.get(genericCaller, targetType);
     
