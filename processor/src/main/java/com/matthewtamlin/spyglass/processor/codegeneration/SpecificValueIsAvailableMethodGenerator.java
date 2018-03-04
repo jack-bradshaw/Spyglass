@@ -16,6 +16,7 @@
 
 package com.matthewtamlin.spyglass.processor.codegeneration;
 
+import com.google.common.collect.ImmutableMap;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificFlagHandler;
@@ -27,7 +28,6 @@ import com.squareup.javapoet.MethodSpec;
 
 import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -37,91 +37,72 @@ public class SpecificValueIsAvailableMethodGenerator {
   
   private final AnnotationMirrorHelper annotationMirrorHelper;
   
-  {
-    methodBodySuppliers = new HashMap<>();
+  @Inject
+  public SpecificValueIsAvailableMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {
+    this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
     
-    methodBodySuppliers.put(
-        SpecificEnumHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror object) {
-            return CodeBlock
+    methodBodySuppliers = ImmutableMap
+        .<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>builder()
+        .put(
+            SpecificEnumHandler.class.getName(),
+            specificEnumHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "final boolean defaultConsistentlyReturned = \n" +
                         "$1N().getInt($2L, 1) == 1 && \n" +
                         "$1N().getInt($2L, 2) == 2",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(object, "attributeId"))
+                    getLiteralFromAnnotation(specificEnumHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement(
                     "return defaultConsistentlyReturned ? \n" +
                         "false :\n" +
                         "$N().getInt($L, 0) == $L",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(object, "attributeId"),
-                    getLiteralFromAnnotation(object, "handledOrdinal"))
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        SpecificFlagHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror object) {
-            return CodeBlock
+                    getLiteralFromAnnotation(specificEnumHandlerAnnotation, "attributeId"),
+                    getLiteralFromAnnotation(specificEnumHandlerAnnotation, "handledOrdinal"))
+                .build())
+        
+        .put(
+            SpecificFlagHandler.class.getName(),
+            specificFlagHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "final boolean defaultConsistentlyReturned = \n" +
                         "$1N().getInt($2L, 1) == 1 && \n" +
                         "$1N().getInt($2L, 2) == 2",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(object, "attributeId"))
+                    getLiteralFromAnnotation(specificFlagHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement(
                     "return defaultConsistentlyReturned ? \n" +
                         "false : \n" +
                         "($N().getInt($L, 0) & $L) > 0",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(object, "attributeId"),
-                    getLiteralFromAnnotation(object, "handledFlags"))
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        SpecificBooleanHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror object) {
-            return CodeBlock
+                    getLiteralFromAnnotation(specificFlagHandlerAnnotation, "attributeId"),
+                    getLiteralFromAnnotation(specificFlagHandlerAnnotation, "handledFlags"))
+                .build())
+        
+        .put(
+            SpecificBooleanHandler.class.getName(),
+            specificBooleanHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "final boolean defaultConsistentlyReturned = \n" +
                         "$1N().getBoolean($2L, true) == true && \n" +
                         "$1N().getBoolean($2L, false) == false",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(object, "attributeId"))
+                    getLiteralFromAnnotation(specificBooleanHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement(
                     "return defaultConsistentlyReturned ? \n" +
                         "false : \n" +
                         "$N().getBoolean($L, true) == $L",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(object, "attributeId"),
-                    getLiteralFromAnnotation(object, "handledBoolean"))
-                .build();
-          }
-        }
-    );
-  }
-  
-  @Inject
-  public SpecificValueIsAvailableMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {
-    this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
+                    getLiteralFromAnnotation(specificBooleanHandlerAnnotation, "attributeId"),
+                    getLiteralFromAnnotation(specificBooleanHandlerAnnotation, "handledBoolean"))
+                .build())
+        .build();
   }
   
   /**
@@ -136,29 +117,29 @@ public class SpecificValueIsAvailableMethodGenerator {
    * value is available, and false otherwise. What exactly it means for a value to be available and which value is
    * of interest is defined by each specific implementation.
    *
-   * @param callHandlerAnno
+   * @param conditionalHandlerAnnotation
    *     the annotation to use when generating the method body, not null
    *
    * @return the method spec, not null
    *
    * @throws IllegalArgumentException
-   *     if {@code callHandlerAnno} is null
+   *     if {@code conditionalHandlerAnnotation} is null
    * @throws IllegalArgumentException
-   *     if {@code callHandlerAnno} is not a call handler annotation
+   *     if {@code conditionalHandlerAnnotation} is not a call handler annotation
    */
-  public MethodSpec generateFor(final AnnotationMirror callHandlerAnno) {
-    checkNotNull(callHandlerAnno, "Argument \'callHandlerAnno\' cannot be null.");
+  public MethodSpec generateFor(final AnnotationMirror conditionalHandlerAnnotation) {
+    checkNotNull(conditionalHandlerAnnotation, "Argument \'conditionalHandlerAnnotation\' cannot be null.");
     
-    final String annoClassName = callHandlerAnno.getAnnotationType().toString();
+    final String annotationClassName = conditionalHandlerAnnotation.getAnnotationType().toString();
     
-    if (!methodBodySuppliers.containsKey(annoClassName)) {
-      throw new IllegalArgumentException("Argument \'callHandlerAnno\' is not a call handler annotation.");
+    if (!methodBodySuppliers.containsKey(annotationClassName)) {
+      throw new IllegalArgumentException("Argument \'conditionalHandlerAnnotation\' is not a call handler annotation.");
     }
     
     return MethodSpec
         .methodBuilder("specificValueIsAvailable")
         .returns(Boolean.class)
-        .addCode(methodBodySuppliers.get(annoClassName).supplyFor(callHandlerAnno))
+        .addCode(methodBodySuppliers.get(annotationClassName).supplyFor(conditionalHandlerAnnotation))
         .build();
   }
   
