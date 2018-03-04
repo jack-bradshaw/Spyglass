@@ -80,7 +80,7 @@ public class TestConditionalHandlerRetriever {
   }
   
   @Test
-  public void testGetAnnotation_noCallHandlerAnnotationPresent() {
+  public void testGetAnnotation_noConditionalHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("no call handler annotation");
     
     final AnnotationMirror mirror = ConditionalHandlerRetriever.getAnnotation(element);
@@ -104,7 +104,7 @@ public class TestConditionalHandlerRetriever {
   }
   
   @Test
-  public void testHasAnnotation_noCallHandlerAnnotationPresent() {
+  public void testHasAnnotation_noConditionalHandlerAnnotationPresent() {
     doHasAnnotationTestForElementWithId("no call handler annotation", false);
   }
   
