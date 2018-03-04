@@ -26,16 +26,16 @@ public class TestCallerGeneratorData {
   @ElementId("no handler")
   public void noHandler() {}
   
-  @ElementId("value handler with default")
+  @ElementId("unconditional handler with default")
   @BooleanHandler(attributeId = 1)
   @DefaultToBoolean(false)
-  public void valueHandlerAndDefault(boolean b) {}
+  public void unconditionalHandlerAndDefault(boolean b) {}
   
-  @ElementId("value handler no default")
+  @ElementId("unconditional handler no default")
   @StringHandler(attributeId = 1)
-  public void valueHandlerOnly(String s) {}
+  public void unconditionalHandlerOnly(String s) {}
   
-  @ElementId("call handler")
+  @ElementId("conditional handler")
   @SpecificEnumHandler(attributeId = 1, handledOrdinal = 1)
-  public void callHandler() {}
+  public void conditionalHandler() {}
 }
