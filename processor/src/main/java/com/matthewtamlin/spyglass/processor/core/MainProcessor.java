@@ -109,7 +109,7 @@ public class MainProcessor extends AbstractProcessor {
   public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
     if (!allRequiredFilesCreated) {
       if (!requiredFilesMissingErrorWritten) {
-        messager.printMessage(ERROR, "A required class could not be written. Aborting Spyglass processing.");
+        messager.printMessage(ERROR, "A required class could not be created. Aborting Spyglass processing.");
         requiredFilesMissingErrorWritten = true;
       }
       
@@ -121,10 +121,10 @@ public class MainProcessor extends AbstractProcessor {
       
       if (allElementsPassValidation(methods, basicValidator)) {
         if (allElementsPassValidation(methods, typeValidator)) {
-          final Set<TypeElement> types = findTypesWithSpyglassAnnotations(roundEnv);
+          final Set<TypeElement> targetTypes = findTypesWithSpyglassAnnotations(roundEnv);
           
-          for (final TypeElement type : types) {
-            createFile(companionGenerator.generateFor(type), "Failed to create Spyglass Companion");
+          for (final TypeElement targetType : targetTypes) {
+            createFile(companionGenerator.generateFor(targetType), "Failed to create Spyglass companion class.");
           }
         }
       }
@@ -134,9 +134,11 @@ public class MainProcessor extends AbstractProcessor {
           String.format(
               "An unknown error occurred while processing Spyglass annotations. Please update to the " +
                   "latest version of Spyglass, or report the issue if a newer version does not " +
-                  "exist. Error message: \'%1$s\'. Stacktrace: " +
-                  "\'%2$s\'.",
-              t.getMessage(),
+                  "exist." +
+                  "\nError message: \'%1$s\'." +
+                  "\nStacktrace: " +
+                  "\n%2$s.",
+              t.getMessage() == null ? "None." : t.getMessage(),
               Arrays.toString(t.getStackTrace())));
     }
     
