@@ -284,16 +284,16 @@ public class GetValueMethodGenerator {
     this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
   }
   
-  public MethodSpec generateFor(final AnnotationMirror valueHandlerAnno) {
-    checkNotNull(valueHandlerAnno, "Argument \'valueHandlerAnno\' cannot be null.");
+  public MethodSpec generateFor(final AnnotationMirror unconditionalHandlerAnnotation) {
+    checkNotNull(unconditionalHandlerAnnotation, "Argument \'unconditionalHandlerAnnotation\' cannot be null.");
     
-    final String annoClassName = valueHandlerAnno.getAnnotationType().toString();
+    final String annotationClassName = unconditionalHandlerAnnotation.getAnnotationType().toString();
     
-    if (!methodSpecSuppliers.containsKey(annoClassName)) {
-      throw new IllegalArgumentException("Argument \'valueHandlerAnno\' cannot contain null.");
+    if (!methodSpecSuppliers.containsKey(annotationClassName)) {
+      throw new IllegalArgumentException("Argument \'unconditionalHandlerAnnotation\' cannot contain null.");
     }
     
-    return methodSpecSuppliers.get(annoClassName).supplyFor(valueHandlerAnno);
+    return methodSpecSuppliers.get(annotationClassName).supplyFor(unconditionalHandlerAnnotation);
   }
   
   private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
