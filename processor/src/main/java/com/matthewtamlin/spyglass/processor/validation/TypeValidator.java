@@ -127,7 +127,7 @@ public class TypeValidator implements Validator {
           if (annoName.equals(UseNull.class.getName())) {
             if (typeMirrorHelper.isPrimitive(recipientType)) {
               return Result.createFailure(
-                  "Misused use-annotation found. Primitive arguments cannot receive null.");
+                  "Misused placeholder annotation found. Primitive parameters cannot receive null.");
               
             } else {
               return Result.createSuccessful();
@@ -136,7 +136,7 @@ public class TypeValidator implements Validator {
           
           if (!isAssignableOrConvertible(suppliedType, recipientType)) {
             return Result.createFailure(
-                "Misused use-annotation found. \'%1$s\' cannot be cast to \'%2$s\'.",
+                "Misused placeholder annotation found. \'%1$s\' cannot be cast to \'%2$s\'.",
                 suppliedType,
                 recipientType);
           }
