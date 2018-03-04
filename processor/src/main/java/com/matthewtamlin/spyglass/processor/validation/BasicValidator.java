@@ -37,42 +37,21 @@ public class BasicValidator implements Validator {
   @Inject
   public BasicValidator() {
     rules = ImmutableList.of(
-        element -> {
-          if (countUnconditionalHandlerAnnotations(element) + countConditionalHandlerAnnotations(element) > 1) {
-            return Result.createFailure("Methods must not have multiple handler annotations.");
-          }
-          
-          return Result.createSuccessful();
-        },
+        element -> countUnconditionalHandlerAnnotations(element) + countConditionalHandlerAnnotations(element) > 1 ?
+            Result.createFailure("Methods must not have multiple handler annotations.") :
+            Result.createSuccessful(),
         
-        element -> {
-          if (countDefaultAnnotations(element) > 1) {
-            return Result.createFailure("Methods must not have multiple default annotations.");
-          }
-          
-          return Result.createSuccessful();
-        },
+        element -> countDefaultAnnotations(element) > 1 ?
+            Result.createFailure("Methods must not have multiple default annotations.") :
+            Result.createSuccessful(),
         
-        element -> {
-          if (DefaultRetriever.hasAnnotation(element) &&
-              !UnconditionalHandlerRetriever.hasAnnotation(element)) {
-            return Result.createFailure(
-                "Methods without handler annotations must not have default annotations.");
-          }
-          
-          return Result.createSuccessful();
-        },
+        element -> DefaultRetriever.hasAnnotation(element) && !UnconditionalHandlerRetriever.hasAnnotation(element) ?
+            Result.createFailure("Methods without handler annotations must not have default annotations.") :
+            Result.createSuccessful(),
         
-        element -> {
-          if (DefaultRetriever.hasAnnotation(element) &&
-              ConditionalHandlerRetriever.hasAnnotation(element)) {
-            
-            return Result.createFailure(
-                "Methods with conditional handler annotations must not have default annotations.");
-          }
-          
-          return Result.createSuccessful();
-        },
+        element -> DefaultRetriever.hasAnnotation(element) && ConditionalHandlerRetriever.hasAnnotation(element) ?
+            Result.createFailure("Methods with conditional handler annotations must not have default annotations.") :
+            Result.createSuccessful(),
         
         element -> {
           final int parameterCount = ((ExecutableElement) element).getParameters().size();
@@ -122,15 +101,11 @@ public class BasicValidator implements Validator {
           return Result.createSuccessful();
         },
         
-        element -> {
-          if (element.getModifiers().contains(PRIVATE)) {
-            return Result.createFailure(
+        element -> element.getModifiers().contains(PRIVATE) ?
+            Result.createFailure(
                 "Methods with handler annotations must have public, protected, or default access. " +
-                    "Private methods are not compatible with the Spyglass Framework.");
-          }
-          
-          return Result.createSuccessful();
-        },
+                    "Private methods are not compatible with the Spyglass Framework.") :
+            Result.createSuccessful(),
         
         element -> {
           final TypeElement parent = (TypeElement) element.getEnclosingElement();
