@@ -61,7 +61,6 @@ public class TestCallerGenerator {
         new SpecificValueIsAvailableMethodGenerator(annotationMirrorHelper),
         new CastWrapperGenerator(
             avatarRule.getElementUtils(),
-            avatarRule.getTypeUtils(),
             new TypeMirrorHelper(avatarRule.getElementUtils(), avatarRule.getTypeUtils())));
   }
   
