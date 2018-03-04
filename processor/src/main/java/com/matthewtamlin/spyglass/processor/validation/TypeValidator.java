@@ -52,7 +52,7 @@ public class TypeValidator implements Validator {
           
           final MethodSpec supplier = getValueMethodGenerator.generateFor(anno);
           final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
-          final TypeMirror recipientType = getParameterWithoutUseAnnotation(element).asType();
+          final TypeMirror recipientType = getParameterWithoutPlaceholderAnnotation(element).asType();
           
           if (!isAssignableOrConvertible(suppliedType, recipientType)) {
             return Result.createFailure(
@@ -77,7 +77,7 @@ public class TypeValidator implements Validator {
           
           final MethodSpec supplier = getDefaultMethodGenerator.generateFor(anno);
           final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
-          final TypeMirror recipientType = getParameterWithoutUseAnnotation(element).asType();
+          final TypeMirror recipientType = getParameterWithoutPlaceholderAnnotation(element).asType();
           
           if (annoName.equals(DefaultToNull.class.getName())) {
             if (typeMirrorHelper.isPrimitive(recipientType)) {
@@ -190,7 +190,7 @@ public class TypeValidator implements Validator {
     return elementHelper.getTypeElement(methodSpec.returnType.toString()).asType();
   }
   
-  private static VariableElement getParameterWithoutUseAnnotation(final ExecutableElement method) {
+  private static VariableElement getParameterWithoutPlaceholderAnnotation(final ExecutableElement method) {
     for (final VariableElement parameter : method.getParameters()) {
       if (!PlaceholderRetriever.hasAnnotation(parameter)) {
         return parameter;
