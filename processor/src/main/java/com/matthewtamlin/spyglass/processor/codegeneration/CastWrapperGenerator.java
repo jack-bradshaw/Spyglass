@@ -32,10 +32,7 @@ public class CastWrapperGenerator {
   private final TypeMirrorHelper typeMirrorHelper;
   
   @Inject
-  public CastWrapperGenerator(
-      final Elements elementUtil,
-      final TypeMirrorHelper typeMirrorHelper) {
-    
+  public CastWrapperGenerator(final Elements elementUtil, final TypeMirrorHelper typeMirrorHelper) {
     this.elementUtil = checkNotNull(elementUtil);
     this.typeMirrorHelper = checkNotNull(typeMirrorHelper);
   }
