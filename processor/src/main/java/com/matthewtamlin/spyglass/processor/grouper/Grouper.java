@@ -45,8 +45,8 @@ public class Grouper {
         
         groups.get(parentWrapper).add(element);
       } else {
-        throw new IllegalArgumentException("Argument \'elements\' contains an element which is not the " +
-            "immediate child of a TypeElement.");
+        throw new IllegalArgumentException(
+            "Argument \'elements\' contains an element which is not the immediate child of a TypeElement.");
       }
     }
     

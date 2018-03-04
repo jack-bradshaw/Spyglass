@@ -35,10 +35,13 @@ public class TypeElementWrapper {
   public boolean equals(final Object o) {
     if (this == o) {
       return true;
+      
     } else if (o == null) {
       return false;
+      
     } else if (this.getClass() != o.getClass()) {
       return false;
+      
     } else {
       final TypeElementWrapper castInput = (TypeElementWrapper) o;
       
