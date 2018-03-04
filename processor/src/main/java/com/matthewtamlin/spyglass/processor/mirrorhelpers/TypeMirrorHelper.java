@@ -16,12 +16,17 @@
 
 package com.matthewtamlin.spyglass.processor.mirrorhelpers;
 
+import com.google.common.collect.ImmutableSet;
 import com.matthewtamlin.java_utilities.testing.Tested;
+import com.matthewtamlin.spyglass.processor.definitions.RxJavaClassNames;
 
 import javax.inject.Inject;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
 import javax.lang.model.util.Types;
+
+import java.lang.reflect.Type;
+import java.util.Set;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
@@ -31,10 +36,19 @@ public class TypeMirrorHelper {
   
   private Types typeUtil;
   
+  private final Set<TypeMirror> rxTypes;
+  
   @Inject
   public TypeMirrorHelper(final Elements elementHelper, final Types typeHelper) {
     this.elementUtil = checkNotNull(elementHelper, "Argument \'elementHelper\' cannot be null.");
     this.typeUtil = checkNotNull(typeHelper, "Argument \'typeUtil\' cannot be null.");
+    
+    rxTypes = ImmutableSet.of(
+        elementUtil.getTypeElement(RxJavaClassNames.SINGLE.toString()).asType(),
+        elementUtil.getTypeElement(RxJavaClassNames.OBSERVABLE.toString()).asType(),
+        elementUtil.getTypeElement(RxJavaClassNames.COMPLETABLE.toString()).asType(),
+        elementUtil.getTypeElement(RxJavaClassNames.FLOWABLE.toString()).asType(),
+        elementUtil.getTypeElement(RxJavaClassNames.MAYBE.toString()).asType());
   }
   
   public boolean isPrimitive(final TypeMirror typeMirror) {
@@ -72,5 +86,15 @@ public class TypeMirrorHelper {
     final TypeMirror booleanType = elementUtil.getTypeElement(Boolean.class.getCanonicalName()).asType();
     
     return typeUtil.isAssignable(typeMirror, booleanType) || typeMirror.toString().equals("boolean");
+  }
+  
+  public boolean isRxObservableType(final TypeMirror typeMirror) {
+    for (final TypeMirror rxObservableType : rxTypes) {
+      if (typeUtil.isAssignable(typeMirror, rxObservableType)) {
+        return true;
+      }
+    }
+    
+    return false;
   }
 }
