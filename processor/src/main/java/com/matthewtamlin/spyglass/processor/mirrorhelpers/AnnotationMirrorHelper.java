@@ -16,8 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.mirrorhelpers;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
-
 import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;

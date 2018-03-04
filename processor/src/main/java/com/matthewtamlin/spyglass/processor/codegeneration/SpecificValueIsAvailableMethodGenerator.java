@@ -16,7 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.codegeneration;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificBooleanHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificFlagHandler;

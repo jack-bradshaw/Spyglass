@@ -40,29 +40,29 @@ public class TestBasicValidator {
       .builder()
       .withSourceFileObjects(JavaFileObjects.forResource(getClass().getResource("TestBasicValidatorData.java")))
       .build();
-
+  
   private Set<Element> elements;
-
+  
   private BasicValidator validator;
-
+  
   @Before
   public void setup() {
     elements = avatarRule.getElementsWithAnnotation(Target.class);
-
+    
     validator = new BasicValidator();
   }
-
+  
   @Test
   public void testValidateElement_usingDataFileElements() {
     for (final Element element : elements) {
       if (element.getKind() != ElementKind.METHOD) {
         throw new RuntimeException("All test elements must be executable elements (e.g. methods).");
       }
-
+      
       final Target targetAnnotation = element.getAnnotation(Target.class);
       final boolean shouldPassValidation = targetAnnotation.isValid();
       final Result validationResult = validator.validate((ExecutableElement) element);
-
+      
       assertThat(validationResult.isSuccessful(), is(shouldPassValidation));
     }
   }

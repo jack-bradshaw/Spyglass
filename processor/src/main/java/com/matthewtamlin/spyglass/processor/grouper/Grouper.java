@@ -16,8 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.grouper;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
-
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import java.util.HashMap;

@@ -28,71 +28,71 @@ public class TestDefaultRetrieverData {
   @ElementId("boolean")
   @DefaultToBoolean(true)
   public void method1() {}
-
+  
   @ElementId("boolean resource")
   @DefaultToBooleanResource(resId = 0)
   public void method2() {}
-
+  
   @ElementId("color resource")
   @DefaultToColorResource(resId = 0)
   public void method3() {}
-
+  
   @ElementId("color state list resource")
   @DefaultToColorStateListResource(resId = 0)
   public void method4() {}
-
+  
   @ElementId("dimension")
   @DefaultToDimension(value = 0, unit = DP)
   public void method5() {}
-
+  
   @ElementId("dimension resource")
   @DefaultToDimensionResource(resId = 0)
   public void method6() {}
-
+  
   @ElementId("drawable resource")
   @DefaultToDrawableResource(resId = 0)
   public void method7() {}
-
+  
   @ElementId("enum constant")
   @DefaultToEnumConstant(enumClass = PlaceholderEnum.class, ordinal = 0)
   public void method8() {}
-
+  
   @ElementId("float")
   @DefaultToFloat(0)
   public void method9() {}
-
+  
   @ElementId("fraction resource")
   @DefaultToFractionResource(resId = 0, baseMultiplier = 0, parentMultiplier = 0)
   public void method10() {}
-
+  
   @ElementId("integer")
   @DefaultToInteger(0)
   public void method11() {}
-
+  
   @ElementId("integer resource")
   @DefaultToIntegerResource(resId = 0)
   public void method12() {}
-
+  
   @ElementId("null")
   @DefaultToNull()
   public void method13() {}
-
+  
   @ElementId("string")
   @DefaultToString("hello world")
   public void method14() {}
-
+  
   @ElementId("string resource")
   @DefaultToStringResource(resId = 0)
   public void method15() {}
-
+  
   @ElementId("text array resource")
   @DefaultToTextArrayResource(resId = 0)
   public void method16() {}
-
+  
   @ElementId("text resource")
   @DefaultToTextResource(resId = 0)
   public void method17() {}
-
+  
   @ElementId("no default annotation")
   @BooleanHandler(attributeId = 0)
   @ColorHandler(attributeId = 0)
@@ -108,6 +108,6 @@ public class TestDefaultRetrieverData {
   @SpecificEnumHandler(attributeId = 0, handledOrdinal = 0)
   @SpecificFlagHandler(attributeId = 0, handledFlags = 0)
   public void method18() {}
-
+  
   private enum PlaceholderEnum {}
 }

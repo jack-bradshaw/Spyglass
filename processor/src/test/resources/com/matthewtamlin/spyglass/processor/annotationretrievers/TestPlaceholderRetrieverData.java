@@ -21,24 +21,24 @@ import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
 
 public class TestPlaceholderRetrieverData {
   public void method(@ElementId("boolean") @UseBoolean(true) boolean b, Object o) {}
-
+  
   public void method(Object o, @ElementId("byte") @UseByte(0) byte b) {}
-
+  
   public void method(@ElementId("char") @UseChar(0) char c) {}
-
+  
   public void method(@ElementId("double") @UseDouble(0) double d) {}
-
+  
   public void method(@ElementId("float") @UseFloat(0) float f) {}
-
+  
   public void method(@ElementId("int") @UseInt(0) int i) {}
-
+  
   public void method(@ElementId("long") @UseLong(0) long l) {}
-
+  
   public void method(@ElementId("null") @UseNull Object o) {}
-
+  
   public void method(@ElementId("short") @UseShort(0) short s) {}
-
+  
   public void method(@ElementId("string") @UseString("") String s) {}
-
+  
   public void method(@ElementId("no placeholder") Object o1, Object o2) {}
 }

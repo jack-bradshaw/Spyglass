@@ -26,21 +26,21 @@ public class ValidationException extends Exception {
   public ValidationException() {
     super();
   }
-
+  
   /**
    * Constructs a new ValidationException with a message but no cause.
    */
   public ValidationException(final String message) {
     super(message);
   }
-
+  
   /**
    * Constructs a new ValidationException with a message and a cause.
    */
   public ValidationException(final String message, final Throwable cause) {
     super(message, cause);
   }
-
+  
   /**
    * Constructs a new ValidationException with a cause but no method.
    */
