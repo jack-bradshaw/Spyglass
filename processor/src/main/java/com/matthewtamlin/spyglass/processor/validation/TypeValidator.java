@@ -46,12 +46,6 @@ public class TypeValidator implements Validator {
   
   private final TypeMirrorHelper typeMirrorHelper;
   
-  private final GetValueMethodGenerator getValueMethodGenerator;
-  
-  private final GetDefaultMethodGenerator getDefaultMethodGenerator;
-  
-  private final GetPlaceholderMethodGenerator getPlaceholderMethodGenerator;
-  
   private final List<Rule> rules;
   
   @Inject
@@ -66,9 +60,10 @@ public class TypeValidator implements Validator {
     this.elementHelper = checkNotNull(elementUtil);
     this.typeHelper = checkNotNull(typeUtil);
     this.typeMirrorHelper = checkNotNull(typeMirrorHelper);
-    this.getValueMethodGenerator = checkNotNull(getValueMethodGenerator);
-    this.getDefaultMethodGenerator = checkNotNull(getDefaultMethodGenerator);
-    this.getPlaceholderMethodGenerator = checkNotNull(getPlaceholderMethodGenerator);
+    
+    checkNotNull(getValueMethodGenerator);
+    checkNotNull(getDefaultMethodGenerator);
+    checkNotNull(getPlaceholderMethodGenerator);
     
     rules = ImmutableList.of(
         element -> {
