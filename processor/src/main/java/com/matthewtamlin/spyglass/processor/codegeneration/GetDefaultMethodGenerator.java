@@ -332,27 +332,6 @@ public class GetDefaultMethodGenerator {
         .build();
   }
   
-  /**
-   * Creates a method spec equivalent to the following:
-   * <pre>{@code
-   * public Object getDefault(final TypedArray attrs) {
-   * 	dynamic implementation here
-   * }}</pre>
-   * <p>
-   * The body of the method is dynamically generated based on the supplied annotation. In general terms, the method
-   * returns some value using a context and a typed array. Exactly what is returned is determined by each specific
-   * implementation.
-   *
-   * @param defaultAnno
-   *     the annotation to use when generating the method body, not null
-   *
-   * @return the method spec, not null
-   *
-   * @throws IllegalArgumentException
-   *     if {@code defaultAnno} is null
-   * @throws IllegalArgumentException
-   *     if {@code defaultAnno} is not a default annotation
-   */
   public MethodSpec generateFor(final AnnotationMirror defaultAnno) {
     checkNotNull(defaultAnno, "Argument \'defaultAnno\' cannot be null.");
     
