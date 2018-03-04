@@ -194,28 +194,6 @@ public class AnyValueIsAvailableMethodGenerator {
         .build();
   }
   
-  /**
-   * Creates a method spec equivalent to the following:
-   * <pre>{@code
-   * public boolean valueIsAvailable(final TypedArray attrs) {
-   * 	dynamic implementation here
-   * }}</pre>
-   * <p>
-   * The body of the method is dynamically generated based on the supplied annotation. In general terms, the method
-   * queries the supplied typed array to determine if any value is available for some attribute. The method returns
-   * true if a value is available, and false otherwise. What exactly it means for a value to be available and which
-   * value is of interest is defined by each specific implementation.
-   *
-   * @param valueHandlerAnno
-   *     the annotation to use when generating the method body, not null
-   *
-   * @return the method spec, not null
-   *
-   * @throws IllegalArgumentException
-   *     if {@code valueHandlerAnno} is null
-   * @throws IllegalArgumentException
-   *     if {@code valueHandlerAnno} is not a value handler annotation
-   */
   public MethodSpec generateFor(final AnnotationMirror valueHandlerAnno) {
     checkNotNull(valueHandlerAnno, "Argument \'valueHandlerAnno\' cannot be null.");
     
