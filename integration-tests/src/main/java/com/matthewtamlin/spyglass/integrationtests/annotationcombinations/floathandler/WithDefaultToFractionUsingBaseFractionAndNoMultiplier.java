@@ -73,6 +73,7 @@ public class WithDefaultToFractionUsingBaseFractionAndNoMultiplier extends Float
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }

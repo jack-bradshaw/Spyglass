@@ -70,6 +70,7 @@ public class WithoutDefault extends EnumConstantHandlerTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }

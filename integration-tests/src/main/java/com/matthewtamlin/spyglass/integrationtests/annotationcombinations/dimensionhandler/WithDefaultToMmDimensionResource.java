@@ -70,6 +70,7 @@ public class WithDefaultToMmDimensionResource extends DimensionHandlerTestTarget
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }

@@ -77,6 +77,7 @@ public class WithDefaultToEnumConstantWithOrdinalTooBig extends EnumConstantHand
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }
