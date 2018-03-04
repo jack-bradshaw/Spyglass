@@ -21,7 +21,7 @@ package com.matthewtamlin.spyglass.processor.validation;
  */
 public class ValidationException extends Exception {
   /**
-   * Constructs a new ValidationException with no cause or message. The
+   * Constructs a new ValidationException with no cause or message.
    */
   public ValidationException() {
     super();
