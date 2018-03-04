@@ -194,19 +194,19 @@ public class AnyValueIsAvailableMethodGenerator {
         .build();
   }
   
-  public MethodSpec generateFor(final AnnotationMirror valueHandlerAnno) {
-    checkNotNull(valueHandlerAnno, "Argument \'valueHandlerAnno\' cannot be null.");
+  public MethodSpec generateFor(final AnnotationMirror unconditionalHandlerAnnotation) {
+    checkNotNull(unconditionalHandlerAnnotation, "Argument \'unconditionalHandlerAnnotation\' cannot be null.");
     
-    final String annoClassName = valueHandlerAnno.getAnnotationType().toString();
+    final String annotationClassName = unconditionalHandlerAnnotation.getAnnotationType().toString();
     
-    if (!methodBodySuppliers.containsKey(annoClassName)) {
-      throw new IllegalArgumentException("Argument \'valueHandlerAnno\' is not a value handler annotation.");
+    if (!methodBodySuppliers.containsKey(annotationClassName)) {
+      throw new IllegalArgumentException("Argument \'unconditionalHandlerAnnotation\' is not an unconditional handler.");
     }
     
     return MethodSpec
         .methodBuilder("valueIsAvailable")
         .returns(Boolean.class)
-        .addCode(methodBodySuppliers.get(annoClassName).supplyFor(valueHandlerAnno))
+        .addCode(methodBodySuppliers.get(annotationClassName).supplyFor(unconditionalHandlerAnnotation))
         .build();
   }
   
