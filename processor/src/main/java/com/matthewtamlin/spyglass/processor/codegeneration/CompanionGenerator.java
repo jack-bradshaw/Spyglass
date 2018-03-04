@@ -273,6 +273,14 @@ public class CompanionGenerator {
             .build())
         .build();
     
+    final MethodSpec callTargetMethodsNow = CompanionDef
+        .getNewCallTargetMethodsNowMethodPrototype()
+        .addCode(CodeBlock
+            .builder()
+            .addStatement("$N().blockingAwait()", callTargetMethods)
+            .build())
+        .build();
+    
     final MethodSpec companionConstructor = MethodSpec
         .constructorBuilder()
         .addModifiers(PRIVATE)
@@ -314,6 +322,7 @@ public class CompanionGenerator {
         .addField(companionHasBeenUsed)
         .addMethod(companionConstructor)
         .addMethod(callTargetMethods)
+        .addMethod(callTargetMethodsNow)
         .addMethod(initialiseCallers)
         .addMethod(getBuilder)
         .addType(builder)
