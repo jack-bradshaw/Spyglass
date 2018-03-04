@@ -30,7 +30,6 @@ import java.util.Set;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class TypeMirrorHelper {
   private Elements elementUtil;
   

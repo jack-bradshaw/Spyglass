@@ -16,7 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.codegeneration;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.annotationretrievers.ConditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.annotationretrievers.DefaultRetriever;
 import com.matthewtamlin.spyglass.processor.annotationretrievers.PlaceholderRetriever;
@@ -40,7 +39,6 @@ import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class CallerGenerator {
   private final Elements elementUtil;
   

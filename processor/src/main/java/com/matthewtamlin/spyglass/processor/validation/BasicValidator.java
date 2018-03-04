@@ -32,7 +32,6 @@ import java.util.*;
 
 import static javax.lang.model.element.Modifier.PRIVATE;
 
-@Tested(testMethod = "automated")
 public class BasicValidator implements Validator {
   private final List<Rule> rules;
   

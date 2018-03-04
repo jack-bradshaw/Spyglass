@@ -22,7 +22,6 @@ import javax.lang.model.element.TypeElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class TypeElementWrapper {
   private final TypeElement element;
   

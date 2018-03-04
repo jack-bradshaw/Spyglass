@@ -16,12 +16,10 @@
 
 package com.matthewtamlin.spyglass.processor.definitions;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
 import com.squareup.javapoet.*;
 
 import static javax.lang.model.element.Modifier.*;
 
-@Tested(testMethod = "automated")
 /**
  * Code generation definition for the Caller class.
  */

@@ -33,7 +33,6 @@ import java.util.Map;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class GetValueMethodGenerator {
   private final Map<String, ParametrisedSupplier<AnnotationMirror, MethodSpec>> methodSpecSuppliers;
   
