@@ -16,6 +16,7 @@
 
 package com.matthewtamlin.spyglass.processor.codegeneration;
 
+import com.google.common.collect.ImmutableMap;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
@@ -25,7 +26,6 @@ import com.squareup.javapoet.MethodSpec;
 
 import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
-import java.util.HashMap;
 import java.util.Map;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
@@ -35,71 +35,53 @@ public class AnyValueIsAvailableMethodGenerator {
   
   private final AnnotationMirrorHelper annotationMirrorHelper;
   
-  {
-    methodBodySuppliers = new HashMap<>();
+  @Inject
+  public AnyValueIsAvailableMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {
+    this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
     
-    methodBodySuppliers.put(
-        BooleanHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+    methodBodySuppliers = ImmutableMap
+        .<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>builder()
+        .put(
+            BooleanHandler.class.getName(),
+            booleanHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "final boolean defaultConsistentlyReturned = \n" +
                         "$1N().getBoolean($2L, false) == false && \n" +
                         "$1N().getBoolean($2L, true) == true",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
+                    getLiteralFromAnnotation(booleanHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        ColorHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                .build())
+        
+        .put(
+            ColorHandler.class.getName(),
+            colorHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "final boolean defaultConsistentlyReturned = \n" +
                         "$1N().getColor($2L, 1) == 1 && \n" +
                         "$1N().getColor($2L, 2) == 2",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
+                    getLiteralFromAnnotation(colorHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        ColorStateListHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                .build())
+        
+        .put(
+            ColorStateListHandler.class.getName(),
+            colorStateListHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "return $N().getColorStateList($L) != null",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        DimensionHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                    getLiteralFromAnnotation(colorStateListHandlerAnnotation, "attributeId"))
+                .build())
+        
+        .put(
+            DimensionHandler.class.getName(),
+            dimensionHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement("final float negInf = Float.NEGATIVE_INFINITY")
                 .addStatement("final float posInf = Float.POSITIVE_INFINITY")
@@ -109,76 +91,52 @@ public class AnyValueIsAvailableMethodGenerator {
                         "$1N().getDimension($2L, negInf) == negInf && \n" +
                         "$1N().getDimension($2L, posInf) == posInf",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
+                    getLiteralFromAnnotation(dimensionHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        DrawableHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                .build())
+        
+        .put(
+            DrawableHandler.class.getName(),
+            drawableHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "return $N().getDrawable($L) != null",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        EnumConstantHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                    getLiteralFromAnnotation(drawableHandlerAnnotation, "attributeId"))
+                .build())
+        
+        .put(
+            EnumConstantHandler.class.getName(),
+            enumConstantHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "final boolean defaultConsistentlyReturned = \n" +
                         "$1N().getInt($2L, 1) == 1 && \n" +
                         "$1N().getInt($2L, 2) == 2",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
+                    getLiteralFromAnnotation(enumConstantHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        EnumOrdinalHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                .build())
+        
+        .put(
+            EnumOrdinalHandler.class.getName(),
+            enumOrdinalHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "final boolean defaultConsistentlyReturned = \n" +
                         "$1N().getInt($2L, 1) == 1 && \n" +
                         "$1N().getInt($2L, 2) == 2",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
+                    getLiteralFromAnnotation(enumOrdinalHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        FloatHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                .build())
+        
+        .put(
+            FloatHandler.class.getName(),
+            floatHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement("final float negInf = Float.NEGATIVE_INFINITY")
                 .addStatement("final float posInf = Float.POSITIVE_INFINITY")
@@ -188,20 +146,14 @@ public class AnyValueIsAvailableMethodGenerator {
                         "$1N().getFloat($2L, negInf) == negInf && \n" +
                         "$1N().getFloat($2L, posInf) == posInf",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
+                    getLiteralFromAnnotation(floatHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        FractionHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                .build())
+        
+        .put(
+            FractionHandler.class.getName(),
+            fractionHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement("final float negInf = Float.NEGATIVE_INFINITY")
                 .addStatement("final float posInf = Float.POSITIVE_INFINITY")
@@ -211,54 +163,35 @@ public class AnyValueIsAvailableMethodGenerator {
                         "$1N().getFraction($2L, 1, 1, negInf) == negInf && \n" +
                         "$1N().getFraction($2L, 1, 1, posInf) == posInf",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
+                    getLiteralFromAnnotation(fractionHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        IntegerHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                .build())
+        
+        .put(
+            IntegerHandler.class.getName(),
+            integerHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "final boolean defaultConsistentlyReturned = \n" +
                         "$1N().getInt($2L, 1) == 1 && \n" +
                         "$1N().getInt($2L, 2) == 2",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
+                    getLiteralFromAnnotation(integerHandlerAnnotation, "attributeId"))
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
-                .build();
-          }
-        }
-    );
-    
-    methodBodySuppliers.put(
-        StringHandler.class.getName(),
-        new ParametrisedSupplier<AnnotationMirror, CodeBlock>() {
-          @Override
-          public CodeBlock supplyFor(final AnnotationMirror anno) {
-            return CodeBlock
+                .build())
+        
+        .put(
+            StringHandler.class.getName(),
+            stringHandlerAnnotation -> CodeBlock
                 .builder()
                 .addStatement(
                     "return $N().hasValue($L)",
                     CallerDef.GET_ATTRS,
-                    getLiteralFromAnnotation(anno, "attributeId"))
-                .build();
-          }
-        }
-    );
-  }
-  
-  @Inject
-  public AnyValueIsAvailableMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {
-    this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
+                    getLiteralFromAnnotation(stringHandlerAnnotation, "attributeId"))
+                .build())
+        .build();
   }
   
   /**
