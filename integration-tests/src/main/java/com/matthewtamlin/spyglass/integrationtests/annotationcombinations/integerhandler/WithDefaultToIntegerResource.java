@@ -70,6 +70,7 @@ public class WithDefaultToIntegerResource extends IntegerHandlerTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }

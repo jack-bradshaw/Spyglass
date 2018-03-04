@@ -77,6 +77,7 @@ public class WithDefaultToEnumConstantOfWatermelon extends EnumConstantHandlerTe
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }

@@ -72,6 +72,7 @@ public class Subclass extends Superclass {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }

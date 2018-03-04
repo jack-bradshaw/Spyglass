@@ -70,6 +70,7 @@ public class WithDefaultToNull extends StringHandlerTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }

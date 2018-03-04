@@ -22,7 +22,6 @@ import com.matthewtamlin.spyglass.processor.codegeneration.CompanionGenerator;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.definitions.CompanionDef;
-import com.matthewtamlin.spyglass.processor.definitions.TargetExceptionDef;
 import com.matthewtamlin.spyglass.processor.grouper.Grouper;
 import com.matthewtamlin.spyglass.processor.grouper.TypeElementWrapper;
 import com.matthewtamlin.spyglass.processor.validation.BasicValidator;
@@ -51,8 +50,7 @@ public class MainProcessor extends AbstractProcessor {
   
   private static final Set<JavaFile> REQUIRED_FILES = ImmutableSet.of(
       CallerDef.SRC_FILE,
-      CompanionDef.SRC_FILE,
-      TargetExceptionDef.SRC_FILE);
+      CompanionDef.SRC_FILE);
   
   @Inject
   protected Elements elementUtil;

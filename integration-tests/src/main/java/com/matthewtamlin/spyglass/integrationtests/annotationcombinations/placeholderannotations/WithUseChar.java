@@ -98,6 +98,7 @@ public class WithUseChar extends PlaceholderTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }

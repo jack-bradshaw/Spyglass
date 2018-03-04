@@ -35,13 +35,15 @@ ext.dependencies = [
         compiler: 'com.google.auto.value:auto-value:1.4.1'
     ],
 
+    rxJava: 'io.reactivex.rxjava2:rxjava:2.1.9',
+
     guava: 'com.google.guava:guava:24.0-jre',
 
     androidUtilities: 'com.matthew-tamlin:android-utilities:5.1.1',
 
     javaUtilities: 'com.matthew-tamlin:java-utilities:1.3.3',
 
-    javaPoet: 'com.squareup:javapoet:1.8.0',
+    javaPoet: 'com.squareup:javapoet:1.10.0',
 
     apacheCommons: [
         lang: 'org.apache.commons:commons-lang3:3.6',

@@ -71,6 +71,7 @@ public class WithDefaultToDrawable extends DrawableHandlerTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }
