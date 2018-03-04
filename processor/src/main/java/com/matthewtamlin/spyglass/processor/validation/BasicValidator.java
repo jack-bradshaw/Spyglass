@@ -162,32 +162,24 @@ public class BasicValidator implements Validator {
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
-          if (!hasStaticRoot(element)) {
-            return Result.createFailure("Anonymous and local classes are not compatible with the Spyglass Framework.");
-          }
-          
-          return Result.createSuccessful();
-        }
-        
-        private boolean hasStaticRoot(final Element element) {
           final TypeElement parent = (TypeElement) element.getEnclosingElement();
-          
+  
           if (parent == null) {
-            return true;
+            return Result.createSuccessful();
           }
-          
+  
           switch (parent.getNestingKind()) {
             case TOP_LEVEL:
-              return true;
+              return Result.createSuccessful();
             case MEMBER:
-              return true;
+              return Result.createSuccessful();
             case LOCAL:
-              return false;
+              return Result.createFailure("Local classes are not compatible with the Spyglass Framework.");
             case ANONYMOUS:
-              return false;
+              return Result.createFailure("Anonymous classes are not compatible with the Spyglass Framework.");
+            default:
+              throw new IllegalStateException("Unexpected nesting kind: " + parent.getNestingKind());
           }
-          
-          throw new RuntimeException("Should never get here.");
         }
       });
   
