@@ -250,8 +250,8 @@ public class CompanionGenerator {
         .addCode(initialiseCallersCodeBuilder.build())
         .build();
     
-    final MethodSpec activateCallers = CompanionDef
-        .getNewActivateCallersMethodPrototype()
+    final MethodSpec callTargetMethods = CompanionDef
+        .getNewCallTargetMethodsMethodPrototype()
         .addCode(CodeBlock
             .builder()
             .beginControlFlow("if (!$N.compareAndSet(false, true))", companionHasBeenUsed)
@@ -313,7 +313,7 @@ public class CompanionGenerator {
         .addField(companionAttributes)
         .addField(companionHasBeenUsed)
         .addMethod(companionConstructor)
-        .addMethod(activateCallers)
+        .addMethod(callTargetMethods)
         .addMethod(initialiseCallers)
         .addMethod(getBuilder)
         .addType(builder)

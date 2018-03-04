@@ -59,7 +59,7 @@ public class WithUnconditionalHandlerAndDefault extends ObservableTestTargetBase
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
   }
 }

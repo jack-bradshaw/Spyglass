@@ -112,7 +112,7 @@ public class WithUseNumberOnBaseNumberType extends PlaceholderTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
   }
 }

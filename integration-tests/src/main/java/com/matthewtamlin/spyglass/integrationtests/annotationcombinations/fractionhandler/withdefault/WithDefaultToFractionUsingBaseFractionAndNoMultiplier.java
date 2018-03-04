@@ -76,7 +76,7 @@ public class WithDefaultToFractionUsingBaseFractionAndNoMultiplier extends Fract
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
   }
 }

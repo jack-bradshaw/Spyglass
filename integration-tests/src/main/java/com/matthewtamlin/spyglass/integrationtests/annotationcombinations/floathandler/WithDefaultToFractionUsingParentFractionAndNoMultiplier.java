@@ -73,7 +73,7 @@ public class WithDefaultToFractionUsingParentFractionAndNoMultiplier extends Flo
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
   }
 }
