@@ -20,7 +20,6 @@ import com.google.common.collect.ImmutableMap;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
 import com.matthewtamlin.spyglass.processor.definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
-import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.ClassName;
 import com.squareup.javapoet.CodeBlock;
@@ -29,11 +28,12 @@ import com.squareup.javapoet.MethodSpec;
 import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import java.util.Map;
+import java.util.function.Function;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class GetValueMethodGenerator {
-  private final Map<String, ParametrisedSupplier<AnnotationMirror, MethodSpec>> methodSpecSuppliers;
+  private final Map<String, Function<AnnotationMirror, MethodSpec>> methodSpecSuppliers;
   
   private final AnnotationMirrorHelper annotationMirrorHelper;
   
@@ -42,7 +42,7 @@ public class GetValueMethodGenerator {
     this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
     
     methodSpecSuppliers = ImmutableMap
-        .<String, ParametrisedSupplier<AnnotationMirror, MethodSpec>>builder()
+        .<String, Function<AnnotationMirror, MethodSpec>>builder()
         .put(
             BooleanHandler.class.getName(),
             booleanHandlerAnnotation -> {
@@ -238,7 +238,7 @@ public class GetValueMethodGenerator {
       throw new IllegalArgumentException("Argument \'unconditionalHandlerAnnotation\' cannot contain null.");
     }
     
-    return methodSpecSuppliers.get(annotationClassName).supplyFor(unconditionalHandlerAnnotation);
+    return methodSpecSuppliers.get(annotationClassName).apply(unconditionalHandlerAnnotation);
   }
   
   private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
