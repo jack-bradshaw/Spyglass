@@ -332,16 +332,16 @@ public class GetDefaultMethodGenerator {
         .build();
   }
   
-  public MethodSpec generateFor(final AnnotationMirror defaultAnno) {
-    checkNotNull(defaultAnno, "Argument \'defaultAnno\' cannot be null.");
+  public MethodSpec generateFor(final AnnotationMirror defaultAnnotation) {
+    checkNotNull(defaultAnnotation, "Argument \'defaultAnnotation\' cannot be null.");
     
-    final String annoClassName = defaultAnno.getAnnotationType().toString();
+    final String annotationClassName = defaultAnnotation.getAnnotationType().toString();
     
-    if (!methodSpecSuppliers.containsKey(annoClassName)) {
-      throw new IllegalArgumentException("Argument \'defaultAnno\' is not a default annotation.");
+    if (!methodSpecSuppliers.containsKey(annotationClassName)) {
+      throw new IllegalArgumentException("Argument \'defaultAnnotation\' is not a default annotation.");
     }
     
-    return methodSpecSuppliers.get(annoClassName).supplyFor(defaultAnno);
+    return methodSpecSuppliers.get(annotationClassName).supplyFor(defaultAnnotation);
   }
   
   private String getLiteralFromAnnotation(final AnnotationMirror mirror, final String key) {
@@ -350,27 +350,21 @@ public class GetDefaultMethodGenerator {
   
   private String getComplexUnitLiteral(final String unit) {
     switch (unit) {
-      case "PX": {
+      case "PX":
         return "COMPLEX_UNIT_PX";
-      }
-      case "DP": {
+      case "DP":
         return "COMPLEX_UNIT_DIP";
-      }
-      case "PT": {
+      case "PT":
         return "COMPLEX_UNIT_PT";
-      }
-      case "IN": {
+      case "IN":
         return "COMPLEX_UNIT_IN";
-      }
-      case "SP": {
+      case "SP":
         return "COMPLEX_UNIT_SP";
-      }
-      case "MM": {
+      case "MM":
         return "COMPLEX_UNIT_MM";
-      }
+      default:
+        throw new IllegalStateException("Unexpected unit: " + unit);
     }
-    
-    throw new RuntimeException("Should never get here.");
   }
   
   private MethodSpec.Builder getBaseMethodSpec() {
