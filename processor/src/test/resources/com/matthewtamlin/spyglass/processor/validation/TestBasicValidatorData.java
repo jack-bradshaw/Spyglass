@@ -198,7 +198,7 @@ abstract class TestBasicValidatorData {
   abstract void method38(Object o2);
   
   public class NonStaticInnerClass {
-    @Target(isValid = false)
+    @Target(isValid = true)
     @BooleanHandler(attributeId = 1)
     public void method39(Object o1) {}
   }
@@ -209,7 +209,7 @@ abstract class TestBasicValidatorData {
     public void method41(Object o1) {}
     
     public class NonStaticClassWithinStaticClass {
-      @Target(isValid = false)
+      @Target(isValid = true)
       @BooleanHandler(attributeId = 1)
       public void method43(Object o1) {}
       
