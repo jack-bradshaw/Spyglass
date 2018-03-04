@@ -28,9 +28,9 @@ import java.util.Set;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class TypeMirrorHelper {
-  private Elements elementUtil;
+  private final Elements elementUtil;
   
-  private Types typeUtil;
+  private final Types typeUtil;
   
   private final Set<TypeMirror> rxTypes;
   
