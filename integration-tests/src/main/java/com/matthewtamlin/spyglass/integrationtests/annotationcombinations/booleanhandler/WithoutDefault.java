@@ -70,7 +70,6 @@ public class WithoutDefault extends BooleanHandlerTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

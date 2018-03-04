@@ -84,7 +84,6 @@ public class OverloadBehaviourTestTarget extends View {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

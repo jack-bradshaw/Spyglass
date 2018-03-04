@@ -41,7 +41,6 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 public class TypeValidator implements Validator {
   private final List<Rule> rules = ImmutableList.of(
-      // Every value handler annotation must be applicable to the annotated method
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -53,7 +52,7 @@ public class TypeValidator implements Validator {
           
           final MethodSpec supplier = getValueMethodGenerator.generateFor(anno);
           final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
-          final TypeMirror recipientType = getParameterWithoutUseAnnotation(element).asType();
+          final TypeMirror recipientType = getParameterWithoutPlaceholderAnnotation(element).asType();
           
           if (!isAssignableOrConvertible(suppliedType, recipientType)) {
             return Result.createFailure(
@@ -66,7 +65,6 @@ public class TypeValidator implements Validator {
         }
       },
       
-      // Every default annotation must be applicable to the annotated method
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -79,7 +77,7 @@ public class TypeValidator implements Validator {
           
           final MethodSpec supplier = getDefaultMethodGenerator.generateFor(anno);
           final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
-          final TypeMirror recipientType = getParameterWithoutUseAnnotation(element).asType();
+          final TypeMirror recipientType = getParameterWithoutPlaceholderAnnotation(element).asType();
           
           if (annoName.equals(DefaultToNull.class.getName())) {
             if (typeMirrorHelper.isPrimitive(recipientType)) {
@@ -102,7 +100,6 @@ public class TypeValidator implements Validator {
         }
       },
       
-      // Every use-annotation must be applicable to the annotated parameter
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -130,7 +127,7 @@ public class TypeValidator implements Validator {
           if (annoName.equals(UseNull.class.getName())) {
             if (typeMirrorHelper.isPrimitive(recipientType)) {
               return Result.createFailure(
-                  "Misused use-annotation found. Primitive arguments cannot receive null.");
+                  "Misused placeholder annotation found. Primitive parameters cannot receive null.");
               
             } else {
               return Result.createSuccessful();
@@ -139,7 +136,7 @@ public class TypeValidator implements Validator {
           
           if (!isAssignableOrConvertible(suppliedType, recipientType)) {
             return Result.createFailure(
-                "Misused use-annotation found. \'%1$s\' cannot be cast to \'%2$s\'.",
+                "Misused placeholder annotation found. \'%1$s\' cannot be cast to \'%2$s\'.",
                 suppliedType,
                 recipientType);
           }
@@ -193,7 +190,7 @@ public class TypeValidator implements Validator {
     return elementHelper.getTypeElement(methodSpec.returnType.toString()).asType();
   }
   
-  private static VariableElement getParameterWithoutUseAnnotation(final ExecutableElement method) {
+  private static VariableElement getParameterWithoutPlaceholderAnnotation(final ExecutableElement method) {
     for (final VariableElement parameter : method.getParameters()) {
       if (!PlaceholderRetriever.hasAnnotation(parameter)) {
         return parameter;

@@ -74,7 +74,6 @@ public class WithDefaultToColorStateListResource extends ColorStateListHandlerTe
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

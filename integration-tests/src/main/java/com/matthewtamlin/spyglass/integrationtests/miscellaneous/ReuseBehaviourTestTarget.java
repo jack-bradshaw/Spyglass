@@ -68,12 +68,7 @@ public class ReuseBehaviourTestTarget extends View {
         .withDefaultStyleResource(defStyleRes)
         .build();
     
-    companion
-        .passDataToMethods()
-        .blockingAwait();
-    
-    companion
-        .passDataToMethods()
-        .blockingAwait();
+    companion.callTargetMethodsNow();
+    companion.callTargetMethodsNow();
   }
 }
