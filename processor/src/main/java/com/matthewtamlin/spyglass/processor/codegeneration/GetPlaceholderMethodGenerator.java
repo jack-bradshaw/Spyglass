@@ -109,7 +109,7 @@ public class GetPlaceholderMethodGenerator {
     final String annotationClassName = placeholderAnnotation.getAnnotationType().toString();
     
     if (!methodSpecSuppliers.containsKey(annotationClassName)) {
-      throw new IllegalArgumentException("Argument \'placeholderAnnotation\' is not a use-annotation.");
+      throw new IllegalArgumentException("Argument \'placeholderAnnotation\' is not a placeholder annotation.");
     }
     
     return methodSpecSuppliers.get(annotationClassName).supplyFor(placeholderAnnotation, parameterIndex);
