@@ -71,9 +71,9 @@ public class TypeValidator implements Validator {
             return Result.createSuccessful();
           }
           
-          final AnnotationMirror anno = UnconditionalHandlerRetriever.getAnnotation(element);
+          final AnnotationMirror annotation = UnconditionalHandlerRetriever.getAnnotation(element);
           
-          final MethodSpec supplier = getValueMethodGenerator.generateFor(anno);
+          final MethodSpec supplier = getValueMethodGenerator.generateFor(annotation);
           final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
           final TypeMirror recipientType = getParameterWithoutPlaceholderAnnotation(element).asType();
           
@@ -92,14 +92,14 @@ public class TypeValidator implements Validator {
             return Result.createSuccessful();
           }
           
-          final AnnotationMirror anno = DefaultRetriever.getAnnotation(element);
-          final String annoName = anno.getAnnotationType().toString();
+          final AnnotationMirror annotation = DefaultRetriever.getAnnotation(element);
+          final String annotationName = annotation.getAnnotationType().toString();
           
-          final MethodSpec supplier = getDefaultMethodGenerator.generateFor(anno);
+          final MethodSpec supplier = getDefaultMethodGenerator.generateFor(annotation);
           final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
           final TypeMirror recipientType = getParameterWithoutPlaceholderAnnotation(element).asType();
           
-          if (annoName.equals(DefaultToNull.class.getName())) {
+          if (annotationName.equals(DefaultToNull.class.getName())) {
             if (typeMirrorHelper.isPrimitive(recipientType)) {
               return Result.createFailure(
                   "Misused default annotation found. Primitive parameters cannot receive null.");
@@ -136,14 +136,14 @@ public class TypeValidator implements Validator {
           }
           
           private Result checkParameter(final VariableElement parameter) {
-            final AnnotationMirror anno = PlaceholderRetriever.getAnnotation(parameter);
-            final String annoName = anno.getAnnotationType().toString();
+            final AnnotationMirror annotation = PlaceholderRetriever.getAnnotation(parameter);
+            final String annotationName = annotation.getAnnotationType().toString();
             
-            final MethodSpec supplier = getPlaceholderMethodGenerator.generateFor(anno, 0);
+            final MethodSpec supplier = getPlaceholderMethodGenerator.generateFor(annotation, 0);
             final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
             final TypeMirror recipientType = parameter.asType();
             
-            if (annoName.equals(UseNull.class.getName())) {
+            if (annotationName.equals(UseNull.class.getName())) {
               if (typeMirrorHelper.isPrimitive(recipientType)) {
                 return Result.createFailure(
                     "Misused placeholder annotation found. Primitive parameters cannot receive null.");
