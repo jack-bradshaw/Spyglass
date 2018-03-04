@@ -51,6 +51,9 @@ public class TestCallerGenerator {
     final AnnotationMirrorHelper annotationMirrorHelper = new AnnotationMirrorHelper(avatarRule.getElementUtils());
     
     callerGenerator = new CallerGenerator(
+        avatarRule.getElementUtils(),
+        avatarRule.getTypeUtils(),
+        new TypeMirrorHelper(avatarRule.getElementUtils(), avatarRule.getTypeUtils()),
         new GetDefaultMethodGenerator(annotationMirrorHelper),
         new GetValueMethodGenerator(annotationMirrorHelper),
         new GetPlaceholderMethodGenerator(annotationMirrorHelper),
@@ -59,8 +62,7 @@ public class TestCallerGenerator {
         new CastWrapperGenerator(
             avatarRule.getElementUtils(),
             avatarRule.getTypeUtils(),
-            new TypeMirrorHelper(avatarRule.getElementUtils(), avatarRule.getTypeUtils()))
-    );
+            new TypeMirrorHelper(avatarRule.getElementUtils(), avatarRule.getTypeUtils())));
   }
   
   @Test(expected = IllegalArgumentException.class)

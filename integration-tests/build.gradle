@@ -49,6 +49,8 @@ dependencies {
 
   compileOnly project(':annotations')
 
+  implementation project(':runtime-dependencies')
+
   implementation project.ext.dependencies.appCompat
   implementation project.ext.dependencies.apacheCommons.lang
 

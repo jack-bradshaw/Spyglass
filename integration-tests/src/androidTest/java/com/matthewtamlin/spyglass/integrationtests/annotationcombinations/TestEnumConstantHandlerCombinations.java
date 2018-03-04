@@ -39,7 +39,6 @@ import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 import android.util.AttributeSet;
 
-import com.matthewtamlin.spyglass.core.TargetException;
 import com.matthewtamlin.spyglass.integrationtests.R;
 import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.enumconstanthandler.EnumConstantHandlerTestTargetBase;
 import com.matthewtamlin.spyglass.integrationtests.annotationcombinations.enumconstanthandler.EnumForTesting.Fruit;
@@ -82,7 +81,7 @@ public class TestEnumConstantHandlerCombinations {
     assertThat(target.getReceivedValue(), is(ReceivedValue.of(Fruit.PEAR)));
   }
 
-  @Test(expected = TargetException.class)
+  @Test(expected = RuntimeException.class)
   @UiThreadTest
   public void testSpyglassFails_attributePresent_attributeEqualsInvalidFruit() {
     final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_with_attr_equals_invalid_fruit);
@@ -110,7 +109,7 @@ public class TestEnumConstantHandlerCombinations {
     assertThat(target.getReceivedValue(), is(ReceivedValue.of(Fruit.WATERMELON)));
   }
 
-  @Test(expected = TargetException.class)
+  @Test(expected = RuntimeException.class)
   @UiThreadTest
   public void testSpyglassFails_attributeMissing_defaultToEnumConstantPresent_defaultOrdinalTooSmall() {
     final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_without_attr);
@@ -118,7 +117,7 @@ public class TestEnumConstantHandlerCombinations {
     new WithDefaultToEnumConstantWithOrdinalTooSmall(context, attrs);
   }
 
-  @Test(expected = TargetException.class)
+  @Test(expected = RuntimeException.class)
   @UiThreadTest
   public void testSpyglassFails_attributeMissing_defaultToEnumConstantPresent_defaultOrdinalTooBig() {
     final AttributeSet attrs = fromXml(context, R.xml.enum_constant_handler_without_attr);

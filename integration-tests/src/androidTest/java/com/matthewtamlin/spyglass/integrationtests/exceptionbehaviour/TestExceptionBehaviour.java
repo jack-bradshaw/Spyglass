@@ -20,7 +20,6 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
-import com.matthewtamlin.spyglass.core.TargetException;
 
 import org.junit.Before;
 import org.junit.Rule;
@@ -45,7 +44,7 @@ public class TestExceptionBehaviour {
   public void testExceptionBehaviour_handlerMethodThrowsThrowable() {
     try {
       new ThrowsThrowable(context);
-    } catch (final TargetException e) {
+    } catch (final RuntimeException e) {
       assertThat(e.getCause(), is(ThrowsThrowable.getExpectedThrowable()));
       
       return;

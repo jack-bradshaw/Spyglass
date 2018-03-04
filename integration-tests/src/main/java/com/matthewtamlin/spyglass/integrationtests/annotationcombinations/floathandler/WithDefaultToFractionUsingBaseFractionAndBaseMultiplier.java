@@ -73,6 +73,7 @@ public class WithDefaultToFractionUsingBaseFractionAndBaseMultiplier extends Flo
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }
