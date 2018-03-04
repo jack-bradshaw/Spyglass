@@ -93,13 +93,14 @@ public class CallerGenerator {
     checkNotNull(attrsParameter, "Argument \'attrsParameter\' cannot be null.");
     
     if (ConditionalHandlerRetriever.hasAnnotation(method)) {
-      return generateForCallHandler(method, targetParameter, contextParameter, attrsParameter);
+      return generateForConditionalHandler(method, targetParameter, contextParameter, attrsParameter);
       
     } else if (UnconditionalHandlerRetriever.hasAnnotation(method)) {
       if (DefaultRetriever.hasAnnotation(method)) {
-        return generateForValueHandlerWithDefault(method, targetParameter, contextParameter, attrsParameter);
+        return generateForUnconditionalHandlerWithDefault(method, targetParameter, contextParameter, attrsParameter);
+        
       } else {
-        return generateCallerForValueHandlerWithoutDefault(
+        return generateForUnconditionalHandlerWithoutDefault(
             method,
             targetParameter,
             contextParameter,
@@ -110,45 +111,46 @@ public class CallerGenerator {
     }
   }
   
-  private TypeSpec generateForCallHandler(
-      final ExecutableElement e,
+  private TypeSpec generateForConditionalHandler(
+      final ExecutableElement method,
       final CodeBlock targetParameter,
       final CodeBlock contextParameter,
       final CodeBlock attrsParameter) {
     
     final TypeSpec.Builder callerBuilder = CallerDef.getNewAnonymousCallerPrototype(
-        getNameOfTargetClass(e),
+        getNameOfTargetClass(method),
         targetParameter,
         contextParameter,
         attrsParameter);
     
     final CodeBlock.Builder invocationBuilder = CodeBlock
         .builder()
-        .add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
+        .add("$N().$N(", CallerDef.GET_TARGET, method.getSimpleName());
     
-    for (int i = 0; i < e.getParameters().size(); i++) {
-      final VariableElement parameter = e.getParameters().get(i);
+    for (int i = 0; i < method.getParameters().size(); i++) {
+      final VariableElement parameter = method.getParameters().get(i);
       final AnnotationMirror placeholder = PlaceholderRetriever.getAnnotation(parameter);
       final MethodSpec argMethod = getPlaceholderMethodGenerator.generateFor(placeholder, i);
       
       invocationBuilder.add(castWrapperGenerator.generateFor(argMethod, parameter.asType()));
+      
       callerBuilder.addMethod(argMethod);
       
-      if (i < e.getParameters().size() - 1) {
+      if (i < method.getParameters().size() - 1) {
         invocationBuilder.add(", ");
       }
     }
     
     invocationBuilder.add(")");
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
-      if (isSingle(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
+      if (isSingle(method.getReturnType())) {
         invocationBuilder.add(".toCompletable()");
         
-      } else if (isMaybe(e.getReturnType())) {
+      } else if (isMaybe(method.getReturnType())) {
         invocationBuilder.add(".ignoreElement()");
         
-      } else if (!isCompletable(e.getReturnType())) {
+      } else if (!isCompletable(method.getReturnType())) {
         invocationBuilder.add(".ignoreElements()");
       }
     }
@@ -156,11 +158,11 @@ public class CallerGenerator {
     invocationBuilder.add(";\n");
     
     final MethodSpec specificValueIsAvailable = specificValueIsAvailableGenerator.generateFor(
-        ConditionalHandlerRetriever.getAnnotation(e));
+        ConditionalHandlerRetriever.getAnnotation(method));
     
     final CodeBlock.Builder callMethodCodeBlockBuilder = CodeBlock.builder();
     
-    if (!typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (!typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.beginControlFlow("return $T.fromRunnable(() -> ", RxJavaClassNames.COMPLETABLE);
     }
     
@@ -168,13 +170,13 @@ public class CallerGenerator {
         .beginControlFlow("try")
         .beginControlFlow("if ($N())", specificValueIsAvailable);
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.add("return ");
     }
     
     callMethodCodeBlockBuilder.add(invocationBuilder.build());
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder
           .nextControlFlow("else")
           .addStatement("return $T.complete()", RxJavaClassNames.COMPLETABLE);
@@ -184,12 +186,13 @@ public class CallerGenerator {
         .endControlFlow()
         .nextControlFlow("catch (final Throwable error)");
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.addStatement(
           "return $T.error(new $T($S, error))",
           RxJavaClassNames.COMPLETABLE,
           RuntimeException.class,
           "The Spyglass Framework encountered an exception when calling a target method.");
+      
     } else {
       callMethodCodeBlockBuilder.addStatement(
           "throw new $T($S, error)",
@@ -197,10 +200,9 @@ public class CallerGenerator {
           "The Spyglass Framework encountered an exception when calling a target method.");
     }
     
-    callMethodCodeBlockBuilder
-        .endControlFlow();
+    callMethodCodeBlockBuilder.endControlFlow();
     
-    if (!typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (!typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder
           .endControlFlow()
           .addStatement(")");
@@ -215,47 +217,48 @@ public class CallerGenerator {
         .build();
   }
   
-  private TypeSpec generateCallerForValueHandlerWithoutDefault(
-      final ExecutableElement e,
+  private TypeSpec generateForUnconditionalHandlerWithoutDefault(
+      final ExecutableElement method,
       final CodeBlock targetParameter,
       final CodeBlock contextParameter,
       final CodeBlock attrsParameter) {
     
     final TypeSpec.Builder callerBuilder = CallerDef.getNewAnonymousCallerPrototype(
-        getNameOfTargetClass(e),
+        getNameOfTargetClass(method),
         targetParameter,
         contextParameter,
         attrsParameter);
     
     final CodeBlock.Builder invocationBuilder = CodeBlock
         .builder()
-        .add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
+        .add("$N().$N(", CallerDef.GET_TARGET, method.getSimpleName());
     
-    for (int i = 0; i < e.getParameters().size(); i++) {
-      final VariableElement parameter = e.getParameters().get(i);
+    for (int i = 0; i < method.getParameters().size(); i++) {
+      final VariableElement parameter = method.getParameters().get(i);
       
       final MethodSpec argMethod = PlaceholderRetriever.hasAnnotation(parameter) ?
           getPlaceholderMethodGenerator.generateFor(PlaceholderRetriever.getAnnotation(parameter), i) :
-          getValueMethodGenerator.generateFor(UnconditionalHandlerRetriever.getAnnotation(e));
+          getValueMethodGenerator.generateFor(UnconditionalHandlerRetriever.getAnnotation(method));
       
       invocationBuilder.add(castWrapperGenerator.generateFor(argMethod, parameter.asType()));
+      
       callerBuilder.addMethod(argMethod);
       
-      if (i < e.getParameters().size() - 1) {
+      if (i < method.getParameters().size() - 1) {
         invocationBuilder.add(", ");
       }
     }
     
     invocationBuilder.add(")");
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
-      if (isSingle(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
+      if (isSingle(method.getReturnType())) {
         invocationBuilder.add(".toCompletable()");
         
-      } else if (isMaybe(e.getReturnType())) {
+      } else if (isMaybe(method.getReturnType())) {
         invocationBuilder.add(".ignoreElement()");
         
-      } else if (!isCompletable(e.getReturnType())) {
+      } else if (!isCompletable(method.getReturnType())) {
         invocationBuilder.add(".ignoreElements()");
       }
     }
@@ -263,11 +266,11 @@ public class CallerGenerator {
     invocationBuilder.add(";\n");
     
     final MethodSpec anyValueIsAvailable = anyValueIsAvailableGenerator.generateFor(
-        UnconditionalHandlerRetriever.getAnnotation(e));
+        UnconditionalHandlerRetriever.getAnnotation(method));
     
     final CodeBlock.Builder callMethodCodeBlockBuilder = CodeBlock.builder();
     
-    if (!typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (!typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.beginControlFlow("return $T.fromRunnable(() -> ", RxJavaClassNames.COMPLETABLE);
     }
     
@@ -275,13 +278,13 @@ public class CallerGenerator {
         .beginControlFlow("try")
         .beginControlFlow("if ($N())", anyValueIsAvailable);
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.add("return ");
     }
     
     callMethodCodeBlockBuilder.add(invocationBuilder.build());
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder
           .nextControlFlow("else")
           .addStatement("return $T.complete()", RxJavaClassNames.COMPLETABLE);
@@ -291,12 +294,13 @@ public class CallerGenerator {
         .endControlFlow()
         .nextControlFlow("catch (final Throwable error)");
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.addStatement(
           "return $T.error(new $T($S, error))",
           RxJavaClassNames.COMPLETABLE,
           RuntimeException.class,
           "The Spyglass Framework encountered an exception when calling a target method.");
+      
     } else {
       callMethodCodeBlockBuilder.addStatement(
           "throw new $T($S, error)",
@@ -304,10 +308,9 @@ public class CallerGenerator {
           "The Spyglass Framework encountered an exception when calling a target method.");
     }
     
-    callMethodCodeBlockBuilder
-        .endControlFlow();
+    callMethodCodeBlockBuilder.endControlFlow();
     
-    if (!typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (!typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder
           .endControlFlow()
           .addStatement(")");
@@ -322,36 +325,36 @@ public class CallerGenerator {
         .build();
   }
   
-  private TypeSpec generateForValueHandlerWithDefault(
-      final ExecutableElement e,
+  private TypeSpec generateForUnconditionalHandlerWithDefault(
+      final ExecutableElement method,
       final CodeBlock targetParameter,
       final CodeBlock contextParameter,
       final CodeBlock attrsParameter) {
     
     final TypeSpec.Builder callerBuilder = CallerDef.getNewAnonymousCallerPrototype(
-        getNameOfTargetClass(e),
+        getNameOfTargetClass(method),
         targetParameter,
         contextParameter,
         attrsParameter);
     
     final CodeBlock.Builder valueAvailableCaseInvocationBuilder = CodeBlock
         .builder()
-        .add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
+        .add("$N().$N(", CallerDef.GET_TARGET, method.getSimpleName());
     
     final CodeBlock.Builder valueUnavailableCaseInvocationBuilder = CodeBlock
         .builder()
-        .add("$N().$N(", CallerDef.GET_TARGET, e.getSimpleName());
+        .add("$N().$N(", CallerDef.GET_TARGET, method.getSimpleName());
     
-    final AnnotationMirror unconditionalHandlerAnnotation = UnconditionalHandlerRetriever.getAnnotation(e);
+    final AnnotationMirror unconditionalHandlerAnnotation = UnconditionalHandlerRetriever.getAnnotation(method);
     final MethodSpec getValueMethod = getValueMethodGenerator.generateFor(unconditionalHandlerAnnotation);
     callerBuilder.addMethod(getValueMethod);
     
-    final AnnotationMirror defaultAnnotation = DefaultRetriever.getAnnotation(e);
+    final AnnotationMirror defaultAnnotation = DefaultRetriever.getAnnotation(method);
     final MethodSpec getDefaultMethod = getDefaultMethodGenerator.generateFor(defaultAnnotation);
     callerBuilder.addMethod(getDefaultMethod);
     
-    for (int i = 0; i < e.getParameters().size(); i++) {
-      final VariableElement parameter = e.getParameters().get(i);
+    for (int i = 0; i < method.getParameters().size(); i++) {
+      final VariableElement parameter = method.getParameters().get(i);
       
       if (PlaceholderRetriever.hasAnnotation(parameter)) {
         final AnnotationMirror placeholder = PlaceholderRetriever.getAnnotation(parameter);
@@ -371,7 +374,7 @@ public class CallerGenerator {
             parameter.asType()));
       }
       
-      if (i < e.getParameters().size() - 1) {
+      if (i < method.getParameters().size() - 1) {
         valueAvailableCaseInvocationBuilder.add(", ");
         valueUnavailableCaseInvocationBuilder.add(", ");
       }
@@ -380,16 +383,16 @@ public class CallerGenerator {
     valueAvailableCaseInvocationBuilder.add(")");
     valueUnavailableCaseInvocationBuilder.add(")");
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
-      if (isSingle(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
+      if (isSingle(method.getReturnType())) {
         valueAvailableCaseInvocationBuilder.add(".toCompletable()");
         valueUnavailableCaseInvocationBuilder.add(".toCompletable()");
         
-      } else if (isMaybe(e.getReturnType())) {
+      } else if (isMaybe(method.getReturnType())) {
         valueAvailableCaseInvocationBuilder.add(".ignoreElement()");
         valueUnavailableCaseInvocationBuilder.add(".ignoreElement()");
         
-      } else if (!isCompletable(e.getReturnType())) {
+      } else if (!isCompletable(method.getReturnType())) {
         valueAvailableCaseInvocationBuilder.add(".ignoreElements()");
         valueUnavailableCaseInvocationBuilder.add(".ignoreElements()");
       }
@@ -399,11 +402,11 @@ public class CallerGenerator {
     valueUnavailableCaseInvocationBuilder.add(";\n");
     
     final MethodSpec anyValueIsAvailable = anyValueIsAvailableGenerator.generateFor(
-        UnconditionalHandlerRetriever.getAnnotation(e));
+        UnconditionalHandlerRetriever.getAnnotation(method));
     
     final CodeBlock.Builder callMethodCodeBlockBuilder = CodeBlock.builder();
     
-    if (!typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (!typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.beginControlFlow("return $T.fromRunnable(() -> ", RxJavaClassNames.COMPLETABLE);
     }
     
@@ -411,7 +414,7 @@ public class CallerGenerator {
         .beginControlFlow("try")
         .beginControlFlow("if ($N())", anyValueIsAvailable);
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.add("return ");
     }
     
@@ -419,7 +422,7 @@ public class CallerGenerator {
         .add(valueAvailableCaseInvocationBuilder.build())
         .nextControlFlow("else");
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.add("return ");
     }
     
@@ -429,12 +432,13 @@ public class CallerGenerator {
     
     callMethodCodeBlockBuilder.nextControlFlow("catch (final Throwable error)");
     
-    if (typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder.addStatement(
           "return $T.error(new $T($S, error))",
           RxJavaClassNames.COMPLETABLE,
           RuntimeException.class,
           "The Spyglass Framework encountered an exception when calling a target method.");
+      
     } else {
       callMethodCodeBlockBuilder.addStatement(
           "throw new $T($S, error)",
@@ -442,10 +446,9 @@ public class CallerGenerator {
           "The Spyglass Framework encountered an exception when calling a target method.");
     }
     
-    callMethodCodeBlockBuilder
-        .endControlFlow();
+    callMethodCodeBlockBuilder.endControlFlow();
     
-    if (!typeMirrorHelper.isRxObservableType(e.getReturnType())) {
+    if (!typeMirrorHelper.isRxObservableType(method.getReturnType())) {
       callMethodCodeBlockBuilder
           .endControlFlow()
           .addStatement(")");
@@ -462,6 +465,7 @@ public class CallerGenerator {
   
   private TypeName getNameOfTargetClass(final ExecutableElement method) {
     final TypeElement enclosingType = (TypeElement) method.getEnclosingElement();
+    
     return TypeName.get(enclosingType.asType());
   }
   
