@@ -79,7 +79,7 @@ public class CompanionGenerator {
         .addModifiers(PRIVATE)
         .build();
     
-    final MethodSpec withTarget = MethodSpec
+    final MethodSpec setBuilderTarget = MethodSpec
         .methodBuilder("withTarget")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
@@ -91,7 +91,7 @@ public class CompanionGenerator {
             .build())
         .build();
     
-    final MethodSpec withContext = MethodSpec
+    final MethodSpec setBuilderContext = MethodSpec
         .methodBuilder("withContext")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
@@ -103,7 +103,7 @@ public class CompanionGenerator {
             .build())
         .build();
     
-    final MethodSpec withStyleableResource = MethodSpec
+    final MethodSpec setBuilderStyleableResource = MethodSpec
         .methodBuilder("withStyleableResource")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
@@ -115,7 +115,7 @@ public class CompanionGenerator {
             .build())
         .build();
     
-    final MethodSpec withAttributeSet = MethodSpec
+    final MethodSpec setBuilderAttributeSet = MethodSpec
         .methodBuilder("withAttributeSet")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
@@ -127,7 +127,7 @@ public class CompanionGenerator {
             .build())
         .build();
     
-    final MethodSpec withDefaultStyleAttribute = MethodSpec
+    final MethodSpec setBuilderDefaultStyleAttribute = MethodSpec
         .methodBuilder("withDefaultStyleAttribute")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
@@ -139,7 +139,7 @@ public class CompanionGenerator {
             .build())
         .build();
     
-    final MethodSpec withDefaultStyleResource = MethodSpec
+    final MethodSpec setBuilderDefaultStyleResource = MethodSpec
         .methodBuilder("withDefaultStyleResource")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
@@ -192,12 +192,12 @@ public class CompanionGenerator {
         .addField(builderDefaultStyleAttribute)
         .addField(builderDefaultStyleResource)
         .addMethod(builderConstructor)
-        .addMethod(withTarget)
-        .addMethod(withContext)
-        .addMethod(withStyleableResource)
-        .addMethod(withAttributeSet)
-        .addMethod(withDefaultStyleAttribute)
-        .addMethod(withDefaultStyleResource)
+        .addMethod(setBuilderTarget)
+        .addMethod(setBuilderContext)
+        .addMethod(setBuilderStyleableResource)
+        .addMethod(setBuilderAttributeSet)
+        .addMethod(setBuilderDefaultStyleAttribute)
+        .addMethod(setBuilderDefaultStyleResource)
         .addMethod(build)
         .build();
     
@@ -306,7 +306,7 @@ public class CompanionGenerator {
             .build())
         .build();
     
-    final MethodSpec getBuilder = MethodSpec
+    final MethodSpec newBuilder = MethodSpec
         .methodBuilder("builder")
         .addModifiers(PUBLIC, STATIC)
         .returns(builderTypeName)
@@ -324,7 +324,7 @@ public class CompanionGenerator {
         .addMethod(callTargetMethods)
         .addMethod(callTargetMethodsNow)
         .addMethod(initialiseCallers)
-        .addMethod(getBuilder)
+        .addMethod(newBuilder)
         .addType(builder)
         .build();
     
