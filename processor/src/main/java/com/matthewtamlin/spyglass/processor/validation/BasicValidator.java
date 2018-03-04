@@ -107,7 +107,7 @@ public class BasicValidator implements Validator {
           
           for (final Integer paramIndex : useAnnotations.keySet()) {
             if (useAnnotations.get(paramIndex).size() > 1) {
-              return Result.createFailure("Parameters must not have multiple use-annotations.");
+              return Result.createFailure("Parameters must not have multiple placeholder annotations.");
             }
           }
           
