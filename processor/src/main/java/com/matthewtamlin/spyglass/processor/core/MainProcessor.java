@@ -40,17 +40,24 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class MainProcessor extends AbstractProcessor {
-  private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
+  private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS = ImmutableSet
+      .<Class<? extends Annotation>>builder()
+      .addAll(AnnotationRegistry.CONDITIONAL_HANDLERS)
+      .addAll(AnnotationRegistry.UNCONDITIONAL_HANDLERS)
+      .addAll(AnnotationRegistry.DEFAULTS)
+      .addAll(AnnotationRegistry.PLACEHOLDERS)
+      .build();
   
-  private static final Set<JavaFile> REQUIRED_FILES = ImmutableSet.of(
-      CallerDef.SRC_FILE,
-      CompanionDef.SRC_FILE);
+  private static final Set<JavaFile> REQUIRED_FILES = ImmutableSet.of(CallerDef.SRC_FILE, CompanionDef.SRC_FILE);
   
   @Inject
   protected Elements elementUtil;
@@ -73,17 +80,6 @@ public class MainProcessor extends AbstractProcessor {
   private boolean allRequiredFilesCreated;
   
   private boolean requiredFilesMissingErrorWritten;
-  
-  static {
-    final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
-    
-    intermediateSet.addAll(AnnotationRegistry.CONDITIONAL_HANDLERS);
-    intermediateSet.addAll(AnnotationRegistry.UNCONDITIONAL_HANDLERS);
-    intermediateSet.addAll(AnnotationRegistry.DEFAULTS);
-    intermediateSet.addAll(AnnotationRegistry.PLACEHOLDERS);
-    
-    SUPPORTED_ANNOTATIONS = Collections.unmodifiableSet(intermediateSet);
-  }
   
   @Override
   public synchronized void init(final ProcessingEnvironment processingEnvironment) {
