@@ -54,7 +54,6 @@ public class AnyValueIsAvailableMethodGenerator {
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
                 .build())
-        
         .put(
             ColorHandler.class.getName(),
             colorHandlerAnnotation -> CodeBlock
@@ -68,7 +67,6 @@ public class AnyValueIsAvailableMethodGenerator {
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
                 .build())
-        
         .put(
             ColorStateListHandler.class.getName(),
             colorStateListHandlerAnnotation -> CodeBlock
@@ -78,7 +76,6 @@ public class AnyValueIsAvailableMethodGenerator {
                     CallerDef.GET_ATTRS,
                     getLiteralFromAnnotation(colorStateListHandlerAnnotation, "attributeId"))
                 .build())
-        
         .put(
             DimensionHandler.class.getName(),
             dimensionHandlerAnnotation -> CodeBlock
@@ -95,7 +92,6 @@ public class AnyValueIsAvailableMethodGenerator {
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
                 .build())
-        
         .put(
             DrawableHandler.class.getName(),
             drawableHandlerAnnotation -> CodeBlock
@@ -105,7 +101,6 @@ public class AnyValueIsAvailableMethodGenerator {
                     CallerDef.GET_ATTRS,
                     getLiteralFromAnnotation(drawableHandlerAnnotation, "attributeId"))
                 .build())
-        
         .put(
             EnumConstantHandler.class.getName(),
             enumConstantHandlerAnnotation -> CodeBlock
@@ -119,7 +114,6 @@ public class AnyValueIsAvailableMethodGenerator {
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
                 .build())
-        
         .put(
             EnumOrdinalHandler.class.getName(),
             enumOrdinalHandlerAnnotation -> CodeBlock
@@ -133,7 +127,6 @@ public class AnyValueIsAvailableMethodGenerator {
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
                 .build())
-        
         .put(
             FloatHandler.class.getName(),
             floatHandlerAnnotation -> CodeBlock
@@ -150,7 +143,6 @@ public class AnyValueIsAvailableMethodGenerator {
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
                 .build())
-        
         .put(
             FractionHandler.class.getName(),
             fractionHandlerAnnotation -> CodeBlock
@@ -167,7 +159,6 @@ public class AnyValueIsAvailableMethodGenerator {
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
                 .build())
-        
         .put(
             IntegerHandler.class.getName(),
             integerHandlerAnnotation -> CodeBlock
@@ -181,7 +172,6 @@ public class AnyValueIsAvailableMethodGenerator {
                 .add("\n")
                 .addStatement("return !defaultConsistentlyReturned")
                 .build())
-        
         .put(
             StringHandler.class.getName(),
             stringHandlerAnnotation -> CodeBlock
