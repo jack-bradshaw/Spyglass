@@ -40,10 +40,38 @@ import java.util.List;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class TypeValidator implements Validator {
-  private final List<Rule> rules = ImmutableList.of(
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+  private final Elements elementHelper;
+  
+  private final Types typeHelper;
+  
+  private final TypeMirrorHelper typeMirrorHelper;
+  
+  private final GetValueMethodGenerator getValueMethodGenerator;
+  
+  private final GetDefaultMethodGenerator getDefaultMethodGenerator;
+  
+  private final GetPlaceholderMethodGenerator getPlaceholderMethodGenerator;
+  
+  private final List<Rule> rules;
+  
+  @Inject
+  public TypeValidator(
+      final Elements elementUtil,
+      final Types typeUtil,
+      final TypeMirrorHelper typeMirrorHelper,
+      final GetValueMethodGenerator getValueMethodGenerator,
+      final GetDefaultMethodGenerator getDefaultMethodGenerator,
+      final GetPlaceholderMethodGenerator getPlaceholderMethodGenerator) {
+    
+    this.elementHelper = checkNotNull(elementUtil);
+    this.typeHelper = checkNotNull(typeUtil);
+    this.typeMirrorHelper = checkNotNull(typeMirrorHelper);
+    this.getValueMethodGenerator = checkNotNull(getValueMethodGenerator);
+    this.getDefaultMethodGenerator = checkNotNull(getDefaultMethodGenerator);
+    this.getPlaceholderMethodGenerator = checkNotNull(getPlaceholderMethodGenerator);
+    
+    rules = ImmutableList.of(
+        element -> {
           if (!UnconditionalHandlerRetriever.hasAnnotation(element)) {
             return Result.createSuccessful();
           }
@@ -62,12 +90,9 @@ public class TypeValidator implements Validator {
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           if (!DefaultRetriever.hasAnnotation(element)) {
             return Result.createSuccessful();
           }
@@ -97,81 +122,52 @@ public class TypeValidator implements Validator {
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
-          for (final VariableElement parameter : element.getParameters()) {
-            if (PlaceholderRetriever.hasAnnotation(parameter)) {
-              final Result result = checkParameter(parameter);
-              
-              if (!result.isSuccessful()) {
-                return result;
+        },
+        
+        new Rule() {
+          @Override
+          public Result checkElement(final ExecutableElement element) {
+            for (final VariableElement parameter : element.getParameters()) {
+              if (PlaceholderRetriever.hasAnnotation(parameter)) {
+                final Result result = checkParameter(parameter);
+                
+                if (!result.isSuccessful()) {
+                  return result;
+                }
               }
             }
+            
+            return Result.createSuccessful();
           }
           
-          return Result.createSuccessful();
-        }
-        
-        private Result checkParameter(final VariableElement parameter) {
-          final AnnotationMirror anno = PlaceholderRetriever.getAnnotation(parameter);
-          final String annoName = anno.getAnnotationType().toString();
-          
-          final MethodSpec supplier = getPlaceholderMethodGenerator.generateFor(anno, 0);
-          final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
-          final TypeMirror recipientType = parameter.asType();
-          
-          if (annoName.equals(UseNull.class.getName())) {
-            if (typeMirrorHelper.isPrimitive(recipientType)) {
-              return Result.createFailure(
-                  "Misused placeholder annotation found. Primitive parameters cannot receive null.");
-              
-            } else {
-              return Result.createSuccessful();
+          private Result checkParameter(final VariableElement parameter) {
+            final AnnotationMirror anno = PlaceholderRetriever.getAnnotation(parameter);
+            final String annoName = anno.getAnnotationType().toString();
+            
+            final MethodSpec supplier = getPlaceholderMethodGenerator.generateFor(anno, 0);
+            final TypeMirror suppliedType = returnTypeToTypeMirror(supplier);
+            final TypeMirror recipientType = parameter.asType();
+            
+            if (annoName.equals(UseNull.class.getName())) {
+              if (typeMirrorHelper.isPrimitive(recipientType)) {
+                return Result.createFailure(
+                    "Misused placeholder annotation found. Primitive parameters cannot receive null.");
+                
+              } else {
+                return Result.createSuccessful();
+              }
             }
+            
+            if (!isAssignableOrConvertible(suppliedType, recipientType)) {
+              return Result.createFailure(
+                  "Misused placeholder annotation found. \'%1$s\' cannot be cast to \'%2$s\'.",
+                  suppliedType,
+                  recipientType);
+            }
+            
+            return Result.createSuccessful();
           }
-          
-          if (!isAssignableOrConvertible(suppliedType, recipientType)) {
-            return Result.createFailure(
-                "Misused placeholder annotation found. \'%1$s\' cannot be cast to \'%2$s\'.",
-                suppliedType,
-                recipientType);
-          }
-          
-          return Result.createSuccessful();
-        }
-      });
-  
-  private Elements elementHelper;
-  
-  private Types typeHelper;
-  
-  private TypeMirrorHelper typeMirrorHelper;
-  
-  private GetValueMethodGenerator getValueMethodGenerator;
-  
-  private GetDefaultMethodGenerator getDefaultMethodGenerator;
-  
-  private GetPlaceholderMethodGenerator getPlaceholderMethodGenerator;
-  
-  @Inject
-  public TypeValidator(
-      final Elements elementUtil,
-      final Types typeUtil,
-      final TypeMirrorHelper typeMirrorHelper,
-      final GetValueMethodGenerator getValueMethodGenerator,
-      final GetDefaultMethodGenerator getDefaultMethodGenerator,
-      final GetPlaceholderMethodGenerator getPlaceholderMethodGenerator) {
-      
-    this.elementHelper = checkNotNull(elementUtil);
-    this.typeHelper = checkNotNull(typeUtil);
-    this.typeMirrorHelper = checkNotNull(typeMirrorHelper);
-    this.getValueMethodGenerator = checkNotNull(getValueMethodGenerator);
-    this.getDefaultMethodGenerator = checkNotNull(getDefaultMethodGenerator);
-    this.getPlaceholderMethodGenerator = checkNotNull(getPlaceholderMethodGenerator);
+        });
   }
   
   public Result validate(final ExecutableElement element) {
