@@ -26,7 +26,7 @@ public enum DimensionUnit {
   PX,
   
   /**
-   * Display independent pixels. Automatically scaled by the system based on screen density.
+   * Display independent pixels. Automatically scaled by the system based on the screen density.
    */
   DP,
   
