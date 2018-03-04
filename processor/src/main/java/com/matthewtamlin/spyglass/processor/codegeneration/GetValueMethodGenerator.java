@@ -284,27 +284,6 @@ public class GetValueMethodGenerator {
     this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
   }
   
-  /**
-   * Creates a method spec equivalent to the following:
-   * <pre>{@code
-   * public Object getValue(final TypedArray attrs) {
-   * 	dynamic implementation here
-   * }}</pre>
-   * <p>
-   * The body of the method is dynamically generated based on the supplied annotation. In general terms, the method
-   * queries the supplied typed array and returns a value from it. Exactly what is returned is determined by each
-   * specific implementation.
-   *
-   * @param valueHandlerAnno
-   *     the annotation to use when generating the method body, not null
-   *
-   * @return the method spec, not null
-   *
-   * @throws IllegalArgumentException
-   *     if {@code valueHandlerAnno} is null
-   * @throws IllegalArgumentException
-   *     if {@code valueHandlerAnno} is not a value handler annotation
-   */
   public MethodSpec generateFor(final AnnotationMirror valueHandlerAnno) {
     checkNotNull(valueHandlerAnno, "Argument \'valueHandlerAnno\' cannot be null.");
     
