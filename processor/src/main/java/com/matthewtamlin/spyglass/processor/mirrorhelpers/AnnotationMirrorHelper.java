@@ -29,7 +29,6 @@ import java.util.Map;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class AnnotationMirrorHelper {
   private Elements elementHelper;
   

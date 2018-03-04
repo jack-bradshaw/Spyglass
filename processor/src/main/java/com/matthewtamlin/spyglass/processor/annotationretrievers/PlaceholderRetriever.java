@@ -16,7 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.annotationretrievers;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
 
@@ -26,7 +25,6 @@ import java.lang.annotation.Annotation;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class PlaceholderRetriever {
   public static AnnotationMirror getAnnotation(final VariableElement element) {
     checkNotNull(element, "Argument \'element\' cannot be null.");
