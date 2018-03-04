@@ -69,7 +69,7 @@ public class WithDefaultToNull extends BooleanHandlerTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
   }
 }

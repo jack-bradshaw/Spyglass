@@ -71,7 +71,7 @@ public class WithDefaultToBoolean extends BooleanHandlerTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
   }
 }

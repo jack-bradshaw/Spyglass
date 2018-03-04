@@ -73,7 +73,7 @@ public class WithDefaultToInDimension extends DimensionHandlerTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
   }
 }

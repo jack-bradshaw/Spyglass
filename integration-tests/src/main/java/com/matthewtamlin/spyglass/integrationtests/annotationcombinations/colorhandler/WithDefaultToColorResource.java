@@ -69,7 +69,7 @@ public class WithDefaultToColorResource extends ColorHandlerTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
   }
 }

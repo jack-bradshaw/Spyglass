@@ -69,11 +69,11 @@ public class ReuseBehaviourTestTarget extends View {
         .build();
     
     companion
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
     
     companion
-        .passDataToMethods()
+        .callTargetMethods()
         .blockingAwait();
   }
 }

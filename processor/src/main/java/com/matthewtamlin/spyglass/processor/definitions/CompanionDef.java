@@ -28,15 +28,15 @@ import static javax.lang.model.element.Modifier.PUBLIC;
  * Code generation definition for the Companion class.
  */
 public class CompanionDef {
-  public static final MethodSpec ACTIVATE_CALLERS;
+  public static final MethodSpec CALL_TARGET_METHODS;
   
   public static final TypeSpec INTERFACE;
   
   public static final JavaFile SRC_FILE;
   
   static {
-    ACTIVATE_CALLERS = MethodSpec
-        .methodBuilder("passDataToMethods")
+    CALL_TARGET_METHODS = MethodSpec
+        .methodBuilder("callTargetMethods")
         .addModifiers(PUBLIC, ABSTRACT)
         .returns(RxJavaClassNames.COMPLETABLE)
         .build();
@@ -44,7 +44,7 @@ public class CompanionDef {
     INTERFACE = TypeSpec
         .interfaceBuilder("Companion")
         .addModifiers(PUBLIC)
-        .addMethod(ACTIVATE_CALLERS)
+        .addMethod(CALL_TARGET_METHODS)
         .build();
     
     SRC_FILE = JavaFile
@@ -69,9 +69,9 @@ public class CompanionDef {
         .addSuperinterface(getCompanionAsClassName());
   }
   
-  public static MethodSpec.Builder getNewActivateCallersMethodPrototype() {
+  public static MethodSpec.Builder getNewCallTargetMethodsMethodPrototype() {
     return MethodSpec
-        .methodBuilder(ACTIVATE_CALLERS.name)
+        .methodBuilder(CALL_TARGET_METHODS.name)
         .addModifiers(PUBLIC)
         .addAnnotation(Override.class)
         .returns(RxJavaClassNames.COMPLETABLE);
