@@ -27,6 +27,9 @@ import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
 import java.lang.annotation.Annotation;
 import java.util.Set;
 
+/**
+ * Source of truth for annotation grouping.
+ */
 public class AnnotationRegistry {
   public static final Set<Class<? extends Annotation>> UNCONDITIONAL_HANDLERS = ImmutableSet.of(
       BooleanHandler.class,
