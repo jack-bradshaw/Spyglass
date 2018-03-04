@@ -16,7 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.validation;
 
-
 import com.google.common.collect.ImmutableList;
 import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.annotationretrievers.ConditionalHandlerRetriever;
@@ -25,7 +24,6 @@ import com.matthewtamlin.spyglass.processor.annotationretrievers.UnconditionalHa
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 
 import javax.inject.Inject;
-import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
@@ -36,32 +34,28 @@ import static javax.lang.model.element.Modifier.PRIVATE;
 
 @Tested(testMethod = "automated")
 public class BasicValidator implements Validator {
-  private final List<Rule> rules = ImmutableList.of(
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+  private final List<Rule> rules;
+  
+  @Inject
+  public BasicValidator() {
+    rules = ImmutableList.of(
+        element -> {
           if (countValueHandlerAnnotations(element) + countCallHandlerAnnotations(element) > 1) {
             return Result.createFailure("Methods must not have multiple handler annotations.");
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           if (countDefaultAnnotations(element) > 1) {
             return Result.createFailure("Methods must not have multiple default annotations.");
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           if (DefaultRetriever.hasAnnotation(element) &&
               !UnconditionalHandlerRetriever.hasAnnotation(element)) {
             return Result.createFailure(
@@ -69,12 +63,9 @@ public class BasicValidator implements Validator {
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           if (DefaultRetriever.hasAnnotation(element) &&
               ConditionalHandlerRetriever.hasAnnotation(element)) {
             
@@ -83,12 +74,9 @@ public class BasicValidator implements Validator {
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           final int parameterCount = ((ExecutableElement) element).getParameters().size();
           
           if (UnconditionalHandlerRetriever.hasAnnotation(element) && parameterCount < 1) {
@@ -96,12 +84,9 @@ public class BasicValidator implements Validator {
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           final Map<Integer, Set<Annotation>> placeholderAnnotations = getPlaceholderAnnotations(element);
           
           for (final Integer paramIndex : placeholderAnnotations.keySet()) {
@@ -111,12 +96,9 @@ public class BasicValidator implements Validator {
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           final int paramCount = ((ExecutableElement) element).getParameters().size();
           final int annotatedParamCount = countNonEmptySets(getPlaceholderAnnotations(element).values());
           
@@ -128,12 +110,9 @@ public class BasicValidator implements Validator {
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           final int paramCount = ((ExecutableElement) element).getParameters().size();
           final int annotatedParamCount = countNonEmptySets(getPlaceholderAnnotations(element).values());
           
@@ -143,12 +122,9 @@ public class BasicValidator implements Validator {
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           if (element.getModifiers().contains(PRIVATE)) {
             return Result.createFailure(
                 "Methods with handler annotations must have public, protected, or default access. " +
@@ -156,18 +132,15 @@ public class BasicValidator implements Validator {
           }
           
           return Result.createSuccessful();
-        }
-      },
-      
-      new Rule() {
-        @Override
-        public Result checkElement(final ExecutableElement element) {
+        },
+        
+        element -> {
           final TypeElement parent = (TypeElement) element.getEnclosingElement();
-  
+          
           if (parent == null) {
             return Result.createSuccessful();
           }
-  
+          
           switch (parent.getNestingKind()) {
             case TOP_LEVEL:
               return Result.createSuccessful();
@@ -180,11 +153,8 @@ public class BasicValidator implements Validator {
             default:
               throw new IllegalStateException("Unexpected nesting kind: " + parent.getNestingKind());
           }
-        }
-      });
-  
-  @Inject
-  public BasicValidator() {}
+        });
+  }
   
   public Result validate(final ExecutableElement element) {
     for (final Rule rule : rules) {
