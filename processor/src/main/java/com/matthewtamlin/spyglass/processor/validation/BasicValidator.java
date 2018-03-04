@@ -33,7 +33,6 @@ import java.lang.annotation.Annotation;
 import java.util.*;
 
 import static javax.lang.model.element.Modifier.PRIVATE;
-import static javax.lang.model.element.Modifier.STATIC;
 
 @Tested(testMethod = "automated")
 public class BasicValidator implements Validator {
@@ -103,10 +102,10 @@ public class BasicValidator implements Validator {
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
-          final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(element);
+          final Map<Integer, Set<Annotation>> placeholderAnnotations = getPlaceholderAnnotations(element);
           
-          for (final Integer paramIndex : useAnnotations.keySet()) {
-            if (useAnnotations.get(paramIndex).size() > 1) {
+          for (final Integer paramIndex : placeholderAnnotations.keySet()) {
+            if (placeholderAnnotations.get(paramIndex).size() > 1) {
               return Result.createFailure("Parameters must not have multiple placeholder annotations.");
             }
           }
@@ -119,7 +118,7 @@ public class BasicValidator implements Validator {
         @Override
         public Result checkElement(final ExecutableElement element) {
           final int paramCount = ((ExecutableElement) element).getParameters().size();
-          final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
+          final int annotatedParamCount = countNonEmptySets(getPlaceholderAnnotations(element).values());
           
           if (UnconditionalHandlerRetriever.hasAnnotation(element) &&
               annotatedParamCount != paramCount - 1) {
@@ -136,7 +135,7 @@ public class BasicValidator implements Validator {
         @Override
         public Result checkElement(final ExecutableElement element) {
           final int paramCount = ((ExecutableElement) element).getParameters().size();
-          final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
+          final int annotatedParamCount = countNonEmptySets(getPlaceholderAnnotations(element).values());
           
           if (ConditionalHandlerRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
             return Result.createFailure(
@@ -243,24 +242,24 @@ public class BasicValidator implements Validator {
     return count;
   }
   
-  private static Map<Integer, Set<Annotation>> getUseAnnotations(final ExecutableElement method) {
-    final Map<Integer, Set<Annotation>> useAnnotations = new HashMap<>();
+  private static Map<Integer, Set<Annotation>> getPlaceholderAnnotations(final ExecutableElement method) {
+    final Map<Integer, Set<Annotation>> placeholderAnnotations = new HashMap<>();
     
     final List<? extends VariableElement> params = method.getParameters();
     
     for (int i = 0; i < params.size(); i++) {
-      useAnnotations.put(i, new HashSet<Annotation>());
+      placeholderAnnotations.put(i, new HashSet<>());
       
       for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.PLACEHOLDERS) {
         final Annotation foundAnnotation = params.get(i).getAnnotation(annotationClass);
         
         if (foundAnnotation != null) {
-          useAnnotations.get(i).add(foundAnnotation);
+          placeholderAnnotations.get(i).add(foundAnnotation);
         }
       }
     }
     
-    return useAnnotations;
+    return placeholderAnnotations;
   }
   
   private static int countNonEmptySets(final Collection<? extends Set> collection) {
