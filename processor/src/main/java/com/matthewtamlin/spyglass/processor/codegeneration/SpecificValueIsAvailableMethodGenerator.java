@@ -105,28 +105,6 @@ public class SpecificValueIsAvailableMethodGenerator {
         .build();
   }
   
-  /**
-   * Creates a method spec equivalent to the following:
-   * <pre>{@code
-   * public boolean specificValueIsAvailable(final TypedArray attrs) {
-   * 	dynamic implementation here
-   * }}</pre>
-   * <p>
-   * The body of the method is dynamically generated based on the supplied annotation. In general terms, the method
-   * queries the supplied typed array to determine if a specific value is available. The method returns true if the
-   * value is available, and false otherwise. What exactly it means for a value to be available and which value is
-   * of interest is defined by each specific implementation.
-   *
-   * @param conditionalHandlerAnnotation
-   *     the annotation to use when generating the method body, not null
-   *
-   * @return the method spec, not null
-   *
-   * @throws IllegalArgumentException
-   *     if {@code conditionalHandlerAnnotation} is null
-   * @throws IllegalArgumentException
-   *     if {@code conditionalHandlerAnnotation} is not a call handler annotation
-   */
   public MethodSpec generateFor(final AnnotationMirror conditionalHandlerAnnotation) {
     checkNotNull(conditionalHandlerAnnotation, "Argument \'conditionalHandlerAnnotation\' cannot be null.");
     
