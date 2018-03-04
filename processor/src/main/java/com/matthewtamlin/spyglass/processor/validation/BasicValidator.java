@@ -84,8 +84,7 @@ public class BasicValidator implements Validator {
               ConditionalHandlerRetriever.hasAnnotation(element)) {
             
             return Result.createFailure(
-                "Methods with handlers annotations that pass no value must not have default " +
-                    "annotations.");
+                "Methods with conditional handler annotations must not have default annotations.");
           }
           
           return Result.createSuccessful();
@@ -99,8 +98,7 @@ public class BasicValidator implements Validator {
           final int parameterCount = ((ExecutableElement) element).getParameters().size();
           
           if (UnconditionalHandlerRetriever.hasAnnotation(element) && parameterCount < 1) {
-            return Result.createFailure(
-                "Methods with handler annotations that pass a value must have at least one parameter.");
+            return Result.createFailure("Methods with simple handler annotations must have at least one parameter.");
           }
           
           return Result.createSuccessful();
@@ -134,8 +132,7 @@ public class BasicValidator implements Validator {
               annotatedParamCount != paramCount - 1) {
             
             return Result.createFailure(
-                "Methods with handler annotations which pass a value must have use " +
-                    "annotations on every parameter except one.");
+                "Methods with simple handler annotations must have placeholder annotations on all but one parameter.");
           }
           
           return Result.createSuccessful();
@@ -151,8 +148,7 @@ public class BasicValidator implements Validator {
           
           if (ConditionalHandlerRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
             return Result.createFailure(
-                "Methods with handler annotations which pass no value must have " +
-                    "use-annotations on every parameter.");
+                "Methods with conditional handler annotations must have placeholder annotations on all parameters.");
           }
           
           return Result.createSuccessful();
