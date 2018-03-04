@@ -112,4 +112,24 @@
     <declare-styleable name="ExceptionBehaviourTestTargetBase">
         <attr name="exceptionAttr" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="CompletableTestTargetBase">
+        <attr name="completableAttr" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="FlowableTestTargetBase">
+        <attr name="flowableAttr" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="MaybeTestTargetBase">
+        <attr name="maybeAttr" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="ObservableTestTargetBase">
+        <attr name="observableAttr" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="SingleTestTargetBase">
+        <attr name="singleAttr" format="boolean"/>
+    </declare-styleable>
 </resources>
