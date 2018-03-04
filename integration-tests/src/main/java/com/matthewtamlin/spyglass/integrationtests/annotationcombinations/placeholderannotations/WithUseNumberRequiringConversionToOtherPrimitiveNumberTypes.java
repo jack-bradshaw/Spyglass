@@ -117,7 +117,6 @@ public class WithUseNumberRequiringConversionToOtherPrimitiveNumberTypes extends
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .callTargetMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

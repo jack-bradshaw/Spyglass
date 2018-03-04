@@ -76,7 +76,6 @@ public class WithDefaultToFractionUsingBaseFractionAndBaseMultiplier extends Fra
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .callTargetMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

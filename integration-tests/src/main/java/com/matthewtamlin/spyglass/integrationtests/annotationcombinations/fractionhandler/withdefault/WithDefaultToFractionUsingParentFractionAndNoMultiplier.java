@@ -71,7 +71,6 @@ public class WithDefaultToFractionUsingParentFractionAndNoMultiplier extends Fra
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .callTargetMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }
