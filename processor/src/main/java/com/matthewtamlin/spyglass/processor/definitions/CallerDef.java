@@ -67,7 +67,7 @@ public final class CallerDef {
     CALL = MethodSpec
         .methodBuilder("call")
         .addModifiers(PUBLIC, ABSTRACT)
-        .returns(void.class)
+        .returns(RxJavaClassNames.COMPLETABLE)
         .build();
     
     CONSTRUCTOR = MethodSpec
@@ -113,7 +113,7 @@ public final class CallerDef {
   public static MethodSpec.Builder getNewCallMethodPrototype() {
     return MethodSpec
         .methodBuilder(CALL.name)
-        .returns(void.class)
+        .returns(RxJavaClassNames.COMPLETABLE)
         .addModifiers(PUBLIC);
   }
   
