@@ -22,10 +22,7 @@ import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.*;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeName;
-import com.squareup.javapoet.TypeSpec;
+import com.squareup.javapoet.*;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -199,7 +196,10 @@ public class TestAnyValueIsAvailableMethodGenerator {
   private void checkCompiles(final MethodSpec method) {
     final TypeSpec wrapperTypeSpec = CallerDef
         .getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
-        .addMethod(CallerDef.getNewCallMethodPrototype().build())
+        .addMethod(CallerDef
+            .getNewCallMethodPrototype()
+            .addCode(CodeBlock.of("return null;"))
+            .build())
         .addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
         .addMethod(method)
         .build();

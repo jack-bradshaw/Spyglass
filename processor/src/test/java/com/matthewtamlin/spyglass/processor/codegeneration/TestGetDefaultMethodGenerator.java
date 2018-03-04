@@ -300,7 +300,10 @@ public class TestGetDefaultMethodGenerator {
   private void checkCompiles(final MethodSpec method) {
     final TypeSpec wrapperTypeSpec = CallerDef
         .getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
-        .addMethod(CallerDef.getNewCallMethodPrototype().build())
+        .addMethod(CallerDef
+            .getNewCallMethodPrototype()
+            .addCode(CodeBlock.of("return null;"))
+            .build())
         .addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
         .addMethod(method)
         .build();
