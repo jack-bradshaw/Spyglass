@@ -30,18 +30,14 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 public class CastWrapperGenerator {
   private final Elements elementUtil;
   
-  private final Types typeUtil;
-  
   private final TypeMirrorHelper typeMirrorHelper;
   
   @Inject
   public CastWrapperGenerator(
       final Elements elementUtil,
-      final Types typeUtil,
       final TypeMirrorHelper typeMirrorHelper) {
     
     this.elementUtil = checkNotNull(elementUtil);
-    this.typeUtil = checkNotNull(typeUtil);
     this.typeMirrorHelper = checkNotNull(typeMirrorHelper);
   }
   
