@@ -116,7 +116,6 @@ public class WithUseNumberRequiringConversionToOtherBoxedNumberTypes extends Pla
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .callTargetMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

@@ -70,7 +70,6 @@ public class WithDefaultToIntegerResource extends DimensionHandlerTestTargetBase
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .callTargetMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }
