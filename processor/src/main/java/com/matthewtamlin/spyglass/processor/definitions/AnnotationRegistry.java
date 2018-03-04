@@ -28,7 +28,7 @@ import java.lang.annotation.Annotation;
 import java.util.Set;
 
 /**
- * Source of truth for annotation grouping.
+ * Source of truth for annotation groups.
  */
 public class AnnotationRegistry {
   public static final Set<Class<? extends Annotation>> UNCONDITIONAL_HANDLERS = ImmutableSet.of(
