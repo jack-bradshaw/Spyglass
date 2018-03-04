@@ -96,8 +96,8 @@ public class TestCallerGenerator {
   }
   
   @Test
-  public void testGenerateFor_elementWithCallHandler() {
-    final ExecutableElement element = avatarRule.getElementWithUniqueId("call handler");
+  public void testGenerateFor_elementWithConditionalHandler() {
+    final ExecutableElement element = avatarRule.getElementWithUniqueId("conditional handler");
     
     final TypeSpec result = callerGenerator.generateFor(
         element,
@@ -110,8 +110,8 @@ public class TestCallerGenerator {
   }
   
   @Test
-  public void testGenerateFor_elementWithValueHandlerButNoDefault() {
-    final ExecutableElement element = avatarRule.getElementWithUniqueId("value handler no default");
+  public void testGenerateFor_elementWithUnconditionalHandlerButNoDefault() {
+    final ExecutableElement element = avatarRule.getElementWithUniqueId("unconditional handler no default");
     
     final TypeSpec result = callerGenerator.generateFor(
         element,
@@ -124,8 +124,8 @@ public class TestCallerGenerator {
   }
   
   @Test
-  public void testGenerateFor_elementWithValueHandlerAndDefault() {
-    final ExecutableElement element = avatarRule.getElementWithUniqueId("value handler with default");
+  public void testGenerateFor_elementWithUnconditionalHandlerAndDefault() {
+    final ExecutableElement element = avatarRule.getElementWithUniqueId("unconditional handler with default");
     
     final TypeSpec result = callerGenerator.generateFor(
         element,
@@ -143,9 +143,7 @@ public class TestCallerGenerator {
         .classBuilder("Wrapper")
         .addField(FieldSpec
             .builder(
-                ClassName.get(
-                    "com.matthewtamlin.spyglass.processor.codegeneration",
-                    "TestCallerGeneratorData"),
+                ClassName.get("com.matthewtamlin.spyglass.processor.codegeneration", "TestCallerGeneratorData"),
                 "target")
             .build())
         .addField(FieldSpec.builder(AndroidClassNames.CONTEXT, "context").build())
