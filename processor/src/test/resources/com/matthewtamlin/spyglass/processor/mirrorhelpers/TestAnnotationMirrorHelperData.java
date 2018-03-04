@@ -21,23 +21,23 @@ import com.matthewtamlin.avatar.rules.ElementId;
 public class TestAnnotationMirrorHelperData {
   @ElementId("get annotation mirror: without annotation")
   public String field1;
-
+  
   @ElementId("get annotation mirror: with annotation")
   @SomeAnnotationWithValue
   public String field2;
-
+  
   @ElementId("get annotation value ignoring defaults: no value")
   @SomeAnnotationWithValue()
   public Object field3;
-
+  
   @ElementId("get annotation value ignoring defaults: with value")
   @SomeAnnotationWithValue(value = "some value")
   public Object field4;
-
+  
   @ElementId("get annotation value with defaults: no value")
   @SomeAnnotationWithValue()
   public Object field5;
-
+  
   @ElementId("get annotation value with defaults: with value")
   @SomeAnnotationWithValue(value = "some value")
   public Object field6;

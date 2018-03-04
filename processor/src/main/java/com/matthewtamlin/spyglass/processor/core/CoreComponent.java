@@ -19,11 +19,7 @@ package com.matthewtamlin.spyglass.processor.core;
 import dagger.BindsInstance;
 import dagger.Component;
 
-import javax.annotation.processing.Filer;
 import javax.annotation.processing.ProcessingEnvironment;
-import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
-import java.nio.file.Files;
 
 @Component(modules = CoreModule.class)
 public interface CoreComponent {

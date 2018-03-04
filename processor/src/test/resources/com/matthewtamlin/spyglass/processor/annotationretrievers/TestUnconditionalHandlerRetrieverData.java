@@ -28,53 +28,53 @@ public class TestUnconditionalHandlerRetrieverData {
   @ElementId("boolean")
   @BooleanHandler(attributeId = 0)
   public void method1() {}
-
+  
   @ElementId("color")
   @ColorHandler(attributeId = 0)
   public void method2() {}
-
+  
   @ElementId("color state list")
   @ColorStateListHandler(attributeId = 0)
   public void method3() {}
-
+  
   @ElementId("dimension")
   @DimensionHandler(attributeId = 0)
   public void method4() {}
-
+  
   @ElementId("drawable")
   @DrawableHandler(attributeId = 0)
   public void method5() {}
-
+  
   @ElementId("enum constant")
   @EnumConstantHandler(attributeId = 0, enumClass = PlaceholderEnum.class)
   public void method6() {}
-
+  
   @ElementId("enum ordinal")
   @EnumOrdinalHandler(attributeId = 0)
   public void method7() {}
-
+  
   @ElementId("float")
   @FloatHandler(attributeId = 0)
   public void method8() {}
-
+  
   @ElementId("fraction")
   @FractionHandler(attributeId = 0)
   public void method9() {}
-
+  
   @ElementId("integer")
   @IntegerHandler(attributeId = 0)
   public void method10() {}
-
+  
   @ElementId("string")
   @StringHandler(attributeId = 0)
   public void method11() {}
-
+  
   @ElementId("text array")
   public void method12() {}
-
+  
   @ElementId("text")
   public void method13() {}
-
+  
   @ElementId("no value handler annotation")
   @DefaultToBoolean(true)
   @DefaultToBooleanResource(resId = 0)
@@ -96,6 +96,6 @@ public class TestUnconditionalHandlerRetrieverData {
   @SpecificEnumHandler(attributeId = 0, handledOrdinal = 0)
   @SpecificFlagHandler(attributeId = 0, handledFlags = 0)
   public void method14() {}
-
+  
   private enum PlaceholderEnum {}
 }

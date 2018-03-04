@@ -16,7 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.codegeneration;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.markers.annotations.defaults.*;
 import com.matthewtamlin.spyglass.processor.definitions.AndroidClassNames;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;

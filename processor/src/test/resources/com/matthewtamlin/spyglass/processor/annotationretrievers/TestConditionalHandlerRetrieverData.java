@@ -29,15 +29,15 @@ public class TestConditionalHandlerRetrieverData {
   @ElementId("specific boolean")
   @SpecificBooleanHandler(attributeId = 0, handledBoolean = true)
   public void method1() {}
-
+  
   @ElementId("specific enum")
   @SpecificEnumHandler(attributeId = 0, handledOrdinal = 1)
   public void method2() {}
-
+  
   @ElementId("specific flag")
   @SpecificFlagHandler(attributeId = 0, handledFlags = 1)
   public void method3() {}
-
+  
   @ElementId("no call handler annotation")
   @DefaultToBoolean(true)
   @DefaultToBooleanResource(resId = 0)
@@ -68,6 +68,6 @@ public class TestConditionalHandlerRetrieverData {
   @IntegerHandler(attributeId = 0)
   @StringHandler(attributeId = 0)
   public void method4() {}
-
+  
   private enum PlaceholderEnum {}
 }
