@@ -21,7 +21,6 @@ import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.Specif
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificEnumHandler;
 import com.matthewtamlin.spyglass.markers.annotations.conditionalhandlers.SpecificFlagHandler;
 import com.matthewtamlin.spyglass.processor.definitions.CallerDef;
-import com.matthewtamlin.spyglass.processor.functional.ParametrisedSupplier;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
 import com.squareup.javapoet.MethodSpec;
@@ -29,11 +28,12 @@ import com.squareup.javapoet.MethodSpec;
 import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import java.util.Map;
+import java.util.function.Function;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class SpecificValueIsAvailableMethodGenerator {
-  private final Map<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>> methodBodySuppliers;
+  private final Map<String, Function<AnnotationMirror, CodeBlock>> methodBodySuppliers;
   
   private final AnnotationMirrorHelper annotationMirrorHelper;
   
@@ -42,7 +42,7 @@ public class SpecificValueIsAvailableMethodGenerator {
     this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
     
     methodBodySuppliers = ImmutableMap
-        .<String, ParametrisedSupplier<AnnotationMirror, CodeBlock>>builder()
+        .<String, Function<AnnotationMirror, CodeBlock>>builder()
         .put(
             SpecificEnumHandler.class.getName(),
             specificEnumHandlerAnnotation -> CodeBlock
@@ -117,7 +117,7 @@ public class SpecificValueIsAvailableMethodGenerator {
     return MethodSpec
         .methodBuilder("specificValueIsAvailable")
         .returns(Boolean.class)
-        .addCode(methodBodySuppliers.get(annotationClassName).supplyFor(conditionalHandlerAnnotation))
+        .addCode(methodBodySuppliers.get(annotationClassName).apply(conditionalHandlerAnnotation))
         .build();
   }
   

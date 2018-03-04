@@ -26,12 +26,13 @@ import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 import static com.matthewtamlin.java_utilities.checkers.IntChecker.checkGreaterThanOrEqualTo;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class GetPlaceholderMethodGenerator {
-  private final Map<String, MethodSpecSupplier> methodSpecSuppliers;
+  private final Map<String, BiFunction<AnnotationMirror, Integer, MethodSpec>> methodSpecSuppliers;
   
   private AnnotationMirrorHelper annotationMirrorHelper;
   
@@ -40,7 +41,7 @@ public class GetPlaceholderMethodGenerator {
     this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
     
     methodSpecSuppliers = ImmutableMap
-        .<String, MethodSpecSupplier>builder()
+        .<String, BiFunction<AnnotationMirror, Integer, MethodSpec>>builder()
         .put(UseByte.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier())
         .put(UseDouble.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier())
         .put(UseFloat.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier())
@@ -112,7 +113,7 @@ public class GetPlaceholderMethodGenerator {
       throw new IllegalArgumentException("Argument \'placeholderAnnotation\' is not a placeholder annotation.");
     }
     
-    return methodSpecSuppliers.get(annotationClassName).supplyFor(placeholderAnnotation, parameterIndex);
+    return methodSpecSuppliers.get(annotationClassName).apply(placeholderAnnotation, parameterIndex);
   }
   
   private MethodSpec.Builder getBaseMethodSpec(final int position) {
@@ -123,9 +124,9 @@ public class GetPlaceholderMethodGenerator {
     public MethodSpec supplyFor(AnnotationMirror placeholder, int position);
   }
   
-  private class PrimitiveToNumberMethodSpecSupplier implements MethodSpecSupplier {
+  private class PrimitiveToNumberMethodSpecSupplier implements BiFunction<AnnotationMirror, Integer, MethodSpec> {
     @Override
-    public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
+    public MethodSpec apply(final AnnotationMirror placeholder, final Integer position) {
       final AnnotationValue rawValue = annotationMirrorHelper.getValueUsingDefaults(placeholder, "value");
       
       return getBaseMethodSpec(position)
