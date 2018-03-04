@@ -159,7 +159,7 @@ public class TestUnconditionalHandlerRetriever {
   }
   
   @Test
-  public void testGetAnnotation_noValueHandlerAnnotationPresent() {
+  public void testGetAnnotation_noUnconditionalHandlerAnnotationPresent() {
     final ExecutableElement element = avatarRule.getElementWithUniqueId("no value handler annotation");
     
     final AnnotationMirror mirror = UnconditionalHandlerRetriever.getAnnotation(element);
@@ -228,7 +228,7 @@ public class TestUnconditionalHandlerRetriever {
   }
   
   @Test
-  public void testHasAnnotation_noValueHandlerAnnotationPresent() {
+  public void testHasAnnotation_noUnconditionalHandlerAnnotationPresent() {
     doHasAnnotationTestForElementWithId("no value handler annotation", false);
   }
   
