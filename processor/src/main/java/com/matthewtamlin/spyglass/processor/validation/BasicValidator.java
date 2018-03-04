@@ -164,8 +164,7 @@ public class BasicValidator implements Validator {
         @Override
         public Result checkElement(final ExecutableElement element) {
           if (!hasStaticRoot(element)) {
-            return Result.createFailure(
-                "Methods with handler annotations must be accessible from static context.");
+            return Result.createFailure("Anonymous and local classes are not compatible with the Spyglass Framework.");
           }
           
           return Result.createSuccessful();
@@ -182,7 +181,7 @@ public class BasicValidator implements Validator {
             case TOP_LEVEL:
               return true;
             case MEMBER:
-              return parent.getModifiers().contains(STATIC);
+              return true;
             case LOCAL:
               return false;
             case ANONYMOUS:
