@@ -41,7 +41,6 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 
 public class TypeValidator implements Validator {
   private final List<Rule> rules = ImmutableList.of(
-      // Every value handler annotation must be applicable to the annotated method
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -66,7 +65,6 @@ public class TypeValidator implements Validator {
         }
       },
       
-      // Every default annotation must be applicable to the annotated method
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -102,7 +100,6 @@ public class TypeValidator implements Validator {
         }
       },
       
-      // Every use-annotation must be applicable to the annotated parameter
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {

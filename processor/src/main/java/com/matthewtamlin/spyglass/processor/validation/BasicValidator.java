@@ -38,7 +38,6 @@ import static javax.lang.model.element.Modifier.STATIC;
 @Tested(testMethod = "automated")
 public class BasicValidator implements Validator {
   private final List<Rule> rules = ImmutableList.of(
-      // Every element must have no more than one handler annotation
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -50,7 +49,6 @@ public class BasicValidator implements Validator {
         }
       },
       
-      // Every element must have no more than one default annotation
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -62,7 +60,6 @@ public class BasicValidator implements Validator {
         }
       },
       
-      // Every element with a default annotation must also have a value handler annotation
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -76,7 +73,6 @@ public class BasicValidator implements Validator {
         }
       },
       
-      // Every element with a default annotation must not have a call handler annotation
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -91,7 +87,6 @@ public class BasicValidator implements Validator {
         }
       },
       
-      // Every element with a value handle annotation must have at least one parameter
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -105,7 +100,6 @@ public class BasicValidator implements Validator {
         }
       },
       
-      // Every parameter must have at most one use-annotations
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -121,7 +115,6 @@ public class BasicValidator implements Validator {
         }
       },
       
-      // Every element with a value handler must have a use-annotation on every parameter except one
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -139,7 +132,6 @@ public class BasicValidator implements Validator {
         }
       },
       
-      // Every element with a call handler must have a use-annotation on every parameter
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -155,7 +147,6 @@ public class BasicValidator implements Validator {
         }
       },
       
-      // Every element must be public, protected or package-private
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
@@ -169,7 +160,6 @@ public class BasicValidator implements Validator {
         }
       },
       
-      // Every element must belong to a class which can be statically instantiated
       new Rule() {
         @Override
         public Result checkElement(final ExecutableElement element) {
