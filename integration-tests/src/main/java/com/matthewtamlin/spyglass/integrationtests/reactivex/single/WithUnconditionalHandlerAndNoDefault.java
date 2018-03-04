@@ -57,6 +57,7 @@ public class WithUnconditionalHandlerAndNoDefault extends SingleTestTargetBase {
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }

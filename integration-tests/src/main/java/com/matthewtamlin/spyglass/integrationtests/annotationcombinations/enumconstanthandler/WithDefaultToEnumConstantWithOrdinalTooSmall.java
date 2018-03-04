@@ -76,6 +76,7 @@ public class WithDefaultToEnumConstantWithOrdinalTooSmall extends EnumConstantHa
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods();
+        .passDataToMethods()
+        .blockingAwait();
   }
 }
