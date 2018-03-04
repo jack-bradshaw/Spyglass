@@ -53,6 +53,8 @@ dependencies {
 
   implementation project.ext.dependencies.javaPoet
 
+  testImplementation project.ext.dependencies.rxJava
+
   testImplementation project.ext.dependencies.compileTesting
 
   testImplementation project.ext.dependencies.avatar
