@@ -250,8 +250,8 @@ public class CompanionGenerator {
         .addCode(initialiseCallersCodeBuilder.build())
         .build();
     
-    final MethodSpec activateCallers = CompanionDef
-        .getNewActivateCallersMethodPrototype()
+    final MethodSpec callTargetMethods = CompanionDef
+        .getNewCallTargetMethodsMethodPrototype()
         .addCode(CodeBlock
             .builder()
             .beginControlFlow("if (!$N.compareAndSet(false, true))", companionHasBeenUsed)
@@ -270,6 +270,14 @@ public class CompanionGenerator {
             .add("\n")
             .addStatement("\t\treturn $T.error(error)", RxJavaClassNames.COMPLETABLE)
             .addStatement("})")
+            .build())
+        .build();
+    
+    final MethodSpec callTargetMethodsNow = CompanionDef
+        .getNewCallTargetMethodsNowMethodPrototype()
+        .addCode(CodeBlock
+            .builder()
+            .addStatement("$N().blockingAwait()", callTargetMethods)
             .build())
         .build();
     
@@ -313,7 +321,8 @@ public class CompanionGenerator {
         .addField(companionAttributes)
         .addField(companionHasBeenUsed)
         .addMethod(companionConstructor)
-        .addMethod(activateCallers)
+        .addMethod(callTargetMethods)
+        .addMethod(callTargetMethodsNow)
         .addMethod(initialiseCallers)
         .addMethod(getBuilder)
         .addType(builder)

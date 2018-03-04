@@ -120,7 +120,6 @@ public class WithUseNumberOnMatchingBoxedTypes extends PlaceholderTestTargetBase
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

@@ -70,7 +70,6 @@ public class WithDefaultToDpDimensionResource extends DimensionHandlerTestTarget
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

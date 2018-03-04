@@ -72,7 +72,6 @@ public class HandlerUsingParentMultiplier extends FractionHandlerTestTargetBase 
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

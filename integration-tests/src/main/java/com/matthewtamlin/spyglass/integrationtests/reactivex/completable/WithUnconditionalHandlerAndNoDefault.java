@@ -54,7 +54,6 @@ public class WithUnconditionalHandlerAndNoDefault extends CompletableTestTargetB
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }

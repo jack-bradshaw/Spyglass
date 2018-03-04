@@ -73,7 +73,6 @@ public class WithDefaultToFractionUsingParentFractionAndBaseMultiplier extends F
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
         .build()
-        .passDataToMethods()
-        .blockingAwait();
+        .callTargetMethodsNow();
   }
 }
