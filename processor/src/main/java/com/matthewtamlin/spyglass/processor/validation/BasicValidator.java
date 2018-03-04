@@ -38,7 +38,7 @@ public class BasicValidator implements Validator {
   public BasicValidator() {
     rules = ImmutableList.of(
         element -> {
-          if (countValueHandlerAnnotations(element) + countCallHandlerAnnotations(element) > 1) {
+          if (countUnconditionalHandlerAnnotations(element) + countConditionalHandlerAnnotations(element) > 1) {
             return Result.createFailure("Methods must not have multiple handler annotations.");
           }
           
@@ -166,7 +166,7 @@ public class BasicValidator implements Validator {
     return Result.createSuccessful();
   }
   
-  private static int countCallHandlerAnnotations(final ExecutableElement method) {
+  private static int countConditionalHandlerAnnotations(final ExecutableElement method) {
     int count = 0;
     
     for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CONDITIONAL_HANDLERS) {
@@ -178,7 +178,7 @@ public class BasicValidator implements Validator {
     return count;
   }
   
-  private static int countValueHandlerAnnotations(final ExecutableElement method) {
+  private static int countUnconditionalHandlerAnnotations(final ExecutableElement method) {
     int count = 0;
     
     for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.UNCONDITIONAL_HANDLERS) {
