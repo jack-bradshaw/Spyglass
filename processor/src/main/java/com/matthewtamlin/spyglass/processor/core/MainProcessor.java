@@ -128,6 +128,8 @@ public class MainProcessor extends AbstractProcessor {
           }
         }
       }
+      
+      
     } catch (final Throwable t) {
       messager.printMessage(
           ERROR,
@@ -151,11 +153,12 @@ public class MainProcessor extends AbstractProcessor {
     for (final JavaFile requiredFile : REQUIRED_FILES) {
       final String className = requiredFile.packageName + "." + requiredFile.typeSpec.name;
       
-      // Spyglass could be used in a project which depends on a project which also uses Spyglass
+      // Spyglass could be applied to a project that uses Spyglass transitively
       final boolean alreadyExists = elementUtil.getTypeElement(className) != null;
       
       if (alreadyExists) {
         allRequiredFilesCreated &= true;
+        
       } else {
         allRequiredFilesCreated &= createFile(requiredFile, "Could not create required class: " + className);
       }
@@ -165,14 +168,16 @@ public class MainProcessor extends AbstractProcessor {
   private Set<ExecutableElement> findMethodsWithSpyglassAnnotations(final RoundEnvironment roundEnvironment) {
     final Set<ExecutableElement> methods = new HashSet<>();
     
-    for (final Class<? extends Annotation> annoType : SUPPORTED_ANNOTATIONS) {
-      for (final Element foundElement : roundEnvironment.getElementsAnnotatedWith(annoType)) {
+    for (final Class<? extends Annotation> annotationType : SUPPORTED_ANNOTATIONS) {
+      for (final Element foundElement : roundEnvironment.getElementsAnnotatedWith(annotationType)) {
         if (foundElement.getKind() == ElementKind.METHOD) {
           methods.add((ExecutableElement) foundElement);
+          
         } else if (foundElement.getKind() == ElementKind.PARAMETER) {
           methods.add((ExecutableElement) foundElement.getEnclosingElement());
+          
         } else {
-          throw new RuntimeException("A Spyglass annotation was somehow applied to an illegal element type.");
+          throw new RuntimeException("A Spyglass annotation was found on an illegal element type.");
         }
       }
     }
@@ -204,8 +209,9 @@ public class MainProcessor extends AbstractProcessor {
       
       final Result result = validator.validate((ExecutableElement) element);
       
+      allPassed &= result.isSuccessful();
+      
       if (!result.isSuccessful()) {
-        allPassed = false;
         messager.printMessage(ERROR, result.getDescription(), element);
       }
     }
