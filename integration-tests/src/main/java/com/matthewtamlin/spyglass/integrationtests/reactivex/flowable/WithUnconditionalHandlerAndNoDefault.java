@@ -52,7 +52,7 @@ public class WithUnconditionalHandlerAndNoDefault extends FlowableTestTargetBase
         .builder()
         .withTarget(this)
         .withContext(getContext())
-        .withStyleableResource(R.styleable.ObservableTestTargetBase)
+        .withStyleableResource(R.styleable.FlowableTestTargetBase)
         .withAttributeSet(attributeSet)
         .withDefaultStyleAttribute(defStyleAttr)
         .withDefaultStyleResource(defStyleRes)
