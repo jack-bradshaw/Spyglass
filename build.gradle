@@ -45,7 +45,7 @@ allprojects {
   }
 }
 
-task cleanAllModules(dependsOn: [
+task deleteAllOutputDirectories(dependsOn: [
     ':annotations:deleteOutputDirectories',
     ':integration-tests:deleteOutputDirectories',
     ':processor:deleteOutputDirectories',
