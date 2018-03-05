@@ -20,14 +20,14 @@ group = rootProject.group
 version = rootProject.version
 
 android {
-  compileSdkVersion 26
+  compileSdkVersion 27
   buildToolsVersion "26.0.2"
 
   defaultConfig {
     applicationId "com.matthewtamlin.spyglass.integrationtests"
 
     minSdkVersion 14
-    targetSdkVersion 26
+    targetSdkVersion 27
 
     testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
   }
