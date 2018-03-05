@@ -9,9 +9,9 @@ repositories {
 }
 
 dependencies {
-  implementation 'com.matthew-tamlin:spyglass-runtime-dependencies:2.0.2'
-  compileOnly 'com.matthew-tamlin:spyglass-annotations:2.0.2'
-  annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.2'
+  implementation 'com.matthew-tamlin:spyglass-runtime-dependencies:3.0.0'
+  compileOnly 'com.matthew-tamlin:spyglass-annotations:3.0.0'
+  annotationProcessor 'com.matthew-tamlin:spyglass-processor:3.0.0'
 }
 ```
 
