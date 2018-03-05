@@ -83,7 +83,7 @@ public final class CallerDef {
         .build();
     
     ABSTRACT_CALLER = TypeSpec
-        .classBuilder("Caller")
+        .classBuilder("Caller2")
         .addModifiers(PUBLIC, ABSTRACT)
         .addTypeVariable(targetType)
         .addMethod(GET_TARGET)

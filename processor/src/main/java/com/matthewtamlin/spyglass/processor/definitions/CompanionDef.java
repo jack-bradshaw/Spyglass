@@ -50,7 +50,7 @@ public class CompanionDef {
         .build();
     
     INTERFACE = TypeSpec
-        .interfaceBuilder("Companion")
+        .interfaceBuilder("Companion2")
         .addModifiers(PUBLIC)
         .addMethod(CALL_TARGET_METHODS)
         .addMethod(CALL_TARGET_METHODS_NOW)
