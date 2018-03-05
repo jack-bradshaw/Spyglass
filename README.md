@@ -20,7 +20,7 @@ Always make sure all three dependencies have the same version number.
 Older versions are available in [the Maven repo](https://bintray.com/matthewtamlin/maven).
 
 ## Quick tutorial
-The traditional approach to handling attributes is full of boilerplate code and clumsy resource handling. The Spyglass framework addresses these issues with compile-time code generation. To demonstrate how it works, here's an example showing how to make a custom view that displays a String title.
+The traditional approach to handling attributes is full of boilerplate code and clumsy resource handling. The Spyglass framework addresses these issues with compile-time code generation. To demonstrate how it works, lets make a custom view with a configurable title.
 
 Step 1: Create a custom view class.
 ```java
@@ -65,7 +65,7 @@ public class CustomView extends FrameLayout {
 }
  ```
 
-Step 2: Define a string attribute in the `values/attrs.xml` resource file.
+Step 2: Declare the view as styleable and define a string attribute in the `values/attrs.xml` resource file.
 ```XML
 <resources>
   <declare-styleable name="CustomView">
@@ -82,7 +82,7 @@ public void setTitle(String title) {
 }
 ```
 
-Now that your class has a Spyglass annotation, the Spyglass framework will detect it at compile-time and automatically generate the `CustomView_SpyglassCompanion` class.
+Now that the class has a Spyglass annotation, the Spyglass framework will detect it at compile-time and automatically generate the `CustomView_SpyglassCompanion` class.
 
 Step 4: Use the generated class in the custom view's `init` method:
 ```java
@@ -100,7 +100,7 @@ private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
       .withDefaultStyleAttribute(defStyleAttr)
       .withDefaultStyleResource(defStyleRes)
       .build()
-      .passDataToMethods();
+      .callTargetMethodsNow();
 }
  ```
 
@@ -119,7 +119,7 @@ That's it. Now when you instantiate the class from XML, the Spyglass companion i
 </FrameLayout>
  ```
 
-The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters. The usage section goes into much more detail.
+The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters.
 
 ## In depth tutorial
 Use of the Spyglass framework is divided into four tasks:
@@ -189,7 +189,7 @@ private void init(AttributeSet attrs) {
       .withStyleableResource(R.styleable.ExampleView)
       .withAttributeSet(attrs)
       .build()
-      .passDataToMethods();
+      .callTargetMethodsNow();
 }
 ```
 
@@ -343,7 +343,7 @@ private void init(AttributeSet attrs) {
       .withAttributeSet(attrs)
       .withDefaultStyleAttribute(R.attr.exampleViewDefaultStyle)
       .build()
-      .passDataToMethods();
+      .callMethodsNow();
 }
 ```
 
@@ -556,6 +556,72 @@ For example, when the following layout is inflated and the ExampleView class is 
     app:textProperties="bold|underline"/>
 </FrameLayout>
 ```
+## ReactiveX support
+Version 3.0.0 introduces support for methods that return observable types from RxJava (i.e. Single, Observable, Flowable, Completable and Maybe). If you apply Spyglass annotations to a method that returns a reactive type, then the Spyglass framework handles this and subscribes when activated. Subscription is deferred until `callTargetMethodsNow()` is called, or you can call `callTargetMethods()` to get a Completable and handle the subscription yourself. This allows you to use RxJava to defer the actions inside the method, without sacrificing compatibility with the Spyglass framework. The Spyglass framework uses advanced ReactiveX patterns to properly manipulate your observables without breaking the chain.
+
+Here's an example:
+```java
+public class CustomView extends FrameLayout {
+  private TextView titleView;
+
+  public CustomView(Context context) {
+    super(context);
+    init(null, 0, 0);
+  }
+
+  public CustomView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init(attrs, 0, 0);
+  }
+
+  public CustomView(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+    init(attrs, defStyleAttr, 0);
+  }
+
+  @RequiresApi(21)
+  public CustomView(
+      Context context,
+      AttributeSet attrs,
+      int defStyleAttr,
+      int defStyleRes) {
+
+    super(context, attrs, defStyleAttr, defStyleRes);
+    init(attrs, defStyleAttr, defStyleRes);
+  }
+
+  @HandlesString(attributeId = R.styleable.CustomView_title)
+  public Completable setTitle(String title) {
+    return Completable.fromRunnable(() -> titleView.setText(title));
+  }
+
+  private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    inflate(getContext(), R.layout.custom_view, this);
+
+    titleView = findViewById(R.id.title_view);
+
+    final Companion companion = CustomView_SpyglassCompanion
+          .builder()
+          .withTarget(this)
+          .withContext(getContext())
+          .withStyleableResource(R.styleable.CustomView)
+          .withAttributeSet(attrs)
+          .withDefaultStyleAttribute(defStyleAttr)
+          .withDefaultStyleResource(defStyleRes)
+          .build();
+
+    // Blocking
+    companion.callTargetMethodsNow();
+
+    // Or non-blocking
+    companion
+        .callTargetMethods()
+        .subscribe();
+  }
+}
+ ```
+
+In versions prior to 3.0.0, the `setTitle` method would have been called by the Spyglass framework, but the returned Completable would have been ignored and the deferred operation would never have occurred.
 
 ## Advantages of the Spyglass framework
 Custom view attributes are traditionally handled using the TypedArray class. The Spyglass framework has several advantages over this approach:
