@@ -40,7 +40,7 @@ public class Grouper {
         final TypeElementWrapper parentWrapper = new TypeElementWrapper((TypeElement) parent);
         
         if (!groups.containsKey(parentWrapper)) {
-          groups.put(parentWrapper, new HashSet<T>());
+          groups.put(parentWrapper, new HashSet<>());
         }
         
         groups.get(parentWrapper).add(element);
