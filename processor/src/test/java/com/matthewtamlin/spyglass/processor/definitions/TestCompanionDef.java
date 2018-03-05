@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Matthew David Tamlin
+ * Copyright 2017-2018 Matthew David Tamlin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,12 +17,11 @@
 package com.matthewtamlin.spyglass.processor.definitions;
 
 import com.matthewtamlin.spyglass.processor.framework.CompileChecker;
-
 import org.junit.Test;
 
 public class TestCompanionDef {
-	@Test
-	public void testGetJavaFile_checkFileCompiles() {
-		CompileChecker.checkCompiles(CompanionDef.SRC_FILE);
-	}
+  @Test
+  public void testGetJavaFile_checkFileCompiles() {
+    CompileChecker.checkCompiles(CompanionDef.SRC_FILE);
+  }
 }

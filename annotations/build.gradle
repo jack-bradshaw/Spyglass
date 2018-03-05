@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Matthew David Tamlin
+ * Copyright 2017-2018 Matthew David Tamlin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,23 +16,47 @@
 
 apply plugin: 'java'
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+group = rootProject.group
+version = rootProject.version
+
+apply from: rootProject.file('dependencies.gradle')
 
 dependencies {
-	implementation 'com.matthew-tamlin:java-utilities:1.3.3'
-	implementation 'com.squareup:javapoet:1.8.0'
+  implementation project.ext.dependencies.javaUtilities
 
-	testImplementation 'junit:junit:4.12'
-	testImplementation 'org.hamcrest:hamcrest-library:1.3'
-	testImplementation 'org.mockito:mockito-core:1.10.19'
+  implementation project.ext.dependencies.javaPoet
+
+  testImplementation project.ext.dependencies.junit
+
+  testImplementation project.ext.dependencies.hamcrest
+
+  testImplementation project.ext.dependencies.mockito
 }
 
-ext {
-	POM_ARTIFACT_ID_SUFFIX = '-annotations'
-	POM_NAME = 'Spyglass Annotations'
-	POM_PACKAGING = 'jar'
-	POM_DESCRIPTION = 'Source markers to direct the Spyglass framework at compile-time.'
-}
+ext.releaseInfo = [
+    group: rootProject.group,
+    artifactId: "${rootProject.ext.rootArtifactId}-annotations",
+    version: rootProject.version,
 
-apply from: rootProject.file('maven-publish.gradle')
+    name: 'Spyglass Annotations',
+    description: 'Source code markers to direct the Spyglass framework at compile-time.',
+    url: 'https://www.github.com/MatthewTamlin/Spyglass',
+    scmUrl: 'https://www.github.com/MatthewTamlin/Spyglass',
+
+    license: [
+        name: 'The Apache Software License, Version 2.0',
+        url: 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+    ]
+]
+
+apply from: rootProject.file('release-java-library.gradle')
+
+task deleteOutputDirectories {
+  doFirst {
+    delete('out')
+    delete('build')
+  }
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Matthew David Tamlin
+ * Copyright 2017-2018 Matthew David Tamlin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -22,24 +22,22 @@ import javax.lang.model.element.NestingKind;
 import javax.lang.model.element.TypeElement;
 
 public class CompanionNamer {
-	public static String getCompanionNameFor(final TypeElement targetClass) {
-		return getParentChain(targetClass) + "_SpyglassCompanion";
-	}
-
-	private static String getParentChain(final TypeElement targetClass) {
-		// if input is top level class return it
-		// otherwise return the parent chain plus it
-
-		if (targetClass.getNestingKind() == NestingKind.TOP_LEVEL) {
-			return targetClass.getSimpleName().toString();
-		} else {
-			final Element parent = targetClass.getEnclosingElement();
-
-			if (parent.getKind() != ElementKind.CLASS) {
-				throw new RuntimeException("Cannot create parent chain. Non-class parent found.");
-			}
-
-			return (getParentChain((TypeElement) parent)) + "_" + targetClass.getSimpleName().toString();
-		}
-	}
+  public static String getCompanionNameFor(final TypeElement targetClass) {
+    return getParentChain(targetClass) + "_SpyglassCompanion";
+  }
+  
+  private static String getParentChain(final TypeElement targetClass) {
+    if (targetClass.getNestingKind() == NestingKind.TOP_LEVEL) {
+      return targetClass.getSimpleName().toString();
+      
+    } else {
+      final Element parent = targetClass.getEnclosingElement();
+      
+      if (parent.getKind() != ElementKind.CLASS) {
+        throw new RuntimeException("Cannot create parent chain. Non-class parent found.");
+      }
+      
+      return (getParentChain((TypeElement) parent)) + "_" + targetClass.getSimpleName().toString();
+    }
+  }
 }

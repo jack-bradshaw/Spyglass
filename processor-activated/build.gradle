@@ -1,0 +1,64 @@
+/*
+ * Copyright 2017-2018 Matthew David Tamlin
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+apply plugin: 'java'
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+group = rootProject.group
+version = rootProject.version
+
+dependencies {
+  implementation project(':processor')
+}
+
+sourceSets {
+  main {
+    java {
+      srcDir 'src/main/java'
+    }
+
+    resources {
+      srcDir 'src/main/resources'
+    }
+  }
+}
+
+ext.releaseInfo = [
+    group: rootProject.group,
+    artifactId: "$rootProject.ext.rootArtifactId-processor",
+    version: rootProject.version,
+
+    name: 'Spyglass Processor',
+    description: 'Performs compile-time processing for the Spyglass framework.',
+    url: 'https://www.github.com/MatthewTamlin/Spyglass',
+    scmUrl: 'https://www.github.com/MatthewTamlin/Spyglass',
+
+    license: [
+        name: 'The Apache Software License, Version 2.0',
+        url: 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+    ]
+]
+
+apply from: rootProject.file('release-java-library.gradle')
+
+task deleteOutputDirectories {
+  doFirst {
+    delete('out')
+    delete('build')
+  }
+}

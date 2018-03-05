@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Matthew David Tamlin
+ * Copyright 2017-2018 Matthew David Tamlin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -19,5 +19,5 @@ package com.matthewtamlin.spyglass.processor.validation;
 import javax.lang.model.element.ExecutableElement;
 
 public interface Validator {
-	public Result validate(final ExecutableElement element);
+  public Result validate(final ExecutableElement element);
 }
