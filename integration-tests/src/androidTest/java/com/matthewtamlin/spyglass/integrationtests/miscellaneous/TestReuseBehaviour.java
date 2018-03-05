@@ -22,10 +22,14 @@ import android.support.test.annotation.UiThreadTest;
 import android.support.test.rule.UiThreadTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 @RunWith(AndroidJUnit4.class)
 public class TestReuseBehaviour {
@@ -39,9 +43,13 @@ public class TestReuseBehaviour {
 		context = InstrumentationRegistry.getTargetContext();
 	}
 
-	@Test(expected = RuntimeException.class)
+	@Test
 	@UiThreadTest
-	public void testUseAnnotationsPassCorrectValues() {
-		new ReuseBehaviourTestTarget(context);
+	public void testDataIsPassedInTwice() {
+		final ReuseBehaviourTestTarget target = new ReuseBehaviourTestTarget(context);
+		
+		assertThat(target.getReceivedValues().size(), is(2));
+		assertThat(target.getReceivedValues().get(0), is(ReceivedValue.of("test")));
+		assertThat(target.getReceivedValues().get(1), is(ReceivedValue.of("test")));
 	}
 }

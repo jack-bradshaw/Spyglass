@@ -22,9 +22,16 @@ import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import com.matthewtamlin.spyglass.integrationtests.R;
+import com.matthewtamlin.spyglass.integrationtests.framework.ReceivedValue;
+import com.matthewtamlin.spyglass.markers.annotations.defaults.DefaultToString;
 import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.StringHandler;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ReuseBehaviourTestTarget extends View {
+  private final List<ReceivedValue<String>> receivedValues = new ArrayList<>();
+  
   public ReuseBehaviourTestTarget(final Context context) {
     super(context);
     init(null, 0, 0);
@@ -53,8 +60,13 @@ public class ReuseBehaviourTestTarget extends View {
   }
   
   @StringHandler(attributeId = R.styleable.ReuseBehaviourTestTarget_reuseAttr)
+  @DefaultToString("test")
   public void handlerMethodWithAnnotation(final String arg0) {
-    // Should never be called
+    receivedValues.add(ReceivedValue.of(arg0));
+  }
+  
+  public List<ReceivedValue<String>> getReceivedValues() {
+    return receivedValues;
   }
   
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
