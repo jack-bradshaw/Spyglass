@@ -66,12 +66,12 @@ public class SpecificFlagHandlerTestTarget extends View {
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     SpecificFlagHandlerTestTarget_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.SpecificFlagHandlerTestTarget)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.SpecificFlagHandlerTestTarget)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

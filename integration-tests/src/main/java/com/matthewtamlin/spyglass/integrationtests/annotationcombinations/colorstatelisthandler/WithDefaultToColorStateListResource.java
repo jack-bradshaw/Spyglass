@@ -67,12 +67,12 @@ public class WithDefaultToColorStateListResource extends ColorStateListHandlerTe
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     WithDefaultToColorStateListResource_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.ColorStateListHandlerTestTargetBase)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.ColorStateListHandlerTestTargetBase)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

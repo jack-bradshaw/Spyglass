@@ -62,12 +62,12 @@ public class WithDefaultToColorResource extends ColorHandlerTestTargetBase {
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     WithDefaultToColorResource_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.ColorHandlerTestTargetBase)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.ColorHandlerTestTargetBase)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

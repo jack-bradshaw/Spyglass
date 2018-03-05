@@ -48,12 +48,12 @@ public class WithUnconditionalHandlerAndDefault extends CompletableTestTargetBas
   private void init(final AttributeSet attributeSet, final int defStyleAttr, final int defStyleRes) {
     WithUnconditionalHandlerAndDefault_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.CompletableTestTargetBase)
-        .withAttributeSet(attributeSet)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.CompletableTestTargetBase)
+        .setAttributeSet(attributeSet)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

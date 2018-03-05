@@ -63,12 +63,12 @@ public class HandlerUsingBaseMultiplier extends FractionHandlerTestTargetBase {
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     HandlerUsingBaseMultiplier_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.FractionHandlerTestTargetBase)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.FractionHandlerTestTargetBase)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }
