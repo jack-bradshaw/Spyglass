@@ -20,7 +20,7 @@ Always make sure all three dependencies have the same version number.
 Older versions are available in [the Maven repo](https://bintray.com/matthewtamlin/maven).
 
 ## Quick tutorial
-The traditional approach to handling attributes is full of boilerplate code and clumsy resource handling. The Spyglass framework addresses these issues with compile-time code generation. To demonstrate how it works, here's an example showing how to make a custom view that displays a String title.
+The traditional approach to handling attributes is full of boilerplate code and clumsy resource handling. The Spyglass framework addresses these issues with compile-time code generation. To demonstrate how it works, lets make a custom view with a configurable title.
 
 Step 1: Create a custom view class.
 ```java
@@ -65,7 +65,7 @@ public class CustomView extends FrameLayout {
 }
  ```
 
-Step 2: Define a string attribute in the `values/attrs.xml` resource file.
+Step 2: Declare the view as styleable and define a string attribute in the `values/attrs.xml` resource file.
 ```XML
 <resources>
   <declare-styleable name="CustomView">
@@ -82,7 +82,7 @@ public void setTitle(String title) {
 }
 ```
 
-Now that your class has a Spyglass annotation, the Spyglass framework will detect it at compile-time and automatically generate the `CustomView_SpyglassCompanion` class.
+Now that the class has a Spyglass annotation, the Spyglass framework will detect it at compile-time and automatically generate the `CustomView_SpyglassCompanion` class.
 
 Step 4: Use the generated class in the custom view's `init` method:
 ```java
@@ -119,7 +119,7 @@ That's it. Now when you instantiate the class from XML, the Spyglass companion i
 </FrameLayout>
  ```
 
-The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters. The usage section goes into much more detail.
+The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters.
 
 ## In depth tutorial
 Use of the Spyglass framework is divided into four tasks:
