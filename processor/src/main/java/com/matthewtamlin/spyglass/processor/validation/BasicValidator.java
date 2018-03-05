@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Matthew David Tamlin
+ * Copyright 2017-2018 Matthew David Tamlin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -16,283 +16,200 @@
 
 package com.matthewtamlin.spyglass.processor.validation;
 
-
 import com.google.common.collect.ImmutableList;
-import com.matthewtamlin.java_utilities.testing.Tested;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.CallHandlerAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.DefaultAnnoRetriever;
-import com.matthewtamlin.spyglass.processor.annotation_retrievers.ValueHandlerAnnoRetriever;
+import com.matthewtamlin.spyglass.processor.annotationretrievers.ConditionalHandlerRetriever;
+import com.matthewtamlin.spyglass.processor.annotationretrievers.DefaultRetriever;
+import com.matthewtamlin.spyglass.processor.annotationretrievers.UnconditionalHandlerRetriever;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 
-import java.lang.annotation.Annotation;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
-import javax.lang.model.element.Element;
+import javax.inject.Inject;
 import javax.lang.model.element.ExecutableElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import java.lang.annotation.Annotation;
+import java.util.*;
 
 import static javax.lang.model.element.Modifier.PRIVATE;
-import static javax.lang.model.element.Modifier.STATIC;
 
-@Tested(testMethod = "automated")
 public class BasicValidator implements Validator {
-	private final List<Rule> rules = ImmutableList.of(
-			// Every element must have no more than one handler annotation
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					if (countValueHandlerAnnotations(element) + countCallHandlerAnnotations(element) > 1) {
-						return Result.createFailure("Methods must not have multiple handler annotations.");
-					}
-
-					return Result.createSuccessful();
-				}
-			},
-
-			// Every element must have no more than one default annotation
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					if (countDefaultAnnotations(element) > 1) {
-						return Result.createFailure("Methods must not have multiple default annotations.");
-					}
-
-					return Result.createSuccessful();
-				}
-			},
-
-			// Every element with a default annotation must also have a value handler annotation
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					if (DefaultAnnoRetriever.hasAnnotation(element) &&
-							!ValueHandlerAnnoRetriever.hasAnnotation(element)) {
-						return Result.createFailure(
-								"Methods without handler annotations must not have default annotations.");
-					}
-
-					return Result.createSuccessful();
-				}
-			},
-
-			// Every element with a default annotation must not have a call handler annotation
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					if (DefaultAnnoRetriever.hasAnnotation(element) &&
-							CallHandlerAnnoRetriever.hasAnnotation(element)) {
-
-						return Result.createFailure(
-								"Methods with handlers annotations that pass no value must not have default " +
-										"annotations.");
-					}
-
-					return Result.createSuccessful();
-				}
-			},
-
-			// Every element with a value handle annotation must have at least one parameter
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					final int parameterCount = ((ExecutableElement) element).getParameters().size();
-
-					if (ValueHandlerAnnoRetriever.hasAnnotation(element) && parameterCount < 1) {
-						return Result.createFailure(
-								"Methods with handler annotations that pass a value must have at least one parameter.");
-					}
-
-					return Result.createSuccessful();
-				}
-			},
-
-			// Every parameter must have at most one use-annotations
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					final Map<Integer, Set<Annotation>> useAnnotations = getUseAnnotations(element);
-
-					for (final Integer paramIndex : useAnnotations.keySet()) {
-						if (useAnnotations.get(paramIndex).size() > 1) {
-							return Result.createFailure("Parameters must not have multiple use-annotations.");
-						}
-					}
-
-					return Result.createSuccessful();
-				}
-			},
-
-			// Every element with a value handler must have a use-annotation on every parameter except one
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					final int paramCount = ((ExecutableElement) element).getParameters().size();
-					final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
-
-					if (ValueHandlerAnnoRetriever.hasAnnotation(element) &&
-							annotatedParamCount != paramCount - 1) {
-
-						return Result.createFailure(
-								"Methods with handler annotations which pass a value must have use " +
-										"annotations on every parameter except one.");
-					}
-
-					return Result.createSuccessful();
-				}
-			},
-
-			// Every element with a call handler must have a use-annotation on every parameter
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					final int paramCount = ((ExecutableElement) element).getParameters().size();
-					final int annotatedParamCount = countNonEmptySets(getUseAnnotations(element).values());
-
-					if (CallHandlerAnnoRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
-						return Result.createFailure(
-								"Methods with handler annotations which pass no value must have " +
-										"use-annotations on every parameter.");
-					}
-
-					return Result.createSuccessful();
-				}
-			},
-
-			// Every element must be public, protected or package-private
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					if (element.getModifiers().contains(PRIVATE)) {
-						return Result.createFailure(
-								"Methods with handler annotations must have public, protected, or default access. " +
-										"Private methods are not compatible with the Spyglass Framework.");
-					}
-
-					return Result.createSuccessful();
-				}
-			},
-
-			// Every element must belong to a class which can be statically instantiated
-			new Rule() {
-				@Override
-				public Result checkElement(final ExecutableElement element) {
-					if (!hasStaticRoot(element)) {
-						return Result.createFailure(
-								"Methods with handler annotations must be accessible from static context.");
-					}
-
-					return Result.createSuccessful();
-				}
-
-				private boolean hasStaticRoot(final Element element) {
-					final TypeElement parent = (TypeElement) element.getEnclosingElement();
-
-					if (parent == null) {
-						return true;
-					}
-
-					switch (parent.getNestingKind()) {
-						case TOP_LEVEL:
-							return true;
-						case MEMBER:
-							return parent.getModifiers().contains(STATIC);
-						case LOCAL:
-							return false;
-						case ANONYMOUS:
-							return false;
-					}
-
-					throw new RuntimeException("Should never get here.");
-				}
-			});
-
-	public Result validate(final ExecutableElement element) {
-		for (final Rule rule : rules) {
-			final Result result = rule.checkElement(element);
-
-			if (!result.isSuccessful()) {
-				return result;
-			}
-		}
-
-		return Result.createSuccessful();
-	}
-
-	private static int countCallHandlerAnnotations(final ExecutableElement method) {
-		int count = 0;
-
-		for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CALL_HANDLER_ANNOS) {
-			if (method.getAnnotation(annotationClass) != null) {
-				count++;
-			}
-		}
-
-		return count;
-	}
-
-	private static int countValueHandlerAnnotations(final ExecutableElement method) {
-		int count = 0;
-
-		for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.VALUE_HANDLER_ANNOS) {
-			if (method.getAnnotation(annotationClass) != null) {
-				count++;
-			}
-		}
-
-		return count;
-	}
-
-	private static int countDefaultAnnotations(final ExecutableElement method) {
-		int count = 0;
-
-		for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.DEFAULT_ANNOS) {
-			if (method.getAnnotation(annotationClass) != null) {
-				count++;
-			}
-		}
-
-		return count;
-	}
-
-	private static Map<Integer, Set<Annotation>> getUseAnnotations(final ExecutableElement method) {
-		final Map<Integer, Set<Annotation>> useAnnotations = new HashMap<>();
-
-		final List<? extends VariableElement> params = method.getParameters();
-
-		for (int i = 0; i < params.size(); i++) {
-			useAnnotations.put(i, new HashSet<Annotation>());
-
-			for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.USE_ANNOS) {
-				final Annotation foundAnnotation = params.get(i).getAnnotation(annotationClass);
-
-				if (foundAnnotation != null) {
-					useAnnotations.get(i).add(foundAnnotation);
-				}
-			}
-		}
-
-		return useAnnotations;
-	}
-
-	private static int countNonEmptySets(final Collection<? extends Set> collection) {
-		int count = 0;
-
-		for (final Set<?> s : collection) {
-			if (!s.isEmpty()) {
-				count++;
-			}
-		}
-
-		return count;
-	}
-
-	private interface Rule {
-		public Result checkElement(ExecutableElement element);
-	}
+  private final List<Rule> rules;
+  
+  @Inject
+  public BasicValidator() {
+    rules = ImmutableList.of(
+        element -> countUnconditionalHandlerAnnotations(element) + countConditionalHandlerAnnotations(element) > 1 ?
+            Result.createFailure("Methods must not have multiple handler annotations.") :
+            Result.createSuccessful(),
+        
+        element -> countDefaultAnnotations(element) > 1 ?
+            Result.createFailure("Methods must not have multiple default annotations.") :
+            Result.createSuccessful(),
+        
+        element -> DefaultRetriever.hasAnnotation(element) && !UnconditionalHandlerRetriever.hasAnnotation(element) ?
+            Result.createFailure("Methods without handler annotations must not have default annotations.") :
+            Result.createSuccessful(),
+        
+        element -> DefaultRetriever.hasAnnotation(element) && ConditionalHandlerRetriever.hasAnnotation(element) ?
+            Result.createFailure("Methods with conditional handler annotations must not have default annotations.") :
+            Result.createSuccessful(),
+        
+        element -> {
+          final int parameterCount = ((ExecutableElement) element).getParameters().size();
+          
+          if (UnconditionalHandlerRetriever.hasAnnotation(element) && parameterCount < 1) {
+            return Result.createFailure("Methods with simple handler annotations must have at least one parameter.");
+          }
+          
+          return Result.createSuccessful();
+        },
+        
+        element -> {
+          final Map<Integer, Set<Annotation>> placeholderAnnotations = getPlaceholderAnnotations(element);
+          
+          for (final Integer paramIndex : placeholderAnnotations.keySet()) {
+            if (placeholderAnnotations.get(paramIndex).size() > 1) {
+              return Result.createFailure("Parameters must not have multiple placeholder annotations.");
+            }
+          }
+          
+          return Result.createSuccessful();
+        },
+        
+        element -> {
+          final int paramCount = ((ExecutableElement) element).getParameters().size();
+          final int annotatedParamCount = countNonEmptySets(getPlaceholderAnnotations(element).values());
+          
+          if (UnconditionalHandlerRetriever.hasAnnotation(element) &&
+              annotatedParamCount != paramCount - 1) {
+            
+            return Result.createFailure(
+                "Methods with simple handler annotations must have placeholder annotations on all but one parameter.");
+          }
+          
+          return Result.createSuccessful();
+        },
+        
+        element -> {
+          final int paramCount = ((ExecutableElement) element).getParameters().size();
+          final int annotatedParamCount = countNonEmptySets(getPlaceholderAnnotations(element).values());
+          
+          if (ConditionalHandlerRetriever.hasAnnotation(element) && annotatedParamCount != paramCount) {
+            return Result.createFailure(
+                "Methods with conditional handler annotations must have placeholder annotations on all parameters.");
+          }
+          
+          return Result.createSuccessful();
+        },
+        
+        element -> element.getModifiers().contains(PRIVATE) ?
+            Result.createFailure(
+                "Methods with handler annotations must have public, protected, or default access. " +
+                    "Private methods are not compatible with the Spyglass Framework.") :
+            Result.createSuccessful(),
+        
+        element -> {
+          final TypeElement parent = (TypeElement) element.getEnclosingElement();
+          
+          if (parent == null) {
+            return Result.createSuccessful();
+          }
+          
+          switch (parent.getNestingKind()) {
+            case TOP_LEVEL:
+              return Result.createSuccessful();
+            case MEMBER:
+              return Result.createSuccessful();
+            case LOCAL:
+              return Result.createFailure("Local classes are not compatible with the Spyglass Framework.");
+            case ANONYMOUS:
+              return Result.createFailure("Anonymous classes are not compatible with the Spyglass Framework.");
+            default:
+              throw new IllegalStateException("Unexpected nesting kind: " + parent.getNestingKind());
+          }
+        });
+  }
+  
+  public Result validate(final ExecutableElement element) {
+    for (final Rule rule : rules) {
+      final Result result = rule.checkElement(element);
+      
+      if (!result.isSuccessful()) {
+        return result;
+      }
+    }
+    
+    return Result.createSuccessful();
+  }
+  
+  private static int countConditionalHandlerAnnotations(final ExecutableElement method) {
+    int count = 0;
+    
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.CONDITIONAL_HANDLERS) {
+      if (method.getAnnotation(annotationClass) != null) {
+        count++;
+      }
+    }
+    
+    return count;
+  }
+  
+  private static int countUnconditionalHandlerAnnotations(final ExecutableElement method) {
+    int count = 0;
+    
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.UNCONDITIONAL_HANDLERS) {
+      if (method.getAnnotation(annotationClass) != null) {
+        count++;
+      }
+    }
+    
+    return count;
+  }
+  
+  private static int countDefaultAnnotations(final ExecutableElement method) {
+    int count = 0;
+    
+    for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.DEFAULTS) {
+      if (method.getAnnotation(annotationClass) != null) {
+        count++;
+      }
+    }
+    
+    return count;
+  }
+  
+  private static Map<Integer, Set<Annotation>> getPlaceholderAnnotations(final ExecutableElement method) {
+    final Map<Integer, Set<Annotation>> placeholderAnnotations = new HashMap<>();
+    
+    final List<? extends VariableElement> params = method.getParameters();
+    
+    for (int i = 0; i < params.size(); i++) {
+      placeholderAnnotations.put(i, new HashSet<>());
+      
+      for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.PLACEHOLDERS) {
+        final Annotation foundAnnotation = params.get(i).getAnnotation(annotationClass);
+        
+        if (foundAnnotation != null) {
+          placeholderAnnotations.get(i).add(foundAnnotation);
+        }
+      }
+    }
+    
+    return placeholderAnnotations;
+  }
+  
+  private static int countNonEmptySets(final Collection<? extends Set> collection) {
+    int count = 0;
+    
+    for (final Set<?> s : collection) {
+      if (!s.isEmpty()) {
+        count++;
+      }
+    }
+    
+    return count;
+  }
+  
+  private interface Rule {
+    public Result checkElement(ExecutableElement element);
+  }
 }

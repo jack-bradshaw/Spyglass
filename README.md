@@ -5,13 +5,13 @@ Spyglass is an Android library that makes attribute handling in custom views muc
 To use the framework, add the following to your gradle build file:
 ```groovy
 repositories {
-	jcenter()
+  jcenter()
 }
 
 dependencies {
-	implementation 'com.matthew-tamlin:spyglass-runtime-dependencies:2.0.2'
-	compileOnly 'com.matthew-tamlin:spyglass-annotations:2.0.2'
-	annotationProcessor 'com.matthew-tamlin:spyglass-processor:2.0.2'
+  implementation 'com.matthew-tamlin:spyglass-runtime-dependencies:3.0.0'
+  compileOnly 'com.matthew-tamlin:spyglass-annotations:3.0.0'
+  annotationProcessor 'com.matthew-tamlin:spyglass-processor:3.0.0'
 }
 ```
 
@@ -20,106 +20,106 @@ Always make sure all three dependencies have the same version number.
 Older versions are available in [the Maven repo](https://bintray.com/matthewtamlin/maven).
 
 ## Quick tutorial
-The traditional approach to handling attributes is full of boilerplate code and clumsy resource handling. The Spyglass framework addresses these issues with compile-time code generation. To demonstrate how it works, here's an example showing how to make a custom view that displays a String title.
+The traditional approach to handling attributes is full of boilerplate code and clumsy resource handling. The Spyglass framework addresses these issues with compile-time code generation. To demonstrate how it works, lets make a custom view with a configurable title.
 
 Step 1: Create a custom view class.
 ```java
-    public class CustomView extends FrameLayout {
-        private TextView titleView;
+public class CustomView extends FrameLayout {
+  private TextView titleView;
 
-        public CustomView(Context context) {
-            super(context);
-            init(null, 0, 0);
-        }
+  public CustomView(Context context) {
+    super(context);
+    init(null, 0, 0);
+  }
 
-        public CustomView(Context context, AttributeSet attrs) {
-            super(context, attrs);
-            init(attrs, 0, 0);
-        }
+  public CustomView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init(attrs, 0, 0);
+  }
 
-        public CustomView(Context context, AttributeSet attrs, int defStyleAttr) {
-            super(context, attrs, defStyleAttr);
-            init(attrs, defStyleAttr, 0);
-        }
+  public CustomView(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+    init(attrs, defStyleAttr, 0);
+  }
 
-        @RequiresApi(21)
-        public CustomView(
-                Context context, 
-                AttributeSet attrs,
-                int defStyleAttr,
-                int defStyleRes) {
+  @RequiresApi(21)
+  public CustomView(
+      Context context, 
+      AttributeSet attrs,
+      int defStyleAttr,
+      int defStyleRes) {
 
-            super(context, attrs, defStyleAttr, defStyleRes);
-            init(attrs, defStyleAttr, defStyleRes);
-        }
+    super(context, attrs, defStyleAttr, defStyleRes);
+    init(attrs, defStyleAttr, defStyleRes);
+  }
 
-        public void setTitle(String title) {
-            titleView.setText(title);
-        }
-        
-        private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-            inflate(getContext(), R.layout.custom_view, this);
+  public void setTitle(String title) {
+    titleView.setText(title);
+  }
+  
+  private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    inflate(getContext(), R.layout.custom_view, this);
 
-            titleView = findViewById(R.id.title_view);
-        }
-    }
+    titleView = findViewById(R.id.title_view);
+  }
+}
  ```
 
-Step 2: Define a string attribute in the `values/attrs.xml` resource file.
+Step 2: Declare the view as styleable and define a string attribute in the `values/attrs.xml` resource file.
 ```XML
-    <resources>
-	    <declare-styleable name="CustomView">
-		    <attr name="title" format="string"/>
-	    </declare-styleable>
-    </resources>
+<resources>
+  <declare-styleable name="CustomView">
+    <attr name="title" format="string"/>
+  </declare-styleable>
+</resources>
  ```
 
 Step 3: Apply the `@StringHandler` annotation to the `setTitle` method to tell the Spyglass framework to route the attribute value to this method when the view is inflated.
 ```java
-    @HandlesString(attributeId = R.styleable.CustomView_title)
-    public void setTitle(String title) {
-        titleView.setText(title);
-    }
+@HandlesString(attributeId = R.styleable.CustomView_title)
+public void setTitle(String title) {
+  titleView.setText(title);
+}
 ```
 
-Now that your class has a Spyglass annotation, the Spyglass framework will detect it at compile-time and automatically generate the `CustomView_SpyglassCompanion` class.
+Now that the class has a Spyglass annotation, the Spyglass framework will detect it at compile-time and automatically generate the `CustomView_SpyglassCompanion` class.
 
 Step 4: Use the generated class in the custom view's `init` method:
 ```java
-    private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        inflate(getContext(), R.layout.custom_view, this);
+private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+  inflate(getContext(), R.layout.custom_view, this);
 
-        titleView = findViewById(R.id.title_view);
+  titleView = findViewById(R.id.title_view);
 
-        CustomView_SpyglassCompanion
-                .builder()
-                .withTarget(this)
-                .withContext(getContext())
-                .withStyleableResource(R.styleable.CustomView)
-                .withAttributeSet(attrs)
-                .withDefaultStyleAttribute(defStyleAttr)
-                .withDefaultStyleResource(defStyleRes)
-                .build()
-                .passDataToMethods();
-    }
+  CustomView_SpyglassCompanion
+      .builder()
+      .setTarget(this)
+      .setContext(getContext())
+      .setStyleableResource(R.styleable.CustomView)
+      .setAttributeSet(attrs)
+      .setDefaultStyleAttribute(defStyleAttr)
+      .setDefaultStyleResource(defStyleRes)
+      .build()
+      .callTargetMethodsNow();
+}
  ```
 
 That's it. Now when you instantiate the class from XML, the Spyglass companion interprets the attributes and makes the required method call. For example, if we inflate the following layout then `setTitle` will be called with `"Hello, World!"` as the argument.
 ```XML
-    <FrameLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-	    xmlns:app="http://schemas.android.com/apk/res-auto"
-        android:width="match_parent"
-        android:height="match_parent">
+<FrameLayout
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  xmlns:app="http://schemas.android.com/apk/res-auto"
+  android:width="match_parent"
+  android:height="match_parent">
 
-        <com.example.CustomView
-            android:width="match_parent"
-            android:height="match_parent"
-            app:title="Hello, World!"/>
-    </FrameLayout>
+  <com.example.CustomView
+    android:width="match_parent"
+    android:height="match_parent"
+    app:title="Hello, World!"/>
+</FrameLayout>
  ```
 
-The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters. The usage section goes into much more detail.
+The framework isn't limited to strings and has a lot of different annotations for handling other resource types. It also has annotations for defining default values and for passing in placeholder values if your methods have multiple parameters.
 
 ## In depth tutorial
 Use of the Spyglass framework is divided into four tasks:
@@ -134,24 +134,24 @@ A mapping relationship tells the Spyglass framework how to route attributes when
 Consider the following class.
 ```java
 public class ExampleView extends FrameLayout {
-	public ExampleView(Context context) {
-		super(context);
-		init(null);
-	}
+  public ExampleView(Context context) {
+    super(context);
+    init(null);
+  }
 
-	public ExampleView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		init(attrs);
-	}
+  public ExampleView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init(attrs);
+  }
 
-	public void setTitle(String title) {
-		TextView tv = findViewById(R.id.example_title_view);
-		tv.setText(title);
-	}
+  public void setTitle(String title) {
+    TextView tv = findViewById(R.id.example_title_view);
+    tv.setText(title);
+  }
 
-	private void init(AttributeSet attrs) {
-		// Inflate some things, get some view references, other initialisation etc.
-	}
+  private void init(AttributeSet attrs) {
+    // Inflate some things, get some view references, other initialisation etc.
+  }
 }
 ```
 
@@ -160,9 +160,9 @@ The Spyglass framework can be used to enable configuration of the view via XML a
 First declare the view in the `attrs` resource file as a styleable-resource and declare a custom attribute called `title`.
 ```XML
 <resources>
-	<declare-styleable name="ExampleView">
-		<attr name="title" format="string"/>
-	</declare-styleable>
+  <declare-styleable name="ExampleView">
+    <attr name="title" format="string"/>
+  </declare-styleable>
 </resources>
 ```
 
@@ -170,8 +170,8 @@ Next modify the class to tell the Spyglass framework that the `setTitle` method 
 ```java
 @StringHandler(R.styleable.ExampleView_title)
 public void setTitle(String title) {
-	TextView tv = findViewById(R.id.example_title_view);
-	tv.setText(title);
+  TextView tv = findViewById(R.id.example_title_view);
+  tv.setText(title);
 }
 ```
 
@@ -180,34 +180,33 @@ Rebuilding the project causes the `ExampleView_SpyglassCompanion` class to be au
 Finally modify the `init` method to use the generated class. All Spyglass companions expose a builder for instantiation.
 ```java
 private void init(AttributeSet attrs) {
-	// Inflate some things, get some view references, other initialisation etc.
+  // Inflate some things, get some view references, other initialisation etc.
 
-	ExampleView_SpyglassCompanion
-			.builder()
-			.withTarget(this)
-			.withContext(getContext())
-			.withStyleableResource(R.styleable.ExampleView)
-			.withAttributeSet(attrs)
-			.build()
-			.passDataToMethods();
+  ExampleView_SpyglassCompanion
+      .builder()
+      .setTarget(this)
+      .setContext(getContext())
+      .setStyleableResource(R.styleable.ExampleView)
+      .setAttributeSet(attrs)
+      .build()
+      .callTargetMethodsNow();
 }
 ```
 
 That's it! Now when the class is instantiated from an XML layout, whatever value is passed to the `title` attribute will be routed to the `setTitle` method. For example, when the following layout is inflated and the ExampleView class is instantiated, the `setTitle` method is invoked with `"Hello, World!"` as the argument.
 ```XML
 <FrameLayout
-	android:width="match_parent"
-	android:height="match_parent">
+  android:width="match_parent"
+  android:height="match_parent">
 
-	<com.example.ExampleView
-		android:width="match_parent"
-		android:height="match_parent"
-		app:title="Hello, World!"/>
-
+  <com.example.ExampleView
+    android:width="match_parent"
+    android:height="match_parent"
+    app:title="Hello, World!"/>
 </FrameLayout>
 ```
 
-You can add as many `@Handler` annotations to a view as you like, and the Spyglass framework will automatically adjust the generated code to accomodate.
+You can add as many `@Handler` annotations to a view as you like, and the Spyglass framework will automatically adjust the generated code to accommodate.
 
 The Android resource system isn't limited to string resources, and neither is the Spyglass framework. The Spyglass framework offers the following annotations for handling different attribute types:
 - `@BooleanHandler`
@@ -228,21 +227,21 @@ All of these annotations are analogous to the `@StringHandler` annotation, excep
 To handle an enum attribute, start by defining the attribute in the `attrs` resource file.
 ```XML
 <resources>
-	<declare-styleable name="ExampleView">
-		<attr name="fruit" format="enum">
-			<enum name="apple" value="0"/>
-			<enum name="pear" value="1"/>
-			<enum name="orange" value="2"/>
-	</declare-styleable>
+  <declare-styleable name="ExampleView">
+    <attr name="fruit" format="enum">
+      <enum name="apple" value="0"/>
+      <enum name="pear" value="1"/>
+      <enum name="orange" value="2"/>
+  </declare-styleable>
 </resources>
 ```
 
 Then define an equivalent enum in a Java file:
 ```java
 public enum Fruit {
-	APPLE,
-	PEAR,
-	ORANGE
+  APPLE,
+  PEAR,
+  ORANGE
 }
 ```
 
@@ -250,21 +249,20 @@ Finally apply the `@EnumConstantHandler` annotation to a method in the view clas
 ```java
 @EnumConstantHandler(attributeId = R.styleable.ExampleView_fruit, enumClass = Fruit.class)
 public void setFruit(Fruit fruit) {
-	// Do something
+  // Do something
 }
 ```
 
 That's it! Now when the class is instantiated from an XML layout, whatever value is passed to the `fruit` attribute will be converted to the appropriate `Fruit` constant and routed to the `setFruit` method. For example, when the following layout is inflated and the ExampleView class is instantiated, the `setFruit` method is invoked with `Fruit.ORANGE` as the argument.
 ```XML
 <FrameLayout
-	android:width="match_parent"
-	android:height="match_parent">
+  android:width="match_parent"
+  android:height="match_parent">
 
-	<com.example.ExampleView
-		android:width="match_parent"
-		android:height="match_parent"
-		app:fruit="orange"/>
-
+  <com.example.ExampleView
+    android:width="match_parent"
+    android:height="match_parent"
+    app:fruit="orange"/>
 </FrameLayout>
 ```
 
@@ -281,8 +279,8 @@ The previous example can be modified to set the default title to "Untitled docum
 @HandlesString(R.styleable.ExampleView_title)
 @DefaultToString("Untitled document")
 public void setTitle(String title) {
-	TextView tv = findViewById(R.id.example_title_view);
-	tv.setText(title);
+  TextView tv = findViewById(R.id.example_title_view);
+  tv.setText(title);
 }
 ```
 
@@ -308,55 +306,55 @@ The following `@DefaultTo` annotations are provided by the Spyglass framework:
 Check the Javadoc of these annotations for specifics.
 
 ### Default style attribute
-Every Spyglass companion builder exposes the `withDefaultStyleAttribute` method which accepts a resource ID that refers to an attribute in the current theme, which in turn refers to a style to source default values from. That's quite a mouth full, so here's a more useful demo.
+Every Spyglass companion builder exposes the `setDefaultStyleAttribute` method which accepts a resource ID that refers to an attribute in the current theme, which in turn refers to a style to source default values from. That's quite a mouth full, so here's a more useful demo.
 
 First add an attribute to the `attrs` resource file.
 ```XML
 <resources>
-	<attr name="exampleViewDefaultStyle">
+  <attr name="exampleViewDefaultStyle">
 </resources>
 ```
 
 Then define a style in the `styles` resource file that contains the default values, and refer to the new style in the current theme using the new attribute.
 ```XML
 <resources>
-	<!-- This is the current theme. -->
-	<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
-		<item name="exampleViewDefaultStyle">@style/ExampleViewDefaults</item>
-	</style>
+  <!-- This is the current theme. -->
+  <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    <item name="exampleViewDefaultStyle">@style/ExampleViewDefaults</item>
+  </style>
 
-	<!-- This is the style to source defaults from. -->
-	<style name="ExampleViewDefaults">
-		<item name="title">Untitled document</item>
-	</style>
+  <!-- This is the style to source defaults from. -->
+  <style name="ExampleViewDefaults">
+    <item name="title">Untitled document</item>
+  </style>
 <resources>
 ```
 
 Finally pass the default style attribute to the Spyglass companion builder.
 ```java
 private void init(AttributeSet attrs) {
-	// Inflate some things, get some view references, other initialisation etc.
+  // Inflate some things, get some view references, other initialisation etc.
 
-	ExampleView_SpyglassCompanion
-			.builder()
-			.withTarget(this)
-			.withContext(getContext())
-			.withStyleableResource(R.styleable.ExampleView)
-			.withAttributeSet(attrs)
-			.withDefaultStyleAttribute(R.attr.exampleViewDefaultStyle)
-			.build()
-			.passDataToMethods();
+  ExampleView_SpyglassCompanion
+      .builder()
+      .setTarget(this)
+      .setContext(getContext())
+      .setStyleableResource(R.styleable.ExampleView)
+      .setAttributeSet(attrs)
+      .setDefaultStyleAttribute(R.attr.exampleViewDefaultStyle)
+      .build()
+      .callMethodsNow();
 }
 ```
 
 Now if the view is instantiated from XML without a `title` attribute, the `setTitle` method will called with `"Untitled document"` as the argument.
 
-It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr)`. The third parameter should be propagated to the `withDefaultStyleAttribute` method of the Spyglass companion builder.
+It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr)`. The third parameter should be propagated to the `setDefaultStyleAttribute` method of the Spyglass companion builder.
 
 ### Default style resources
-Every Spyglass companion builder also exposes the `withDefaultStyleResource` method which is very similar to the `withDefaultStyleAttribute` method, except the supplied resource ID directly refers to a style resource instead of going through the current theme.
+Every Spyglass companion builder also exposes the `setDefaultStyleResource` method which is very similar to the `setDefaultStyleAttribute` method, except the supplied resource ID directly refers to a style resource instead of going through the current theme.
 
-It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)`. The fourth parameter should be propagated to the `withDefaultStyleResoure` method of the Spyglass companion builder.
+It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)`. The fourth parameter should be propagated to the `withDefaultStyleResource` method of the Spyglass companion builder.
 
 ### All together
 What happens if you supply a default style attribute, a default style resource and an `@DefaultTo` annotation? When multiple default sources are available, the Spyglass framework searches through them until a value is found. If the attribute is not found in the default style attribute, then the Spyglass framework moves onto the default style resource. If a value is still not found, it moves onto the default annotation. If no default annotation is found, then the method is not called at all.
@@ -368,7 +366,7 @@ Here's a common example:
 ```java
 @HandlesString(R.styleable.ExampleView_title)
 public void setTitle(String title, boolean animate) {
-	// Some implementation
+  // Some implementation
 }
 ```
 
@@ -376,7 +374,7 @@ Normally when a view is being first initialised there is no need to show animati
 ```java
 @HandlesString(R.styleable.ExampleView_title)
 public void setTitle(String title, @UseBoolean(false) boolean animate) {
-	// Some implementation
+  // Some implementation
 }
 ```
 
@@ -407,9 +405,9 @@ Imagine a view that displays an image of a light that is either on or off. In XM
 Start by defining a boolean attribute in the `attrs` resource file as:
 ```XML
 <resources>
-	<declare-styleable name="ExampleView">
-		<attr name="lightIsOn" format="boolean"/>
-	</declare-styleable>
+  <declare-styleable name="ExampleView">
+    <attr name="lightIsOn" format="boolean"/>
+  </declare-styleable>
 </resources>
 ```
 
@@ -417,26 +415,25 @@ Next apply the `@SpecificBooleanHandler` annotation to multiple methods in the v
 ```java
 @SpecificBooleanHandler(attributeId = R.styleable.lightIsOn, handledBoolean = true)
 public void setLightToOn() {
-	// Some implementation
+  // Some implementation
 }
 
 @SpecificBooleanHandler(attributeId = R.styleable.lightIsOn, handledBoolean = false)
 public void setLightToOff() {
-	// Some implementation
+  // Some implementation
 }
 ```
 
 Now when the Spyglass framework finds the `lightIsOn` attribute, it uses the attribute value to determine which method to call. If the attribute is not present in the XML at all, then neither method is called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `setLightToOff` method is invoked.
 ```XML
 <FrameLayout
-	android:width="match_parent"
-	android:height="match_parent">
-	
-	<com.example.ExampleView
-		android:width="match_parent"
-		android:height="match_parent"
-		app:lightIsOn="false"/>
-
+  android:width="match_parent"
+  android:height="match_parent">
+  
+  <com.example.ExampleView
+    android:width="match_parent"
+    android:height="match_parent"
+    app:lightIsOn="false"/>
 </FrameLayout>
 ```
 
@@ -446,24 +443,24 @@ Conditional mapping can also be used for enum attributes. Imagine a view which c
 Start by defining an enum attribute in the `attrs` resource file.
 ```XML
 <resources>
-	<declare-styleable name="ExampleView">
-		<attr name="directionFacing" format="enum">
-			<enum name="north" value="0"/>
-			<enum name="south" value="1"/>
-			<enum name="east" value="2"/>
-			<enum name="west" value="3"/>
-		</attr>
-	</declare-styleable>
+  <declare-styleable name="ExampleView">
+    <attr name="directionFacing" format="enum">
+      <enum name="north" value="0"/>
+      <enum name="south" value="1"/>
+      <enum name="east" value="2"/>
+      <enum name="west" value="3"/>
+    </attr>
+  </declare-styleable>
 </resources>
 ```
 
 Then define an equivalent enum in a Java file.
 ```java
 public enum Direction {
-	NORTH,
-	SOUTH,
-	EAST,
-	WEST
+  NORTH,
+  SOUTH,
+  EAST,
+  WEST
 }
 ```
 
@@ -473,36 +470,35 @@ Next apply the `@SpecificEnumHandler` annotation to the methods in the view clas
 ```java
 @SpecificEnumHandler(attributeId = R.styleable.directionFacing, ordinal = 0)
 public void faceNorth() {
-	// Some implementation
+  // Some implementation
 }
 
 @SpecificEnumHandler(attributeId = R.styleable.directionFacing, ordinal = 1)
 public void faceSouth() {
-	// Some implementation
+  // Some implementation
 }
 
 @SpecificEnumHandler(attributeId = R.styleable.directionFacing, ordinal = 2)
 public void faceEast() {
-	// Some implementation
+  // Some implementation
 }
 
 @SpecificEnumHandler(attributeId = R.styleable.directionFacing, ordinal = 3)
 public void faceWest() {
-	// Some implementation
+  // Some implementation
 }
 ```
 
 Now when the Spyglass framework finds the `directionFacing` attribute, it uses the attribute value to determine which method to call. If the attribute is not present in the XML at all, then none of the methods are called. For example, when the following layout is inflated and the ExampleView class is instantiated, only the `faceWest` method is invoked.
 ```XML
 <FrameLayout
-	android:width="match_parent"
-	android:height="match_parent">
-	
-	<com.example.ExampleView
-		android:width="match_parent"
-		android:height="match_parent"
-		app:directionFacing="west"/>
-
+  android:width="match_parent"
+  android:height="match_parent">
+  
+  <com.example.ExampleView
+    android:width="match_parent"
+    android:height="match_parent"
+    app:directionFacing="west"/>
 </FrameLayout>
 ```
 
@@ -512,14 +508,14 @@ Conditional mapping can also be used for flag attributes. Imagine a view which d
 Start by defining a flag attribute in the `attrs` resource file as:
 ```XML
 <resources>
-	<declare-styleable name="ExampleView">
-		<attr name="textProperties">
-			<flag name="bold" value="1"/>
-			<flag name="italic" value="2"/>
-			<flag name="underline" value="4"/>
-			<flag name="regular" value="8"/>
-		</attr>
-	</declare-styleable>
+  <declare-styleable name="ExampleView">
+    <attr name="textProperties">
+      <flag name="bold" value="1"/>
+      <flag name="italic" value="2"/>
+      <flag name="underline" value="4"/>
+      <flag name="regular" value="8"/>
+    </attr>
+  </declare-styleable>
 </resources>
 ```
 
@@ -527,22 +523,22 @@ Next apply the `@SpecificFlagHandler` annotation to multiple methods in the view
 ```java
 @SpecificFlagHandler(attributeId = R.styleable.textProperties, handledFlags = 1)
 public void useBoldText() {
-	// Some implementation
+  // Some implementation
 }
 
 @SpecificFlagHandler(attributeId = R.styleable.textProperties, handledFlags = 2)
 public void useItalicText() {
-	// Some implementation
+  // Some implementation
 }
 
 @SpecificFlagHandler(attributeId = R.styleable.textProperties, handledFlags = 4)
 public void useUnderlinedText() {
-	// Some implementation
+  // Some implementation
 }
 
 @SpecificFlagHandler(attributeId = R.styleable.textProperties, handledFlags = 8)
 public void useRegularText() {
-	// Some implementation
+  // Some implementation
 }
 ```
 
@@ -551,16 +547,82 @@ Now when the Spyglass framework finds the `textProperties` attribute, it uses th
 For example, when the following layout is inflated and the ExampleView class is instantiated, the `useBoldText` and `useUnderlinedText` methods are called, but the `useItalicText` and `useRegularText` methods are not.
 ```XML
 <FrameLayout
-	android:width="match_parent"
-	android:height="match_parent">
+  android:width="match_parent"
+  android:height="match_parent">
 
-	<com.example.ExampleView
-		android:width="match_parent"
-		android:height="match_parent"
-		app:textProperties="bold|underline"/>
-
+  <com.example.ExampleView
+    android:width="match_parent"
+    android:height="match_parent"
+    app:textProperties="bold|underline"/>
 </FrameLayout>
 ```
+
+## ReactiveX support
+Version 3.0.0 introduces support for methods that return observable types from RxJava (i.e. Single, Observable, Flowable, Completable and Maybe). If you apply Spyglass annotations to a method that returns a reactive type, then the Spyglass framework handles this and subscribes when activated. Subscription is deferred until `callTargetMethodsNow()` is called, or you can call `callTargetMethods()` to get a Completable and handle the subscription yourself. This allows you to use RxJava to defer the actions inside the method, without sacrificing compatibility with the Spyglass framework. The Spyglass framework uses advanced ReactiveX patterns to properly manipulate your observables without breaking the chain.
+
+Here's an example:
+```java
+public class CustomView extends FrameLayout {
+  private TextView titleView;
+
+  public CustomView(Context context) {
+    super(context);
+    init(null, 0, 0);
+  }
+
+  public CustomView(Context context, AttributeSet attrs) {
+    super(context, attrs);
+    init(attrs, 0, 0);
+  }
+
+  public CustomView(Context context, AttributeSet attrs, int defStyleAttr) {
+    super(context, attrs, defStyleAttr);
+    init(attrs, defStyleAttr, 0);
+  }
+
+  @RequiresApi(21)
+  public CustomView(
+      Context context,
+      AttributeSet attrs,
+      int defStyleAttr,
+      int defStyleRes) {
+
+    super(context, attrs, defStyleAttr, defStyleRes);
+    init(attrs, defStyleAttr, defStyleRes);
+  }
+
+  @HandlesString(attributeId = R.styleable.CustomView_title)
+  public Completable setTitle(String title) {
+    return Completable.fromRunnable(() -> titleView.setText(title));
+  }
+
+  private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+    inflate(getContext(), R.layout.custom_view, this);
+
+    titleView = findViewById(R.id.title_view);
+
+    final Companion companion = CustomView_SpyglassCompanion
+          .builder()
+          .setTarget(this)
+          .setContext(getContext())
+          .setStyleableResource(R.styleable.CustomView)
+          .setAttributeSet(attrs)
+          .setDefaultStyleAttribute(defStyleAttr)
+          .setDefaultStyleResource(defStyleRes)
+          .build();
+
+    // Blocking
+    companion.callTargetMethodsNow();
+
+    // Or non-blocking
+    companion
+        .callTargetMethods()
+        .subscribe();
+  }
+}
+ ```
+
+In versions prior to 3.0.0, the `setTitle` method would have been called by the Spyglass framework, but the returned Completable would have been ignored and the deferred operation would never have occurred.
 
 ## Advantages of the Spyglass framework
 Custom view attributes are traditionally handled using the TypedArray class. The Spyglass framework has several advantages over this approach:

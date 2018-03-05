@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Matthew David Tamlin
+ * Copyright 2017-2018 Matthew David Tamlin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,32 +17,76 @@
 apply plugin: 'java'
 apply plugin: 'net.ltgt.apt-idea'
 
-sourceCompatibility = "1.7"
-targetCompatibility = "1.7"
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
+
+group = rootProject.group
+version = rootProject.version
+
+apply from: rootProject.file('dependencies.gradle')
+
+sourceSets {
+  test {
+    java {
+      srcDirs = ['src/test/java']
+    }
+
+    resources {
+      srcDirs = ['src/test/resources']
+      includes = ['**/*.java']
+    }
+  }
+}
 
 dependencies {
-	compileOnly 'com.google.auto.value:auto-value:1.5'
-	apt 'com.google.auto.value:auto-value:1.5'
+  implementation project(':annotations')
 
-	implementation project(':annotations')
-	implementation 'com.matthew-tamlin:java-utilities:1.3.3'
-	implementation 'com.google.guava:guava:23.0'
-	implementation 'com.squareup:javapoet:1.8.0'
+  compileOnly project.ext.dependencies.autoValue.core
+  apt project.ext.dependencies.autoValue.compiler
 
-	testImplementation files('lib/android.jar')
-	testImplementation files('lib/android-support-v4.jar')
-	testImplementation 'com.google.testing.compile:compile-testing:0.8'
-	testImplementation 'com.matthew-tamlin:avatar:2.1.0'
-	testImplementation 'junit:junit:4.12'
-	testImplementation 'org.hamcrest:hamcrest-core:1.3'
-	testImplementation 'org.mockito:mockito-core:1.10.19'
+  implementation project.ext.dependencies.dagger.core
+  apt project.ext.dependencies.dagger.compiler
+
+  implementation project.ext.dependencies.javaUtilities
+
+  implementation project.ext.dependencies.guava
+
+  implementation project.ext.dependencies.javaPoet
+
+  testImplementation project.ext.dependencies.rxJava
+
+  testImplementation project.ext.dependencies.compileTesting
+
+  testImplementation project.ext.dependencies.avatar
+
+  testImplementation project.ext.dependencies.junit
+
+  testImplementation project.ext.dependencies.hamcrest
+
+  testImplementation project.ext.dependencies.mockito
 }
 
-ext {
-	POM_ARTIFACT_ID_SUFFIX = '-processor-internal'
-	POM_NAME = 'Spyglass Processor Internal'
-	POM_PACKAGING = 'jar'
-	POM_DESCRIPTION = 'Internal components of the Spyglass processor. Not for public use.'
-}
+ext.releaseInfo = [
+    group: rootProject.group,
+    artifactId: "$rootProject.ext.rootArtifactId-processor-internal",
+    version: rootProject.version,
 
-apply from: rootProject.file('maven-publish.gradle')
+    name: 'Spyglass Processor Internal',
+    description: 'Internal components of the Spyglass processor. Not for public use.',
+    url: 'https://www.github.com/MatthewTamlin/Spyglass',
+    scmUrl: 'https://www.github.com/MatthewTamlin/Spyglass',
+
+    license: [
+        name: 'The Apache Software License, Version 2.0',
+        url: 'https://www.apache.org/licenses/LICENSE-2.0.txt'
+    ]
+]
+
+apply from: rootProject.file('release-java-library.gradle')
+
+task deleteOutputDirectories {
+  doFirst {
+    delete('out')
+    delete('build')
+  }
+}

@@ -1,5 +1,5 @@
 /*
- * Copyright 2017 Matthew David Tamlin
+ * Copyright 2017-2018 Matthew David Tamlin
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,51 +15,56 @@
  */
 
 buildscript {
-	repositories {
-		jcenter()
-		google()
+  repositories {
+    jcenter()
+    google()
 
-		maven {
-			url "https://plugins.gradle.org/m2/"
-		}
-	}
+    maven {
+      url "https://plugins.gradle.org/m2/"
+    }
+  }
 
-	dependencies {
-		classpath 'com.android.tools.build:gradle:3.0.1'
-		classpath 'net.ltgt.gradle:gradle-apt-plugin:0.11'
-	}
+  dependencies {
+    classpath 'com.android.tools.build:gradle:3.0.1'
+  }
 }
+
+plugins {
+  id 'net.ltgt.apt' version '0.13' apply false
+}
+
+group = 'com.matthew-tamlin'
+version = '3.0.0'
+
+ext.rootArtifactId = 'spyglass'
 
 allprojects {
-	repositories {
-		jcenter()
-		google()
-	}
+  repositories {
+    jcenter()
+    google()
+  }
 }
 
-task clean(type: Delete) {
-	delete rootProject.buildDir
+task deleteAllOutputDirectories(dependsOn: [
+    ':annotations:deleteOutputDirectories',
+    ':integration-tests:deleteOutputDirectories',
+    ':processor:deleteOutputDirectories',
+    ':processor-activated:deleteOutputDirectories',
+    ':runtime-dependencies:deleteOutputDirectories'])
 
-	rootProject.getAllprojects().each {
-		delete project.buildDir
-	}
-}
+task buildAllModules(dependsOn: [
+    ':annotations:build',
+    ':integration-tests:build',
+    ':processor:build',
+    ':processor-activated:build',
+    ':runtime-dependencies:build'])
 
-task buildRelease(dependsOn: [
-		':processor_activated:buildRelease',
-		':annotations:buildRelease',
-		':processor:buildRelease',
-		':runtime_dependencies:buildRelease'])
+task buildAllReleases(dependsOn: [
+    ':annotations:buildRelease',
+    ':processor:buildRelease',
+    ':processor-activated:buildRelease',
+    ':runtime-dependencies:buildRelease'])
 
 ext {
-	groupId = 'com.matthew-tamlin'
-	artifactId = 'spyglass'
-	versionNumber = '2.0.2'
-}
-
-subprojects { project ->
-	if (project.name != 'integration tests') {
-		group = rootProject.groupId
-		version = rootProject.versionNumber
-	}
+  artifactId = 'spyglass'
 }
