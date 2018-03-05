@@ -67,12 +67,12 @@ public class SpecificEnumHandlerTestTarget extends View {
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     SpecificEnumHandlerTestTarget_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.SpecificEnumHandlerTestTarget)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.SpecificEnumHandlerTestTarget)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

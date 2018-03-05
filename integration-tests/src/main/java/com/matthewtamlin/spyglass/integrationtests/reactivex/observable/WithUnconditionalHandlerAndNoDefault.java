@@ -50,12 +50,12 @@ public class WithUnconditionalHandlerAndNoDefault extends ObservableTestTargetBa
   private void init(final AttributeSet attributeSet, final int defStyleAttr, final int defStyleRes) {
     WithUnconditionalHandlerAndNoDefault_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.ObservableTestTargetBase)
-        .withAttributeSet(attributeSet)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.ObservableTestTargetBase)
+        .setAttributeSet(attributeSet)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

@@ -69,12 +69,12 @@ public class ThrowsThrowable extends ExceptionBehaviourTestTargetBase {
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     ThrowsThrowable_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.ExceptionBehaviourTestTargetBase)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.ExceptionBehaviourTestTargetBase)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

@@ -77,12 +77,12 @@ public class OverloadBehaviourTestTarget extends View {
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     OverloadBehaviourTestTarget_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.OverloadBehaviourTestTarget)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.OverloadBehaviourTestTarget)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

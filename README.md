@@ -93,12 +93,12 @@ private void init(AttributeSet attrs, int defStyleAttr, int defStyleRes) {
 
   CustomView_SpyglassCompanion
       .builder()
-      .withTarget(this)
-      .withContext(getContext())
-      .withStyleableResource(R.styleable.CustomView)
-      .withAttributeSet(attrs)
-      .withDefaultStyleAttribute(defStyleAttr)
-      .withDefaultStyleResource(defStyleRes)
+      .setTarget(this)
+      .setContext(getContext())
+      .setStyleableResource(R.styleable.CustomView)
+      .setAttributeSet(attrs)
+      .setDefaultStyleAttribute(defStyleAttr)
+      .setDefaultStyleResource(defStyleRes)
       .build()
       .callTargetMethodsNow();
 }
@@ -184,10 +184,10 @@ private void init(AttributeSet attrs) {
 
   ExampleView_SpyglassCompanion
       .builder()
-      .withTarget(this)
-      .withContext(getContext())
-      .withStyleableResource(R.styleable.ExampleView)
-      .withAttributeSet(attrs)
+      .setTarget(this)
+      .setContext(getContext())
+      .setStyleableResource(R.styleable.ExampleView)
+      .setAttributeSet(attrs)
       .build()
       .callTargetMethodsNow();
 }
@@ -306,7 +306,7 @@ The following `@DefaultTo` annotations are provided by the Spyglass framework:
 Check the Javadoc of these annotations for specifics.
 
 ### Default style attribute
-Every Spyglass companion builder exposes the `withDefaultStyleAttribute` method which accepts a resource ID that refers to an attribute in the current theme, which in turn refers to a style to source default values from. That's quite a mouth full, so here's a more useful demo.
+Every Spyglass companion builder exposes the `setDefaultStyleAttribute` method which accepts a resource ID that refers to an attribute in the current theme, which in turn refers to a style to source default values from. That's quite a mouth full, so here's a more useful demo.
 
 First add an attribute to the `attrs` resource file.
 ```XML
@@ -337,11 +337,11 @@ private void init(AttributeSet attrs) {
 
   ExampleView_SpyglassCompanion
       .builder()
-      .withTarget(this)
-      .withContext(getContext())
-      .withStyleableResource(R.styleable.ExampleView)
-      .withAttributeSet(attrs)
-      .withDefaultStyleAttribute(R.attr.exampleViewDefaultStyle)
+      .setTarget(this)
+      .setContext(getContext())
+      .setStyleableResource(R.styleable.ExampleView)
+      .setAttributeSet(attrs)
+      .setDefaultStyleAttribute(R.attr.exampleViewDefaultStyle)
       .build()
       .callMethodsNow();
 }
@@ -349,10 +349,10 @@ private void init(AttributeSet attrs) {
 
 Now if the view is instantiated from XML without a `title` attribute, the `setTitle` method will called with `"Untitled document"` as the argument.
 
-It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr)`. The third parameter should be propagated to the `withDefaultStyleAttribute` method of the Spyglass companion builder.
+It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr)`. The third parameter should be propagated to the `setDefaultStyleAttribute` method of the Spyglass companion builder.
 
 ### Default style resources
-Every Spyglass companion builder also exposes the `withDefaultStyleResource` method which is very similar to the `withDefaultStyleAttribute` method, except the supplied resource ID directly refers to a style resource instead of going through the current theme.
+Every Spyglass companion builder also exposes the `setDefaultStyleResource` method which is very similar to the `setDefaultStyleAttribute` method, except the supplied resource ID directly refers to a style resource instead of going through the current theme.
 
 It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)`. The fourth parameter should be propagated to the `withDefaultStyleResoure` method of the Spyglass companion builder.
 
@@ -603,12 +603,12 @@ public class CustomView extends FrameLayout {
 
     final Companion companion = CustomView_SpyglassCompanion
           .builder()
-          .withTarget(this)
-          .withContext(getContext())
-          .withStyleableResource(R.styleable.CustomView)
-          .withAttributeSet(attrs)
-          .withDefaultStyleAttribute(defStyleAttr)
-          .withDefaultStyleResource(defStyleRes)
+          .setTarget(this)
+          .setContext(getContext())
+          .setStyleableResource(R.styleable.CustomView)
+          .setAttributeSet(attrs)
+          .setDefaultStyleAttribute(defStyleAttr)
+          .setDefaultStyleResource(defStyleRes)
           .build();
 
     // Blocking

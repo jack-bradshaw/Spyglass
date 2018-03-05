@@ -114,12 +114,12 @@ public class WithUseNumberOnMatchingPrimitiveTypes extends PlaceholderTestTarget
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     WithUseNumberOnMatchingPrimitiveTypes_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.PlaceholderTestTargetBase)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.PlaceholderTestTargetBase)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }
