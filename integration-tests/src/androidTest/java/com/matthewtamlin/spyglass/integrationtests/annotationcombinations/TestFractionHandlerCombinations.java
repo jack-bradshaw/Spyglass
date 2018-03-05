@@ -126,7 +126,11 @@ public class TestFractionHandlerCombinations {
   @Test
   @UiThreadTest
   public void testSpyglassNeverCallsMethod_attributeMissing_noDefaultPresent() {
+    final AttributeSet attrs = fromXml(context, R.xml.fraction_handler_without_attr);
   
+    final FractionHandlerTestTargetBase target = new HandlerUsingNoMultiplier(context, attrs);
+  
+    assertThat(target.getReceivedValue(), is(ReceivedValue.none()));
   }
   
   @Test
