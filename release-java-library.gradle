@@ -10,7 +10,7 @@ task zipRelease(type: Zip) {
 
 task buildRelease(dependsOn: ['uploadArchives', 'zipRelease']) {
   doLast {
-    println "Release \'" +
+    println 'Release \'' +
         "$project.ext.releaseInfo.group:" +
         "$project.ext.releaseInfo.artifactId:" +
         "$project.ext.releaseInfo.version" +
