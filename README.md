@@ -556,6 +556,7 @@ For example, when the following layout is inflated and the ExampleView class is 
     app:textProperties="bold|underline"/>
 </FrameLayout>
 ```
+
 ## ReactiveX support
 Version 3.0.0 introduces support for methods that return observable types from RxJava (i.e. Single, Observable, Flowable, Completable and Maybe). If you apply Spyglass annotations to a method that returns a reactive type, then the Spyglass framework handles this and subscribes when activated. Subscription is deferred until `callTargetMethodsNow()` is called, or you can call `callTargetMethods()` to get a Completable and handle the subscription yourself. This allows you to use RxJava to defer the actions inside the method, without sacrificing compatibility with the Spyglass framework. The Spyglass framework uses advanced ReactiveX patterns to properly manipulate your observables without breaking the chain.
 
