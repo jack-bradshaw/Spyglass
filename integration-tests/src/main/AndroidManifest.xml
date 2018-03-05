@@ -23,7 +23,5 @@
             android:allowBackup="false"
             android:label="Spyglass Integration Tests"
             android:supportsRtl="true"
-            android:theme="@style/Theme.AppCompat.Light.DarkActionBar">
-
-    </application>
+            android:theme="@style/Theme.AppCompat.Light.DarkActionBar"/>
 </manifest>

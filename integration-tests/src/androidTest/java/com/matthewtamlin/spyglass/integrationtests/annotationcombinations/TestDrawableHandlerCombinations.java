@@ -61,7 +61,7 @@ public class TestDrawableHandlerCombinations {
     final DrawableHandlerTestTargetBase target = new WithoutDefault(context, attrs);
     
     final Drawable expectedValue = ContextCompat.getDrawable(context, R.drawable.main_drawable_for_testing);
-    checkReceivedDrawablesAreEqual(target.getReceivedValue(), ReceivedValue.of(expectedValue));
+    assertThat(receivedDrawablesAreEqual(target.getReceivedValue(), ReceivedValue.of(expectedValue)), is(true));
   }
   
   @Test
@@ -71,7 +71,7 @@ public class TestDrawableHandlerCombinations {
     
     final DrawableHandlerTestTargetBase target = new WithoutDefault(context, attrs);
     
-    checkReceivedDrawablesAreEqual(target.getReceivedValue(), ReceivedValue.<Drawable>none());
+    assertThat(receivedDrawablesAreEqual(target.getReceivedValue(), ReceivedValue.none()), is(true));
   }
   
   @Test
@@ -82,10 +82,10 @@ public class TestDrawableHandlerCombinations {
     final DrawableHandlerTestTargetBase target = new WithDefaultToDrawable(context, attrs);
     
     final Drawable expectedValue = ContextCompat.getDrawable(context, R.drawable.default_drawable_for_testing);
-    checkReceivedDrawablesAreEqual(target.getReceivedValue(), ReceivedValue.of(expectedValue));
+    assertThat(receivedDrawablesAreEqual(target.getReceivedValue(), ReceivedValue.of(expectedValue)), is(true));
   }
   
-  private boolean checkReceivedDrawablesAreEqual(
+  private boolean receivedDrawablesAreEqual(
       final ReceivedValue<Drawable> arg1,
       final ReceivedValue<Drawable> arg2) {
     

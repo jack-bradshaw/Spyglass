@@ -124,7 +124,7 @@ public class TestAnnotationMirrorHelper {
     final AnnotationValue value = helper.getValueIgnoringDefaults(mirror, "value");
     
     assertThat(value, is(notNullValue()));
-    assertThat((String) value.getValue(), is("some value"));
+    assertThat(value.getValue(), is("some value"));
   }
   
   @Test
@@ -145,7 +145,7 @@ public class TestAnnotationMirrorHelper {
     final AnnotationValue value = helper.getValueUsingDefaults(mirror, "value");
     
     assertThat(value, is(notNullValue()));
-    assertThat((String) value.getValue(), is(SomeAnnotationWithValue.DEFAULT_VALUE));
+    assertThat(value.getValue(), is(SomeAnnotationWithValue.DEFAULT_VALUE));
   }
   
   @Test
@@ -156,6 +156,6 @@ public class TestAnnotationMirrorHelper {
     final AnnotationValue value = helper.getValueUsingDefaults(mirror, "value");
     
     assertThat(value, is(notNullValue()));
-    assertThat((String) value.getValue(), is("some value"));
+    assertThat(value.getValue(), is("some value"));
   }
 }
