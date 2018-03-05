@@ -62,7 +62,7 @@ public class OverloadBehaviourTestTarget extends View {
     positiveReceivedValue = ReceivedValue.of(arg0);
   }
   
-  public void handlerMethodWithoutAnnoation(final String arg0) {
+  public void handlerMethodWithoutAnnotation(final String arg0) {
     negativeReceivedValue = ReceivedValue.of(arg0);
   }
   

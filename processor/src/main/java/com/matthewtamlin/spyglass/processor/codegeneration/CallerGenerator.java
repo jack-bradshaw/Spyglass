@@ -56,7 +56,7 @@ public class CallerGenerator {
   
   private final SpecificValueIsAvailableMethodGenerator specificValueIsAvailableGenerator;
   
-  private CastWrapperGenerator castWrapperGenerator;
+  private final CastWrapperGenerator castWrapperGenerator;
   
   @Inject
   public CallerGenerator(

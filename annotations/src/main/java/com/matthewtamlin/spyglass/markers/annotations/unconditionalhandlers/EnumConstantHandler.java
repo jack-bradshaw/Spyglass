@@ -34,7 +34,7 @@ import java.lang.annotation.Target;
  * type.</li>
  * </ul>
  * <p>
- * Important note: An exception will be thrown at runtime if the value passd to the attribute does not correspond to an
+ * Important note: An exception will be thrown at runtime if the value passed to the attribute does not correspond to an
  * ordinal of the enum class.
  */
 @Retention(RetentionPolicy.SOURCE)
