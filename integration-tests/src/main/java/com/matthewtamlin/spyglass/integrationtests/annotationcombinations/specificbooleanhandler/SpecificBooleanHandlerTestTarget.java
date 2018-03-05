@@ -68,12 +68,12 @@ public class SpecificBooleanHandlerTestTarget extends View {
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     SpecificBooleanHandlerTestTarget_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.SpecificBooleanHandlerTestTarget)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.SpecificBooleanHandlerTestTarget)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

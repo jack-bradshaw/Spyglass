@@ -72,12 +72,12 @@ public class ReuseBehaviourTestTarget extends View {
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     final ReuseBehaviourTestTarget_SpyglassCompanion companion = ReuseBehaviourTestTarget_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.ReuseBehaviourTestTarget)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.ReuseBehaviourTestTarget)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build();
     
     companion.callTargetMethodsNow();

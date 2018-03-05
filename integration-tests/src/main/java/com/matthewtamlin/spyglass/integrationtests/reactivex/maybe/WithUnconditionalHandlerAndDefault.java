@@ -52,12 +52,12 @@ public class WithUnconditionalHandlerAndDefault extends MaybeTestTargetBase {
   private void init(final AttributeSet attributeSet, final int defStyleAttr, final int defStyleRes) {
     WithUnconditionalHandlerAndDefault_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.MaybeTestTargetBase)
-        .withAttributeSet(attributeSet)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.MaybeTestTargetBase)
+        .setAttributeSet(attributeSet)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

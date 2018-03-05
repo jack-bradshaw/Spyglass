@@ -51,12 +51,12 @@ public class WithConditionalHandler extends SingleTestTargetBase {
   private void init(final AttributeSet attributeSet, final int defStyleAttr, final int defStyleRes) {
     WithConditionalHandler_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.SingleTestTargetBase)
-        .withAttributeSet(attributeSet)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.SingleTestTargetBase)
+        .setAttributeSet(attributeSet)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }
