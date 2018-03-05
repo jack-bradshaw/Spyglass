@@ -80,7 +80,7 @@ public class CompanionGenerator {
         .build();
     
     final MethodSpec setBuilderTarget = MethodSpec
-        .methodBuilder("withTarget")
+        .methodBuilder("setTarget")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
         .addParameter(targetTypeName, "target")
@@ -92,7 +92,7 @@ public class CompanionGenerator {
         .build();
     
     final MethodSpec setBuilderContext = MethodSpec
-        .methodBuilder("withContext")
+        .methodBuilder("setContext")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
         .addParameter(AndroidClassNames.CONTEXT, "context")
@@ -104,7 +104,7 @@ public class CompanionGenerator {
         .build();
     
     final MethodSpec setBuilderStyleableResource = MethodSpec
-        .methodBuilder("withStyleableResource")
+        .methodBuilder("setStyleableResource")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
         .addParameter(ArrayTypeName.get(int[].class), "styleableResource")
@@ -116,7 +116,7 @@ public class CompanionGenerator {
         .build();
     
     final MethodSpec setBuilderAttributeSet = MethodSpec
-        .methodBuilder("withAttributeSet")
+        .methodBuilder("setAttributeSet")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
         .addParameter(AndroidClassNames.ATTRIBUTE_SET, "attributeSet")
@@ -128,7 +128,7 @@ public class CompanionGenerator {
         .build();
     
     final MethodSpec setBuilderDefaultStyleAttribute = MethodSpec
-        .methodBuilder("withDefaultStyleAttribute")
+        .methodBuilder("setDefaultStyleAttribute")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
         .addParameter(TypeName.INT, "defaultStyleAttribute")
@@ -140,7 +140,7 @@ public class CompanionGenerator {
         .build();
     
     final MethodSpec setBuilderDefaultStyleResource = MethodSpec
-        .methodBuilder("withDefaultStyleResource")
+        .methodBuilder("setDefaultStyleResource")
         .addModifiers(PUBLIC)
         .returns(builderTypeName)
         .addParameter(TypeName.INT, "defaultStyleResource")
