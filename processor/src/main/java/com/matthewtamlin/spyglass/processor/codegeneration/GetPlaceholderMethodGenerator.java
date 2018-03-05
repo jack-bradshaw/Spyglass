@@ -34,7 +34,7 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 public class GetPlaceholderMethodGenerator {
   private final Map<String, BiFunction<AnnotationMirror, Integer, MethodSpec>> methodSpecSuppliers;
   
-  private AnnotationMirrorHelper annotationMirrorHelper;
+  private final AnnotationMirrorHelper annotationMirrorHelper;
   
   @Inject
   public GetPlaceholderMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {

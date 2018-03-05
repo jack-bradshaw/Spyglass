@@ -32,9 +32,9 @@ import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull
 import static javax.lang.model.element.Modifier.*;
 
 public class CompanionGenerator {
-  private CallerGenerator callerGenerator;
+  private final CallerGenerator callerGenerator;
   
-  private Elements elementUtil;
+  private final Elements elementUtil;
   
   @Inject
   public CompanionGenerator(final CallerGenerator callerGenerator, final Elements elementUtil) {
