@@ -206,7 +206,7 @@ That's it! Now when the class is instantiated from an XML layout, whatever value
 </FrameLayout>
 ```
 
-You can add as many `@Handler` annotations to a view as you like, and the Spyglass framework will automatically adjust the generated code to accomodate.
+You can add as many `@Handler` annotations to a view as you like, and the Spyglass framework will automatically adjust the generated code to accommodate.
 
 The Android resource system isn't limited to string resources, and neither is the Spyglass framework. The Spyglass framework offers the following annotations for handling different attribute types:
 - `@BooleanHandler`
@@ -354,7 +354,7 @@ It's convention for view classes to define a constructor with a signature simila
 ### Default style resources
 Every Spyglass companion builder also exposes the `setDefaultStyleResource` method which is very similar to the `setDefaultStyleAttribute` method, except the supplied resource ID directly refers to a style resource instead of going through the current theme.
 
-It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)`. The fourth parameter should be propagated to the `withDefaultStyleResoure` method of the Spyglass companion builder.
+It's convention for view classes to define a constructor with a signature similar to `public ExampleView(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes)`. The fourth parameter should be propagated to the `withDefaultStyleResource` method of the Spyglass companion builder.
 
 ### All together
 What happens if you supply a default style attribute, a default style resource and an `@DefaultTo` annotation? When multiple default sources are available, the Spyglass framework searches through them until a value is found. If the attribute is not found in the default style attribute, then the Spyglass framework moves onto the default style resource. If a value is still not found, it moves onto the default annotation. If no default annotation is found, then the method is not called at all.
