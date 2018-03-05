@@ -30,7 +30,7 @@ import java.lang.annotation.Target;
  * <li>The method has a handler annotation.</li>
  * <li>The method has no other default annotations.</li>
  * <li>The method has at least one non-primitive parameter.</li>
- * <li>Except for one non-primitive parameter, every parameter belonging to the method has a use-annotation.</li>
+ * <li>Except for one non-primitive parameter, every parameter belonging to the method has a placeholder annotation.</li>
  * </ul>
  */
 @Retention(RetentionPolicy.SOURCE)

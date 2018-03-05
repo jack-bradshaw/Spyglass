@@ -23,25 +23,17 @@ import com.squareup.javapoet.MethodSpec;
 import javax.inject.Inject;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.util.Elements;
-import javax.lang.model.util.Types;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class CastWrapperGenerator {
   private final Elements elementUtil;
   
-  private final Types typeUtil;
-  
   private final TypeMirrorHelper typeMirrorHelper;
   
   @Inject
-  public CastWrapperGenerator(
-      final Elements elementUtil,
-      final Types typeUtil,
-      final TypeMirrorHelper typeMirrorHelper) {
-    
+  public CastWrapperGenerator(final Elements elementUtil, final TypeMirrorHelper typeMirrorHelper) {
     this.elementUtil = checkNotNull(elementUtil);
-    this.typeUtil = checkNotNull(typeUtil);
     this.typeMirrorHelper = checkNotNull(typeMirrorHelper);
   }
   

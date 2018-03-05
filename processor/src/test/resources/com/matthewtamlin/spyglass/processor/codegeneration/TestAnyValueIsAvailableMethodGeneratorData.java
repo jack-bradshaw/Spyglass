@@ -23,52 +23,52 @@ public class TestAnyValueIsAvailableMethodGeneratorData {
   @ElementId("boolean")
   @BooleanHandler(attributeId = 1)
   public void withBoolean() {}
-
+  
   @ElementId("color")
   @ColorHandler(attributeId = 1)
   public void withColor() {}
-
+  
   @ElementId("color state list")
   @ColorStateListHandler(attributeId = 1)
   public void withColorStateList() {}
-
+  
   @ElementId("dimension")
   @DimensionHandler(attributeId = 1)
   public void withDimension() {}
-
+  
   @ElementId("drawable")
   @DrawableHandler(attributeId = 1)
   public void withDrawable() {}
-
+  
   @ElementId("enum constant")
   @EnumConstantHandler(attributeId = 1, enumClass = PlaceholderEnum.class)
   public void withEnumConstant() {}
-
+  
   @ElementId("enum ordinal")
   @EnumOrdinalHandler(attributeId = 1)
   public void withEnumOrdinal() {}
-
+  
   @ElementId("float")
   @FloatHandler(attributeId = 1)
   public void withFloat() {}
-
+  
   @ElementId("fraction")
   @FractionHandler(attributeId = 1)
   public void withFraction() {}
-
+  
   @ElementId("integer")
   @IntegerHandler(attributeId = 1)
   public void withInteger() {}
-
+  
   @ElementId("string")
   @StringHandler(attributeId = 1)
   public void withString() {}
-
+  
   @ElementId("text array")
   public void withTextArray() {}
-
+  
   @ElementId("text")
   public void withText() {}
-
+  
   public enum PlaceholderEnum {}
 }

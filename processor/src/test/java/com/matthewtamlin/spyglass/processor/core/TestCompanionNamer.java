@@ -18,7 +18,6 @@ package com.matthewtamlin.spyglass.processor.core;
 
 import com.google.testing.compile.JavaFileObjects;
 import com.matthewtamlin.avatar.rules.AvatarRule;
-import com.matthewtamlin.spyglass.processor.core.CompanionNamer;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -37,34 +36,34 @@ public class TestCompanionNamer {
       .withSourceFileObjects(
           JavaFileObjects.forResource(getClass().getResource("TestCompanionNamerData.java")))
       .build();
-
+  
   @Test
   public void testGetCompanionNameFor_topLevelClass() {
     final TypeElement element = avatarRule.getElementWithUniqueId("top level");
-
+    
     final String companionName = CompanionNamer.getCompanionNameFor(element);
     final String expectedName = "TestCompanionNamerData_SpyglassCompanion";
-
+    
     assertThat(companionName, is(expectedName));
   }
-
+  
   @Test
   public void testGetCompanionNameFor_classNestedByOneLevel() {
     final TypeElement element = avatarRule.getElementWithUniqueId("nested one level");
-
+    
     final String companionName = CompanionNamer.getCompanionNameFor(element);
     final String expectedName = "TestCompanionNamerData_ClassA_SpyglassCompanion";
-
+    
     assertThat(companionName, is(expectedName));
   }
-
+  
   @Test
   public void testGetCompanionNameFor_classNestedByMultipleLevels() {
     final TypeElement element = avatarRule.getElementWithUniqueId("nested multiple levels");
-
+    
     final String companionName = CompanionNamer.getCompanionNameFor(element);
     final String expectedName = "TestCompanionNamerData_ClassA_ClassB_ClassC_ClassD_SpyglassCompanion";
-
+    
     assertThat(companionName, is(expectedName));
   }
 }

@@ -16,6 +16,7 @@
 
 package com.matthewtamlin.spyglass.processor.codegeneration;
 
+import com.google.common.collect.ImmutableMap;
 import com.matthewtamlin.spyglass.markers.annotations.placeholders.*;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
 import com.squareup.javapoet.CodeBlock;
@@ -24,109 +25,95 @@ import com.squareup.javapoet.MethodSpec;
 import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
-import java.util.HashMap;
 import java.util.Map;
+import java.util.function.BiFunction;
 
 import static com.matthewtamlin.java_utilities.checkers.IntChecker.checkGreaterThanOrEqualTo;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
 public class GetPlaceholderMethodGenerator {
-  private final Map<String, MethodSpecSupplier> methodSpecSuppliers = new HashMap<>();
+  private final Map<String, BiFunction<AnnotationMirror, Integer, MethodSpec>> methodSpecSuppliers;
   
-  private AnnotationMirrorHelper annoMirrorHelper;
+  private AnnotationMirrorHelper annotationMirrorHelper;
   
-  {
-    methodSpecSuppliers.put(UseByte.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier());
-    methodSpecSuppliers.put(UseDouble.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier());
-    methodSpecSuppliers.put(UseFloat.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier());
-    methodSpecSuppliers.put(UseInt.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier());
-    methodSpecSuppliers.put(UseLong.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier());
-    methodSpecSuppliers.put(UseShort.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier());
+  @Inject
+  public GetPlaceholderMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {
+    this.annotationMirrorHelper = checkNotNull(annotationMirrorHelper);
     
-    methodSpecSuppliers.put(
-        UseBoolean.class.getCanonicalName(),
-        new MethodSpecSupplier() {
-          @Override
-          public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
-            final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(placeholder, "value");
-            
-            return getBaseMethodSpec(position)
-                .returns(Boolean.class)
-                .addCode(CodeBlock
-                    .builder()
-                    .addStatement("return $L", rawValue.toString())
-                    .build())
-                .build();
-          }
-        });
-    methodSpecSuppliers.put(
-        UseChar.class.getCanonicalName(),
-        new MethodSpecSupplier() {
-          @Override
-          public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
-            final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(placeholder, "value");
-            
-            return getBaseMethodSpec(position)
-                .returns(Character.class)
-                .addCode(CodeBlock
-                    .builder()
-                    .addStatement("return ($T) $L", Character.class, rawValue.toString())
-                    .build())
-                .build();
-          }
-        });
-    
-    
-    methodSpecSuppliers.put(
-        UseNull.class.getCanonicalName(),
-        new MethodSpecSupplier() {
-          @Override
-          public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
-            return getBaseMethodSpec(position)
+    methodSpecSuppliers = ImmutableMap
+        .<String, BiFunction<AnnotationMirror, Integer, MethodSpec>>builder()
+        .put(UseByte.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier())
+        .put(UseDouble.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier())
+        .put(UseFloat.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier())
+        .put(UseInt.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier())
+        .put(UseLong.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier())
+        .put(UseShort.class.getCanonicalName(), new PrimitiveToNumberMethodSpecSupplier())
+        .put(
+            UseBoolean.class.getCanonicalName(),
+            (useBooleanAnnotation, position) -> {
+              final AnnotationValue rawValue = annotationMirrorHelper.getValueUsingDefaults(
+                  useBooleanAnnotation,
+                  "value");
+              
+              return getBaseMethodSpec(position)
+                  .returns(Boolean.class)
+                  .addCode(CodeBlock
+                      .builder()
+                      .addStatement("return $L", rawValue.toString())
+                      .build())
+                  .build();
+            })
+        .put(
+            UseChar.class.getCanonicalName(),
+            (useCharAnnotation, position) -> {
+              final AnnotationValue rawValue = annotationMirrorHelper.getValueUsingDefaults(useCharAnnotation, "value");
+              
+              return getBaseMethodSpec(position)
+                  .returns(Character.class)
+                  .addCode(CodeBlock
+                      .builder()
+                      .addStatement("return ($T) $L", Character.class, rawValue.toString())
+                      .build())
+                  .build();
+            })
+        .put(
+            UseNull.class.getCanonicalName(),
+            (useNullAnnotation, position) -> getBaseMethodSpec(position)
                 .returns(Object.class)
                 .addCode(CodeBlock
                     .builder()
                     .addStatement("return null")
                     .build())
-                .build();
-          }
-        });
-    
-    methodSpecSuppliers.put(
-        UseString.class.getCanonicalName(),
-        new MethodSpecSupplier() {
-          @Override
-          public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
-            final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(placeholder, "value");
-            
-            return getBaseMethodSpec(position)
-                .returns(String.class)
-                .addCode(CodeBlock
-                    .builder()
-                    .addStatement("return ($T) $L", String.class, rawValue.toString())
-                    .build())
-                .build();
-          }
-        }
-    );
+                .build())
+        .put(
+            UseString.class.getCanonicalName(),
+            (useStringAnnotation, position) -> {
+              final AnnotationValue rawValue = annotationMirrorHelper.getValueUsingDefaults(
+                  useStringAnnotation,
+                  "value");
+              
+              return getBaseMethodSpec(position)
+                  .returns(String.class)
+                  .addCode(CodeBlock
+                      .builder()
+                      .addStatement("return ($T) $L", String.class, rawValue.toString())
+                      .build())
+                  .build();
+            })
+        .build();
   }
   
-  @Inject
-  public GetPlaceholderMethodGenerator(final AnnotationMirrorHelper annotationMirrorHelper) {
-    this.annoMirrorHelper = checkNotNull(annotationMirrorHelper);
-  }
-  
-  public MethodSpec generateFor(final AnnotationMirror placeholder, final int parameterIndex) {
-    checkNotNull(placeholder, "Argument \'placeholder\' cannot be null.");
+  public MethodSpec generateFor(final AnnotationMirror placeholderAnnotation, final int parameterIndex) {
+    checkNotNull(placeholderAnnotation, "Argument \'placeholderAnnotation\' cannot be null.");
     checkGreaterThanOrEqualTo(parameterIndex, 0, "Argument \'parameterIndex\' must be at least zero.");
     
-    final String annoClassName = placeholder.getAnnotationType().toString();
+    final String annotationClassName = placeholderAnnotation.getAnnotationType().toString();
     
-    if (!methodSpecSuppliers.containsKey(annoClassName)) {
-      throw new IllegalArgumentException("Argument \'placeholder\' is not a use-annotation.");
+    if (!methodSpecSuppliers.containsKey(annotationClassName)) {
+      throw new IllegalArgumentException("Argument \'placeholderAnnotation\' is not a placeholder annotation.");
     }
     
-    return methodSpecSuppliers.get(annoClassName).supplyFor(placeholder, parameterIndex);
+    return methodSpecSuppliers.get(annotationClassName).apply(placeholderAnnotation, parameterIndex);
   }
   
   private MethodSpec.Builder getBaseMethodSpec(final int position) {
@@ -137,10 +124,10 @@ public class GetPlaceholderMethodGenerator {
     public MethodSpec supplyFor(AnnotationMirror placeholder, int position);
   }
   
-  private class PrimitiveToNumberMethodSpecSupplier implements MethodSpecSupplier {
+  private class PrimitiveToNumberMethodSpecSupplier implements BiFunction<AnnotationMirror, Integer, MethodSpec> {
     @Override
-    public MethodSpec supplyFor(final AnnotationMirror placeholder, final int position) {
-      final AnnotationValue rawValue = annoMirrorHelper.getValueUsingDefaults(placeholder, "value");
+    public MethodSpec apply(final AnnotationMirror placeholder, final Integer position) {
+      final AnnotationValue rawValue = annotationMirrorHelper.getValueUsingDefaults(placeholder, "value");
       
       return getBaseMethodSpec(position)
           .returns(Number.class)

@@ -16,8 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.grouper;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
-
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
 import java.util.HashMap;
@@ -28,7 +26,6 @@ import java.util.Set;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkEachElementIsNotNull;
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class Grouper {
   public static <T extends Element> Map<TypeElementWrapper, Set<T>> groupByEnclosingClass(final Set<T> elements) {
     checkNotNull(elements, "Argument \'elements\' cannot be null.");
@@ -48,8 +45,8 @@ public class Grouper {
         
         groups.get(parentWrapper).add(element);
       } else {
-        throw new IllegalArgumentException("Argument \'elements\' contains an element which is not the " +
-            "immediate child of a TypeElement.");
+        throw new IllegalArgumentException(
+            "Argument \'elements\' contains an element which is not the immediate child of a TypeElement.");
       }
     }
     

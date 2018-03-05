@@ -18,6 +18,6 @@ package com.matthewtamlin.spyglass.processor.mirrorhelpers;
 
 public @interface SomeAnnotationWithValue {
   public static final String DEFAULT_VALUE = "default value";
-
+  
   String value() default DEFAULT_VALUE;
 }

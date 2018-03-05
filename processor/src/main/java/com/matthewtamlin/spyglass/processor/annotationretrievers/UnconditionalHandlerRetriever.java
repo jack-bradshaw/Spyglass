@@ -16,7 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.annotationretrievers;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
 import com.matthewtamlin.spyglass.processor.definitions.AnnotationRegistry;
 import com.matthewtamlin.spyglass.processor.mirrorhelpers.AnnotationMirrorHelper;
 
@@ -26,26 +25,25 @@ import java.lang.annotation.Annotation;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class UnconditionalHandlerRetriever {
   public static AnnotationMirror getAnnotation(final ExecutableElement element) {
     checkNotNull(element, "Argument \'element\' cannot be null.");
-
+    
     for (final Class<? extends Annotation> annotationClass : AnnotationRegistry.UNCONDITIONAL_HANDLERS) {
       final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, annotationClass);
-
+      
       if (mirror != null) {
         return mirror;
       }
     }
-
+    
     return null;
   }
-
+  
   public static boolean hasAnnotation(final ExecutableElement element) {
     return getAnnotation(element) != null;
   }
-
+  
   private UnconditionalHandlerRetriever() {
     throw new RuntimeException("Utility class. Do not instantiate.");
   }

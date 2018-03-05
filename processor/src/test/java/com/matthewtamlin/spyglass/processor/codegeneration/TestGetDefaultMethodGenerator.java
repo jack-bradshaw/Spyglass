@@ -46,257 +46,257 @@ public class TestGetDefaultMethodGenerator {
       .withSourceFileObjects(
           JavaFileObjects.forResource(getClass().getResource("TestGetDefaultMethodGeneratorData.java")))
       .build();
-
+  
   private GetDefaultMethodGenerator generator;
-
+  
   @Before
   public void setup() {
     generator = new GetDefaultMethodGenerator(new AnnotationMirrorHelper(avatarRule.getElementUtils()));
   }
-
+  
   @Test(expected = IllegalArgumentException.class)
   public void testConstructor_nullCoreHelpers() {
     new GetDefaultMethodGenerator(null);
   }
-
+  
   @Test(expected = IllegalArgumentException.class)
   public void testGenerateFor_nullSupplied() {
     generator.generateFor(null);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToBooleanAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("boolean");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToBoolean.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.BOOLEAN.box());
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToBooleanResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("boolean resource");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToBooleanResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.BOOLEAN.box());
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToColorResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("color resource");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToColorResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(Number.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToColorStatListResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("color state list resource");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToColorStateListResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(ColorStateList.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToDimensionAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("dimension");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToDimension.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(Number.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToDimensionResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("dimension resource");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToDimensionResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(Number.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToDrawableResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("drawable resource");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToDrawableResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(Drawable.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToEnumConstantAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("enum constant");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToEnumConstant.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(PlaceholderEnum.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToFloatAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("float");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToFloat.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(Number.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToFractionResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("fraction resource");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToFractionResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(Number.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToIntegerAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("integer");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToInteger.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(Number.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToIntegerResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("integer resource");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToIntegerResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(Number.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToNullAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("null");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToNull.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, TypeName.OBJECT);
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToStringAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("string");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, DefaultToString.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(String.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToStringResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("string resource");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToStringResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(String.class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToTextArrayResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("text array");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToTextArrayResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, TypeName.get(CharSequence[].class));
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_defaultToTextResourceAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("text");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         DefaultToTextResource.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     assertThat(generatedMethod, is(notNullValue()));
     checkMethodSignature(generatedMethod, ClassName.get(CharSequence.class));
     checkCompiles(generatedMethod);
   }
-
+  
   private void checkMethodSignature(final MethodSpec generatedMethod, final TypeName returnType) {
     assertThat("Generated method must not be null.", generatedMethod, is(notNullValue()));
     assertThat("Generated method has wrong return type.", generatedMethod.returnType, is(returnType));
     assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters.size(), is(0));
     assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
   }
-
+  
   private void checkCompiles(final MethodSpec method) {
     final TypeSpec wrapperTypeSpec = CallerDef
         .getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
@@ -307,15 +307,15 @@ public class TestGetDefaultMethodGenerator {
         .addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
         .addMethod(method)
         .build();
-
+    
     final JavaFile wrapperJavaFile = JavaFile
         .builder("", wrapperTypeSpec)
         .build();
-
+    
     final Set<JavaFile> filesToCompile = new HashSet<>();
     filesToCompile.add(wrapperJavaFile);
     filesToCompile.add(CallerDef.SRC_FILE);
-
+    
     CompileChecker.checkCompiles(filesToCompile);
   }
 }
