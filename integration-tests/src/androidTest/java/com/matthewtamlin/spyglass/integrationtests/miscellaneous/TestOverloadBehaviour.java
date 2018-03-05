@@ -48,7 +48,7 @@ public class TestOverloadBehaviour {
   
   @Test
   @UiThreadTest
-  public void testUseAnnotationsPassCorrectValues() {
+  public void testCorrectMethodIsCalled() {
     final AttributeSet attrs = AttributeSetSupplier.fromXml(
         context,
         R.xml.overload_behaviour_test_target_with_attr_equals_hello);
