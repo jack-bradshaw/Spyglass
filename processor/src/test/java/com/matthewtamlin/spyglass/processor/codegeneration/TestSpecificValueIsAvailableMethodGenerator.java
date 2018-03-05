@@ -46,67 +46,67 @@ public class TestSpecificValueIsAvailableMethodGenerator {
       .withSourceFileObjects(
           JavaFileObjects.forResource(getClass().getResource("TestSpecificValueIsAvailableMethodGeneratorData.java")))
       .build();
-
+  
   private SpecificValueIsAvailableMethodGenerator generator;
-
+  
   @Before
   public void setup() {
     generator = new SpecificValueIsAvailableMethodGenerator(new AnnotationMirrorHelper(avatarRule.getElementUtils()));
   }
-
+  
   @Test(expected = IllegalArgumentException.class)
   public void testConstructor_nullCoreHelpers() {
     new SpecificValueIsAvailableMethodGenerator(null);
   }
-
+  
   @Test(expected = IllegalArgumentException.class)
   public void testGenerateFor_nullSupplied() {
     generator.generateFor(null);
   }
-
+  
   @Test
   public void testGenerateFor_specificBooleanHandlerAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("specific boolean");
-
+    
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(
         element,
         SpecificBooleanHandler.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     checkMethodSignature(generatedMethod);
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_specificEnumHandlerAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("specific enum");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, SpecificEnumHandler.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     checkMethodSignature(generatedMethod);
     checkCompiles(generatedMethod);
   }
-
+  
   @Test
   public void testGenerateFor_specificFlagHandlerAnnotationSupplied() {
     final Element element = avatarRule.getElementWithUniqueId("specific flag");
     final AnnotationMirror mirror = AnnotationMirrorHelper.getAnnotationMirror(element, SpecificFlagHandler.class);
-
+    
     final MethodSpec generatedMethod = generator.generateFor(mirror);
-
+    
     checkMethodSignature(generatedMethod);
     checkCompiles(generatedMethod);
   }
-
+  
   private void checkMethodSignature(final MethodSpec generatedMethod) {
     assertThat("Generated method must not be null.", generatedMethod, is(notNullValue()));
     assertThat("Generated method has wrong return type.", generatedMethod.returnType, is(TypeName.BOOLEAN.box()));
     assertThat("Generated method has wrong number of parameters.", generatedMethod.parameters.size(), is(0));
     assertThat("Generated method must not be static.", generatedMethod.modifiers.contains(STATIC), is(false));
   }
-
+  
   private void checkCompiles(final MethodSpec method) {
     final TypeSpec wrapperTypeSpec = CallerDef
         .getNewCallerSubclassPrototype("Wrapper", TypeName.OBJECT)
@@ -117,15 +117,15 @@ public class TestSpecificValueIsAvailableMethodGenerator {
         .addMethod(CallerDef.getNewConstructorPrototype(TypeName.OBJECT).build())
         .addMethod(method)
         .build();
-
+    
     final JavaFile wrapperJavaFile = JavaFile
         .builder("", wrapperTypeSpec)
         .build();
-
+    
     final Set<JavaFile> filesToCompile = new HashSet<>();
     filesToCompile.add(wrapperJavaFile);
     filesToCompile.add(CallerDef.SRC_FILE);
-
+    
     CompileChecker.checkCompiles(filesToCompile);
   }
 }

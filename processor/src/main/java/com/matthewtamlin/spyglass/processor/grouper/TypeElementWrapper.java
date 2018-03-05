@@ -16,13 +16,10 @@
 
 package com.matthewtamlin.spyglass.processor.grouper;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
-
 import javax.lang.model.element.TypeElement;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class TypeElementWrapper {
   private final TypeElement element;
   
@@ -38,10 +35,13 @@ public class TypeElementWrapper {
   public boolean equals(final Object o) {
     if (this == o) {
       return true;
+      
     } else if (o == null) {
       return false;
+      
     } else if (this.getClass() != o.getClass()) {
       return false;
+      
     } else {
       final TypeElementWrapper castInput = (TypeElementWrapper) o;
       

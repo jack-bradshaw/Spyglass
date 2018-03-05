@@ -40,17 +40,24 @@ import javax.lang.model.element.TypeElement;
 import javax.lang.model.util.Elements;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 
 import static javax.tools.Diagnostic.Kind.ERROR;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class MainProcessor extends AbstractProcessor {
-  private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS;
+  private static final Set<Class<? extends Annotation>> SUPPORTED_ANNOTATIONS = ImmutableSet
+      .<Class<? extends Annotation>>builder()
+      .addAll(AnnotationRegistry.CONDITIONAL_HANDLERS)
+      .addAll(AnnotationRegistry.UNCONDITIONAL_HANDLERS)
+      .addAll(AnnotationRegistry.DEFAULTS)
+      .addAll(AnnotationRegistry.PLACEHOLDERS)
+      .build();
   
-  private static final Set<JavaFile> REQUIRED_FILES = ImmutableSet.of(
-      CallerDef.SRC_FILE,
-      CompanionDef.SRC_FILE);
+  private static final Set<JavaFile> REQUIRED_FILES = ImmutableSet.of(CallerDef.SRC_FILE, CompanionDef.SRC_FILE);
   
   @Inject
   protected Elements elementUtil;
@@ -73,17 +80,6 @@ public class MainProcessor extends AbstractProcessor {
   private boolean allRequiredFilesCreated;
   
   private boolean requiredFilesMissingErrorWritten;
-  
-  static {
-    final Set<Class<? extends Annotation>> intermediateSet = new HashSet<>();
-    
-    intermediateSet.addAll(AnnotationRegistry.CONDITIONAL_HANDLERS);
-    intermediateSet.addAll(AnnotationRegistry.UNCONDITIONAL_HANDLERS);
-    intermediateSet.addAll(AnnotationRegistry.DEFAULTS);
-    intermediateSet.addAll(AnnotationRegistry.PLACEHOLDERS);
-    
-    SUPPORTED_ANNOTATIONS = Collections.unmodifiableSet(intermediateSet);
-  }
   
   @Override
   public synchronized void init(final ProcessingEnvironment processingEnvironment) {
@@ -113,7 +109,7 @@ public class MainProcessor extends AbstractProcessor {
   public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv) {
     if (!allRequiredFilesCreated) {
       if (!requiredFilesMissingErrorWritten) {
-        messager.printMessage(ERROR, "A required class could not be written. Aborting Spyglass processing.");
+        messager.printMessage(ERROR, "A required class could not be created. Aborting Spyglass processing.");
         requiredFilesMissingErrorWritten = true;
       }
       
@@ -125,10 +121,10 @@ public class MainProcessor extends AbstractProcessor {
       
       if (allElementsPassValidation(methods, basicValidator)) {
         if (allElementsPassValidation(methods, typeValidator)) {
-          final Set<TypeElement> types = findTypesWithSpyglassAnnotations(roundEnv);
+          final Set<TypeElement> targetTypes = findTypesWithSpyglassAnnotations(roundEnv);
           
-          for (final TypeElement type : types) {
-            createFile(companionGenerator.generateFor(type), "Failed to create Spyglass Companion");
+          for (final TypeElement targetType : targetTypes) {
+            createFile(companionGenerator.generateFor(targetType), "Failed to create Spyglass companion class.");
           }
         }
       }
@@ -137,10 +133,9 @@ public class MainProcessor extends AbstractProcessor {
           ERROR,
           String.format(
               "An unknown error occurred while processing Spyglass annotations. Please update to the " +
-                  "latest version of Spyglass, or report the issue if a newer version does not " +
-                  "exist. Error message: \'%1$s\'. Stacktrace: " +
-                  "\'%2$s\'.",
-              t.getMessage(),
+                  "latest version of Spyglass, or report this issue if a newer version does not " +
+                  "exist. Error message: \'%1$s\'. Stacktrace: \'%2$s\'.",
+              t.getMessage() == null ? "None." : t.getMessage(),
               Arrays.toString(t.getStackTrace())));
     }
     
@@ -153,11 +148,12 @@ public class MainProcessor extends AbstractProcessor {
     for (final JavaFile requiredFile : REQUIRED_FILES) {
       final String className = requiredFile.packageName + "." + requiredFile.typeSpec.name;
       
-      // Spyglass could be used in a project which depends on a project which also uses Spyglass
+      // Spyglass could be applied to a project that uses Spyglass transitively
       final boolean alreadyExists = elementUtil.getTypeElement(className) != null;
       
       if (alreadyExists) {
         allRequiredFilesCreated &= true;
+        
       } else {
         allRequiredFilesCreated &= createFile(requiredFile, "Could not create required class: " + className);
       }
@@ -167,14 +163,16 @@ public class MainProcessor extends AbstractProcessor {
   private Set<ExecutableElement> findMethodsWithSpyglassAnnotations(final RoundEnvironment roundEnvironment) {
     final Set<ExecutableElement> methods = new HashSet<>();
     
-    for (final Class<? extends Annotation> annoType : SUPPORTED_ANNOTATIONS) {
-      for (final Element foundElement : roundEnvironment.getElementsAnnotatedWith(annoType)) {
+    for (final Class<? extends Annotation> annotationType : SUPPORTED_ANNOTATIONS) {
+      for (final Element foundElement : roundEnvironment.getElementsAnnotatedWith(annotationType)) {
         if (foundElement.getKind() == ElementKind.METHOD) {
           methods.add((ExecutableElement) foundElement);
+          
         } else if (foundElement.getKind() == ElementKind.PARAMETER) {
           methods.add((ExecutableElement) foundElement.getEnclosingElement());
+          
         } else {
-          throw new RuntimeException("A Spyglass annotation was somehow applied to an illegal element type.");
+          throw new RuntimeException("A Spyglass annotation was found on an illegal element type.");
         }
       }
     }
@@ -206,8 +204,9 @@ public class MainProcessor extends AbstractProcessor {
       
       final Result result = validator.validate((ExecutableElement) element);
       
+      allPassed &= result.isSuccessful();
+      
       if (!result.isSuccessful()) {
-        allPassed = false;
         messager.printMessage(ERROR, result.getDescription(), element);
       }
     }

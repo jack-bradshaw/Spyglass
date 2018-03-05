@@ -27,11 +27,9 @@ public class CompanionNamer {
   }
   
   private static String getParentChain(final TypeElement targetClass) {
-    // if input is top level class return it
-    // otherwise return the parent chain plus it
-    
     if (targetClass.getNestingKind() == NestingKind.TOP_LEVEL) {
       return targetClass.getSimpleName().toString();
+      
     } else {
       final Element parent = targetClass.getEnclosingElement();
       

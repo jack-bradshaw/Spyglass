@@ -26,7 +26,7 @@ public class TestCompanionNamerData {
       public class ClassC {
         @ElementId("nested multiple levels")
         public class ClassD {
-
+        
         }
       }
     }

@@ -16,8 +16,6 @@
 
 package com.matthewtamlin.spyglass.processor.mirrorhelpers;
 
-import com.matthewtamlin.java_utilities.testing.Tested;
-
 import javax.inject.Inject;
 import javax.lang.model.element.AnnotationMirror;
 import javax.lang.model.element.AnnotationValue;
@@ -29,9 +27,8 @@ import java.util.Map;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 
-@Tested(testMethod = "automated")
 public class AnnotationMirrorHelper {
-  private Elements elementHelper;
+  private final Elements elementHelper;
   
   @Inject
   public AnnotationMirrorHelper(final Elements elementHelper) {

@@ -2,6 +2,9 @@ package com.matthewtamlin.spyglass.processor.definitions;
 
 import com.squareup.javapoet.ClassName;
 
+/**
+ * Definitions for observable types from RxJava 2.
+ */
 public class RxJavaClassNames {
   public static final ClassName OBSERVABLE = ClassName.get("io.reactivex", "Observable");
   

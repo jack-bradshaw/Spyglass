@@ -25,17 +25,17 @@ import com.matthewtamlin.spyglass.markers.annotations.unconditionalhandlers.Stri
 public class TestCallerGeneratorData {
   @ElementId("no handler")
   public void noHandler() {}
-
-  @ElementId("value handler with default")
+  
+  @ElementId("unconditional handler with default")
   @BooleanHandler(attributeId = 1)
   @DefaultToBoolean(false)
-  public void valueHandlerAndDefault(boolean b) {}
-
-  @ElementId("value handler no default")
+  public void unconditionalHandlerAndDefault(boolean b) {}
+  
+  @ElementId("unconditional handler no default")
   @StringHandler(attributeId = 1)
-  public void valueHandlerOnly(String s) {}
-
-  @ElementId("call handler")
+  public void unconditionalHandlerOnly(String s) {}
+  
+  @ElementId("conditional handler")
   @SpecificEnumHandler(attributeId = 1, handledOrdinal = 1)
-  public void callHandler() {}
+  public void conditionalHandler() {}
 }
