@@ -86,7 +86,7 @@ public class TestSpecificFlagHandlerCombinations {
   public void testSpyglassNeverCallsMethod_attributeMissing() {
     final AttributeSet attrs = AttributeSetSupplier.fromXml(
         context,
-        R.xml.specific_enum_handler_without_attr);
+        R.xml.specific_flag_handler_without_attr);
 
     final SpecificFlagHandlerTestTarget target = new SpecificFlagHandlerTestTarget(context, attrs);
 
