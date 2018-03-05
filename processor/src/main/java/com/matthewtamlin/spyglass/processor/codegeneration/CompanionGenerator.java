@@ -26,7 +26,7 @@ import javax.lang.model.element.*;
 import javax.lang.model.util.Elements;
 import java.lang.annotation.Annotation;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.function.Supplier;
 
 import static com.matthewtamlin.java_utilities.checkers.NullChecker.checkNotNull;
 import static javax.lang.model.element.Modifier.*;
@@ -201,17 +201,6 @@ public class CompanionGenerator {
         .addMethod(build)
         .build();
     
-    final FieldSpec callers = FieldSpec
-        .builder(
-            ParameterizedTypeName.get(ClassName.get(List.class), CallerDef.getCallerAsClassName()),
-            "callers",
-            PRIVATE,
-            FINAL)
-        .initializer(
-            "new $T();",
-            ParameterizedTypeName.get(ClassName.get(ArrayList.class), CallerDef.getCallerAsClassName()))
-        .build();
-    
     final FieldSpec companionTarget = FieldSpec
         .builder(targetTypeName, "target", PRIVATE, FINAL)
         .build();
@@ -220,39 +209,53 @@ public class CompanionGenerator {
         .builder(AndroidClassNames.CONTEXT, "context", PRIVATE, FINAL)
         .build();
     
-    final FieldSpec companionAttributes = FieldSpec
-        .builder(AndroidClassNames.TYPED_ARRAY, "attributes", PRIVATE, FINAL)
+    final FieldSpec companionAttributesSupplier = FieldSpec
+        .builder(
+            ParameterizedTypeName.get(ClassName.get(Supplier.class), AndroidClassNames.TYPED_ARRAY),
+            "attributesSupplier",
+            PRIVATE,
+            FINAL)
         .build();
     
-    final FieldSpec companionHasBeenUsed = FieldSpec
-        .builder(AtomicBoolean.class, "companionHasBeenUsed", PRIVATE, FINAL)
-        .initializer("new $T(false);", AtomicBoolean.class)
-        .build();
-    
-    final CodeBlock.Builder initialiseCallersCodeBuilder = CodeBlock.builder();
     final Set<ExecutableElement> annotatedMethods = findAnnotatedElements(targetType);
     final Iterator<ExecutableElement> annotatedMethodsIterator = annotatedMethods.iterator();
+    
+    final ParameterSpec initialiseCallersAttributeParameter = ParameterSpec
+        .builder(AndroidClassNames.TYPED_ARRAY, "attributes", FINAL)
+        .build();
+    
+    final CodeBlock.Builder initialiseCallersCodeBuilder = CodeBlock
+        .builder()
+        .addStatement(
+            "final $T callers = new $T()",
+            ParameterizedTypeName.get(ClassName.get(List.class), CallerDef.getCallerAsClassName()),
+            ParameterizedTypeName.get(ClassName.get(ArrayList.class), CallerDef.getCallerAsClassName()))
+        .add("\n");
     
     while (annotatedMethodsIterator.hasNext()) {
       initialiseCallersCodeBuilder
           .addStatement(
-              "$N.add($L)",
-              callers,
+              "callers.add($L)",
               callerGenerator.generateFor(
                   annotatedMethodsIterator.next(),
                   CodeBlock.of("$N", companionTarget),
                   CodeBlock.of("$N", companionContext),
-                  CodeBlock.of("$N", companionAttributes)));
+                  CodeBlock.of("$N", initialiseCallersAttributeParameter)));
       
       if (annotatedMethodsIterator.hasNext()) {
         initialiseCallersCodeBuilder.add("\n");
       }
     }
     
+    initialiseCallersCodeBuilder
+        .add("\n")
+        .addStatement("return callers");
+    
     final MethodSpec initialiseCallers = MethodSpec
         .methodBuilder("initialiseCallers")
         .addModifiers(PRIVATE)
-        .returns(void.class)
+        .returns(ParameterizedTypeName.get(ClassName.get(List.class), CallerDef.getCallerAsClassName()))
+        .addParameter(initialiseCallersAttributeParameter)
         .addCode(initialiseCallersCodeBuilder.build())
         .build();
     
@@ -260,22 +263,17 @@ public class CompanionGenerator {
         .getNewCallTargetMethodsMethodPrototype()
         .addCode(CodeBlock
             .builder()
-            .beginControlFlow("if (!$N.compareAndSet(false, true))", companionHasBeenUsed)
-            .addStatement(
-                "throw new $T($S)",
-                RuntimeException.class,
-                "This companion has already been used. Each instance can only be used once.")
-            .endControlFlow()
+            .add("return $T\n", RxJavaClassNames.SINGLE)
+            .add("\t\t.fromCallable(() -> $N.get())\n", companionAttributesSupplier)
+            .add("\t\t.flatMapCompletable(attributes -> $T\n", RxJavaClassNames.OBSERVABLE)
+            .add("\t\t\t\t.fromIterable($N(attributes))\n", initialiseCallers)
+            .add("\t\t\t\t.flatMapCompletable($T::$N)\n", CallerDef.getCallerAsClassName(), CallerDef.CALL.name)
+            .add("\t\t\t\t.andThen($T.fromRunnable(() -> attributes.recycle()))\n", RxJavaClassNames.COMPLETABLE)
+            .add("\t\t\t\t.onErrorResumeNext(error -> {\n")
+            .addStatement("\t\t\t\t\tattributes.recycle()")
             .add("\n")
-            .add("return $T", RxJavaClassNames.OBSERVABLE)
-            .add("\n\t.fromIterable($N)\n", callers)
-            .add("\t.flatMapCompletable($T::call)\n", CallerDef.getCallerAsClassName())
-            .add("\t.andThen($T.fromRunnable(() -> $N.recycle()))\n", RxJavaClassNames.COMPLETABLE, companionAttributes)
-            .add("\t.onErrorResumeNext(error -> {\n")
-            .addStatement("\t\t$N.recycle()", companionAttributes)
-            .add("\n")
-            .addStatement("\t\treturn $T.error(error)", RxJavaClassNames.COMPLETABLE)
-            .addStatement("})")
+            .addStatement("\t\t\t\t\treturn $T.error(error)", RxJavaClassNames.COMPLETABLE)
+            .addStatement("\t\t\t\t}))")
             .build())
         .build();
     
@@ -295,20 +293,19 @@ public class CompanionGenerator {
             .builder()
             .addStatement("this.$N = builder.$N", companionTarget, builderTarget)
             .addStatement("this.$N = builder.$N", companionContext, builderContext)
+            .add("\n")
             .addStatement(
-                "this.$N = $N.obtainStyledAttributes(\n" +
+                "$N = () -> $N.obtainStyledAttributes(\n" +
                     "builder.$N,\n" +
                     "builder.$N,\n" +
                     "builder.$N,\n" +
                     "builder.$N)",
-                companionAttributes,
+                companionAttributesSupplier,
                 companionContext,
                 builderAttributeSet,
                 builderStyleableResource,
                 builderDefaultStyleAttribute,
                 builderDefaultStyleResource)
-            .add("\n")
-            .addStatement("$N()", initialiseCallers)
             .build())
         .build();
     
@@ -321,11 +318,9 @@ public class CompanionGenerator {
     
     final TypeSpec companion = CompanionDef
         .getNewCompanionImplementationPrototype(companionName)
-        .addField(callers)
         .addField(companionTarget)
         .addField(companionContext)
-        .addField(companionAttributes)
-        .addField(companionHasBeenUsed)
+        .addField(companionAttributesSupplier)
         .addMethod(companionConstructor)
         .addMethod(callTargetMethods)
         .addMethod(callTargetMethodsNow)
@@ -360,8 +355,8 @@ public class CompanionGenerator {
     final Set<ExecutableElement> methodsWithAnnotations = new HashSet<>();
     
     for (final Element childElement : type.getEnclosedElements()) {
-      for (final Class<? extends Annotation> annoType : handlerAnnotations) {
-        if (AnnotationMirrorHelper.getAnnotationMirror(childElement, annoType) != null) {
+      for (final Class<? extends Annotation> annotationType : handlerAnnotations) {
+        if (AnnotationMirrorHelper.getAnnotationMirror(childElement, annotationType) != null) {
           methodsWithAnnotations.add((ExecutableElement) childElement);
           
           break;
