@@ -63,12 +63,12 @@ public class WithDefaultToIntegerResource extends IntegerHandlerTestTargetBase {
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     WithDefaultToIntegerResource_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.IntegerHandlerTestTargetBase)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.IntegerHandlerTestTargetBase)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }

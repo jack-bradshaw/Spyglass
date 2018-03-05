@@ -67,12 +67,12 @@ public class WithDefaultToIntegerResource extends EnumOrdinalHandlerTestTargetBa
   private void init(final AttributeSet attrs, final int defStyleAttr, final int defStyleRes) {
     WithDefaultToIntegerResource_SpyglassCompanion
         .builder()
-        .withTarget(this)
-        .withContext(getContext())
-        .withStyleableResource(R.styleable.EnumOrdinalHandlerTestTargetBase)
-        .withAttributeSet(attrs)
-        .withDefaultStyleAttribute(defStyleAttr)
-        .withDefaultStyleResource(defStyleRes)
+        .setTarget(this)
+        .setContext(getContext())
+        .setStyleableResource(R.styleable.EnumOrdinalHandlerTestTargetBase)
+        .setAttributeSet(attrs)
+        .setDefaultStyleAttribute(defStyleAttr)
+        .setDefaultStyleResource(defStyleRes)
         .build()
         .callTargetMethodsNow();
   }
