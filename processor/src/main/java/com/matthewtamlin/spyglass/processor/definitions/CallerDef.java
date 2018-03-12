@@ -45,21 +45,21 @@ public final class CallerDef {
         .methodBuilder("getTarget")
         .addModifiers(PROTECTED)
         .returns(targetType)
-        .addCode(CodeBlock.of("return target;"))
+        .addCode(CodeBlock.of("return target;\n"))
         .build();
     
     GET_CONTEXT = MethodSpec
         .methodBuilder("getContext")
         .addModifiers(PROTECTED)
         .returns(AndroidClassNames.CONTEXT)
-        .addCode(CodeBlock.of("return context;"))
+        .addCode(CodeBlock.of("return context;\n"))
         .build();
     
     GET_ATTRS = MethodSpec
         .methodBuilder("getAttrs")
         .addModifiers(PROTECTED)
         .returns(AndroidClassNames.TYPED_ARRAY)
-        .addCode(CodeBlock.of("return attrs;"))
+        .addCode(CodeBlock.of("return attrs;\n"))
         .build();
     
     CALL = MethodSpec
