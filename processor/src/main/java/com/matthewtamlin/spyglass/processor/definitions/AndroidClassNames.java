@@ -38,6 +38,10 @@ public class AndroidClassNames {
   
   public static final ClassName ATTRIBUTE_SET = ClassName.get("android.util", "AttributeSet");
   
+  public static final ClassName APP_COMPAT_RESOURCES = ClassName.get(
+      "android.support.v7.content.res",
+      "AppCompatResources");
+  
   private AndroidClassNames() {
     throw new RuntimeException("Constants class. Do not instantiate.");
   }
