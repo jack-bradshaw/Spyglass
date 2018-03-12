@@ -96,7 +96,7 @@ public class GetDefaultMethodGenerator {
                   .builder()
                   .addStatement(
                       "return $T.getColorStateList($N(), $L)",
-                      AndroidClassNames.CONTEXT_COMPAT,
+                      AndroidClassNames.APP_COMPAT_RESOURCES,
                       CallerDef.GET_CONTEXT,
                       getLiteralFromAnnotation(defaultToColorStateListResourceAnnotation, "resId"))
                   .build();
