@@ -34,7 +34,7 @@ plugins {
 }
 
 group = 'com.matthew-tamlin'
-version = '3.0.0'
+version = '3.0.1'
 
 ext.rootArtifactId = 'spyglass'
 
