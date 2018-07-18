@@ -76,7 +76,7 @@ Step 2: Declare the view as styleable and define a string attribute in the `valu
 
 Step 3: Apply the `@StringHandler` annotation to the `setTitle` method to tell the Spyglass framework to route the attribute value to this method when the view is inflated.
 ```java
-@HandlesString(attributeId = R.styleable.CustomView_title)
+@StringHandler(attributeId = R.styleable.CustomView_title)
 public void setTitle(String title) {
   titleView.setText(title);
 }
@@ -276,7 +276,7 @@ The simplest way to define defaults is using the `@DefaultTo` annotations.
 
 The previous example can be modified to set the default title to "Untitled document" by adding the `@DefaultToString` annotation to the `setTitle` method.
 ```java
-@HandlesString(R.styleable.ExampleView_title)
+@StringHandler(R.styleable.ExampleView_title)
 @DefaultToString("Untitled document")
 public void setTitle(String title) {
   TextView tv = findViewById(R.id.example_title_view);
@@ -364,7 +364,7 @@ All of the previous examples involve methods which have only one parameter, but 
 
 Here's a common example:
 ```java
-@HandlesString(R.styleable.ExampleView_title)
+@StringHandler(R.styleable.ExampleView_title)
 public void setTitle(String title, boolean animate) {
   // Some implementation
 }
@@ -372,7 +372,7 @@ public void setTitle(String title, boolean animate) {
 
 Normally when a view is being first initialised there is no need to show animations. As such, the method should be changed to:
 ```java
-@HandlesString(R.styleable.ExampleView_title)
+@StringHandler(R.styleable.ExampleView_title)
 public void setTitle(String title, @UseBoolean(false) boolean animate) {
   // Some implementation
 }
@@ -591,7 +591,7 @@ public class CustomView extends FrameLayout {
     init(attrs, defStyleAttr, defStyleRes);
   }
 
-  @HandlesString(attributeId = R.styleable.CustomView_title)
+  @StringHandler(attributeId = R.styleable.CustomView_title)
   public Completable setTitle(String title) {
     return Completable.fromRunnable(() -> titleView.setText(title));
   }
