@@ -636,6 +636,3 @@ The Spyglass framework generates code at compile-time, performs compile-time val
 
 ## Compatibility
 The Spyglass framework is compatible with Android 14 and up.
-
-## Licensing
-This library is licensed under the Apache v2.0 licence. Have a look at [the license](LICENSE) for details.
